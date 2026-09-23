@@ -1,10 +1,10 @@
 ---
 id: ASKI-77
 title: Re-baseline golden drift on Xcode 27 / Swift 6.4 / macOS 27
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-09-23 15:10'
-updated_date: '2026-09-23 15:49'
+updated_date: '2026-09-23 15:56'
 labels:
   - gate
 dependencies: []
@@ -39,4 +39,6 @@ Re-recorded: default.metallib regenerated with just regen-kernels under Metal to
 No frozen-preset golden moved, so no no-harm census is required (AC #3 not applicable).
 
 just check passed on this host (1416 + 152 + 2 tests, DocC validated). A comment-only edit to ImageRendererGoldenTests.swift landed during the run; it cannot change results.
+
+Merged in PR #2 (12c8488) on 2026-09-23.
 <!-- SECTION:NOTES:END -->
