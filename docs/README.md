@@ -1,50 +1,77 @@
-# Aski docs — discovery hub
+# Aski documentation
 
-Single entry point for finding the right document or tool in one hop. For the codebase
-layout itself (subsystem roles, root-file groupings), see the **Repo map** in
-[../AGENTS.md](../AGENTS.md); for a full top-level-declaration index, see
-[repo-map.generated.md](repo-map.generated.md).
+Pick a trail: make a render, build an integration, or open the engine. This is the
+navigation hub; the [project README](../README.md) is the front door.
 
-This is the public documentation hub. Use it to find product, research, and contributor guidance.
+## Use Aski
 
-## Know X → read Y
+| You want to… | Start here |
+| --- | --- |
+| Try the package on a bundled image | [README: Try it](../README.md#try-it) |
+| Convert files, export PNGs, use masks, or inspect JSON | [Command-line guide](../Sources/Aski/Aski.docc/CommandLine.md) |
+| Add the library and make a first conversion | [Installation](../README.md#use-in-swift), [Getting Started](../Sources/Aski/Aski.docc/GettingStarted.md) |
+| Choose text, attributed text, or raster output | [Rendering](../Sources/Aski/Aski.docc/Rendering.md) |
+| Change the alphabet, matcher, or palette | [Character Sets](../Sources/Aski/Aski.docc/CharacterSets.md), [Algorithms](../Sources/Aski/Aski.docc/Algorithms.md), [Palette Matching](../Sources/Aski/Aski.docc/PaletteMatching.md) |
+| Make cutouts and photo-to-type dissolves | [Masking](../Sources/Aski/Aski.docc/Masking.md) |
+| Add motion, video, or finishing effects | [Animation](../Sources/Aski/Aski.docc/Animation.md), [Video & GIF](../Sources/Aski/Aski.docc/Video.md), [Effects](../Sources/Aski/Aski.docc/Effects.md) |
+| Use tiles or a fixed duotone recipe | [Tile grids](../Sources/Aski/Aski.docc/Tiles.md), [Vesper](../Sources/Aski/Aski.docc/Vesper.md) |
+| Upgrade an existing integration | [Migration notes](../Sources/Aski/Aski.docc/Migrating-to-A1.md), [CHANGELOG](../CHANGELOG.md), [checked-in release notes](release-notes/) |
+
+The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) is the API documentation source.
+On GitHub, its symbol links appear in source form; `just docc` validates the resolved
+catalog locally. `./Scripts/validate-docc.sh --emit-markdown` additionally emits optional
+Markdown sidecars and a manifest under `/tmp/aski-docc-markdown`. Release notes describe
+which documentation assets are intended for a release; do not assume a hosted API site.
+
+## Understand or contribute
 
 | You want to know… | Read |
 | --- | --- |
-| Architecture, pipeline stages, key files | [architecture.md](architecture.md) |
-| Command-line product, compatibility, and automation boundary | [architecture.md#command-line-product](architecture.md#command-line-product) |
-| Machine-readable CLI schemas, including additive render-mask manifest state | [assets/schemas/](assets/schemas/) |
-| Algorithm research (OKLAB, shape-context, frontier scans) | [Research/README.md](Research/README.md) |
-| Cross-cutting discoveries queued for triage | [Research/Discoveries.md](Research/Discoveries.md) |
-| Code layout — subsystems & root files | [../AGENTS.md](../AGENTS.md) (Repo map) |
-| Full symbol/file index (generated) | [repo-map.generated.md](repo-map.generated.md) |
-| The historical color-theory plan (evidence, not ordering) | [research-plan.md](research-plan.md) |
-| Release notes per tag (required before any `v*` tag) | [release-notes/](release-notes/) |
-| Backlog workflow (CLI usage, `--plain`, hard rules) | [agents/backlog.md](agents/backlog.md) |
-| Research methodology (standing rules learned by past batteries) | [agents/research-methodology.md](agents/research-methodology.md) |
-| README hero renders and other repo imagery | [assets/](assets/) |
-| API docs source (DocC catalog) | [../Sources/Aski/Aski.docc/](../Sources/Aski/Aski.docc/) |
-| Algorithm lineage & design notes | [../DESIGN.md](../DESIGN.md) |
+| Setup, local gates, snapshot baseline, and PR expectations | [CONTRIBUTING.md](../CONTRIBUTING.md) |
+| Agent conventions and hard engineering rules | [AGENTS.md](../AGENTS.md) |
+| Products, targets, conversion pipeline, and dependencies | [architecture.md](architecture.md) |
+| CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |
+| Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
+| Research findings, decisions, and retractions | [Research index](Research/README.md) |
+| Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
+| Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
+| Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |
+| Historical color-theory planning—not the current work queue | [research-plan.md](research-plan.md) |
+| Machine-readable navigation | [llms.txt](../llms.txt) |
+
+Pre-1.0 APIs and rendered output may change. Public library features, experimental
+policies, research SPI, and lab commands have different readiness levels. In particular,
+[HDR/emissive rendering](../Sources/Aski/Aski.docc/HDRRendering.md) is research-only.
+Older SHAs, issue numbers, and tags in retained notes refer to private development;
+the public release history starts at v0.7.0.
 
 ## Tool inventory
 
-Runnable commands under `Tools/` (`AskiToolSupport`, `AskiCLI`, and the lab implementations are
-importable modules, not standalone implementations), plus the benchmark target under `Benchmarks/`.
-Full invocation examples live in the [../AGENTS.md](../AGENTS.md) Commands block.
+Run commands from the repository root with the selected Xcode toolchain. `aski render`
+and `aski inspect` are the ordinary still-image workflow; `aski lab` contains research
+harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
 
 | Tool | Purpose | Canonical run |
 | --- | --- | --- |
-| `aski` | First-class image → ASCII rendering, resolved human/JSON inspection, and the unified research tree | `swift run aski [render] <image>` · `swift run aski inspect <image> --format json` · `swift run aski lab --help` |
-| `AskiTileMatrix` | Tile-grid render matrix harness | `swift run AskiTileMatrix <image> <out> --columns 64` |
-| `aski lab color` (`AskiColorLab` compatibility shim) | Color-pipeline research harness; hosts ASKI-69 `render-matcher-challenge` and [arbiter v2](Research/2026-09-04-aski62-arbiter-v2-protocol.md), a human-arbitrated `stimuli`/`judge`/`score` instrument with selection- and converter-level arms | `swift run aski lab color <subcommand> --output-dir …` · `swift run -c release aski lab color render-matcher-challenge --output-dir …` · `swift run -c release aski lab color arbiter <stimuli\|judge\|score>` |
-| `aski lab motion` (`AskiMotionLab` replay) | Animation frame materialization, motion presets, GIF export; temporal-coherence research gates (`temporal-prior`, `source-tether` subcommands) | `swift run aski lab motion [<subcommand>] --output-dir …` |
-| `aski lab video` (`AskiVideoLab` replay) | MP4/GIF decode → ASCII → re-encode harness; quality, `--pattern` overlay, and cosmetic `--bloom`/`--scanlines`/`--vignette` levers | `swift run aski lab video --input <clip> --output-dir …` |
-| `aski lab accessibility` (`AskiAccessLab` replay) | Palette / rendered-grid CVD distinguishability audit | `swift run aski lab accessibility audit --output-dir …` |
-| `aski lab decolor` (`AskiDecolorLab` replay) | Composited-cell perceptual oracle (FAIL-FAST `check`) | `swift run aski lab decolor check --output-dir …` |
-| `aski lab hdr` (`AskiHDRLab` replay) | HDR/EDR emissive-spike artifact and gate harness | `swift run aski lab hdr check --output-dir …` |
-| `aski lab preset` (`AskiPresetLab` replay) | Vesper A/B and product-probe harness: `ab` preserves the ASTSK-47 charset × columns adjudication; `probe-stimuli` makes ASKI-73's blinded matched three-arm stills and center-reveal GIFs with a SHA-256-bound schema-v2 key; `probe-score` verifies the exact manifest/media pair before it validates private response logs and applies the frozen gates | `swift run aski lab preset <ab\|probe-stimuli\|probe-score> …` |
-| `BuildKernelLibrary` | Regenerate the Metal kernel library | `just regen-kernels` |
-| `BuildStandardVectors` | Audit or regenerate built-in charset shape vectors | `just audit-vectors --output-dir <dir>` / `just regen-vectors` |
-| `BuildResearchIndex` | Validate the research registry + docs lifecycle (`--check`); run bare to regenerate `index.json` | validate: `just research-check` · regen: `xcrun swift run BuildResearchIndex` |
-| `BuildRepoMap` | Regenerate the repo source map | `just regen-repo-map` |
-| `AskiBenchmarks` | `package-benchmark` perf suite; budgets/thresholds live inline in `Benchmarks/AskiBenchmarks/*Benchmarks.swift` | `just bench` |
+| `aski` | Image rendering, human/JSON inspection, and lab discovery | `xcrun swift run aski render <image>` · `xcrun swift run aski inspect <image> --format json` · `xcrun swift run aski lab --help` |
+| `AskiTileMatrix` | Tile-grid render matrix | `xcrun swift run AskiTileMatrix <image> <out> --columns 64` |
+| `aski lab color` | Color/matcher research, including the fixed ASKI-69 challenge and human-arbitrated [arbiter v2](Research/2026-09-04-aski62-arbiter-v2-protocol.md) | `xcrun swift run aski lab color <subcommand> --output-dir <dir>` · `xcrun swift run -c release aski lab color render-matcher-challenge --output-dir <dir>` |
+| `aski lab motion` | Animation frames, motion presets, GIF export, and temporal-coherence gates | `xcrun swift run aski lab motion --help` |
+| `aski lab video` | MP4/GIF conversion harness and time-invariant cosmetic effects | `xcrun swift run aski lab video --input <clip> --output-dir <dir>` |
+| `aski lab accessibility` | Palette/grid color-vision-deficiency audit | `xcrun swift run aski lab accessibility audit --output-dir <dir>` |
+| `aski lab decolor` | Composited-cell perceptual oracle; `check` fails on a KILL verdict | `xcrun swift run aski lab decolor check --output-dir <dir>` |
+| `aski lab hdr` | Research-only HDR artifacts and fail-fast gates | `xcrun swift run aski lab hdr check --output-dir <dir>` |
+| `aski lab preset` | Vesper A/B and blinded product-probe instruments | `xcrun swift run aski lab preset --help` |
+| `BuildKernelLibrary` | Regenerate the checked-in Metal library | `just regen-kernels` |
+| `BuildStandardVectors` | Audit or regenerate charset shape vectors | `just audit-vectors --output-dir <dir>` · `just regen-vectors` |
+| `BuildResearchIndex` | Validate research/lifecycle records or regenerate their index | `just research-check` · `xcrun swift run BuildResearchIndex` |
+| `BuildRepoMap` | Validate or regenerate the source map | `just repo-map-check` · `just regen-repo-map` |
+| `AskiBenchmarks` | Performance suite; budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` |
+
+Historical `Aski*Lab` executables are compatibility entry points for surviving commands;
+new workflows use `aski lab …`. Removed experiments are not promised as runnable commands
+in the current checkout. Their notes and retained artifacts document what can be replayed.
+
+`just --list` is the canonical build/test/docs/release task inventory. `make <target>`
+forwards to `just` and still requires it. Gates are local; this repository has no hosted
+CI workflow. See [verification](../CONTRIBUTING.md#verification) before submitting a PR.

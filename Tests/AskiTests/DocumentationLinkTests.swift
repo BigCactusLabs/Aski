@@ -31,6 +31,8 @@ import Testing
     private static func documentationFiles(relativeTo root: URL) throws -> [URL] {
         let roots = [
             "README.md",
+            "CONTRIBUTING.md",
+            "DESIGN.md",
             "AGENTS.md",
             "CLAUDE.md",
             "Sources/Aski/Aski.docc",
