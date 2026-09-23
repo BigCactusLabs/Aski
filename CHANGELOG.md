@@ -2,13 +2,16 @@
 
 All notable changes to Aski are documented in this file.
 
-Development before v0.6.0 happened in a private repository; entries below are summarized from that
-history. Commit SHAs, pull-request numbers, and pre-v0.6.0 tags cited in this file and under `docs/`
-refer to that repository and do not resolve here.
+Development before v0.7.0 happened in a private repository; this repository's history begins at a
+single root commit shortly before v0.7.0, and entries up to and including v0.7.0 are summarized from
+the private history. Commit SHAs, issue and pull-request numbers, and tags before v0.7.0 cited in this
+file and under `docs/` refer to that repository and do not resolve here.
 
 The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/) for tagged releases. Aski is pre-1.0; per SemVer 2.0.0 § 4, "anything may change at any time" while the major version is `0`. Minor version bumps within the `0.y.z` range may carry source-breaking changes; consumers should pin to exact versions if they depend on a stable API surface.
 
 ## Unreleased
+
+## v0.7.0 — 2026-09-23
 
 ### Added
 
@@ -44,7 +47,7 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   direct arm remains reachable through the `@_spi(AskiResearch)` `TargetWidthResample` overload for
   research comparison. Addresses issue #33 asks 1 and 2; ask 3 (a lossless animated WebP encoder) stays
   open as ASKI-64, so #33 is not yet closed.
-- **Transparent PNG backgrounds for `AskiDemo` (#8).** `--background` now accepts `clear` and
+- **Transparent PNG backgrounds (#8).** `aski render --background` now accepts `clear` and
   `transparent` alongside `#RRGGBB` and the existing named colors, producing an alpha-zero ground
   for `--render-png`. The opaque-black default is unchanged. Closes issue #5.
 
@@ -54,24 +57,51 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   adapts the four public per-glyph arrays into one internal `GlyphBank` at initialization and whenever
   `characterSet` is assigned. Reference-type conformers that mutate their arrays in place must assign
   the character set again before conversion to refresh the snapshot.
-- **Settled experiment surface removed (ASKI-68).** Removed five failed or inconclusive
+- **`swift-argument-parser` upgraded to 1.8.x (ASKI-47, #26).** Requirement raised from 1.5.1 to
+  `from: "1.8.0"` (resolves 1.8.2); the ASTSK-61 command-surface golden was regenerated for the
+  richer 1.8 `_dumpHelp` serialization with no semantic surface change. `package-benchmark` is
+  held at `"1.31.0"..<"1.36.0"` because 1.36.x removes the Jemalloc trait the benchmark target
+  requires. Closes issue #22.
+- **DocC Markdown sidecars are opt-in (#12).** `Scripts/validate-docc.sh` now defaults to the
+  single warnings-as-errors validation conversion; `--emit-markdown` requests the second
+  conversion and fails loudly if the toolchain lacks the flag. The release build passes it, so the
+  published Markdown manifest and sidecar assets are unchanged — only local gates stop compiling
+  the catalog twice.
+- **One build per `just check` (#11).** The gate builds the full test graph once with
+  `swift build --build-tests`; the drift tools and every test phase consume it via `--skip-build`.
+  Registry assertions the pre-test tools already cover are no longer re-run in-process, while
+  `docsRootMatchesAllowlist` stays in the broad run.
+- **Media tests run as a bounded serial partition (#13).** `GIF|Video|MotionLab` cases leave the
+  parallel core phase and run with `--no-parallel` from the same prebuilt bundle, ahead of the two
+  deadlock sentinels. Swift Testing's default concurrency had these competing for the media
+  engine, I/O, and temp files with every other suite — the contention behind ASKI-39. Ad-hoc
+  `just test-media` keeps its previous parallel scope.
+- **`repo-doctor` no longer pins an Xcode version.** `just doctor` and `just release-preflight`
+  report the active Xcode and read the Swift minimum from `swift-tools-version` in `Package.swift`;
+  `ASKI_REQUIRED_SWIFT_VERSION` remains an override.
+- **Render goldens re-recorded on macOS 27 / Xcode 27 (ASKI-77).** Core Text, Core Graphics, Metal
+  and Core Image output drifted on unchanged source, so the PNG snapshots and the G0 byte golden were
+  re-recorded and `default.metallib` was regenerated with the Xcode 27 Metal toolchain. Glyph
+  selection is unchanged: text, selection and `VesperPreset` goldens pass as before. Committed
+  `ShapeData` is not regenerated because the ASKI-51 drift audit fired on macOS 27; ASKI-78 owns
+  that decision. The goldens now fail on macOS 26.
+
+### Removed
+
+- **Settled experiment surface (ASKI-68).** Removed five failed or inconclusive
   default-off treatments from the public and production matcher surface: occupancy matching,
   shape-structure assist, steerable-shape assist, ink pre-compensation, and chroma-shape assist.
   `RenderingOptions` now has five public controls instead of twelve. `rawDensityValues`, the base
   residual map, selection-ceiling analysis, ASKI-69's lab-only matcher challenger, frozen research
   notes/results, and Git history remain. `.bin` v3 files stay readable, but their obsolete structure
   channels are skipped and the byte-compatible encoder is local to the generator.
-- **Removed the failed `edgeMap` algorithm (ASKI-16).** No product or accepted
+- **The failed `edgeMap` algorithm (ASKI-16).** No product or accepted
   probe used it, and its template matcher selected the wrong orientation in 9
-  of 20 honest bucket-by-charset cases even after two local fixes. The public
+  of 20 honest bucket-by-charset cases even after two local fixes (ASKI-16.1
+  and ASKI-16.2, #9 and #10), which are superseded by the removal. The public
   `ASCIIAlgorithm.edgeMap` case, its kernels, canonical templates, misleading
   tests, and baked all-X golden are gone. This is a deliberate source-breaking
   change; `logPolar` and `dotMatrix` output are unchanged.
-- **`swift-argument-parser` upgraded to 1.8.x (ASKI-47, #26).** Requirement raised from 1.5.1 to
-  `from: "1.8.0"` (resolves 1.8.2); the ASTSK-61 command-surface golden was regenerated for the
-  richer 1.8 `_dumpHelp` serialization with no semantic surface change. `package-benchmark` is
-  held at `"1.31.0"..<"1.36.0"` because 1.36.x removes the Jemalloc trait the benchmark target
-  requires. Closes issue #22.
 
 ### Fixed
 
@@ -89,35 +119,6 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   closed its exact-lattice redesign INCONCLUSIVE, and ASKI-68 removed the chroma-shape treatment and
   dedicated runner. The surviving shape-residual and decolor labs map their native oracle blocks
   through the lattice instead.
-- **Transposed diagonal buckets in edge-map matching (ASKI-16.2, #9).** `EdgeMap.edgeAngle` stores
-  the Sobel gradient rotated by π/2 — an edge *tangent*, not a gradient direction. The classifier
-  read those bins as gradient directions, so in image coordinates the π/4 bin was mapped to `/`
-  and the 3π/4 bin to `\`, exactly backwards. Diagonal strokes now select the glyph that traces
-  them. Horizontal, vertical, and cross behavior is unchanged.
-- **Blank glyphs winning above-threshold template matches (ASKI-16.1, #10).** Canonical templates
-  and inked descriptors are L1-normalized while SPACE carries the zero descriptor, so under
-  squared L2 the origin could sit closer to a template than a genuinely similar glyph. Literal
-  spaces and zero/non-finite descriptors are now excluded from the candidate pool; the metric and
-  the rankings among valid ink glyphs are unchanged, and no-space custom sets keep their
-  lowest-brightness glyph. The `diagonal` charset previously rendered *entirely blank* through the
-  edge-map algorithm; its render snapshot was re-recorded against the corrected output.
-
-### Changed
-
-- **DocC Markdown sidecars are opt-in (#12).** `Scripts/validate-docc.sh` now defaults to the
-  single warnings-as-errors validation conversion; `--emit-markdown` requests the second
-  conversion and fails loudly if the toolchain lacks the flag. CI and release pass it, so the
-  published Markdown manifest and sidecar assets are unchanged — only local gates stop compiling
-  the catalog twice.
-- **One build per `just check` (#11).** The gate builds the full test graph once with
-  `swift build --build-tests`; the drift tools and every test phase consume it via `--skip-build`.
-  Registry assertions the pre-test tools already cover are no longer re-run in-process, while
-  `docsRootMatchesAllowlist` stays in the broad run.
-- **Media tests run as a bounded serial partition (#13).** `GIF|Video|MotionLab` cases leave the
-  parallel core phase and run with `--no-parallel` from the same prebuilt bundle, ahead of the two
-  deadlock sentinels. Swift Testing's default concurrency had these competing for the media
-  engine, I/O, and temp files with every other suite — the contention behind ASKI-39. Ad-hoc
-  `just test-media` keeps its previous parallel scope.
 
 ## v0.6.0 — 2026-08-17
 

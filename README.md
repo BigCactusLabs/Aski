@@ -43,7 +43,7 @@ Full algorithm write-up, with the citation trail back to Belongie–Malik–Puzi
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/BigCactusLabs/Aski.git", from: "0.6.0"),
+    .package(url: "https://github.com/BigCactusLabs/Aski.git", from: "0.7.0"),
 ]
 ```
 
@@ -222,7 +222,7 @@ converter."
 
 Pre-1.0, and honest about it. Per SemVer §4, anything may change while the major version is `0`;
 minor bumps here can and do carry source-breaking changes when they buy real output quality. Pin an
-exact version (`exact: "0.6.0"`) if that matters to you. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+exact version (`exact: "0.7.0"`) if that matters to you. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## Where else to look
 
