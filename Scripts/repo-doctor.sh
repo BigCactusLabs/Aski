@@ -4,7 +4,7 @@ set -o pipefail
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 WORKFLOW_DIR="$ROOT/.github/workflows"
 # The Swift minimum comes from the manifest's swift-tools-version; no Xcode version is pinned.
-ASKI_REQUIRED_SWIFT_VERSION="${ASKI_REQUIRED_SWIFT_VERSION:-$(sed -n 's|^// swift-tools-version: *\([0-9][0-9]*\.[0-9][0-9]*\).*|\1|p' "$ROOT/Package.swift" 2>/dev/null | head -n 1)}"
+ASKI_REQUIRED_SWIFT_VERSION="${ASKI_REQUIRED_SWIFT_VERSION:-$(sed -n 's|^// swift-tools-version: *\([0-9][0-9]*\.[0-9][0-9]*\(\.[0-9][0-9]*\)\{0,1\}\).*|\1|p' "$ROOT/Package.swift" 2>/dev/null | head -n 1)}"
 DEFAULT_CHECKS=(toolchain package-resolved swift-format research-index repo-map docc metallib workflow-refs dirty)
 SELECTED_CHECKS=()
 SKIPPED_CHECKS=()
@@ -78,19 +78,22 @@ record_pass() {
     printf 'PASS %s\n' "$1"
 }
 
+# Compares MAJOR.MINOR[.PATCH] against ASKI_REQUIRED_SWIFT_VERSION; a missing patch counts as 0.
 version_ge() {
     local actual_major="$1"
     local actual_minor="$2"
-    local required_major="${ASKI_REQUIRED_SWIFT_VERSION%%.*}"
-    local required_minor="${ASKI_REQUIRED_SWIFT_VERSION#*.}"
-    required_minor="${required_minor%%.*}"
+    local actual_patch="${3:-0}"
+    local required_major required_minor required_patch
+    IFS=. read -r required_major required_minor required_patch <<<"$ASKI_REQUIRED_SWIFT_VERSION"
+    required_patch="${required_patch:-0}"
 
-    [ "$actual_major" -gt "$required_major" ] && return 0
-    [ "$actual_major" -eq "$required_major" ] && [ "$actual_minor" -ge "$required_minor" ]
+    [ "$actual_major" -ne "$required_major" ] && { [ "$actual_major" -gt "$required_major" ]; return; }
+    [ "$actual_minor" -ne "$required_minor" ] && { [ "$actual_minor" -gt "$required_minor" ]; return; }
+    [ "$actual_patch" -ge "$required_patch" ]
 }
 
 check_toolchain() {
-    local xcode_output xcode_line swift_output swift_line swift_version major minor
+    local xcode_output xcode_line swift_output swift_line swift_version major minor patch
     xcode_output="$(xcodebuild -version 2>&1)" || {
         record_failure "xcodebuild is not available"
         return
@@ -98,7 +101,7 @@ check_toolchain() {
     xcode_line="$(printf '%s\n' "$xcode_output" | head -n 1)"
     printf 'INFO toolchain %s\n' "$xcode_line"
 
-    if [[ ! "$ASKI_REQUIRED_SWIFT_VERSION" =~ ^[0-9]+\.[0-9]+$ ]]; then
+    if [[ ! "$ASKI_REQUIRED_SWIFT_VERSION" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
         record_failure "could not read the Swift minimum from swift-tools-version in Package.swift"
         return
     fi
@@ -112,10 +115,11 @@ check_toolchain() {
         swift_version="${BASH_REMATCH[1]}"
         major="${BASH_REMATCH[2]}"
         minor="${BASH_REMATCH[3]}"
-        if version_ge "$major" "$minor"; then
+        patch="${BASH_REMATCH[4]#.}"
+        if version_ge "$major" "$minor" "$patch"; then
             record_pass "toolchain Swift $swift_version >= $ASKI_REQUIRED_SWIFT_VERSION"
         else
-            record_failure "toolchain Swift $major.$minor is older than required $ASKI_REQUIRED_SWIFT_VERSION"
+            record_failure "toolchain Swift $swift_version is older than required $ASKI_REQUIRED_SWIFT_VERSION"
         fi
     else
         record_failure "could not parse Swift version from: $swift_line"
