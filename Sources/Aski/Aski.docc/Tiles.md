@@ -6,7 +6,9 @@ Convert images to colored cell grids — pixel-art, brick, or mosaic styles in f
 
 The Tile API mirrors Aski's ASCII pipeline with one substitution: per-cell character matching is replaced by per-cell color quantization. The output is ``TileGrid``, a `Sendable` structural intermediate that carries no mode or
 cell-shape configuration (it does retain grid-level render metadata — color space and
-mask-fallback settings — from conversion). Mode and cell-shape are render-time parameters on ``TileGrid/renderImage(mode:cellShape:scale:backgroundColor:)``, so a single grid can be re-rendered with different visual styles without re-running the converter's expensive sampling and quantization stages — "convert once, render many."
+mask-fallback settings — from conversion). Mode and cell-shape are render-time parameters on ``TileGrid/renderImage(mode:cellShape:scale:backgroundColor:)``, so a single grid can be re-rendered with different visual styles without re-running the converter's sampling and quantization stages — "convert once, render many."
+
+Given an `image: CGImage` (see <doc:GettingStarted> for image loading):
 
 ```swift
 import Aski
@@ -23,7 +25,7 @@ Tile grids support the same ``MaskOptions`` conversion parameter as ASCII grids.
 
 ## Choosing a mode and cell shape
 
-3 modes × 5 cell shapes = 15 visual combinations. All ship.
+3 modes × 5 cell shapes = 15 visual combinations.
 
 | | pixelArt | brick | mosaic |
 |---|---|---|---|
@@ -39,15 +41,15 @@ Tile grids support the same ``MaskOptions`` conversion parameter as ASCII grids.
 
 ## Sampling fidelity
 
-Sampling happens on a rectangular grid regardless of `cellShape`. Renderers position the rectangular sample cells per shape — hex/triangle/diamond cells leave a small fringe of unrepresented source pixels at the edges. Visually negligible at typical column counts (≥40).
+Sampling happens on a rectangular grid regardless of `cellShape`. Renderers position the rectangular sample cells per shape — hex/triangle/diamond cells leave a fringe of unrepresented source pixels at the edges. Inspect the result at its intended display size, especially when edge placement or mask alignment matters; changing the cell shape is a visual treatment, not a new source-sampling lattice.
 
 ## Palette strategies
 
 ``TilePalette`` exposes three strategies:
 
-- ``TilePalette/adaptive(maxColors:)`` — Wu's algorithm + k-means refinement in OKLAB. Output has at most `maxColors` entries (clamped to `2...256`); fewer if the source has fewer distinct colors.
+- ``TilePalette/adaptive(maxColors:)`` — Wu's algorithm + k-means refinement in OKLab. Output has at most `maxColors` entries (clamped to `2...256`); fewer if the source has fewer distinct colors.
 - ``TilePalette/brick`` — approximated interlocking-brick-style palette (~30 colors).
-- ``TilePalette/fixed(_:)`` — caller-supplied non-empty `[CGColor]` converted to OKLAB at construction.
+- ``TilePalette/fixed(_:)`` — caller-supplied non-empty `[CGColor]` converted to OKLab at construction.
 
 Adaptive quantization runs at convert time on the raw thumbnail pixels (not on per-cell averaged stats — averaging would smear the source distribution before clustering can find it).
 
@@ -60,8 +62,8 @@ The ``TilePalette/brick`` palette and ``TileGridMode/brick`` rendering ship appr
 ## Rendering tradeoffs
 
 - **`scale` semantics** are pixels per cell *width*. For non-square shapes the bounding-box height varies (hex height ≈ 1.155 × scale; triangle height ≈ 0.866 × scale).
-- **Performance:** 256×256 cells × scale=32 → ~8K image, 200–500ms on M-series Apple silicon. 64×64 × scale=8 → ~5–15ms, suitable for live preview.
-- **Conversion is synchronous.** Dispatch to `Task.detached` or a background queue for off-main-thread work.
+- **Performance depends on the workload.** Grid dimensions, output scale, palette quantization, cell shape, effects, and hardware all matter. Start with a small preview, reuse the converted grid for style changes, and measure your target device before choosing a live-preview budget. Repository benchmarks are available through `just bench`; timings from one machine are not a device-wide guarantee.
+- **Conversion is synchronous.** Keep substantial conversion work off the main actor using an appropriately isolated task or background queue.
 
 ## Topics
 

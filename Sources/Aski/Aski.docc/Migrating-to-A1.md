@@ -1,53 +1,70 @@
-# Migrating from v0.1.0
+# Migration Notes
 
-Pre-1.0 breaking changes from the `v0.1.0` release to the current `main` API surface, including A1 character-mode changes and later Color Pipeline v2 palette migration.
+Upgrade an existing integration without confusing private-development history with the public package.
 
-## Removed
+## Start here
 
-- `ASCIIConverter.widthRatio` — replaced by ``ASCIITileShape``.
-  (Plain code formatting, not a doc link: the symbol has been removed
-  and DocC can't resolve a relative reference to non-existent API.)
+The public release history starts at **v0.7.0**. Earlier versions mentioned below were
+private-development releases; their tags and commits are not available in this repository.
+New integrations should use <doc:GettingStarted>, not apply each historical migration.
 
-## Color Pipeline v2
+Aski remains pre-1.0. Source APIs and rendered output can change between minor releases.
+Use an exact published version when reproducibility matters, and review the repository's
+[changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) before upgrading.
 
-Color Pipeline v2 intentionally breaks custom palette source compatibility while Aski is still pre-public-stability. The package is not preserving a hypothetical public SDK contract; the break removes OKLAB from palette interchange so future sampling, matching, gamut, CVD, HDR, and occupancy-aware color work can happen without another palette API break.
+## Moving to v0.7.0
 
-Custom palettes no longer implement `colorsOKLAB`:
+Once the public tag is published, update the package dependency:
 
 ```swift
-// Before
-struct MyPalette: ASCIIPalette {
-    let colorsOKLAB: [SIMD3<Float>]
-}
+.package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.7.0")
 ```
 
-They now declare source colors explicitly:
+Before publication, use a local source checkout rather than requesting an unavailable
+private tag. Existing private-repository pins must be moved deliberately to the public
+history; an old commit SHA is not a usable pin here.
+
+### Removed experiments
+
+`ASCIIAlgorithm.edgeMap` was removed. Choose ``ASCIIAlgorithm/logPolar`` or
+``ASCIIAlgorithm/dotMatrix``; they have different visual behavior, so review your output
+rather than treating either as an equivalent edge-map replacement.
+
+The removed `RenderingOptions` experiment families are `occupancyMatching`,
+`chromaShapeAssist`, `shapeStructureAssist`, `steerableShapeAssist`, and
+`inkPreCompensation`, including its floor/background controls. Remove those arguments
+and property accesses. They are not deprecated aliases; the failed or inconclusive
+production paths were deleted. Their evidence remains in the research records.
+
+### Custom character sets
+
+``ASCIIConverter`` snapshots a custom character set's per-glyph arrays at initialization
+and whenever `characterSet` is assigned. A reference-type conformance that mutates those
+arrays in place must be assigned again before the next conversion. See <doc:CharacterSets>.
+`rawDensityValues` remains part of ``ASCIICharacterSet``; it was not removed with the
+experimental controls.
+
+### Output changes to review
+
+The sampling lattice now includes the full bottom and right edges of the source, so
+an unchanged invocation can produce a different grid from an earlier checkout.
+Exact-width raster output is available through `targetPixelWidth:` and CLI `--width`;
+the latter requires `--render-png`. See <doc:Algorithms> and <doc:Rendering>.
+
+The current defaults are `linearLightAverage` sampling, `oklabEuclidean` palette
+matching, and `rayTrace` gamut mapping. Historical defaults described below are **not**
+the defaults to copy into a new integration.
+
+For tool users, prefer `aski render`, `aski inspect`, and `aski lab …`. Surviving
+`Aski*Lab` executables remain compatibility entry points; removed experiment runners
+are not promised in the public checkout. See <doc:CommandLine>.
+
+## Historical A1 geometry migration
+
+`ASCIIConverter.widthRatio` was replaced by ``ASCIITileShape``:
 
 ```swift
-// After
-struct MyPalette: ASCIIPalette {
-    let content: PaletteContent = .fixed([
-        PaletteColor(SIMD3<Float>(1, 0, 0), colorSpace: .sRGB)
-    ])
-}
-```
-
-Use `PaletteColor(_:colorSpace:)` with `.sRGB` or `.displayP3` declared components. Aski resolves those declared colors into its internal matching space.
-
-For pass-through source color, use ``PaletteContent/passThrough``:
-
-```swift
-struct SourceColorPalette: ASCIIPalette {
-    let content: PaletteContent = .passThrough
-}
-```
-
-Do not pass an empty color array to mean pass-through. `PaletteContent.fixed([])` is programmer error and traps with a precondition. `TilePalette.fixed([])` follows the same rule for tile-grid conversion. If a caller already owns OKLAB values, convert the palette back to declared sRGB or Display P3 colors and let Aski resolve its internal matching space.
-
-## Migration
-
-```swift
-// Before
+// Before: private pre-A1 API; this no longer compiles.
 ASCIIConverter(
     characterSet: StandardCharacterSet.standard,
     palette: BuiltInPalette.fullColor,
@@ -55,59 +72,72 @@ ASCIIConverter(
     colorSpace: .sRGB
 )
 
-// After
+// After: current spelling.
 ASCIIConverter(
     characterSet: StandardCharacterSet.standard,
     palette: BuiltInPalette.fullColor,
-    tileShape: .wide,         // 2.2 → .wide
+    tileShape: .wide,
     options: .default,
     colorSpace: .sRGB
 )
 ```
 
-The other discrete options are ``ASCIITileShape/square`` (1.0) and
-``ASCIITileShape/tall`` (0.5). Pre-A1 callers using `widthRatio: 2.2`
-get bit-identical output by switching to `tileShape: .wide`.
+At that migration, `.wide` reproduced the old `widthRatio: 2.2` geometry. The other
+choices are ``ASCIITileShape/square`` (1.0) and ``ASCIITileShape/tall`` (0.5). Later
+pipeline changes mean this geometry mapping alone is not a promise of historical bytes.
 
-## ``ASCIICell/brightness`` semantic
+## Color Pipeline v2
 
-The field's storage and type are unchanged but its semantic shifts: it now
-holds the cell's adjusted OKLAB L (after `RenderingOptions.brightness` and
-`.contrast`), not the raw source L. At default options the two values
-agree bit-for-bit, so existing snapshots and consumers continue to match.
+Custom palettes stopped exposing `colorsOKLAB`. Declare source colors and their color
+space instead; Aski owns the internal matching representation:
 
-## Migrating from v0.1.0 → v0.2.0
+```swift
+// Before: private legacy API.
+struct MyPalette: ASCIIPalette {
+    let colorsOKLAB: [SIMD3<Float>]
+}
 
-`v0.2.0` is the first tagged release after the initial `v0.1.0`. The cumulative change list:
+// After: current API. Use this definition instead of the one above.
+struct MyPalette: ASCIIPalette {
+    let content: PaletteContent = .fixed([
+        PaletteColor(SIMD3<Float>(1, 0, 0), colorSpace: .sRGB)
+    ])
+}
+```
 
-### Source-breaking removals
+Use `.sRGB` or `.displayP3` with the corresponding declared components. For source-color
+pass-through, use ``PaletteContent/passThrough``:
 
-- `ASCIIConverter.widthRatio` — removed. Use ``ASCIITileShape`` instead (`.wide` reproduces the old `widthRatio: 2.2` default bit-identically).
-- Custom palettes no longer expose `colorsOKLAB`. Adopt ``PaletteContent`` with ``PaletteColor`` declared in `.sRGB` or `.displayP3`, or use ``PaletteContent/passThrough`` for source-color rendering. The detailed migration with before/after code samples lives in the *Color Pipeline v2* section above — read it for the full pattern, especially if your palette source previously held precomputed OKLab vectors.
+```swift
+struct SourceColorPalette: ASCIIPalette {
+    let content: PaletteContent = .passThrough
+}
+```
 
-### Silent behavior changes
+`PaletteContent.fixed([])` is a programmer error and traps; an empty palette is not a
+pass-through signal. `TilePalette.fixed([])` follows the same rule. Convert externally
+held OKLab colors back to declared sRGB or Display P3 colors before creating a palette.
 
-- `linearSRGBToOKLAB` and `linearP3ToOKLAB` now use `cbrt` instead of `sign · pow(·, 1/3)`. The canonical sRGB and Display P3 round-trip tolerances are unchanged. Pinned-OKLab regressions on ANSI16 and the P3 primaries are installed as silent-drift gates against future regressions.
+## ASCIICell brightness semantics
 
-### New opt-ins (defaults unchanged)
+``ASCIICell/brightness`` holds adjusted source OKLab L after brightness and contrast,
+not raw source lightness or final glyph display-color luminance. The field's storage
+and type did not change at the historical transition. At default brightness/contrast,
+adjusted and unadjusted source lightness agree.
 
-- ``ASCIIConverter/init(characterSet:palette:algorithm:tileShape:options:colorSpace:oversample:colorSampling:paletteMatching:gamutMapping:composition:)`` accepts ``ColorSamplingPolicy/linearLightAverage`` for the `colorSampling:` parameter in addition to the default ``ColorSamplingPolicy/encodedAverageLegacy``. Linear-light averaging is physically correct (avoids the gamma-domain averaging mistake) but is opt-in for v0.2.0; the default will flip in a later release.
+## Historical v0.1.0 to v0.2.0
 
-### What did NOT change in v0.2.0
+That private release introduced the geometry/palette migrations above and replaced
+sign-corrected `pow` cube roots with `cbrt` in color conversion. Linear-light averaging
+was initially opt-in; `.encodedAverageLegacy` was the v0.2.0 default. This describes that
+release only. Current palette metrics and defaults are documented in <doc:PaletteMatching>
+and <doc:GettingStarted>, not by old deferred-work lists.
 
-The following close-out items from earlier spec drafts are **deferred** to v0.3.0 or later. They do not exist on the v0.2.0 API surface:
+## Historical v0.3.x to v0.4.0
 
-- `PaletteMatchingPolicy.oklabHyAB` — experimental HyAB difference metric over OKLab a/b. Not in v0.2.0.
-- `PaletteMatchingPolicy.helmlabMetric` — experimental Helmlab metric. Not in v0.2.0.
-- `RenderColorSpacePolicy.extendedLinear` — per-gamut extended-linear working space. Not in v0.2.0.
-- Linear-light sampling as the default (the flip). Default in v0.2.0 remains `.encodedAverageLegacy`.
-- Ray Trace gamut policy as the default. Default in v0.2.0 remains the existing adaptive-L0 / clip selection.
-
-## Migrating from v0.3.x → v0.4.0
-
-`v0.4.0` changes the default gamut mapper from ``GamutMappingPolicy/adaptiveL0`` to ``GamutMappingPolicy/rayTrace``. This is a pre-1.0 default-output change: source code that constructs `DefaultConverter()` or omits `gamutMapping:` still compiles, but rendered colors can change for out-of-gamut chromatic inputs.
-
-To compare against the previous default, pass ``GamutMappingPolicy/adaptiveL0`` explicitly:
+v0.4.0 changed the default gamut mapper from ``GamutMappingPolicy/adaptiveL0`` to
+``GamutMappingPolicy/rayTrace``. Omitting `gamutMapping:` still compiled, but out-of-gamut
+colors could change. To compare with the former mapper explicitly:
 
 ```swift
 let legacyGamutMapper = ASCIIConverter(
@@ -117,4 +147,6 @@ let legacyGamutMapper = ASCIIConverter(
 )
 ```
 
-Ray Trace remains target-gamut aware for both `.sRGB` and `.displayP3`. Display P3 output still uses Aski's existing sRGB-style transfer encoding because sRGB and Display P3 share the same transfer curve.
+Ray Trace is target-gamut aware for both sRGB and Display P3. Keep an explicit legacy
+policy only for an intentional comparison or integration requirement, not because a
+historical example happened to contain it.

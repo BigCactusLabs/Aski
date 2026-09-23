@@ -1,13 +1,47 @@
 # Aski
 
-> Swift package converting images to ASCII art via 60D log-polar shape matching and OKLab color processing. Targets iOS 18+, macOS 15+, visionOS 2+. Strict Swift 6 concurrency. Pre-1.0; the API is usable for experimentation but may change before 1.0.0.
+> A Swift library and macOS CLI for local image-to-character-art conversion. Convert once to ASCIIGrid, then render plain text, colored attributed text, or CGImage. Also includes tile grids, masks, effects, animation, and MP4/GIF library APIs. Swift 6.3+; iOS 18+, macOS 15+, visionOS 2+; strict Swift 6 concurrency; Apache 2.0. Public and pre-1.0: APIs and output can change between minor releases.
 
-## Docs
+## Start here
 
-- [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Installation, the conversion API, and rendering options.
-- [Design notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Algorithm overview and descriptor lineage.
-- [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Project conventions, hard rules, and pointers for AI coding agents working in this repo.
+- [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
+- [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
+- [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
+- [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.
+- [API catalog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Aski.md): DocC entry point and public symbol/article navigation. Source uses DocC symbol-link syntax.
 
-## API reference
+## Product guides
 
-- DocC catalog source: `Sources/Aski/Aski.docc/` (API reference source).
+- [Rendering](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Rendering.md): Plain text has no color; attributed text and raster output retain color. Library and CLI aspect defaults differ.
+- [Character sets](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CharacterSets.md): Built-in ASCII/Unicode sets and runtime rasterization.
+- [Algorithms](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Algorithms.md): logPolar and dotMatrix, supported controls, oversampling, and measured matcher limitations.
+- [Palette matching](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/PaletteMatching.md): Default OKLab metric and explicitly experimental alternatives.
+- [Masking](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Masking.md): Coverage, image fallbacks, grounds, and CLI photo dissolve.
+- [Effects](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Effects.md): Composition, lighting, effect chains, async rendering, and GPU fallback.
+- [Animation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Animation.md): Time-based frames from one conversion.
+- [Video and GIF](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Video.md): Library round-trips and streaming components; CLI harnesses live under aski lab video.
+- [Tiles](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Tiles.md): Pixel-art, brick, and mosaic cell-grid output.
+- [Vesper](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Vesper.md): A fixed duotone recipe, not a bundled standalone app.
+- [Migration notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Migrating-to-A1.md): First-public-release migration and clearly labeled private-history transitions.
+- [Changelog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CHANGELOG.md): Versioned source and behavior changes; earlier private tags are not available in this repository.
+
+## Automation contracts and implementation
+
+- [Package manifest](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Package.swift): Authoritative toolchain minimums, platforms, products, targets, and dependencies.
+- [Architecture](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/architecture.md): Shared engine, CLI/library boundary, pipeline, and deterministic JSON compatibility policy.
+- [Inspection schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-inspect-v1.schema.json): Versioned inspect JSON; readers must tolerate additive fields.
+- [Render manifest schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-render-manifest-v1.schema.json): Unsigned render record, including paths and optional mask state; not an authenticity proof.
+- [Source map](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/repo-map.generated.md): Generated symbol-to-file navigation.
+
+## Contributing and research
+
+- [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification, docs standards, and release hygiene. No hosted CI workflow is supplied.
+- [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
+- [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.
+- [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Questions, protocols, evidence, negative results, and retractions. Historical private SHAs are not public replay guarantees.
+- [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm evidence.
+- [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
+
+## Interpretation notes
+
+The default color path is linear-light averaging, OKLab Euclidean palette matching, and Ray Trace gamut mapping. The 60D log-polar matcher has measured sparse-support limitations; do not infer reliable orientation preservation from its descriptor size. Lab commands and experimental policies are not blanket production-readiness claims. Build the CLI on a Mac from a checkout or consume a published package tag; v0.7.0 begins the public release history. The CLI's --version reports a Git SHA (or unknown), not a semantic version.
