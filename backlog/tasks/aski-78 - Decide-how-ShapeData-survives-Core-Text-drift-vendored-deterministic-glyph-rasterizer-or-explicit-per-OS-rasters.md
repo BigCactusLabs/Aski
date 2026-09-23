@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-09-23 15:47'
+updated_date: '2026-09-23 16:02'
 labels:
   - spike
   - gate
@@ -25,4 +26,5 @@ The ASKI-51 audit TRIGGERED on macOS 27.0 (26A428) / Xcode 27.0 (27A266a) / Swif
 - [ ] #1 Both options are costed against Aski evidence: selection effect of the macOS 27 drift on the frozen preset (selection-ceiling MAE and GMSD with in-memory regenerated vectors versus committed), and the maintenance cost of per-OS rasters
 - [ ] #2 The owner records the decision; the chosen mechanism is implemented and the ASKI-51 audit either no longer depends on the OS rasterizer or is keyed per OS
 - [ ] #3 docs/Research/2026-09-04-aski51-core-text-drift-policy.md is updated with the macOS 27 TRIGGERED result and the decision
+- [ ] #4 Decide how rendered goldens (PNG snapshots and the G0 byte golden) handle more than one OS: separate rasters per OS, a perceptual comparison, or macOS-27-only as accepted in ASKI-77 (PR #2 review). If they stay macOS-27-only, document it where the gate is described
 <!-- AC:END -->
