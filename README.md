@@ -49,8 +49,7 @@ dependencies: [
 
 The manifest is `swift-tools-version: 6.3`, so the binding requirement is a **Swift 6.3 or newer
 toolchain** — any Xcode shipping one will build the package. Platforms: iOS 18, macOS 15, visionOS 2
-or newer. Strict Swift 6 concurrency throughout. Repo verification and release preflight are run on
-Xcode 26.5.
+or newer. Strict Swift 6 concurrency throughout.
 
 ## Use
 

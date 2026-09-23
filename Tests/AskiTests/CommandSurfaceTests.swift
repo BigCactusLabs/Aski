@@ -169,8 +169,9 @@ import Testing
         let root = try Self.packageRoot()
         let text = try String(contentsOf: root.appending(path: "Scripts/repo-doctor.sh"), encoding: .utf8)
 
-        #expect(text.contains("ASKI_REQUIRED_XCODE_VERSION"))
         #expect(text.contains("ASKI_REQUIRED_SWIFT_VERSION"))
+        #expect(text.contains("swift-tools-version"))
+        #expect(!text.contains("ASKI_REQUIRED_XCODE_VERSION"))
         #expect(text.contains("swift-format"))
         #expect(text.contains("swift-format full-tree lint passes"))
         #expect(text.contains("swift-format full-tree lint failed"))
