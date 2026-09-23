@@ -9,9 +9,10 @@ import Foundation
 /// perceptual PNG snapshot suite): a refactor that perturbs even one pixel fails
 /// here. The HDR-path refactor's byte-identity was first verified via the
 /// `courierPrime` PNG snapshot suite (byte-identical); this golden uses the same
-/// bundled font so the bytes are reproducible across Apple OS/platform versions
-/// (the resolved system face and CoreText rasterization are not), then guards
-/// future regressions.
+/// bundled font so the bytes do not depend on the resolved system face, then
+/// guards future regressions. Core Text rasterization of the bundled font still
+/// changes between OS releases: the golden was re-recorded on macOS 27 (ASKI-77)
+/// and fails on macOS 26.
 ///
 /// The fixture exercises both render branches — Core Text glyphs and the
 /// programmatic braille raster — plus alpha/colour variation, so a regression in
