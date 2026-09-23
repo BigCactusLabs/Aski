@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/BigCactusLabs/Aski/blob/main/docs/assets/schemas/aski-inspect-v1.schema.json",
+  "title": "Aski inspect report v1",
+  "description": "Deterministic machine-readable output from aski inspect --format json.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "toolVersion",
+    "source",
+    "conversion"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "toolVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "path",
+        "normalizedPixelWidth",
+        "normalizedPixelHeight"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "normalizedPixelWidth": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "normalizedPixelHeight": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "conversion": {
+      "type": "object",
+      "required": [
+        "columns",
+        "rows",
+        "charset",
+        "totalCells",
+        "nonWhitespaceCells",
+        "textUTF8Bytes"
+      ],
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "charset": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "minimal",
+            "blocks",
+            "dots",
+            "lines",
+            "diagonal",
+            "cross",
+            "diamond",
+            "mixed",
+            "braille"
+          ]
+        },
+        "totalCells": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nonWhitespaceCells": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "textUTF8Bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,62 @@
+{
+  "adversarial_objective" : "rank sum of (ascending |delta MAE|) and (descending |delta SSIM|) over the unused candidate pool; ranks rather than a ratio because the two quantities are in incomparable units and any exchange rate between them would be an unregistered parameter",
+  "aski_git_sha" : "892fe13e781051a62dc7b71007c9389b2a38306f",
+  "calibration_ladder_rule" : "equal-width bins over |delta MAE| from 0 to the largest available margin, one seeded draw per bin, empty bins filled by the nearest unused candidate to the bin centre; the dense charset gets its own ladder so the 'at least 4 on standard' clause is structural",
+  "columns" : 80,
+  "command" : "AskiColorLab arbiter stimuli --output-dir arbiter-run/stimuli --seed 0 --columns 80 --oversample 2 --footprint 24",
+  "date" : "2026-08-25",
+  "dense_charset" : "standard",
+  "footprint" : 24,
+  "gating_charset" : "blocks",
+  "oversample" : 2,
+  "pair_count" : 45,
+  "protocol_note" : "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
+  "protocol_version" : "1",
+  "runner" : "AskiColorLab",
+  "schema_version" : "1",
+  "seed" : 0,
+  "sources" : [
+    {
+      "asset" : "earth-limb-sunrise.png",
+      "corpus" : "nasa-steerable-v1"
+    },
+    {
+      "asset" : "sahara-dunes.png",
+      "corpus" : "nasa-steerable-v1"
+    },
+    {
+      "asset" : "vavilov-crater.png",
+      "corpus" : "nasa-steerable-v1"
+    },
+    {
+      "asset" : "earth-limb-sunrise.png",
+      "corpus" : "nasa-structure-v1"
+    },
+    {
+      "asset" : "phoenix-night-grid.png",
+      "corpus" : "nasa-structure-v1"
+    },
+    {
+      "asset" : "vavilov-crater.png",
+      "corpus" : "nasa-structure-v1"
+    }
+  ],
+  "tone_weights" : [
+    0,
+    1,
+    2,
+    5,
+    10,
+    25,
+    50
+  ],
+  "top_ks" : [
+    12,
+    18,
+    24,
+    36,
+    48,
+    64,
+    95
+  ]
+}

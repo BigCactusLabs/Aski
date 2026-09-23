@@ -1,0 +1,918 @@
+{
+  "cellHeight" : 24,
+  "cellWidth" : 12,
+  "clauses" : [
+    {
+      "detail" : "2 corpora × blocks,standard,braille × MAE+GMSD, no fixture limit",
+      "name" : "full matrix measured",
+      "passed" : true
+    },
+    {
+      "detail" : "inverted and direct both ran",
+      "name" : "both arms measured",
+      "passed" : true
+    },
+    {
+      "detail" : "nasa-steerable-v1: 46.99229892655098%, nasa-occupancy-v1: 39.794560304871354%",
+      "name" : "blocks MAE lift > 3.0% on both corpora",
+      "passed" : true
+    },
+    {
+      "detail" : "nasa-steerable-v1: GMSD 36.38378379189423%, nasa-occupancy-v1: GMSD 1.4164483359926832%",
+      "name" : "GMSD agrees with MAE in sign on blocks, both corpora",
+      "passed" : true
+    },
+    {
+      "detail" : "nasa-occupancy-v1/braille: -3.263165699146376%",
+      "name" : "no other charset regresses > 3.0% MAE",
+      "passed" : false
+    },
+    {
+      "detail" : "max |ΔGMSD| 2.8835344330346846e-07, max |ΔMAE| 1.647923558723008e-08 over 453120 pairs (tolerance 1e-06)",
+      "name" : "negative control",
+      "passed" : true
+    }
+  ],
+  "columns" : 80,
+  "comparisons" : [
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 38.56481481481481,
+      "directMean" : 0.35330352820001604,
+      "improvementPercent" : 46.99229892655098,
+      "invertedMean" : 0.6665135839610707,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 38.56481481481481,
+      "directMean" : 0.18781353931626305,
+      "improvementPercent" : 36.38378379189423,
+      "invertedMean" : 0.2952290320157904,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 38.56481481481481,
+      "directMean" : 0.30672613109784036,
+      "improvementPercent" : 7660.109221581578,
+      "invertedMean" : 0.003952600695938747,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 38.56481481481481,
+      "directMean" : 0.45344690489819744,
+      "improvementPercent" : 194.46295683577327,
+      "invertedMean" : 0.15399115385202494,
+      "oracle" : "haarPSI"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 0.12731481481481483,
+      "directMean" : 0.22861576229437147,
+      "improvementPercent" : -0.005987880461836163,
+      "invertedMean" : 0.22860207387545453,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 0.12731481481481483,
+      "directMean" : 0.2079952197056254,
+      "improvementPercent" : 0.006386119672416547,
+      "invertedMean" : 0.2080085033775799,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 0.12731481481481483,
+      "directMean" : 0.30791291030427004,
+      "improvementPercent" : -0.006195316515234419,
+      "invertedMean" : 0.30793198766555757,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 0.12731481481481483,
+      "directMean" : 0.37809185183896377,
+      "improvementPercent" : 0.0019315525327071282,
+      "invertedMean" : 0.378084548937283,
+      "oracle" : "haarPSI"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 4.074074074074074,
+      "directMean" : 0.23794260403219317,
+      "improvementPercent" : 0.21622636097758455,
+      "invertedMean" : 0.23845821354980407,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 4.074074074074074,
+      "directMean" : 0.21208074644627026,
+      "improvementPercent" : -0.048831093698901006,
+      "invertedMean" : 0.21197723564371274,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 4.074074074074074,
+      "directMean" : 0.3083602978022175,
+      "improvementPercent" : 0.803823667648358,
+      "invertedMean" : 0.3059013900294951,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "differingPickPercent" : 4.074074074074074,
+      "directMean" : 0.3814924769630916,
+      "improvementPercent" : 0.015635744758638135,
+      "invertedMean" : 0.38143283709825726,
+      "oracle" : "haarPSI"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 35.50239234449761,
+      "directMean" : 0.3956360526641596,
+      "improvementPercent" : 39.794560304871354,
+      "invertedMean" : 0.657143365562317,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 35.50239234449761,
+      "directMean" : 0.25575166852170567,
+      "improvementPercent" : 1.4164483359926832,
+      "invertedMean" : 0.2594263081465751,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 35.50239234449761,
+      "directMean" : 0.1033886413909344,
+      "improvementPercent" : 1973.3741314216782,
+      "invertedMean" : 0.004986492298910015,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 35.50239234449761,
+      "directMean" : 0.29171427073995976,
+      "improvementPercent" : 23.90968015448853,
+      "invertedMean" : 0.235424924328959,
+      "oracle" : "haarPSI"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 0.3035287081339713,
+      "directMean" : 0.3669280642803352,
+      "improvementPercent" : -0.0016860994158262503,
+      "invertedMean" : 0.36692187761270023,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 0.3035287081339713,
+      "directMean" : 0.29890753459872327,
+      "improvementPercent" : -0.005076042160825714,
+      "invertedMean" : 0.2988923626963773,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 0.3035287081339713,
+      "directMean" : 0.10439154753239717,
+      "improvementPercent" : 0.09926171553987836,
+      "invertedMean" : 0.10428802944526706,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 0.3035287081339713,
+      "directMean" : 0.18316468891574927,
+      "improvementPercent" : -0.017322821258319996,
+      "invertedMean" : 0.1831964237047793,
+      "oracle" : "haarPSI"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 19.520035885167463,
+      "directMean" : 0.36436547839854133,
+      "improvementPercent" : -3.263165699146376,
+      "invertedMean" : 0.3528513540443912,
+      "oracle" : "mae"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 19.520035885167463,
+      "directMean" : 0.2986719681193297,
+      "improvementPercent" : -17.49747000414591,
+      "invertedMean" : 0.2541943823205649,
+      "oracle" : "gmsd"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 19.520035885167463,
+      "directMean" : 0.10211599985469236,
+      "improvementPercent" : 1.585184478896777,
+      "invertedMean" : 0.10052253227527076,
+      "oracle" : "ssim"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "differingPickPercent" : 19.520035885167463,
+      "directMean" : 0.18543496640745724,
+      "improvementPercent" : 0.4407912523035646,
+      "invertedMean" : 0.18462117242948778,
+      "oracle" : "haarPSI"
+    }
+  ],
+  "decidingClause" : "no other charset regresses > 3.0% MAE",
+  "fixtures" : [
+    "earth-limb-sunrise",
+    "sahara-dunes",
+    "vavilov-crater",
+    "apollo11-bootprint",
+    "apollo12-lunar-mound",
+    "aurora-expedition23",
+    "aurora-sts62",
+    "calbuco-plume",
+    "carina-cosmic-cliffs",
+    "cernan-portrait",
+    "daedalia-planum",
+    "earth-night-iss-090323",
+    "earth-night-iss-091208",
+    "iani-chaos",
+    "infrared-color-explosion",
+    "james-lovell-portrait",
+    "mark-lee-portrait",
+    "marsha-ivins-portrait",
+    "multicolor-aurora",
+    "new-york-night",
+    "rcs-function-diagram",
+    "reentry-communications-diagram",
+    "rocket-systems-diagram",
+    "san-francisco-night",
+    "saturn-infrared",
+    "spacecraft-attitude-diagram",
+    "tarantula-spitzer-3color"
+  ],
+  "footprint" : 24,
+  "gitSHA" : "009f249ad914717cd026a2594df58e5de9616fdb",
+  "negativeControl" : [
+    {
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.2245182640091556e-07,
+      "maxAbsMAEDelta" : 1.4487240296290338e-09,
+      "pairs" : 8640,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.230575366051312e-07,
+      "maxAbsMAEDelta" : 2.521523545517823e-09,
+      "pairs" : 8640,
+      "polarity" : "direct"
+    },
+    {
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.1336671854045299e-07,
+      "maxAbsMAEDelta" : 3.20788889895951e-09,
+      "pairs" : 8640,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.1336671854045299e-07,
+      "maxAbsMAEDelta" : 3.20788889895951e-09,
+      "pairs" : 8640,
+      "polarity" : "direct"
+    },
+    {
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.1336671854045299e-07,
+      "maxAbsMAEDelta" : 5.018793880484651e-09,
+      "pairs" : 8640,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "maxAbsGMSDDelta" : 1.1336671854045299e-07,
+      "maxAbsMAEDelta" : 5.018793880484651e-09,
+      "pairs" : 8640,
+      "polarity" : "direct"
+    },
+    {
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 1.5022077037851744e-07,
+      "maxAbsMAEDelta" : 4.967053768289986e-09,
+      "pairs" : 66880,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 2.8835344330346846e-07,
+      "maxAbsMAEDelta" : 9.8892390574222e-09,
+      "pairs" : 66880,
+      "polarity" : "direct"
+    },
+    {
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 2.8835344330346846e-07,
+      "maxAbsMAEDelta" : 1.647923558723008e-08,
+      "pairs" : 66880,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 2.8835344330346846e-07,
+      "maxAbsMAEDelta" : 1.647923558723008e-08,
+      "pairs" : 66880,
+      "polarity" : "direct"
+    },
+    {
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 2.8835344330346846e-07,
+      "maxAbsMAEDelta" : 1.474594080175251e-08,
+      "pairs" : 66880,
+      "polarity" : "inverted"
+    },
+    {
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "maxAbsGMSDDelta" : 2.8835344330346846e-07,
+      "maxAbsMAEDelta" : 1.474594080175251e-08,
+      "pairs" : 66880,
+      "polarity" : "direct"
+    }
+  ],
+  "oversample" : 2,
+  "poolSizes" : [
+    {
+      "charset" : "blocks",
+      "glyphs" : 8,
+      "poolSize" : 8,
+      "pruneBinds" : false,
+      "topK" : 12
+    },
+    {
+      "charset" : "standard",
+      "glyphs" : 95,
+      "poolSize" : 12,
+      "pruneBinds" : true,
+      "topK" : 12
+    },
+    {
+      "charset" : "braille",
+      "glyphs" : 256,
+      "poolSize" : 12,
+      "pruneBinds" : true,
+      "topK" : 12
+    }
+  ],
+  "renderArm" : [
+    {
+      "corpus" : "nasa-steerable-v1",
+      "fixture" : "earth-limb-sunrise",
+      "gmsd" : 0.4012331358050606,
+      "mae" : 0.7814253972428289,
+      "png" : "render-arm/render_nasa-steerable-v1_earth-limb-sunrise_inverted.png",
+      "polarity" : "inverted",
+      "renderedHeight" : 539,
+      "renderedWidth" : 548,
+      "sourceHeight" : 3072,
+      "sourceWidth" : 3072
+    },
+    {
+      "corpus" : "nasa-steerable-v1",
+      "fixture" : "earth-limb-sunrise",
+      "gmsd" : 0.1750320288865389,
+      "mae" : 0.037096642334856295,
+      "png" : "render-arm/render_nasa-steerable-v1_earth-limb-sunrise_direct.png",
+      "polarity" : "direct",
+      "renderedHeight" : 539,
+      "renderedWidth" : 548,
+      "sourceHeight" : 3072,
+      "sourceWidth" : 3072
+    },
+    {
+      "corpus" : "nasa-occupancy-v1",
+      "fixture" : "apollo11-bootprint",
+      "gmsd" : 0.298527353509959,
+      "mae" : 0.48324637971853407,
+      "png" : "render-arm/render_nasa-occupancy-v1_apollo11-bootprint_inverted.png",
+      "polarity" : "inverted",
+      "renderedHeight" : 539,
+      "renderedWidth" : 548,
+      "sourceHeight" : 1280,
+      "sourceWidth" : 1280
+    },
+    {
+      "corpus" : "nasa-occupancy-v1",
+      "fixture" : "apollo11-bootprint",
+      "gmsd" : 0.3048556173247568,
+      "mae" : 0.4665862751315697,
+      "png" : "render-arm/render_nasa-occupancy-v1_apollo11-bootprint_direct.png",
+      "polarity" : "direct",
+      "renderedHeight" : 539,
+      "renderedWidth" : 548,
+      "sourceHeight" : 1280,
+      "sourceWidth" : 1280
+    }
+  ],
+  "scores" : [
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.6665135839610707,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.2952290320157904,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.003952600695938747,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.15399115385202494,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.35330352820001604,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.18781353931626305,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.30672613109784036,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "blocks",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 8,
+      "mean" : 0.45344690489819744,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.22860207387545453,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.2080085033775799,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.30793198766555757,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.378084548937283,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.22861576229437147,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.2079952197056254,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.30791291030427004,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "standard",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 95,
+      "mean" : 0.37809185183896377,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.23845821354980407,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.21197723564371274,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.3059013900294951,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.38143283709825726,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.23794260403219317,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.21208074644627026,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.3083602978022175,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 8640,
+      "charset" : "braille",
+      "corpus" : "nasa-steerable-v1",
+      "glyphs" : 256,
+      "mean" : 0.3814924769630916,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.657143365562317,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.2594263081465751,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.004986492298910015,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.235424924328959,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.3956360526641596,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.25575166852170567,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.1033886413909344,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "blocks",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 8,
+      "mean" : 0.29171427073995976,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.36692187761270023,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.2988923626963773,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.10428802944526706,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.1831964237047793,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.3669280642803352,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.29890753459872327,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.10439154753239717,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "standard",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 95,
+      "mean" : 0.18316468891574927,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.3528513540443912,
+      "oracle" : "mae",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.2541943823205649,
+      "oracle" : "gmsd",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.10052253227527076,
+      "oracle" : "ssim",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.18462117242948778,
+      "oracle" : "haarPSI",
+      "polarity" : "inverted"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.36436547839854133,
+      "oracle" : "mae",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.2986719681193297,
+      "oracle" : "gmsd",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.10211599985469236,
+      "oracle" : "ssim",
+      "polarity" : "direct"
+    },
+    {
+      "cells" : 66880,
+      "charset" : "braille",
+      "corpus" : "nasa-occupancy-v1",
+      "glyphs" : 256,
+      "mean" : 0.18543496640745724,
+      "oracle" : "haarPSI",
+      "polarity" : "direct"
+    }
+  ],
+  "verdict" : "KILL"
+}

@@ -1,0 +1,220 @@
+{
+  "$id": "https://github.com/BigCactusLabs/Aski/blob/main/docs/assets/schemas/aski-render-manifest-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "description": "Deterministic unsigned record from aski render --write-manifest. An optional additive mask block is present only when --mask is supplied. It does not establish source or output authenticity.",
+  "properties": {
+    "artifacts": {
+      "additionalProperties": true,
+      "properties": {
+        "png": {
+          "additionalProperties": true,
+          "properties": {
+            "path": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "pixelHeight": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "pixelWidth": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "path",
+            "pixelWidth",
+            "pixelHeight"
+          ],
+          "type": "object"
+        },
+        "text": {
+          "additionalProperties": true,
+          "properties": {
+            "destination": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "utf8Bytes": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "destination",
+            "utf8Bytes"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "type": "object"
+    },
+    "command": {
+      "const": "render"
+    },
+    "conversion": {
+      "additionalProperties": true,
+      "properties": {
+        "charset": {
+          "enum": [
+            "standard",
+            "minimal",
+            "blocks",
+            "dots",
+            "lines",
+            "diagonal",
+            "cross",
+            "diamond",
+            "mixed",
+            "braille"
+          ],
+          "type": "string"
+        },
+        "columns": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "rows": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "columns",
+        "rows",
+        "charset"
+      ],
+      "type": "object"
+    },
+    "mask": {
+      "additionalProperties": true,
+      "properties": {
+        "fallback": {
+          "enum": [
+            "transparent",
+            "solid",
+            "original"
+          ]
+        },
+        "fallbackColor": {
+          "pattern": "^#[0-9A-F]{8}$",
+          "type": "string"
+        },
+        "fallbackSizing": {
+          "enum": [
+            "fill",
+            "fit",
+            "stretch"
+          ]
+        },
+        "groundColor": {
+          "pattern": "^#[0-9A-F]{8}$",
+          "type": "string"
+        },
+        "hardEdges": {
+          "type": "boolean"
+        },
+        "invert": {
+          "type": "boolean"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "fallback",
+        "hardEdges",
+        "invert"
+      ],
+      "type": "object"
+    },
+    "render": {
+      "additionalProperties": true,
+      "properties": {
+        "backgroundColor": {
+          "pattern": "^#[0-9A-F]{8}$",
+          "type": "string"
+        },
+        "cellAdvancePixels": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "derivedScale": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "fontSize": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "preserveSourceAspect": {
+          "type": "boolean"
+        },
+        "resampleSpace": {
+          "enum": [
+            "none",
+            "linear-srgb-area-average-4x"
+          ],
+          "type": "string"
+        },
+        "targetPixelWidth": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "backgroundColor",
+        "fontSize",
+        "preserveSourceAspect"
+      ],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "source": {
+      "additionalProperties": true,
+      "properties": {
+        "normalizedPixelHeight": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "normalizedPixelWidth": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "normalizedPixelWidth",
+        "normalizedPixelHeight"
+      ],
+      "type": "object"
+    },
+    "toolVersion": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "toolVersion",
+    "command",
+    "source",
+    "conversion",
+    "render",
+    "artifacts"
+  ],
+  "title": "Aski render manifest v1",
+  "type": "object"
+}

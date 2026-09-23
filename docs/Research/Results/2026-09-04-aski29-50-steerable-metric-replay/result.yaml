@@ -1,0 +1,11 @@
+---
+schema_version: "1"
+date: "2026-09-04"
+aski_git_sha: "7f2f73c0d9fc60520a3e9f0fc68425bdbaa8dbe6"
+provenance: ["AskiColorLab steerable-metric-replay", "MILO 4f5b6fc641cae1a8aeaa8c4f04296dcad388b867", "External Apache-2.0 MILO implementation and weights pinned to commit 4f5b6fc641cae1a8aeaa8c4f04296dcad388b867; runner SHA-256 9e7185f2b4dc1c856b9907c5b08b85300da1f1b9b47c26b99ec779d7c416870a; weights SHA-256 a1d66a7e0ebe0f839564ad70160ffdec709708f0b9a7dd03b19c0bee90d31f79. The external model and temporary pair stream are replay dependencies not included in this repository.", "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."]
+outputs: ["comparison.csv", "metric-sums.csv", "milo-sums.csv", "milo-provenance.csv", "metric-verdicts.csv", "panel-verdicts.csv", "regimes.csv", "parity.csv", "run-metadata.csv", "summary.md"]
+runner: "AskiColorLab"
+command: "swift run -c release AskiColorLab steerable-metric-replay --phase export --output-dir <dir> --aski-git-sha 7f2f73c0d9fc60520a3e9f0fc68425bdbaa8dbe6; uv run --python 3.12 --with numpy --with torch --with torchvision Scripts/research/score-milo.py --pairs <dir>/milo-pairs.bin --index <dir>/milo-index.csv --milo-root <pinned-MILO> --output <dir>/milo-sums.csv; swift run -c release AskiColorLab steerable-metric-replay --phase finalize --output-dir <dir>"
+datasets: ["docs/Research/Corpus/nasa-steerable-v1/assets"]
+summary: "ASKI-29/50 exact-lattice replay: shipping-os2 HELD; historical-support HELD."
+---

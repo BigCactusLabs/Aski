@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aski.local/schemas/aski-product-probe-public-v2.schema.json",
+  "title": "Aski product-probe blinded public manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "probeID",
+    "label",
+    "date",
+    "askiGitSHA",
+    "seed",
+    "fps",
+    "duration",
+    "sources"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2" },
+    "probeID": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "enum": ["human-probe", "instrument-smoke"] },
+    "date": { "type": "string", "format": "date" },
+    "askiGitSHA": { "type": "string", "minLength": 1 },
+    "seed": { "type": "integer", "minimum": 0 },
+    "fps": { "type": "integer", "minimum": 1, "maximum": 60 },
+    "duration": { "type": "number", "exclusiveMinimum": 0, "maximum": 10 },
+    "sources": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceCode", "role", "contentClass", "options", "pixelSize"],
+      "properties": {
+        "sourceCode": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "enum": ["identity", "job"] },
+        "contentClass": { "type": "string", "enum": ["portrait", "cover", "live"] },
+        "options": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "motionFile": { "type": "string", "minLength": 1 },
+        "pixelSize": { "type": "string", "pattern": "^[1-9][0-9]*x[1-9][0-9]*$" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "role": { "const": "job" } },
+            "required": ["role"]
+          },
+          "then": { "required": ["motionFile"] },
+          "else": { "not": { "required": ["motionFile"] } }
+        }
+      ]
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token", "file"],
+      "properties": {
+        "token": { "type": "string", "minLength": 1 },
+        "file": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+---
+schema_version: "1"
+date: 2026-09-04
+aski_git_sha: "ef1c08e3e6581c313266a4368a36b5739ab89593"
+provenance: ["Read-only Core Text drift audit on Version 26.6.2 (Build 25G83)", "Xcode 26.5; Build version 17F42", "swift-driver version: 1.148.6 Apple Swift version 6.3.2 (swiftlang-6.3.2.1.108 clang-2100.1.1.101); Target: arm64-apple-macosx26.0", "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."]
+outputs: ["glyph-drift.csv", "set-summary.csv", "summary.md"]
+runner: "BuildStandardVectors"
+command: "BuildStandardVectors --audit --output-dir docs/Research/Results/2026-09-04-aski51-core-text-drift-audit"
+summary: "ASKI-51 measured all selected committed v3 ShapeData binaries against fresh in-memory generation. Result: NO_TRIGGER; max component delta 0; sort change no."
+---

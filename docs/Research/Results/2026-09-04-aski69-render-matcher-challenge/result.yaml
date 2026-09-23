@@ -1,0 +1,20 @@
+---
+schema_version: "1"
+date: 2026-09-04
+aski_git_sha: "78cd3d4441e23de7608efa0b8644123ec0c83741"
+runner: "AskiColorLab"
+command: "xcrun swift run -c release AskiColorLab render-matcher-challenge --output-dir docs/Research/Results/2026-09-04-aski69-render-matcher-challenge --aski-git-sha 78cd3d4441e23de7608efa0b8644123ec0c83741"
+provenance:
+  - "Frozen rule: docs/Research/2026-09-04-aski69-render-space-matcher-rule.md; committed before this command ran"
+  - "Release build; exact converter sampling lattice; exhaustive stride 1 census"
+  - "Metric examples are not human or VLM votes"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-structure-v1
+  - docs/Research/Corpus/nasa-steerable-v1
+outputs:
+  - matcher-census.csv
+  - examples.txt
+  - summary.md
+summary: "ASKI-69 frozen render-space matcher challenge. Verdict: KILL."
+---

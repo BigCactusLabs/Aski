@@ -1,0 +1,23 @@
+---
+schema_version: "1"
+date: 2026-08-24
+aski_git_sha: a07f806
+runner: AskiColorLab
+command: "AskiColorLab selection-ceiling --columns 80 --oversample 2 --footprint 24 --stride 1 --charset blocks,diagonal,diamond,cross,dots,minimal,lines,mixed,standard,braille --tone-weight 0,1,2,5,10,25,50 --topk standard=12,18,24,36,48,64,95 --topk braille=12,18,24,36,48,64,128,256 --lex-shape-k 2,3,4,6 --z-normalized --legacy-floor --output <csv>"
+provenance:
+  - "Frozen rule: docs/Research/2026-08-24-aski-30-28-decisive-rule.md (committed before any decisive number)"
+  - "Calibration corpus run per rule section 4.1; operating points frozen per section 4.2 BEFORE the held-out run"
+  - "Release build (.build/release), macOS, owner hardware"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-structure-v1
+  - docs/Research/Corpus/nasa-steerable-v1
+outputs:
+  - calibration-nasa-structure-v1.csv
+  - frozen-operating-points.csv
+  - heldout-nasa-steerable-v1.csv
+  - heldout-cost-rep2.csv
+  - heldout-cost-rep3.csv
+  - heldout-stdout-table.txt
+summary: "ASKI-30+28 decisive battery artifacts. Calibration sweep on nasa-structure-v1, frozen operating points (blocks w*=2; standard topK*=64; braille topK*=18) committed before the held-out run, the held-out nasa-steerable-v1 sweep the rule's section 5 was applied to, two dense-charset cost replicates (median-of-3 wall times), and the held-out stdout census table (production meanRank provenance). Verdicts: docs/Research/2026-08-24-aski-30-28-battery-verdict.md."
+---

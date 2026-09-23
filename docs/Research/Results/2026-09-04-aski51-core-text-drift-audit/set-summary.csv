@@ -1,0 +1,11 @@
+set,glyph_count,byte_identical,changed_glyph_count,max_delta,sort_permutation_changed,threshold_exceeded
+standard,95,true,0,0,false,false
+minimal,10,true,0,0,false,false
+blocks,8,true,0,0,false,false
+dots,8,true,0,0,false,false
+lines,12,true,0,0,false,false
+diagonal,4,true,0,0,false,false
+cross,5,true,0,0,false,false
+diamond,4,true,0,0,false,false
+mixed,12,true,0,0,false,false
+braille,256,true,0,0,false,false

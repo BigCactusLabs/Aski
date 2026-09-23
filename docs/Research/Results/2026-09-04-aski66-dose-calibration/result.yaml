@@ -1,0 +1,10 @@
+---
+schema_version: "1"
+date: 2026-09-04
+aski_git_sha: "27e249254a931850627c79b8b079470b7a79f82b"
+provenance: ["Pre-registered exact-lattice ASKI-66 calibration; one bounded search; no post-result retune", "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."]
+outputs: ["dose-calibration.csv", "summary.md"]
+runner: "AskiColorLab"
+command: "AskiColorLab isoluminant-dose-calibration --output-dir docs/Research/Results/2026-09-04-aski66-dose-calibration --aski-git-sha 27e249254a931850627c79b8b079470b7a79f82b"
+summary: "ASKI-66 ran the pre-registered 64-candidate exact-lattice calibration once and returned INCONCLUSIVE. No production default changed."
+---

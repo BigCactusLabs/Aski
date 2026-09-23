@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aski.local/schemas/aski-product-probe-key-v2.schema.json",
+  "title": "Aski product-probe private key v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "probeID",
+    "runKind",
+    "publicManifestSHA256",
+    "mediaDigests",
+    "sourceManifestPath",
+    "sources",
+    "thresholds"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2" },
+    "probeID": { "type": "string", "minLength": 1 },
+    "runKind": { "type": "string", "enum": ["human-probe", "instrument-smoke"] },
+    "publicManifestSHA256": { "$ref": "#/$defs/sha256" },
+    "mediaDigests": {
+      "type": "array",
+      "minItems": 41,
+      "maxItems": 41,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/mediaDigest" }
+    },
+    "sourceManifestPath": { "type": "string", "minLength": 1 },
+    "sources": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "thresholds": { "$ref": "#/$defs/counts" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "mediaDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceCode", "sourceID", "inputPath", "role", "contentClass", "options"],
+      "properties": {
+        "sourceCode": { "type": "string", "minLength": 1 },
+        "sourceID": { "type": "string", "minLength": 1 },
+        "inputPath": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "enum": ["identity", "job"] },
+        "contentClass": { "type": "string", "enum": ["portrait", "cover", "live"] },
+        "participantID": { "type": "string", "minLength": 1 },
+        "options": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/keyOption" }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "role": { "const": "job" } },
+            "required": ["role"]
+          },
+          "then": { "required": ["participantID"] },
+          "else": { "not": { "required": ["participantID"] } }
+        }
+      ]
+    },
+    "keyOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token", "arm"],
+      "properties": {
+        "token": { "type": "string", "minLength": 1 },
+        "arm": {
+          "type": "string",
+          "enum": ["vesper", "genericFullColor", "standardVesperPalette"]
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "preferenceAndExport", "repeatUse", "motion", "paidCommitment"],
+      "properties": {
+        "identity": { "const": 6 },
+        "preferenceAndExport": { "const": 5 },
+        "repeatUse": { "const": 3 },
+        "motion": { "const": 5 },
+        "paidCommitment": { "const": 2 }
+      }
+    }
+  }
+}

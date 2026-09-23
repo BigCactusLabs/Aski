@@ -1,0 +1,39 @@
+---
+schema_version: "1"
+date: 2026-09-02
+aski_git_sha: 0eb5093
+runner: AskiColorLab
+command: "AskiColorLab selection-ceiling --charset <cs> --columns <76|80> --oversample <2|2,4,8,16,32> --corpus <nasa-steerable-v1|nasa-structure-v1>/assets --output <csv>  (five invocations per side, identical flags; before/ built at 64a8f98, after/ at 0eb5093 whose code is 0ded424 = main with ASKI-65 merged)"
+provenance:
+  - "Reading rule frozen in docs/Research/2026-09-02-aski-31-lattice-no-harm.md section 2, committed at 0eb5093 before any number was read"
+  - "before/: worktree detached at 64a8f98, the last pre-change revision before ASKI-65; release build"
+  - "after/: worktree on branch aski-31 at 0eb5093 (docs-only on top of main 0ded424); release build"
+  - "Instrument diff across the boundary (Tools/AskiColorLab/SamplingLattice) is comment-only; both sides score against the native block the converter's own SamplingGeometry read"
+  - "Release build (.build/release), macOS, owner hardware; the gitSHA column of each CSV records the side"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+outputs:
+  - before/frozen-steer.csv
+  - before/frozen-struct.csv
+  - before/sweep-steer.csv
+  - before/default-struct.csv
+  - before/braille-steer.csv
+  - before/frozen-steer.txt
+  - before/frozen-struct.txt
+  - before/sweep-steer.txt
+  - before/default-struct.txt
+  - before/braille-steer.txt
+  - after/frozen-steer.csv
+  - after/frozen-struct.csv
+  - after/sweep-steer.csv
+  - after/default-struct.csv
+  - after/braille-steer.csv
+  - after/frozen-steer.txt
+  - after/frozen-struct.txt
+  - after/sweep-steer.txt
+  - after/default-struct.txt
+  - after/braille-steer.txt
+summary: "ASKI-31 no-harm census across the ASKI-65 lattice boundary. Production-arm MAE on the frozen preset (blocks, 76 columns, oversample 2) moves by x1.0016 on nasa-steerable-v1 and x1.0085 on nasa-structure-v1, both inside the pre-registered 1.01 guard; GMSD agrees in direction (x1.0041, x1.0070). Dense charsets improve ~1.1% at oversample 2 and converge to parity by oversample 16. Verdict: docs/Research/2026-09-02-aski-31-lattice-no-harm.md."
+---

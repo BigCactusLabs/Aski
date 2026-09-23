@@ -1,0 +1,23 @@
+---
+schema_version: "1"
+date: 2026-08-27
+aski_git_sha: 892fe13e781051a62dc7b71007c9389b2a38306f
+runner: AskiColorLab
+command: "AskiColorLab arbiter score --output-dir arbiter-run/score --stimuli-dir arbiter-run/stimuli --answers arbiter-run/answers.csv --judge-results arbiter-run/judge/judge-results.json"
+run_seed: "0"
+provenance:
+  - "Frozen protocol: docs/Research/2026-08-25-aski56-arbiter-protocol.md (v1, committed before any vote)"
+  - "Human leg is the arbiter; the VLM leg is a pre-screen and tie-breaker and counts only after the section 5.1 gate"
+  - "Blinded: identity lives only in key.json; the rater submits answers before opening it"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+outputs:
+  - readout.md
+  - manifest.json
+calibration_units: "relative-mae-margin"
+calibration_families: "C+M"
+jnd75_contains_point_estimate: true
+summary: "Instrument validation gate (section 5.1): human pass at 6/6, VLM pass at 6/6. Human leg: the rater prefers the lower-MAE side (p = 0.0000, n = 37). JND75 band -0.3451 to 0.0719 relative MAE margin, fitted on families C + M; the 3.0 percent bar is straddles-the-bar."
+---

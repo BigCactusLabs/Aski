@@ -1,0 +1,9 @@
+---
+name: nasa-structure-v1
+summary: NASA imagery stratified for ASTSK-31 regime-appropriate structure-oracle characterization
+license: LicenseRef-NASA-Media-PD
+source: images.nasa.gov
+tags: [nasa, structure, shape-residual, oracle, corpus]
+created: 2026-06-13
+asset_count: 3
+---

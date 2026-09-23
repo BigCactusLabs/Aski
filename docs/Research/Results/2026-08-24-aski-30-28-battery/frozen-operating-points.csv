@@ -1,0 +1,4 @@
+track,charset,parameter,value,calibration_mae,rule_section,source
+ASKI-30,blocks,w,2,0.29812,§4.1,calibration-nasa-structure-v1.csv
+ASKI-28,standard,topK,64,0.25735,§4.1,calibration-nasa-structure-v1.csv
+ASKI-28,braille,topK,18,0.27083,§4.1,calibration-nasa-structure-v1.csv

@@ -1,0 +1,13 @@
+.DS_Store
+.build/
+.swiftpm/
+.claude/
+*.xcodeproj
+DerivedData/
+
+# Local scratch render corpus (large unreferenced binaries; keep out of history)
+docs/image-corpus/
+
+# Local Python tooling caches
+__pycache__/
+*.py[cod]

@@ -1,0 +1,18 @@
+{
+  "version" : 1,
+  "indentation" : {
+    "spaces" : 4
+  },
+  "lineLength" : 180,
+  "respectsExistingLineBreaks" : true,
+  "multiElementCollectionTrailingCommas" : true,
+  "rules" : {
+    "AllPublicDeclarationsHaveDocumentation" : false,
+    "AlwaysUseLiteralForEmptyCollectionInit" : false,
+    "BeginDocumentationCommentWithOneLineSummary" : false,
+    "FileScopedDeclarationPrivacy" : false,
+    "NoAccessLevelOnExtensionDeclaration" : false,
+    "OrderedImports" : false,
+    "ValidateDocumentationComments" : false
+  }
+}

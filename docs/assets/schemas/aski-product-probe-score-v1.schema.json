@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aski.local/schemas/aski-product-probe-score-v1.schema.json",
+  "title": "Aski product-probe score v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "cohortSize",
+    "counts",
+    "thresholds",
+    "passes",
+    "disposition",
+    "motionRetained",
+    "paidGatePassed",
+    "consumerExpansionEligible"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "cohortSize": { "const": 8 },
+    "counts": { "$ref": "#/$defs/counts" },
+    "thresholds": { "$ref": "#/$defs/counts" },
+    "passes": { "$ref": "#/$defs/passes" },
+    "disposition": { "type": "string", "enum": ["PROCEED", "REFINE", "STOP"] },
+    "motionRetained": { "type": "boolean" },
+    "paidGatePassed": { "type": "boolean" },
+    "consumerExpansionEligible": { "type": "boolean" }
+  },
+  "$defs": {
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "preferenceAndExport", "repeatUse", "motion", "paidCommitment"],
+      "properties": {
+        "identity": { "type": "integer", "minimum": 0, "maximum": 8 },
+        "preferenceAndExport": { "type": "integer", "minimum": 0, "maximum": 8 },
+        "repeatUse": { "type": "integer", "minimum": 0, "maximum": 8 },
+        "motion": { "type": "integer", "minimum": 0, "maximum": 8 },
+        "paidCommitment": { "type": "integer", "minimum": 0, "maximum": 8 }
+      }
+    },
+    "passes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "preferenceAndExport", "repeatUse", "motion", "paidCommitment"],
+      "properties": {
+        "identity": { "type": "boolean" },
+        "preferenceAndExport": { "type": "boolean" },
+        "repeatUse": { "type": "boolean" },
+        "motion": { "type": "boolean" },
+        "paidCommitment": { "type": "boolean" }
+      }
+    }
+  }
+}

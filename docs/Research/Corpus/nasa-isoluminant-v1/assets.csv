@@ -1,0 +1,9 @@
+stem,stratum,nasa_id,title,source_url,credit,prepared_file,prep
+earthrise-artemis,natural,art002e009280b,Artemis Era Earthrise,https://images.nasa.gov/details/art002e009280b,NASA,assets/earthrise-artemis.jpg,downloaded NASA medium derivative unchanged
+noctilucent-clouds,natural,iss071e364425,Noctilucent clouds illuminated when the sun is below Earths horizon,https://images.nasa.gov/details/iss071e364425,NASA,assets/noctilucent-clouds.jpg,downloaded NASA medium derivative unchanged
+aurora-moscow,natural,iss039e009160,Earth Observations taken by the Expedition 39 Crew,https://images.nasa.gov/details/iss039e009160,NASA,assets/aurora-moscow.jpg,downloaded NASA medium derivative unchanged
+san-francisco-night,natural,iss040e090835,Earth Observation approaching San Francisco at night,https://images.nasa.gov/details/iss040e090835,NASA,assets/san-francisco-night.jpg,downloaded NASA medium derivative unchanged
+apollo8-moon,natural,as08-14-2506,Photograph of nearly full moon taken from Apollo 8,https://images.nasa.gov/details/as08-14-2506,NASA,assets/apollo8-moon.jpg,downloaded NASA medium derivative unchanged
+mars-dingo-gap,natural,PIA17930,Curiosity View Past Dune at Dingo Gap,https://images.nasa.gov/details/PIA17930,NASA JPL-Caltech,assets/mars-dingo-gap.jpg,downloaded NASA medium derivative unchanged
+carina-cosmic-cliffs,diagnostic-false-color,carina_nebula,James Webb Space Telescope NIRCam Image of the Cosmic Cliffs in Carina Nebula,https://images.nasa.gov/details/carina_nebula,NASA ESA CSA STScI,assets/carina-cosmic-cliffs.jpg,downloaded NASA medium derivative unchanged
+wise-eagle-nebula,diagnostic-false-color,PIA25433,The Eagle Nebula Observed by WISE,https://images.nasa.gov/details/PIA25433,NASA JPL-Caltech,assets/wise-eagle-nebula.jpg,downloaded NASA medium derivative unchanged

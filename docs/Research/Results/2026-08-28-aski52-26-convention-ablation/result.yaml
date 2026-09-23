@@ -1,0 +1,37 @@
+---
+schema_version: "1"
+date: 2026-08-28
+aski_git_sha: 1db0202c0e2b4cf848a47be747b967779184dbb8
+runner: AskiColorLab
+command: "AskiColorLab convention-ablation --columns 80 --oversample 2 --footprint 24 --cell-width 12 --cell-height 24 --stride 1 --charset blocks,standard,braille --query-polarity inverted --corpus docs/Research/Corpus/nasa-steerable-v1/assets,docs/Research/Corpus/nasa-occupancy-v1/assets --output-dir docs/Research/Results/2026-08-28-aski52-26-convention-ablation"
+run_seed: "0"
+provenance:
+  - "Run in RELEASE configuration at the shipping regime: columns 80, oversample 2, converter defaults, exhaustive census (stride 1) over every cell of all 27 fixtures"
+  - "aski_git_sha is the CLEAN COMMITTED tree the final run was made from, read from git rev-parse HEAD rather than typed. An earlier revision of this file carried a hand-typed SHA that resolved to nothing; never hand-type one"
+  - "The census was re-run from that clean tree and reproduces the previously committed CSVs byte-for-byte, so no dirty-instrument caveat is needed: the formatting-only edits made between the first run and its commit provably did not move a number"
+  - "SUPERSEDES an earlier run of the same instrument. A cross-model review found two defects, both confirmed against production source before any change: the query field was sampled in raw luma where production uses 1 minus luma (LogPolarKernel.baseInvertedLuma), and the square baseline rung rasterized text at 64pt where BuildStandardVectors uses 32pt into the same 64x64 canvas. A third (pool scanned in glyph-index order rather than ShapeMatching.findBestScored brightness-delta order) was also confirmed and fixed"
+  - "Those defects invalidated the earlier run central claim; the attribution of the production gap to query support is RETRACTED in the research note"
+  - "Two more defects were found in a third review pass: the two cell-aspect placement rungs used different rasterization paths and point sizes (GlyphRaster at a canvas-derived 24pt native vs GlyphCellRaster at an effective 20pt supersampled), confounding the placement delta with a 20 percent scale change; and the geometry census reported one native block size per fixture instead of the range. Both fixed; both placements now share GlyphCellRaster at one scale with a boundsCentred flag"
+  - "That third fix dissolved most of a result this note had called counterintuitive and unexplained: rung rectSingleDisc on blocks falls from +12.64/+13.44 percent (direct) and +26.12/+15.26 percent (inverted) to +3.88/+3.92 and +0.78/-0.30. The convention-delta arm is byte-identical across that change, since the positionFaithful path was untouched"
+  - "Instrument validated: ladder rung squareSingleDisc now reproduces production at MAE 0.66651 vs 0.66651 with 100.0 percent pick agreement on steerable blocks, 95.3 percent on occupancy. Before the fixes that agreement was 12.4 percent"
+  - "Braille null control holds in all four polarity-by-corpus cells: rectSingleDisc and faithfulSingleDisc are the same vocabulary for braille and agree to the last digit"
+  - "Query polarity is a measured FACTOR, not an assumed constant, because production shape term and its tone pre-filter disagree about which end of the source is ink. This directory is the production-matched inverted regime; direct-polarity/ holds the companion run"
+  - "nasa-occupancy-v1 is committed as JPEG; it became reachable only because this change extends RealFixture.load past PNG. Its compression artifacts are part of the measurement"
+  - "Gated on pick quality against the source cell, MAE-first (ASKI-27 house oracle). Descriptor-space distance is never a gate here"
+  - "The scoring path (ink-high glyph raster vs raw source luma) shares its convention with the direct polarity, so direct is partly flattered by its own oracle. Stated as a caveat in the note rather than resolved"
+  - "No defaults changed, no .bin regenerated, no frozen digest re-recorded: this unit measures only"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - geometry.csv
+  - convention-delta.csv
+  - ablation-ladder.csv
+  - summary.md
+  - direct-polarity/geometry.csv
+  - direct-polarity/convention-delta.csv
+  - direct-polarity/ablation-ladder.csv
+  - direct-polarity/summary.md
+summary: "Candidate-convention and sampling-support census over 27 NASA fixtures at both query polarities, superseding an earlier defective run. Corrected, ladder rung (i) reproduces production exactly (MAE 0.66651 vs 0.66651, 100.0 percent agreement), so the earlier claim that the query support carried the production gap is retracted - there is no gap. On the tasks themselves the answer is unfavourable: held at production own polarity the position-faithful vocabulary is inert to harmful (+0.04 percent blocks steerable, -1.26 percent occupancy, negative on standard everywhere), and the paper tiled construction is a small consistent win on text only (+1.93 / +0.68 percent), under the 3.0 percent bar in every cell. The largest effect belongs to neither task: production shape term inverts the query while its tone pre-filter, renderer and ink-high candidates all treat ink as bright, and flipping only that recovers 0.306 / 0.247 MAE on blocks and lifts SSIM from ~0.004 to 0.307 / 0.105. Second unexplained result: bounds-centring at true cell aspect beats position-faithful on blocks in all four cells. Tiled arms did not go degenerate (72 windows, 4320-D); the shipping 2x4 thumbnail cell carries ~3 of 60 live bins and diagram fixtures 0.33-0.69. Native block sizes are reported as min-max ranges (nasa-steerable-v1 is 38-39 x 76-77) because fractional scaling varies them cell to cell."
+---

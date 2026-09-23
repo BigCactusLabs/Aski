@@ -1,0 +1,11 @@
+regime,metric,archived_kill
+shipping-os2,mae,HELD
+shipping-os2,gmsd,HELD
+shipping-os2,one_minus_haarpsi,HELD
+shipping-os2,cssim_loss,HELD
+shipping-os2,milo,HELD
+historical-support,mae,HELD
+historical-support,gmsd,HELD
+historical-support,one_minus_haarpsi,HELD
+historical-support,cssim_loss,HELD
+historical-support,milo,HELD

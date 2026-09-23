@@ -1,0 +1,13 @@
+# Aski
+
+> Swift package converting images to ASCII art via 60D log-polar shape matching and OKLab color processing. Targets iOS 18+, macOS 15+, visionOS 2+. Strict Swift 6 concurrency. Pre-1.0; the API is usable for experimentation but may change before 1.0.0.
+
+## Docs
+
+- [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Installation, the conversion API, and rendering options.
+- [Design notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Algorithm overview and descriptor lineage.
+- [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Project conventions, hard rules, and pointers for AI coding agents working in this repo.
+
+## API reference
+
+- DocC catalog source: `Sources/Aski/Aski.docc/` (API reference source).

@@ -1,0 +1,37 @@
+---
+schema_version: "1"
+date: 2026-09-01
+aski_git_sha: 009f249ad914717cd026a2594df58e5de9616fdb
+runner: AskiColorLab
+command: "AskiColorLab polarity-gate --columns 80 --oversample 2 --footprint 24 --cell-width 12 --cell-height 24 --charset blocks,standard,braille --polarity inverted,direct --corpus docs/Research/Corpus/nasa-steerable-v1/assets,docs/Research/Corpus/nasa-occupancy-v1/assets --render-arm --output-dir docs/Research/Results/2026-09-01-aski60-polarity-gate"
+run_seed: "0"
+provenance:
+  - "Run in RELEASE configuration at the shipping regime: columns 80, oversample 2, converter defaults, exhaustive census over every cell of all 27 fixtures in the two photographic corpora"
+  - "Both arms are driven through the REAL ASCIIConverter.convert via the RenderingOptions.shapeQueryPolarity SPI knob added in this unit. No lab sampler stands in for the matcher on either side: the picks scored are the picks the shipped matcher makes"
+  - "The decision rule was pre-registered in the ASKI-60 design addendum BEFORE this run, including the four-way CANDIDATE/INCONCLUSIVE/KILL/INVALID split, and is encoded in PolarityGate.verdict with one unit test per branch. It fired KILL on a clause the blocks numbers alone would not have reached"
+  - "Negative control ran on every scored pair, not a sample: both planes negated and re-scored. Max absolute GMSD delta 2.9e-07 and max absolute MAE delta 1.6e-08 over 453120 pairs, against a 1e-06 tolerance. GMSD is negation-invariant by construction (Prewitt kernels are zero-mean), so it cannot be flattered by the ink convention under test; the residual is float rounding in 1 minus x"
+  - "MAE is the verdict oracle (ASKI-27 house oracle). GMSD is the convention-independent guard. SSIM and HaarPSI are reported and never decide: SSIM keeps a luminance term and is polarity-coupled by construction"
+  - "Mechanism measured rather than assumed: the tone pre-filter prunes to topK = 12 + round(density*24) = 12 at default density, and ShapeMatching takes prefix(min(topK, count)). blocks carries 8 glyphs, so its pool admits every glyph and the shape distance ranks the whole set (brightness and index tie-breaks still apply on equal distances); standard (95) and braille (256) both bind at 12. The differing-pick shares track that exactly on standard (0.1 and 0.3 percent) but not on braille (4.1 and 19.5 percent), so the pre-filter explains standard's inertness and only part of braille's behavior"
+  - "The scoring path is the ink-high glyph raster against raw source luma, shared byte-for-byte with convention-ablation through the extracted ConventionAblation.scoringRasters. That convention is the same one the direct arm uses, so direct is partly flattered by its own oracle. This is the reason GMSD is carried as a guard and the reason the negative control is mandatory, but it is a caveat the run does not dissolve"
+  - "Instrument cross-check: on earth-limb-sunrise at this regime the inverted arm reproduces convention-ablation's production arm at MAE 0.83833 over the same 2880 cells"
+  - "Render arm is an existence proof, not a second verdict: one fixture per corpus per polarity through the shipped ImageRenderer at blocks and 76 columns, white ink on black, resampled to the source geometry and scored on luma. Three of the four sign comparisons agree with the cell-wise census; the fourth is the occupancy GMSD cell, where the census margin was itself only +1.42 percent. The render is 548x539 and the sources are larger, so that resample is an UPSAMPLE of the render, not a downscale"
+  - "No defaults changed, no .bin regenerated, no frozen digest re-recorded. shapeQueryPolarity ships default .inverted and the default conversion path is byte-identical"
+  - "recheck-aski30-28/ holds the ASKI-60 AC#5 re-run of the ASKI-30/28 decisive battery, driven from that battery's own recorded command at both polarities through the new shared --shape-query-polarity option. The inverted arm reproduces the archived heldout-nasa-steerable-v1.csv exactly on all 226 rows and every data column (only wall-time and git SHA differ), which validates both the seam's inertness at its default and the archived battery's reproducibility from record"
+  - "AC#5 outcome: neither archived verdict changes sign. ASKI-30's shape-free tone floor still beats the production matcher on blocks under direct (0.26391 against 0.32488) even though production recovers from 0.56329, so the parent note's untested fighting-terms hypothesis is confirmed as a mechanism and rejected as the explanation. ASKI-28's pool-width arms still miss the 0.97 bar under direct (standard 0.9840, braille 1.0000) and are marginally worse. The one clause that flips is ASKI-30's SSIM reversal, from minus 0.0002628 to plus 0.0001253, recorded and not promoted because SSIM's luminance term is polarity-coupled by construction"
+  - "The re-run also widens the mechanism evidence to ten charsets and REFINES the claim: on the ten built-in charsets every charset that moved had a non-binding tone pool, and a non-binding pool was not enough on its own (an observation over ten charsets, not a proof of necessity). Only blocks (plus 42.32 percent), lines (plus 15.85) and mixed (plus 12.82) move; the other five non-binding charsets sit at an identical 0.24754 MAE under both polarities, a degeneracy this unit does not diagnose"
+  - "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - polarity-gate.json
+  - oracle-means.csv
+  - summary.md
+  - render-arm/render_nasa-steerable-v1_earth-limb-sunrise_inverted.png
+  - render-arm/render_nasa-steerable-v1_earth-limb-sunrise_direct.png
+  - render-arm/render_nasa-occupancy-v1_apollo11-bootprint_inverted.png
+  - render-arm/render_nasa-occupancy-v1_apollo11-bootprint_direct.png
+  - recheck-aski30-28/heldout-inverted.csv
+  - recheck-aski30-28/heldout-direct.csv
+summary: "Exhaustive polarity census over 27 NASA fixtures at the shipping regime, driving the real converter through the new shapeQueryPolarity knob. Verdict KILL, on the pre-registered collateral clause and not on the deciding charset. On blocks the direct query is a very large win - MAE 0.66651 to 0.35330 on steerable (+46.99 percent) and 0.65714 to 0.39564 on occupancy (+39.79 percent), with GMSD agreeing in sign in both cells (+36.38 and +1.42 percent) and 38.6 / 35.5 percent of picks moving. standard is inert to four decimal places in both corpora (-0.01 and -0.00 percent MAE, 0.1 and 0.3 percent of picks moving), which the pool measurement explains: blocks is the only charset whose glyph count sits under the pre-filter's topK of 12, so it is the only charset where the tone pre-filter excludes nothing and the shape distance ranks the whole set. braille is where the treatment fails - occupancy braille regresses -3.26 percent MAE and -17.50 percent GMSD, both oracles agreeing that braille gets worse, past the pre-registered 3.0 percent veto. The veto is cleared by 0.26 points, so the KILL is close, but the rule was frozen before the run and both oracles agree on the direction. Negative control holds at 2.9e-07 max absolute GMSD delta over 453120 pairs. No default changed."
+---

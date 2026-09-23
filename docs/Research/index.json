@@ -1,0 +1,1758 @@
+{
+  "corpora" : [
+    {
+      "asset_count" : "8",
+      "created" : "2026-06-11",
+      "license" : "LicenseRef-NASA-Media-PD",
+      "name" : "nasa-isoluminant-v1",
+      "path" : "docs/Research/Corpus/nasa-isoluminant-v1",
+      "source" : "images.nasa.gov",
+      "summary" : "NASA imagery stratified for ASTSK-37 chromaShapeAssist real-corpus validation",
+      "tags" : [
+        "nasa",
+        "isoluminant",
+        "color",
+        "corpus"
+      ]
+    },
+    {
+      "asset_count" : "24",
+      "created" : "2026-06-12",
+      "license" : "LicenseRef-NASA-Media-PD",
+      "name" : "nasa-occupancy-v1",
+      "path" : "docs/Research/Corpus/nasa-occupancy-v1",
+      "source" : "images.nasa.gov",
+      "summary" : "NASA imagery stratified for ASTSK-7 occupancy-aware glyph matching characterization",
+      "tags" : [
+        "nasa",
+        "occupancy",
+        "glyph-matching",
+        "corpus"
+      ]
+    },
+    {
+      "asset_count" : "3",
+      "created" : "2026-06-27",
+      "license" : "LicenseRef-NASA-Media-PD",
+      "name" : "nasa-steerable-v1",
+      "path" : "docs/Research/Corpus/nasa-steerable-v1",
+      "source" : "images.nasa.gov",
+      "summary" : "NASA imagery (>=3072px) stratified for ASTSK-42 steerable oriented-energy channel naturals characterization",
+      "tags" : [
+        "nasa",
+        "steerable",
+        "shape-residual",
+        "oracle",
+        "corpus"
+      ]
+    },
+    {
+      "asset_count" : "3",
+      "created" : "2026-06-13",
+      "license" : "LicenseRef-NASA-Media-PD",
+      "name" : "nasa-structure-v1",
+      "path" : "docs/Research/Corpus/nasa-structure-v1",
+      "source" : "images.nasa.gov",
+      "summary" : "NASA imagery stratified for ASTSK-31 regime-appropriate structure-oracle characterization",
+      "tags" : [
+        "nasa",
+        "structure",
+        "shape-residual",
+        "oracle",
+        "corpus"
+      ]
+    }
+  ],
+  "notes" : [
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-05",
+      "next_action" : "Run the proposed Aski color experiments; validate the HyAB-for-matching and CAM16-UCS conjectures.",
+      "path" : "docs/Research/2026-05-05-color-science-deep-dive.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-05-05-color-science-deep-dive",
+      "status" : "living",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "Three-pass survey over OKLAB matching, gamut mapping, palette construction, output color spaces, alpha compositing, and display-surface differences. Pass 3 surfaces Krasilnikov 2024's CAM16-UCS-beats-OKLab psychophysics finding, corrects pass 2's binary-search-versus-Halley framing (Aski's binary search is the CSSWG default), names cross-cutting load-bearing assumptions, proposes seven Aski-runnable experiments, and ends with five original conjectures (the ASCII-regime thesis).",
+      "title" : "ASCII color science deep dive"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-05",
+      "path" : "docs/Research/2026-05-05-oversample-shape-context-cells.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-05-05-oversample-shape-context-cells",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Why oversample = 2 gates Aski's edgeEmphasis Sobel path out at default settings, and what shape-aware ASCII pipelines do for per-cell sampling resolution. Plan amended to expose oversample as a converter init parameter so callers can opt into a working Sobel path, with the default unchanged to preserve pre-A1 bit-identity.",
+      "title" : "Oversample factor for log-polar shape-context cells"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-06",
+      "path" : "docs/Research/2026-05-06-a2-tile-grid-design-decisions.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiTileMatrix"
+      ],
+      "slug" : "2026-05-06-a2-tile-grid-design-decisions",
+      "status" : "complete",
+      "subsystem" : [
+        "tile-grid"
+      ],
+      "summary" : "Fourteen narrowly-scoped frontier surveys behind A2's load-bearing choices: a factored mode-by-shape API, Wu plus kmeans-in-OKLAB quantization, brick symbol naming for LEGO Fair Play compliance, struct-with-static-factories palettes, pointy-top hex packing, no shared GridConverter protocol, a sync-only API matching A1, and a lift-internals refactor over a new shared-core abstraction.",
+      "title" : "A2 tile-grid modes — design research notes"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-10",
+      "path" : "docs/Research/2026-05-10-c1-animation-design-decisions.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-05-10-c1-animation-design-decisions",
+      "status" : "complete",
+      "subsystem" : [
+        "animation"
+      ],
+      "summary" : "Thirteen frontier surveys (three deep-tier dispatches) behind C1's algorithmic-animation choices: a hybrid lazy synthesizer, a top-K visually-similar candidate pool, an entrance-versus-ongoing pattern split, a pure-data SoA schedule for Swift 6 strict concurrency, a match-to-CellMatchResult kernel API, a method on ASCIIConverter over a separate type, an optional-fields struct over a fluent builder, and a stateless SplitMix64 keyed on seed, row, col, and salt.",
+      "title" : "C1 algorithmic animation — design research notes"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-11",
+      "path" : "docs/Research/2026-05-11-research-synthesis-strategic-roadmap.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-05-11-research-synthesis-strategic-roadmap",
+      "status" : "living",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Cross-note synthesis that inventories the research folder, identifies shared operational gaps, and proposes a research registry, lab and corpus infrastructure, accessibility and color experiments, and agent-readable discoverability work. Strategic synthesis remains authoritative here; the release sequencing it proposes is historical.",
+      "title" : "Aski Research Synthesis and Strategic Roadmap"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-26",
+      "next_action" : "Triage the surfaced projects and papers into candidate tasks.",
+      "path" : "docs/Research/2026-05-26-frontier-github-projects-for-aski.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-05-26-frontier-github-projects-for-aski",
+      "status" : "active",
+      "subsystem" : [
+        "frontier"
+      ],
+      "summary" : "First-pass frontier scan for projects, papers, and implementation directions that frame Aski as a perceptual glyph-grid rendering engine rather than an ASCII converter, spanning GPU rendering and symbolic visual intelligence.",
+      "title" : "Frontier GitHub Projects and Research Beneficial to Aski"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-05-28",
+      "path" : "docs/Research/TileGridInternalHardening.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiTileMatrix"
+      ],
+      "slug" : "TileGridInternalHardening",
+      "status" : "living",
+      "subsystem" : [
+        "tile-grid"
+      ],
+      "summary" : "Rendering-substrate invariants, matrix-generation expectations, and benchmark discipline for keeping TileGrid semantics stable. Records the 2026-05-28 decision to ratify TileGrid, TileGridConverter, and TileGridMode as public.",
+      "title" : "TileGrid Hardening Notes"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-02",
+      "next_action" : "Add a wave (ongoing-axis) preset; re-run the presets on a real photo via --image to validate synthetic-only findings; evaluate gifski-grade encoding if GIF banding blocks the HDR work.",
+      "path" : "docs/Research/2026-06-02-motion-lab-frame-export.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiMotionLab"
+      ],
+      "slug" : "2026-06-02-motion-lab-frame-export",
+      "status" : "active",
+      "subsystem" : [
+        "animation"
+      ],
+      "summary" : "Materializes deterministic ASCII frame sequences from a synthetic image, demonstrates reveal (alpha-axis) and cycle (glyph-axis) presets, spikes a native CGImageDestination GIF export, and reports glyph-churn and alpha-churn as an ASCII Temporal Flicker Index feeding the HDR/EDR scope.",
+      "title" : "AskiMotionLab - frame materialization, presets, and GIF export spike"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-03",
+      "next_action" : "Implement target-fps resampling (drop/duplicate to 15/24/30/60) as the C2 fps follow-up; evaluate whether the converter or ImageIO decode dominates GIF-path throughput.",
+      "path" : "docs/Research/2026-06-03-gif-lab-roundtrip-fidelity.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiVideoLab"
+      ],
+      "slug" : "2026-06-03-gif-lab-roundtrip-fidelity",
+      "status" : "active",
+      "subsystem" : [
+        "animation"
+      ],
+      "summary" : "Decodes an animated GIF via ImageIO (which returns composed full-canvas frames), converts each through the existing ASCIIConverter pipeline, and re-encodes an animated GIF via CGImageDestination — recording throughput, peak resident memory, and per-frame timing + loop-count preservation on a representative (ideally variable-delay) clip.",
+      "title" : "AskiVideoLab GIF path — animated-GIF → ASCII → GIF round-trip fidelity"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-03",
+      "next_action" : "Implement C2b (animated-GIF ingest + GIF export); add target-fps resampling; evaluate whether per-frame VTCreateCGImageFromCVPixelBuffer is the throughput bottleneck vs. the converter itself.",
+      "path" : "docs/Research/2026-06-03-video-lab-frame-throughput.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiVideoLab"
+      ],
+      "slug" : "2026-06-03-video-lab-frame-throughput",
+      "status" : "active",
+      "subsystem" : [
+        "animation"
+      ],
+      "summary" : "Streams an MP4 through AVAssetReader, converts each frame via the existing ASCIIConverter pipeline, and re-encodes H.264 via AVAssetWriter — recording decode+encode throughput and peak resident memory on a representative clip to confirm the streaming (non-whole-asset) memory characteristic for the streaming-video milestone.",
+      "title" : "AskiVideoLab — streaming MP4 → ASCII → MP4 throughput and memory"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-04",
+      "next_action" : "Iterate accessible-ansi16-v1 before promotion; the first candidate slightly lowers OKLab confusion flags versus ANSI16 but increases luminance-threshold misses.",
+      "path" : "docs/Research/2026-06-04-access-lab.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiAccessLab"
+      ],
+      "slug" : "2026-06-04-access-lab",
+      "status" : "active",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "AskiAccessLab audits default ANSI16, monochrome, and a lab-local accessible ANSI16 candidate under severity-1.0 protanopia, deuteranopia, and tritanopia, recording WCAG-style contrast and OKLab separation for palette chips and rendered ASCII-grid fixtures.",
+      "title" : "AskiAccessLab Accessibility Palette Audit"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-04",
+      "next_action" : "Evaluate motion-aware drop selection only if judder is observed on real clips; otherwise the FFmpeg-faithful naive selection stands.",
+      "path" : "docs/Research/2026-06-04-fps-resample-lab.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiVideoLab"
+      ],
+      "slug" : "2026-06-04-fps-resample-lab",
+      "status" : "active",
+      "subsystem" : [
+        "animation"
+      ],
+      "summary" : "Resamples the decode->encode timing path to a caller-chosen target fps by nearest-frame drop/duplicate (FFmpeg-faithful round=near), splicing a media-agnostic selection core between decode and render. MP4 honors the rate exactly via CMTime CFR stamps; GIF quantizes the uniform delay to centiseconds and reports the achieved effective rate (e.g. requested 60 -> achieved 50). Records downsample drop ratio, upsample duplicate ratio, the MP4-exact vs GIF-quantized achieved-fps comparison across 15/24/30/60, and which stage dominates throughput for the fps-resampling milestone.",
+      "title" : "AskiVideoLab fps resampling — drop/duplicate retiming to a target frame rate (MP4 exact, GIF quantized)"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-05",
+      "next_action" : "Use the CAM16-UCS divergence rows as candidate evidence only; do not promote CAM16-UCS palette matching without visual/corpus review.",
+      "path" : "docs/Research/2026-06-05-cam16-hct-reference.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-05-cam16-hct-reference",
+      "status" : "active",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "Adds a lab-local CAM16/HCT reference harness pinned to Material Color Utilities and records CAM16-UCS nearest-palette decisions alongside the existing OKLab Euclidean baseline.",
+      "title" : "AskiColorLab CAM16/HCT Reference Harness"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-07",
+      "next_action" : "Decide promotion only on recovery-oracle + visual-review evidence; do not read the cross-metric divergence CSV as a quality signal. If promotion is ever revisited, build the dense-palette / near-threshold oracle described in §5 — the built-in palettes are too sparse to discriminate.",
+      "path" : "docs/Research/2026-06-07-helmlab-metricspace-eval.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-07-helmlab-metricspace-eval",
+      "status" : "active",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "Ports Helmlab MetricSpace (v21, 72 params) as two opt-in palette-matching policies and records the perturbation-recovery oracle (small-ΔE ground truth) plus the divergence/saturation probe and a real-image visual review; the recovery oracle ties at 100% with OKLab (no measured win), and the predicted helmlabCompressed saturation collapse does not appear in practice.",
+      "title" : "Helmlab MetricSpace Port — Evaluation"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-09",
+      "next_action" : "Phase 1 follow-ups have been executed or split: .bin v2 shipped, Thread C full-strength back-solve is KILL with revival candidates in docs/Research/2026-06-10-thread-c-ink-precompensation.md, and Thread D chromaShapeAssist PASS is deferred to ASTSK-36 for dose-response and real-image calibration. Remaining color-plan work is E1 two-color cells and the E2 EDR sketch.",
+      "path" : "docs/Research/2026-06-09-decolor-oracle.md",
+      "related_specs" : [
+        "docs/research-plan.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiDecolorLab"
+      ],
+      "slug" : "2026-06-09-decolor-oracle",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "AskiDecolorLab recomposites each rendered ASCIICell as k·FG+(1−k)·BG in linear light and scores it against the source-cell OKLab aggregate. At columns=80 the FAIL-FAST gate PASSES: mean l_fidelity discriminates monochrome>ansi16>fullColor with disjoint 95% CIs, and a 2AFC test separates true sub-glyph half-tones from mean-L-matched flats at d′=2.49 — validating the area-tone thesis and unlocking Phase 1/2. The ansi16↔fullColor separation is marginal/resolution-dependent (overlaps at columns=64); k uses the relative brightness ramp (first-cut).",
+      "title" : "AskiDecolorLab Composited-Cell Perceptual Oracle (Phase 0 keystone gate)"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-06-09",
+      "next_action" : "Thread B and its production follow-up are settled negative results. ASKI-68 removed shapeStructureAssist and its production branches; the raw residual map remains a lab instrument. Do not restore an augmented-basis production path without a new, independently pre-registered mechanism and qualifying Aski evidence.",
+      "path" : "docs/Research/2026-06-09-shape-residual.md",
+      "related_specs" : [
+        "docs/research-plan.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-09-shape-residual",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Thread B surfaces the 60D log-polar shape distance the matcher computes and discards (additive, hot path byte-identical) and asks whether it rank-correlates with an independent pixel-level structure oracle. ASTSK-27 left it INCONCLUSIVE — two structure oracles (GMSD, SSIM-structure) disagreed sharply on oriented/curved content and no full-reference IQA metric is validated for the binary-glyph-vs-tone ~24px regime. ASTSK-31 built the missing instrument authority — a third, better-validated oracle (HaarPSI), a training-free median-of-ranks consensus, a real-content battery (3 NASA photos + a procedural glyph sheet), and a pre-registered two-axis PASS/KILL rule frozen BEFORE the decisive run — then re-settled the verdict at native 2048px over a 5-column sweep {44,52,64,72,80}. Verdict: GENERAL axis INCONCLUSIVE (pooled consensus ρ is stable and positive in both the synthetic and natural pools, +0.22…+0.32 — so not a KILL — but diagonal and radial each carry ≥2 oracles ≤ −0.30, so not a PASS; HaarPSI sides decisively with GMSD's negative read, confirming the log-polar orientation/curvature degeneracy). LINE-ART axis KILL: the residual is textbook-strong on SPARSE stroke marks (strokes consensus +0.86…+0.89, all oracles ≥ +0.50 at every column) but ANTI-correlates with structure fidelity on DENSE rendered text (glyphSheet consensus −0.55…−0.75 at every column) — the ASTSK-27 'line-art robust' claim was over-broad. The log-polar basis degeneracy is confirmed AND shown fixable: the lab basis-augmentation prototype at w=0.25 flips radial/diagonal from strongly negative to positive/near-zero without regressing strokes → split off as ASTSK-35.",
+      "title" : "Glyph Shape-Residual Field: does the discarded 60D match distance predict perceptual structure?"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-10",
+      "next_action" : "ASKI-65 retracted the follow-up dose-response AC #1 PASS (this note's step-edge result was not re-measured on an exact lattice), the exact-lattice ASKI-66 redesign closed INCONCLUSIVE, and ASKI-68 removed chromaShapeAssist and its dedicated runners. Preserve this note as historical evidence; do not restore the treatment without a new pre-registered mechanism.",
+      "path" : "docs/Research/2026-06-10-isoluminant-rescue.md",
+      "related_specs" : [
+        "docs/research-plan.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-10-isoluminant-rescue",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "shape-context"
+      ],
+      "summary" : "Injecting the OKLab (a,b) vector-gradient magnitude into the logPolar shape query rescues isoluminant chromatic edges: on constant-OKLab-L red/green and blue/yellow vertical edges the edge band melts to a single glyph at λ=0 (entropy 0.000 bits) and the edge cell column flips to a vertically-structured glyph at every λ>0 (entropy 0.722 bits — a step, saturating at the first arm), while a pure-luminance control is exactly λ-invariant. Two design corrections were load-bearing: the gradient must be the Di Zenzo vector gradient √(|∇a|²+|∇b|²) (the sketched scalar-chroma-magnitude field is near-blind to red/green, whose chroma magnitude is ~constant while a flips sign), and the injection must be a mass-normalized blend (the sketched peak-1 additive bump can never exceed ~9% of the L1-normalized descriptor mass against the inverted-luma flood of saturated colors).",
+      "title" : "Thread D: Isoluminant Rescue (chroma-gradient shape assist) — PASS"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-10",
+      "next_action" : "Closed by the measured KILL and ASKI-68 cleanup. Do not restore a compensation control or runner without a new pre-registered mechanism and qualifying Aski evidence.",
+      "path" : "docs/Research/2026-06-10-thread-c-ink-precompensation.md",
+      "related_specs" : [
+        "docs/research-plan.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiDecolorLab"
+      ],
+      "slug" : "2026-06-10-thread-c-ink-precompensation",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science"
+      ],
+      "summary" : "Back-solving FG′ = (target − (1−k)·BG)/k so the area-tone composite lands on the source cell is a measured KILL on the AskiDecolorLab oracle (absolute ink model): fullColor mean l_fidelity drops 0.185→0.102 but mean chroma_fidelity rises 0.036→0.078, because real glyph ink fractions (k ≈ 0.15–0.32) put the back-solved FG′ out of display gamut on essentially every compensated cell — rayTrace projection lands on the achromatic boundary (mean FG′ chroma 0.0000), recovering luminance by erasing all chroma. ASKI-68 later removed the production controls and compensation runner; this note and Git history retain the evidence. The Phase 0 relative_ramp gate is untouched and still PASSes.",
+      "title" : "Thread C: Ink-Fraction Color Pre-Compensation (negative result — gamut KILL)"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-11",
+      "next_action" : "Closed by the exhausted ASKI-66 redesign and ASKI-68 cleanup. Do not restore chromaShapeAssist or re-tune this instrument without a new mechanism and a separately committed rule.",
+      "path" : "docs/Research/2026-06-11-isoluminant-dose-response.md",
+      "related_specs" : [
+        "docs/research-plan.md",
+        "docs/Research/2026-09-04-aski66-exact-lattice-dose-redesign.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-11-isoluminant-dose-response",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "shape-context"
+      ],
+      "summary" : "RETRACTED 2026-09-02 (ASKI-65), CLOSED INCONCLUSIVE 2026-09-04 (ASKI-66): the AC #1 dose-response PASS below was an artifact of the truncating sampling lattice. A preregistered one-shot redesign ran 64 valid candidate fixtures x two axes x 21 lambda arms on an exact 8x18 lattice; every response was invariant, no candidate qualified, and the stop rule skipped holdouts. The synthetic dose-response question is INCONCLUSIVE with no wider search authorized. AC #2/#3 and the algebraic constant-L cancellation result stand. ASKI-68 later removed chromaShapeAssist and its dedicated runners; this note and Git history retain the evidence.",
+      "title" : "Thread D: λ dose-response + no-harm characterization (chromaShapeAssist) — PASS RETRACTED; exact-lattice redesign INCONCLUSIVE"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1",
+        "docs/Research/Corpus/nasa-isoluminant-v1"
+      ],
+      "date" : "2026-06-12",
+      "next_action" : "Closed with no promotion. Do not restore occupancy matching without a new pre-registered mechanism and qualifying Aski evidence.",
+      "path" : "docs/Research/2026-06-12-occupancy-matching.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-12-occupancy-matching",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "color-science"
+      ],
+      "summary" : "ASTSK-7's occupancy-aware matcher improved pooled composited tone but failed the frozen verdict: both structure oracles regressed hard and glyph churn was effectively total. A follow-up isoluminant-rescue diagnostic at w = 0.25 also killed the constant-L rise verdict. ASKI-68 later removed occupancyMatching and its dedicated runner; this note and Git history retain the evidence.",
+      "title" : "ASTSK-7 Occupancy-Aware Glyph Matching - Verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-16",
+      "next_action" : "Complete — AC#4 manual on-display confirmation PASSED (2026-06-16, EDR Mac); all four ACs satisfied, ASTSK-10 Done. Follow-up ASTSK-37 tracks the art-directable emissive-palette tier (Option 2). Ships opt-in; no default-on promotion.",
+      "path" : "docs/Research/2026-06-16-hdr-emissive-spike.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiHDRLab"
+      ],
+      "slug" : "2026-06-16-hdr-emissive-spike",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "frontier"
+      ],
+      "summary" : "A Lab-first spike rendered each fixture twice from one ASCIIGrid — today's SDR base plus a linear-domain per-cell emission gain in a 16-bit half-float extended-linear context — and let Core Image author a gain-map Adaptive HDR HEIC. Verdict PASS across all four frozen gates: SDR fallback is ε-close (G1 worst 0.0127 ≤ 0.025), the k=0 tone-map round-trip is identity, content headroom is meaningful on bright fixtures and flat on dark ones (G3), and the float buffer is NaN/Inf-clean within the ceiling (G4). The @_spi(AskiResearch) renderExtendedRangeImage path ships opt-in; default rendering is byte-identical.",
+      "title" : "ASTSK-10 HDR/EDR Emissive Render Path — Lab-First Spike Verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-18",
+      "next_action" : "Tracked as ASTSK-41 (animation temporal prior — the priority spike), ASTSK-42 (Fourier sub-cell basis), and ASTSK-43 (inter-cell state smoothing). Theory 1 and Theory 5 are deliberately not tracked (reframing and dead end).",
+      "path" : "docs/Research/2026-06-18-neural-cellular-automata-implicit-decoder.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-06-18-neural-cellular-automata-implicit-decoder",
+      "status" : "active",
+      "subsystem" : [
+        "frontier",
+        "animation",
+        "shape-context"
+      ],
+      "summary" : "The two requested sources (the Cells2Pixels GitHub repo and arxiv 2506.22899v3) are one work, the SIGGRAPH 2026 paper Neural Cellular Automata: From Cells to Pixels, and it is not about ASCII conversion. Read as cross-domain transfer it still earns a brief: its implicit decoder (LPPN) maps an interpolated coarse-cell state plus an intra-cell coordinate to appearance, which is structurally isomorphic to Aski's coarse glyph grid plus glyph rasterizer, and its defining temporal property is bounded local change. The highest-value transfer is an NCA-style local-update rule over the ASCII cell-state grid as a temporal-coherence prior for animation, tested against the existing ASCII Temporal Flicker Index. A second cheap test swaps a Fourier-feature sub-cell basis for the log-polar shape basis. Adopting NCA wholesale is a dead end: it needs GPU training, emits continuous output, and has no discrete-glyph component.",
+      "title" : "Neural Cellular Automata \"From Cells to Pixels\" — Cross-Domain Brief for Aski"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-06-24",
+      "next_action" : "No default promotion task. Boundary continuity is gutter-limited; a real fix would need a rendering-model change (sub-cell stroke continuation / non-monospace), a separate larger task — not chased here. Next in batch: ASTSK-42 (steerable channel).",
+      "path" : "docs/Research/2026-06-24-astsk43-inter-cell-smoothing.md",
+      "related_specs" : [
+        "docs/Research/2026-06-18-neural-cellular-automata-implicit-decoder.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-24-astsk43-inter-cell-smoothing",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "KILL, robust across columns {48,64,80,96}. A cheap lab-only input-side screen (self-guided guided filter on the source luma, same converter raw vs smoothed, composited render scored vs the original source by a source-conditioned seam-continuity metric M1 plus GMSD cross-checked by HaarPSI) showed the inter-cell-smoothing lever is inert: zero glyph-pick changes on line art and near-noise with a slight HaarPSI regression on naturals. The frozen per-cell mechanism could not be realized lab-only (per-cell 60D query descriptors are internal to Sources/Aski); the input-side screen is a superset, so its null kills the subset cheaply. Mechanistic finding: ASCII seam-breaking is largely structural (monospace side-bearing gutters at every cell seam), not selection-jitter, so selection/state smoothing cannot bridge it. Default rendering byte-identical; no Sources/Aski hook built.",
+      "title" : "ASTSK-43 Inter-Cell State Smoothing Before Glyph Selection - Verdict"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-06-27",
+      "next_action" : "Closed with no promotion and removed by ASKI-68. Do not attempt another orientation-channel variant without a fundamentally different perceptual oracle or a rendering-model change.",
+      "path" : "docs/Research/2026-06-27-astsk42-steerable-channel.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-06-27-astsk42-steerable-channel",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "KILL, decisive. A steerable oriented-energy channel (Freeman-Adelson G2/H2, continuous angular resolution + a magnitude-preserving normalized-distance blend at Kr=0.5) was appended to the 60D log-polar descriptor as an off-by-default matcher path and scored by the REAL converter over the frozen oriented battery {spokes, diagonals 15/30/60/75, arcs} x columns {48,64,80,96,120} plus a held-out >=3072px NASA naturals corpus, on native-footprint GMSD(chosen glyph, source). Result: aggregate delta -0.19% (bar +3.0%), naturals delta -0.92% (a regression). Fails clauses (a) and (c) of the frozen rule. The channel is inert on the single-orientation content it was built to rescue (diagonals +0.0%, arcs +0.0%; only spokes +0.32%) and actively harms naturals. Third failed attempt (after ASTSK-31, ASTSK-35) to lift glyph pick-quality with an orientation/structure side-channel. ASKI-68 later removed steerableShapeAssist, the SPI hook, and the dedicated runners; this note, the replay record, and Git history retain the evidence.",
+      "title" : "ASTSK-42 Steerable Oriented-Energy Descriptor Channel - Verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-06-29",
+      "next_action" : "No default-promotion task. If temporal coherence is revisited, attack the DISCRETE pick with a source-fidelity tether (motion-adaptive hysteresis: suppress a glyph switch only when the source-residual is below threshold), not the continuous state via leaky integration. Captured as a theory below for later triage.",
+      "path" : "docs/Research/2026-06-29-astsk41-nca-temporal-prior.md",
+      "related_specs" : [
+        "docs/Research/2026-06-18-neural-cellular-automata-implicit-decoder.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiMotionLab"
+      ],
+      "slug" : "2026-06-29-astsk41-nca-temporal-prior",
+      "status" : "complete",
+      "subsystem" : [
+        "animation",
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "KILL (non-robust), gate-emitted. A hand-authored off-by-default @_spi temporal prior (EMA leaky-integration on the continuous cell-state + score-margin hysteresis on the logPolar glyph pick) was measured over deterministic synthetic moving stimuli (S1 slow disc, S2 fast bar) at columns 64/80, alpha in {1,0.6,0.35,0.2} x tau in {0,0.05,0.1,0.2}, N=48 frames, fidelity anchored to the SOURCE (GMSD cross-checked by HaarPSI). The frozen shared operating point (alpha=0.6, tau=0.2) qualifies in only 2/4 cells (both S1, neither S2). Mechanistic finding: the EMA prior (the actual NCA bounded-local-change mechanism) reduces glyph churn nowhere; at fixed tau the churn is flat-or-worse as EMA strengthens, and on S2 strong EMA increases churn and drives the freeze-trap. All churn reduction comes from the hysteresis deadband (a debounce on the discrete pick), which already achieves the drop at alpha=1 on S1 and only holds fidelity where the source barely moves; on S2 it busts fidelity by washout/lag (GMSD +1.9 to +10.7 percent, drift-vs-baseline 0.26 to 0.29). Both spec-9 death paths realized (inert EMA + freeze-trap). Default render byte-identical; hook stays @_spi off-by-default. This note records the run-2 verdict after a pre-registered re-instrument of the oracle-sign check (run-1 returned RERUN on a noise-floor sign split in s1/80).",
+      "title" : "ASTSK-41 NCA-Style Local-Update Temporal Prior for ASCII Animation - Verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-07-01",
+      "next_action" : "No default-promotion task. Fixed-tolerance glyph hysteresis is now falsified BOTH ways — relative-to-challenger (ASTSK-41 tau) and source-tethered (ASTSK-45 rho) — across the slow/fast regime split: no single scalar tolerance is robust. B2 is a real mechanism (churn falls monotonically, unlike inert EMA) but its built-in motion-adaptivity is insufficient. The only untried lever is an EXPLICIT per-cell motion/velocity signal scaling the tolerance rho(v) (the TAA confidence-factor analog) — a second parameter the pre-registration deliberately avoided, requiring a motion estimator the pipeline lacks, at low post-1.0 ROI since the ASCII medium itself cannot track fast motion (baseline S2 GMSD ~0.35). Captured as a theory below for later triage; not auto-filed. The Schmitt-band follow-up named in spec-6 would NOT rescue this — the KILL is scene-dependence, not boundary chatter.",
+      "path" : "docs/Research/2026-07-01-astsk45-source-tethered-hysteresis.md",
+      "related_specs" : [
+        "docs/Research/2026-06-29-astsk41-nca-temporal-prior.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiMotionLab"
+      ],
+      "slug" : "2026-07-01-astsk45-source-tethered-hysteresis",
+      "status" : "complete",
+      "subsystem" : [
+        "animation",
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "KILL (non-robust), gate-emitted. The surviving ASTSK-41 lead — tether the glyph hold to the SOURCE, not the challenger — was measured over the same deterministic synthetic stimuli (S1 slow disc, S2 fast bar) at columns 64/80, sweeping rho in {0,0.25,0.5,1.0,2.0} at alpha=1 (EMA off), N=48 frames, fidelity anchored to the SOURCE (GMSD cross-checked by HaarPSI). The mechanism is genuinely NOT inert (unlike ASTSK-41's EMA): rho reduces glyph churn monotonically on BOTH stimuli. But it is scene-dependent. On S1 every rho qualifies in both columns (churn -87 to -88% at held fidelity). On S2 NO rho qualifies in either column — the churn drop is bought by washout (source-GMSD +6.2 to +7.7% past the x1.02 band, HaarPSI -10.1 to -13.5% past the x0.99 band, drift-vs-baseline ~0.27), the full freeze-trap triple; even rho=0 (release on any degradation) busts S2 fidelity, because on a fast source any held glyph strictly worsens the source match. The shared rho (rho=2.0) qualifies in 2/4 cells (both S1, neither S2) -> non-robust KILL, exactly the frontier-predicted most-likely death (scene-dependence across the slow/fast regime split). The oracle-sign band did NOT RERUN: on S2 both oracles agree fidelity worsened (same sign), so this is a clean real KILL, not instrument ambiguity. Default render byte-identical; hook stays @_spi off-by-default. Third falsification of the NCA temporal line (ASTSK-41 EMA, ASTSK-43 inter-cell, now ASTSK-45 source-tether).",
+      "title" : "ASTSK-45 Source-Tethered Glyph Hysteresis (Motion-Adaptive Debounce) for ASCII Temporal Coherence - Verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-07-16",
+      "next_action" : "If temporal coherence is reopened, add a lab-only per-cell source-motion magnitude to AskiMotionLab and pre-register a motion-conditioned hard-release gate over S1/S2 at columns 64/80 plus real video clips; do not add a public API or product effect before that gate passes.",
+      "path" : "docs/Research/2026-07-16-webgpu-frame-difference-ascii-motion.md",
+      "related_specs" : [
+        "docs/Research/2026-07-01-astsk45-source-tethered-hysteresis.md",
+        "docs/Research/2026-06-29-astsk41-nca-temporal-prior.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-07-16-webgpu-frame-difference-ascii-motion",
+      "status" : "active",
+      "subsystem" : [
+        "animation",
+        "frontier"
+      ],
+      "summary" : "Source inspection of Maxime Heckel's motion-tracking demo finds no object tracker or optical flow: a quarter-resolution WebGPU compute pass differences current and previous luminance, applies a content-specific water mask, accumulates a short ping-pong trail, maps trail intensity through an 11-glyph atlas, and adds color plus bloom. For Aski, the transferable primitive is a lab-only per-cell source-motion magnitude that could condition the existing temporal tether; the water mask, WebGPU presentation stack, and generic core API do not transfer.",
+      "title" : "WebGPU frame-difference ASCII motion tracking — source-code spike for Aski"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-08-19",
+      "next_action" : "The house oracle is MAE and every future per-cell arm must be built in the matcher's ink-high convention, because MAE is polarity- and calibration-sensitive - the cell arm of the screen shows exactly what it costs when the two sides are not rendered through the same path. Two follow-ups are now unblocked and one is not. ASKI-30 (tone-weighted score for sparse charsets) is unblocked and strengthened: the tone-only inversion on the frozen preset holds under all five oracles, and the house oracle puts the production pick at rank 7.22 of 8 there. ASKI-28 (pool-width sweep, dense charsets) stays low priority: under the house oracle the pool term is 2.85 to 3.08 percent. What is NOT unblocked is any magnitude claim about human-visible quality: the audit replaced an impeached metric with a screened one, it did not produce a perceptual arbiter, and the parked human-preference / VLM A-B instrument is still the missing measurement. Do not quote the dense-charset ranking headroom as a settled number without naming the corpus - the corpus moves it across the promotion bar.",
+      "path" : "docs/Research/2026-08-19-house-oracle-audit.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md",
+        "docs/Research/2026-08-19-selection-optimality-gap.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-19-house-oracle-audit",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "ASKI-27. Every archived descriptor verdict was decided by per-cell GMSD, which Ding, Ma, Wang and Simoncelli (IJCV 2021) rank last of eleven full-reference metrics used as an optimization objective and diagnose as luminance-blind. This audit screens five candidate per-cell oracles - GMSD, HaarPSI, MAE, RMSE and single-scale SSIM - with a disqualifier run first: make the source cell BE a rendered glyph, push it through the production scoring path, and require the oracle to make that glyph the unique argmin. MS-SSIM and the deep metrics are unreachable at a 24px footprint and are excluded by arithmetic, not by preference. Four results. First, at the footprint itself every oracle recovers every glyph on every charset, so no metric is blind in the trivial sense. Second, the screen separates them the moment the anisotropic cell geometry is added with the rasterizer held fixed: MAE, RMSE and single-scale SSIM recover 8 of 8, 95 of 95 and 256 of 256, while GMSD loses the half-block pair and 51 of 256 braille glyphs and HaarPSI loses 20 of 256. A metric that cannot recover a glyph from a picture of that glyph must not be the metric that defines the optimum, so MAE is adopted as the house oracle and GMSD and HaarPSI are demoted to cross-checks. The disqualification is scoped: it bars argmin and ceiling use, not the A-versus-B comparison of two realizable renderings the archived kills actually made, so no archived verdict flips. Third, a separate and oracle-independent loss is measured at the 24px footprint itself - all five oracles lose the same 1 of 8 blocks and about 70 of 256 braille references when a native-scale raster is resampled down - which is the footprint and the bounds-centering rasterizer discarding position, not any metric failing. Fourth, the selection ceiling is re-scored under all five oracles across oversample 2 through 32. Under the house oracle the dense-charset ranking headroom is 1.83 to 2.41 percent, below the 3.0 percent promotion bar at every arm including the 48-of-60-bin regime the kills were measured at - but the same measurement on the default corpus gives 2.88 to 3.93 percent, above the bar at oversample 4 and higher. The margin that re-read the kill record as unwinnable is thinner than the difference between two corpora, and that is the finding this note leaves. The tone-only inversion on the frozen sparse preset survives every oracle five out of five, which is the one result the audit strengthens rather than qualifies. Also recorded: the selection-ceiling reproduce command in the companion note omits --corpus and therefore reproduces a different corpus than the one it reports, worth up to 10 gap points.",
+      "title" : "House-Oracle Audit - MAE is adopted, GMSD is disqualified from defining an optimum, and the ranking-headroom margin turns out to be thinner than corpus variance"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-08-19",
+      "next_action" : "Decide whether the shipping regime should keep a descriptor it cannot support. The evidence follow-ups are now closed: ASKI-25 and ASKI-65 removed the zero-support and dropped-pixel failures; ASKI-31 measured the exact-lattice change as NO HARM; ASKI-26 measured candidate-side alternatives; and ASKI-29 replayed ASTSK-42 at the shipping regime, where all five metrics held the archived KILL. Raising oversample remains a measured null, not a fix.",
+      "path" : "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-19-sampling-lattice-support-collapse",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "tile-grid"
+      ],
+      "summary" : "Structural result, decisive by arithmetic and confirmed empirically. The converter caps its thumbnail's longest side at columns times oversample, so at the default oversample of 2 the per-cell source patch is exactly 2 pixels wide on every image, at every column count. ShapeContext.histogram60 then admits a pixel only when its radius falls in the half-open band between 0.5 and min(width,height)/2, which for a 2-pixel-wide cell admits 2 or 3 pixels out of 8 and reaches 2 or 3 of the 60 bins - one bin per admitted pixel. After L1 normalization the shipped 60-dimensional log-polar shape context is a one-to-two parameter vertical-asymmetry statistic. A sweep of source aspect from 3 to 1 through 1 to 3, read back from the converter's own resolved geometry, shows every aspect landing on the same 2 by 4 footprint at columns 80, so the collapse is not an artifact of one image shape. Cell-height parity flips which bins are reachable - even heights land in radial bin 4, odd heights in radial bin 0. The current exact-lattice 3072-square census finds transitions through column 16 and none above 16, so the discontinuity is real in the thumbnail regime and never fires at the frozen preset's 76 columns. The candidate side is unaffected because glyph reference descriptors are rasterized at 64 by 64 and average 27.9 non-zero bins, so the matcher compares a 2-to-3-sparse query against dense candidates that do not live on the same support. Three further consequences are measured: only 4 to 8 of 95 glyphs are ever used at default settings; integer cell pitch silently truncated up to about 10 percent of image height off the bottom edge - SINCE FIXED by ASKI-65, which draws the thumbnail into an exact columns times cellWidth by rows times cellHeight raster so nothing is dropped, at the cost of a second resampling stage; this one clause no longer describes the shipping converter and the rest of the note still does; and a 1-pixel-wide cell, reachable at oversample 1 on portrait sources, yields an all-zero descriptor that matches the space glyph. ASKI-29 has since closed the regime evidence gap: a current exact-lattice ASTSK-42-style replay held the archived KILL under MAE, GMSD, 1 minus HaarPSI, contrast-weighted SSIM, and MILO at both shipping 3-of-60 support and a separate 48-of-60 comparator. A second unstudied lattice parameter, sub-cell phase, was measured over a full 16-arm sweep with a pitch derived from the converter's own cell and killed - best-to-worst spread is 0.38 to 1.24 percent against a selection optimality gap of 18.7 percent on standard and 51.7 percent on the shipped blocks preset, so it is 20 to 50 times too small to be worth a per-image search.",
+      "title" : "Sampling-Lattice Support Collapse - the shipping 60D descriptor carries 2-3 bins"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-08-19",
+      "next_action" : "The cheapest and most direct follow-up is ASKI-30: on sparse charsets the pre-filter is inert, so tone is discarded at selection time and a shape-free floor beats the real matcher by 40 percent to 4.1 times - score shape distance plus a tone term instead, reusing the toneWeight machinery occupancyMatching already has. Do not build another descriptor channel and do not widen the pool on this evidence. The blocking gap is an arbiter: ASKI-27 audits the per-cell oracle (GMSD is ranked last of eleven as an optimization objective and Xu et al. already showed full-reference-optimal glyph picks are perceptually wrong), and until it settles, no reconstruction-metric result licenses a default change. ASKI-28 holds the pool-width sweep for the dense charsets only, and its priority drops now that the corrected dense-charset gap is 3.6 to 4.7 percent under MAE rather than 8 to 10. The frozen rule against another orientation-channel variant is unchanged and this note strengthens it - the corrected dense-charset ranking headroom is 2.26 percent of production GMSD, below the 3.0 percent promotion bar those channels had to clear.",
+      "path" : "docs/Research/2026-08-19-selection-optimality-gap.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-19-selection-optimality-gap",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "Characterization run of the optimality-gap instrument proposed in the Discoveries log on 2026-07-29 but never executed. For every cell of an exhaustive census the probe scores every candidate glyph against the source block the converter actually read - mapped back through the converter's own resolved sampling geometry, not an equal partition of the native image - under three oracles: GMSD, which every archived descriptor verdict was decided by, HaarPSI, the record's existing cross-check, and MAE, added because the first two are both gradient or wavelet structure metrics and are therefore not a disjoint pair. The distance from the production pick to the loss-optimal pick is decomposed into a pool-exclusion term and a ranking term against the real matcher pool read back from the converter. Four results. First, the pre-registered rule that a gap under 3 percent would close the family permanently is not triggered, but only narrowly on the dense charsets - the smallest measured gap is 3.58 percent on braille under MAE - so what keeps selection open is the sparse shipping preset, not the dense sets the kill record was measured on. Second, the composition of the gap inverts with charset size, because the pre-filter admits 12 candidates while eight of the ten built-in character sets hold 12 glyphs or fewer: on the dense sets pool exclusion is the majority term of a modest total, while on the sparse sets including the frozen blocks preset the pre-filter is a literal no-op and the whole gap is descriptor mis-ranking, at an order of magnitude larger. Third and most consequential, on that frozen shipping preset a shape-free matcher that picks purely by ink coverage beats the real matcher under all three oracles by 40 percent to 4.1 times, because once the pre-filter is inert brightness survives only as a tie-break and tone information is discarded at selection time, leaving the pick to a descriptor the companion note shows carries 2 or 3 of 60 bins. Under MAE the production pick on blocks averages rank 7.22 of 8 - second worst available. Fourth, descriptor support is not the lever: raising oversample sixteenfold, lifting reachable bins from 3 of 60 to 48 of 60, moves the shipped gap by 0.50 points and leaves mean rank unchanged at 3.75 versus 3.74 of 8. A ranker that does not improve when handed sixteen times the information is not information-limited, and on sparse charsets its opinion is worse than silence. The first published version of this note scored an equal row-by-column partition of the native image rather than the converter's sampled rectangle, which inflated the dense-charset gaps by two to six times; that error was caught in review and every number here is the corrected measurement.",
+      "title" : "Selection Optimality Gap - on the shipped preset a shape-free floor beats the real matcher, and we have no arbiter"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-08-23",
+      "next_action" : "ASKI-30's decisive run is unblocked: its gate was this task, and the house oracle held. File the candidate-convention finding as its own task — on the TEXT charsets the matcher's bounds-centred square rasters fail recovery against default-tile-rendered references under every oracle (braille is exonerated: its BrailleRasterizer-generated vocabulary recovers 256/256 under every luminance-aware oracle), a selection-machinery defect upstream of any metric choice whose natural first consumer is the ASKI-16 edgeMap-local matcher design. Do not read calibratedCell's collapse as production being 'wrong by that much' — the arm measures raster-convention mismatch at selection time, not output quality.",
+      "path" : "docs/Research/2026-08-23-aski32-calibrated-recovery.md",
+      "related_specs" : [
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/Discoveries.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-23-aski32-calibrated-recovery",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "ASKI-32. The house-oracle audit adopted MAE while admitting its strongest counter-evidence was unanswered: on the one screen arm that drew the reference into the converter's real 38x76 cell block, the ranking inverted — MAE recovered 7 of 256 braille glyphs where GMSD recovered 168 — and the arm was confounded by the probe's rasterizer, which sizes the font to the raster height and lands the reference on an uncalibrated ink fraction. This note builds the instrument that arm was missing. GlyphCellRaster draws a glyph the way production output draws it — baseline and advance positioning with the point size derived from the renderer's own geometry rule, braille through the production dot rasterizer — and two new screen arms use it. calibratedSamePath, the gate, renders both sides through that one convention and differs only in draw resolution: the reference at the native block, the candidate at footprint scale. Ink calibration is measured, not assumed: mean ink-fraction delta 0.004 to 0.045 against 0.034 to 0.177 on the confounded arm. On this repaired arm the inversion disappears: MAE, RMSE and SSIM recover every glyph on every charset — 8 of 8, 95 of 95, 256 of 256 — while GMSD still misses 11 of 95 on standard and 4 of 256 on braille. The house-oracle decision is reaffirmed on production geometry, no longer only on blur evidence plus the IJCV prior. The second arm is the surprise, and a pre-merge cross-model review narrowed it before it over-claimed. calibratedCell scores the typographic reference against the matcher's real candidate vocabulary — bounds-centred Core Text rasters for text glyphs, and (per BuildStandardVectors) position-faithful BrailleRasterizer rasters for braille. On the text charsets all five oracles collapse together: blocks at best 5 of 8, standard at most 18 of 95, mean ranks to 29 of 95. On braille the luminance-aware oracles and HaarPSI recover 256 of 256 and only GMSD fails (163 of 256, worst confusion a full cell read as blank) — braille is exonerated precisely because its matcher data never had the bounds-centring defect. A text-charset failure shared by five metrics with disjoint failure modes is not an oracle defect; it is the candidate convention: bounds-centring erases position and the square footprint erases aspect, which converges with the descriptor support-collapse record and the ASKI-16 orientation-blindness dead end from the code path rather than the metric path. The photographic-source variant is rejected as a recovery instrument for want of a ground-truth glyph; what survives of it is the standing observation that production never scores a picture of a glyph, so the calibrated arms bound the oracle, and only a preference instrument can bound the picture.",
+      "title" : "Calibrated production-geometry recovery — the ASKI-27 cell-arm inversion was instrumental, the house oracle survives it, and the matcher's own candidate convention fails all five oracles"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-08-23",
+      "next_action" : "One consolidated follow-up task validates the ASCIICharacterSet parallel-array invariant at the ASCIIConverter boundary (covering all 18 ShapeMatching trigger paths). No behaviour changed under ASKI-36 itself. Class-B rows double as the registry a future public entry point must re-check before bypassing an internal invariant.",
+      "path" : "docs/Research/2026-08-23-aski36-trap-audit.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-08-23-aski36-trap-audit",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "ASKI-36. Static classification of all 73 precondition/preconditionFailure/fatalError sites and 37 force unwraps in Sources/Aski into: enforced-at-a-public-boundary (36), internal invariant (56), and latent public-input trap (18). All 18 class-C sites share one static shape: ASCIIConverter accepts any public ASCIICharacterSet conformance without checking its documented parallel-array invariant (characters, brightnessValues, rawDensityValues, shapeVectorLanes, steerableSignatures, structure channels), then LogPolarKernel forwards those arrays into ShapeMatching guards several calls deep, where a count mismatch or empty array traps far from the call the caller wrote. The consolidated fix is one boundary validation, not 18 patches; filed as a single follow-up task rather than the 18 the acceptance criteria anticipated, because every trigger path runs through the same unvalidated conformance.",
+      "title" : "Trap audit — every precondition and fatalError in Sources/Aski classified; 18 latent public-input traps share one root cause"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-08-24",
+      "next_action" : "ASKI-28 closes as KILL. ASKI-30 closes as INCONCLUSIVE; the named blocker is a 0.09% SSIM inversion against the floor, which only a perceptual arbiter (ASKI-56) or an owner-signed contact-sheet review can adjudicate. The exploratory-arm lift is filed as its own task per rule §9.",
+      "path" : "docs/Research/2026-08-24-aski-30-28-battery-verdict.md",
+      "related_specs" : [
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md",
+        "docs/Research/2026-08-19-selection-optimality-gap.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-24-aski-30-28-battery-verdict",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "The decisive run of the combined ASKI-30 / ASKI-28 battery, executed 2026-08-24 under the frozen rule committed at 9a2a73d's parent and applied mechanically to the held-out CSV. ASKI-28 is KILL on both dense charsets, as the rule predicted in advance: standard never reaches the 0.97 bar on nasa-steerable-v1 (best 0.9775 at topK=64 — the calibration point's 0.9590 did not transfer across corpora), and braille is flat at its best point (0.9999 at topK=18) with monotonic degradation beyond it. ASKI-30 is INCONCLUSIVE by pre-committed cross-check demotion: the tone-weighted arm at the calibrated w*=2 clears every MAE gate decisively on blocks (0.4186 of production, 0.8935 of the tone-only floor, no-harm guard passed, RMSE agreeing), but the SSIM raw-score direction inverts against the floor by 0.00026 (0.3055764 vs 0.3058391) and the rule carries no epsilon. Both exploratory arms fired on blocks under the lift rule — lexicographic shapeK=6 at 0.9355 of the floor and the z-normalized combination at w=10 at 0.8943 — and are split off to a new task, converting no verdict. All arm MAE values reproduced byte-identically across replicate runs.",
+      "title" : "ASKI-30 + ASKI-28 census battery — verdicts applied mechanically from the frozen rule"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-08-24",
+      "next_action" : "Run the battery. Calibrate w* and topK* on nasa-structure-v1, freeze them into the CSV, then run the held-out nasa-steerable-v1 sweep and apply §5 mechanically to the emitted CSV — not to the stdout table. Do not edit any threshold in this document after the first decisive number is read.",
+      "path" : "docs/Research/2026-08-24-aski-30-28-decisive-rule.md",
+      "related_specs" : [
+        "docs/Research/2026-08-19-selection-optimality-gap.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/2026-08-23-aski32-calibrated-recovery.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-24-aski-30-28-decisive-rule",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "The frozen PASS/KILL/INCONCLUSIVE rule for the combined ASKI-30 (tone-weighted selection on sparse charsets) and ASKI-28 (brightness pre-filter width on dense charsets) census battery, committed after its instrument prerequisites landed and before any decisive number was read. Four realizable selectors are scored through one identical rendering path: P production, F a shape-free tone-only floor rebuilt on production's own tone pair, T the tone-weighted score with its pool width pinned so ASKI-30's treatment cannot be confounded with ASKI-28's, and K production's selector at a lab-supplied pool width reaching the full charset. MAE is the sole verdict oracle, RMSE and single-scale SSIM can only demote a PASS to INCONCLUSIVE, and GMSD and HaarPSI can never gate. Operating points are calibrated on nasa-structure-v1 and the verdict is read on the held-out nasa-steerable-v1 at a fixed 0.97 ratio margin against each baseline separately, with a 1.01 no-harm guard back on the calibration corpus. The two tracks gate independently. Two exploratory arms — lexicographic inversion at a frozen count-based shapeK grid, and a z-normalized score combination — are pre-registered as non-gating and cannot flip either verdict; if one fires it is split off to a new task under the lift rule. ASKI-28's expected outcome is stated as KILL in advance, since the measured pool gap sits below the bar, and the rule is written to be falsifiable in both directions regardless.",
+      "title" : "Pre-registered verdict rule — the ASKI-30 + ASKI-28 census battery, frozen before the decisive run"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-08-25",
+      "next_action" : "Generate the stimuli, rate the human leg blind in one sitting, then run the VLM leg and score. Do not edit any decision rule in this document after the first vote is collected.",
+      "path" : "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
+      "related_specs" : [
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/Discoveries.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-25-aski56-arbiter-protocol",
+      "status" : "active",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "The frozen v1 protocol for the ASKI-56 perceptual arbiter: the missing instrument every reconstruction-oracle verdict in this repo has had to defer to. The human owner is the arbiter and the VLM is a pre-screen and tie-breaker that counts for nothing until it passes an instrument-validation gate on six unanimous-oracle validation pairs. The instrument is a three-subcommand group on AskiColorLab — stimuli, judge, score — that materializes blinded reference/left/right triplets from the real converter geometry and the real candidate pool, judges them in both presentation orders with repeated sampling, and scores the human leg by exact one-sided binomial with ties excluded and a pre-registered decided-n threshold. Calibration fits a logistic psychometric curve of choice probability against signed delta-MAE by IRLS and reports JND75 as a bootstrap band resampled by source image, which is then used to assess whether the standing 3.0 percent MAE bar is perceptually grounded. Identity lives only in key.json; no rater-visible artifact carries an arm name, a filename, or a metric.",
+      "title" : "Perceptual arbiter protocol v1 — human-arbitrated, VLM pre-screened pairwise adjudication for ASCII renders"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-08-27",
+      "next_action" : "The 3.0% bar stands; every future default promotion runs through `AskiColorLab arbiter score` with the §5.3 near-tie clamp. ASKI-30 remains INCONCLUSIVE — the recorded D behavior leans toward the floor but is 4 decided trials; a dedicated D-focused arbiter run (the instrument is now validated and cheap to re-run) is the way to settle it if promotion of the tone-weighted arm is ever wanted.",
+      "path" : "docs/Research/2026-08-27-aski56-arbiter-verdict.md",
+      "related_specs" : [
+        "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md",
+        "docs/Research/2026-08-24-aski-30-28-battery-verdict.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-27-aski56-arbiter-verdict",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "The frozen v1 arbiter protocol was executed end to end: 45 blinded human trials rated in one sitting plus the pinned VLM leg (gpt-5.6-terra, both orders, K=3). Both §5.1 validation gates PASS at 6/6 — human and VLM each recover the unanimous five-oracle tone-floor-vs-production inversion on every source, so the instrument is validated and its verdicts count. The human leg prefers the lower-MAE side on 32 of 37 decided trials (exact one-sided binomial p ≈ 0, tie rate 0.075, repeat consistency 0.80): MAE's direction is perceptually grounded. Calibration (27 C+M trials, relative-MAE-margin units per erratum E2) yields a JND75 band of −0.345 to +0.072 with point −0.029, bootstrapped by source over 1676/2000 usable resamples; the band contains its point estimate and straddles the 3.0% bar, so per the pre-registered §5.2 rule the bar is RETAINED, recorded as sitting inside the ambiguity interval, and the arbiter — not the bar alone — is required for any default promotion. On the D (disagreement) family, the ASKI-30 SSIM-inversion near-tie, the rater chose the lower-MAE side on only 1 of 4 decided trials with 2 ties, and the VLM's order-inconsistency rate was 0.50 — recorded, not gated: weak evidence the 0.09% SSIM objection is on the perceptible side of a genuine near-tie, far below the decided-n threshold for a verdict line.",
+      "title" : "ASKI-56 perceptual arbiter — validation run verdict: instrument PASSES its gate, the 3.0% bar straddles the JND75 band and is retained"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-08-28",
+      "next_action" : "No promotion. The position-faithful vocabulary is not warranted on this evidence and the follow-up PR should record a decline unless the perceptual arbiter says otherwise. The query-polarity inconsistency is FILED AS ASKI-60 - the largest effect found here and belonging to neither ASKI-52 nor ASKI-26: production shape term uses 1 minus luma while its tone pre-filter, renderer and candidate rasters treat ink as bright. ASKI-60 is scoped measure-first and needs its own gate, because the scoring oracle used here shares the direct convention, so this run is a strong signal rather than a closed proof; it also carries an acceptance criterion to re-check whether any archived descriptor verdict was measured under the inconsistency. A polarity flip would NOT churn the .bin files - the inversion is confined to LogPolarKernel and candidate vectors are query-independent - but it would churn snapshot goldens. Second open question: why bounds-centring at true cell aspect beats position-faithful on blocks in all four cells. The .bin churn cost of any promotion is in section 6 and needs a deliberate ruling on the frozen digests, whose own comment forbids re-recording.",
+      "path" : "docs/Research/2026-08-28-aski52-26-candidate-convention.md",
+      "related_specs" : [
+        "docs/Research/Discoveries.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-08-28-aski52-26-candidate-convention",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "tile-grid"
+      ],
+      "summary" : "Measurement, not a promotion, and it supersedes its own first version. A cross-model review caught two defects in the instrument before publication: the query field was sampled in raw luma where production uses 1 minus luma (LogPolarKernel.baseInvertedLuma), and the square baseline rung rasterized text at 64pt where BuildStandardVectors uses 32pt into the same 64x64 canvas. Both are confirmed against production source and fixed, and together they had invalidated the first run central claim, which is retracted here: the ladder does NOT show the query support carrying the production gap, because corrected there is no gap - rung (i) reproduces production at MAE 0.66651 against 0.66651 with 100.0 percent pick agreement. On the two tasks themselves the answer is unfavourable. Held at production own polarity the position-faithful vocabulary is inert to harmful, plus 0.04 percent on blocks steerable and minus 1.26 percent on occupancy, and negative on standard everywhere; the paper tiled construction is a small consistent win on text only, plus 1.93 and plus 0.68 percent, under the standing 3.0 percent bar in every cell. The largest effect found belongs to neither task: production shape term inverts the query while its tone pre-filter, its renderer and its ink-high candidate rasters all treat ink as bright, and flipping only that recovers 0.306 and 0.247 MAE on blocks and lifts SSIM from about 0.004 to 0.307 and 0.105 - subject to the caveat that the scoring oracle shares the direct convention. Bounds-centring at true cell aspect still edges out position-faithful on blocks in all four polarity-by-corpus cells, but by only about 0.75 to 1.5 percent: a third review pass found that the larger 12 to 26 percent gap an earlier revision reported was a scale-and-rasterization confound between those two rungs, now removed by putting both placements on one path at one point size. The census runs at both polarities over 27 NASA fixtures; tiled arms did not go degenerate (72 windows, 4320-D); a loader defect fixed in the course of the work made the JPEG-only occupancy corpus reachable for the first time, and its engineering-diagram fixtures carry 0.33 to 0.69 live bins of 60.",
+      "title" : "ASKI-52 / ASKI-26 - What the Bounds-Centred Square Candidate Convention and the Single-Disc Support Actually Cost"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-09-01",
+      "next_action" : "No promotion, and no default change: shapeQueryPolarity ships .inverted and the default conversion path is byte-identical. The pre-registered rule killed a treatment whose headline number is very large, on collateral damage to braille, and that is the honest reading of it. The obvious lift is a PER-CHARSET polarity - direct on blocks, inverted elsewhere - which this unit did NOT test and which is filed as its own measure-first task; the mechanism section says why that shape is plausible and why it is not evidence. Any default flip, per-charset or not, needs an ASKI-56 arbiter sitting, and the arbiter cannot express a polarity arm today: its arms are selection-rule variants over ONE production convert, so a converter-level knob needs a protocol v2 and re-validation. That was an owner decision, recorded as BLOCKED and not attempted; the owner authorized the v2 on 2026-09-01 and it is filed as ASKI-62.",
+      "path" : "docs/Research/2026-09-01-aski60-shape-query-polarity.md",
+      "related_specs" : [
+        "docs/Research/2026-08-28-aski52-26-candidate-convention.md",
+        "docs/Research/2026-08-24-aski-30-28-battery-verdict.md",
+        "docs/Research/2026-08-25-aski56-arbiter-protocol.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-01-aski60-shape-query-polarity",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Measurement, not a promotion. Production's logPolar shape query has histogrammed 1 minus Rec.601 luma since the first commit, so it treats DARK source regions as ink, while the candidate rasters, the tone pre-filter and the renderer all treat BRIGHT as ink. The asymmetry was deliberate at origin and unintended as an asymmetry: the rationale recorded in 2026-05-04 was to match the ink-high candidate convention, which is correct only for dark-on-light input, and nothing ever reconciled it with the light-on-dark tone and render path that shipped from the same commit. A new RenderingOptions.shapeQueryPolarity knob, SPI-only and defaulting to the shipped inverted behavior, makes both arms reachable from one binary; a new AskiColorLab polarity-gate drives the REAL converter over 27 NASA fixtures at the shipping regime with a decision rule pre-registered before the run. The verdict is KILL, and not on the charset the unit was about. On blocks the direct query is a very large win - MAE 0.66651 to 0.35330 on steerable, plus 46.99 percent, and 0.65714 to 0.39564 on occupancy, plus 39.79 percent, with GMSD agreeing in sign in both cells - but occupancy braille regresses 3.26 percent MAE and 17.50 percent GMSD, both oracles agreeing, past the pre-registered 3.0 percent collateral veto. The mechanism behind the charset dependence is measured rather than assumed: the tone pre-filter admits topK 12 candidates and blocks carries 8 glyphs, so blocks is the only charset whose prune excludes nothing and whose shape term therefore ranks the whole set. That explains standard cleanly, where polarity moves 0.1 to 0.3 percent of picks and MAE is inert to four decimals, and braille only in part. GMSD is carried as the convention-independent guard because its Prewitt filters are zero-mean and a global negation of both planes leaves it unmoved; a mandatory negative control re-scored all 453120 pairs negated and held at 2.9e-07. No default changed and no binary or frozen digest moved.",
+      "title" : "ASKI-60 - The Shape Query's Ink Convention, Measured Against the Rest of the Pipeline"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-01",
+      "next_action" : "Build the entry point with both arms reachable, build AskiColorLab target-width-gate, run it once on the fixtures below, apply section 6 mechanically to the emitted JSON, then ship the winning arm and write the verdict note. Do not edit any threshold in this document after the first decisive number is read; append-only addenda are allowed.",
+      "path" : "docs/Research/2026-09-01-aski63-target-width-rule.md",
+      "related_specs" : [
+        "docs/Research/2026-09-01-issue33-target-size-render-and-lossless-webp.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-01-aski63-target-width-rule",
+      "status" : "active",
+      "subsystem" : [
+        "frontier",
+        "animation"
+      ],
+      "summary" : "Thin design addendum to the issue #33 research note for ASKI-63. Fixes the entry point shape (ASCIIGrid.renderImage(font:backgroundColor:targetPixelWidth:preserveSourceAspect:), pixel width set directly and the scale derived from it), the two arms (A: direct render at the derived fractional cell advance with all four Core Graphics subpixel flags set explicitly; B: integer 4x supersample then area average in linear light), the reference (8x supersample, area average in linear light), the oracles (MAE first, GMSD guard, both on Rec.601 luma of 8-bit sRGB), the fixtures (the consumer's 384-column canyon grid at 1166 and 2332 px; earth-limb-sunrise at 80 columns at 243, 600 and 960 px), a periodic-grid column-banding probe with a 0.10 bound and a 0.02 reference self-check, and the four-way SHIP-A / SHIP-B / INCONCLUSIVE / INVALID rule including a cheap-if-close clause. Written and committed before the instrument existed and before any number was read.",
+      "title" : "Pre-registered design addendum and verdict rule — ASKI-63 exact target-width render, frozen before the two-arm run"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-01",
+      "next_action" : "Owner decides whether the downstream website regenerates its canyon assets with this render path (heights change 777 to 775 and 1555 to 1550). ASKI-64 (lossless animated WebP) follows and should take its byte numbers from frames rendered by this path.",
+      "path" : "docs/Research/2026-09-01-aski63-target-width-verdict.md",
+      "related_specs" : [
+        "docs/Research/2026-09-01-aski63-target-width-rule.md",
+        "docs/Research/2026-09-01-issue33-target-size-render-and-lossless-webp.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-01-aski63-target-width-verdict",
+      "status" : "complete",
+      "subsystem" : [
+        "frontier",
+        "animation"
+      ],
+      "summary" : "Verdict note for ASKI-63. The two-arm gate pre-registered in the rule note was run twice. Run 1 returned INVALID on the reference banding self-check because the pre-registered probe binned device columns by floor(x / advance), which at a fractional cell advance assigns 3 or 4 columns per cell and so measures its own bin widths; banding was 0.000 at the one integer advance and equal across arms and reference elsewhere. Section 9 of the rule re-registered an area-weighted probe before any re-measurement and changed no threshold. Run 2 validated the instrument (reference banding at most 0.0147 against 0.02, negative-control drift at most 0.0121 against 0.02) and both arms cleared the 0.10 banding bound, so the decision fell to MAE: arm B (4x supersample, linear-light box average) beats arm A (direct render at the derived fractional advance with subpixel positioning) by 75.97 percent on mean MAE against the 8x reference, with GMSD agreeing at every one of the five fixture-width cells. B costs 1.55x A at the consumer's 2332 px width, under the 4x cheap-if-close ratio, so that clause did not fire. The public entry point ASCIIGrid.renderImage(font:backgroundColor:targetPixelWidth:preserveSourceAspect:) routes to B; A stays reachable through the research SPI. The shared-filter bias between B and the reference is recorded, not dissolved. No default changed; the scale path and every golden are byte-identical.",
+      "title" : "ASKI-63 verdict — exact target-width render ships as 4x supersample with linear-light area average (SHIP-B)"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-01",
+      "next_action" : "ASKI-63 (exact target-size render, measurement-gated interpolation choice) and ASKI-64 (lossless animated WebP via libwebp, dependency decision first) are filed from this note. Neither changes a default. ASKI-63 should run before ASKI-64 because the consumer's byte numbers depend on the frames the render path produces.",
+      "path" : "docs/Research/2026-09-01-issue33-target-size-render-and-lossless-webp.md",
+      "related_specs" : [
+        "docs/architecture.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-01-issue33-target-size-render-and-lossless-webp",
+      "status" : "complete",
+      "subsystem" : [
+        "frontier",
+        "animation"
+      ],
+      "summary" : "Research spike behind source tracker issue #33 (not migrated), which asks for three things a retina web consumer had to do outside the API: an exact target-pixel-width render, a documented relationship between font size, scale and downscaling, and a lossless animated WebP encoder beside ASCIIGIFEncoder. Two of the three asks collapse under measurement. Font size and the CG scale transform are pixel-identical for Aski's fonts: rendering at size S with scale k and at size S times k with scale 1 gave zero differing bytes on the bundled Courier Prime and on Menlo at every ratio tried, including the 0.38 a direct 1166 px render needs, so scale is the one knob and an exact width is a closed-form scale, not a resize. The remaining quality question is direct render at the derived fractional cell advance versus supersample-then-area-average, and that is a measurement the follow-up task pre-registers rather than a decision this note makes. The third ask cannot be met with ImageIO on any current Apple OS: CGImageDestination has no WebP writer on macOS 26.6.2 or the iOS 26.5 simulator, the kCGImagePropertyWebP keys are decode-side only, multi-frame AVIF is refused, and ImageIO's own APNG writer produced a 14.3 MB file where the consumer's libwebp lossless WebP is 2.49 MB and the GIF 3.04 MB. A lossless animated WebP encoder therefore means the package's first C dependency, libwebp through its WebPAnimEncoder, and that is an owner decision the task carries as its first acceptance criterion. Two follow-up tasks are filed, ASKI-63 for the target-size path and ASKI-64 for the encoder.",
+      "title" : "Issue #33 - Exact Target-Size Rendering and Lossless Animated WebP, Grounded Before Filing"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-09-02",
+      "next_action" : "ASKI-31 is closed. The before/after CSVs remain the baseline for any future single-interpolation experiment. ASKI-66 subsequently closed INCONCLUSIVE, and ASKI-68 removed its chroma-shape treatment and dedicated runners.",
+      "path" : "docs/Research/2026-09-02-aski-31-lattice-no-harm.md",
+      "related_specs" : [
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-02-aski-31-lattice-no-harm",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "ASKI-31 closes NO HARM. ASKI-31 required a selection-ceiling before/after under both MAE and GMSD as no-harm evidence before the sampling-lattice truncation was removed; ASKI-65 (PR #37) removed it by a third route — a lattice-sized raster that reads every source row through a second interpolation stage — and re-recorded the moved goldens without running the census. This note froze the reading rule first (MAE-gated at the ASKI-30/28 rule's 1.01 no-harm guard on the frozen preset on both naturals corpora, GMSD reported and non-gating), then ran the census on the last commit before ASKI-65 (64a8f98) and on main after it. Frozen-preset production-arm MAE moves by x1.0016 on nasa-steerable-v1 and x1.0085 on nasa-structure-v1, both inside the guard, with GMSD agreeing in direction; the effect decays to parity by oversample 16, and the dense charsets improve about 1.1 percent at oversample 2 because they now read the whole frame. The (a)/(b)/(c) choice is recorded: the shipped (c) dominates (b) and beats (a) on the merits at a measured cost of at most 0.85 percent MAE on blocks. Grid cell counts are identical on both sides, so uniform pitch and the parity-split guard are unchanged.",
+      "title" : "ASKI-31 — selection-ceiling no-harm before/after across the ASKI-65 lattice change"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-02",
+      "next_action" : "Adopted items are applied: ASKI-15 -> ASKI-3 and ASKI-58 -> ASKI-15 dependency edges, ASKI-39 priority raise, and stale-narrative corrections on ASKI-40 and ASKI-66. If the WIP ceiling and dependency semantics are adopted as policy, promote them into docs/agents/backlog.md; the epic taxonomy stays documentation-only unless the CLI gains a reparent path.",
+      "path" : "docs/Research/2026-09-02-backlog-architecture-audit.md",
+      "related_specs" : [
+        "docs/agents/backlog.md",
+        "docs/agents/research-methodology.md",
+        "docs/Research/2026-09-03-future-direction-and-architecture.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-02-backlog-architecture-audit",
+      "status" : "superseded",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Audit of the ASKI task graph at e2c983e (69 live tasks: 38 Done, 31 To Do, 0 In Progress) proposing seven parent epics, four hard dependency edges, a three-leaf WIP ceiling, dependency semantics, and a research-task template. PROPOSAL ONLY, PARTLY WITHDRAWN. Landed 2026-09-16 with a Status-at-landing section: the ASKI-16.3 subtask, the ASKI-29 reparent, the ASKI-66/ASKI-48 working set, and the parent-based epic migration are withdrawn — edgeMap was deleted at 8bb6859, six named subjects closed, and the pinned Backlog.md CLI cannot reparent an existing task. The dependency semantics, research-task template, epic taxonomy, and corrected edges survive.",
+      "title" : "Backlog architecture audit and execution map"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-03",
+      "next_action" : "The implementation sequence through ASKI-72 is complete. Finish the bounded ASKI-73 human product probe and the ASKI-62 human/VLM validation. When a genuine final side-by-side Xcode 27 / Swift 6.4 toolchain exists, run ASKI-74 on the unchanged one-package graph before ASKI-41 repeats the backend lane.",
+      "path" : "docs/Research/2026-09-03-future-direction-and-architecture.md",
+      "related_specs" : [
+        "docs/architecture.md",
+        "docs/agents/research-methodology.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+        "docs/Research/2026-08-19-selection-optimality-gap.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-03-future-direction-and-architecture",
+      "status" : "complete",
+      "subsystem" : [
+        "meta",
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "Decision record for the 2026-09-03 future-direction and architecture reviews, checked against commit 6083c40, the live backlog, current research notes, independent architecture review, and a frontier scan. ACCEPT the direction of production-surface compression, a research-only render-space matcher challenger, an internal glyph-data owner after raster and matcher decisions, consolidation of the three ordinary converter loops, and an authored Vesper product probe. MODIFY the three-arm thesis to one active arm plus two evidence-gated parking lots: research supplies differentiated capabilities but is not itself a moat. ASKI-70 subsequently measured and KILLED the nested research-package split: the Aski library target was already isolated, while the split duplicated artifacts or weakened the one-build gate. ASKI-41 subsequently HOLDs Swift Build and Swift 6.4 adoption: native Swift 6.3.2 has a repeated baseline, but the current backend cannot compile the full graph, including its documented case-insensitive Aski library / aski executable-product limitation. Upstream fixed that class for Swift 6.4, but no final Swift 6.4/Xcode 27 lane is installed. REJECT moving dotMatrix after glyph selection because its Floyd-Steinberg state changes selection, and DEFER canonical mask assets, Swift 6.4-only code, a learned runtime matcher, and public visual-primitive abstractions until named gates pass. The implementation sequence is captured in ASKI-16 and ASKI-68 through ASKI-74.",
+      "title" : "Future Direction and Architecture - validated decisions from the three-arm and simplification reviews"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-04",
+      "path" : "docs/Research/2026-09-04-aski29-50-steerable-metric-replay.md",
+      "related_specs" : [
+        "docs/Research/2026-06-27-astsk42-steerable-channel.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-04-aski29-50-steerable-metric-replay",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "COMPLETE. The pre-registered current-path ASTSK-42-style replay scored 51840 cells from six oriented fixtures and three nasa-steerable-v1 images at columns 80. The exact shipping arm resolved to 2 by 4 cells with 3 of 60 bins; the separate exact historical-support comparator resolved to 38 by 85 with 48 of 60. The archived KILL held independently under all five losses: MAE, GMSD, 1 minus HaarPSI, contrast-weighted SSIM, and pinned official MILO. The shipping aggregate deltas were minus 0.1783, minus 0.3805, minus 0.1116, minus 0.1709, and minus 1.2606 percent respectively. No Sources, package dependency, or default changed.",
+      "title" : "ASKI-29/50 - Exact-lattice steerable metric replay rule"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "When a genuine side-by-side Xcode 27 / Swift 6.4 toolchain is available, use ASKI-74 to validate upstream PR #10067 against the unchanged one-package Aski graph, then repeat ASKI-41's full correctness and performance lane. Preserve the public Aski module, the aski product, and every lab product. Do not change the required toolchain or swift-tools-version before all ten promotion gates pass.",
+      "path" : "docs/Research/2026-09-04-aski41-swift-build-migration-gate.md",
+      "related_specs" : [
+        "docs/architecture.md",
+        "docs/Research/2026-09-03-future-direction-and-architecture.md",
+        "justfile",
+        "Package.swift"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-04-aski41-swift-build-migration-gate",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. No Xcode 27 or Swift 6.4 toolchain is installed, so the fix and final-toolchain lane remain unevaluable.",
+      "title" : "ASKI-41 Swift Build migration gate - HOLD"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "path" : "docs/Research/2026-09-04-aski51-core-text-drift-policy.md",
+      "related_specs" : [
+        "Tools/BuildStandardVectors/BuildStandardVectors.swift",
+        "Tools/BuildStandardVectors/VectorDriftAudit.swift",
+        "docs/agents/research-methodology.md"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-09-04-aski51-core-text-drift-audit"
+      ],
+      "runners" : [
+        "BuildStandardVectors"
+      ],
+      "slug" : "2026-09-04-aski51-core-text-drift-policy",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire.",
+      "title" : "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "The registered schema, pair plan, release-build stimuli, and one permitted default VLM collection are complete; the VLM decisions remain unopened and embargoed. Run the blinded 51-sheet owner sitting, then score both section 5.1 validation gates before interpreting the six polarity comparisons.",
+      "path" : "docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md",
+      "related_specs" : [
+        "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
+        "docs/Research/2026-08-27-aski56-arbiter-verdict.md",
+        "docs/Research/2026-09-01-aski60-shape-query-polarity.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-04-aski62-arbiter-v2-protocol",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "The pre-registered v2 extension of the ASKI-56 perceptual arbiter. It adds typed converter-level arms, a schema-v2 identity record, and six explicit inverted-versus-direct blocks comparisons while retaining the v1 validation, disagreement, calibration, adversarial, repeat, scoring, and human-authority rules. The registered budget is 51 trials: 46 unique comparisons and 5 delayed repeats. Historical v1 keys and verdicts stay frozen and are never re-scored as v2 evidence.",
+      "title" : "Perceptual arbiter protocol v2 — converter-level arms and an explicit shape-query-polarity treatment"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "Run one blinded owner sitting over all 51 sheet images while the collected VLM decisions remain unopened. After the owner submits the complete sitting, score both section 5.1 validation gates before interpreting any X comparison.",
+      "path" : "docs/Research/2026-09-04-aski62-arbiter-v2-validation.md",
+      "related_specs" : [
+        "docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md",
+        "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
+        "docs/Research/2026-08-27-aski56-arbiter-verdict.md",
+        "docs/Research/2026-09-01-aski60-shape-query-polarity.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-04-aski62-arbiter-v2-validation",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a, preserved on main by content-equivalent commit d616951, emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. ASKI-62 remains active until the owner completes the blinded 51-sheet sitting and both section 5.1 gates can be scored.",
+      "title" : "ASKI-62 - Arbiter v2 automated validation and stimulus handoff"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "Closed INCONCLUSIVE. ASKI-29 and ASKI-50 completed their separate archived-verdict replay, and ASKI-68 removed chromaShapeAssist and its dedicated runners. Do not widen or re-tune this instrument without a new pre-registered mechanism.",
+      "path" : "docs/Research/2026-09-04-aski66-exact-lattice-dose-redesign.md",
+      "related_specs" : [
+        "docs/Research/2026-06-11-isoluminant-dose-response.md",
+        "docs/agents/research-methodology.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-04-aski66-exact-lattice-dose-redesign",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "INCONCLUSIVE. The rule and runner were committed before measurement. All 64 valid luma-split x chroma-scale candidates ran both color axes over 21 lambda arms on the exact 8x18 calibration lattice; every 2,688 axis-arm row had one invariant flipped fraction and no lambda-50, so no candidate qualified and the frozen stop rule skipped both holdouts. The June chromaShapeAssist dose-response PASS remains retracted as a truncating-lattice artifact. The archived-verdict audit also finds every named pre-ASKI-65 battery non-exact or incompletely recorded; non-exact KILLs are candidate false negatives, not automatically reversed verdicts. No production default changed.",
+      "title" : "ASKI-66 - Exact-lattice chroma dose-response redesign - INCONCLUSIVE"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1",
+        "docs/Research/Corpus/nasa-isoluminant-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "Do not restore a settled treatment to the public or production surface without a new pre-registered Aski experiment and qualifying product evidence.",
+      "path" : "docs/Research/2026-09-04-aski68-production-experiment-cleanup.md",
+      "related_specs" : [
+        "docs/Research/2026-06-09-shape-residual.md",
+        "docs/Research/2026-06-10-thread-c-ink-precompensation.md",
+        "docs/Research/2026-06-12-occupancy-matching.md",
+        "docs/Research/2026-06-24-astsk43-inter-cell-smoothing.md",
+        "docs/Research/2026-06-27-astsk42-steerable-channel.md",
+        "docs/Research/2026-06-29-astsk41-nca-temporal-prior.md",
+        "docs/Research/2026-07-01-astsk45-source-tethered-hysteresis.md",
+        "docs/Research/2026-09-04-aski29-50-steerable-metric-replay.md",
+        "docs/Research/2026-09-04-aski66-exact-lattice-dose-redesign.md",
+        "docs/Research/2026-09-04-aski69-render-space-matcher-rule.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-04-aski68-production-experiment-cleanup",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "color-science",
+        "meta"
+      ],
+      "summary" : "ASKI-68 removes five settled default-off experiments from the public and production matcher surface: occupancy matching, shape-structure assist, steerable-shape assist, ink pre-compensation, and the inconclusive chroma-shape assist. The durable record is the frozen notes, result artifacts, and Git history; rawDensityValues, the base residual map, selection-ceiling analysis, the ASKI-69 render-matcher challenger, and isolated temporal-research paths remain. RenderingOptions falls from twelve public controls to five, and StandardCharacterSet continues to read v3 files while ignoring their obsolete legacy channel block.",
+      "title" : "ASKI-68 production experiment surface cleanup"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "Keep all three challenger arms research-only. Do not create a production replacement or optimization task. Revisit fixed-footprint matching only through a new pre-registration with a materially different mechanism and independent evidence that it can preserve dense shape at production-relevant cost.",
+      "path" : "docs/Research/2026-09-04-aski69-render-space-matcher-rule.md",
+      "related_specs" : [
+        "docs/Research/2026-08-19-selection-optimality-gap.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md",
+        "docs/Research/2026-09-03-future-direction-and-architecture.md"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-09-04-aski69-render-matcher-challenge"
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-04-aski69-render-space-matcher-rule",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "frontier"
+      ],
+      "summary" : "KILL. Under the rule committed before measurement, aligned MAE and its one-pixel bounded-alignment variant each broke the 1 percent GMSD guard on the held-out dense standard charset, while tone-plus-fill broke the dense MAE guard on both corpora. All arms also exceeded both time budgets; selector storage stayed under 1 MiB. No objective candidate exists, so the ASKI-62 human/VLM trigger did not fire. The lab-only result changes no production source, public API, or default.",
+      "title" : "ASKI-69 render-space matcher challenge - KILL"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "ASKI-48 is complete in the root package. Keep shipping generators, repository-governance tools, AskiToolSupport, labs, and their tests under the root manifest; reconsider a package split only if a later measured compile frontier satisfies the falsifiers in this note.",
+      "path" : "docs/Research/2026-09-04-aski70-package-boundary-measurement.md",
+      "related_specs" : [
+        "docs/architecture.md",
+        "docs/Research/2026-09-03-future-direction-and-architecture.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-04-aski70-package-boundary-measurement",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Measured at commit 8bb6859 on an M3 Max with Swift 6.3.2. The root manifest has 17 targets and 15 products; Aski has no target dependencies, but SwiftPM still resolves the root's full dependency set. A same-package test-target model compiled the research tests even when the product test was filtered. A nested Research package could consume Aski's public research SPI, but could not consume the unpublished AskiToolSupport target and created a second Aski.build tree when invoked directly. Root orchestration can build a child lab module without a target cycle, but then the child is back in the root graph and its own tests still need a second package invocation. KILL the package split and keep ASKI-48's importable lab modules and replay shims in the root package.",
+      "title" : "ASKI-70 package-boundary measurement - keep one Swift package"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "next_action" : "Keep temporal conversion separate. Extend the ordinary engine only with a concrete capture that has measured neutral-or-better cost and no per-cell existential dispatch.",
+      "path" : "docs/Research/2026-09-04-aski72-converter-engine-consolidation.md",
+      "related_specs" : [
+        "docs/architecture.md",
+        "docs/Research/2026-09-03-future-direction-and-architecture.md",
+        "docs/Research/2026-09-04-aski68-production-experiment-cleanup.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-09-04-aski72-converter-engine-consolidation",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "The ordinary, ranked, and residual conversion surfaces now share one statically specialized row-walk engine. Frozen output fingerprints are unchanged, the fixed production scope falls by 62 lines, plain-path allocation count is unchanged, and representative release timings are neutral or better. This is a maintenance result, not a descriptor-speed claim.",
+      "title" : "ASKI-72 converter-engine consolidation"
+    }
+  ],
+  "results" : [
+    {
+      "aski_git_sha" : "a07f806",
+      "command" : "AskiColorLab selection-ceiling --columns 80 --oversample 2 --footprint 24 --stride 1 --charset blocks,diagonal,diamond,cross,dots,minimal,lines,mixed,standard,braille --tone-weight 0,1,2,5,10,25,50 --topk standard=12,18,24,36,48,64,95 --topk braille=12,18,24,36,48,64,128,256 --lex-shape-k 2,3,4,6 --z-normalized --legacy-floor --output <csv>",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-08-24",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "calibration-nasa-structure-v1.csv",
+        "frozen-operating-points.csv",
+        "heldout-nasa-steerable-v1.csv",
+        "heldout-cost-rep2.csv",
+        "heldout-cost-rep3.csv",
+        "heldout-stdout-table.txt"
+      ],
+      "path" : "docs/Research/Results/2026-08-24-aski-30-28-battery",
+      "provenance" : [
+        "Frozen rule: docs/Research/2026-08-24-aski-30-28-decisive-rule.md (committed before any decisive number)",
+        "Calibration corpus run per rule section 4.1; operating points frozen per section 4.2 BEFORE the held-out run",
+        "Release build (.build/release), macOS, owner hardware",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-30+28 decisive battery artifacts. Calibration sweep on nasa-structure-v1, frozen operating points (blocks w*=2; standard topK*=64; braille topK*=18) committed before the held-out run, the held-out nasa-steerable-v1 sweep the rule's section 5 was applied to, two dense-charset cost replicates (median-of-3 wall times), and the held-out stdout census table (production meanRank provenance). Verdicts: docs/Research/2026-08-24-aski-30-28-battery-verdict.md."
+    },
+    {
+      "aski_git_sha" : "892fe13e781051a62dc7b71007c9389b2a38306f",
+      "command" : "AskiColorLab arbiter score --output-dir arbiter-run/score --stimuli-dir arbiter-run/stimuli --answers arbiter-run/answers.csv --judge-results arbiter-run/judge/judge-results.json",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-08-27",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "readout.md",
+        "manifest.json"
+      ],
+      "path" : "docs/Research/Results/2026-08-27-aski56-arbiter",
+      "provenance" : [
+        "Frozen protocol: docs/Research/2026-08-25-aski56-arbiter-protocol.md (v1, committed before any vote)",
+        "Human leg is the arbiter; the VLM leg is a pre-screen and tie-breaker and counts only after the section 5.1 gate",
+        "Blinded: identity lives only in key.json; the rater submits answers before opening it",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "run_seed" : "0",
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "Instrument validation gate (section 5.1): human pass at 6/6, VLM pass at 6/6. Human leg: the rater prefers the lower-MAE side (p = 0.0000, n = 37). JND75 band -0.3451 to 0.0719 relative MAE margin, fitted on families C + M; the 3.0 percent bar is straddles-the-bar."
+    },
+    {
+      "aski_git_sha" : "1db0202c0e2b4cf848a47be747b967779184dbb8",
+      "command" : "AskiColorLab convention-ablation --columns 80 --oversample 2 --footprint 24 --cell-width 12 --cell-height 24 --stride 1 --charset blocks,standard,braille --query-polarity inverted --corpus docs/Research/Corpus/nasa-steerable-v1/assets,docs/Research/Corpus/nasa-occupancy-v1/assets --output-dir docs/Research/Results/2026-08-28-aski52-26-convention-ablation",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-08-28",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "geometry.csv",
+        "convention-delta.csv",
+        "ablation-ladder.csv",
+        "summary.md",
+        "direct-polarity/geometry.csv",
+        "direct-polarity/convention-delta.csv",
+        "direct-polarity/ablation-ladder.csv",
+        "direct-polarity/summary.md"
+      ],
+      "path" : "docs/Research/Results/2026-08-28-aski52-26-convention-ablation",
+      "provenance" : [
+        "Run in RELEASE configuration at the shipping regime: columns 80, oversample 2, converter defaults, exhaustive census (stride 1) over every cell of all 27 fixtures",
+        "aski_git_sha is the CLEAN COMMITTED tree the final run was made from, read from git rev-parse HEAD rather than typed. An earlier revision of this file carried a hand-typed SHA that resolved to nothing; never hand-type one",
+        "The census was re-run from that clean tree and reproduces the previously committed CSVs byte-for-byte, so no dirty-instrument caveat is needed: the formatting-only edits made between the first run and its commit provably did not move a number",
+        "SUPERSEDES an earlier run of the same instrument. A cross-model review found two defects, both confirmed against production source before any change: the query field was sampled in raw luma where production uses 1 minus luma (LogPolarKernel.baseInvertedLuma), and the square baseline rung rasterized text at 64pt where BuildStandardVectors uses 32pt into the same 64x64 canvas. A third (pool scanned in glyph-index order rather than ShapeMatching.findBestScored brightness-delta order) was also confirmed and fixed",
+        "Those defects invalidated the earlier run central claim; the attribution of the production gap to query support is RETRACTED in the research note",
+        "Two more defects were found in a third review pass: the two cell-aspect placement rungs used different rasterization paths and point sizes (GlyphRaster at a canvas-derived 24pt native vs GlyphCellRaster at an effective 20pt supersampled), confounding the placement delta with a 20 percent scale change; and the geometry census reported one native block size per fixture instead of the range. Both fixed; both placements now share GlyphCellRaster at one scale with a boundsCentred flag",
+        "That third fix dissolved most of a result this note had called counterintuitive and unexplained: rung rectSingleDisc on blocks falls from +12.64/+13.44 percent (direct) and +26.12/+15.26 percent (inverted) to +3.88/+3.92 and +0.78/-0.30. The convention-delta arm is byte-identical across that change, since the positionFaithful path was untouched",
+        "Instrument validated: ladder rung squareSingleDisc now reproduces production at MAE 0.66651 vs 0.66651 with 100.0 percent pick agreement on steerable blocks, 95.3 percent on occupancy. Before the fixes that agreement was 12.4 percent",
+        "Braille null control holds in all four polarity-by-corpus cells: rectSingleDisc and faithfulSingleDisc are the same vocabulary for braille and agree to the last digit",
+        "Query polarity is a measured FACTOR, not an assumed constant, because production shape term and its tone pre-filter disagree about which end of the source is ink. This directory is the production-matched inverted regime; direct-polarity/ holds the companion run",
+        "nasa-occupancy-v1 is committed as JPEG; it became reachable only because this change extends RealFixture.load past PNG. Its compression artifacts are part of the measurement",
+        "Gated on pick quality against the source cell, MAE-first (ASKI-27 house oracle). Descriptor-space distance is never a gate here",
+        "The scoring path (ink-high glyph raster vs raw source luma) shares its convention with the direct polarity, so direct is partly flattered by its own oracle. Stated as a caveat in the note rather than resolved",
+        "No defaults changed, no .bin regenerated, no frozen digest re-recorded: this unit measures only",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "run_seed" : "0",
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "Candidate-convention and sampling-support census over 27 NASA fixtures at both query polarities, superseding an earlier defective run. Corrected, ladder rung (i) reproduces production exactly (MAE 0.66651 vs 0.66651, 100.0 percent agreement), so the earlier claim that the query support carried the production gap is retracted - there is no gap. On the tasks themselves the answer is unfavourable: held at production own polarity the position-faithful vocabulary is inert to harmful (+0.04 percent blocks steerable, -1.26 percent occupancy, negative on standard everywhere), and the paper tiled construction is a small consistent win on text only (+1.93 / +0.68 percent), under the 3.0 percent bar in every cell. The largest effect belongs to neither task: production shape term inverts the query while its tone pre-filter, renderer and ink-high candidates all treat ink as bright, and flipping only that recovers 0.306 / 0.247 MAE on blocks and lifts SSIM from ~0.004 to 0.307 / 0.105. Second unexplained result: bounds-centring at true cell aspect beats position-faithful on blocks in all four cells. Tiled arms did not go degenerate (72 windows, 4320-D); the shipping 2x4 thumbnail cell carries ~3 of 60 live bins and diagram fixtures 0.33-0.69. Native block sizes are reported as min-max ranges (nasa-steerable-v1 is 38-39 x 76-77) because fractional scaling varies them cell to cell."
+    },
+    {
+      "aski_git_sha" : "009f249ad914717cd026a2594df58e5de9616fdb",
+      "command" : "AskiColorLab polarity-gate --columns 80 --oversample 2 --footprint 24 --cell-width 12 --cell-height 24 --charset blocks,standard,braille --polarity inverted,direct --corpus docs/Research/Corpus/nasa-steerable-v1/assets,docs/Research/Corpus/nasa-occupancy-v1/assets --render-arm --output-dir docs/Research/Results/2026-09-01-aski60-polarity-gate",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-09-01",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "polarity-gate.json",
+        "oracle-means.csv",
+        "summary.md",
+        "render-arm/render_nasa-steerable-v1_earth-limb-sunrise_inverted.png",
+        "render-arm/render_nasa-steerable-v1_earth-limb-sunrise_direct.png",
+        "render-arm/render_nasa-occupancy-v1_apollo11-bootprint_inverted.png",
+        "render-arm/render_nasa-occupancy-v1_apollo11-bootprint_direct.png",
+        "recheck-aski30-28/heldout-inverted.csv",
+        "recheck-aski30-28/heldout-direct.csv"
+      ],
+      "path" : "docs/Research/Results/2026-09-01-aski60-polarity-gate",
+      "provenance" : [
+        "Run in RELEASE configuration at the shipping regime: columns 80, oversample 2, converter defaults, exhaustive census over every cell of all 27 fixtures in the two photographic corpora",
+        "Both arms are driven through the REAL ASCIIConverter.convert via the RenderingOptions.shapeQueryPolarity SPI knob added in this unit. No lab sampler stands in for the matcher on either side: the picks scored are the picks the shipped matcher makes",
+        "The decision rule was pre-registered in the ASKI-60 design addendum BEFORE this run, including the four-way CANDIDATE/INCONCLUSIVE/KILL/INVALID split, and is encoded in PolarityGate.verdict with one unit test per branch. It fired KILL on a clause the blocks numbers alone would not have reached",
+        "Negative control ran on every scored pair, not a sample: both planes negated and re-scored. Max absolute GMSD delta 2.9e-07 and max absolute MAE delta 1.6e-08 over 453120 pairs, against a 1e-06 tolerance. GMSD is negation-invariant by construction (Prewitt kernels are zero-mean), so it cannot be flattered by the ink convention under test; the residual is float rounding in 1 minus x",
+        "MAE is the verdict oracle (ASKI-27 house oracle). GMSD is the convention-independent guard. SSIM and HaarPSI are reported and never decide: SSIM keeps a luminance term and is polarity-coupled by construction",
+        "Mechanism measured rather than assumed: the tone pre-filter prunes to topK = 12 + round(density*24) = 12 at default density, and ShapeMatching takes prefix(min(topK, count)). blocks carries 8 glyphs, so its pool admits every glyph and the shape distance ranks the whole set (brightness and index tie-breaks still apply on equal distances); standard (95) and braille (256) both bind at 12. The differing-pick shares track that exactly on standard (0.1 and 0.3 percent) but not on braille (4.1 and 19.5 percent), so the pre-filter explains standard's inertness and only part of braille's behavior",
+        "The scoring path is the ink-high glyph raster against raw source luma, shared byte-for-byte with convention-ablation through the extracted ConventionAblation.scoringRasters. That convention is the same one the direct arm uses, so direct is partly flattered by its own oracle. This is the reason GMSD is carried as a guard and the reason the negative control is mandatory, but it is a caveat the run does not dissolve",
+        "Instrument cross-check: on earth-limb-sunrise at this regime the inverted arm reproduces convention-ablation's production arm at MAE 0.83833 over the same 2880 cells",
+        "Render arm is an existence proof, not a second verdict: one fixture per corpus per polarity through the shipped ImageRenderer at blocks and 76 columns, white ink on black, resampled to the source geometry and scored on luma. Three of the four sign comparisons agree with the cell-wise census; the fourth is the occupancy GMSD cell, where the census margin was itself only +1.42 percent. The render is 548x539 and the sources are larger, so that resample is an UPSAMPLE of the render, not a downscale",
+        "No defaults changed, no .bin regenerated, no frozen digest re-recorded. shapeQueryPolarity ships default .inverted and the default conversion path is byte-identical",
+        "recheck-aski30-28/ holds the ASKI-60 AC#5 re-run of the ASKI-30/28 decisive battery, driven from that battery's own recorded command at both polarities through the new shared --shape-query-polarity option. The inverted arm reproduces the archived heldout-nasa-steerable-v1.csv exactly on all 226 rows and every data column (only wall-time and git SHA differ), which validates both the seam's inertness at its default and the archived battery's reproducibility from record",
+        "AC#5 outcome: neither archived verdict changes sign. ASKI-30's shape-free tone floor still beats the production matcher on blocks under direct (0.26391 against 0.32488) even though production recovers from 0.56329, so the parent note's untested fighting-terms hypothesis is confirmed as a mechanism and rejected as the explanation. ASKI-28's pool-width arms still miss the 0.97 bar under direct (standard 0.9840, braille 1.0000) and are marginally worse. The one clause that flips is ASKI-30's SSIM reversal, from minus 0.0002628 to plus 0.0001253, recorded and not promoted because SSIM's luminance term is polarity-coupled by construction",
+        "The re-run also widens the mechanism evidence to ten charsets and REFINES the claim: on the ten built-in charsets every charset that moved had a non-binding tone pool, and a non-binding pool was not enough on its own (an observation over ten charsets, not a proof of necessity). Only blocks (plus 42.32 percent), lines (plus 15.85) and mixed (plus 12.82) move; the other five non-binding charsets sit at an identical 0.24754 MAE under both polarities, a degeneracy this unit does not diagnose",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "run_seed" : "0",
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "Exhaustive polarity census over 27 NASA fixtures at the shipping regime, driving the real converter through the new shapeQueryPolarity knob. Verdict KILL, on the pre-registered collateral clause and not on the deciding charset. On blocks the direct query is a very large win - MAE 0.66651 to 0.35330 on steerable (+46.99 percent) and 0.65714 to 0.39564 on occupancy (+39.79 percent), with GMSD agreeing in sign in both cells (+36.38 and +1.42 percent) and 38.6 / 35.5 percent of picks moving. standard is inert to four decimal places in both corpora (-0.01 and -0.00 percent MAE, 0.1 and 0.3 percent of picks moving), which the pool measurement explains: blocks is the only charset whose glyph count sits under the pre-filter's topK of 12, so it is the only charset where the tone pre-filter excludes nothing and the shape distance ranks the whole set. braille is where the treatment fails - occupancy braille regresses -3.26 percent MAE and -17.50 percent GMSD, both oracles agreeing that braille gets worse, past the pre-registered 3.0 percent veto. The veto is cleared by 0.26 points, so the KILL is close, but the rule was frozen before the run and both oracles agree on the direction. Negative control holds at 2.9e-07 max absolute GMSD delta over 453120 pairs. No default changed."
+    },
+    {
+      "aski_git_sha" : "0eb5093",
+      "command" : "AskiColorLab selection-ceiling --charset <cs> --columns <76|80> --oversample <2|2,4,8,16,32> --corpus <nasa-steerable-v1|nasa-structure-v1>/assets --output <csv>  (five invocations per side, identical flags; before/ built at 64a8f98, after/ at 0eb5093 whose code is 0ded424 = main with ASKI-65 merged)",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-09-02",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "before/frozen-steer.csv",
+        "before/frozen-struct.csv",
+        "before/sweep-steer.csv",
+        "before/default-struct.csv",
+        "before/braille-steer.csv",
+        "before/frozen-steer.txt",
+        "before/frozen-struct.txt",
+        "before/sweep-steer.txt",
+        "before/default-struct.txt",
+        "before/braille-steer.txt",
+        "after/frozen-steer.csv",
+        "after/frozen-struct.csv",
+        "after/sweep-steer.csv",
+        "after/default-struct.csv",
+        "after/braille-steer.csv",
+        "after/frozen-steer.txt",
+        "after/frozen-struct.txt",
+        "after/sweep-steer.txt",
+        "after/default-struct.txt",
+        "after/braille-steer.txt"
+      ],
+      "path" : "docs/Research/Results/2026-09-02-aski-31-lattice-no-harm",
+      "provenance" : [
+        "Reading rule frozen in docs/Research/2026-09-02-aski-31-lattice-no-harm.md section 2, committed at 0eb5093 before any number was read",
+        "before/: worktree detached at 64a8f98, the last pre-change revision before ASKI-65; release build",
+        "after/: worktree on branch aski-31 at 0eb5093 (docs-only on top of main 0ded424); release build",
+        "Instrument diff across the boundary (Tools/AskiColorLab/SamplingLattice) is comment-only; both sides score against the native block the converter's own SamplingGeometry read",
+        "Release build (.build/release), macOS, owner hardware; the gitSHA column of each CSV records the side",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-31 no-harm census across the ASKI-65 lattice boundary. Production-arm MAE on the frozen preset (blocks, 76 columns, oversample 2) moves by x1.0016 on nasa-steerable-v1 and x1.0085 on nasa-structure-v1, both inside the pre-registered 1.01 guard; GMSD agrees in direction (x1.0041, x1.0070). Dense charsets improve ~1.1% at oversample 2 and converge to parity by oversample 16. Verdict: docs/Research/2026-09-02-aski-31-lattice-no-harm.md."
+    },
+    {
+      "aski_git_sha" : "7f2f73c0d9fc60520a3e9f0fc68425bdbaa8dbe6",
+      "command" : "swift run -c release AskiColorLab steerable-metric-replay --phase export --output-dir <dir> --aski-git-sha 7f2f73c0d9fc60520a3e9f0fc68425bdbaa8dbe6; uv run --python 3.12 --with numpy --with torch --with torchvision Scripts/research/score-milo.py --pairs <dir>/milo-pairs.bin --index <dir>/milo-index.csv --milo-root <pinned-MILO> --output <dir>/milo-sums.csv; swift run -c release AskiColorLab steerable-metric-replay --phase finalize --output-dir <dir>",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1/assets"
+      ],
+      "date" : "2026-09-04",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "comparison.csv",
+        "metric-sums.csv",
+        "milo-sums.csv",
+        "milo-provenance.csv",
+        "metric-verdicts.csv",
+        "panel-verdicts.csv",
+        "regimes.csv",
+        "parity.csv",
+        "run-metadata.csv",
+        "summary.md"
+      ],
+      "path" : "docs/Research/Results/2026-09-04-aski29-50-steerable-metric-replay",
+      "provenance" : [
+        "AskiColorLab steerable-metric-replay",
+        "MILO 4f5b6fc641cae1a8aeaa8c4f04296dcad388b867",
+        "External Apache-2.0 MILO implementation and weights pinned to commit 4f5b6fc641cae1a8aeaa8c4f04296dcad388b867; runner SHA-256 9e7185f2b4dc1c856b9907c5b08b85300da1f1b9b47c26b99ec779d7c416870a; weights SHA-256 a1d66a7e0ebe0f839564ad70160ffdec709708f0b9a7dd03b19c0bee90d31f79. The external model and temporary pair stream are replay dependencies not included in this repository.",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-29/50 exact-lattice replay: shipping-os2 HELD; historical-support HELD."
+    },
+    {
+      "aski_git_sha" : "ef1c08e3e6581c313266a4368a36b5739ab89593",
+      "command" : "BuildStandardVectors --audit --output-dir docs/Research/Results/2026-09-04-aski51-core-text-drift-audit",
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "glyph-drift.csv",
+        "set-summary.csv",
+        "summary.md"
+      ],
+      "path" : "docs/Research/Results/2026-09-04-aski51-core-text-drift-audit",
+      "provenance" : [
+        "Read-only Core Text drift audit on Version 26.6.2 (Build 25G83)",
+        "Xcode 26.5; Build version 17F42",
+        "swift-driver version: 1.148.6 Apple Swift version 6.3.2 (swiftlang-6.3.2.1.108 clang-2100.1.1.101); Target: arm64-apple-macosx26.0",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "BuildStandardVectors",
+      "schema_version" : "1",
+      "summary" : "ASKI-51 measured all selected committed v3 ShapeData binaries against fresh in-memory generation. Result: NO_TRIGGER; max component delta 0; sort change no."
+    },
+    {
+      "aski_git_sha" : "27e249254a931850627c79b8b079470b7a79f82b",
+      "command" : "AskiColorLab isoluminant-dose-calibration --output-dir docs/Research/Results/2026-09-04-aski66-dose-calibration --aski-git-sha 27e249254a931850627c79b8b079470b7a79f82b",
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-04",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "dose-calibration.csv",
+        "summary.md"
+      ],
+      "path" : "docs/Research/Results/2026-09-04-aski66-dose-calibration",
+      "provenance" : [
+        "Pre-registered exact-lattice ASKI-66 calibration; one bounded search; no post-result retune",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-66 ran the pre-registered 64-candidate exact-lattice calibration once and returned INCONCLUSIVE. No production default changed."
+    },
+    {
+      "aski_git_sha" : "78cd3d4441e23de7608efa0b8644123ec0c83741",
+      "command" : "xcrun swift run -c release AskiColorLab render-matcher-challenge --output-dir docs/Research/Results/2026-09-04-aski69-render-matcher-challenge --aski-git-sha 78cd3d4441e23de7608efa0b8644123ec0c83741",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-steerable-v1"
+      ],
+      "date" : "2026-09-04",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "matcher-census.csv",
+        "examples.txt",
+        "summary.md"
+      ],
+      "path" : "docs/Research/Results/2026-09-04-aski69-render-matcher-challenge",
+      "provenance" : [
+        "Frozen rule: docs/Research/2026-09-04-aski69-render-space-matcher-rule.md; committed before this command ran",
+        "Release build; exact converter sampling lattice; exhaustive stride 1 census",
+        "Metric examples are not human or VLM votes",
+        "Historical Aski source revision recorded at run time; this identifier is not a commit in this repository's fresh public history."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-69 frozen render-space matcher challenge. Verdict: KILL."
+    }
+  ]
+}

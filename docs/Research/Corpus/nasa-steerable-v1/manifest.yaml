@@ -1,0 +1,9 @@
+---
+name: nasa-steerable-v1
+summary: NASA imagery (>=3072px) stratified for ASTSK-42 steerable oriented-energy channel naturals characterization
+license: LicenseRef-NASA-Media-PD
+source: images.nasa.gov
+tags: [nasa, steerable, shape-residual, oracle, corpus]
+created: 2026-06-27
+asset_count: 3
+---

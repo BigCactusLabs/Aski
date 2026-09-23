@@ -1,0 +1,9 @@
+---
+name: nasa-isoluminant-v1
+summary: NASA imagery stratified for ASTSK-37 chromaShapeAssist real-corpus validation
+license: LicenseRef-NASA-Media-PD
+source: images.nasa.gov
+tags: [nasa, isoluminant, color, corpus]
+created: 2026-06-11
+asset_count: 8
+---

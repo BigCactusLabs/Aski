@@ -1,0 +1,9 @@
+---
+name: nasa-occupancy-v1
+summary: NASA imagery stratified for ASTSK-7 occupancy-aware glyph matching characterization
+license: LicenseRef-NASA-Media-PD
+source: images.nasa.gov
+tags: [nasa, occupancy, glyph-matching, corpus]
+created: 2026-06-12
+asset_count: 24
+---
