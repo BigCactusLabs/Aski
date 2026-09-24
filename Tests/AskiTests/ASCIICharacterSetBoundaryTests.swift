@@ -8,20 +8,20 @@ import simd
 /// after the converter accepts a complete per-glyph parallel-array layout.
 @Suite struct ASCIICharacterSetBoundaryTests {
     #if !SWT_NO_EXIT_TESTS
-        @Test func eachMalformedParallelArrayFailsAtTheConverterBoundary() async {
-            await #expect(processExitsWith: .failure) {
+        @Test(arguments: [
+            (0, 1, StandardCharacterSet.lanesPerCharacter),
+            (1, 0, StandardCharacterSet.lanesPerCharacter),
+            (1, 1, 0),
+        ])
+        func eachMalformedParallelArrayFailsAtTheConverterBoundary(
+            brightnessCount: Int, densityCount: Int, laneCount: Int
+        ) async {
+            await #expect(processExitsWith: .failure) { [brightnessCount, densityCount, laneCount] in
                 _ = ASCIIConverter(
-                    characterSet: MalformedCharacterSet(brightnessValues: []),
-                    palette: BuiltInPalette.fullColor)
-            }
-            await #expect(processExitsWith: .failure) {
-                _ = ASCIIConverter(
-                    characterSet: MalformedCharacterSet(rawDensityValues: []),
-                    palette: BuiltInPalette.fullColor)
-            }
-            await #expect(processExitsWith: .failure) {
-                _ = ASCIIConverter(
-                    characterSet: MalformedCharacterSet(shapeVectorLanes: []),
+                    characterSet: MalformedCharacterSet(
+                        brightnessValues: Array(repeating: 0, count: brightnessCount),
+                        rawDensityValues: Array(repeating: 0, count: densityCount),
+                        shapeVectorLanes: Array(repeating: .zero, count: laneCount)),
                     palette: BuiltInPalette.fullColor)
             }
         }

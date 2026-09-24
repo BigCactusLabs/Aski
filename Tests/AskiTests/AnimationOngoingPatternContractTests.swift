@@ -19,184 +19,75 @@ import Testing
 
     #if !SWT_NO_EXIT_TESTS
 
+        // Swift 6.3 exit-test capture uses Codable across processes. Capture
+        // integer bit patterns so NaN/infinity also work on runtimes whose JSON
+        // encoder rejects non-finite floats (swiftlang/swift-testing#1836).
+        // Labels keep parameterized failures readable; only bits are captured.
+        private static let invalidPatternValues: [(String, UInt64)] = [
+            ("zero", Double(0).bitPattern),
+            ("negative", Double(-1).bitPattern),
+            ("nan", Double.nan.bitPattern),
+            ("infinity", Double.infinity.bitPattern),
+        ]
+
         // The animate + grid(at:) path: rejection lands in AnimationOptions.init,
         // before any conversion work, the same place `duration` is checked.
-        @Test func animationOptionsRejectsPeriodZero() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .pulse(period: 0, depth: 1))
+        @Test(arguments: invalidPatternValues)
+        func animationOptionsRejectsInvalidPeriod(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
+                _ = AnimationOptions(duration: 1, ongoing: .pulse(period: value, depth: 1))
             }
         }
 
-        @Test func animationOptionsRejectsPeriodNegative() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .pulse(period: -1, depth: 1))
-            }
-        }
-
-        @Test func animationOptionsRejectsPeriodNaN() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .pulse(period: .nan, depth: 1))
-            }
-        }
-
-        @Test func animationOptionsRejectsPeriodInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .pulse(period: .infinity, depth: 1))
-            }
-        }
-
-        @Test func animationOptionsRejectsFrequencyZero() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .wave(amplitude: 0.5, frequency: 0, direction: .horizontal))
-            }
-        }
-
-        @Test func animationOptionsRejectsFrequencyNegative() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .wave(amplitude: 0.5, frequency: -1, direction: .horizontal))
-            }
-        }
-
-        @Test func animationOptionsRejectsFrequencyNaN() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .wave(amplitude: 0.5, frequency: .nan, direction: .horizontal))
-            }
-        }
-
-        @Test func animationOptionsRejectsFrequencyInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                _ = AnimationOptions(duration: 1, ongoing: .wave(amplitude: 0.5, frequency: .infinity, direction: .horizontal))
+        @Test(arguments: invalidPatternValues)
+        func animationOptionsRejectsInvalidFrequency(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
+                _ = AnimationOptions(duration: 1, ongoing: .wave(amplitude: 0.5, frequency: value, direction: .horizontal))
             }
         }
 
         // ASCIIGrid.applyingOngoingPattern, the direct public overlay entry point.
-        @Test func applyingOngoingPatternRejectsPeriodZero() async {
-            await #expect(processExitsWith: .failure) {
+        @Test(arguments: invalidPatternValues)
+        func applyingOngoingPatternRejectsInvalidPeriod(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
                 let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
                 let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.pulse(period: 0, depth: 1), at: 0.25)
+                _ = grid.applyingOngoingPattern(.pulse(period: value, depth: 1), at: 0.25)
             }
         }
 
-        @Test func applyingOngoingPatternRejectsPeriodNegative() async {
-            await #expect(processExitsWith: .failure) {
+        @Test(arguments: invalidPatternValues)
+        func applyingOngoingPatternRejectsInvalidFrequency(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
                 let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
                 let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.pulse(period: -1, depth: 1), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsPeriodNaN() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.pulse(period: .nan, depth: 1), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsPeriodInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.pulse(period: .infinity, depth: 1), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsFrequencyZero() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.wave(amplitude: 0.5, frequency: 0, direction: .horizontal), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsFrequencyNegative() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.wave(amplitude: 0.5, frequency: -1, direction: .horizontal), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsFrequencyNaN() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.wave(amplitude: 0.5, frequency: .nan, direction: .horizontal), at: 0.25)
-            }
-        }
-
-        @Test func applyingOngoingPatternRejectsFrequencyInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = grid.applyingOngoingPattern(.wave(amplitude: 0.5, frequency: .infinity, direction: .horizontal), at: 0.25)
+                _ = grid.applyingOngoingPattern(.wave(amplitude: 0.5, frequency: value, direction: .horizontal), at: 0.25)
             }
         }
 
         // ASCIIVideoFrame.applyingOngoingPattern, the per-frame entry `convertVideo`
         // and the labs' render drivers call once per decoded frame.
-        @Test func videoFrameRejectsPeriodZero() async {
-            await #expect(processExitsWith: .failure) {
+        @Test(arguments: invalidPatternValues)
+        func videoFrameRejectsInvalidPeriod(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
                 let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
                 let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.pulse(period: 0, depth: 1))
+                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.pulse(period: value, depth: 1))
             }
         }
 
-        @Test func videoFrameRejectsPeriodNegative() async {
-            await #expect(processExitsWith: .failure) {
+        @Test(arguments: invalidPatternValues)
+        func videoFrameRejectsInvalidFrequency(_ label: String, bits: UInt64) async {
+            await #expect(processExitsWith: .failure) { [bits] in
+                let value = Double(bitPattern: bits)
                 let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
                 let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.pulse(period: -1, depth: 1))
-            }
-        }
-
-        @Test func videoFrameRejectsPeriodNaN() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.pulse(period: .nan, depth: 1))
-            }
-        }
-
-        @Test func videoFrameRejectsPeriodInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.pulse(period: .infinity, depth: 1))
-            }
-        }
-
-        @Test func videoFrameRejectsFrequencyZero() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.wave(amplitude: 0.5, frequency: 0, direction: .horizontal))
-            }
-        }
-
-        @Test func videoFrameRejectsFrequencyNegative() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.wave(amplitude: 0.5, frequency: -1, direction: .horizontal))
-            }
-        }
-
-        @Test func videoFrameRejectsFrequencyNaN() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.wave(amplitude: 0.5, frequency: .nan, direction: .horizontal))
-            }
-        }
-
-        @Test func videoFrameRejectsFrequencyInfinite() async {
-            await #expect(processExitsWith: .failure) {
-                let cell = ASCIICell(character: "A", displayColor: .one, alpha: 1, brightness: 0.5, coverage: 1)
-                let grid = ASCIIGrid(cells: [[cell, cell]], colorSpace: .sRGB)
-                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.wave(amplitude: 0.5, frequency: .infinity, direction: .horizontal))
+                _ = ASCIIVideoFrame(grid: grid, time: .zero).applyingOngoingPattern(.wave(amplitude: 0.5, frequency: value, direction: .horizontal))
             }
         }
 
