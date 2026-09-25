@@ -1,4 +1,4 @@
-.PHONY: check check-fast format-check test test-without-video-deadlock test-video-deadlock test-fast test-snapshots test-media test-research test-artifacts docc research-check lifecycle-check bench regen-kernels regen-vectors audit-vectors regen-repo-map repo-map-check doctor release-preflight
+.PHONY: test-infra check check-fast format-check test test-without-video-deadlock test-video-deadlock test-fast test-snapshots test-media test-research test-artifacts docc research-check lifecycle-check bench regen-kernels regen-vectors audit-vectors regen-repo-map repo-map-check doctor release-preflight
 
 check:
 	just check
@@ -65,3 +65,6 @@ doctor:
 
 release-preflight:
 	just release-preflight
+
+test-infra:
+	just test-infra

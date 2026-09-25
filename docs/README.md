@@ -20,8 +20,10 @@ navigation hub; the [project README](../README.md) is the front door.
 The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) is the API documentation source.
 On GitHub, its symbol links appear in source form; `just docc` validates the resolved
 catalog locally. `./Scripts/validate-docc.sh --emit-markdown` additionally emits optional
-Markdown sidecars and a manifest under `/tmp/aski-docc-markdown`. Release notes describe
-which documentation assets are intended for a release; do not assume a hosted API site.
+Markdown sidecars and a manifest in a unique, retained directory printed by the script.
+For packaging, pass `--output-dir` with a new directory; see the
+[output-path migration](../CONTRIBUTING.md#pull-requests-and-releases). Release notes
+describe intended assets; do not assume a hosted API site.
 
 ## Understand or contribute
 
@@ -74,4 +76,6 @@ in the current checkout. Their notes and retained artifacts document what can be
 
 `just --list` is the canonical build/test/docs/release task inventory. `make <target>`
 forwards to `just` and still requires it. Gates are local; this repository has no hosted
-CI workflow. See [verification](../CONTRIBUTING.md#verification) before submitting a PR.
+CI workflow. `just test-infra` separately exercises the shell infrastructure with fake
+Apple tools and Python 3's standard library, without a Swift build. See
+[verification](../CONTRIBUTING.md#verification) before submitting a PR.

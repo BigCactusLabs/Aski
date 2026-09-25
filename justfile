@@ -81,3 +81,8 @@ doctor *args:
 
 release-preflight *args:
     ./Scripts/repo-doctor.sh {{ args }}
+
+# Portable script regression tests (Python 3 standard library; fake Apple tools).
+# Separate from the unchanged, macOS-only acceptance gate.
+test-infra:
+    python3 -B -m unittest discover -s Scripts/tests -p 'test_*.py' -v
