@@ -84,7 +84,9 @@ Overlapping DocC runs or Metal checks in the same checkout fail explicitly inste
 racing over shared state. Separate worktrees have separate locks. After a forced kill,
 verify no process is active before removing the named lock under `.build`; do not run
 `swift package clean` or regenerate kernels concurrently with these checks. Ordinary
-interruptions restore the Metal backup; SIGKILL and machine failure cannot be trapped.
+interruptions stop the Metal regeneration process group before restoring the backup,
+including when a supervisor signals only the doctor process. SIGKILL and machine
+failure cannot be trapped.
 
 Snapshot changes need an explanation, not just new golden files. On the frozen preset,
 changes that move goldens must include the before/after selection-ceiling MAE and GMSD

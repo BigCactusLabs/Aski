@@ -67,6 +67,21 @@ SCRATCH="$(mktemp -d "${TMPDIR:-/tmp}/aski-doctor.XXXXXX")" || exit 1
 METALLIB_BACKUP=""
 METALLIB_PATH=""
 METALLIB_LOCK=""
+METALLIB_PID=""
+
+interrupt_check() {
+    local status="$1"
+    trap '' INT TERM HUP
+    if [ -n "$METALLIB_PID" ]; then
+        # Stop the whole regeneration group before restoring its output. A
+        # supervisor may signal only this script, not its compiler children.
+        kill -TERM -- "-$METALLIB_PID" 2>/dev/null || true
+        wait "$METALLIB_PID" 2>/dev/null
+        while kill -0 -- "-$METALLIB_PID" 2>/dev/null; do sleep 0.1; done
+        METALLIB_PID=""
+    fi
+    exit "$status"
+}
 
 restore_metallib() {
     if [ -n "$METALLIB_BACKUP" ]; then
@@ -93,9 +108,9 @@ cleanup() {
     exit "$status"
 }
 trap cleanup EXIT
-trap 'exit 130' INT
-trap 'exit 143' TERM
-trap 'exit 129' HUP
+trap 'interrupt_check 130' INT
+trap 'interrupt_check 143' TERM
+trap 'interrupt_check 129' HUP
 
 if [ "${#SELECTED_CHECKS[@]}" -gt 0 ]; then
     CHECKS=("${SELECTED_CHECKS[@]}")
@@ -283,11 +298,19 @@ check_metallib() {
     fi
     METALLIB_BACKUP="$before"
     METALLIB_PATH="$metallib"
+    # Job control gives this background job its own process group. Waiting on
+    # a background job lets Bash handle signals immediately rather than defer
+    # traps until a foreground regeneration command finishes.
+    set -m
     (
         cd "$ROOT" || exit 1
-        xcrun swift run BuildKernelLibrary
-    ) >"$SCRATCH/kernel-regen.log" 2>&1
+        exec xcrun swift run BuildKernelLibrary
+    ) >"$SCRATCH/kernel-regen.log" 2>&1 &
+    METALLIB_PID=$!
+    set +m
+    wait "$METALLIB_PID"
     status=$?
+    METALLIB_PID=""
     if [ "$status" -ne 0 ]; then
         restore_metallib || { record_failure "metallib restoration failed"; return; }
         record_failure "BuildKernelLibrary failed"

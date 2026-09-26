@@ -38,6 +38,15 @@ case "$*" in
         if [ "${MOCK_KERNEL:-same}" != same ]; then
             printf 'regenerated' > Sources/Aski/Resources/Kernels/default.metallib
         fi
+        if [ -n "${MOCK_KERNEL_CHILD_READY:-}" ]; then
+            bash -c '
+                trap '\''sleep 0.1; printf shutdown-write > Sources/Aski/Resources/Kernels/default.metallib; printf stopped > "$MOCK_KERNEL_CHILD_STOPPED"; exit 0'\'' TERM
+                touch "$MOCK_KERNEL_CHILD_READY"
+                while [ ! -f "$MOCK_RELEASE" ]; do sleep 0.02; done
+                printf late-write > Sources/Aski/Resources/Kernels/default.metallib
+            ' &
+            wait "$!"
+        fi
         if [ -n "${MOCK_READY:-}" ]; then
             touch "$MOCK_READY"
             while [ ! -f "$MOCK_RELEASE" ]; do sleep 0.02; done
@@ -270,6 +279,29 @@ class InfraTests(unittest.TestCase):
         self.assertEqual((self.repo / "Sources/Aski/Resources/Kernels/default.metallib").read_text(), "original")
         self.assertFalse((self.repo / ".build/aski-metallib-check.lock").exists())
         self.assert_clean_tmp()
+
+    def test_metallib_parent_termination_stops_child_before_restoration(self):
+        for termination in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
+            with self.subTest(termination=termination):
+                ready = self.home / f"child-ready-{termination}"
+                stopped = self.home / f"child-stopped-{termination}"
+                release = self.home / f"release-{termination}"
+                process = self.spawn("repo-doctor.sh", "--check", "metallib", MOCK_KERNEL="changed",
+                                     MOCK_KERNEL_CHILD_READY=str(ready), MOCK_KERNEL_CHILD_STOPPED=str(stopped),
+                                     MOCK_RELEASE=str(release))
+                self.wait_for(ready, process)
+                process.send_signal(termination)
+                try:
+                    output = process.communicate(timeout=3)[0]
+                except subprocess.TimeoutExpired:
+                    release.touch()
+                    process.communicate(timeout=10)
+                    self.fail("parent-only signal did not stop Metal regeneration")
+                self.assertEqual(process.returncode, 128 + termination, output)
+                self.assertEqual(stopped.read_text(), "stopped")
+                self.assertEqual((self.repo / "Sources/Aski/Resources/Kernels/default.metallib").read_text(), "original")
+                self.assertFalse((self.repo / ".build/aski-metallib-check.lock").exists())
+                self.assert_clean_tmp()
 
     def test_docc_cold_and_warm_cache_validate_live_catalog(self):
         self.docc(cwd=self.home)
