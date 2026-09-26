@@ -3,10 +3,10 @@ id: ASKI-67
 title: >-
   Collapse literal exit-test bodies into parameterized tests now that Swift 6.3
   exit tests capture values
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-09-03 03:32'
-updated_date: '2026-09-10 04:38'
+updated_date: '2026-09-26 19:49'
 labels:
   - testing
   - cleanup
@@ -43,4 +43,6 @@ Swift 6.3 (swift-testing PR 1165) lets #expect(processExitsWith:) bodies capture
 **First step:** Make a read-only inventory table from the seven files, mark parameterizable versus unique side-effect/guard cases, and only then collapse duplicated `@Test` bodies.
 
 Source map: `Tests/AskiTests/ASCIICharacterSetBoundaryTests.swift`, `Tests/AskiTests/AnimationExtremeValueTests.swift`, `Tests/AskiTests/AnimationOngoingPatternContractTests.swift`, `Sources/Aski/Animation/OngoingPattern.swift`, `Sources/Aski/Video/ASCIIVideoConverter.swift`, `Sources/Aski/Animation/AnimatedASCIIGrid.swift`.
+
+Landed via PR #4 (merge 77a107a, 2026-09-26). The seven suites held 43 trap cases, not ~59; all 43 are kept. 31 cases were parameterized into nine families and 12 stay standalone, reducing 43 exit-test sites to 21. Non-finite Doubles are captured as UInt64 bit patterns. just check passed on the PR head against base 2ced51c.
 <!-- SECTION:NOTES:END -->
