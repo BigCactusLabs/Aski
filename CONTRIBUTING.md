@@ -61,6 +61,7 @@ From the repository root:
 ```bash
 just check-fast       # inner loop; not the full acceptance gate
 just test-artifacts   # command/docs links, registries, and artifact checks
+just test-infra       # portable shell regression tests; Python 3, no Xcode required
 just docc             # public symbol links; warnings are errors
 just check            # full gate before submitting a PR
 ```
@@ -70,6 +71,22 @@ media tests, isolated deadlock sentinels, and DocC validation. Preserve its fail
 ordering and build reuse. **There is no hosted CI workflow:** include the actual local
 results in your PR, together with the toolchain. Explicitly name checks you could not
 run; a documentation review is not a passing Swift build or a render-quality result.
+
+`just test-infra` uses Python 3's standard library, Bash, and Git with disposable
+repositories and fake Apple tools. It tests diagnostic failure paths, temporary-file
+isolation, interrupted Metal restoration, and DocC cache/output handling. It does not
+build Swift, validate real DocC symbol links, or replace `just check`; run both when
+changing these scripts. The full gate remains unchanged and does not require Python.
+
+The doctor and DocC script resolve their checkout from their own location. Temporary
+logs and validation archives are private to each invocation and cleaned on exit.
+Overlapping DocC runs or Metal checks in the same checkout fail explicitly instead of
+racing over shared state. Separate worktrees have separate locks. After a forced kill,
+verify no process is active before removing the named lock under `.build`; do not run
+`swift package clean` or regenerate kernels concurrently with these checks. Ordinary
+interruptions stop the Metal regeneration process group before restoring the backup,
+including when a supervisor signals only the doctor process. SIGKILL and machine
+failure cannot be trapped.
 
 Snapshot changes need an explanation, not just new golden files. On the frozen preset,
 changes that move goldens must include the before/after selection-ceiling MAE and GMSD
@@ -150,10 +167,19 @@ just release-preflight
 ./Scripts/validate-docc.sh --emit-markdown
 ```
 
-The last command emits optional DocC Markdown sidecars and a manifest under
-`/tmp/aski-docc-markdown`; it does not itself publish a release. Check the release's
-notes for packaging and asset expectations. Do not describe checks from an earlier
-commit as verification of a later one.
+The last command emits optional DocC Markdown sidecars and a manifest in a unique
+directory printed as `DocC Markdown output: ...`. Successful exports are retained;
+subsequent validation runs do not delete them. For a predictable packaging location,
+use `./Scripts/validate-docc.sh --emit-markdown --output-dir .build/release-markdown`.
+The directory must not already exist, its parent must exist, and relative paths are
+resolved from the caller's working directory. Failed exports remove only the output
+directory created by that invocation. Delete successful exports when no longer needed.
+
+**Output-path migration:** current checkouts no longer write to the shared
+`/tmp/aski-docc-markdown` location described in the historical v0.7.0 release notes.
+Update packaging scripts to pass `--output-dir` or consume the printed path. These
+commands do not publish a release. Check the release's notes for packaging and asset
+expectations; never describe an earlier commit's checks as verification of a later one.
 
 The public release history begins at v0.7.0. Earlier tags, PR numbers, and commit SHAs
 in retained notes refer to private development and are not available in this history.

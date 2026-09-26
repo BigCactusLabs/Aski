@@ -35,7 +35,7 @@
 
 ## Contributing and research
 
-- [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification, docs standards, and release hygiene. No hosted CI workflow is supplied.
+- [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification (including portable just test-infra), isolated DocC exports and output-path migration, docs standards, and release hygiene. No hosted CI workflow is supplied.
 - [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
 - [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.
 - [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Questions, protocols, evidence, negative results, and retractions. Historical private SHAs are not public replay guarantees.

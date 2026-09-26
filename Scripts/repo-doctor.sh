@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o pipefail
 
-ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 1
 WORKFLOW_DIR="$ROOT/.github/workflows"
 # The Swift minimum comes from the manifest's swift-tools-version; no Xcode version is pinned.
 ASKI_REQUIRED_SWIFT_VERSION="${ASKI_REQUIRED_SWIFT_VERSION:-$(sed -n 's|^// swift-tools-version: *\([0-9][0-9]*\.[0-9][0-9]*\(\.[0-9][0-9]*\)\{0,1\}\).*|\1|p' "$ROOT/Package.swift" 2>/dev/null | head -n 1)}"
@@ -53,6 +53,64 @@ while [ "$#" -gt 0 ]; do
             ;;
     esac
 done
+
+# Validate both lists before any expensive or mutating check runs. A misspelled
+# --skip must not silently turn a requested partial check into a full preflight.
+for name in "${SELECTED_CHECKS[@]}" "${SKIPPED_CHECKS[@]}"; do
+    case "$name" in
+        toolchain|package-resolved|swift-format|research-index|repo-map|docc|metallib|workflow-refs|dirty) ;;
+        *) echo "repo-doctor: unknown check '$name'" >&2; exit 64 ;;
+    esac
+done
+
+SCRATCH="$(mktemp -d "${TMPDIR:-/tmp}/aski-doctor.XXXXXX")" || exit 1
+METALLIB_BACKUP=""
+METALLIB_PATH=""
+METALLIB_LOCK=""
+METALLIB_PID=""
+
+interrupt_check() {
+    local status="$1"
+    trap '' INT TERM HUP
+    if [ -n "$METALLIB_PID" ]; then
+        # Stop the whole regeneration group before restoring its output. A
+        # supervisor may signal only this script, not its compiler children.
+        kill -TERM -- "-$METALLIB_PID" 2>/dev/null || true
+        wait "$METALLIB_PID" 2>/dev/null
+        while kill -0 -- "-$METALLIB_PID" 2>/dev/null; do sleep 0.1; done
+        METALLIB_PID=""
+    fi
+    exit "$status"
+}
+
+restore_metallib() {
+    if [ -n "$METALLIB_BACKUP" ]; then
+        if ! cp "$METALLIB_BACKUP" "$METALLIB_PATH"; then
+            echo "repo-doctor: could not restore metallib; backup retained at $METALLIB_BACKUP" >&2
+            return 1
+        fi
+        METALLIB_BACKUP=""
+    fi
+    if [ -n "$METALLIB_LOCK" ]; then
+        rmdir "$METALLIB_LOCK" || return 1
+        METALLIB_LOCK=""
+    fi
+}
+
+cleanup() {
+    local status=$?
+    trap - EXIT
+    if restore_metallib; then
+        rm -rf "$SCRATCH"
+    else
+        status=1
+    fi
+    exit "$status"
+}
+trap cleanup EXIT
+trap 'interrupt_check 130' INT
+trap 'interrupt_check 143' TERM
+trap 'interrupt_check 129' HUP
 
 if [ "${#SELECTED_CHECKS[@]}" -gt 0 ]; then
     CHECKS=("${SELECTED_CHECKS[@]}")
@@ -128,7 +186,7 @@ check_toolchain() {
 
 check_swift_format() {
     local log
-    log="$(mktemp "${TMPDIR:-/tmp}/aski-swift-format.XXXXXX")"
+    log="$SCRATCH/swift-format.log"
     if (cd "$ROOT" && ./Scripts/swift-format-check.sh) >"$log" 2>&1; then
         rm -f "$log"
         record_pass "swift-format full-tree lint passes"
@@ -147,17 +205,17 @@ check_package_resolved() {
     (
         cd "$ROOT" || exit 1
         xcrun swift package resolve
-    ) >/tmp/aski-package-resolve.log 2>&1
+    ) >"$SCRATCH/package-resolve.log" 2>&1
     local status=$?
     if [ "$status" -ne 0 ]; then
         record_failure "xcrun swift package resolve failed"
-        tail -40 /tmp/aski-package-resolve.log >&2
-        rm -f /tmp/aski-package-resolve.log
+        tail -40 "$SCRATCH/package-resolve.log" >&2
+        rm -f "$SCRATCH/package-resolve.log"
         return
     fi
-    rm -f /tmp/aski-package-resolve.log
+    rm -f "$SCRATCH/package-resolve.log"
 
-    if git -C "$ROOT" diff --quiet -- Package.resolved; then
+    if git -C "$ROOT" diff --quiet HEAD -- Package.resolved; then
         record_pass "Package.resolved is consistent"
     else
         record_failure "Package.resolved changed after swift package resolve; commit the lockfile update"
@@ -166,7 +224,7 @@ check_package_resolved() {
 
 check_research_index() {
     local log
-    log="$(mktemp "${TMPDIR:-/tmp}/aski-research-index.XXXXXX")"
+    log="$SCRATCH/research-index.log"
     if (cd "$ROOT" && xcrun swift run BuildResearchIndex --check) >"$log" 2>&1; then
         rm -f "$log"
         record_pass "research index is current"
@@ -179,7 +237,7 @@ check_research_index() {
 
 check_repo_map() {
     local log
-    log="$(mktemp "${TMPDIR:-/tmp}/aski-repo-map.XXXXXX")"
+    log="$SCRATCH/repo-map.log"
     if (cd "$ROOT" && xcrun swift run BuildRepoMap --check) >"$log" 2>&1; then
         rm -f "$log"
         record_pass "repo map is current"
@@ -192,7 +250,7 @@ check_repo_map() {
 
 check_docc() {
     local log
-    log="$(mktemp "${TMPDIR:-/tmp}/aski-docc.XXXXXX")"
+    log="$SCRATCH/docc.log"
     if (cd "$ROOT" && ./Scripts/validate-docc.sh) >"$log" 2>&1; then
         rm -f "$log"
         record_pass "DocC validation passes"
@@ -206,7 +264,7 @@ check_docc() {
 check_metallib() {
     local metallib before status metal_path metallib_path
     metallib="$ROOT/Sources/Aski/Resources/Kernels/default.metallib"
-    before="$(mktemp "${TMPDIR:-/tmp}/aski-default-metallib.XXXXXX")"
+    before="$SCRATCH/default.metallib"
     if [ ! -f "$metallib" ]; then
         rm -f "$before"
         record_failure "checked-in metallib is missing: $metallib"
@@ -227,27 +285,47 @@ check_metallib() {
     printf 'INFO metal: %s\n' "$metal_path"
     printf 'INFO metallib: %s\n' "$metallib_path"
 
-    cp "$metallib" "$before"
-    (
-        cd "$ROOT" || exit 1
-        xcrun swift run BuildKernelLibrary
-    ) >/tmp/aski-kernel-regen.log 2>&1
-    status=$?
-    if [ "$status" -ne 0 ]; then
-        cp "$before" "$metallib"
-        record_failure "BuildKernelLibrary failed"
-        tail -40 /tmp/aski-kernel-regen.log >&2
-        rm -f "$before" /tmp/aski-kernel-regen.log
+    mkdir -p "$ROOT/.build" || { record_failure "cannot create .build"; return; }
+    if ! mkdir "$ROOT/.build/aski-metallib-check.lock" 2>/dev/null; then
+        record_failure "metallib check is already running; if interrupted, verify no check is active before removing .build/aski-metallib-check.lock"
         return
     fi
-    rm -f /tmp/aski-kernel-regen.log
+    METALLIB_LOCK="$ROOT/.build/aski-metallib-check.lock"
+    if ! cp "$metallib" "$before"; then
+        record_failure "cannot back up the checked-in metallib"
+        restore_metallib || record_failure "cannot release the metallib check lock"
+        return
+    fi
+    METALLIB_BACKUP="$before"
+    METALLIB_PATH="$metallib"
+    # Job control gives this background job its own process group. Waiting on
+    # a background job lets Bash handle signals immediately rather than defer
+    # traps until a foreground regeneration command finishes.
+    set -m
+    (
+        cd "$ROOT" || exit 1
+        exec xcrun swift run BuildKernelLibrary
+    ) >"$SCRATCH/kernel-regen.log" 2>&1 &
+    METALLIB_PID=$!
+    set +m
+    wait "$METALLIB_PID"
+    status=$?
+    METALLIB_PID=""
+    if [ "$status" -ne 0 ]; then
+        restore_metallib || { record_failure "metallib restoration failed"; return; }
+        record_failure "BuildKernelLibrary failed"
+        tail -40 "$SCRATCH/kernel-regen.log" >&2
+        rm -f "$before" "$SCRATCH/kernel-regen.log"
+        return
+    fi
+    rm -f "$SCRATCH/kernel-regen.log"
 
     if cmp -s "$before" "$metallib"; then
-        cp "$before" "$metallib"
+        restore_metallib || { record_failure "metallib restoration failed"; return; }
         rm -f "$before"
         record_pass "metallib matches regenerated output"
     else
-        cp "$before" "$metallib"
+        restore_metallib || { record_failure "metallib restoration failed"; return; }
         rm -f "$before"
         local xcode_version
         xcode_version="$(xcodebuild -version 2>/dev/null | tr '\n' ' ')"
@@ -307,7 +385,11 @@ check_workflow_refs() {
 
 check_dirty() {
     local status
-    status="$(git -C "$ROOT" status --porcelain --untracked-files=all)"
+    if ! status="$(git -C "$ROOT" status --porcelain --untracked-files=all 2>&1)"; then
+        record_failure "cannot read git worktree status"
+        printf '%s\n' "$status" >&2
+        return
+    fi
     if [ -z "$status" ]; then
         record_pass "git worktree is clean"
     else
