@@ -34,15 +34,10 @@ import Testing
     // MARK: ASKI-6 AC#2 — unrepresentable speeds are rejected at the boundary
 
     #if !SWT_NO_EXIT_TESTS
-        @Test func speedTooLargeForARepresentablePeriodIsRejected() async {
-            await #expect(processExitsWith: .failure) {
-                _ = CyclingOptions(k: 3, speed: 1e300, intensity: 1, randomness: 0)
-            }
-        }
-
-        @Test func speedTooSmallForARepresentablePeriodIsRejected() async {
-            await #expect(processExitsWith: .failure) {
-                _ = CyclingOptions(k: 3, speed: 1e-300, intensity: 1, randomness: 0)
+        @Test(arguments: [1e300, 1e-300])
+        func unrepresentableSpeedIsRejected(_ speed: Double) async {
+            await #expect(processExitsWith: .failure) { [speed] in
+                _ = CyclingOptions(k: 3, speed: speed, intensity: 1, randomness: 0)
             }
         }
     #endif
@@ -55,16 +50,12 @@ import Testing
     // MARK: ASKI-19 — materialize bounds the frame count before allocating
 
     #if !SWT_NO_EXIT_TESTS
-        @Test func materializeRejectsADurationWhoseFrameProductOverflowsInt() async {
-            await #expect(processExitsWith: .failure) {
-                _ = makeAnimatedGrid(duration: 1e300).materialize(frameRate: 60)
-            }
-        }
-
-        @Test func materializeRejectsAFrameCountJustPastTheCap() async {
-            await #expect(processExitsWith: .failure) {
-                // 5000 * 2 = 10,000 cadence steps -> 10,001 frames, one past the cap.
-                _ = makeAnimatedGrid(duration: 5000).materialize(frameRate: 2)
+        // Paired arguments, not a Cartesian product: preserve both original
+        // scenarios, including 5000 * 2 + 1 = 10,001 frames (one past the cap).
+        @Test(arguments: [(1e300, 60), (5000.0, 2)])
+        func materializeRejectsAnOversizedFrameCount(duration: Double, frameRate: Int) async {
+            await #expect(processExitsWith: .failure) { [duration, frameRate] in
+                _ = makeAnimatedGrid(duration: duration).materialize(frameRate: frameRate)
             }
         }
     #endif
