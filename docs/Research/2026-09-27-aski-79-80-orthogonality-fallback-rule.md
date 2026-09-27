@@ -2,13 +2,13 @@
 title: "Pre-registered verdict rule — ASKI-79 + ASKI-80 orthogonality-to-tone fallback, frozen before the decisive run"
 slug: 2026-09-27-aski-79-80-orthogonality-fallback-rule
 date: 2026-09-27
-status: active
+status: complete
 subsystem: [shape-context]
 summary: "The frozen PASS/KILL/INCONCLUSIVE rule for the ASKI-79 blank-collapse fix candidate and the ASKI-80 texture intervention, committed after the phase-1 instrument and production baseline and before any arm-1 or arm-2 number was read. Arm 1 falls back to the tone-nearest pooled glyph when the cell's query shares no bins with any non-blank pooled candidate; arm 2 adds serial Floyd–Steinberg tone centring and is lab-only. MAE is the gating oracle, GMSD a cross-check that can demote a PASS, and texture readouts gate arm 2 and guard arm 1 on standard. The verdict corpus is nasa-steerable-v1, the held-out no-harm corpus nasa-structure-v1, and the frozen preset is also guarded on nasa-occupancy-v1, the only corpus with white-ground cells."
 related_specs: [docs/Research/2026-08-24-aski-30-28-decisive-rule.md, docs/Research/2026-08-19-sampling-lattice-support-collapse.md, docs/Research/2026-08-19-selection-optimality-gap.md]
 datasets: []
 runners: [AskiColorLab]
-next_action: "Implement arms 1 and 2 as SelectionCeiling arms, run them with arm P in the same invocation, confirm P reproduces the phase-1 baseline CSVs exactly, then apply §4 mechanically to the emitted CSVs. Do not edit any threshold here after the first arm-1 or arm-2 number is read."
+next_action: "Applied. The verdict is recorded in docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md: arm 1 KILL, arm 2 INCONCLUSIVE, production unchanged. No threshold here was edited after the first decisive number was read."
 ---
 
 # Pre-registered verdict rule — ASKI-79 + ASKI-80 orthogonality-to-tone fallback
