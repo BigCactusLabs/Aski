@@ -90,9 +90,9 @@ silently written as the library's 1×1 fallback image.
 
 Use `xcrun swift run aski render --help` for accepted character sets, colors, and bounds.
 The CLI does not expose every converter policy or effect; use the Swift API for those.
-`aski render` always uses the default `logPolar` algorithm, under which `--charset`
-`minimal`, `dots`, `diagonal`, `cross` and `diamond` render every cell as a space; use
-the Swift API with `algorithm: .dotMatrix` for those sets (see <doc:Algorithms>).
+Under the default `--algorithm logPolar`, `--charset` `minimal`, `dots`, `diagonal`,
+`cross` and `diamond` render every cell as a space; pass `--algorithm dotMatrix` for
+those sets (see <doc:Algorithms>).
 
 ## Let a photograph dissolve into type
 

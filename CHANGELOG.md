@@ -11,6 +11,19 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Added
+
+- **`aski render` selects the algorithm, dither strength and palette (ASKI-82).** New flags
+  `--algorithm logPolar|dotMatrix`, `--coverage 0...1` and `--palette fullColor|monochrome`;
+  defaults (`logPolar`, `0`, `fullColor`) keep existing output. `--write-manifest` records all three
+  as additive, optional fields in the v1 render manifest schema.
+
+### Changed
+
+- **Glyph cycling works with `dotMatrix` (ASKI-81).** Cycling previously filled every candidate slot
+  with the one dotMatrix pick, so animation never changed glyphs. Candidates after the base pick are
+  now the other glyphs nearest in ink density. The base frame is unchanged and matches `convert()`.
+
 ### Documentation
 
 - **logPolar pairings match measured behavior (ASKI-79).** `logPolar` is now recommended with
@@ -20,8 +33,8 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   `RasterizedCharacterSet` doc comments, and a new "Custom sets and logPolar" section in
   `CharacterSets.md` say so and point to `dotMatrix`. The custom-set examples in `CharacterSets.md`
   and `GettingStarted.md` now pass `algorithm: .dotMatrix`, because under `logPolar` they rendered
-  all blank or one repeated glyph, and `CommandLine.md` notes that `aski render`, which always uses
-  `logPolar`, renders those five sets blank. Output is unchanged: a pre-registered fallback to the
+  all blank or one repeated glyph, and `CommandLine.md` notes that `aski render` renders those five sets
+  blank under the default `--algorithm logPolar`. Output is unchanged: a pre-registered fallback to the
   tone-nearest glyph was measured and rejected
   (`docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md`).
 
