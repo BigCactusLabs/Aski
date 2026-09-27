@@ -29,7 +29,7 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 - **logPolar pairings match measured behavior (ASKI-79).** `logPolar` is now recommended with
   `standard` and `braille` only. At the default `oversample`, `minimal`, `dots`, `diagonal`, `cross`
   and `diamond` render every cell as a space under `logPolar`, and `blocks`, `lines` and `mixed`
-  settle on one or two glyphs per image; `Algorithms.md`, the `ASCIIAlgorithm.logPolar` and
+  settle on a few glyphs per image; `Algorithms.md`, the `ASCIIAlgorithm.logPolar` and
   `RasterizedCharacterSet` doc comments, and a new "Custom sets and logPolar" section in
   `CharacterSets.md` say so and point to `dotMatrix`. The custom-set examples in `CharacterSets.md`
   and `GettingStarted.md` now pass `algorithm: .dotMatrix`, because under `logPolar` they rendered

@@ -832,7 +832,7 @@ Found in: ASKI-60, PR #34, `docs/Research/2026-09-01-aski60-shape-query-polarity
 Touches: ASKI-61 (per-charset polarity), ASKI-62 (arbiter v2 converter-level arms), ASKI-55 (support collapse — the blocks gain is bounded by the same 2–3 live bins)
 Revisit if: ASKI-61 finds the braille regression is a root-causable defect rather than a real convention preference — then a per-charset map (direct on blocks, inverted elsewhere) becomes a promotion candidate that needs an ASKI-62 sitting.
 
-## 2026-09-27 — Per-cell MAE and GMSD rate an all-blank logPolar grid as good as a tone ramp
+## 2026-09-27 — Per-cell MAE and GMSD do not reward replacing an all-blank logPolar grid with a tone ramp
 
 On the ASKI-79/80 census, the five blank-collapsed sets render every cell blank under logPolar, and arm 1 of that rule turns them into a tone ramp. Against the blank grid, the ramp's MAE is ×0.98–1.04 on `nasa-steerable-v1` and ×1.00–1.08 on `nasa-structure-v1`, and its GMSD is ×1.16–1.91 on both. On the white-ground `nasa-occupancy-v1` JPEGs the MAE direction flips (×0.87–0.92). A per-cell gate on these PNG corpora therefore cannot reward fixing a blank collapse, and the `standard` KILL in that note says only that the fallback does not improve per-cell error. A related doc claim is unchecked: `CharacterSets.md` says matching "falls back to the lowest-brightness glyph when a custom set has no literal space", but under logPolar the star set in that article renders every cell of `vavilov-crater` as `★`.
 

@@ -11,7 +11,7 @@ public enum ASCIIAlgorithm: Sendable {
     ///
     /// At the default `oversample`, `minimal`, `dots`, `diagonal`, `cross` and
     /// `diamond` render every cell as a space under this algorithm, and `blocks`,
-    /// `lines` and `mixed` settle on one or two glyphs per image. A custom set
+    /// `lines` and `mixed` settle on a few glyphs per image. A custom set
     /// whose glyphs have no ink in the few descriptor bins a cell query reaches
     /// behaves the same way. Use ``ASCIIAlgorithm/dotMatrix`` for those sets; see
     /// `Aski.docc/Algorithms.md`.

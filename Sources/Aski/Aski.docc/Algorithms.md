@@ -49,8 +49,8 @@ descriptor bins (see "Oversampling is not a quality knob" below):
   a space. None of their other glyphs has ink in the bins a cell query can
   reach, so the shape distance ranks those glyphs by the size of their own
   descriptor, and the space glyph, whose descriptor is empty, wins every cell.
-- `blocks`, `lines` and `mixed` render one or two distinct glyphs across a
-  whole image in Aski's research census, so the image comes through in cell
+- `blocks` renders one to four distinct glyphs across a whole image, and
+  `lines` and `mixed` one or two, in Aski's research census, so the image comes through in cell
   color rather than in glyph choice.
 
 Use `dotMatrix` with these sets when glyph choice should carry the image. A fallback to the tone-nearest glyph for
