@@ -10,6 +10,30 @@ public enum DemoExitCode: Int32, Equatable, Sendable {
     case failure = 70
 }
 
+public enum RenderAlgorithm: String, CaseIterable, ExpressibleByArgument, Sendable {
+    case logPolar
+    case dotMatrix
+
+    var asciiAlgorithm: ASCIIAlgorithm {
+        switch self {
+        case .logPolar: .logPolar
+        case .dotMatrix: .dotMatrix
+        }
+    }
+}
+
+public enum RenderPalette: String, CaseIterable, ExpressibleByArgument, Sendable {
+    case fullColor
+    case monochrome
+
+    var builtInPalette: BuiltInPalette {
+        switch self {
+        case .fullColor: .fullColor
+        case .monochrome: .monochrome
+        }
+    }
+}
+
 /// Shared arguments and execution path for the first-class `aski render`
 /// command and the source-compatible `AskiDemoCommand` wrapper.
 public struct RenderArguments: ParsableArguments {
@@ -40,6 +64,15 @@ public struct RenderArguments: ParsableArguments {
     @Option(help: "Character set to use.")
     public var charset: Charset = .standard
 
+    @Option(help: "Matching algorithm: logPolar or dotMatrix (default: logPolar).")
+    public var algorithm: RenderAlgorithm = .logPolar
+
+    @Option(help: "Floyd–Steinberg dither strength for dotMatrix (0...1; default: 0). Ignored by logPolar.")
+    public var coverage: Float = 0
+
+    @Option(help: "Glyph palette: fullColor or monochrome (default: fullColor).")
+    public var palette: RenderPalette = .fullColor
+
     @Option(
         help: "Background color for --render-png: #RRGGBB, a named color, or clear/transparent for an alpha-zero ground."
     )
@@ -55,6 +88,9 @@ public struct RenderArguments: ParsableArguments {
     public func validate() throws {
         try ToolValidation.requireColumns(columns)
         try ToolValidation.requireFontSize(fontSize)
+        guard coverage.isFinite, (0...1).contains(coverage) else {
+            throw ValidationError("coverage must be finite and in 0...1, got \(coverage)")
+        }
         if let width {
             guard renderPng != nil else {
                 throw ValidationError("--width requires --render-png")
@@ -74,6 +110,9 @@ public struct RenderArguments: ParsableArguments {
                 inputPath: inputPath,
                 columns: columns,
                 charset: charset,
+                algorithm: algorithm,
+                coverage: coverage,
+                palette: palette,
                 mask: mask
             )
 

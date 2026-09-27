@@ -20,6 +20,41 @@ import AskiToolSupport
         #expect(command.arguments.columns == 120)
         #expect(command.arguments.charset == .blocks)
         #expect(command.writeManifest == "render.json")
+        #expect(command.arguments.algorithm == .logPolar)
+        #expect(command.arguments.coverage == 0)
+        #expect(command.arguments.palette == .fullColor)
+    }
+
+    @Test func renderParsesConversionChoicesAndCoverageBounds() throws {
+        for value in ["0", "0.5", "1"] {
+            let command = try AskiRenderCommand.parse([
+                "input.jpg", "--algorithm", "dotMatrix", "--coverage", value,
+                "--palette", "monochrome",
+            ])
+            #expect(command.arguments.algorithm == .dotMatrix)
+            #expect(command.arguments.coverage == Float(value))
+            #expect(command.arguments.palette == .monochrome)
+        }
+
+        // Coverage is accepted for logPolar even though that matcher ignores it.
+        let logPolar = try AskiRenderCommand.parse(["input.jpg", "--coverage", "1"])
+        #expect(logPolar.arguments.coverage == 1)
+
+        for value in ["-0.01", "1.01", "nan"] {
+            do {
+                _ = try AskiRenderCommand.parse(["input.jpg", "--coverage=\(value)"])
+                Issue.record("coverage \(value) parsed without error")
+            } catch {
+                #expect(AskiRenderCommand.exitCode(for: error).rawValue == DemoExitCode.usage.rawValue)
+                #expect(String(describing: error).contains("coverage must be finite and in 0...1"))
+            }
+        }
+
+        for option in ["--algorithm", "--palette"] {
+            #expect(throws: (any Error).self) {
+                try AskiRenderCommand.parse(["input.jpg", option, "unknown"])
+            }
+        }
     }
 
     @Test func legacyCompatibilityWrapperDoesNotParseManifestOption() {

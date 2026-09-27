@@ -83,8 +83,9 @@ of a field requires a new `schemaVersion`.
 `render --write-manifest <path>` writes an unsigned deterministic render record
 from the same in-memory thumbnail, grid, text, and optional rendered PNG. Version
 1 records the tool SHA, command, source path and normalized dimensions, resolved
-grid and charset, render settings, text/PNG artifact metadata, and an additive
-optional resolved-mask block when `--mask` is supplied. When `--width` is used,
+grid and charset, additive algorithm/coverage/palette choices, render settings,
+text/PNG artifact metadata, and an optional resolved-mask block when `--mask`
+is supplied. When `--width` is used,
 the render block additionally carries the additive `targetPixelWidth`,
 `derivedScale`, `cellAdvancePixels`, and `resampleSpace` fields
 (`linear-srgb-area-average-4x` for the shipped supersample arm). It does not

@@ -208,6 +208,90 @@
               "valueName" : "charset"
             },
             {
+              "abstract" : "Matching algorithm: logPolar or dotMatrix (default: logPolar).",
+              "allValues" : [
+                "logPolar",
+                "dotMatrix"
+              ],
+              "completionKind" : {
+                "list" : {
+                  "values" : [
+                    "logPolar",
+                    "dotMatrix"
+                  ]
+                }
+              },
+              "defaultValue" : "logPolar",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "algorithm"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "algorithm"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "algorithm"
+            },
+            {
+              "abstract" : "Floyd–Steinberg dither strength for dotMatrix (0...1; default: 0). Ignored by logPolar.",
+              "defaultValue" : "0.0",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "coverage"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "coverage"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "coverage"
+            },
+            {
+              "abstract" : "Glyph palette: fullColor or monochrome (default: fullColor).",
+              "allValues" : [
+                "fullColor",
+                "monochrome"
+              ],
+              "completionKind" : {
+                "list" : {
+                  "values" : [
+                    "fullColor",
+                    "monochrome"
+                  ]
+                }
+              },
+              "defaultValue" : "fullColor",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "palette"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "palette"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "palette"
+            },
+            {
               "abstract" : "Background color for --render-png: #RRGGBB, a named color, or clear\/transparent for an alpha-zero ground.",
               "defaultValue" : "BackgroundColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)",
               "isOptional" : true,
@@ -23359,6 +23443,90 @@
           },
           "shouldDisplay" : true,
           "valueName" : "charset"
+        },
+        {
+          "abstract" : "Matching algorithm: logPolar or dotMatrix (default: logPolar).",
+          "allValues" : [
+            "logPolar",
+            "dotMatrix"
+          ],
+          "completionKind" : {
+            "list" : {
+              "values" : [
+                "logPolar",
+                "dotMatrix"
+              ]
+            }
+          },
+          "defaultValue" : "logPolar",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "algorithm"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "algorithm"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "algorithm"
+        },
+        {
+          "abstract" : "Floyd–Steinberg dither strength for dotMatrix (0...1; default: 0). Ignored by logPolar.",
+          "defaultValue" : "0.0",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "coverage"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "coverage"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "coverage"
+        },
+        {
+          "abstract" : "Glyph palette: fullColor or monochrome (default: fullColor).",
+          "allValues" : [
+            "fullColor",
+            "monochrome"
+          ],
+          "completionKind" : {
+            "list" : {
+              "values" : [
+                "fullColor",
+                "monochrome"
+              ]
+            }
+          },
+          "defaultValue" : "fullColor",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "palette"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "palette"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "palette"
         },
         {
           "abstract" : "Background color for --render-png: #RRGGBB, a named color, or clear\/transparent for an alpha-zero ground.",

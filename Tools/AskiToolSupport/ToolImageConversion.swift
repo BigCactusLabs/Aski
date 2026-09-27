@@ -13,9 +13,17 @@ struct ToolImageConversion {
         inputPath: String,
         columns: Int,
         charset: Charset,
+        algorithm: RenderAlgorithm = .logPolar,
+        coverage: Float = 0,
+        palette: RenderPalette = .fullColor,
         mask: DemoMaskArguments? = nil
     ) throws -> ToolImageConversion {
-        let converter = ASCIIConverter(characterSet: charset.characterSet, palette: BuiltInPalette.fullColor)
+        let converter = ASCIIConverter(
+            characterSet: charset.characterSet,
+            palette: palette.builtInPalette,
+            algorithm: algorithm.asciiAlgorithm,
+            options: RenderingOptions(coverage: coverage)
+        )
         let image = try DemoImageIO.loadThumbnailForConversion(
             at: inputPath,
             columns: columns,
