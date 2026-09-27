@@ -1,0 +1,44 @@
+---
+schema_version: "1"
+date: 2026-09-27
+aski_git_sha: 50d619f4be67b356dcbc907e1cc3f8d27f10223a
+runner: AskiColorLab
+command: "aski lab color selection-ceiling --charset <set> --columns <76|80|288> --oversample 2 --stride 1 --corpus <nasa-steerable-v1|nasa-structure-v1|nasa-occupancy-v1 (frozen-76-occ only)>/assets --output <csv> > <txt>; aski lab color query-orthogonality --charset <all ten> --columns 76,80,288 --oversample 2 --corpus <nasa-steerable-v1,nasa-structure-v1,nasa-occupancy-v1>/assets --output orthogonality.csv > orthogonality.txt (eleven invocations run concurrently, then frozen-76-occ alone, all from .build/release/aski, the canonical route to the AskiColorLab subcommands)"
+provenance:
+  - "ASKI-79/80 phase 1: production baseline and mechanism readout only. No candidate intervention was run, and no decision rule is attached to these numbers; phase 2 is gated on a rule frozen after this commit."
+  - "Instrument committed at 50d619f before any run: selection-ceiling texture columns (glyphsUsed, blankShare, runMean, runP95, runMax, run5Share; ASKI-80 AC#1) and the new query-orthogonality readout (ASKI-80 AC#2, ASKI-79 mechanism). Oracle means are unchanged by the extension: the frozen-preset P row on nasa-steerable-v1 reproduces docs/Research/Results/2026-09-02-aski-31-lattice-no-harm/after/frozen-steer.csv to every digit."
+  - "Release build, macOS 27, owner hardware, exhaustive stride 1, footprint 24, inverted shape-query polarity (the shipped default), density 0 (topK 12)."
+  - "The eleven invocations ran concurrently on one machine, so selectionWallSeconds is contended wall time and is not a cost baseline."
+  - "nasa-occupancy-v1 is JPEG; its orthogonality rows and frozen-76-occ.csv include compression artifacts. frozen-76-occ was added after the orthogonality readout showed 13-15% all-zero (near-white) queries on this corpus against ~0% on the PNG corpora."
+  - "The 288-column census is split by charset into standard, braille and the eight small sets (census-288-*-small) purely for parallelism; each CSV carries its own rows."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - census-80-steer.csv
+  - census-80-steer.txt
+  - census-80-struct.csv
+  - census-80-struct.txt
+  - census-288-steer-standard.csv
+  - census-288-steer-standard.txt
+  - census-288-steer-braille.csv
+  - census-288-steer-braille.txt
+  - census-288-steer-small.csv
+  - census-288-steer-small.txt
+  - census-288-struct-standard.csv
+  - census-288-struct-standard.txt
+  - census-288-struct-braille.csv
+  - census-288-struct-braille.txt
+  - census-288-struct-small.csv
+  - census-288-struct-small.txt
+  - frozen-76-steer.csv
+  - frozen-76-steer.txt
+  - frozen-76-struct.csv
+  - frozen-76-struct.txt
+  - frozen-76-occ.csv
+  - frozen-76-occ.txt
+  - orthogonality.csv
+  - orthogonality.txt
+summary: "ASKI-79/80 phase-1 baseline at 50d619f: production selection-ceiling census with texture readouts for all ten built-in charsets at 80 and 288 columns (plus the frozen preset, blocks at 76, also on nasa-occupancy-v1) on nasa-steerable-v1 and nasa-structure-v1, and the per-fixture query-orthogonality readout on those two corpora and nasa-occupancy-v1. Baseline only; no intervention measured."
+---

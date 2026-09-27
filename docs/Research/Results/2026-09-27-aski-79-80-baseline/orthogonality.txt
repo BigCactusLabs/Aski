@@ -1,0 +1,992 @@
+# Query orthogonality (picks decided by |g|² alone)
+corpus | fixture | charset | cols | os | cell | cells | bins med/max | reachable | reachGlyphs | orth% | orthBlank% | minNormAgree% | minPosDot | used | blank% | runMean | runP95 | run5%
+nasa-steerable-v1 | earth-limb-sunrise | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 97.6 | 96.7 | 100.0 | 0.05934 | 3 | 96.7 | 7.08 | 45.00 | 83.5
+nasa-steerable-v1 | sahara-dunes | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 27.1 | 0.0 | 100.0 | 0.002173 | 7 | 0.0 | 3.13 | 11.00 | 55.3
+nasa-steerable-v1 | vavilov-crater | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 44.9 | 19.5 | 100.0 | 0.002303 | 7 | 19.5 | 3.59 | 17.00 | 61.4
+nasa-steerable-v1 | (pooled) | standard | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 3 |}j | 56.5 | 38.7 | 100.0 | 0.002173 | 11 | 38.7 | 3.35 | 13.00 | 58.5
+nasa-steerable-v1 | earth-limb-sunrise | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 97.8 | 96.9 | 100.0 | 0.05987 | 4 | 96.9 | 6.43 | 47.00 | 84.4
+nasa-steerable-v1 | sahara-dunes | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 27.3 | 0.0 | 100.0 | 0.002176 | 7 | 0.0 | 3.09 | 10.00 | 53.0
+nasa-steerable-v1 | vavilov-crater | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 45.0 | 19.6 | 100.0 | 0.002274 | 7 | 19.6 | 3.62 | 16.00 | 62.7
+nasa-steerable-v1 | (pooled) | standard | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 3 |}j | 56.7 | 38.8 | 100.0 | 0.002176 | 11 | 38.8 | 3.33 | 11.00 | 57.8
+nasa-steerable-v1 | earth-limb-sunrise | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 98.6 | 97.6 | 100.0 | 0.002324 | 8 | 97.6 | 8.37 | 49.00 | 87.8
+nasa-steerable-v1 | sahara-dunes | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 29.7 | 0.0 | 100.0 | 0.002123 | 9 | 0.0 | 3.94 | 15.00 | 65.1
+nasa-steerable-v1 | vavilov-crater | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 45.9 | 21.0 | 100.0 | 0.00197 | 10 | 21.0 | 2.85 | 10.00 | 52.2
+nasa-steerable-v1 | (pooled) | standard | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 3 |}j | 58.1 | 39.5 | 100.0 | 0.00197 | 11 | 39.5 | 3.40 | 13.00 | 59.8
+nasa-steerable-v1 | earth-limb-sunrise | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | minimal | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | minimal | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | minimal | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0263 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02496 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0241 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | (pooled) | blocks | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0241 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02641 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02368 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02504 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | (pooled) | blocks | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02368 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02646 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02455 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02287 | 2 | 0.0 | 279.40 | 288.00 | 100.0
+nasa-steerable-v1 | (pooled) | blocks | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02287 | 2 | 0.0 | 285.08 | 288.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | dots | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | dots | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | dots | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.07251 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06913 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06652 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | (pooled) | lines | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06652 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.07291 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06984 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06678 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | (pooled) | lines | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06678 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.07141 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06637 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06305 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | (pooled) | lines | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06305 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diagonal | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diagonal | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diagonal | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | cross | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | cross | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | cross | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diamond | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diamond | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | sahara-dunes | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | vavilov-crater | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | (pooled) | diamond | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-steerable-v1 | earth-limb-sunrise | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1048 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0999 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09612 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | (pooled) | mixed | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09612 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1054 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1009 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0965 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | (pooled) | mixed | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0965 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1032 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | sahara-dunes | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0959 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | vavilov-crater | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0911 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | (pooled) | mixed | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0911 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-steerable-v1 | earth-limb-sunrise | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01914 | 5 | 94.9 | 5.28 | 19.00 | 78.8
+nasa-steerable-v1 | sahara-dunes | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01124 | 6 | 0.0 | 3.64 | 11.00 | 62.7
+nasa-steerable-v1 | vavilov-crater | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01489 | 7 | 13.9 | 2.56 | 8.00 | 44.6
+nasa-steerable-v1 | (pooled) | braille | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01124 | 11 | 36.3 | 3.08 | 9.00 | 55.0
+nasa-steerable-v1 | earth-limb-sunrise | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01632 | 6 | 94.8 | 5.39 | 25.00 | 80.1
+nasa-steerable-v1 | sahara-dunes | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01165 | 6 | 0.0 | 3.81 | 11.00 | 63.8
+nasa-steerable-v1 | vavilov-crater | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01515 | 7 | 14.0 | 2.53 | 8.00 | 43.1
+nasa-steerable-v1 | (pooled) | braille | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01165 | 11 | 36.2 | 3.13 | 9.00 | 54.9
+nasa-steerable-v1 | earth-limb-sunrise | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01636 | 7 | 96.1 | 7.08 | 40.00 | 84.0
+nasa-steerable-v1 | sahara-dunes | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01067 | 7 | 0.0 | 5.17 | 19.00 | 74.8
+nasa-steerable-v1 | vavilov-crater | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008871 | 12 | 16.7 | 2.18 | 6.00 | 32.6
+nasa-steerable-v1 | (pooled) | braille | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008871 | 13 | 37.6 | 3.22 | 11.00 | 56.2
+nasa-structure-v1 | earth-limb-sunrise | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 82.9 | 40.1 | 100.0 | 0.002375 | 14 | 40.1 | 25.36 | 76.00 | 98.4
+nasa-structure-v1 | phoenix-night-grid | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 37.5 | 11.5 | 100.0 | 0.001642 | 13 | 11.5 | 1.68 | 4.00 | 16.7
+nasa-structure-v1 | vavilov-crater | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 44.8 | 19.5 | 100.0 | 0.00206 | 7 | 19.5 | 3.54 | 16.00 | 60.8
+nasa-structure-v1 | (pooled) | standard | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 3 |}j | 55.1 | 23.7 | 100.0 | 0.001642 | 15 | 23.7 | 2.94 | 8.00 | 53.6
+nasa-structure-v1 | earth-limb-sunrise | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 82.8 | 40.0 | 100.0 | 0.002191 | 14 | 40.0 | 33.23 | 80.00 | 99.1
+nasa-structure-v1 | phoenix-night-grid | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 36.8 | 12.2 | 100.0 | 0.001468 | 13 | 12.2 | 1.74 | 5.00 | 23.8
+nasa-structure-v1 | vavilov-crater | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 44.8 | 19.6 | 100.0 | 0.002266 | 7 | 19.6 | 3.73 | 14.00 | 64.4
+nasa-structure-v1 | (pooled) | standard | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 3 |}j | 54.8 | 23.9 | 100.0 | 0.001468 | 15 | 23.9 | 3.09 | 9.00 | 57.9
+nasa-structure-v1 | earth-limb-sunrise | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 82.8 | 39.6 | 100.0 | 0.002287 | 15 | 39.6 | 38.78 | 243.00 | 97.6
+nasa-structure-v1 | phoenix-night-grid | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 47.6 | 18.8 | 100.0 | 0.001361 | 15 | 18.8 | 1.77 | 5.00 | 27.2
+nasa-structure-v1 | vavilov-crater | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 46.0 | 21.0 | 100.0 | 0.00196 | 10 | 21.0 | 2.83 | 10.00 | 52.1
+nasa-structure-v1 | (pooled) | standard | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 3 |}j | 58.8 | 26.5 | 100.0 | 0.001361 | 15 | 26.5 | 2.93 | 7.00 | 55.4
+nasa-structure-v1 | earth-limb-sunrise | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | minimal | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | minimal | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | minimal | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.023 | 2 | 0.0 | 69.84 | 76.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01376 | 2 | 0.0 | 14.44 | 56.00 | 96.0
+nasa-structure-v1 | vavilov-crater | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02397 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | (pooled) | blocks | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01376 | 2 | 0.0 | 31.01 | 76.00 | 98.7
+nasa-structure-v1 | earth-limb-sunrise | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0267 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01415 | 3 | 0.1 | 13.64 | 56.00 | 95.0
+nasa-structure-v1 | vavilov-crater | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02517 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | (pooled) | blocks | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01415 | 3 | 0.0 | 30.52 | 80.00 | 98.3
+nasa-structure-v1 | earth-limb-sunrise | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02409 | 3 | 0.0 | 281.50 | 288.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.007997 | 4 | 0.2 | 15.42 | 71.00 | 94.6
+nasa-structure-v1 | vavilov-crater | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02295 | 2 | 0.0 | 283.64 | 288.00 | 100.0
+nasa-structure-v1 | (pooled) | blocks | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.007997 | 4 | 0.1 | 41.76 | 288.00 | 98.2
+nasa-structure-v1 | earth-limb-sunrise | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | dots | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | dots | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | dots | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06917 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05312 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | vavilov-crater | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06617 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | (pooled) | lines | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05312 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06932 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04743 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | vavilov-crater | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06668 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | (pooled) | lines | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04743 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0699 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.02847 | 2 | 0.1 | 249.45 | 288.00 | 100.0
+nasa-structure-v1 | vavilov-crater | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06269 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-structure-v1 | (pooled) | lines | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.02847 | 2 | 0.0 | 273.90 | 288.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diagonal | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diagonal | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diagonal | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | cross | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | cross | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | cross | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diamond | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diamond | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | phoenix-night-grid | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | vavilov-crater | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | (pooled) | diamond | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-structure-v1 | earth-limb-sunrise | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09995 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07676 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | vavilov-crater | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09562 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | (pooled) | mixed | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07676 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1002 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06854 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | vavilov-crater | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09636 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | (pooled) | mixed | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06854 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.101 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-structure-v1 | phoenix-night-grid | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.04114 | 2 | 0.1 | 226.67 | 288.00 | 100.0
+nasa-structure-v1 | vavilov-crater | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09059 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-structure-v1 | (pooled) | mixed | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.04114 | 2 | 0.0 | 264.19 | 288.00 | 100.0
+nasa-structure-v1 | earth-limb-sunrise | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006767 | 12 | 3.3 | 31.65 | 76.00 | 98.0
+nasa-structure-v1 | phoenix-night-grid | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.003753 | 15 | 1.5 | 1.46 | 3.00 | 10.1
+nasa-structure-v1 | vavilov-crater | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.0148 | 7 | 13.9 | 2.57 | 8.00 | 45.5
+nasa-structure-v1 | (pooled) | braille | 76 | 2 | 2x4 | 7752 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.003753 | 15 | 6.2 | 2.70 | 7.00 | 51.2
+nasa-structure-v1 | earth-limb-sunrise | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01025 | 12 | 3.2 | 33.20 | 80.00 | 98.0
+nasa-structure-v1 | phoenix-night-grid | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.001844 | 17 | 1.7 | 1.45 | 3.00 | 9.0
+nasa-structure-v1 | vavilov-crater | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.015 | 7 | 14.0 | 2.58 | 8.00 | 44.7
+nasa-structure-v1 | (pooled) | braille | 80 | 2 | 2x4 | 8640 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.001844 | 17 | 6.3 | 2.71 | 7.00 | 50.6
+nasa-structure-v1 | earth-limb-sunrise | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008004 | 12 | 3.3 | 44.79 | 288.00 | 97.7
+nasa-structure-v1 | phoenix-night-grid | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.001602 | 19 | 2.9 | 1.64 | 4.00 | 19.5
+nasa-structure-v1 | vavilov-crater | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.0089 | 12 | 16.7 | 2.18 | 6.00 | 32.6
+nasa-structure-v1 | (pooled) | braille | 288 | 2 | 2x4 | 112320 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.001602 | 19 | 7.6 | 2.78 | 5.00 | 50.7
+nasa-occupancy-v1 | apollo11-bootprint | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 37.0 | 1.5 | 100.0 | 0.001836 | 14 | 1.5 | 1.59 | 4.00 | 15.0
+nasa-occupancy-v1 | apollo12-lunar-mound | standard | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 3 |}j | 58.1 | 27.6 | 100.0 | 0.001748 | 13 | 27.6 | 1.67 | 4.00 | 21.2
+nasa-occupancy-v1 | aurora-expedition23 | standard | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 3 |}j | 42.8 | 14.2 | 100.0 | 0.00218 | 15 | 14.2 | 3.69 | 16.00 | 64.1
+nasa-occupancy-v1 | aurora-sts62 | standard | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 |}j | 86.5 | 73.1 | 100.0 | 0.002189 | 14 | 73.1 | 3.28 | 12.00 | 60.4
+nasa-occupancy-v1 | calbuco-plume | standard | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 3 |}j | 31.6 | 0.0 | 100.0 | 0.002103 | 14 | 0.0 | 2.29 | 7.00 | 40.2
+nasa-occupancy-v1 | carina-cosmic-cliffs | standard | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 3 |}j | 32.5 | 0.0 | 100.0 | 0.001955 | 12 | 0.0 | 2.75 | 10.00 | 51.5
+nasa-occupancy-v1 | cernan-portrait | standard | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 3 |}j | 56.3 | 21.8 | 100.0 | 0.00208 | 15 | 21.8 | 3.74 | 13.00 | 64.5
+nasa-occupancy-v1 | daedalia-planum | standard | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 3 |}j | 47.5 | 27.8 | 100.0 | 0.001522 | 13 | 27.8 | 2.81 | 9.00 | 50.7
+nasa-occupancy-v1 | earth-night-iss-090323 | standard | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 |}j | 86.9 | 77.6 | 100.0 | 0.002359 | 6 | 77.6 | 2.37 | 8.00 | 40.9
+nasa-occupancy-v1 | earth-night-iss-091208 | standard | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 |}j | 80.9 | 59.6 | 100.0 | 0.001985 | 9 | 59.6 | 3.12 | 12.00 | 52.8
+nasa-occupancy-v1 | iani-chaos | standard | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 3 |}j | 53.9 | 30.2 | 100.0 | 0.00159 | 14 | 30.2 | 1.99 | 5.00 | 28.3
+nasa-occupancy-v1 | infrared-color-explosion | standard | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 |}j | 44.6 | 2.6 | 100.0 | 0.001982 | 15 | 2.6 | 3.24 | 11.00 | 57.6
+nasa-occupancy-v1 | james-lovell-portrait | standard | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 3 |}j | 87.0 | 0.1 | 100.0 | 0.001457 | 15 | 0.1 | 2.75 | 6.00 | 53.5
+nasa-occupancy-v1 | mark-lee-portrait | standard | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 3 |}j | 75.3 | 5.0 | 100.0 | 0.001449 | 15 | 5.0 | 2.14 | 6.00 | 36.0
+nasa-occupancy-v1 | marsha-ivins-portrait | standard | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 3 |}j | 48.6 | 3.1 | 100.0 | 0.001871 | 15 | 3.1 | 2.32 | 8.00 | 45.7
+nasa-occupancy-v1 | multicolor-aurora | standard | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 3 |}j | 87.6 | 74.3 | 100.0 | 0.002335 | 8 | 74.3 | 9.57 | 34.00 | 89.3
+nasa-occupancy-v1 | new-york-night | standard | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 |}j | 92.9 | 83.1 | 100.0 | 0.002081 | 7 | 83.1 | 1.83 | 5.00 | 20.2
+nasa-occupancy-v1 | rcs-function-diagram | standard | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 |}j | 100.0 | 0.0 | 100.0 | nan | 7 | 0.0 | 8.84 | 39.00 | 89.3
+nasa-occupancy-v1 | reentry-communications-diagram | standard | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 3 |}j | 99.6 | 0.0 | 100.0 | 0.0019 | 13 | 0.0 | 5.97 | 29.00 | 80.6
+nasa-occupancy-v1 | rocket-systems-diagram | standard | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 |}j | 99.9 | 0.0 | 100.0 | 0.002275 | 7 | 0.0 | 5.68 | 28.00 | 80.1
+nasa-occupancy-v1 | san-francisco-night | standard | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 |}j | 52.8 | 36.8 | 100.0 | 0.002057 | 13 | 36.8 | 3.14 | 12.00 | 57.1
+nasa-occupancy-v1 | saturn-infrared | standard | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 3 |}j | 64.7 | 47.7 | 100.0 | 0.001885 | 14 | 47.7 | 3.98 | 13.00 | 63.5
+nasa-occupancy-v1 | spacecraft-attitude-diagram | standard | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 |}j | 100.0 | 0.0 | 100.0 | 0.002384 | 7 | 0.0 | 7.23 | 27.00 | 86.2
+nasa-occupancy-v1 | tarantula-spitzer-3color | standard | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 3 |}j | 56.8 | 15.2 | 100.0 | 0.002184 | 13 | 15.2 | 3.09 | 9.00 | 52.7
+nasa-occupancy-v1 | (pooled) | standard | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 3 |}j | 65.6 | 21.7 | 100.0 | 0.001449 | 15 | 21.7 | 2.83 | 9.00 | 52.9
+nasa-occupancy-v1 | apollo11-bootprint | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 38.0 | 1.5 | 100.0 | 0.001793 | 15 | 1.5 | 1.54 | 4.00 | 14.1
+nasa-occupancy-v1 | apollo12-lunar-mound | standard | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 3 |}j | 57.6 | 27.8 | 100.0 | 0.001647 | 13 | 27.8 | 1.65 | 4.00 | 19.0
+nasa-occupancy-v1 | aurora-expedition23 | standard | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 |}j | 43.1 | 14.5 | 100.0 | 0.001392 | 15 | 14.5 | 3.93 | 18.00 | 64.6
+nasa-occupancy-v1 | aurora-sts62 | standard | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 3 |}j | 87.6 | 73.8 | 100.0 | 0.002278 | 15 | 73.8 | 3.53 | 13.00 | 60.7
+nasa-occupancy-v1 | calbuco-plume | standard | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 3 |}j | 31.2 | 0.0 | 100.0 | 0.002063 | 14 | 0.0 | 2.30 | 7.00 | 39.2
+nasa-occupancy-v1 | carina-cosmic-cliffs | standard | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 3 |}j | 33.5 | 0.1 | 100.0 | 0.002054 | 13 | 0.1 | 2.77 | 10.00 | 48.1
+nasa-occupancy-v1 | cernan-portrait | standard | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 |}j | 56.8 | 21.7 | 100.0 | 0.001947 | 15 | 21.7 | 3.87 | 15.00 | 65.2
+nasa-occupancy-v1 | daedalia-planum | standard | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 3 |}j | 47.5 | 27.8 | 100.0 | 0.001582 | 13 | 27.8 | 2.75 | 9.00 | 50.4
+nasa-occupancy-v1 | earth-night-iss-090323 | standard | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 |}j | 87.0 | 78.1 | 100.0 | 0.002311 | 7 | 78.1 | 2.27 | 6.00 | 36.7
+nasa-occupancy-v1 | earth-night-iss-091208 | standard | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 |}j | 81.5 | 60.1 | 100.0 | 0.002096 | 9 | 60.1 | 3.03 | 12.00 | 52.0
+nasa-occupancy-v1 | iani-chaos | standard | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 3 |}j | 54.2 | 30.5 | 100.0 | 0.001585 | 13 | 30.5 | 1.99 | 5.00 | 27.3
+nasa-occupancy-v1 | infrared-color-explosion | standard | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 |}j | 44.3 | 2.8 | 100.0 | 0.001768 | 15 | 2.8 | 3.21 | 11.00 | 56.7
+nasa-occupancy-v1 | james-lovell-portrait | standard | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 3 |}j | 86.9 | 0.1 | 100.0 | 0.001578 | 15 | 0.1 | 2.85 | 7.00 | 54.3
+nasa-occupancy-v1 | mark-lee-portrait | standard | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 |}j | 75.1 | 5.0 | 100.0 | 0.001435 | 15 | 5.0 | 2.09 | 6.00 | 36.6
+nasa-occupancy-v1 | marsha-ivins-portrait | standard | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 |}j | 49.2 | 2.9 | 100.0 | 0.00182 | 15 | 2.9 | 2.37 | 8.00 | 43.7
+nasa-occupancy-v1 | multicolor-aurora | standard | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 |}j | 89.0 | 74.3 | 100.0 | 0.002465 | 7 | 74.3 | 9.32 | 30.00 | 90.7
+nasa-occupancy-v1 | new-york-night | standard | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 3 |}j | 93.0 | 83.2 | 100.0 | 0.002263 | 9 | 83.2 | 1.82 | 5.00 | 19.4
+nasa-occupancy-v1 | rcs-function-diagram | standard | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 |}j | 99.8 | 0.0 | 100.0 | 0.002106 | 9 | 0.0 | 9.71 | 41.00 | 89.9
+nasa-occupancy-v1 | reentry-communications-diagram | standard | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 3 |}j | 99.7 | 0.0 | 100.0 | 0.001127 | 13 | 0.0 | 5.68 | 24.00 | 79.2
+nasa-occupancy-v1 | rocket-systems-diagram | standard | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 |}j | 99.9 | 0.0 | 100.0 | 0.002419 | 7 | 0.0 | 5.52 | 27.00 | 78.7
+nasa-occupancy-v1 | san-francisco-night | standard | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 |}j | 54.7 | 36.4 | 100.0 | 0.002061 | 13 | 36.4 | 3.21 | 12.00 | 57.9
+nasa-occupancy-v1 | saturn-infrared | standard | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 3 |}j | 66.6 | 48.8 | 100.0 | 0.001974 | 15 | 48.8 | 3.88 | 13.00 | 62.6
+nasa-occupancy-v1 | spacecraft-attitude-diagram | standard | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 |}j | 99.9 | 0.0 | 100.0 | 0.002586 | 7 | 0.0 | 7.18 | 27.00 | 85.5
+nasa-occupancy-v1 | tarantula-spitzer-3color | standard | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 3 |}j | 55.6 | 15.2 | 100.0 | 0.002192 | 12 | 15.2 | 3.03 | 9.00 | 52.2
+nasa-occupancy-v1 | (pooled) | standard | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 3 |}j | 65.9 | 21.8 | 100.0 | 0.001127 | 15 | 21.8 | 2.83 | 9.00 | 52.4
+nasa-occupancy-v1 | apollo11-bootprint | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 45.7 | 3.6 | 100.0 | 0.001482 | 15 | 3.6 | 1.65 | 4.00 | 16.4
+nasa-occupancy-v1 | apollo12-lunar-mound | standard | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 3 |}j | 64.2 | 29.4 | 100.0 | 0.001459 | 15 | 29.4 | 1.64 | 4.00 | 18.4
+nasa-occupancy-v1 | aurora-expedition23 | standard | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 3 |}j | 43.3 | 14.5 | 100.0 | 0.001351 | 15 | 14.5 | 6.84 | 20.00 | 82.0
+nasa-occupancy-v1 | aurora-sts62 | standard | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 3 |}j | 87.1 | 73.9 | 100.0 | 0.002171 | 15 | 73.9 | 6.87 | 28.00 | 82.3
+nasa-occupancy-v1 | calbuco-plume | standard | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 3 |}j | 31.7 | 0.0 | 100.0 | 0.002188 | 14 | 0.0 | 3.24 | 9.00 | 55.3
+nasa-occupancy-v1 | carina-cosmic-cliffs | standard | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 3 |}j | 35.2 | 0.5 | 100.0 | 0.001553 | 15 | 0.5 | 3.32 | 12.00 | 60.1
+nasa-occupancy-v1 | cernan-portrait | standard | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 3 |}j | 57.3 | 23.7 | 100.0 | 0.001279 | 15 | 23.7 | 7.12 | 29.00 | 84.5
+nasa-occupancy-v1 | daedalia-planum | standard | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 3 |}j | 49.5 | 28.8 | 100.0 | 0.001664 | 15 | 28.8 | 2.22 | 6.00 | 37.0
+nasa-occupancy-v1 | earth-night-iss-090323 | standard | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 |}j | 88.7 | 80.0 | 100.0 | 0.001732 | 11 | 80.0 | 2.08 | 6.00 | 30.4
+nasa-occupancy-v1 | earth-night-iss-091208 | standard | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 |}j | 83.4 | 62.6 | 100.0 | 0.001878 | 13 | 62.6 | 3.05 | 8.00 | 54.5
+nasa-occupancy-v1 | iani-chaos | standard | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 3 |}j | 56.6 | 31.4 | 100.0 | 0.001512 | 15 | 31.4 | 2.81 | 9.00 | 49.4
+nasa-occupancy-v1 | infrared-color-explosion | standard | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 |}j | 48.9 | 5.2 | 100.0 | 0.001958 | 15 | 5.2 | 4.19 | 15.00 | 69.0
+nasa-occupancy-v1 | james-lovell-portrait | standard | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 3 |}j | 86.5 | 0.6 | 100.0 | 0.001611 | 15 | 0.6 | 4.09 | 9.00 | 66.6
+nasa-occupancy-v1 | mark-lee-portrait | standard | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 3 |}j | 77.3 | 7.2 | 100.0 | 0.001405 | 15 | 7.2 | 3.25 | 10.00 | 58.9
+nasa-occupancy-v1 | marsha-ivins-portrait | standard | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 3 |}j | 50.2 | 4.2 | 100.0 | 0.001651 | 15 | 4.2 | 3.74 | 12.00 | 64.1
+nasa-occupancy-v1 | multicolor-aurora | standard | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 |}j | 88.7 | 75.0 | 100.0 | 0.002354 | 9 | 75.0 | 19.90 | 95.00 | 96.2
+nasa-occupancy-v1 | new-york-night | standard | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 3 |}j | 93.0 | 83.9 | 100.0 | 0.001917 | 12 | 83.9 | 1.63 | 4.00 | 15.4
+nasa-occupancy-v1 | rcs-function-diagram | standard | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 |}j | 99.1 | 0.0 | 100.0 | 0.0008942 | 13 | 0.0 | 13.94 | 95.00 | 92.1
+nasa-occupancy-v1 | reentry-communications-diagram | standard | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 3 |}j | 99.1 | 0.0 | 100.0 | 0.0008089 | 15 | 0.0 | 9.05 | 48.00 | 88.6
+nasa-occupancy-v1 | rocket-systems-diagram | standard | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 |}j | 98.2 | 0.0 | 100.0 | 0.00101 | 13 | 0.0 | 6.46 | 15.00 | 81.1
+nasa-occupancy-v1 | san-francisco-night | standard | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 |}j | 55.2 | 37.1 | 100.0 | 0.001709 | 15 | 37.1 | 4.67 | 19.00 | 74.0
+nasa-occupancy-v1 | saturn-infrared | standard | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 3 |}j | 66.7 | 50.0 | 100.0 | 0.002122 | 15 | 50.0 | 7.22 | 28.00 | 82.2
+nasa-occupancy-v1 | spacecraft-attitude-diagram | standard | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 |}j | 99.1 | 0.0 | 100.0 | 0.0004867 | 15 | 0.0 | 10.76 | 56.00 | 89.9
+nasa-occupancy-v1 | tarantula-spitzer-3color | standard | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 3 |}j | 57.8 | 18.4 | 100.0 | 0.002107 | 15 | 18.4 | 3.33 | 12.00 | 59.6
+nasa-occupancy-v1 | (pooled) | standard | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 3 |}j | 67.4 | 22.9 | 100.0 | 0.0004867 | 15 | 22.9 | 3.57 | 10.00 | 62.5
+nasa-occupancy-v1 | apollo11-bootprint | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | minimal | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | minimal | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | minimal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | minimal | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | minimal | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | minimal | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | minimal | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | minimal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | minimal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | minimal | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | minimal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | minimal | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | minimal | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | minimal | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | minimal | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | minimal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | minimal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | minimal | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | minimal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | minimal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | minimal | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | minimal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | minimal | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | minimal | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | minimal | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | minimal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | minimal | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | minimal | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | minimal | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | minimal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | minimal | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | minimal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | minimal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | minimal | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | minimal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | minimal | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | minimal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | minimal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | minimal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | minimal | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | minimal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | minimal | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | minimal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | minimal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | minimal | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | minimal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | minimal | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | minimal | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | minimal | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | minimal | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | minimal | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | minimal | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | minimal | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | minimal | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | minimal | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | minimal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | minimal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | minimal | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | minimal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | minimal | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | minimal | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | minimal | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | minimal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | minimal | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | minimal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | minimal | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | minimal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | minimal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | minimal | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | minimal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | minimal | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | minimal | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01772 | 3 | 0.0 | 28.08 | 76.00 | 98.3
+nasa-occupancy-v1 | apollo12-lunar-mound | blocks | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01902 | 2 | 0.0 | 23.01 | 76.00 | 97.4
+nasa-occupancy-v1 | aurora-expedition23 | blocks | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01349 | 2 | 0.0 | 32.98 | 76.00 | 98.9
+nasa-occupancy-v1 | aurora-sts62 | blocks | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01814 | 2 | 0.0 | 47.77 | 76.00 | 99.5
+nasa-occupancy-v1 | calbuco-plume | blocks | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01868 | 2 | 0.0 | 54.79 | 76.00 | 99.6
+nasa-occupancy-v1 | carina-cosmic-cliffs | blocks | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02089 | 2 | 0.0 | 53.48 | 76.00 | 99.6
+nasa-occupancy-v1 | cernan-portrait | blocks | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.004768 | 3 | 0.2 | 45.28 | 76.00 | 99.4
+nasa-occupancy-v1 | daedalia-planum | blocks | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01634 | 3 | 0.1 | 60.08 | 76.00 | 99.9
+nasa-occupancy-v1 | earth-night-iss-090323 | blocks | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0228 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | blocks | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02281 | 2 | 0.0 | 69.67 | 76.00 | 99.9
+nasa-occupancy-v1 | iani-chaos | blocks | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0186 | 3 | 0.0 | 71.10 | 76.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | blocks | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02226 | 3 | 0.0 | 66.26 | 76.00 | 99.7
+nasa-occupancy-v1 | james-lovell-portrait | blocks | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 20.4 | 20.4 | 100.0 | 0.009416 | 3 | 20.9 | 7.31 | 34.00 | 84.7
+nasa-occupancy-v1 | mark-lee-portrait | blocks | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.004671 | 3 | 0.6 | 20.88 | 70.00 | 97.0
+nasa-occupancy-v1 | marsha-ivins-portrait | blocks | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.01546 | 3 | 0.2 | 38.38 | 76.00 | 98.3
+nasa-occupancy-v1 | multicolor-aurora | blocks | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0266 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | new-york-night | blocks | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02371 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | blocks | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 83.7 | 83.7 | 100.0 | 0.005221 | 3 | 85.9 | 1.88 | 5.00 | 22.4
+nasa-occupancy-v1 | reentry-communications-diagram | blocks | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 70.5 | 70.5 | 100.0 | 0.003049 | 3 | 73.5 | 1.83 | 4.00 | 18.1
+nasa-occupancy-v1 | rocket-systems-diagram | blocks | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 69.2 | 69.2 | 100.0 | 0.005864 | 4 | 72.1 | 2.33 | 8.00 | 37.6
+nasa-occupancy-v1 | san-francisco-night | blocks | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01768 | 2 | 0.0 | 52.25 | 76.00 | 99.5
+nasa-occupancy-v1 | saturn-infrared | blocks | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02098 | 2 | 0.0 | 62.18 | 76.00 | 99.7
+nasa-occupancy-v1 | spacecraft-attitude-diagram | blocks | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 75.8 | 75.8 | 100.0 | 0.004831 | 3 | 78.8 | 1.84 | 5.00 | 26.7
+nasa-occupancy-v1 | tarantula-spitzer-3color | blocks | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0223 | 2 | 0.0 | 68.76 | 76.00 | 99.9
+nasa-occupancy-v1 | (pooled) | blocks | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 12.8 | 12.8 | 100.0 | 0.003049 | 4 | 13.3 | 20.68 | 76.00 | 95.5
+nasa-occupancy-v1 | apollo11-bootprint | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01772 | 2 | 0.0 | 28.80 | 80.00 | 98.5
+nasa-occupancy-v1 | apollo12-lunar-mound | blocks | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01635 | 3 | 0.0 | 23.72 | 80.00 | 97.5
+nasa-occupancy-v1 | aurora-expedition23 | blocks | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.01007 | 3 | 0.2 | 33.63 | 80.00 | 98.9
+nasa-occupancy-v1 | aurora-sts62 | blocks | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01795 | 3 | 0.0 | 57.50 | 80.00 | 99.7
+nasa-occupancy-v1 | calbuco-plume | blocks | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01182 | 3 | 0.0 | 56.87 | 80.00 | 99.5
+nasa-occupancy-v1 | carina-cosmic-cliffs | blocks | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02191 | 2 | 0.0 | 45.41 | 80.00 | 98.9
+nasa-occupancy-v1 | cernan-portrait | blocks | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01577 | 3 | 0.5 | 44.23 | 80.00 | 99.5
+nasa-occupancy-v1 | daedalia-planum | blocks | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01859 | 3 | 0.0 | 62.73 | 80.00 | 99.8
+nasa-occupancy-v1 | earth-night-iss-090323 | blocks | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02398 | 2 | 0.0 | 73.85 | 80.00 | 99.9
+nasa-occupancy-v1 | earth-night-iss-091208 | blocks | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02317 | 2 | 0.0 | 73.85 | 80.00 | 99.9
+nasa-occupancy-v1 | iani-chaos | blocks | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01846 | 3 | 0.0 | 73.30 | 80.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | blocks | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01741 | 2 | 0.0 | 65.45 | 80.00 | 99.8
+nasa-occupancy-v1 | james-lovell-portrait | blocks | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 20.6 | 20.6 | 100.0 | 0.005712 | 3 | 21.0 | 7.45 | 34.00 | 85.3
+nasa-occupancy-v1 | mark-lee-portrait | blocks | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.005247 | 3 | 0.6 | 19.04 | 76.00 | 95.6
+nasa-occupancy-v1 | marsha-ivins-portrait | blocks | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.01586 | 3 | 0.1 | 40.85 | 80.00 | 98.7
+nasa-occupancy-v1 | multicolor-aurora | blocks | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02605 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | new-york-night | blocks | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02414 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | blocks | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 84.8 | 84.8 | 100.0 | 0.00422 | 4 | 86.7 | 1.85 | 5.00 | 21.0
+nasa-occupancy-v1 | reentry-communications-diagram | blocks | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 71.2 | 71.2 | 100.0 | 0.003449 | 4 | 73.6 | 1.88 | 4.00 | 22.9
+nasa-occupancy-v1 | rocket-systems-diagram | blocks | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 69.9 | 69.9 | 100.0 | 0.003449 | 4 | 73.1 | 2.32 | 6.00 | 38.7
+nasa-occupancy-v1 | san-francisco-night | blocks | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02228 | 2 | 0.0 | 53.33 | 80.00 | 99.5
+nasa-occupancy-v1 | saturn-infrared | blocks | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02256 | 2 | 0.0 | 66.09 | 80.00 | 99.9
+nasa-occupancy-v1 | spacecraft-attitude-diagram | blocks | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 78.1 | 78.1 | 100.0 | 0.004649 | 4 | 80.9 | 1.75 | 5.00 | 19.1
+nasa-occupancy-v1 | tarantula-spitzer-3color | blocks | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02097 | 2 | 0.0 | 72.73 | 80.00 | 99.9
+nasa-occupancy-v1 | (pooled) | blocks | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 13.1 | 13.1 | 100.0 | 0.003449 | 4 | 13.6 | 21.01 | 80.00 | 95.5
+nasa-occupancy-v1 | apollo11-bootprint | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.007703 | 3 | 0.1 | 50.62 | 288.00 | 98.7
+nasa-occupancy-v1 | apollo12-lunar-mound | blocks | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.01086 | 3 | 0.1 | 22.00 | 84.00 | 96.5
+nasa-occupancy-v1 | aurora-expedition23 | blocks | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 2.0 | 2.0 | 100.0 | 0.007977 | 3 | 2.1 | 168.47 | 288.00 | 99.8
+nasa-occupancy-v1 | aurora-sts62 | blocks | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.2 | 0.2 | 100.0 | 0.01539 | 3 | 0.2 | 224.76 | 288.00 | 99.9
+nasa-occupancy-v1 | calbuco-plume | blocks | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.01314 | 4 | 0.0 | 193.63 | 288.00 | 99.8
+nasa-occupancy-v1 | carina-cosmic-cliffs | blocks | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.01332 | 4 | 0.0 | 82.72 | 288.00 | 99.4
+nasa-occupancy-v1 | cernan-portrait | blocks | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.009516 | 3 | 0.1 | 147.99 | 288.00 | 99.8
+nasa-occupancy-v1 | daedalia-planum | blocks | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.008341 | 4 | 0.0 | 64.70 | 288.00 | 99.1
+nasa-occupancy-v1 | earth-night-iss-090323 | blocks | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02014 | 2 | 0.0 | 188.39 | 288.00 | 99.9
+nasa-occupancy-v1 | earth-night-iss-091208 | blocks | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02163 | 2 | 0.0 | 188.39 | 288.00 | 99.9
+nasa-occupancy-v1 | iani-chaos | blocks | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.0166 | 3 | 0.0 | 225.03 | 288.00 | 99.9
+nasa-occupancy-v1 | infrared-color-explosion | blocks | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | 100.0 | 0.01804 | 3 | 0.0 | 205.69 | 288.00 | 99.9
+nasa-occupancy-v1 | james-lovell-portrait | blocks | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 21.5 | 21.5 | 100.0 | 0.008377 | 3 | 21.6 | 15.11 | 106.00 | 92.6
+nasa-occupancy-v1 | mark-lee-portrait | blocks | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.2 | 0.2 | 100.0 | 0.005068 | 4 | 0.4 | 69.88 | 288.00 | 99.1
+nasa-occupancy-v1 | marsha-ivins-portrait | blocks | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.1 | 0.1 | 100.0 | 0.01361 | 3 | 0.1 | 160.47 | 288.00 | 99.7
+nasa-occupancy-v1 | multicolor-aurora | blocks | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02326 | 2 | 0.0 | 281.53 | 288.00 | 100.0
+nasa-occupancy-v1 | new-york-night | blocks | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02087 | 2 | 0.0 | 202.31 | 288.00 | 99.9
+nasa-occupancy-v1 | rcs-function-diagram | blocks | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 92.6 | 92.6 | 100.0 | 0.002008 | 4 | 93.4 | 1.80 | 5.00 | 17.0
+nasa-occupancy-v1 | reentry-communications-diagram | blocks | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 88.4 | 88.4 | 100.0 | 0.001862 | 4 | 89.7 | 1.81 | 4.00 | 16.4
+nasa-occupancy-v1 | rocket-systems-diagram | blocks | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 84.2 | 84.2 | 100.0 | 0.002017 | 4 | 86.2 | 1.78 | 4.00 | 14.5
+nasa-occupancy-v1 | san-francisco-night | blocks | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.01414 | 2 | 0.0 | 124.66 | 288.00 | 99.6
+nasa-occupancy-v1 | saturn-infrared | blocks | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02337 | 2 | 0.0 | 245.85 | 288.00 | 99.9
+nasa-occupancy-v1 | spacecraft-attitude-diagram | blocks | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 4 ░▒▓█ | 90.1 | 90.1 | 100.0 | 0.002051 | 4 | 91.2 | 1.88 | 5.00 | 20.6
+nasa-occupancy-v1 | tarantula-spitzer-3color | blocks | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 0.0 | 0.0 | nan | 0.02181 | 2 | 0.0 | 176.67 | 288.00 | 99.9
+nasa-occupancy-v1 | (pooled) | blocks | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 4 ░▒▓█ | 15.2 | 15.2 | 100.0 | 0.001862 | 4 | 15.4 | 43.20 | 288.00 | 97.6
+nasa-occupancy-v1 | apollo11-bootprint | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | dots | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | dots | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | dots | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | dots | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | dots | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | dots | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | dots | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | dots | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | dots | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | dots | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | dots | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | dots | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | dots | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | dots | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | dots | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | dots | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | dots | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | dots | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | dots | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | dots | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | dots | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | dots | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | dots | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | dots | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | dots | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | dots | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | dots | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | dots | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | dots | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | dots | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | dots | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | dots | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | dots | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | dots | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | dots | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | dots | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | dots | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | dots | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | dots | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | dots | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | dots | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | dots | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | dots | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | dots | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | dots | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | dots | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | dots | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | dots | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | dots | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | dots | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | dots | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | dots | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | dots | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | dots | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | dots | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | dots | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | dots | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | dots | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | dots | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | dots | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | dots | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | dots | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | dots | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | dots | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | dots | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | dots | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | dots | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | dots | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | dots | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | dots | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | dots | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | dots | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0484 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | lines | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05567 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | lines | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05626 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | aurora-sts62 | lines | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06327 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | lines | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04817 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | lines | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06496 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | lines | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.01998 | 2 | 0.1 | 74.23 | 76.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | lines | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04937 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | lines | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0691 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | lines | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06387 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | lines | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05105 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | lines | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06312 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | lines | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 3 │├┼ | 20.4 | 20.4 | 100.0 | 0.02428 | 2 | 20.5 | 29.24 | 76.00 | 98.1
+nasa-occupancy-v1 | mark-lee-portrait | lines | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.01957 | 2 | 0.2 | 67.81 | 76.00 | 99.9
+nasa-occupancy-v1 | marsha-ivins-portrait | lines | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.04041 | 2 | 0.1 | 75.95 | 76.00 | 100.0
+nasa-occupancy-v1 | multicolor-aurora | lines | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0737 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | new-york-night | lines | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06573 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | lines | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 │├┼ | 83.7 | 83.7 | 100.0 | 0.01421 | 2 | 84.4 | 3.90 | 10.00 | 62.2
+nasa-occupancy-v1 | reentry-communications-diagram | lines | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 3 │├┼ | 70.5 | 70.5 | 100.0 | 0.01278 | 2 | 71.1 | 4.77 | 14.00 | 70.2
+nasa-occupancy-v1 | rocket-systems-diagram | lines | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 │├┼ | 69.2 | 69.2 | 100.0 | 0.01597 | 2 | 69.8 | 6.73 | 20.00 | 87.2
+nasa-occupancy-v1 | san-francisco-night | lines | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05576 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | lines | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05987 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | lines | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 3 │├┼ | 75.8 | 75.8 | 100.0 | 0.01405 | 2 | 76.9 | 3.70 | 10.00 | 58.9
+nasa-occupancy-v1 | tarantula-spitzer-3color | lines | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06647 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | (pooled) | lines | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 3 │├┼ | 12.8 | 12.8 | 100.0 | 0.01278 | 2 | 12.9 | 43.00 | 76.00 | 98.6
+nasa-occupancy-v1 | apollo11-bootprint | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05379 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | lines | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04977 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | lines | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.04219 | 2 | 0.1 | 76.76 | 80.00 | 100.0
+nasa-occupancy-v1 | aurora-sts62 | lines | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06565 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | lines | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04951 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | lines | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05732 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | lines | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04201 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | lines | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.04951 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | lines | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06724 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | lines | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06027 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | lines | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05062 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | lines | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05643 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | lines | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 3 │├┼ | 20.6 | 20.6 | 100.0 | 0.01473 | 2 | 20.7 | 32.76 | 80.00 | 98.2
+nasa-occupancy-v1 | mark-lee-portrait | lines | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.02198 | 2 | 0.2 | 70.47 | 80.00 | 99.9
+nasa-occupancy-v1 | marsha-ivins-portrait | lines | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.04089 | 2 | 0.1 | 78.20 | 80.00 | 99.9
+nasa-occupancy-v1 | multicolor-aurora | lines | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.07482 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | new-york-night | lines | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06782 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | lines | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 │├┼ | 84.8 | 84.8 | 100.0 | 0.01768 | 2 | 85.4 | 3.73 | 11.00 | 61.9
+nasa-occupancy-v1 | reentry-communications-diagram | lines | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 3 │├┼ | 71.2 | 71.2 | 100.0 | 0.01445 | 2 | 71.9 | 4.71 | 17.00 | 66.1
+nasa-occupancy-v1 | rocket-systems-diagram | lines | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 │├┼ | 69.9 | 69.9 | 100.0 | 0.01445 | 2 | 70.7 | 6.18 | 22.00 | 86.3
+nasa-occupancy-v1 | san-francisco-night | lines | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06153 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | lines | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06252 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | lines | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 3 │├┼ | 78.1 | 78.1 | 100.0 | 0.01199 | 2 | 79.1 | 3.49 | 12.00 | 57.5
+nasa-occupancy-v1 | tarantula-spitzer-3color | lines | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06536 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | (pooled) | lines | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 3 │├┼ | 13.1 | 13.1 | 100.0 | 0.01199 | 2 | 13.2 | 44.28 | 80.00 | 98.6
+nasa-occupancy-v1 | apollo11-bootprint | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.03228 | 2 | 0.0 | 283.62 | 288.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | lines | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.03182 | 2 | 0.0 | 283.48 | 288.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | lines | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 3 │├┼ | 2.0 | 2.0 | 100.0 | 0.02057 | 2 | 2.0 | 253.66 | 288.00 | 100.0
+nasa-occupancy-v1 | aurora-sts62 | lines | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.2 | 0.2 | 100.0 | 0.05836 | 2 | 0.2 | 268.74 | 288.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | lines | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.04187 | 2 | 0.0 | 280.77 | 288.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | lines | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.03613 | 2 | 0.0 | 284.18 | 288.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | lines | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.03099 | 2 | 0.0 | 276.09 | 288.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | lines | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.03495 | 2 | 0.0 | 284.05 | 288.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | lines | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05463 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | lines | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.05871 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | lines | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0443 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | lines | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | 100.0 | 0.04978 | 2 | 0.0 | 283.61 | 288.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | lines | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 3 │├┼ | 21.5 | 21.5 | 100.0 | 0.028 | 2 | 21.5 | 42.19 | 232.00 | 97.8
+nasa-occupancy-v1 | mark-lee-portrait | lines | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.2 | 0.2 | 100.0 | 0.01793 | 2 | 0.2 | 208.72 | 288.00 | 99.9
+nasa-occupancy-v1 | marsha-ivins-portrait | lines | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.1 | 0.1 | 100.0 | 0.04356 | 2 | 0.1 | 271.14 | 288.00 | 100.0
+nasa-occupancy-v1 | multicolor-aurora | lines | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06821 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | new-york-night | lines | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06047 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | lines | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 │├┼ | 92.6 | 92.6 | 100.0 | 0.007659 | 2 | 92.9 | 3.57 | 10.00 | 53.9
+nasa-occupancy-v1 | reentry-communications-diagram | lines | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 3 │├┼ | 88.4 | 88.4 | 100.0 | 0.006223 | 2 | 88.8 | 3.37 | 8.00 | 43.1
+nasa-occupancy-v1 | rocket-systems-diagram | lines | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 │├┼ | 84.2 | 84.2 | 100.0 | 0.006251 | 2 | 85.0 | 3.11 | 8.00 | 43.1
+nasa-occupancy-v1 | san-francisco-night | lines | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.0447 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | lines | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06684 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | lines | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 3 │├┼ | 90.1 | 90.1 | 100.0 | 0.007019 | 2 | 90.5 | 3.37 | 8.00 | 50.2
+nasa-occupancy-v1 | tarantula-spitzer-3color | lines | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 3 │├┼ | 0.0 | 0.0 | nan | 0.06381 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | (pooled) | lines | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 3 │├┼ | 15.2 | 15.2 | 100.0 | 0.006223 | 2 | 15.3 | 94.20 | 288.00 | 98.8
+nasa-occupancy-v1 | apollo11-bootprint | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diagonal | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diagonal | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diagonal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diagonal | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diagonal | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diagonal | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diagonal | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diagonal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diagonal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diagonal | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diagonal | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diagonal | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diagonal | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diagonal | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diagonal | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diagonal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diagonal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diagonal | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diagonal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diagonal | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diagonal | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diagonal | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diagonal | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diagonal | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diagonal | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diagonal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diagonal | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diagonal | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diagonal | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diagonal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diagonal | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diagonal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diagonal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diagonal | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diagonal | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diagonal | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diagonal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diagonal | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diagonal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diagonal | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diagonal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diagonal | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diagonal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diagonal | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diagonal | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diagonal | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diagonal | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diagonal | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diagonal | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diagonal | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diagonal | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diagonal | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diagonal | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diagonal | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diagonal | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diagonal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diagonal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diagonal | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diagonal | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diagonal | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diagonal | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diagonal | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diagonal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diagonal | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diagonal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diagonal | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diagonal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diagonal | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diagonal | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diagonal | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diagonal | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diagonal | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | cross | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | cross | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | cross | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | cross | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | cross | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | cross | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | cross | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | cross | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | cross | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | cross | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | cross | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | cross | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | cross | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | cross | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | cross | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | cross | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | cross | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | cross | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | cross | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | cross | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | cross | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | cross | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | cross | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | cross | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | cross | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | cross | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | cross | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | cross | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | cross | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | cross | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | cross | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | cross | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | cross | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | cross | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | cross | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | cross | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | cross | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | cross | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | cross | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | cross | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | cross | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | cross | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | cross | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | cross | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | cross | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | cross | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | cross | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | cross | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | cross | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | cross | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | cross | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | cross | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | cross | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | cross | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | cross | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | cross | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | cross | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | cross | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | cross | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | cross | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | cross | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | cross | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | cross | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | cross | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | cross | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | cross | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | cross | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | cross | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | cross | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | cross | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | cross | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | cross | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diamond | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diamond | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diamond | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diamond | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diamond | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diamond | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diamond | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diamond | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diamond | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diamond | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diamond | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diamond | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diamond | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diamond | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diamond | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diamond | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diamond | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diamond | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diamond | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diamond | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diamond | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diamond | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diamond | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diamond | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diamond | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diamond | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diamond | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diamond | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diamond | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diamond | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diamond | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diamond | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diamond | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diamond | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diamond | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diamond | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diamond | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diamond | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diamond | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diamond | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diamond | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diamond | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diamond | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diamond | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diamond | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diamond | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diamond | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diamond | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo12-lunar-mound | diamond | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-expedition23 | diamond | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | aurora-sts62 | diamond | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | calbuco-plume | diamond | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | carina-cosmic-cliffs | diamond | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | cernan-portrait | diamond | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | daedalia-planum | diamond | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-090323 | diamond | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | earth-night-iss-091208 | diamond | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | iani-chaos | diamond | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | infrared-color-explosion | diamond | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | james-lovell-portrait | diamond | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | mark-lee-portrait | diamond | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | marsha-ivins-portrait | diamond | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | multicolor-aurora | diamond | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | new-york-night | diamond | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rcs-function-diagram | diamond | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | reentry-communications-diagram | diamond | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | rocket-systems-diagram | diamond | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | san-francisco-night | diamond | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | saturn-infrared | diamond | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | spacecraft-attitude-diagram | diamond | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | tarantula-spitzer-3color | diamond | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | (pooled) | diamond | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 0  | 100.0 | 100.0 | 100.0 | nan | 1 | 100.0 | nan | nan | nan
+nasa-occupancy-v1 | apollo11-bootprint | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06995 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | mixed | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08044 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | mixed | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0813 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | aurora-sts62 | mixed | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09142 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | mixed | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06961 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | mixed | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09387 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | mixed | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.02887 | 2 | 0.1 | 70.96 | 76.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | mixed | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07135 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | mixed | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09986 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | mixed | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09229 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | mixed | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07377 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | mixed | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09121 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | mixed | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 1 │ | 20.4 | 20.4 | 100.0 | 0.03508 | 2 | 20.6 | 27.98 | 76.00 | 98.0
+nasa-occupancy-v1 | mark-lee-portrait | mixed | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.02828 | 2 | 0.3 | 63.62 | 76.00 | 100.0
+nasa-occupancy-v1 | marsha-ivins-portrait | mixed | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.05839 | 2 | 0.1 | 72.53 | 76.00 | 99.8
+nasa-occupancy-v1 | multicolor-aurora | mixed | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1065 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | new-york-night | mixed | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09499 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | mixed | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 1 │ | 83.7 | 83.7 | 100.0 | 0.02053 | 2 | 85.1 | 3.47 | 9.00 | 55.4
+nasa-occupancy-v1 | reentry-communications-diagram | mixed | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 1 │ | 70.5 | 70.5 | 100.0 | 0.01846 | 2 | 72.6 | 3.95 | 12.00 | 61.9
+nasa-occupancy-v1 | rocket-systems-diagram | mixed | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 1 │ | 69.2 | 69.2 | 100.0 | 0.02307 | 2 | 71.6 | 5.11 | 16.00 | 76.0
+nasa-occupancy-v1 | san-francisco-night | mixed | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08057 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | mixed | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08652 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | mixed | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 1 │ | 75.8 | 75.8 | 100.0 | 0.0203 | 2 | 77.8 | 3.30 | 10.00 | 52.4
+nasa-occupancy-v1 | tarantula-spitzer-3color | mixed | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09605 | 1 | 0.0 | 76.00 | 76.00 | 100.0
+nasa-occupancy-v1 | (pooled) | mixed | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 1 │ | 12.8 | 12.8 | 100.0 | 0.01846 | 2 | 13.1 | 40.30 | 76.00 | 98.3
+nasa-occupancy-v1 | apollo11-bootprint | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07773 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | mixed | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07192 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | mixed | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.06097 | 2 | 0.2 | 73.73 | 80.00 | 100.0
+nasa-occupancy-v1 | aurora-sts62 | mixed | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09487 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | mixed | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07154 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | mixed | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08283 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | mixed | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06071 | 2 | 0.2 | 66.50 | 80.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | mixed | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07155 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | mixed | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09716 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | mixed | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.0871 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | mixed | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07315 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | mixed | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08155 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | mixed | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 1 │ | 20.6 | 20.6 | 100.0 | 0.02128 | 2 | 20.8 | 31.34 | 80.00 | 98.0
+nasa-occupancy-v1 | mark-lee-portrait | mixed | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.03177 | 2 | 0.3 | 66.44 | 80.00 | 99.9
+nasa-occupancy-v1 | marsha-ivins-portrait | mixed | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.05909 | 2 | 0.1 | 78.17 | 80.00 | 99.9
+nasa-occupancy-v1 | multicolor-aurora | mixed | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.1081 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | new-york-night | mixed | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09801 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | mixed | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 1 │ | 84.8 | 84.8 | 100.0 | 0.02555 | 2 | 86.3 | 3.15 | 9.00 | 54.1
+nasa-occupancy-v1 | reentry-communications-diagram | mixed | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 1 │ | 71.2 | 71.2 | 100.0 | 0.02089 | 2 | 73.1 | 4.11 | 16.00 | 58.4
+nasa-occupancy-v1 | rocket-systems-diagram | mixed | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 1 │ | 69.9 | 69.9 | 100.0 | 0.02089 | 2 | 72.3 | 4.87 | 17.00 | 76.2
+nasa-occupancy-v1 | san-francisco-night | mixed | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08891 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | mixed | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09034 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | mixed | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 1 │ | 78.1 | 78.1 | 100.0 | 0.01732 | 2 | 80.2 | 3.01 | 8.00 | 50.0
+nasa-occupancy-v1 | tarantula-spitzer-3color | mixed | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09444 | 1 | 0.0 | 80.00 | 80.00 | 100.0
+nasa-occupancy-v1 | (pooled) | mixed | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 1 │ | 13.1 | 13.1 | 100.0 | 0.01732 | 2 | 13.4 | 41.51 | 80.00 | 98.3
+nasa-occupancy-v1 | apollo11-bootprint | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.04664 | 2 | 0.0 | 267.36 | 288.00 | 100.0
+nasa-occupancy-v1 | apollo12-lunar-mound | mixed | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.04598 | 2 | 0.0 | 281.28 | 288.00 | 100.0
+nasa-occupancy-v1 | aurora-expedition23 | mixed | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 1 │ | 2.0 | 2.0 | 100.0 | 0.02972 | 2 | 2.1 | 239.09 | 288.00 | 99.9
+nasa-occupancy-v1 | aurora-sts62 | mixed | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 1 │ | 0.2 | 0.2 | 100.0 | 0.08434 | 2 | 0.2 | 268.74 | 288.00 | 100.0
+nasa-occupancy-v1 | calbuco-plume | mixed | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.06051 | 2 | 0.0 | 276.14 | 288.00 | 100.0
+nasa-occupancy-v1 | carina-cosmic-cliffs | mixed | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.05221 | 2 | 0.0 | 284.17 | 288.00 | 100.0
+nasa-occupancy-v1 | cernan-portrait | mixed | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.04478 | 2 | 0.0 | 263.64 | 288.00 | 100.0
+nasa-occupancy-v1 | daedalia-planum | mixed | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.0505 | 2 | 0.0 | 278.33 | 288.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-090323 | mixed | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.07894 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | earth-night-iss-091208 | mixed | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08484 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | iani-chaos | mixed | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06401 | 2 | 0.0 | 286.97 | 288.00 | 100.0
+nasa-occupancy-v1 | infrared-color-explosion | mixed | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | 100.0 | 0.07193 | 2 | 0.0 | 283.61 | 288.00 | 100.0
+nasa-occupancy-v1 | james-lovell-portrait | mixed | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 1 │ | 21.5 | 21.5 | 100.0 | 0.04046 | 2 | 21.6 | 41.72 | 232.00 | 97.8
+nasa-occupancy-v1 | mark-lee-portrait | mixed | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 1 │ | 0.2 | 0.2 | 100.0 | 0.02591 | 2 | 0.3 | 200.58 | 288.00 | 99.9
+nasa-occupancy-v1 | marsha-ivins-portrait | mixed | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 1 │ | 0.1 | 0.1 | 100.0 | 0.06294 | 2 | 0.1 | 271.14 | 288.00 | 100.0
+nasa-occupancy-v1 | multicolor-aurora | mixed | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09856 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | new-york-night | mixed | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.08738 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | rcs-function-diagram | mixed | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 1 │ | 92.6 | 92.6 | 100.0 | 0.01107 | 2 | 93.1 | 3.23 | 9.00 | 49.1
+nasa-occupancy-v1 | reentry-communications-diagram | mixed | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 1 │ | 88.4 | 88.4 | 100.0 | 0.008992 | 2 | 89.3 | 3.07 | 8.00 | 38.7
+nasa-occupancy-v1 | rocket-systems-diagram | mixed | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 1 │ | 84.2 | 84.2 | 100.0 | 0.009033 | 2 | 85.7 | 2.76 | 7.00 | 37.9
+nasa-occupancy-v1 | san-francisco-night | mixed | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.06459 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | saturn-infrared | mixed | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09659 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | mixed | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 1 │ | 90.1 | 90.1 | 100.0 | 0.01014 | 2 | 90.9 | 3.02 | 7.00 | 43.1
+nasa-occupancy-v1 | tarantula-spitzer-3color | mixed | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 1 │ | 0.0 | 0.0 | nan | 0.09221 | 1 | 0.0 | 288.00 | 288.00 | 100.0
+nasa-occupancy-v1 | (pooled) | mixed | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 1 │ | 15.2 | 15.2 | 100.0 | 0.008992 | 2 | 15.3 | 90.43 | 288.00 | 98.7
+nasa-occupancy-v1 | apollo11-bootprint | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.004282 | 14 | 0.8 | 1.51 | 4.00 | 7.1
+nasa-occupancy-v1 | apollo12-lunar-mound | braille | 76 | 2 | 2x4 | 2508 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.004776 | 13 | 26.8 | 1.68 | 4.00 | 19.7
+nasa-occupancy-v1 | aurora-expedition23 | braille | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.003512 | 14 | 5.8 | 3.31 | 13.00 | 63.7
+nasa-occupancy-v1 | aurora-sts62 | braille | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.005524 | 13 | 59.9 | 4.21 | 16.00 | 66.0
+nasa-occupancy-v1 | calbuco-plume | braille | 76 | 2 | 2x4 | 2356 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006207 | 12 | 0.0 | 2.18 | 5.00 | 28.3
+nasa-occupancy-v1 | carina-cosmic-cliffs | braille | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.007924 | 10 | 0.0 | 2.36 | 6.00 | 33.9
+nasa-occupancy-v1 | cernan-portrait | braille | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.005184 | 14 | 2.5 | 4.23 | 15.00 | 71.0
+nasa-occupancy-v1 | daedalia-planum | braille | 76 | 2 | 2x4 | 5776 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.00317 | 13 | 27.3 | 3.42 | 14.00 | 64.4
+nasa-occupancy-v1 | earth-night-iss-090323 | braille | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01355 | 8 | 66.2 | 1.98 | 6.00 | 27.6
+nasa-occupancy-v1 | earth-night-iss-091208 | braille | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01155 | 9 | 40.3 | 2.93 | 6.00 | 48.3
+nasa-occupancy-v1 | iani-chaos | braille | 76 | 2 | 2x4 | 5548 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008628 | 14 | 29.8 | 2.37 | 7.00 | 34.4
+nasa-occupancy-v1 | infrared-color-explosion | braille | 76 | 2 | 2x4 | 2584 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01171 | 14 | 0.0 | 2.36 | 7.00 | 37.5
+nasa-occupancy-v1 | james-lovell-portrait | braille | 76 | 2 | 2x4 | 3420 | 3.00/3 | 51;54;56 | 224 | 20.1 | 0.0 | 100.0 | 0.003382 | 17 | 0.0 | 2.97 | 12.00 | 57.7
+nasa-occupancy-v1 | mark-lee-portrait | braille | 76 | 2 | 2x4 | 3192 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.002529 | 17 | 2.6 | 2.18 | 7.00 | 38.7
+nasa-occupancy-v1 | marsha-ivins-portrait | braille | 76 | 2 | 2x4 | 3268 | 3.00/3 | 51;54;56 | 224 | 0.1 | 0.0 | 100.0 | 0.004145 | 16 | 0.9 | 2.37 | 8.00 | 44.0
+nasa-occupancy-v1 | multicolor-aurora | braille | 76 | 2 | 2x4 | 1748 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01327 | 8 | 32.2 | 14.29 | 55.00 | 93.7
+nasa-occupancy-v1 | new-york-night | braille | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01133 | 6 | 0.0 | 10.39 | 41.00 | 90.1
+nasa-occupancy-v1 | rcs-function-diagram | braille | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 224 | 83.1 | 0.0 | 100.0 | 0.001924 | 8 | 0.0 | 8.14 | 35.00 | 86.4
+nasa-occupancy-v1 | reentry-communications-diagram | braille | 76 | 2 | 2x4 | 3192 | 0.00/3 | 51;54;56 | 224 | 69.5 | 0.0 | 100.0 | 0.001856 | 17 | 0.0 | 6.40 | 24.00 | 81.3
+nasa-occupancy-v1 | rocket-systems-diagram | braille | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 224 | 67.9 | 0.0 | 100.0 | 0.002696 | 8 | 0.0 | 6.62 | 27.00 | 82.5
+nasa-occupancy-v1 | san-francisco-night | braille | 76 | 2 | 2x4 | 1672 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006045 | 13 | 31.6 | 2.50 | 7.00 | 40.0
+nasa-occupancy-v1 | saturn-infrared | braille | 76 | 2 | 2x4 | 1368 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008476 | 12 | 41.9 | 3.47 | 9.00 | 58.0
+nasa-occupancy-v1 | spacecraft-attitude-diagram | braille | 76 | 2 | 2x4 | 2052 | 0.00/3 | 51;54;56 | 224 | 74.7 | 0.0 | 100.0 | 0.003145 | 7 | 0.0 | 6.13 | 23.00 | 80.7
+nasa-occupancy-v1 | tarantula-spitzer-3color | braille | 76 | 2 | 2x4 | 1444 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.007152 | 11 | 0.0 | 2.73 | 9.00 | 45.1
+nasa-occupancy-v1 | (pooled) | braille | 76 | 2 | 2x4 | 59964 | 3.00/3 | 51;54;56 | 224 | 12.6 | 0.0 | 100.0 | 0.001856 | 21 | 14.5 | 2.97 | 10.00 | 53.8
+nasa-occupancy-v1 | apollo11-bootprint | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.00585 | 14 | 1.0 | 1.50 | 3.00 | 7.0
+nasa-occupancy-v1 | apollo12-lunar-mound | braille | 80 | 2 | 2x4 | 2800 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.005196 | 14 | 26.1 | 1.75 | 4.00 | 20.5
+nasa-occupancy-v1 | aurora-expedition23 | braille | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 224 | 0.1 | 0.0 | 100.0 | 0.004142 | 16 | 5.8 | 3.53 | 14.00 | 64.2
+nasa-occupancy-v1 | aurora-sts62 | braille | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.004031 | 14 | 61.0 | 3.92 | 12.00 | 65.1
+nasa-occupancy-v1 | calbuco-plume | braille | 80 | 2 | 2x4 | 2560 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006804 | 12 | 0.0 | 2.20 | 6.00 | 29.9
+nasa-occupancy-v1 | carina-cosmic-cliffs | braille | 80 | 2 | 2x4 | 1680 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008496 | 11 | 0.0 | 2.33 | 6.00 | 32.5
+nasa-occupancy-v1 | cernan-portrait | braille | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.005175 | 13 | 2.7 | 4.23 | 15.00 | 69.8
+nasa-occupancy-v1 | daedalia-planum | braille | 80 | 2 | 2x4 | 6400 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.007168 | 14 | 27.4 | 3.46 | 14.00 | 65.7
+nasa-occupancy-v1 | earth-night-iss-090323 | braille | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01374 | 10 | 66.2 | 2.04 | 6.00 | 24.5
+nasa-occupancy-v1 | earth-night-iss-091208 | braille | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01359 | 11 | 40.8 | 2.88 | 7.00 | 51.7
+nasa-occupancy-v1 | iani-chaos | braille | 80 | 2 | 2x4 | 6160 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.007247 | 14 | 29.9 | 2.40 | 7.00 | 35.9
+nasa-occupancy-v1 | infrared-color-explosion | braille | 80 | 2 | 2x4 | 2880 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.005662 | 13 | 0.0 | 2.39 | 7.00 | 37.5
+nasa-occupancy-v1 | james-lovell-portrait | braille | 80 | 2 | 2x4 | 3760 | 3.00/3 | 51;54;56 | 224 | 20.3 | 0.0 | 100.0 | 0.002559 | 16 | 0.0 | 3.10 | 12.00 | 58.3
+nasa-occupancy-v1 | mark-lee-portrait | braille | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 224 | 0.1 | 0.0 | 100.0 | 0.002238 | 16 | 2.8 | 2.17 | 7.00 | 36.7
+nasa-occupancy-v1 | marsha-ivins-portrait | braille | 80 | 2 | 2x4 | 3600 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.004084 | 15 | 0.9 | 2.43 | 8.00 | 45.1
+nasa-occupancy-v1 | multicolor-aurora | braille | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01433 | 7 | 32.6 | 17.74 | 59.00 | 97.2
+nasa-occupancy-v1 | new-york-night | braille | 80 | 2 | 2x4 | 1840 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01122 | 8 | 0.0 | 10.57 | 43.00 | 90.0
+nasa-occupancy-v1 | rcs-function-diagram | braille | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 224 | 83.8 | 0.0 | 100.0 | 0.002189 | 10 | 0.0 | 8.72 | 37.00 | 86.3
+nasa-occupancy-v1 | reentry-communications-diagram | braille | 80 | 2 | 2x4 | 3600 | 0.00/3 | 51;54;56 | 224 | 70.0 | 0.0 | 100.0 | 0.002107 | 12 | 0.0 | 6.44 | 24.00 | 81.4
+nasa-occupancy-v1 | rocket-systems-diagram | braille | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 224 | 68.3 | 0.0 | 100.0 | 0.00256 | 9 | 0.0 | 6.88 | 29.00 | 83.4
+nasa-occupancy-v1 | san-francisco-night | braille | 80 | 2 | 2x4 | 1920 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006138 | 14 | 31.5 | 2.70 | 8.00 | 42.8
+nasa-occupancy-v1 | saturn-infrared | braille | 80 | 2 | 2x4 | 1520 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.008216 | 12 | 42.3 | 3.52 | 9.00 | 55.3
+nasa-occupancy-v1 | spacecraft-attitude-diagram | braille | 80 | 2 | 2x4 | 2320 | 0.00/3 | 51;54;56 | 224 | 76.9 | 0.0 | 100.0 | 0.00375 | 9 | 0.0 | 6.39 | 23.00 | 82.1
+nasa-occupancy-v1 | tarantula-spitzer-3color | braille | 80 | 2 | 2x4 | 1600 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01083 | 11 | 0.0 | 2.73 | 9.00 | 45.8
+nasa-occupancy-v1 | (pooled) | braille | 80 | 2 | 2x4 | 66880 | 3.00/3 | 51;54;56 | 224 | 12.9 | 0.0 | 100.0 | 0.002107 | 19 | 14.6 | 3.02 | 10.00 | 54.2
+nasa-occupancy-v1 | apollo11-bootprint | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.00261 | 15 | 2.0 | 1.59 | 4.00 | 11.2
+nasa-occupancy-v1 | apollo12-lunar-mound | braille | 288 | 2 | 2x4 | 36288 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.002202 | 17 | 24.9 | 1.65 | 4.00 | 19.5
+nasa-occupancy-v1 | aurora-expedition23 | braille | 288 | 2 | 2x4 | 25632 | 3.00/3 | 51;54;56 | 224 | 2.0 | 0.0 | 100.0 | 0.001416 | 17 | 5.7 | 6.32 | 28.00 | 78.3
+nasa-occupancy-v1 | aurora-sts62 | braille | 288 | 2 | 2x4 | 24768 | 3.00/3 | 51;54;56 | 224 | 0.2 | 0.0 | 100.0 | 0.006787 | 14 | 60.5 | 7.77 | 27.00 | 83.2
+nasa-occupancy-v1 | calbuco-plume | braille | 288 | 2 | 2x4 | 33696 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.004617 | 14 | 0.0 | 3.49 | 10.00 | 56.4
+nasa-occupancy-v1 | carina-cosmic-cliffs | braille | 288 | 2 | 2x4 | 21600 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.002659 | 17 | 0.0 | 2.86 | 9.00 | 48.9
+nasa-occupancy-v1 | cernan-portrait | braille | 288 | 2 | 2x4 | 46944 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.002211 | 15 | 3.8 | 7.82 | 33.00 | 85.2
+nasa-occupancy-v1 | daedalia-planum | braille | 288 | 2 | 2x4 | 83232 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.002432 | 18 | 28.6 | 2.87 | 10.00 | 52.6
+nasa-occupancy-v1 | earth-night-iss-090323 | braille | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.007252 | 13 | 69.8 | 2.11 | 6.00 | 33.7
+nasa-occupancy-v1 | earth-night-iss-091208 | braille | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006725 | 14 | 45.6 | 3.04 | 7.00 | 54.2
+nasa-occupancy-v1 | iani-chaos | braille | 288 | 2 | 2x4 | 80352 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006892 | 14 | 31.2 | 3.54 | 11.00 | 59.8
+nasa-occupancy-v1 | infrared-color-explosion | braille | 288 | 2 | 2x4 | 37440 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | 100.0 | 0.005508 | 15 | 0.1 | 3.15 | 10.00 | 54.8
+nasa-occupancy-v1 | james-lovell-portrait | braille | 288 | 2 | 2x4 | 49248 | 3.00/3 | 51;54;56 | 224 | 20.8 | 0.0 | 100.0 | 0.001873 | 18 | 0.2 | 4.39 | 15.00 | 69.4
+nasa-occupancy-v1 | mark-lee-portrait | braille | 288 | 2 | 2x4 | 46656 | 3.00/3 | 51;54;56 | 224 | 0.2 | 0.0 | 100.0 | 0.002098 | 20 | 4.3 | 3.43 | 11.00 | 59.9
+nasa-occupancy-v1 | marsha-ivins-portrait | braille | 288 | 2 | 2x4 | 47232 | 3.00/3 | 51;54;56 | 224 | 0.1 | 0.0 | 100.0 | 0.005672 | 14 | 1.6 | 4.03 | 13.00 | 64.8
+nasa-occupancy-v1 | multicolor-aurora | braille | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.01412 | 10 | 32.8 | 28.85 | 158.00 | 97.0
+nasa-occupancy-v1 | new-york-night | braille | 288 | 2 | 2x4 | 24480 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006825 | 14 | 0.0 | 11.21 | 71.00 | 89.3
+nasa-occupancy-v1 | rcs-function-diagram | braille | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 224 | 92.2 | 0.0 | 100.0 | 0.00118 | 20 | 0.0 | 12.11 | 77.00 | 91.0
+nasa-occupancy-v1 | reentry-communications-diagram | braille | 288 | 2 | 2x4 | 46656 | 0.00/3 | 51;54;56 | 224 | 87.7 | 0.0 | 100.0 | 0.001091 | 22 | 0.0 | 7.77 | 39.00 | 86.5
+nasa-occupancy-v1 | rocket-systems-diagram | braille | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 224 | 82.9 | 0.0 | 100.0 | 0.001154 | 19 | 0.0 | 5.84 | 13.00 | 78.5
+nasa-occupancy-v1 | san-francisco-night | braille | 288 | 2 | 2x4 | 25056 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.004034 | 14 | 32.3 | 3.91 | 13.00 | 64.7
+nasa-occupancy-v1 | saturn-infrared | braille | 288 | 2 | 2x4 | 20160 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.006947 | 13 | 45.3 | 6.98 | 25.00 | 82.7
+nasa-occupancy-v1 | spacecraft-attitude-diagram | braille | 288 | 2 | 2x4 | 29952 | 0.00/3 | 51;54;56 | 224 | 89.5 | 0.0 | 100.0 | 0.00152 | 25 | 0.0 | 9.36 | 52.00 | 88.5
+nasa-occupancy-v1 | tarantula-spitzer-3color | braille | 288 | 2 | 2x4 | 21024 | 3.00/3 | 51;54;56 | 224 | 0.0 | 0.0 | nan | 0.003191 | 14 | 0.2 | 3.35 | 11.00 | 57.2
+nasa-occupancy-v1 | (pooled) | braille | 288 | 2 | 2x4 | 872928 | 3.00/3 | 51;54;56 | 224 | 15.0 | 0.0 | 100.0 | 0.001091 | 26 | 15.4 | 3.86 | 11.00 | 64.7

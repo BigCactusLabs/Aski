@@ -1451,6 +1451,62 @@
       ],
       "summary" : "The ordinary, ranked, and residual conversion surfaces now share one statically specialized row-walk engine. Frozen output fingerprints are unchanged, the fixed production scope falls by 62 lines, plain-path allocation count is unchanged, and representative release timings are neutral or better. This is a maintenance result, not a descriptor-speed claim.",
       "title" : "ASKI-72 converter-engine consolidation"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-09-27",
+      "next_action" : "No production follow-up from either arm. A perceptual check (the ASKI-56 arbiter) is the instrument that could say whether an all-blank or single-glyph logPolar render is worse than a tone ramp, since per-cell MAE and GMSD both prefer the blank grid on these corpora. Texture collapse on braille, blocks, lines and mixed is out of this rule's reach and is tracked separately (ASKI-84, ASKI-55, ASKI-30).",
+      "path" : "docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md",
+      "related_specs" : [
+        "docs/Research/2026-09-27-aski-79-80-orthogonality-fallback-rule.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+        "docs/Research/2026-08-19-selection-optimality-gap.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-27-aski-79-80-orthogonality-fallback",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Arm 1 (fall back to the tone-nearest pooled glyph when the logPolar query shares no descriptor bin with any non-blank pooled candidate) is KILL, and arm 2 (arm 1 plus serial Floyd-Steinberg tone centring, lab-only) is INCONCLUSIVE, under the rule frozen at 40bafb0. Arm P reproduced all 43 phase-1 baseline rows exactly. Arm 1 removes the all-blank grid on every fixture of the five blank-collapsed sets and is a no-op on blocks, lines, mixed and braille on the PNG corpora, but on standard it raises per-cell MAE by 3.0-4.2 percent on both PNG corpora at 80 and 288 columns, past the 1.0300 KILL bar, and GMSD by 15-43 percent. Both per-cell oracles also score the all-blank grid of the five sparse sets as good as or better than their tone ramp, so neither can reward removing a blank collapse. Arm 2 cuts the share of inked cells in same-glyph runs of five or more by 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of the four gated rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Production is unchanged; ASKI-79 is closed by documentation: logPolar is no longer recommended with minimal or dots, and custom sets are told to use dotMatrix.",
+      "title" : "ASKI-79 + ASKI-80 — orthogonality-to-tone fallback and error-diffused tone centring: decisive verdict"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-09-27",
+      "next_action" : "Applied. The verdict is recorded in docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md: arm 1 KILL, arm 2 INCONCLUSIVE, production unchanged. No threshold here was edited after the first decisive number was read.",
+      "path" : "docs/Research/2026-09-27-aski-79-80-orthogonality-fallback-rule.md",
+      "related_specs" : [
+        "docs/Research/2026-08-24-aski-30-28-decisive-rule.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md",
+        "docs/Research/2026-08-19-selection-optimality-gap.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-09-27-aski-79-80-orthogonality-fallback-rule",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "The frozen PASS/KILL/INCONCLUSIVE rule for the ASKI-79 blank-collapse fix candidate and the ASKI-80 texture intervention, committed after the phase-1 instrument and production baseline and before any arm-1 or arm-2 number was read. Arm 1 falls back to the tone-nearest pooled glyph when the cell's query shares no bins with any non-blank pooled candidate; arm 2 adds serial Floyd–Steinberg tone centring and is lab-only. MAE is the gating oracle, GMSD a cross-check that can demote a PASS, and texture readouts gate arm 2 and guard arm 1 on standard. The verdict corpus is nasa-steerable-v1, the held-out no-harm corpus nasa-structure-v1, and the frozen preset is also guarded on nasa-occupancy-v1, the only corpus with white-ground cells.",
+      "title" : "Pre-registered verdict rule — ASKI-79 + ASKI-80 orthogonality-to-tone fallback, frozen before the decisive run"
     }
   ],
   "results" : [
@@ -1753,6 +1809,143 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "ASKI-69 frozen render-space matcher challenge. Verdict: KILL."
+    },
+    {
+      "aski_git_sha" : "50d619f4be67b356dcbc907e1cc3f8d27f10223a",
+      "command" : "aski lab color selection-ceiling --charset <set> --columns <76|80|288> --oversample 2 --stride 1 --corpus <nasa-steerable-v1|nasa-structure-v1|nasa-occupancy-v1 (frozen-76-occ only)>/assets --output <csv> > <txt>; aski lab color query-orthogonality --charset <all ten> --columns 76,80,288 --oversample 2 --corpus <nasa-steerable-v1,nasa-structure-v1,nasa-occupancy-v1>/assets --output orthogonality.csv > orthogonality.txt (eleven invocations run concurrently, then frozen-76-occ alone, all from .build/release/aski, the canonical route to the AskiColorLab subcommands)",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-09-27",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "census-80-steer.csv",
+        "census-80-steer.txt",
+        "census-80-struct.csv",
+        "census-80-struct.txt",
+        "census-288-steer-standard.csv",
+        "census-288-steer-standard.txt",
+        "census-288-steer-braille.csv",
+        "census-288-steer-braille.txt",
+        "census-288-steer-small.csv",
+        "census-288-steer-small.txt",
+        "census-288-struct-standard.csv",
+        "census-288-struct-standard.txt",
+        "census-288-struct-braille.csv",
+        "census-288-struct-braille.txt",
+        "census-288-struct-small.csv",
+        "census-288-struct-small.txt",
+        "frozen-76-steer.csv",
+        "frozen-76-steer.txt",
+        "frozen-76-struct.csv",
+        "frozen-76-struct.txt",
+        "frozen-76-occ.csv",
+        "frozen-76-occ.txt",
+        "orthogonality.csv",
+        "orthogonality.txt"
+      ],
+      "path" : "docs/Research/Results/2026-09-27-aski-79-80-baseline",
+      "provenance" : [
+        "ASKI-79/80 phase 1: production baseline and mechanism readout only. No candidate intervention was run, and no decision rule is attached to these numbers; phase 2 is gated on a rule frozen after this commit.",
+        "Instrument committed at 50d619f before any run: selection-ceiling texture columns (glyphsUsed, blankShare, runMean, runP95, runMax, run5Share; ASKI-80 AC#1) and the new query-orthogonality readout (ASKI-80 AC#2, ASKI-79 mechanism). Oracle means are unchanged by the extension: the frozen-preset P row on nasa-steerable-v1 reproduces docs/Research/Results/2026-09-02-aski-31-lattice-no-harm/after/frozen-steer.csv to every digit.",
+        "Release build, macOS 27, owner hardware, exhaustive stride 1, footprint 24, inverted shape-query polarity (the shipped default), density 0 (topK 12).",
+        "The eleven invocations ran concurrently on one machine, so selectionWallSeconds is contended wall time and is not a cost baseline.",
+        "nasa-occupancy-v1 is JPEG; its orthogonality rows and frozen-76-occ.csv include compression artifacts. frozen-76-occ was added after the orthogonality readout showed 13-15% all-zero (near-white) queries on this corpus against ~0% on the PNG corpora.",
+        "The 288-column census is split by charset into standard, braille and the eight small sets (census-288-*-small) purely for parallelism; each CSV carries its own rows."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-79/80 phase-1 baseline at 50d619f: production selection-ceiling census with texture readouts for all ten built-in charsets at 80 and 288 columns (plus the frozen preset, blocks at 76, also on nasa-occupancy-v1) on nasa-steerable-v1 and nasa-structure-v1, and the per-fixture query-orthogonality readout on those two corpora and nasa-occupancy-v1. Baseline only; no intervention measured."
+    },
+    {
+      "aski_git_sha" : "bd6779a378774e2d3eaec7758fbf34fbc4a40d76",
+      "command" : "aski lab color selection-ceiling --oversample 2 --stride 1 --orthogonal-tone-fallback --error-diffusion 1,0.5 --charset <set> --columns <76|80|288> --corpus <corpus>/assets --output <csv>; aski lab color orthogonality-render-pair --input nasa-occupancy-v1/assets/<fixture>.jpg --output-dir render-pair --prefix <fixture>-; python3 Scripts/research/aski-79-80-verdict.py > verdict.md (all from the release build of bd6779a)",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-09-27",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "d-288-steer-braille.csv",
+        "d-288-steer-braille.txt",
+        "d-288-steer-small.csv",
+        "d-288-steer-small.txt",
+        "d-288-steer-standard.csv",
+        "d-288-steer-standard.txt",
+        "d-288-struct-braille.csv",
+        "d-288-struct-braille.txt",
+        "d-288-struct-small.csv",
+        "d-288-struct-small.txt",
+        "d-288-struct-standard.csv",
+        "d-288-struct-standard.txt",
+        "d-80-steer.csv",
+        "d-80-steer.txt",
+        "d-80-struct.csv",
+        "d-80-struct.txt",
+        "d-frozen-76-occ.csv",
+        "d-frozen-76-occ.txt",
+        "d-frozen-76-steer.csv",
+        "d-frozen-76-steer.txt",
+        "d-frozen-76-struct.csv",
+        "d-frozen-76-struct.txt",
+        "n-80-occ-braille.csv",
+        "n-80-occ-small.csv",
+        "n-80-occ-standard.csv",
+        "per-fixture/sparse-288-nasa-steerable-v1__earth-limb-sunrise.csv",
+        "per-fixture/sparse-288-nasa-steerable-v1__sahara-dunes.csv",
+        "per-fixture/sparse-288-nasa-steerable-v1__vavilov-crater.csv",
+        "per-fixture/sparse-288-nasa-structure-v1__earth-limb-sunrise.csv",
+        "per-fixture/sparse-288-nasa-structure-v1__phoenix-night-grid.csv",
+        "per-fixture/sparse-288-nasa-structure-v1__vavilov-crater.csv",
+        "per-fixture/sparse-80-nasa-steerable-v1__earth-limb-sunrise.csv",
+        "per-fixture/sparse-80-nasa-steerable-v1__sahara-dunes.csv",
+        "per-fixture/sparse-80-nasa-steerable-v1__vavilov-crater.csv",
+        "per-fixture/sparse-80-nasa-structure-v1__earth-limb-sunrise.csv",
+        "per-fixture/sparse-80-nasa-structure-v1__phoenix-night-grid.csv",
+        "per-fixture/sparse-80-nasa-structure-v1__vavilov-crater.csv",
+        "per-fixture/standard-288-nasa-steerable-v1__earth-limb-sunrise.csv",
+        "per-fixture/standard-288-nasa-steerable-v1__sahara-dunes.csv",
+        "per-fixture/standard-288-nasa-steerable-v1__vavilov-crater.csv",
+        "per-fixture/standard-288-nasa-structure-v1__earth-limb-sunrise.csv",
+        "per-fixture/standard-288-nasa-structure-v1__phoenix-night-grid.csv",
+        "per-fixture/standard-288-nasa-structure-v1__vavilov-crater.csv",
+        "per-fixture/standard-80-nasa-steerable-v1__earth-limb-sunrise.csv",
+        "per-fixture/standard-80-nasa-steerable-v1__sahara-dunes.csv",
+        "per-fixture/standard-80-nasa-steerable-v1__vavilov-crater.csv",
+        "per-fixture/standard-80-nasa-structure-v1__earth-limb-sunrise.csv",
+        "per-fixture/standard-80-nasa-structure-v1__phoenix-night-grid.csv",
+        "per-fixture/standard-80-nasa-structure-v1__vavilov-crater.csv",
+        "readouts.md",
+        "render-pair/james-lovell-portrait-fallback.png",
+        "render-pair/james-lovell-portrait-production.png",
+        "render-pair/james-lovell-portrait-summary.txt",
+        "render-pair/rcs-function-diagram-fallback.png",
+        "render-pair/rcs-function-diagram-production.png",
+        "render-pair/rcs-function-diagram-summary.txt",
+        "verdict.md"
+      ],
+      "path" : "docs/Research/Results/2026-09-27-aski-79-80-decisive",
+      "provenance" : [
+        "Frozen rule: docs/Research/2026-09-27-aski-79-80-orthogonality-fallback-rule.md, committed at 40bafb0 before any arm number was read. Arm code committed at bd6779a before the run; every CSV's gitSHA column records it.",
+        "Arm P was re-run in every invocation and reproduces every P row of docs/Research/Results/2026-09-27-aski-79-80-baseline/ exactly in cells, glyphs, all five oracle means and all texture columns (checked by Scripts/research/aski-79-80-verdict.py before any arm row is read).",
+        "d-*.csv: the gating matrix (all ten charsets at 80 and 288 columns on nasa-steerable-v1 and nasa-structure-v1; blocks at 76 on those two and nasa-occupancy-v1). per-fixture/sparse-*.csv: the five blank-collapsed sets per fixture, for rule §4.1 item 1, which is read per fixture. per-fixture/standard-*.csv and n-80-occ-*.csv: rule §5 non-gating readouts (per-fixture standard blank share; occupancy texture and MAE at 80 columns only, since the full-glyph oracle panel at 288 columns on 24 JPEGs is several hours of CPU). Per-fixture corpora are single-file directories whose name, recorded in the corpus column, is <corpus>__<fixture>.",
+        "A2 rows carry the Floyd-Steinberg strength in the w column; strength 0.5 is the rule §5 non-gating point. changedVsP is the share of cells whose pick differs from the rendered production glyph.",
+        "render-pair/: the frozen preset through production and with arm A1 substituted, on two white-ground nasa-occupancy-v1 JPEGs, for the owner's review of rule §3.2. productionMatchesEntryPoint in each summary confirms the production half is the preset's own render path. Non-gating.",
+        "Release build, macOS 27, owner hardware. Jobs ran concurrently (non-gating ones at nice 10), so selectionWallSeconds is contended wall time, not a cost measurement.",
+        "verdict.md is the output of Scripts/research/aski-79-80-verdict.py and readouts.md of Scripts/research/aski-79-80-readouts.py, both run after the raw CSVs were committed at 0256a91. The rule's §4.2 KILL clause is read with the nasa-steerable-v1, 288-column scope applying to both conditions.",
+        "d-288-steer-braille and d-288-struct-braille were killed with the session that launched them, before they wrote any row. They were re-run with the same commands and the same binary, the two of them alone. No row from the killed attempts existed or was read."
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "Rule applied mechanically (verdict.md): arm 1, the orthogonality to tone fallback, is KILL, because standard MAE rises x1.0301-1.0423 on both PNG corpora at 80 and 288 columns past the 1.0300 bar, with GMSD x1.15-1.43, although it removes the all-blank grid on every sparse-set fixture and passes every no-harm row. Arm 2, arm 1 plus serial Floyd-Steinberg tone centring, is INCONCLUSIVE: runs of five or more fall 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of four rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Arm P reproduces all 43 phase-1 baseline P rows exactly."
     }
   ]
 }

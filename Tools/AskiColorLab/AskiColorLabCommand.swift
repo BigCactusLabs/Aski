@@ -36,6 +36,8 @@ public struct AskiColorLabCommand: ParsableCommand {
             LatticeSupportSubcommand.self,
             LatticePhaseSubcommand.self,
             SelectionCeilingSubcommand.self,
+            QueryOrthogonalitySubcommand.self,
+            OrthogonalityRenderPairSubcommand.self,
             ReferenceRecoverySubcommand.self,
             ConventionAblationSubcommand.self,
             PolarityGateSubcommand.self,
@@ -422,6 +424,18 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
             "Also emit the tone-only floor as it was built before the ASKI-30 floor-quantity fix (rawDensityValues vs mean block luma) so the before/after re-definition audit is runnable. The reported floor is the fixed one either way."
     )
     public var legacyFloor = false
+    @Flag(
+        name: .customLong("orthogonal-tone-fallback"),
+        help:
+            "ASKI-79/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph."
+    )
+    public var orthogonalToneFallback = false
+    @Option(
+        name: .customLong("error-diffusion"),
+        help:
+            "ASKI-79/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off."
+    )
+    public var errorDiffusion: String?
     @Option(
         name: .customLong("output"),
         help:
@@ -446,6 +460,11 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
 
         var sweeps = SelectionCeiling.Sweeps()
         sweeps.includeLegacyFloor = legacyFloor
+        sweeps.orthogonalToneFallback = orthogonalToneFallback
+        if let errorDiffusion {
+            sweeps.errorDiffusionStrengths = try parseFloatList(
+                errorDiffusion, flag: "--error-diffusion")
+        }
         if !topk.isEmpty {
             let grids = try parseScopedIntLists(topk, flag: "--topk")
             sweeps.topKs = grids.global
@@ -480,6 +499,109 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
             try (SelectionCeiling.csv(census.armRows) + "\n")
                 .write(to: url, atomically: true, encoding: .utf8)
         }
+    }
+}
+
+public struct QueryOrthogonalitySubcommand: ParsableCommand {
+    public static let configuration = CommandConfiguration(
+        commandName: "query-orthogonality",
+        abstract:
+            "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs."
+    )
+    @Option(
+        name: .customLong("columns"),
+        help: "Comma-separated column counts (default: 80,288).")
+    public var columns: String = "80,288"
+    @Option(name: .customLong("oversample"), help: "Comma-separated oversample sweep (default: 2).")
+    public var oversample: String = "2"
+    @Option(
+        name: .customLong("charset"),
+        help: "Comma-separated character sets (default: all ten built-ins).")
+    public var charset: String = QueryOrthogonality.allCharsets.joined(separator: ",")
+    @Option(
+        name: .customLong("corpus"),
+        help:
+            "Comma-separated naturals corpus dirs (default: docs/Research/Corpus/nasa-steerable-v1/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus."
+    )
+    public var corpus: String?
+    @Option(name: .customLong("output"), help: "Write the per-fixture CSV to this path.")
+    public var output: String?
+    @Option(
+        name: .customLong("aski-git-sha"),
+        help: "Override the git SHA recorded in the CSV's provenance column.")
+    public var gitShaOverride: String?
+    @OptionGroup public var shapeQueryPolarityOption: ShapeQueryPolarityOption
+    public init() {}
+
+    public func validate() throws {
+        try ToolValidation.requireSafeGitSHA(gitShaOverride)
+    }
+
+    public func run() throws {
+        let names = charset.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        guard !names.isEmpty else { throw ValidationError("--charset must not be empty") }
+        let corpora: [String?] =
+            corpus.map { list in
+                list.split(separator: ",").map { String($0.trimmingCharacters(in: .whitespaces)) }
+            } ?? [nil]
+        let rows = try QueryOrthogonality.run(
+            columns: try parseIntList(columns, flag: "--columns"),
+            oversamples: try parseIntList(oversample, flag: "--oversample"),
+            charsetNames: names, corpora: corpora,
+            gitSHA: GitSHA.resolve(override: gitShaOverride),
+            shapeQueryPolarity: shapeQueryPolarityOption.shapeQueryPolarity)
+        print(QueryOrthogonality.format(rows))
+
+        if let output {
+            let url = URL(fileURLWithPath: output)
+            try FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try (QueryOrthogonality.csv(rows) + "\n")
+                .write(to: url, atomically: true, encoding: .utf8)
+        }
+    }
+}
+
+public struct OrthogonalityRenderPairSubcommand: ParsableCommand {
+    public static let configuration = CommandConfiguration(
+        commandName: "orthogonality-render-pair",
+        abstract:
+            "Render the frozen preset on one image twice, through production and with the ASKI-79/80 arm-A1 orthogonality fallback substituted, for a before/after review pair."
+    )
+    @Option(name: .customLong("input"), help: "Source image path.")
+    public var input: String
+    @Option(
+        name: .customLong("output-dir"),
+        help: "Directory for production.png, fallback.png and summary.txt.")
+    public var outputDirectory: String
+    @Option(name: .customLong("prefix"), help: "File-name prefix (default: none).")
+    public var prefix: String = ""
+    public init() {}
+
+    public func run() throws {
+        let image = try DemoImageIO.loadImage(at: input)
+        guard let pair = OrthogonalityRenderPair.render(image) else {
+            throw ValidationError("the frozen preset produced no grid for \(input)")
+        }
+        let directory = URL(fileURLWithPath: outputDirectory)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let production = directory.appending(path: "\(prefix)production.png").path
+        let fallback = directory.appending(path: "\(prefix)fallback.png").path
+        try DemoImageIO.writePNG(pair.production, to: production)
+        try DemoImageIO.writePNG(pair.fallback, to: fallback)
+        let summary = [
+            "input: \(URL(fileURLWithPath: input).lastPathComponent)",
+            "cells: \(pair.cells)",
+            "changedCells: \(pair.changedCells)",
+            "productionMatchesEntryPoint: \(pair.productionMatchesEntryPoint)",
+            "", "# production", pair.productionText, "", "# fallback", pair.fallbackText,
+        ].joined(separator: "\n")
+        try (summary + "\n").write(
+            to: directory.appending(path: "\(prefix)summary.txt"), atomically: true,
+            encoding: .utf8)
+        print(
+            "cells \(pair.cells), changed \(pair.changedCells), production matches entry point: \(pair.productionMatchesEntryPoint)"
+        )
     }
 }
 

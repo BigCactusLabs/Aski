@@ -1,0 +1,79 @@
+---
+schema_version: "1"
+date: 2026-09-27
+aski_git_sha: bd6779a378774e2d3eaec7758fbf34fbc4a40d76
+runner: AskiColorLab
+command: "aski lab color selection-ceiling --oversample 2 --stride 1 --orthogonal-tone-fallback --error-diffusion 1,0.5 --charset <set> --columns <76|80|288> --corpus <corpus>/assets --output <csv>; aski lab color orthogonality-render-pair --input nasa-occupancy-v1/assets/<fixture>.jpg --output-dir render-pair --prefix <fixture>-; python3 Scripts/research/aski-79-80-verdict.py > verdict.md (all from the release build of bd6779a)"
+provenance:
+  - "Frozen rule: docs/Research/2026-09-27-aski-79-80-orthogonality-fallback-rule.md, committed at 40bafb0 before any arm number was read. Arm code committed at bd6779a before the run; every CSV's gitSHA column records it."
+  - "Arm P was re-run in every invocation and reproduces every P row of docs/Research/Results/2026-09-27-aski-79-80-baseline/ exactly in cells, glyphs, all five oracle means and all texture columns (checked by Scripts/research/aski-79-80-verdict.py before any arm row is read)."
+  - "d-*.csv: the gating matrix (all ten charsets at 80 and 288 columns on nasa-steerable-v1 and nasa-structure-v1; blocks at 76 on those two and nasa-occupancy-v1). per-fixture/sparse-*.csv: the five blank-collapsed sets per fixture, for rule §4.1 item 1, which is read per fixture. per-fixture/standard-*.csv and n-80-occ-*.csv: rule §5 non-gating readouts (per-fixture standard blank share; occupancy texture and MAE at 80 columns only, since the full-glyph oracle panel at 288 columns on 24 JPEGs is several hours of CPU). Per-fixture corpora are single-file directories whose name, recorded in the corpus column, is <corpus>__<fixture>."
+  - "A2 rows carry the Floyd-Steinberg strength in the w column; strength 0.5 is the rule §5 non-gating point. changedVsP is the share of cells whose pick differs from the rendered production glyph."
+  - "render-pair/: the frozen preset through production and with arm A1 substituted, on two white-ground nasa-occupancy-v1 JPEGs, for the owner's review of rule §3.2. productionMatchesEntryPoint in each summary confirms the production half is the preset's own render path. Non-gating."
+  - "Release build, macOS 27, owner hardware. Jobs ran concurrently (non-gating ones at nice 10), so selectionWallSeconds is contended wall time, not a cost measurement."
+  - "verdict.md is the output of Scripts/research/aski-79-80-verdict.py and readouts.md of Scripts/research/aski-79-80-readouts.py, both run after the raw CSVs were committed at 0256a91. The rule's §4.2 KILL clause is read with the nasa-steerable-v1, 288-column scope applying to both conditions."
+  - "d-288-steer-braille and d-288-struct-braille were killed with the session that launched them, before they wrote any row. They were re-run with the same commands and the same binary, the two of them alone. No row from the killed attempts existed or was read."
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - d-288-steer-braille.csv
+  - d-288-steer-braille.txt
+  - d-288-steer-small.csv
+  - d-288-steer-small.txt
+  - d-288-steer-standard.csv
+  - d-288-steer-standard.txt
+  - d-288-struct-braille.csv
+  - d-288-struct-braille.txt
+  - d-288-struct-small.csv
+  - d-288-struct-small.txt
+  - d-288-struct-standard.csv
+  - d-288-struct-standard.txt
+  - d-80-steer.csv
+  - d-80-steer.txt
+  - d-80-struct.csv
+  - d-80-struct.txt
+  - d-frozen-76-occ.csv
+  - d-frozen-76-occ.txt
+  - d-frozen-76-steer.csv
+  - d-frozen-76-steer.txt
+  - d-frozen-76-struct.csv
+  - d-frozen-76-struct.txt
+  - n-80-occ-braille.csv
+  - n-80-occ-small.csv
+  - n-80-occ-standard.csv
+  - per-fixture/sparse-288-nasa-steerable-v1__earth-limb-sunrise.csv
+  - per-fixture/sparse-288-nasa-steerable-v1__sahara-dunes.csv
+  - per-fixture/sparse-288-nasa-steerable-v1__vavilov-crater.csv
+  - per-fixture/sparse-288-nasa-structure-v1__earth-limb-sunrise.csv
+  - per-fixture/sparse-288-nasa-structure-v1__phoenix-night-grid.csv
+  - per-fixture/sparse-288-nasa-structure-v1__vavilov-crater.csv
+  - per-fixture/sparse-80-nasa-steerable-v1__earth-limb-sunrise.csv
+  - per-fixture/sparse-80-nasa-steerable-v1__sahara-dunes.csv
+  - per-fixture/sparse-80-nasa-steerable-v1__vavilov-crater.csv
+  - per-fixture/sparse-80-nasa-structure-v1__earth-limb-sunrise.csv
+  - per-fixture/sparse-80-nasa-structure-v1__phoenix-night-grid.csv
+  - per-fixture/sparse-80-nasa-structure-v1__vavilov-crater.csv
+  - per-fixture/standard-288-nasa-steerable-v1__earth-limb-sunrise.csv
+  - per-fixture/standard-288-nasa-steerable-v1__sahara-dunes.csv
+  - per-fixture/standard-288-nasa-steerable-v1__vavilov-crater.csv
+  - per-fixture/standard-288-nasa-structure-v1__earth-limb-sunrise.csv
+  - per-fixture/standard-288-nasa-structure-v1__phoenix-night-grid.csv
+  - per-fixture/standard-288-nasa-structure-v1__vavilov-crater.csv
+  - per-fixture/standard-80-nasa-steerable-v1__earth-limb-sunrise.csv
+  - per-fixture/standard-80-nasa-steerable-v1__sahara-dunes.csv
+  - per-fixture/standard-80-nasa-steerable-v1__vavilov-crater.csv
+  - per-fixture/standard-80-nasa-structure-v1__earth-limb-sunrise.csv
+  - per-fixture/standard-80-nasa-structure-v1__phoenix-night-grid.csv
+  - per-fixture/standard-80-nasa-structure-v1__vavilov-crater.csv
+  - readouts.md
+  - render-pair/james-lovell-portrait-fallback.png
+  - render-pair/james-lovell-portrait-production.png
+  - render-pair/james-lovell-portrait-summary.txt
+  - render-pair/rcs-function-diagram-fallback.png
+  - render-pair/rcs-function-diagram-production.png
+  - render-pair/rcs-function-diagram-summary.txt
+  - verdict.md
+summary: "Rule applied mechanically (verdict.md): arm 1, the orthogonality to tone fallback, is KILL, because standard MAE rises x1.0301-1.0423 on both PNG corpora at 80 and 288 columns past the 1.0300 bar, with GMSD x1.15-1.43, although it removes the all-blank grid on every sparse-set fixture and passes every no-harm row. Arm 2, arm 1 plus serial Floyd-Steinberg tone centring, is INCONCLUSIVE: runs of five or more fall 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of four rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Arm P reproduces all 43 phase-1 baseline P rows exactly."
+---
