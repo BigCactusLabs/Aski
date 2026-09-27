@@ -27,6 +27,12 @@ public enum ToolValidation {
         }
     }
 
+    public static func requireCoverage(_ value: Float) throws {
+        guard value.isFinite, (0...1).contains(value) else {
+            throw ValidationError("coverage must be finite and in 0...1, got \(value)")
+        }
+    }
+
     public static func requireFontScale(_ value: Double) throws {
         guard value.isFinite, value > 0, value <= ToolArgumentBounds.maxFontScale else {
             throw ValidationError("font scale must be finite and in 0 < n <= \(ToolArgumentBounds.maxFontScale), got \(value)")

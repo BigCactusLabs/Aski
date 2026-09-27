@@ -22,11 +22,20 @@ public struct AskiRenderManifest: Codable, Equatable, Sendable {
         public let columns: Int
         public let rows: Int
         public let charset: String
+        public let algorithm: String?
+        public let coverage: Float?
+        public let palette: String?
 
-        public init(columns: Int, rows: Int, charset: String) {
+        public init(
+            columns: Int, rows: Int, charset: String,
+            algorithm: String? = nil, coverage: Float? = nil, palette: String? = nil
+        ) {
             self.columns = columns
             self.rows = rows
             self.charset = charset
+            self.algorithm = algorithm
+            self.coverage = coverage
+            self.palette = palette
         }
     }
 
@@ -194,7 +203,10 @@ public struct AskiRenderManifest: Codable, Equatable, Sendable {
             conversion: Conversion(
                 columns: result.grid.columns,
                 rows: result.grid.rows,
-                charset: arguments.charset.rawValue
+                charset: arguments.charset.rawValue,
+                algorithm: arguments.algorithm.rawValue,
+                coverage: arguments.coverage,
+                palette: arguments.palette.rawValue
             ),
             render: RenderSettings(
                 backgroundColor: arguments.background.canonicalRGBAHex,

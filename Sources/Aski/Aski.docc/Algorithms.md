@@ -22,8 +22,9 @@ let converter = ASCIIConverter(
 
 - ``ASCIIAlgorithm/logPolar`` — 60D log-polar shape matching. The default;
   produces general-purpose ASCII art.
-- ``ASCIIAlgorithm/dotMatrix`` — Brightness-based matching with
-  Floyd–Steinberg dithering. Produces halftone-style output.
+- ``ASCIIAlgorithm/dotMatrix`` — Brightness-based matching. The default
+  `coverage` of 0 applies no Floyd–Steinberg dithering; `coverage` 1 applies
+  full-strength error diffusion and produces halftone-style output.
 
 > Note: `logPolar` conversions walk the cell grid in parallel across rows once
 > the grid is large enough (a fixed cell-count threshold),
