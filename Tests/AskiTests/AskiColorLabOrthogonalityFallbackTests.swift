@@ -19,6 +19,13 @@ import simd
         return lanes
     }
 
+    @Test func errorDiffusionStrengthsAboveOneAreRejected() throws {
+        #expect(throws: (any Error).self) {
+            try SelectionCeilingSubcommand.parse(["--error-diffusion", "1,2"])
+        }
+        _ = try SelectionCeilingSubcommand.parse(["--error-diffusion", "0,0.5,1"])
+    }
+
     // MARK: - Arm 1
 
     /// 0 blank (tone 0); 1 inked in bin 0, norm 1 (tone 0.3); 2 inked in bins

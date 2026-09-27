@@ -451,6 +451,12 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
 
     public func validate() throws {
         try ToolValidation.requireSafeGitSHA(gitShaOverride)
+        // Arm A2 mirrors DotMatrixKernel, which clamps its strength to 0...1.
+        if let errorDiffusion,
+            try parseFloatList(errorDiffusion, flag: "--error-diffusion").contains(where: { $0 > 1 })
+        {
+            throw ValidationError("--error-diffusion strengths must be in 0...1")
+        }
     }
 
     public func run() throws {
