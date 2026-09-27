@@ -208,6 +208,90 @@
               "valueName" : "charset"
             },
             {
+              "abstract" : "Matching algorithm: logPolar or dotMatrix (default: logPolar).",
+              "allValues" : [
+                "logPolar",
+                "dotMatrix"
+              ],
+              "completionKind" : {
+                "list" : {
+                  "values" : [
+                    "logPolar",
+                    "dotMatrix"
+                  ]
+                }
+              },
+              "defaultValue" : "logPolar",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "algorithm"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "algorithm"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "algorithm"
+            },
+            {
+              "abstract" : "Floyd–Steinberg dither strength for dotMatrix (0...1; default: 0). Ignored by logPolar.",
+              "defaultValue" : "0.0",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "coverage"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "coverage"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "coverage"
+            },
+            {
+              "abstract" : "Glyph palette: fullColor or monochrome (default: fullColor).",
+              "allValues" : [
+                "fullColor",
+                "monochrome"
+              ],
+              "completionKind" : {
+                "list" : {
+                  "values" : [
+                    "fullColor",
+                    "monochrome"
+                  ]
+                }
+              },
+              "defaultValue" : "fullColor",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "palette"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "palette"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "palette"
+            },
+            {
               "abstract" : "Background color for --render-png: #RRGGBB, a named color, or clear\/transparent for an alpha-zero ground.",
               "defaultValue" : "BackgroundColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)",
               "isOptional" : true,
@@ -2449,6 +2533,44 @@
                       "valueName" : "legacy-floor"
                     },
                     {
+                      "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "orthogonal-tone-fallback"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "orthogonal-tone-fallback"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "orthogonal-tone-fallback"
+                    },
+                    {
+                      "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "error-diffusion"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "error-diffusion"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "error-diffusion"
+                    },
+                    {
                       "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
                       "isOptional" : true,
                       "isRepeating" : false,
@@ -2550,6 +2672,308 @@
                     }
                   ],
                   "commandName" : "selection-ceiling",
+                  "shouldDisplay" : true,
+                  "superCommands" : [
+                    "aski",
+                    "lab",
+                    "color"
+                  ]
+                },
+                {
+                  "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+                  "arguments" : [
+                    {
+                      "abstract" : "Comma-separated column counts (default: 80,288).",
+                      "defaultValue" : "80,288",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "columns"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "columns"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "columns"
+                    },
+                    {
+                      "abstract" : "Comma-separated oversample sweep (default: 2).",
+                      "defaultValue" : "2",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "oversample"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "oversample"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "oversample"
+                    },
+                    {
+                      "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+                      "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "charset"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "charset"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "charset"
+                    },
+                    {
+                      "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "corpus"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "corpus"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "corpus"
+                    },
+                    {
+                      "abstract" : "Write the per-fixture CSV to this path.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "output"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "output"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "output"
+                    },
+                    {
+                      "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "aski-git-sha"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "aski-git-sha"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "aski-git-sha"
+                    },
+                    {
+                      "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+                      "defaultValue" : "inverted",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "shape-query-polarity"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "shape-query-polarity"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "shape-query-polarity"
+                    },
+                    {
+                      "abstract" : "Show the version.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "version"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "version"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "version"
+                    },
+                    {
+                      "abstract" : "Show help information.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "short",
+                          "name" : "h"
+                        },
+                        {
+                          "kind" : "long",
+                          "name" : "help"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "help"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "help"
+                    }
+                  ],
+                  "commandName" : "query-orthogonality",
+                  "shouldDisplay" : true,
+                  "superCommands" : [
+                    "aski",
+                    "lab",
+                    "color"
+                  ]
+                },
+                {
+                  "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+                  "arguments" : [
+                    {
+                      "abstract" : "Source image path.",
+                      "isOptional" : false,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "input"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "input"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "input"
+                    },
+                    {
+                      "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+                      "isOptional" : false,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "output-dir"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "output-dir"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "output-dir"
+                    },
+                    {
+                      "abstract" : "File-name prefix (default: none).",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "prefix"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "prefix"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "prefix"
+                    },
+                    {
+                      "abstract" : "Show the version.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "version"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "version"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "version"
+                    },
+                    {
+                      "abstract" : "Show help information.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "short",
+                          "name" : "h"
+                        },
+                        {
+                          "kind" : "long",
+                          "name" : "help"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "help"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "help"
+                    }
+                  ],
+                  "commandName" : "orthogonality-render-pair",
                   "shouldDisplay" : true,
                   "superCommands" : [
                     "aski",
@@ -8572,6 +8996,44 @@
                   "valueName" : "legacy-floor"
                 },
                 {
+                  "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "orthogonal-tone-fallback"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "orthogonal-tone-fallback"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "orthogonal-tone-fallback"
+                },
+                {
+                  "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "error-diffusion"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "error-diffusion"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "error-diffusion"
+                },
+                {
                   "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
                   "isOptional" : true,
                   "isRepeating" : false,
@@ -8673,6 +9135,306 @@
                 }
               ],
               "commandName" : "selection-ceiling",
+              "shouldDisplay" : true,
+              "superCommands" : [
+                "lab",
+                "color"
+              ]
+            },
+            {
+              "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+              "arguments" : [
+                {
+                  "abstract" : "Comma-separated column counts (default: 80,288).",
+                  "defaultValue" : "80,288",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "columns"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "columns"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "columns"
+                },
+                {
+                  "abstract" : "Comma-separated oversample sweep (default: 2).",
+                  "defaultValue" : "2",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "oversample"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "oversample"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "oversample"
+                },
+                {
+                  "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+                  "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "charset"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "charset"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "charset"
+                },
+                {
+                  "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "corpus"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "corpus"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "corpus"
+                },
+                {
+                  "abstract" : "Write the per-fixture CSV to this path.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "output"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "output"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "output"
+                },
+                {
+                  "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "aski-git-sha"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "aski-git-sha"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "aski-git-sha"
+                },
+                {
+                  "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+                  "defaultValue" : "inverted",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "shape-query-polarity"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "shape-query-polarity"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "shape-query-polarity"
+                },
+                {
+                  "abstract" : "Show the version.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "version"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "version"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "version"
+                },
+                {
+                  "abstract" : "Show help information.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "short",
+                      "name" : "h"
+                    },
+                    {
+                      "kind" : "long",
+                      "name" : "help"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "help"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "help"
+                }
+              ],
+              "commandName" : "query-orthogonality",
+              "shouldDisplay" : true,
+              "superCommands" : [
+                "lab",
+                "color"
+              ]
+            },
+            {
+              "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+              "arguments" : [
+                {
+                  "abstract" : "Source image path.",
+                  "isOptional" : false,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "input"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "input"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "input"
+                },
+                {
+                  "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+                  "isOptional" : false,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "output-dir"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "output-dir"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "output-dir"
+                },
+                {
+                  "abstract" : "File-name prefix (default: none).",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "prefix"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "prefix"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "prefix"
+                },
+                {
+                  "abstract" : "Show the version.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "version"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "version"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "version"
+                },
+                {
+                  "abstract" : "Show help information.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "short",
+                      "name" : "h"
+                    },
+                    {
+                      "kind" : "long",
+                      "name" : "help"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "help"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "help"
+                }
+              ],
+              "commandName" : "orthogonality-render-pair",
               "shouldDisplay" : true,
               "superCommands" : [
                 "lab",
@@ -14829,6 +15591,44 @@
               "valueName" : "legacy-floor"
             },
             {
+              "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "orthogonal-tone-fallback"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "orthogonal-tone-fallback"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "orthogonal-tone-fallback"
+            },
+            {
+              "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "error-diffusion"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "error-diffusion"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "error-diffusion"
+            },
+            {
               "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
               "isOptional" : true,
               "isRepeating" : false,
@@ -14930,6 +15730,304 @@
             }
           ],
           "commandName" : "selection-ceiling",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "color"
+          ]
+        },
+        {
+          "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+          "arguments" : [
+            {
+              "abstract" : "Comma-separated column counts (default: 80,288).",
+              "defaultValue" : "80,288",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "columns"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "columns"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "columns"
+            },
+            {
+              "abstract" : "Comma-separated oversample sweep (default: 2).",
+              "defaultValue" : "2",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "oversample"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "oversample"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "oversample"
+            },
+            {
+              "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+              "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "charset"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "charset"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "charset"
+            },
+            {
+              "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "corpus"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "corpus"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "corpus"
+            },
+            {
+              "abstract" : "Write the per-fixture CSV to this path.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output"
+            },
+            {
+              "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "aski-git-sha"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "aski-git-sha"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "aski-git-sha"
+            },
+            {
+              "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+              "defaultValue" : "inverted",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "shape-query-polarity"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "shape-query-polarity"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "shape-query-polarity"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "query-orthogonality",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "color"
+          ]
+        },
+        {
+          "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+          "arguments" : [
+            {
+              "abstract" : "Source image path.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "input"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "input"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "input"
+            },
+            {
+              "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output-dir"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output-dir"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output-dir"
+            },
+            {
+              "abstract" : "File-name prefix (default: none).",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "prefix"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "prefix"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "prefix"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "orthogonality-render-pair",
           "shouldDisplay" : true,
           "superCommands" : [
             "color"
@@ -21233,6 +22331,44 @@
               "valueName" : "legacy-floor"
             },
             {
+              "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "orthogonal-tone-fallback"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "orthogonal-tone-fallback"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "orthogonal-tone-fallback"
+            },
+            {
+              "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "error-diffusion"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "error-diffusion"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "error-diffusion"
+            },
+            {
               "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
               "isOptional" : true,
               "isRepeating" : false,
@@ -21334,6 +22470,304 @@
             }
           ],
           "commandName" : "selection-ceiling",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "AskiColorLab"
+          ]
+        },
+        {
+          "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+          "arguments" : [
+            {
+              "abstract" : "Comma-separated column counts (default: 80,288).",
+              "defaultValue" : "80,288",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "columns"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "columns"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "columns"
+            },
+            {
+              "abstract" : "Comma-separated oversample sweep (default: 2).",
+              "defaultValue" : "2",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "oversample"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "oversample"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "oversample"
+            },
+            {
+              "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+              "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "charset"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "charset"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "charset"
+            },
+            {
+              "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "corpus"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "corpus"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "corpus"
+            },
+            {
+              "abstract" : "Write the per-fixture CSV to this path.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output"
+            },
+            {
+              "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "aski-git-sha"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "aski-git-sha"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "aski-git-sha"
+            },
+            {
+              "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+              "defaultValue" : "inverted",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "shape-query-polarity"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "shape-query-polarity"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "shape-query-polarity"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "query-orthogonality",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "AskiColorLab"
+          ]
+        },
+        {
+          "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+          "arguments" : [
+            {
+              "abstract" : "Source image path.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "input"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "input"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "input"
+            },
+            {
+              "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output-dir"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output-dir"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output-dir"
+            },
+            {
+              "abstract" : "File-name prefix (default: none).",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "prefix"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "prefix"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "prefix"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "orthogonality-render-pair",
           "shouldDisplay" : true,
           "superCommands" : [
             "AskiColorLab"
@@ -23359,6 +24793,90 @@
           },
           "shouldDisplay" : true,
           "valueName" : "charset"
+        },
+        {
+          "abstract" : "Matching algorithm: logPolar or dotMatrix (default: logPolar).",
+          "allValues" : [
+            "logPolar",
+            "dotMatrix"
+          ],
+          "completionKind" : {
+            "list" : {
+              "values" : [
+                "logPolar",
+                "dotMatrix"
+              ]
+            }
+          },
+          "defaultValue" : "logPolar",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "algorithm"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "algorithm"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "algorithm"
+        },
+        {
+          "abstract" : "Floyd–Steinberg dither strength for dotMatrix (0...1; default: 0). Ignored by logPolar.",
+          "defaultValue" : "0.0",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "coverage"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "coverage"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "coverage"
+        },
+        {
+          "abstract" : "Glyph palette: fullColor or monochrome (default: fullColor).",
+          "allValues" : [
+            "fullColor",
+            "monochrome"
+          ],
+          "completionKind" : {
+            "list" : {
+              "values" : [
+                "fullColor",
+                "monochrome"
+              ]
+            }
+          },
+          "defaultValue" : "fullColor",
+          "isOptional" : true,
+          "isRepeating" : false,
+          "kind" : "option",
+          "names" : [
+            {
+              "kind" : "long",
+              "name" : "palette"
+            }
+          ],
+          "parsingStrategy" : "default",
+          "preferredName" : {
+            "kind" : "long",
+            "name" : "palette"
+          },
+          "shouldDisplay" : true,
+          "valueName" : "palette"
         },
         {
           "abstract" : "Background color for --render-png: #RRGGBB, a named color, or clear\/transparent for an alpha-zero ground.",

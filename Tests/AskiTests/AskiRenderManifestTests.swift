@@ -42,6 +42,56 @@ import UniformTypeIdentifiers
         #expect(manifest.conversion.columns == 12)
         #expect(manifest.conversion.rows > 0)
         #expect(manifest.conversion.charset == "blocks")
+        #expect(manifest.conversion.algorithm == "logPolar")
+        #expect(manifest.conversion.coverage == 0)
+        #expect(manifest.conversion.palette == "fullColor")
+    }
+
+    @Test func selectedConversionChoicesReachTheManifestAndChangeTheRender() throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let input = directory.appending(path: "input.png")
+        let manifestURL = directory.appending(path: "render.json")
+        try writeFixturePNG(to: input, width: 80, height: 40)
+
+        func render(_ options: [String]) throws -> String {
+            var stdout = ""
+            let command = try AskiRenderCommand.parse(
+                [input.path, "--columns", "24", "--charset", "minimal"] + options
+                    + ["--write-manifest", manifestURL.path]
+            )
+            #expect(command.execute(standardOutput: { stdout += $0 }, standardError: { _ in }) == .success)
+            return stdout
+        }
+
+        let defaultText = try render([])
+        let explicitDefaultText = try render([
+            "--algorithm", "logPolar", "--coverage", "0", "--palette", "fullColor",
+        ])
+        #expect(defaultText == explicitDefaultText)
+
+        let dotMatrixText = try render([
+            "--algorithm", "dotMatrix", "--coverage", "1", "--palette", "monochrome",
+        ])
+        #expect(dotMatrixText != defaultText)
+        let manifest = try JSONDecoder().decode(
+            AskiRenderManifest.self, from: Data(contentsOf: manifestURL)
+        )
+        #expect(manifest.conversion.algorithm == "dotMatrix")
+        #expect(manifest.conversion.coverage == 1)
+        #expect(manifest.conversion.palette == "monochrome")
+
+        let pngURL = directory.appending(path: "render.png")
+        _ = try render([
+            "--algorithm", "dotMatrix", "--coverage", "1", "--palette", "fullColor",
+            "--render-png", pngURL.path,
+        ])
+        let fullColorPNG = try Data(contentsOf: pngURL)
+        _ = try render([
+            "--algorithm", "dotMatrix", "--coverage", "1", "--palette", "monochrome",
+            "--render-png", pngURL.path,
+        ])
+        #expect(try Data(contentsOf: pngURL) != fullColorPNG)
     }
 
     @Test func manifestRecordsStdoutTextArtifactAndTransparentBackground() throws {
@@ -360,6 +410,21 @@ import UniformTypeIdentifiers
         let schemaCharsets = try #require(charset["enum"] as? [String])
 
         #expect(schemaCharsets == Charset.allCases.map(\.rawValue))
+    }
+
+    @Test func committedSchemaDescribesConversionChoices() throws {
+        let object = try JSONSerialization.jsonObject(with: Data(contentsOf: schemaURL))
+        let schema = try #require(object as? [String: Any])
+        let properties = try #require(schema["properties"] as? [String: Any])
+        let conversion = try #require(properties["conversion"] as? [String: Any])
+        let choices = try #require(conversion["properties"] as? [String: Any])
+        let algorithm = try #require(choices["algorithm"] as? [String: Any])
+        #expect(algorithm["enum"] as? [String] == ["logPolar", "dotMatrix"])
+        let coverage = try #require(choices["coverage"] as? [String: Any])
+        #expect(coverage["minimum"] as? Int == 0)
+        #expect(coverage["maximum"] as? Int == 1)
+        let palette = try #require(choices["palette"] as? [String: Any])
+        #expect(palette["enum"] as? [String] == ["fullColor", "monochrome"])
     }
 
     private var schemaURL: URL {

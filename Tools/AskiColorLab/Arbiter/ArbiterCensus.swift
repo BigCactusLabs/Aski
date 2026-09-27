@@ -256,6 +256,10 @@ extension Arbiter {
                                         brightnessValues: brightness, toneWeight: w,
                                         stats: zStats)
                                 } : nil
+                        case .orthogonalToneFallback, .errorDiffusedFallback:
+                            // The ASKI-79/80 arms are selection-ceiling census
+                            // arms; the arbiter protocol never registered them.
+                            index = nil
                         }
                         if let index {
                             cellPicks[ArmRef(Arm.selection(arm))] = index

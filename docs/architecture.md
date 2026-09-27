@@ -14,7 +14,7 @@ The package publishes the `Aski` library, the first-class `aski` executable, and
 - `Tools/AskiCLI/`, `Tools/AskiCLIRunner/` — importable command composition and the async-correct `aski` executable entry point
 - `Tools/AskiDemo/`, `Tools/AskiToolSupport/` — the historical demo executable plus shared CLI parsing, argument bounds, source-thumbnail loading, stable JSON, async command launch, and tool helpers
 - `Tools/AskiTileMatrix/` — tile-grid render matrix harness
-- `Tools/AskiColorLab/` — internal color-pipeline research harness (`sampling-ablation`, `palette-match-ablation`, `gamut-sweep`, `linear-composite-ab`, `cuberoot-accuracy`, `cam16-hct-reference`, `helmlab-reference`, `shape-residual-map`, `render-matcher-challenge`, `inter-cell-smoothing`, `lattice-support`, `lattice-phase`, `selection-ceiling`, `reference-recovery`, `convention-ablation`, `polarity-gate`, `target-width-gate`), plus the `Arbiter/` human-arbitrated perceptual instrument (`arbiter stimuli`/`judge`/`score`; protocol frozen in `docs/Research/2026-08-25-aski56-arbiter-protocol.md`). ASKI-68 removed closed experiment-specific runners; their frozen notes, result artifacts, and Git commits remain the replay record. The ASKI-69 matcher challenge remains a fixed one-shot instrument, not a product option.
+- `Tools/AskiColorLab/` — internal color-pipeline research harness (`sampling-ablation`, `palette-match-ablation`, `gamut-sweep`, `linear-composite-ab`, `cuberoot-accuracy`, `cam16-hct-reference`, `helmlab-reference`, `shape-residual-map`, `render-matcher-challenge`, `inter-cell-smoothing`, `lattice-support`, `lattice-phase`, `selection-ceiling`, `query-orthogonality`, `orthogonality-render-pair`, `reference-recovery`, `convention-ablation`, `polarity-gate`, `target-width-gate`), plus the `Arbiter/` human-arbitrated perceptual instrument (`arbiter stimuli`/`judge`/`score`; protocol frozen in `docs/Research/2026-08-25-aski56-arbiter-protocol.md`). ASKI-68 removed closed experiment-specific runners; their frozen notes, result artifacts, and Git commits remain the replay record. The ASKI-69 matcher challenge remains a fixed one-shot instrument, not a product option.
 - `Tools/AskiMotionLab/` — animation frame materialization, motion presets, GIF export (via the library `ASCIIGIFEncoder`), and flicker metrics, and the temporal-coherence research gates (`temporal-prior`, `source-tether`)
 - `Tools/AskiVideoLab/` — MP4 or animated-GIF decode -> ASCII -> re-encode throughput and memory harness, with per-frame quality levers, a time-modulated `--pattern` overlay, and opt-in cosmetic post-render effects (`--bloom`/`--scanlines`/`--vignette`, time-invariant, applied via the `renderImage(…, effects:)` overload)
 - `Tools/AskiAccessLab/` — palette and rendered-grid CVD distinguishability audit harness
@@ -83,8 +83,9 @@ of a field requires a new `schemaVersion`.
 `render --write-manifest <path>` writes an unsigned deterministic render record
 from the same in-memory thumbnail, grid, text, and optional rendered PNG. Version
 1 records the tool SHA, command, source path and normalized dimensions, resolved
-grid and charset, render settings, text/PNG artifact metadata, and an additive
-optional resolved-mask block when `--mask` is supplied. When `--width` is used,
+grid and charset, additive algorithm/coverage/palette choices, render settings,
+text/PNG artifact metadata, and an optional resolved-mask block when `--mask`
+is supplied. When `--width` is used,
 the render block additionally carries the additive `targetPixelWidth`,
 `derivedScale`, `cellAdvancePixels`, and `resampleSpace` fields
 (`linear-srgb-area-average-4x` for the shipped supersample arm). It does not

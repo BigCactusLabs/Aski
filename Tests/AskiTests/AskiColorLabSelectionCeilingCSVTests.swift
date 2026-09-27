@@ -37,7 +37,8 @@ import Testing
         #expect(
             header
                 == "corpus,charset,arm,w,topK,columns,oversample,footprint,stride,cells,glyphs,"
-                + "mae,rmse,ssim,gmsd,haarpsi,selectionWallSeconds,gitSHA,shapeQueryPolarity")
+                + "mae,rmse,ssim,gmsd,haarpsi,selectionWallSeconds,gitSHA,shapeQueryPolarity,"
+                + "glyphsUsed,blankShare,runMean,runP95,runMax,run5Share,changedVsP")
     }
 
     /// ASKI-60: the shape-query polarity changes the converter, so a `direct`
@@ -47,8 +48,8 @@ import Testing
             Self.row(arm: "P"), Self.row(arm: "P", polarity: "direct"),
         ])
         let lines = csv.split(separator: "\n").map(String.init)
-        #expect(lines[1].hasSuffix(",abc1234,inverted"))
-        #expect(lines[2].hasSuffix(",abc1234,direct"))
+        #expect(lines[1].contains(",abc1234,inverted,"))
+        #expect(lines[2].contains(",abc1234,direct,"))
     }
 
     /// One row per (corpus, charset, arm, w, topK), with the parameter columns
@@ -85,7 +86,50 @@ import Testing
         #expect(fields[9] == "8640")  // cells
         #expect(fields[10] == "8")  // glyphs
         #expect(fields[17] == "abc1234")  // gitSHA
-        #expect(fields.last == "inverted")  // shapeQueryPolarity (ASKI-60)
+        #expect(fields[18] == "inverted")  // shapeQueryPolarity (ASKI-60)
+    }
+
+    /// ASKI-80 AC#1: the texture readouts land in their own columns after the
+    /// polarity column, so every archived column keeps its index.
+    @Test func textureReadoutsLandAfterThePolarityColumn() throws {
+        var row = Self.row(arm: "P")
+        row.texture = PickTexture.readout(
+            [[1, 1, 1, 1, 1, 2, 0, 2]], isBlank: { $0 == 0 })
+        let fields = try #require(SelectionCeiling.csv([row]).split(separator: "\n").last)
+            .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
+        #expect(fields.count == 26)
+        #expect(fields[19] == "3")  // glyphsUsed
+        #expect(Double(fields[20]) == 1.0 / 8.0)  // blankShare
+        #expect(Double(fields[21]) == 7.0 / 3.0)  // runMean: runs 5, 1, 1
+        #expect(fields[22] == "5")  // runP95
+        #expect(fields[23] == "5")  // runMax
+        #expect(Double(fields[24]) == 5.0 / 7.0)  // run5Share
+    }
+
+    /// A strided census does not measure texture; its columns are empty, not
+    /// zero, because a zero share would read as "no long runs".
+    @Test func textureColumnsAreEmptyWhenNotMeasured() throws {
+        let fields = try #require(
+            SelectionCeiling.csv([Self.row(arm: "P")]).split(separator: "\n").last
+        )
+        .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
+        #expect(fields.count == 26)
+        #expect(fields[19...].allSatisfy { $0.isEmpty })
+    }
+
+    /// ASKI-79/80: arm A2 records its diffusion strength in `w`, and the rule
+    /// §5 readout `changedVsP` lands in the last column.
+    @Test func armTwoRecordsStrengthAndChangedShare() throws {
+        var row = Self.row(arm: "A2", w: 0.5)
+        row.changedShare = 0.25
+        let fields = try #require(SelectionCeiling.csv([row]).split(separator: "\n").last)
+            .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
+        #expect(fields[2] == "A2")
+        #expect(fields[3] == "0.5")
+        #expect(fields[25] == "0.25")
+        #expect(SelectionCeiling.Arm.errorDiffusedFallback(strength: 0.5).w == 0.5)
+        #expect(SelectionCeiling.Arm.orthogonalToneFallback.name == "A1")
+        #expect(SelectionCeiling.Arm.orthogonalToneFallback.w == nil)
     }
 
     /// The five oracle means land in their own named columns, in header order.

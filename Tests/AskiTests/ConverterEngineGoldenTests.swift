@@ -102,12 +102,14 @@ import Testing
         let dotRankedSixForcedParallel = dotForcedParallel.convertWithRankedCandidates(
             image, columns: 24, candidateStride: 6)
         #expect(digest(dotRankedSix) == digest(dotRankedSixForcedParallel))
-        #expect(dotRankedSix.candidateCounts.allSatisfy { $0 == 1 })
+        // ASKI-81: slot 0 is the stride-1 pick; the other slots are distinct
+        // density-ranked glyphs.
+        #expect(dotRankedSix.candidateCounts.allSatisfy { $0 == 6 })
         #expect(
-            stride(from: 0, to: dotRankedSix.candidates.count, by: 6).allSatisfy { offset in
-                dotRankedSix.candidates[(offset + 1)..<(offset + 6)].allSatisfy {
-                    $0 == dotRankedSix.candidates[offset]
-                }
+            stride(from: 0, to: dotRankedSix.candidates.count, by: 6).enumerated().allSatisfy {
+                cell, offset in
+                dotRankedSix.candidates[offset] == dotRankedOne.candidates[cell]
+                    && Set(dotRankedSix.candidates[offset..<(offset + 6)]).count == 6
             }
         )
         result["dot/ranked/stride6"] = digest(dotRankedSix)
@@ -174,7 +176,7 @@ import Testing
         "dot/plain/serial": 6_429_871_333_101_551_316,
         "dot/plain/serial/masked": 16_272_798_101_133_468_325,
         "dot/ranked/stride1": 17_912_684_743_978_736_175,
-        "dot/ranked/stride6": 1_821_696_342_168_807_990,
+        "dot/ranked/stride6": 16_887_482_784_655_848_830,
         "dot/residual/nan": 193_570_761_966_645_244,
         "log/plain/parallel": 3_698_835_258_009_606_004,
         "log/plain/parallel/masked": 12_519_869_327_797_796_533,

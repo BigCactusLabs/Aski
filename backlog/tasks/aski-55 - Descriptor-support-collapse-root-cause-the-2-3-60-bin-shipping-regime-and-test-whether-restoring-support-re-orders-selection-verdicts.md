@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-08-24 16:09'
-updated_date: '2026-09-10 04:29'
+updated_date: '2026-09-27 17:36'
 labels: []
 dependencies: []
 ordinal: 56000
@@ -42,4 +42,11 @@ The shipped 60D log-polar descriptor carries only 2-3 of 60 bins at the shipping
 **First step.** Pre-register the intervention, corpus/loader choice, exact-lattice geometry, and decision rule. Reproduce the existing support table in the lab, then add only the smallest support change that can test the mechanism.
 
 Source map: `Sources/Aski/Algorithms/ShapeContext.swift`, `Sources/Aski/CellSampling.swift`, `Tools/AskiColorLab/SamplingLattice/LatticeSupport.swift`, `Tests/AskiTests/AskiColorLabSamplingLatticeTests.swift`, `docs/Research/2026-08-19-sampling-lattice-support-collapse.md`, `docs/Research/2026-08-19-selection-optimality-gap.md`, `docs/Research/2026-09-04-aski68-production-experiment-cleanup.md`, `docs/Research/2026-09-04-aski69-render-space-matcher-rule.md`.
+
+### 2026-09-27 — concrete output consequences of the 2-3 bin regime (Aski HEAD 6b6d251)
+
+Measured with `cellQueryDescriptors` on nasa-steerable-v1-vavilov-crater, nasa-occupancy-v1-cernan-portrait and a bcl-web photo, at 80 and 288 columns: every query occupies exactly bins 51, 54 and 56 (radial ring 4, angular 3/6/8); median and max 3 occupied bins per cell. Two user-visible effects follow and are filed separately:
+- ASKI-79: no non-blank glyph in minimal, dots, diagonal, cross or diamond (or a custom Plex Mono ramp) has mass in those bins, so the blank wins every cell and the output is 100% blank at both polarities.
+- ASKI-80: only `|`, `}` and `j` of the 95 standard glyphs have mass there; for the rest the pick reduces to the lowest |g|² in the tone pool, giving 7-15 glyphs used and 57-84% of non-blank cells in same-glyph runs of 5 or more.
+Either task is a cheap readout for this task's AC#3: an intervention that restores support should move both.
 <!-- SECTION:NOTES:END -->

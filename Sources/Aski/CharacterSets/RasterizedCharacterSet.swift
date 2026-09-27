@@ -5,6 +5,12 @@ import simd
 
 /// A character set computed at runtime by rasterizing each glyph via Core Text.
 /// Shape vectors are font-dependent — pass the exact font you'll render with.
+///
+/// Under ``ASCIIAlgorithm/logPolar`` at the default `oversample`, a glyph whose
+/// ink misses the few descriptor bins a cell query reaches never beats a space,
+/// so a set of 12 or fewer glyphs made of a space plus only such glyphs renders
+/// an all-blank grid. Convert such a set with ``ASCIIAlgorithm/dotMatrix``; the
+/// Character Sets article explains the limitation.
 public struct RasterizedCharacterSet: ASCIICharacterSet, GlyphBankProviding {
     internal let glyphBank: GlyphBank
 

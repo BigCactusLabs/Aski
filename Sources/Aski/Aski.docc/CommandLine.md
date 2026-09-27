@@ -58,6 +58,20 @@ aspect ratio in PNG output by default; `--no-preserve-aspect` requests the histo
 glyph-cell aspect instead. Direct library rendering has a different default, so pass
 `preserveSourceAspect: true` explicitly when matching a CLI render. See <doc:Rendering>.
 
+## Algorithm, dither strength, and palette
+
+`--algorithm` selects `logPolar` (the default) or `dotMatrix`. `--coverage` accepts
+0...1 and controls Floyd–Steinberg dithering only for `dotMatrix`: 0 (the default)
+disables it, and 1 uses full strength. `logPolar` accepts but ignores `--coverage`.
+`--palette` selects `fullColor` (the default) or `monochrome`, which uses white
+glyph ink. For example:
+
+```bash
+xcrun swift run aski render photo.jpg \
+  --charset minimal --algorithm dotMatrix --coverage 1 --palette monochrome \
+  --render-png glyph-mask.png --write-manifest glyph-mask.json
+```
+
 ## Blocks, transparent backgrounds, and exact sizes
 
 ```bash
@@ -76,6 +90,9 @@ silently written as the library's 1×1 fallback image.
 
 Use `xcrun swift run aski render --help` for accepted character sets, colors, and bounds.
 The CLI does not expose every converter policy or effect; use the Swift API for those.
+Under the default `--algorithm logPolar`, `--charset` `minimal`, `dots`, `diagonal`,
+`cross` and `diamond` render every cell as a space; pass `--algorithm dotMatrix` for
+those sets (see <doc:Algorithms>).
 
 ## Let a photograph dissolve into type
 

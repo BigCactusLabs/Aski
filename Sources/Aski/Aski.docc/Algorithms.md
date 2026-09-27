@@ -22,8 +22,9 @@ let converter = ASCIIConverter(
 
 - ``ASCIIAlgorithm/logPolar`` — 60D log-polar shape matching. The default;
   produces general-purpose ASCII art.
-- ``ASCIIAlgorithm/dotMatrix`` — Brightness-based matching with
-  Floyd–Steinberg dithering. Produces halftone-style output.
+- ``ASCIIAlgorithm/dotMatrix`` — Brightness-based matching. The default
+  `coverage` of 0 applies no Floyd–Steinberg dithering; `coverage` 1 applies
+  full-strength error diffusion and produces halftone-style output.
 
 > Note: `logPolar` conversions walk the cell grid in parallel across rows once
 > the grid is large enough (a fixed cell-count threshold),
@@ -36,10 +37,27 @@ let converter = ASCIIConverter(
 
 | Algorithm | Recommended character sets |
 |---|---|
-| `logPolar` | `standard`, `minimal`, `mixed`, `dots`, `braille` |
+| `logPolar` | `standard`, `braille` |
 | `dotMatrix` | `minimal`, `blocks`, `dots`, `braille` |
 
-Other combinations work but may produce mediocre output.
+Other combinations work but may produce mediocre output. Two groups of
+built-in sets are measured failures under `logPolar` at the default
+`oversample`, where a cell's shape query reaches only 2–3 of the 60
+descriptor bins (see "Oversampling is not a quality knob" below):
+
+- `minimal`, `dots`, `diagonal`, `cross` and `diamond` render every cell as
+  a space. None of their other glyphs has ink in the bins a cell query can
+  reach, so the shape distance ranks those glyphs by the size of their own
+  descriptor, and the space glyph, whose descriptor is empty, wins every cell.
+- `blocks` renders one to four distinct glyphs across a whole image, and
+  `lines` and `mixed` one or two, in Aski's research census, so the image comes through in cell
+  color rather than in glyph choice.
+
+Use `dotMatrix` with these sets when glyph choice should carry the image. A fallback to the tone-nearest glyph for
+cells whose query shares no bin with any candidate was measured and rejected:
+it removed the all-blank output but raised per-cell error on `standard` by
+3–4%. Evidence: `docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md`
+in the repository.
 
 ## Knob relevance
 

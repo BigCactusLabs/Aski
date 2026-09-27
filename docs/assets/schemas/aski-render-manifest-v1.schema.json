@@ -2,7 +2,7 @@
   "$id": "https://github.com/BigCactusLabs/Aski/blob/main/docs/assets/schemas/aski-render-manifest-v1.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": true,
-  "description": "Deterministic unsigned record from aski render --write-manifest. An optional additive mask block is present only when --mask is supplied. It does not establish source or output authenticity.",
+  "description": "Deterministic unsigned record from aski render --write-manifest. Additive conversion fields record algorithm, coverage, and palette. An optional additive mask block is present only when --mask is supplied. It does not establish source or output authenticity.",
   "properties": {
     "artifacts": {
       "additionalProperties": true,
@@ -60,6 +60,10 @@
     "conversion": {
       "additionalProperties": true,
       "properties": {
+        "algorithm": {
+          "enum": ["logPolar", "dotMatrix"],
+          "type": "string"
+        },
         "charset": {
           "enum": [
             "standard",
@@ -78,6 +82,15 @@
         "columns": {
           "minimum": 1,
           "type": "integer"
+        },
+        "coverage": {
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number"
+        },
+        "palette": {
+          "enum": ["fullColor", "monochrome"],
+          "type": "string"
         },
         "rows": {
           "minimum": 0,

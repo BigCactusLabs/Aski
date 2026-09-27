@@ -148,9 +148,14 @@ let customSet = RasterizedCharacterSet(
 
 let customConverter = ASCIIConverter(
     characterSet: customSet,
-    palette: BuiltInPalette.monochrome
+    palette: BuiltInPalette.monochrome,
+    algorithm: .dotMatrix
 )
 ```
+
+Under the default `.logPolar` algorithm, a ramp like this one can render every
+cell as a space; <doc:CharacterSets> explains why and when `.dotMatrix` is the
+better choice.
 
 For one complete, fixed visual recipe rather than a custom set, see <doc:Vesper>.
 For movement and finishing treatments, continue to <doc:Animation> and <doc:Effects>.
