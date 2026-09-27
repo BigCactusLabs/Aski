@@ -59,9 +59,12 @@ internal struct RankedDotMatrixCapture: CellCapturing, @unchecked Sendable {
         cell: CellCoord, stats: CellStats, in context: borrowing ConversionContext, cellIndex: Int
     ) -> Character {
         let picked = kernel.pick(cell: cell, stats: stats, in: context)
-        countsBase[cellIndex] = 1
+        let ranked = kernel.rankedCandidates(around: picked.index, limit: stride)
+        countsBase[cellIndex] = UInt16(ranked.count)
         let base = cellIndex * stride
-        for slot in 0..<stride { candidatesBase[base + slot] = UInt16(picked.index) }
+        for slot in 0..<stride {
+            candidatesBase[base + slot] = UInt16(slot < ranked.count ? ranked[slot] : picked.index)
+        }
         return picked.character
     }
 }
