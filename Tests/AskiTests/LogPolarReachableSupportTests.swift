@@ -1,4 +1,5 @@
 import CoreGraphics
+import CoreText
 import Foundation
 import ImageIO
 import Testing
@@ -97,8 +98,8 @@ import simd
         return occupiedBins(queries)
     }
 
-    private static func zeroNormGlyphs(_ set: StandardCharacterSet) -> Set<Int> {
-        let lanesPerCharacter = StandardCharacterSet.lanesPerCharacter
+    private static func zeroNormGlyphs<C: ASCIICharacterSet>(_ set: C) -> Set<Int> {
+        let lanesPerCharacter = C.lanesPerCharacter
         let lanes = set.shapeVectorLanes
         return Set(
             set.characters.indices.filter { index in
@@ -109,10 +110,10 @@ import simd
     }
 
     /// Non-blank glyphs with any mass in `bins`.
-    private static func glyphsReaching(_ bins: Set<Int>, in set: StandardCharacterSet)
+    private static func glyphsReaching<C: ASCIICharacterSet>(_ bins: Set<Int>, in set: C)
         -> [Character]
     {
-        let lanesPerCharacter = StandardCharacterSet.lanesPerCharacter
+        let lanesPerCharacter = C.lanesPerCharacter
         let lanes = set.shapeVectorLanes
         let blank = zeroNormGlyphs(set)
         return set.characters.indices.filter { index in
@@ -156,16 +157,19 @@ import simd
                 "\(name): \(reaching.count) non-blank glyphs reach \(reachable.sorted())")
             #expect(Self.zeroNormGlyphs(set).count == 1, "\(name) should hold exactly one blank")
         }
-        #expect(Set(Self.glyphsReaching(reachable, in: .standard)) == ["|", "}", "j"])
+        #expect(Set(Self.glyphsReaching(reachable, in: StandardCharacterSet.standard)) == ["|", "}", "j"])
     }
 
     /// ASKI-79 KNOWN DEFECT — this test asserts the CURRENT, WRONG behaviour.
     ///
     /// Under logPolar at the shipping footprint, the five blank-collapsed sets
-    /// render every cell of a real fixture as their blank glyph. When ASKI-79 is
-    /// fixed, flip this expectation to "not every cell is blank" (AC#1: no
-    /// recommended pairing yields an all-blank grid on a real fixture) and
-    /// rename the test.
+    /// render every cell of a real fixture as their blank glyph. The
+    /// pre-registered tone fallback for this was measured and KILLed
+    /// (`docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md`), so
+    /// ASKI-79 closed by documenting the defect and dropping these sets from the
+    /// logPolar pairings. If a later change (such as restoring descriptor
+    /// support, ASKI-55) removes the defect, flip this expectation to "not
+    /// every cell is blank" and rename the test.
     @Test func knownDefectASKI79BlankCollapsedSetsRenderAllBlank() throws {
         let image = try Self.vavilovCrater()
         for (name, set) in Self.builtIns where Self.blankCollapsed.contains(name) {
@@ -179,15 +183,45 @@ import simd
         }
     }
 
-    /// The recommended logPolar pairings that do render today stay non-blank.
-    /// `minimal` and `dots` are also recommended (Algorithms.md) and are the
-    /// known defect above.
-    @Test func recommendedPairingsOutsideTheDefectAreNotAllBlank() throws {
+    /// ASKI-79 AC#1: no recommended logPolar pairing (Algorithms.md: `standard`
+    /// and `braille`) yields an all-blank grid on a real fixture.
+    @Test func recommendedPairingsAreNotAllBlank() throws {
         let image = try Self.vavilovCrater()
-        for set in [StandardCharacterSet.standard, .mixed, .braille] {
+        for set in [StandardCharacterSet.standard, .braille] {
             let blank = Self.zeroNormGlyphs(set).map { set.characters[$0] }
             let grid = Self.converter(set).convert(image, columns: Self.shippingColumns)
             #expect(grid.cells.flatMap { $0 }.contains { !blank.contains($0.character) })
         }
+    }
+
+    /// ASKI-79 AC#4: the documented diagnostic for custom sets. A
+    /// `RasterizedCharacterSet` with no glyph in the reachable bins renders an
+    /// all-blank grid under logPolar, as `RasterizedCharacterSet`,
+    /// `CharacterSets.md` and `Algorithms.md` now say, and the documented
+    /// remedy, dotMatrix, renders it with ink.
+    @Test func customSetMissingTheReachableBinsIsBlankUnderLogPolarAndInkedUnderDotMatrix()
+        throws
+    {
+        let reachable = try Self.reachableBins()
+        let custom = RasterizedCharacterSet(
+            characters: [" ", ".", ":"],
+            font: CTFontCreateWithName("Menlo" as CFString, 32, nil))
+        try #require(Self.glyphsReaching(reachable, in: custom).isEmpty)
+        let blank = Self.zeroNormGlyphs(custom).map { custom.characters[$0] }
+        try #require(blank == [" "])
+
+        let image = try Self.vavilovCrater()
+        let logPolar = ASCIIConverter(characterSet: custom, palette: BuiltInPalette.monochrome)
+            .convert(image, columns: Self.shippingColumns)
+        let logPolarCells = logPolar.cells.flatMap { $0 }
+        #expect(!logPolarCells.isEmpty)
+        #expect(
+            logPolarCells.allSatisfy { blank.contains($0.character) },
+            "the custom set rendered ink under logPolar; update the custom-set docs")
+
+        let dotMatrix = ASCIIConverter(
+            characterSet: custom, palette: BuiltInPalette.monochrome, algorithm: .dotMatrix
+        ).convert(image, columns: Self.shippingColumns)
+        #expect(dotMatrix.cells.flatMap { $0 }.contains { !blank.contains($0.character) })
     }
 }
