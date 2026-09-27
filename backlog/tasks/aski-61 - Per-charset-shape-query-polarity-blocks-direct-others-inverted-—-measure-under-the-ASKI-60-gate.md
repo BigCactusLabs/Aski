@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-09-01 20:37'
-updated_date: '2026-09-16 17:37'
+updated_date: '2026-09-27 17:36'
 labels: []
 dependencies: []
 ordinal: 62000
@@ -65,4 +65,8 @@ Wording correction after cross-model review of ASKI-60: the mechanism statement 
 Source map: `Sources/Aski/Algorithms/LogPolarKernel.swift`, `Tests/AskiTests/ShapeQueryPolarityTests.swift`, `Tools/AskiColorLab/SamplingLattice/PolarityGate.swift`, `Tools/AskiColorLab/AskiColorLabCommand.swift`, `docs/Research/2026-09-01-aski60-shape-query-polarity.md`, `docs/Research/2026-09-04-aski62-arbiter-v2-validation.md`.
 
 Dependency review 2026-09-16 (backlog architecture audit, docs/Research/2026-09-02-backlog-architecture-audit.md). AC#4 is blocked on the ASKI-62 arbiter protocol v2, as recorded above. A hard ASKI-61 -> ASKI-62 dependency edge was considered and deliberately NOT added: a Backlog.md edge is task-granular and would mark all of ASKI-61 unstartable, but AC#1, #2, #3, #6 and #7 are instrument and measurement work that need nothing from ASKI-62. ASKI-62's instrument has shipped; its remaining AC#4 is a blinded 51-sheet human sitting. Start the measurement ACs now; hold only the default-change verdict for the arbiter score.
+
+### 2026-09-27 — the five-charset 0.24754 MAE degeneracy is an all-blank grid (Aski HEAD 6b6d251)
+
+The "undiagnosed degeneracy" in the description (minimal, dots, cross, diamond and diagonal at an identical 0.24754 MAE under both polarities) matches what production outputs for those sets: 100% blank cells on nasa-steerable-v1-vavilov-crater, nasa-occupancy-v1-cernan-portrait and a bcl-web photo, at 80 and 288 columns, under both `.inverted` and `.direct`. Cause: at the shipping footprint every query sits in bins 51/54/56 only, none of those sets' non-blank glyphs has mass there, so the blank wins by a constant min|g|². A blank grid scores the same whatever the charset, hence the identical MAE. Filed as ASKI-79. For AC#2, those five sets carry no polarity signal until ASKI-79 or ASKI-55 changes what the query can reach; a per-charset map measured on them now would measure blank grids.
 <!-- SECTION:NOTES:END -->
