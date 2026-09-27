@@ -38,7 +38,7 @@ import Testing
             header
                 == "corpus,charset,arm,w,topK,columns,oversample,footprint,stride,cells,glyphs,"
                 + "mae,rmse,ssim,gmsd,haarpsi,selectionWallSeconds,gitSHA,shapeQueryPolarity,"
-                + "glyphsUsed,blankShare,runMean,runP95,runMax,run5Share")
+                + "glyphsUsed,blankShare,runMean,runP95,runMax,run5Share,changedVsP")
     }
 
     /// ASKI-60: the shape-query polarity changes the converter, so a `direct`
@@ -97,7 +97,7 @@ import Testing
             [[1, 1, 1, 1, 1, 2, 0, 2]], isBlank: { $0 == 0 })
         let fields = try #require(SelectionCeiling.csv([row]).split(separator: "\n").last)
             .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
-        #expect(fields.count == 25)
+        #expect(fields.count == 26)
         #expect(fields[19] == "3")  // glyphsUsed
         #expect(Double(fields[20]) == 1.0 / 8.0)  // blankShare
         #expect(Double(fields[21]) == 7.0 / 3.0)  // runMean: runs 5, 1, 1
@@ -113,8 +113,23 @@ import Testing
             SelectionCeiling.csv([Self.row(arm: "P")]).split(separator: "\n").last
         )
         .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
-        #expect(fields.count == 25)
+        #expect(fields.count == 26)
         #expect(fields[19...].allSatisfy { $0.isEmpty })
+    }
+
+    /// ASKI-79/80: arm A2 records its diffusion strength in `w`, and the rule
+    /// §5 readout `changedVsP` lands in the last column.
+    @Test func armTwoRecordsStrengthAndChangedShare() throws {
+        var row = Self.row(arm: "A2", w: 0.5)
+        row.changedShare = 0.25
+        let fields = try #require(SelectionCeiling.csv([row]).split(separator: "\n").last)
+            .split(separator: ",", omittingEmptySubsequences: false).map(String.init)
+        #expect(fields[2] == "A2")
+        #expect(fields[3] == "0.5")
+        #expect(fields[25] == "0.25")
+        #expect(SelectionCeiling.Arm.errorDiffusedFallback(strength: 0.5).w == 0.5)
+        #expect(SelectionCeiling.Arm.orthogonalToneFallback.name == "A1")
+        #expect(SelectionCeiling.Arm.orthogonalToneFallback.w == nil)
     }
 
     /// The five oracle means land in their own named columns, in header order.

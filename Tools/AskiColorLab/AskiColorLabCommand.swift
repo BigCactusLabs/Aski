@@ -37,6 +37,7 @@ public struct AskiColorLabCommand: ParsableCommand {
             LatticePhaseSubcommand.self,
             SelectionCeilingSubcommand.self,
             QueryOrthogonalitySubcommand.self,
+            OrthogonalityRenderPairSubcommand.self,
             ReferenceRecoverySubcommand.self,
             ConventionAblationSubcommand.self,
             PolarityGateSubcommand.self,
@@ -423,6 +424,18 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
             "Also emit the tone-only floor as it was built before the ASKI-30 floor-quantity fix (rawDensityValues vs mean block luma) so the before/after re-definition audit is runnable. The reported floor is the fixed one either way."
     )
     public var legacyFloor = false
+    @Flag(
+        name: .customLong("orthogonal-tone-fallback"),
+        help:
+            "ASKI-79/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph."
+    )
+    public var orthogonalToneFallback = false
+    @Option(
+        name: .customLong("error-diffusion"),
+        help:
+            "ASKI-79/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off."
+    )
+    public var errorDiffusion: String?
     @Option(
         name: .customLong("output"),
         help:
@@ -447,6 +460,11 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
 
         var sweeps = SelectionCeiling.Sweeps()
         sweeps.includeLegacyFloor = legacyFloor
+        sweeps.orthogonalToneFallback = orthogonalToneFallback
+        if let errorDiffusion {
+            sweeps.errorDiffusionStrengths = try parseFloatList(
+                errorDiffusion, flag: "--error-diffusion")
+        }
         if !topk.isEmpty {
             let grids = try parseScopedIntLists(topk, flag: "--topk")
             sweeps.topKs = grids.global
@@ -541,6 +559,49 @@ public struct QueryOrthogonalitySubcommand: ParsableCommand {
             try (QueryOrthogonality.csv(rows) + "\n")
                 .write(to: url, atomically: true, encoding: .utf8)
         }
+    }
+}
+
+public struct OrthogonalityRenderPairSubcommand: ParsableCommand {
+    public static let configuration = CommandConfiguration(
+        commandName: "orthogonality-render-pair",
+        abstract:
+            "Render the frozen preset on one image twice, through production and with the ASKI-79/80 arm-A1 orthogonality fallback substituted, for a before/after review pair."
+    )
+    @Option(name: .customLong("input"), help: "Source image path.")
+    public var input: String
+    @Option(
+        name: .customLong("output-dir"),
+        help: "Directory for production.png, fallback.png and summary.txt.")
+    public var outputDirectory: String
+    @Option(name: .customLong("prefix"), help: "File-name prefix (default: none).")
+    public var prefix: String = ""
+    public init() {}
+
+    public func run() throws {
+        let image = try DemoImageIO.loadImage(at: input)
+        guard let pair = OrthogonalityRenderPair.render(image) else {
+            throw ValidationError("the frozen preset produced no grid for \(input)")
+        }
+        let directory = URL(fileURLWithPath: outputDirectory)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let production = directory.appending(path: "\(prefix)production.png").path
+        let fallback = directory.appending(path: "\(prefix)fallback.png").path
+        try DemoImageIO.writePNG(pair.production, to: production)
+        try DemoImageIO.writePNG(pair.fallback, to: fallback)
+        let summary = [
+            "input: \(URL(fileURLWithPath: input).lastPathComponent)",
+            "cells: \(pair.cells)",
+            "changedCells: \(pair.changedCells)",
+            "productionMatchesEntryPoint: \(pair.productionMatchesEntryPoint)",
+            "", "# production", pair.productionText, "", "# fallback", pair.fallbackText,
+        ].joined(separator: "\n")
+        try (summary + "\n").write(
+            to: directory.appending(path: "\(prefix)summary.txt"), atomically: true,
+            encoding: .utf8)
+        print(
+            "cells \(pair.cells), changed \(pair.changedCells), production matches entry point: \(pair.productionMatchesEntryPoint)"
+        )
     }
 }
 

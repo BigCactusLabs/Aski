@@ -2449,6 +2449,44 @@
                       "valueName" : "legacy-floor"
                     },
                     {
+                      "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "orthogonal-tone-fallback"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "orthogonal-tone-fallback"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "orthogonal-tone-fallback"
+                    },
+                    {
+                      "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "error-diffusion"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "error-diffusion"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "error-diffusion"
+                    },
+                    {
                       "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
                       "isOptional" : true,
                       "isRepeating" : false,
@@ -2741,6 +2779,117 @@
                     }
                   ],
                   "commandName" : "query-orthogonality",
+                  "shouldDisplay" : true,
+                  "superCommands" : [
+                    "aski",
+                    "lab",
+                    "color"
+                  ]
+                },
+                {
+                  "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+                  "arguments" : [
+                    {
+                      "abstract" : "Source image path.",
+                      "isOptional" : false,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "input"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "input"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "input"
+                    },
+                    {
+                      "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+                      "isOptional" : false,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "output-dir"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "output-dir"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "output-dir"
+                    },
+                    {
+                      "abstract" : "File-name prefix (default: none).",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "prefix"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "prefix"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "prefix"
+                    },
+                    {
+                      "abstract" : "Show the version.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "version"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "version"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "version"
+                    },
+                    {
+                      "abstract" : "Show help information.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "short",
+                          "name" : "h"
+                        },
+                        {
+                          "kind" : "long",
+                          "name" : "help"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "help"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "help"
+                    }
+                  ],
+                  "commandName" : "orthogonality-render-pair",
                   "shouldDisplay" : true,
                   "superCommands" : [
                     "aski",
@@ -8763,6 +8912,44 @@
                   "valueName" : "legacy-floor"
                 },
                 {
+                  "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "orthogonal-tone-fallback"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "orthogonal-tone-fallback"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "orthogonal-tone-fallback"
+                },
+                {
+                  "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "error-diffusion"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "error-diffusion"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "error-diffusion"
+                },
+                {
                   "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
                   "isOptional" : true,
                   "isRepeating" : false,
@@ -9054,6 +9241,116 @@
                 }
               ],
               "commandName" : "query-orthogonality",
+              "shouldDisplay" : true,
+              "superCommands" : [
+                "lab",
+                "color"
+              ]
+            },
+            {
+              "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+              "arguments" : [
+                {
+                  "abstract" : "Source image path.",
+                  "isOptional" : false,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "input"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "input"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "input"
+                },
+                {
+                  "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+                  "isOptional" : false,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "output-dir"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "output-dir"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "output-dir"
+                },
+                {
+                  "abstract" : "File-name prefix (default: none).",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "prefix"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "prefix"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "prefix"
+                },
+                {
+                  "abstract" : "Show the version.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "version"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "version"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "version"
+                },
+                {
+                  "abstract" : "Show help information.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "short",
+                      "name" : "h"
+                    },
+                    {
+                      "kind" : "long",
+                      "name" : "help"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "help"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "help"
+                }
+              ],
+              "commandName" : "orthogonality-render-pair",
               "shouldDisplay" : true,
               "superCommands" : [
                 "lab",
@@ -15210,6 +15507,44 @@
               "valueName" : "legacy-floor"
             },
             {
+              "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "orthogonal-tone-fallback"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "orthogonal-tone-fallback"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "orthogonal-tone-fallback"
+            },
+            {
+              "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "error-diffusion"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "error-diffusion"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "error-diffusion"
+            },
+            {
               "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
               "isOptional" : true,
               "isRepeating" : false,
@@ -15500,6 +15835,115 @@
             }
           ],
           "commandName" : "query-orthogonality",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "color"
+          ]
+        },
+        {
+          "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+          "arguments" : [
+            {
+              "abstract" : "Source image path.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "input"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "input"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "input"
+            },
+            {
+              "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output-dir"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output-dir"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output-dir"
+            },
+            {
+              "abstract" : "File-name prefix (default: none).",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "prefix"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "prefix"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "prefix"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "orthogonality-render-pair",
           "shouldDisplay" : true,
           "superCommands" : [
             "color"
@@ -21803,6 +22247,44 @@
               "valueName" : "legacy-floor"
             },
             {
+              "abstract" : "ASKI-79\/80 arm A1: production's selector, except that a cell whose query shares no bin with any non-blank pooled candidate takes the tone-nearest pooled glyph.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "orthogonal-tone-fallback"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "orthogonal-tone-fallback"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "orthogonal-tone-fallback"
+            },
+            {
+              "abstract" : "ASKI-79\/80 arm A2 (lab-only, serial): comma-separated Floyd-Steinberg strengths for arm A1 run on an error-diffused tone target, each its own arm with the strength in the w column. Absent = arm A2 off.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "error-diffusion"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "error-diffusion"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "error-diffusion"
+            },
+            {
               "abstract" : "Write the machine-readable arm census to this CSV path. The frozen ASKI-28\/30 rule is applied to this file and to nothing else; the stdout table is unaffected.",
               "isOptional" : true,
               "isRepeating" : false,
@@ -22093,6 +22575,115 @@
             }
           ],
           "commandName" : "query-orthogonality",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "AskiColorLab"
+          ]
+        },
+        {
+          "abstract" : "Render the frozen preset on one image twice, through production and with the ASKI-79\/80 arm-A1 orthogonality fallback substituted, for a before\/after review pair.",
+          "arguments" : [
+            {
+              "abstract" : "Source image path.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "input"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "input"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "input"
+            },
+            {
+              "abstract" : "Directory for production.png, fallback.png and summary.txt.",
+              "isOptional" : false,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output-dir"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output-dir"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output-dir"
+            },
+            {
+              "abstract" : "File-name prefix (default: none).",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "prefix"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "prefix"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "prefix"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "orthogonality-render-pair",
           "shouldDisplay" : true,
           "superCommands" : [
             "AskiColorLab"

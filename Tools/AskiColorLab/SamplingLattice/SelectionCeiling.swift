@@ -119,6 +119,14 @@ enum SelectionCeiling {
         case lexicographic(shapeK: Int)
         /// §6.2 — z-normalize both loss distributions, then combine at `w`.
         case zNormalized(w: Float)
+        /// ASKI-79/80 arm 1 — production's selector, except that a cell whose
+        /// query is orthogonal to every non-blank pooled candidate takes the
+        /// tone-nearest pooled glyph (`OrthogonalityFallback.pick`).
+        case orthogonalToneFallback
+        /// ASKI-79/80 arm 2 — arm 1 on a serial Floyd–Steinberg tone target,
+        /// diffusing the residual at `strength` (`OrthogonalityFallback
+        /// .errorDiffusedPicks`). Lab-only; serial by construction.
+        case errorDiffusedFallback(strength: Float)
 
         /// Stable CSV label. The rule selects rows by this string.
         var name: String {
@@ -130,14 +138,19 @@ enum SelectionCeiling {
             case .poolWidth: return "K"
             case .lexicographic: return "lex"
             case .zNormalized: return "znorm"
+            case .orthogonalToneFallback: return "A1"
+            case .errorDiffusedFallback: return "A2"
             }
         }
 
         /// The `w` column. Nil for arms that take no weight — rendered as an
         /// empty cell, never `0`, because `w = 0` is a swept anchor (§2.5).
+        /// Arm A2 records its error-diffusion strength here: the weight on the
+        /// carried residual.
         var w: Float? {
             switch self {
             case .toneWeighted(let w), .zNormalized(let w): return w
+            case .errorDiffusedFallback(let strength): return strength
             default: return nil
             }
         }
@@ -192,6 +205,9 @@ enum SelectionCeiling {
         /// run lengths over a subsampled lattice measure adjacency the output
         /// never shows, so they are left unmeasured rather than misreported.
         var texture: PickTexture.Readout? = nil
+        /// Share of scored cells where this arm's pick differs from the glyph
+        /// the converter rendered (ASKI-79/80 rule §5). `0` for arm P.
+        var changedShare: Double? = nil
     }
 
     /// Everything one `run` produces: the stdout table's rows, unchanged, plus
@@ -218,6 +234,10 @@ enum SelectionCeiling {
         var zNormWeights: [Float] = []
         /// Compute arm F the pre-prerequisite-3 way as well (readout R8).
         var includeLegacyFloor = false
+        /// Run ASKI-79/80 arm 1 (`A1`).
+        var orthogonalToneFallback = false
+        /// ASKI-79/80 arm 2 (`A2`) strengths; empty switches the arm off.
+        var errorDiffusionStrengths: [Float] = []
 
         init() {}
 
@@ -657,6 +677,8 @@ enum SelectionCeiling {
             arms += sweeps.poolWidthArms(for: charsetName, glyphCount: glyphs.count)
             arms += sweeps.lexShapeKs.map { Arm.lexicographic(shapeK: $0) }
             arms += sweeps.zNormWeights.map { Arm.zNormalized(w: $0) }
+            if sweeps.orthogonalToneFallback { arms.append(.orthogonalToneFallback) }
+            arms += sweeps.errorDiffusionStrengths.map { Arm.errorDiffusedFallback(strength: $0) }
             // Every candidate is rastered once at the scoring footprint. Keep
             // the archived ASTSK-35/42 candidate-raster convention so this run
             // stays directly comparable after that dedicated arm is removed.
@@ -686,8 +708,12 @@ enum SelectionCeiling {
                 var armCounts: [Arm: [Oracle: Int]] = [:]
                 var armSeconds: [Arm: Double] = [:]
                 var armTextures: [Arm: PickTexture.Accumulator] = [:]
+                // Cells where each arm's pick differs from the rendered glyph,
+                // over the cells it picked for (rule §5 readout).
+                var armChanged: [Arm: (changed: Int, scored: Int)] = [:]
                 for arm in arms {
                     armTextures[arm] = PickTexture.Accumulator()
+                    armChanged[arm] = (0, 0)
                     armSums[arm] = Dictionary(
                         uniqueKeysWithValues: Oracle.allCases.map { ($0, 0.0) })
                     armCounts[arm] = Dictionary(
@@ -777,6 +803,33 @@ enum SelectionCeiling {
                         let empty = [[Int?]](
                             repeating: [Int?](repeating: nil, count: gridCols), count: gridRows)
                         for arm in arms { armGrids[arm] = empty }
+                    }
+                    // Arm A2 walks the whole grid serially, so its picks are
+                    // computed once per fixture before the per-cell loop and
+                    // timed as that arm's selection cost.
+                    var diffusedPicks: [Arm: [[Int]]] = [:]
+                    if let queries, queries.rows == gridRows, queries.columns == gridCols {
+                        for arm in arms {
+                            guard case .errorDiffusedFallback(let strength) = arm else { continue }
+                            let started = DispatchTime.now().uptimeNanoseconds
+                            var cellLanes: [[SIMD4<Float>]] = []
+                            var cellTones: [Float] = []
+                            cellLanes.reserveCapacity(gridRows * gridCols)
+                            cellTones.reserveCapacity(gridRows * gridCols)
+                            for row in 0..<gridRows {
+                                for col in 0..<gridCols {
+                                    cellLanes.append(queries.lanes(row: row, column: col))
+                                    cellTones.append(queries.adjustedL(row: row, column: col))
+                                }
+                            }
+                            diffusedPicks[arm] = OrthogonalityFallback.errorDiffusedPicks(
+                                rows: gridRows, columns: gridCols, queryLanes: cellLanes,
+                                tones: cellTones, candidateLanes: candidateLanes,
+                                brightnessValues: brightness, blank: blankGlyphs,
+                                topK: productionPoolWidth, strength: strength)
+                            armSeconds[arm]! +=
+                                Double(DispatchTime.now().uptimeNanoseconds - started) / 1e9
+                        }
                     }
                     for row in Swift.stride(from: 0, to: gridRows, by: stride) {
                         for col in Swift.stride(from: 0, to: gridCols, by: stride) {
@@ -896,6 +949,16 @@ enum SelectionCeiling {
                                             brightnessValues: brightness, toneWeight: w,
                                             stats: zStats)
                                     }
+                                case .orthogonalToneFallback:
+                                    index = query.map {
+                                        OrthogonalityFallback.pick(
+                                            queryLanes: $0.lanes, tone: $0.tone,
+                                            candidateLanes: candidateLanes,
+                                            brightnessValues: brightness, blank: blankGlyphs,
+                                            topK: productionPoolWidth)
+                                    }
+                                case .errorDiffusedFallback:
+                                    index = diffusedPicks[arm]?[row][col]
                                 }
                                 armSeconds[arm]! +=
                                     Double(DispatchTime.now().uptimeNanoseconds - started) / 1e9
@@ -903,6 +966,10 @@ enum SelectionCeiling {
                             }
                             if measuresTexture {
                                 for (arm, index) in picks { armGrids[arm]![row][col] = index }
+                            }
+                            for (arm, index) in picks {
+                                armChanged[arm]!.scored += 1
+                                if index != pickIndex { armChanged[arm]!.changed += 1 }
                             }
                             // The stdout table's `toneOnly` column IS arm F, so
                             // it reads F's own pick rather than a second copy.
@@ -1003,7 +1070,10 @@ enum SelectionCeiling {
                             glyphs: glyphs.count, means: means,
                             selectionWallSeconds: armSeconds[arm] ?? 0, gitSHA: gitSHA,
                             shapeQueryPolarity: PolarityGate.label(shapeQueryPolarity),
-                            texture: measuresTexture ? armTextures[arm]?.resolved() : nil))
+                            texture: measuresTexture ? armTextures[arm]?.resolved() : nil,
+                            changedShare: armChanged[arm].flatMap {
+                                $0.scored > 0 ? Double($0.changed) / Double($0.scored) : nil
+                            }))
                 }
 
                 for oracle in Oracle.allCases {
@@ -1060,10 +1130,12 @@ enum SelectionCeiling {
     /// The texture columns (ASKI-80 AC#1, see `PickTexture`) are appended after
     /// the ASKI-60 polarity column so every earlier column keeps its index in
     /// archived CSVs. They are empty when the census ran at `stride > 1`.
+    /// `changedVsP` (ASKI-79/80 rule §5) is the share of scored cells where
+    /// the arm's pick differs from the rendered glyph.
     static let csvHeader =
         "corpus,charset,arm,w,topK,columns,oversample,footprint,stride,cells,glyphs,"
         + "mae,rmse,ssim,gmsd,haarpsi,selectionWallSeconds,gitSHA,shapeQueryPolarity,"
-        + "glyphsUsed,blankShare,runMean,runP95,runMax,run5Share"
+        + "glyphsUsed,blankShare,runMean,runP95,runMax,run5Share,changedVsP"
 
     /// The oracle columns, in header order. MAE first because it is the verdict
     /// oracle; RMSE and SSIM next because they are the two cross-checks with the
@@ -1103,6 +1175,7 @@ enum SelectionCeiling {
             } else {
                 fields += Array(repeating: "", count: 6)
             }
+            fields.append(row.changedShare.map { trimmed($0) } ?? "")
             lines.append(fields.map(escaped).joined(separator: ","))
         }
         return lines.joined(separator: "\n")
