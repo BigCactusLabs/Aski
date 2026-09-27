@@ -4,10 +4,10 @@ title: >-
   logPolar on dense sets reduces to a fixed glyph per tone band: 92 of 95
   standard glyphs are orthogonal to every shipping query, so output falls into
   long same-glyph runs
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-09-27 17:35'
-updated_date: '2026-09-27 20:42'
+updated_date: '2026-09-27 21:10'
 labels:
   - research
   - matcher

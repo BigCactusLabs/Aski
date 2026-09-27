@@ -3,10 +3,10 @@ id: ASKI-81
 title: >-
   Glyph cycling is a silent no-op for dotMatrix: the ranked capture fills every
   candidate slot with the one pick
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-09-27 17:35'
-updated_date: '2026-09-27 20:42'
+updated_date: '2026-09-27 21:10'
 labels:
   - animation
   - algorithms

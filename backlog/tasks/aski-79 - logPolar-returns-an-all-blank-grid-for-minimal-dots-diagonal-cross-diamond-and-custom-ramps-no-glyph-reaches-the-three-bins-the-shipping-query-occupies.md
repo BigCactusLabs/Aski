@@ -3,10 +3,10 @@ id: ASKI-79
 title: >-
   logPolar returns an all-blank grid for minimal, dots, diagonal, cross, diamond
   and custom ramps: no glyph reaches the three bins the shipping query occupies
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-09-27 17:35'
-updated_date: '2026-09-27 20:42'
+updated_date: '2026-09-27 21:10'
 labels:
   - correctness
   - algorithms

@@ -1,10 +1,10 @@
 ---
 id: ASKI-82
 title: 'aski render cannot select the algorithm, dither strength or palette'
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-09-27 17:35'
-updated_date: '2026-09-27 20:42'
+updated_date: '2026-09-27 21:10'
 labels:
   - cli
   - docs
