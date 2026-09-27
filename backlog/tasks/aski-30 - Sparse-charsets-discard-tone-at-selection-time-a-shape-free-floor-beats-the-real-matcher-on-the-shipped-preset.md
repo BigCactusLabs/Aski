@@ -6,7 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: '2026-08-19 06:07'
-updated_date: '2026-08-27 03:40'
+updated_date: '2026-09-27 18:56'
 labels: []
 dependencies:
   - ASKI-32
@@ -35,6 +35,8 @@ Board audit 2026-08-24 (deep pass): Dependency ASKI-32 is Done (PR #27) — read
 2026-08-24: PR #29 MERGED to main (1a889ac). Instrument + frozen rule landed: docs/Research/2026-08-24-aski-30-28-decisive-rule.md, @_spi cellQueryDescriptors (sole Sources change), SelectionCeiling arms P/F/T/K + exploratory lex/z-norm, CSV emitter with effective-topK recording. Codex review (4 findings) and PR-bot timing finding all fixed. AC#2 done: rule frozen before any decisive number. Next: run battery per rule §4 — calibrate on nasa-structure-v1, verdict on held-out nasa-steerable-v1, apply §5 mechanically.
 
 ASKI-56 arbiter update 2026-08-27: the required perceptual discriminator now exists and is validated. Its D family put T(w*=2) vs F in front of the blinded owner on all 6 sources: 1/4 decided trials for T, 2 ties, VLM order-inconsistency 0.50 — the 0.09% SSIM objection behaves like a genuine perceptual near-tie leaning toward F. Non-gating (decided n=4 < 30): verdict stays INCONCLUSIVE. Re-opening path: a dedicated D-focused arbiter run to decided n ≥ 30 (docs/Research/2026-08-27-aski56-arbiter-verdict.md).
+
+2026-09-27 (ASKI-79/80 phase 1, baseline docs/Research/Results/2026-09-27-aski-79-80-baseline/): the census texture readouts show the shipped blocks pick is effectively constant. At 80 columns on nasa-steerable-v1, blocks, lines and mixed each render one glyph for every cell (█, ├, │; glyphsUsed 1). The frozen preset (blocks, 76) uses 1 glyph on steerable, 2 on structure and 4 on occupancy. The canonical preset golden is all █, so the palette carries the whole image and the glyph pick contributes nothing. Arm 1 of the ASKI-79/80 rule (orthogonality → tone fallback) cannot reach these sets (0% orthogonal picks on the PNG corpora). Hypothesis, not tested: the ≤12-glyph pool is the whole set, so tone never enters and the 3-bin query moves too little to shift the argmin.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
