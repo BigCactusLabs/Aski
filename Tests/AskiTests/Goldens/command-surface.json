@@ -2558,6 +2558,197 @@
                   ]
                 },
                 {
+                  "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+                  "arguments" : [
+                    {
+                      "abstract" : "Comma-separated column counts (default: 80,288).",
+                      "defaultValue" : "80,288",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "columns"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "columns"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "columns"
+                    },
+                    {
+                      "abstract" : "Comma-separated oversample sweep (default: 2).",
+                      "defaultValue" : "2",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "oversample"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "oversample"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "oversample"
+                    },
+                    {
+                      "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+                      "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "charset"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "charset"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "charset"
+                    },
+                    {
+                      "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "corpus"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "corpus"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "corpus"
+                    },
+                    {
+                      "abstract" : "Write the per-fixture CSV to this path.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "output"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "output"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "output"
+                    },
+                    {
+                      "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "aski-git-sha"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "aski-git-sha"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "aski-git-sha"
+                    },
+                    {
+                      "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+                      "defaultValue" : "inverted",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "option",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "shape-query-polarity"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "shape-query-polarity"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "shape-query-polarity"
+                    },
+                    {
+                      "abstract" : "Show the version.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "long",
+                          "name" : "version"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "version"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "version"
+                    },
+                    {
+                      "abstract" : "Show help information.",
+                      "isOptional" : true,
+                      "isRepeating" : false,
+                      "kind" : "flag",
+                      "names" : [
+                        {
+                          "kind" : "short",
+                          "name" : "h"
+                        },
+                        {
+                          "kind" : "long",
+                          "name" : "help"
+                        }
+                      ],
+                      "parsingStrategy" : "default",
+                      "preferredName" : {
+                        "kind" : "long",
+                        "name" : "help"
+                      },
+                      "shouldDisplay" : true,
+                      "valueName" : "help"
+                    }
+                  ],
+                  "commandName" : "query-orthogonality",
+                  "shouldDisplay" : true,
+                  "superCommands" : [
+                    "aski",
+                    "lab",
+                    "color"
+                  ]
+                },
+                {
                   "abstract" : "Reference-recovery screen: renders each glyph as its own source cell and reports whether each oracle makes that glyph the unique argmin at the scoring footprint.",
                   "arguments" : [
                     {
@@ -8673,6 +8864,196 @@
                 }
               ],
               "commandName" : "selection-ceiling",
+              "shouldDisplay" : true,
+              "superCommands" : [
+                "lab",
+                "color"
+              ]
+            },
+            {
+              "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+              "arguments" : [
+                {
+                  "abstract" : "Comma-separated column counts (default: 80,288).",
+                  "defaultValue" : "80,288",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "columns"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "columns"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "columns"
+                },
+                {
+                  "abstract" : "Comma-separated oversample sweep (default: 2).",
+                  "defaultValue" : "2",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "oversample"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "oversample"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "oversample"
+                },
+                {
+                  "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+                  "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "charset"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "charset"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "charset"
+                },
+                {
+                  "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "corpus"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "corpus"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "corpus"
+                },
+                {
+                  "abstract" : "Write the per-fixture CSV to this path.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "output"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "output"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "output"
+                },
+                {
+                  "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "aski-git-sha"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "aski-git-sha"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "aski-git-sha"
+                },
+                {
+                  "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+                  "defaultValue" : "inverted",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "option",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "shape-query-polarity"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "shape-query-polarity"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "shape-query-polarity"
+                },
+                {
+                  "abstract" : "Show the version.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "long",
+                      "name" : "version"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "version"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "version"
+                },
+                {
+                  "abstract" : "Show help information.",
+                  "isOptional" : true,
+                  "isRepeating" : false,
+                  "kind" : "flag",
+                  "names" : [
+                    {
+                      "kind" : "short",
+                      "name" : "h"
+                    },
+                    {
+                      "kind" : "long",
+                      "name" : "help"
+                    }
+                  ],
+                  "parsingStrategy" : "default",
+                  "preferredName" : {
+                    "kind" : "long",
+                    "name" : "help"
+                  },
+                  "shouldDisplay" : true,
+                  "valueName" : "help"
+                }
+              ],
+              "commandName" : "query-orthogonality",
               "shouldDisplay" : true,
               "superCommands" : [
                 "lab",
@@ -14930,6 +15311,195 @@
             }
           ],
           "commandName" : "selection-ceiling",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "color"
+          ]
+        },
+        {
+          "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+          "arguments" : [
+            {
+              "abstract" : "Comma-separated column counts (default: 80,288).",
+              "defaultValue" : "80,288",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "columns"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "columns"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "columns"
+            },
+            {
+              "abstract" : "Comma-separated oversample sweep (default: 2).",
+              "defaultValue" : "2",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "oversample"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "oversample"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "oversample"
+            },
+            {
+              "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+              "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "charset"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "charset"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "charset"
+            },
+            {
+              "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "corpus"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "corpus"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "corpus"
+            },
+            {
+              "abstract" : "Write the per-fixture CSV to this path.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output"
+            },
+            {
+              "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "aski-git-sha"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "aski-git-sha"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "aski-git-sha"
+            },
+            {
+              "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+              "defaultValue" : "inverted",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "shape-query-polarity"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "shape-query-polarity"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "shape-query-polarity"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "query-orthogonality",
           "shouldDisplay" : true,
           "superCommands" : [
             "color"
@@ -21334,6 +21904,195 @@
             }
           ],
           "commandName" : "selection-ceiling",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "AskiColorLab"
+          ]
+        },
+        {
+          "abstract" : "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs.",
+          "arguments" : [
+            {
+              "abstract" : "Comma-separated column counts (default: 80,288).",
+              "defaultValue" : "80,288",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "columns"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "columns"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "columns"
+            },
+            {
+              "abstract" : "Comma-separated oversample sweep (default: 2).",
+              "defaultValue" : "2",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "oversample"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "oversample"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "oversample"
+            },
+            {
+              "abstract" : "Comma-separated character sets (default: all ten built-ins).",
+              "defaultValue" : "standard,minimal,blocks,dots,lines,diagonal,cross,diamond,mixed,braille",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "charset"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "charset"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "charset"
+            },
+            {
+              "abstract" : "Comma-separated naturals corpus dirs (default: docs\/Research\/Corpus\/nasa-steerable-v1\/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "corpus"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "corpus"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "corpus"
+            },
+            {
+              "abstract" : "Write the per-fixture CSV to this path.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "output"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "output"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "output"
+            },
+            {
+              "abstract" : "Override the git SHA recorded in the CSV's provenance column.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "aski-git-sha"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "aski-git-sha"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "aski-git-sha"
+            },
+            {
+              "abstract" : "Ink convention for the logPolar shape query: 'inverted' (1 - luma, the shipped default and the convention every archived verdict was measured under) or 'direct' (raw luma, the axis the candidate rasters, the tone pre-filter and the renderer already use). Default: inverted.",
+              "defaultValue" : "inverted",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "option",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "shape-query-polarity"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "shape-query-polarity"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "shape-query-polarity"
+            },
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "query-orthogonality",
           "shouldDisplay" : true,
           "superCommands" : [
             "AskiColorLab"

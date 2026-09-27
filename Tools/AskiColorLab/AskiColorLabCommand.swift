@@ -36,6 +36,7 @@ public struct AskiColorLabCommand: ParsableCommand {
             LatticeSupportSubcommand.self,
             LatticePhaseSubcommand.self,
             SelectionCeilingSubcommand.self,
+            QueryOrthogonalitySubcommand.self,
             ReferenceRecoverySubcommand.self,
             ConventionAblationSubcommand.self,
             PolarityGateSubcommand.self,
@@ -478,6 +479,66 @@ public struct SelectionCeilingSubcommand: ParsableCommand {
             try FileManager.default.createDirectory(
                 at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
             try (SelectionCeiling.csv(census.armRows) + "\n")
+                .write(to: url, atomically: true, encoding: .utf8)
+        }
+    }
+}
+
+public struct QueryOrthogonalitySubcommand: ParsableCommand {
+    public static let configuration = CommandConfiguration(
+        commandName: "query-orthogonality",
+        abstract:
+            "Share of logPolar picks decided by the candidate norm alone: the matcher's query is orthogonal to every non-blank pooled candidate. Per fixture, with query support and pick-texture readouts; no oracle runs."
+    )
+    @Option(
+        name: .customLong("columns"),
+        help: "Comma-separated column counts (default: 80,288).")
+    public var columns: String = "80,288"
+    @Option(name: .customLong("oversample"), help: "Comma-separated oversample sweep (default: 2).")
+    public var oversample: String = "2"
+    @Option(
+        name: .customLong("charset"),
+        help: "Comma-separated character sets (default: all ten built-ins).")
+    public var charset: String = QueryOrthogonality.allCharsets.joined(separator: ",")
+    @Option(
+        name: .customLong("corpus"),
+        help:
+            "Comma-separated naturals corpus dirs (default: docs/Research/Corpus/nasa-steerable-v1/assets, the selection-ceiling default). Each fixture gets its own row, plus a pooled row per corpus."
+    )
+    public var corpus: String?
+    @Option(name: .customLong("output"), help: "Write the per-fixture CSV to this path.")
+    public var output: String?
+    @Option(
+        name: .customLong("aski-git-sha"),
+        help: "Override the git SHA recorded in the CSV's provenance column.")
+    public var gitShaOverride: String?
+    @OptionGroup public var shapeQueryPolarityOption: ShapeQueryPolarityOption
+    public init() {}
+
+    public func validate() throws {
+        try ToolValidation.requireSafeGitSHA(gitShaOverride)
+    }
+
+    public func run() throws {
+        let names = charset.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        guard !names.isEmpty else { throw ValidationError("--charset must not be empty") }
+        let corpora: [String?] =
+            corpus.map { list in
+                list.split(separator: ",").map { String($0.trimmingCharacters(in: .whitespaces)) }
+            } ?? [nil]
+        let rows = try QueryOrthogonality.run(
+            columns: try parseIntList(columns, flag: "--columns"),
+            oversamples: try parseIntList(oversample, flag: "--oversample"),
+            charsetNames: names, corpora: corpora,
+            gitSHA: GitSHA.resolve(override: gitShaOverride),
+            shapeQueryPolarity: shapeQueryPolarityOption.shapeQueryPolarity)
+        print(QueryOrthogonality.format(rows))
+
+        if let output {
+            let url = URL(fileURLWithPath: output)
+            try FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try (QueryOrthogonality.csv(rows) + "\n")
                 .write(to: url, atomically: true, encoding: .utf8)
         }
     }
