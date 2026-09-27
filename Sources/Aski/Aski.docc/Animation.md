@@ -28,7 +28,7 @@ let rendered = animated.renderImage(
 )
 ```
 
-Cycling rotates each participating cell through visually similar character candidates. It has visual effect with the `.logPolar` algorithm. With `.dotMatrix`, the animation keeps the winning character and entrance or ongoing alpha patterns still work.
+Cycling rotates each participating cell through character candidates. With `.dotMatrix`, the base frame keeps the Floyd–Steinberg pick, and later slots use the glyphs nearest to that pick in normalized ink density. These alternatives do not affect error diffusion. With `.logPolar`, candidates follow the shape matcher ranking. Entrance and ongoing alpha patterns work with either algorithm.
 
 Mask coverage is preserved on every synthesized frame. Renderers remain responsible for multiplying cell alpha by coverage, so masked cells are not dimmed twice.
 

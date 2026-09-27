@@ -24,6 +24,9 @@ internal final class DotMatrixKernel: CharacterScoring, @unchecked Sendable {
     ///   below        → +5/16
     ///   below-right  → +1/16
     private var errorBuffer: [Float]
+    /// Only the ranked animation path fills this cache. Its key is the base
+    /// glyph, so repeated cells do not re-rank the same density neighbors.
+    private var rankedCandidatesByPick: [Int: [Int]] = [:]
 
     init(glyphBank: GlyphBank, columns: Int, rows: Int, ditherStrength: Float) {
         self.glyphBank = glyphBank
@@ -82,6 +85,39 @@ internal final class DotMatrixKernel: CharacterScoring, @unchecked Sendable {
 
     func score(cell: CellCoord, stats: CellStats, in context: borrowing ConversionContext) -> Character {
         pick(cell: cell, stats: stats, in: context).character
+    }
+
+    /// Keep the diffused winner in slot zero; rank the other glyphs by the
+    /// same normalized ink density used by `pick`. This never reads or writes
+    /// the error buffer, so alternatives cannot affect later base picks.
+    func rankedCandidates(around pickedIndex: Int, limit: Int) -> [Int] {
+        let count = min(limit, glyphBank.characters.count)
+        if count == 1 { return [pickedIndex] }
+        if let cached = rankedCandidatesByPick[pickedIndex], cached.count >= count {
+            return Array(cached.prefix(count))
+        }
+
+        let densities = glyphBank.brightnessValues
+        let pickedDensity = densities[pickedIndex]
+        var ranked = [pickedIndex]
+        for index in densities.indices where index != pickedIndex {
+            let distance = abs(densities[index] - pickedDensity)
+            var slot = 1
+            while slot < ranked.count {
+                let other = ranked[slot]
+                let otherDistance = abs(densities[other] - pickedDensity)
+                if distance < otherDistance || (distance == otherDistance && index < other) {
+                    break
+                }
+                slot += 1
+            }
+            if slot < count {
+                ranked.insert(index, at: slot)
+                if ranked.count > count { ranked.removeLast() }
+            }
+        }
+        rankedCandidatesByPick[pickedIndex] = ranked
+        return ranked
     }
 
     private func diffuse(_ delta: Float, toColumn col: Int, row: Int) {
