@@ -3,9 +3,10 @@ id: ASKI-79
 title: >-
   logPolar returns an all-blank grid for minimal, dots, diagonal, cross, diamond
   and custom ramps: no glyph reaches the three bins the shipping query occupies
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-09-27 17:35'
+updated_date: '2026-09-27 20:42'
 labels:
   - correctness
   - algorithms
@@ -50,8 +51,14 @@ for c in minimal dots diagonal cross diamond blocks; do .build/release/aski rend
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A test pins the cause: for each built-in charset, whether any non-blank glyph has mass in the descriptor bins reachable at the shipping footprint, and that no recommended pairing yields an all-blank grid on a real fixture
-- [ ] #2 The fix is chosen under a rule pre-registered before the decisive run (candidates: restore descriptor support per ASKI-55; fall back to tone ranking when the query is orthogonal to every pooled candidate, as degenerateToneRanking already does for 1-pixel footprints; keep the blank out of shape argmin unless tone selects it; stop recommending the pairing); any golden move carries the no-harm selection-ceiling census
-- [ ] #3 Algorithms.md pairing table and the ASCIIAlgorithm.logPolar doc comment match measured behavior
-- [ ] #4 A custom RasterizedCharacterSet whose glyphs miss the reachable bins gets non-blank output or a documented diagnostic, not a silent all-blank grid
+- [x] #1 A test pins the cause: for each built-in charset, whether any non-blank glyph has mass in the descriptor bins reachable at the shipping footprint, and that no recommended pairing yields an all-blank grid on a real fixture
+- [x] #2 The fix is chosen under a rule pre-registered before the decisive run (candidates: restore descriptor support per ASKI-55; fall back to tone ranking when the query is orthogonal to every pooled candidate, as degenerateToneRanking already does for 1-pixel footprints; keep the blank out of shape argmin unless tone selects it; stop recommending the pairing); any golden move carries the no-harm selection-ceiling census
+- [x] #3 Algorithms.md pairing table and the ASCIIAlgorithm.logPolar doc comment match measured behavior
+- [x] #4 A custom RasterizedCharacterSet whose glyphs miss the reachable bins gets non-blank output or a documented diagnostic, not a silent all-blank grid
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Batch 79-82. Phase 1 (50d619f) pinned the cause: LogPolarReachableSupportTests shows no non-blank glyph in minimal, dots, diagonal, cross or diamond has mass in the reachable bins (51, 54, 56), so the blank wins every cell. Fix chosen under the rule frozen at 40bafb0: arm 1 (orthogonal cell falls back to the tone-nearest pooled glyph) was KILLed. It removed the all-blank grid on every fixture but raised standard MAE x1.0301-1.0423 on both PNG corpora (KILL bar 1.0300); GMSD x1.15-1.43. Production unchanged, no golden moved. Closed by documentation per rule section 6: logPolar recommended with standard and braille only; Algorithms.md, CharacterSets.md, GettingStarted.md, CommandLine.md, the ASCIIAlgorithm.logPolar and RasterizedCharacterSet doc comments updated; custom-set examples pass .dotMatrix. AC#4: documented diagnostic plus a test for a custom RasterizedCharacterSet missing the reachable bins. Evidence: docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md.
+<!-- SECTION:NOTES:END -->

@@ -4,9 +4,10 @@ title: >-
   logPolar on dense sets reduces to a fixed glyph per tone band: 92 of 95
   standard glyphs are orthogonal to every shipping query, so output falls into
   long same-glyph runs
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-09-27 17:35'
+updated_date: '2026-09-27 20:42'
 labels:
   - research
   - matcher
@@ -47,8 +48,14 @@ Convert any fixture with `ASCIIConverter(characterSet: .standard, palette: Built
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The selection-ceiling census (or a lab command) reports texture readouts next to MAE/GMSD: glyphs used, mean and p95 run length of identical non-blank glyphs per row, and share of cells in runs of 5 or more
-- [ ] #2 Per fixture and footprint, the share of standard and braille picks decided by |g|² alone (query orthogonal to every pooled candidate) is measured, confirming or refuting the mechanism
-- [ ] #3 Under a rule pre-registered before the decisive run, at least one intervention is measured against production on runs and MAE/GMSD together: an ASKI-55 support-restoring footprint, an error-diffused tone term, or a tie-break that does not repeat the left neighbour
-- [ ] #4 The outcome is recorded as a research note whatever the sign
+- [x] #1 The selection-ceiling census (or a lab command) reports texture readouts next to MAE/GMSD: glyphs used, mean and p95 run length of identical non-blank glyphs per row, and share of cells in runs of 5 or more
+- [x] #2 Per fixture and footprint, the share of standard and braille picks decided by |g|² alone (query orthogonal to every pooled candidate) is measured, confirming or refuting the mechanism
+- [x] #3 Under a rule pre-registered before the decisive run, at least one intervention is measured against production on runs and MAE/GMSD together: an ASKI-55 support-restoring footprint, an error-diffused tone term, or a tie-break that does not repeat the left neighbour
+- [x] #4 The outcome is recorded as a research note whatever the sign
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Batch 79-82. AC#1: PickTexture readouts (glyphsUsed, blankShare, runMean, runP95, runMax, run5Share) appended to the selection-ceiling census. AC#2: aski lab color query-orthogonality; the mechanism is confirmed on standard (55-59% of picks orthogonal on the PNG corpora, decided by |g|^2 alone) and refuted on braille (0% orthogonal; collapse comes from small non-zero overlaps). AC#3: under the rule frozen at 40bafb0, arm 1 (tone fallback) KILL and arm 2 (arm 1 plus serial Floyd-Steinberg tone centring, lab-only) INCONCLUSIVE: run5Share fell 0.27-0.38 against arm 1 but glyphsUsed did not rise on 3 of 4 rows and braille on steerable exceeded the 1.0100 MAE and GMSD guards. AC#4: docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md. Remaining routes are listed in the rule's section 7 (support restoration per ASKI-55, tone in the pool per the ASKI-30 track).
+<!-- SECTION:NOTES:END -->

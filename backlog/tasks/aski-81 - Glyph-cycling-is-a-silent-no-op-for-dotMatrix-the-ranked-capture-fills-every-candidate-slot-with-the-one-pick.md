@@ -3,9 +3,10 @@ id: ASKI-81
 title: >-
   Glyph cycling is a silent no-op for dotMatrix: the ranked capture fills every
   candidate slot with the one pick
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-09-27 17:35'
+updated_date: '2026-09-27 20:42'
 labels:
   - animation
   - algorithms
@@ -41,8 +42,14 @@ OPTIONS TO WEIGH (not decided)
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 One option is chosen and recorded with its reason: dotMatrix ranked candidates, dither-variant candidates, or a diagnostic when cycling is requested with dotMatrix
-- [ ] #2 If candidates are added, the base frame stays byte-identical to convert(), and the mean ink-density difference between a cell's candidates and its base pick is measured and bounded
-- [ ] #3 If candidates are added, the per-frame change rate at default CyclingOptions is reported against logPolar standard on the same fixtures
-- [ ] #4 Animation.md describes the resulting behaviour
+- [x] #1 One option is chosen and recorded with its reason: dotMatrix ranked candidates, dither-variant candidates, or a diagnostic when cycling is requested with dotMatrix
+- [x] #2 If candidates are added, the base frame stays byte-identical to convert(), and the mean ink-density difference between a cell's candidates and its base pick is measured and bounded
+- [x] #3 If candidates are added, the per-frame change rate at default CyclingOptions is reported against logPolar standard on the same fixtures
+- [x] #4 Animation.md describes the resulting behaviour
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Batch 79-82 (9b6a80b). Chose dotMatrix ranked candidates: slot 0 is the error-diffused pick; later slots are other glyphs ordered by |brightness difference| from it, ties by index; candidate ranking does not touch diffusion state. Blue-noise candidates deferred (needs bundled textures and a new scheduler path). AC#2: base grid byte-identical to convert(); mean candidate-vs-base density difference on Vavilov crater and Cernan portrait at 80 columns: standard 0.033, minimal 0.158-0.167, braille <0.001, pinned as fixture-specific test bounds 0.04, 0.17, 0.01. The minimal swing (~0.16) is visible and flagged in the PR. AC#3: per-frame character change rate at default CyclingOptions equals logPolar standard on both fixtures (46.44% and 46.26%). AC#4: Animation.md updated.
+<!-- SECTION:NOTES:END -->

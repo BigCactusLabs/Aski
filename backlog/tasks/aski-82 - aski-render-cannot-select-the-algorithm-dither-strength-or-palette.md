@@ -1,9 +1,10 @@
 ---
 id: ASKI-82
 title: 'aski render cannot select the algorithm, dither strength or palette'
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-09-27 17:35'
+updated_date: '2026-09-27 20:42'
 labels:
   - cli
   - docs
@@ -35,8 +36,14 @@ Algorithms.md describes dotMatrix as "Brightness-based matching with Floyd–Ste
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 aski render accepts --algorithm logPolar|dotMatrix and --coverage 0...1 with the same bound validation as other numeric arguments, and --write-manifest records both; the command-surface golden is updated
-- [ ] #2 A decision is recorded on whether --palette (at least monochrome and fullColor) belongs on the CLI
-- [ ] #3 Algorithms.md states that dotMatrix does not dither at the default coverage of 0, or the default changes under the golden and no-harm rules
-- [ ] #4 CommandLine.md documents the new flags
+- [x] #1 aski render accepts --algorithm logPolar|dotMatrix and --coverage 0...1 with the same bound validation as other numeric arguments, and --write-manifest records both; the command-surface golden is updated
+- [x] #2 A decision is recorded on whether --palette (at least monochrome and fullColor) belongs on the CLI
+- [x] #3 Algorithms.md states that dotMatrix does not dither at the default coverage of 0, or the default changes under the golden and no-harm rules
+- [x] #4 CommandLine.md documents the new flags
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Batch 79-82 (259dc71 plus review fixes). aski render gains --algorithm logPolar|dotMatrix, --coverage 0...1 (validated via ToolValidation.requireCoverage) and --palette fullColor|monochrome; defaults keep output. --write-manifest records all three as additive optional v1 fields; command-surface golden updated. AC#2 decision: palette belongs on the CLI (monochrome glyph masks have a concrete consumer); only fullColor and monochrome for now. AC#3: Algorithms.md states dotMatrix does not diffuse error at coverage 0. AC#4: CommandLine.md documents the flags.
+<!-- SECTION:NOTES:END -->
