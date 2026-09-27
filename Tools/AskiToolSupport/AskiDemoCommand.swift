@@ -88,9 +88,7 @@ public struct RenderArguments: ParsableArguments {
     public func validate() throws {
         try ToolValidation.requireColumns(columns)
         try ToolValidation.requireFontSize(fontSize)
-        guard coverage.isFinite, (0...1).contains(coverage) else {
-            throw ValidationError("coverage must be finite and in 0...1, got \(coverage)")
-        }
+        try ToolValidation.requireCoverage(coverage)
         if let width {
             guard renderPng != nil else {
                 throw ValidationError("--width requires --render-png")
