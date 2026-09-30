@@ -31,7 +31,7 @@ DEFAULT = {
 }
 
 FAKE_XCRUN = r'''
-import json, os, pathlib, re, sys, time
+import json, os, pathlib, re, subprocess, sys, time
 args = sys.argv[1:]
 root = pathlib.Path.cwd()
 fixture = json.loads((root / 'fixture.json').read_text())
@@ -58,7 +58,12 @@ assert option('--format') == 'histogramSamples'
 assert option('--time-units') == 'nanoseconds'
 assert '--metric' not in args  # Validation must not override source metrics/thresholds.
 if fixture.get('wait'):
-    (root / 'ready').write_text(str(os.getpid()))
+    descendant = subprocess.Popen([sys.executable, '-c',
+        "import pathlib,signal,time,sys; signal.signal(signal.SIGTERM, signal.SIG_IGN); pathlib.Path(sys.argv[1]).write_text('ready'); time.sleep(60)",
+        str(root / 'descendant-ready')])
+    while not (root / 'descendant-ready').exists():
+        time.sleep(0.01)
+    (root / 'ready').write_text(json.dumps([os.getpid(), descendant.pid]))
     time.sleep(60)
 selected = [name for name in fixture['names'] if re.fullmatch(option('--filter'), name)]
 output = pathlib.Path(option('--path'))
@@ -287,6 +292,11 @@ class CommandTests(unittest.TestCase):
         self.fixture["exports"]["video-one-shot"]["wallClock"] = "Time (wall clock) (ns)\n"
         self.assert_invalid(self.invoke(), "no samples")
 
+    @unittest.expectedFailure
+    def test_complete_row_truncation_requires_independent_count(self):
+        self.fixture["exports"]["video-one-shot"]["wallClock"] = "Time (wall clock) (ns)\n100\n200\n"
+        self.assert_invalid(self.invoke(), "video-one-shot: wallClock sample count")
+
     def test_unavailable_required_metric_fails(self):
         self.fixture["stderr"] = "Warning: benchmark `video-one-shot` requests metric(s) Memory (allocated resident) that the active malloc backend does not produce; they will be omitted."
         self.assert_invalid(self.invoke("--require-metric", "allocatedResidentMemory"), "required metric allocatedResidentMemory")
@@ -405,7 +415,27 @@ class CommandTests(unittest.TestCase):
     def test_timeout_is_invalid_evidence(self):
         self.fixture["wait"] = True
         self.assert_invalid(self.invoke("--timeout", "2"), "timed out")
+        self.assert_processes_gone(self.waiting_pids())
+
+    def waiting_pids(self):
+        deadline = time.monotonic() + 10
+        while not (self.root / "ready").exists() and time.monotonic() < deadline:
+            time.sleep(0.02)
         self.assertTrue((self.root / "ready").exists())
+        return json.loads((self.root / "ready").read_text())
+
+    def assert_processes_gone(self, pids):
+        for pid in pids:
+            with self.subTest(pid=pid):
+                deadline = time.monotonic() + 3
+                while time.monotonic() < deadline:
+                    try:
+                        os.kill(pid, 0)
+                    except ProcessLookupError:
+                        break
+                    time.sleep(0.02)
+                else:
+                    self.fail(f"benchmark process {pid} survived process-group cleanup")
 
     def test_sigterm_is_invalid_evidence_and_stops_child(self):
         self.fixture["wait"] = True
@@ -414,16 +444,11 @@ class CommandTests(unittest.TestCase):
                                     "--output-dir", str(self.output)], cwd=self.temporary.name,
                                    env=self.environment, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
-            deadline = time.monotonic() + 20
-            while not (self.root / "ready").exists() and time.monotonic() < deadline:
-                time.sleep(0.02)
-            self.assertTrue((self.root / "ready").exists())
-            child_pid = int((self.root / "ready").read_text())
+            pids = self.waiting_pids()
             process.terminate()
             self.assertEqual(process.wait(timeout=8), 128 + signal.SIGTERM)
             self.assertFalse(self.report()["complete"])
-            with self.assertRaises(ProcessLookupError):
-                os.kill(child_pid, 0)
+            self.assert_processes_gone(pids)
         finally:
             if process.poll() is None:
                 process.kill()

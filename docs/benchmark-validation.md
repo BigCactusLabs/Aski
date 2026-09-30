@@ -48,6 +48,14 @@ unexpected workload/file, changed dependency lock, or missing workload invalidat
 run. Setup, execution, teardown, and export errors are not rescued by other good results.
 An actual measured zero is valid data; **absence is never replaced by zero**.
 
+There is one unresolved export limit: package-benchmark 1.35.0 ignores the byte count
+returned by its sample-file write. A short write that ends after a complete row leaves
+a well-formed file with too few samples. The `histogramSamples` run prints file paths,
+but no independent per-workload, per-metric sample counts in its captured output, so
+this validator cannot detect that case. A complete report therefore does not certify
+that every intended sample row reached disk. The regression fixture records this as
+an expected failure until an independent count source is available.
+
 `wallClock` is always required. `--require-metric` adds requirements; it does **not**
 change the metrics requested by Swift, override benchmark configurations, or remove
 thresholds. For example:
