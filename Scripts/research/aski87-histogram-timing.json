@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-87",
+  "status": "diagnostic_only_not_adopted",
+  "control_commit": "4c675957547cb0dffdcce886a073bd2f340a5d26",
+  "compiler": "Swift 6.2.1 (swift-6.2.1-RELEASE)",
+  "target": "x86_64-unknown-linux-gnu",
+  "build": "release, Swift 6 mode, warnings as errors; isolated core package, not Aski package build",
+  "command": "Scripts/research/check-shape-context.sh timing 5",
+  "sample_count": 240,
+  "paired_measurements": 120,
+  "passes": 5,
+  "setup_included": true,
+  "allocations": null,
+  "end_to_end_conversion": null,
+  "metric_units": {
+    "wall_ns": "nanoseconds per batch group",
+    "cpu_seconds": "process CPU seconds per batch group"
+  },
+  "limitations": [
+    "No Apple-framework integration or Xcode validation",
+    "No allocation profile or heap/RSS measurement",
+    "Shared container timing; diagnostic, not Apple hardware performance evidence",
+    "One-cell histogram batches regress; small-grid and dotMatrix end-to-end controls required"
+  ],
+  "sha256": {
+    "Sources/Aski/Algorithms/ShapeContext.swift": "661edd685e14d6fc10730f985bccde7073ff6b1817b1079f316fa9474315f6f4",
+    "Scripts/research/ShapeContextTiming.swift": "a77694194f5076a67c8684160b9f6fd35f0e5f205fb3348356762f3804ccae00",
+    "Scripts/research/check-shape-context.sh": "66a2a879644f13a2fd655bbf95601c2fff0c47cdbae02e1a4a8d091368da0c68",
+    "Tests/AskiTests/ShapeContextFootprintTests.swift": "42bf7a6f1b7e6635856174a17f84c2a07daffde9763e409cb3f2c7c189fd9127",
+    "Scripts/research/aski87-histogram-timing.csv": "6cdd05411e9c687fa91857609460f6105eead0750f02047db27b87c3ce4b6b5f"
+  },
+  "summaries": [
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 1,
+      "field": "mixed",
+      "scalar_median_ms": 4.529815,
+      "prepared_median_ms": 6.115731,
+      "prepared_wall_change_percent": 35.01061301620485
+    },
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 1,
+      "field": "zero",
+      "scalar_median_ms": 2.665928,
+      "prepared_median_ms": 5.838872,
+      "prepared_wall_change_percent": 119.01836808796035
+    },
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 32,
+      "field": "mixed",
+      "scalar_median_ms": 4.599279,
+      "prepared_median_ms": 3.035096,
+      "prepared_wall_change_percent": -34.00930885036546
+    },
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 32,
+      "field": "zero",
+      "scalar_median_ms": 2.760981,
+      "prepared_median_ms": 2.668392,
+      "prepared_wall_change_percent": -3.353481968908889
+    },
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 2400,
+      "field": "mixed",
+      "scalar_median_ms": 4.680021,
+      "prepared_median_ms": 2.884528,
+      "prepared_wall_change_percent": -38.36506289181181
+    },
+    {
+      "width": 2,
+      "height": 3,
+      "cells_per_batch": 2400,
+      "field": "zero",
+      "scalar_median_ms": 2.736956,
+      "prepared_median_ms": 2.510413,
+      "prepared_wall_change_percent": -8.277188233935817
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 1,
+      "field": "mixed",
+      "scalar_median_ms": 5.932644,
+      "prepared_median_ms": 7.786755,
+      "prepared_wall_change_percent": 31.252692728570942
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 1,
+      "field": "zero",
+      "scalar_median_ms": 2.621951,
+      "prepared_median_ms": 7.083913,
+      "prepared_wall_change_percent": 170.17716959622814
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 32,
+      "field": "mixed",
+      "scalar_median_ms": 5.683267,
+      "prepared_median_ms": 3.159374,
+      "prepared_wall_change_percent": -44.4091928111067
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 32,
+      "field": "zero",
+      "scalar_median_ms": 2.679138,
+      "prepared_median_ms": 2.684596,
+      "prepared_wall_change_percent": 0.20372224200471134
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 2400,
+      "field": "mixed",
+      "scalar_median_ms": 6.149021,
+      "prepared_median_ms": 2.90578,
+      "prepared_wall_change_percent": -52.74402217848988
+    },
+    {
+      "width": 3,
+      "height": 3,
+      "cells_per_batch": 2400,
+      "field": "zero",
+      "scalar_median_ms": 2.720911,
+      "prepared_median_ms": 2.505826,
+      "prepared_wall_change_percent": -7.904889208063038
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 1,
+      "field": "mixed",
+      "scalar_median_ms": 28.301191,
+      "prepared_median_ms": 32.099249,
+      "prepared_wall_change_percent": 13.420134862875566
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 1,
+      "field": "zero",
+      "scalar_median_ms": 4.206566,
+      "prepared_median_ms": 29.100399,
+      "prepared_wall_change_percent": 591.7851520694078
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 32,
+      "field": "mixed",
+      "scalar_median_ms": 26.448583,
+      "prepared_median_ms": 4.761505,
+      "prepared_wall_change_percent": -81.99712627326765
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 32,
+      "field": "zero",
+      "scalar_median_ms": 4.355631,
+      "prepared_median_ms": 4.526479,
+      "prepared_wall_change_percent": 3.922462669587956
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 2400,
+      "field": "mixed",
+      "scalar_median_ms": 27.001968,
+      "prepared_median_ms": 4.012613,
+      "prepared_wall_change_percent": -85.13955353180182
+    },
+    {
+      "width": 8,
+      "height": 12,
+      "cells_per_batch": 2400,
+      "field": "zero",
+      "scalar_median_ms": 4.107797,
+      "prepared_median_ms": 3.411305,
+      "prepared_wall_change_percent": -16.955365613247185
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 1,
+      "field": "mixed",
+      "scalar_median_ms": 109.393732,
+      "prepared_median_ms": 112.342417,
+      "prepared_wall_change_percent": 2.695478932924611
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 1,
+      "field": "zero",
+      "scalar_median_ms": 8.649259,
+      "prepared_median_ms": 109.08842,
+      "prepared_wall_change_percent": 1161.2458477656871
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 32,
+      "field": "mixed",
+      "scalar_median_ms": 106.438957,
+      "prepared_median_ms": 11.401597,
+      "prepared_wall_change_percent": -89.28813535818469
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 32,
+      "field": "zero",
+      "scalar_median_ms": 8.185197,
+      "prepared_median_ms": 10.123256,
+      "prepared_wall_change_percent": 23.67760971421944
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 2400,
+      "field": "mixed",
+      "scalar_median_ms": 104.536443,
+      "prepared_median_ms": 8.126749,
+      "prepared_wall_change_percent": -92.22591780743869
+    },
+    {
+      "width": 16,
+      "height": 24,
+      "cells_per_batch": 2400,
+      "field": "zero",
+      "scalar_median_ms": 8.130505,
+      "prepared_median_ms": 6.712392,
+      "prepared_wall_change_percent": -17.44188091637603
+    }
+  ]
+}

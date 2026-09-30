@@ -276,7 +276,7 @@ internal struct LogPolarKernel: CharacterScoring {
             }
         }
 
-        let descriptor = ShapeContext.histogram60(grayscale, width: context.cellWidth, height: context.cellHeight)
+        let descriptor = context.shapeContextFootprint.histogram60(grayscale)
         var lanes: [SIMD4<Float>] = []
         lanes.reserveCapacity(StandardCharacterSet.lanesPerCharacter)
         for index in stride(from: 0, to: StandardCharacterSet.shapeVectorDimension, by: 4) {
