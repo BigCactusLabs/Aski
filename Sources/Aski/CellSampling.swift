@@ -38,6 +38,9 @@ internal struct ConversionContext: Sendable {
     let columns: Int
     let rows: Int
     let palette: ResolvedPalette
+    /// Same order as `palette.colors`, prepared for this context's output space
+    /// and gamut policy. Empty for pass-through; no global cache or mutable scratch.
+    let paletteDisplayColors: [SIMD3<Float>]
     let options: ResolvedRenderingOptions
     let colorSpace: RenderColorSpace
     let colorSampling: ColorSamplingPolicy
@@ -92,6 +95,12 @@ internal struct ConversionContext: Sendable {
         self.columns = columns
         self.rows = rows
         self.palette = palette
+        self.paletteDisplayColors =
+            palette.isPassThrough
+            ? []
+            : palette.colors.map {
+                mapToDisplayColor(for: $0.oklab, colorSpace: colorSpace, policy: gamutMapping)
+            }
         self.options = options
         self.colorSpace = colorSpace
         self.colorSampling = colorSampling
@@ -244,60 +253,7 @@ internal func nearestPaletteMatch(
     palette: [ResolvedPaletteColor],
     policy: PaletteMatchingPolicy = .oklabEuclidean
 ) -> SIMD3<Float> {
-    switch policy.kind {
-    case .oklabEuclidean:
-        var nearest = palette[0].oklab
-        var nearestDistance = Float.infinity
-        for color in palette {
-            let distance = simd_length_squared(color.oklab - query)
-            if distance < nearestDistance {
-                nearest = color.oklab
-                nearestDistance = distance
-            }
-        }
-        return nearest
-    case .oklabHyAB:
-        // |ΔL| + √(Δa² + Δb²) — ported verbatim from Tools/AskiColorLab/
-        // PaletteMatching/PaletteMatchPolicies.swift:16-19. Unlike Euclidean,
-        // HyAB is not monotonic in its squared form, so the full distance is
-        // computed each iteration.
-        var nearest = palette[0].oklab
-        var nearestDistance = Float.infinity
-        for color in palette {
-            let delta = color.oklab - query
-            let distance = abs(delta.x) + simd_length(SIMD2<Float>(delta.y, delta.z))
-            if distance < nearestDistance {
-                nearest = color.oklab
-                nearestDistance = distance
-            }
-        }
-        return nearest
-    case .helmlabEuclidean, .helmlabCompressed:
-        // Convert the query OKLab → linRGB → XYZ → MetricSpace once. The
-        // OKLab→linRGB→XYZ composition is gamut-invariant, so the sRGB pair is
-        // canonical regardless of the converter's target gamut. The matched
-        // entry's OKLab is still returned (downstream is OKLab→display).
-        let queryLinRGB = ColorConversion.oklabToLinearSRGB(query)
-        let queryXYZ = ColorConversion.linearSRGBToXYZ(SIMD3<Double>(queryLinRGB))
-        let queryHelmlab = HelmlabMetric.xyzToHelmlabMetric(queryXYZ)
-
-        var nearest = palette[0].oklab
-        var nearestDistance = Double.infinity
-        for color in palette {
-            guard let candidateHelmlab = color.helmlab else {
-                preconditionFailure("Helmlab policy requires ResolvedPaletteColor.helmlab to be populated; resolve the palette with needsHelmlab: true")
-            }
-            let distance =
-                policy.kind == .helmlabEuclidean
-                ? HelmlabMetric.euclideanDistance(queryHelmlab, candidateHelmlab)
-                : HelmlabMetric.compressedDeltaE(queryHelmlab, candidateHelmlab)
-            if distance < nearestDistance {
-                nearest = color.oklab
-                nearestDistance = distance
-            }
-        }
-        return nearest
-    }
+    palette[ResolvedPalette.nearestIndex(query, in: palette, policy: policy)].oklab
 }
 
 internal func nearestPaletteOKLAB(
@@ -492,19 +448,17 @@ internal extension ConversionContext {
         return CellSourceStats(oklab: oklab, adjustedL: adjustedL, alpha: sampled.alpha)
     }
 
-    /// Second half: palette match on the adjusted query, gamut-map to display.
-    /// Identical math to the pre-split `cellStats` tail.
+    /// Second half: match the adjusted query, then use its prepared display color.
+    /// Pass-through still gamut-maps the per-cell query with the original math.
     func finalizeColor(source: CellSourceStats) -> CellStats {
         let queryOKLAB = SIMD3(source.adjustedL, source.oklab.y, source.oklab.z)
-        let matchedOKLAB =
-            palette.isPassThrough
-            ? queryOKLAB
-            : nearestPaletteMatch(queryOKLAB, palette: palette.colors, policy: paletteMatching)
-        let displayColor = mapToDisplayColor(
-            for: matchedOKLAB,
-            colorSpace: colorSpace,
-            policy: gamutMapping
-        )
+        let displayColor: SIMD3<Float>
+        if palette.isPassThrough {
+            displayColor = mapToDisplayColor(for: queryOKLAB, colorSpace: colorSpace, policy: gamutMapping)
+        } else {
+            let index = ResolvedPalette.nearestIndex(queryOKLAB, in: palette.colors, policy: paletteMatching)
+            displayColor = paletteDisplayColors[index]
+        }
 
         return CellStats(
             displayColor: displayColor,
