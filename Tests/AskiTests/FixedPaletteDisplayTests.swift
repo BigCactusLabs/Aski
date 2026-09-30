@@ -130,10 +130,11 @@ struct FixedPaletteDisplayTests {
 
     @Test func ordinaryRankedResidualGridsMatchScalarCellControl() throws {
         let provider = try #require(CGDataProvider(data: Data(Self.pixels) as CFData))
+        let space = try #require(CGColorSpace(name: CGColorSpace.sRGB))
         let image = try #require(
             CGImage(
                 width: 8, height: 6, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: 32,
-                space: try #require(CGColorSpace(name: CGColorSpace.sRGB)),
+                space: space,
                 bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue),
                 provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent))
         for palette in [BuiltInPalette.ansi16, .monochrome, .fullColor] {
