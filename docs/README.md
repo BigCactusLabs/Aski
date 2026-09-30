@@ -68,7 +68,7 @@ harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
 | `BuildStandardVectors` | Audit or regenerate charset shape vectors | `just audit-vectors --output-dir <dir>` · `just regen-vectors` |
 | `BuildResearchIndex` | Validate research/lifecycle records or regenerate their index | `just research-check` · `xcrun swift run BuildResearchIndex` |
 | `BuildRepoMap` | Validate or regenerate the source map | `just repo-map-check` · `just regen-repo-map` |
-| `AskiBenchmarks` | Performance suite; budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` |
+| `AskiBenchmarks` | [Validated benchmark evidence](benchmark-validation.md); budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` · `just bench --smoke` |
 
 Historical `Aski*Lab` executables are compatibility entry points for surviving commands;
 new workflows use `aski lab …`. Removed experiments are not promised as runnable commands
