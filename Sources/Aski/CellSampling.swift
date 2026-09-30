@@ -35,6 +35,8 @@ internal struct ConversionContext: Sendable {
     let pixelHeight: Int
     let cellWidth: Int
     let cellHeight: Int
+    /// One immutable pixel-to-bin map shared by all cells and row workers.
+    let shapeContextFootprint: ShapeContext.Footprint
     let columns: Int
     let rows: Int
     let palette: ResolvedPalette
@@ -88,6 +90,7 @@ internal struct ConversionContext: Sendable {
         self.pixelHeight = pixelHeight
         self.cellWidth = cellWidth
         self.cellHeight = cellHeight
+        self.shapeContextFootprint = ShapeContext.Footprint(width: cellWidth, height: cellHeight)
         self.cellSupportsShapeDescriptor = min(cellWidth, cellHeight) > 1
         self.columns = columns
         self.rows = rows

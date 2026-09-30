@@ -152,6 +152,96 @@ pairs, CPU/allocation results, and noise; a noisy 5% median alone is inconclusiv
 histogram/cache microbenchmark is not an adoption verdict. No production optimization in
 87–95 is adopted by this tooling change.
 
+## ASKI-87: prepared-footprint candidate
+
+**State: implemented on a draft branch, not adopted.** The scalar control is
+`4c675957547cb0dffdcce886a073bd2f340a5d26`. `ShapeContext.Footprint` prepares the
+pixel-to-bin map once per `ConversionContext`; the shared log-polar extractor uses
+it for ordinary, ranked, residual, temporal, and research descriptor paths. The
+original scalar histogram remains the per-glyph implementation and test control.
+Radius/log/angle arithmetic, row-major additions, the 0.05 threshold, and normalization
+order are unchanged. No matcher policy, public API, dependency, or golden changes.
+
+Storage is one logical byte per footprint pixel (zero for a degenerate footprint),
+plus the Array allocation/header. It lives only with that conversion context; row
+workers share immutable geometry and allocate separate histograms. This uses ordinary
+[Sendable value types](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/#Sendable-Types),
+not a global cache or shared mutable scratch. The candidate eagerly prepares contexts
+used by dotMatrix too: the dedicated negative controls must establish whether that
+unused setup is acceptable before merging. Do not infer a heap/RSS bound from the
+logical payload count alone.
+
+### Executed core checks and diagnostic timings
+
+```bash
+Scripts/research/check-shape-context.sh test
+Scripts/research/check-shape-context.sh timing 5 > histogram-timing.csv
+```
+
+The script copies the actual source/tests into an isolated temporary Swift 6.2 core
+package, runs in release mode with Swift 6 language mode and warnings as errors, and
+removes its temporary build on exit. It never lowers the real package's Swift 6.3+
+requirement or substitutes for `just check`. On Linux x86_64 / Swift 6.2.1, all six
+core tests passed: over 30,000 bit-pattern comparisons across odd/even/degenerate
+footprints, threshold neighbors, impulses, exceptional weights, and concurrent reuse.
+
+The [raw CSV](../Scripts/research/aski87-histogram-timing.csv) and
+[provenance/summary JSON](../Scripts/research/aski87-histogram-timing.json) retain all
+240 measurements (120 pairs), including CPU seconds, checksums, source hashes, zero
+fields, and one-cell losses. These are standalone histogram timings in a shared
+container, **not native Aski conversion benchmarks or allocation measurements**.
+Preparation is inside each measured batch, with five alternating scalar/prepared passes.
+For mixed fields, 2,400 histograms per preparation and 10 batches per measurement:
+
+| Footprint | Scalar median, ms | Prepared median, ms | Wall-time change |
+| --- | ---: | ---: | ---: |
+| 2 × 3 | 4.680 | 2.885 | −38.4% |
+| 3 × 3 | 6.149 | 2.906 | −52.7% |
+| 8 × 12 | 27.002 | 4.013 | −85.1% |
+| 16 × 24 | 104.536 | 8.127 | −92.2% |
+
+Each table measurement covers 24,000 histograms, not one conversion. Preparing a map
+for every single histogram was slower on all four mixed-field shapes (about 2.7–35.0%),
+and zero-field preparation can be substantially worse because the scalar path skips
+geometry for under-threshold pixels. At 32 zero-field cells, the 16 × 24 candidate
+regressed 23.7%. These losses are why the native setup and small-grid controls matter;
+the table is not a product speedup or an adoption verdict.
+
+### Native acceptance still required
+
+`ShapeContextFootprintBenchmarks.swift` registers 52 measurement-only workloads under
+`aski87-`: scalar/prepared histograms, 1/8/80/120-column conversions, oversample 2/4/8,
+forced serial/parallel walks, repeated frames, ranked animation construction, and
+dotMatrix controls. Conversion-map preparation is inside the measured conversion.
+All collect wall/CPU/malloc counts; existing budget values remain untouched.
+`LogPolarFootprintIntegrationTests` adds scalar-control descriptor, ordinary/ranked
+winner, residual, held-glyph distance, and final-grid checks. Those Apple-framework
+tests and native benchmarks were only syntax-parsed here, **not built or executed**.
+
+On the recorded Mac toolchain, run:
+
+```bash
+just check
+just bench --filter '^aski87-.*$' --require-metric cpuTotal --require-metric mallocCountTotal
+```
+
+Require all 52 workload identities in the inventory/report; do not accept a partial
+matrix. For the end-to-end control, create a separate worktree from the candidate,
+restore **only** `Sources/Aski/CellSampling.swift` and
+`Sources/Aski/Algorithms/LogPolarKernel.swift` from the scalar-control commit, and commit
+those restores locally. Keep the same new instrumentation and `ShapeContext` source
+in both worktrees. This removes map setup and usage from the control without changing
+its benchmark harness, while giving each arm an honest recorded Git identity. Verify
+the resulting diff contains only that treatment reversal before collecting five
+alternating complete runs on the same toolchain/allocator. Do not measure concurrent
+runs or compare a dirty control labeled with the candidate SHA.
+
+Use the decision bar above: material end-to-end benefit, no reproducible small-grid
+or dotMatrix regression above 3%, exact native parity, and allocation evidence.
+The current evidence does not satisfy that bar; ASKI-87 remains open pending the Mac
+run and an explicit adopt/reject decision. ASKI-88–95 have no implementation in this
+candidate.
+
 ## Source audit
 
 The implementation follows the pinned upstream code rather than assuming the latest
