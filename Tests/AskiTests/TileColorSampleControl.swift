@@ -1,4 +1,10 @@
+// Frozen ASKI-92 parity controls from 5493edb992ab57ee2c4a5e16e9ef8106068ab96e.
+// The two algorithm bodies are copied verbatim except for type names and access
+// to the old sample builder. Keep these independent of the shared preparation.
+// Source blobs: Wu 04e783fa686cc26bec3da17d82ab123787b8c0c6;
+// K-means b5863732ab1b3d47cb7cbcb4e9ba8b38a7502ec9.
 import simd
+@testable import Aski
 
 /// Wu's color quantization in OKLAB.
 ///
@@ -26,7 +32,7 @@ import simd
 /// `TilePalette.adaptive` clamp so direct test callers get the same
 /// behavior as production. Pass-through callers (e.g. `TilePalette.resolved`)
 /// are already clamped at the public layer.
-package struct WuQuantizer: Sendable {
+internal struct ASKI92ControlWu {
 
     static let bins: Int = 32  // logical histogram bins per axis
     static let padded: Int = 33  // 33³ padded SAT (index 0 = zero plane)
@@ -42,12 +48,6 @@ package struct WuQuantizer: Sendable {
     /// Build moment tables from premultiplied RGBA pixels. `colorSpace`
     /// determines which OKLAB conversion path is used.
     init(pixels: [UInt8], width: Int, height: Int, colorSpace: RenderColorSpace) {
-        self.init(samples: TilePalette.makeColorSamples(pixels: pixels, width: width, height: height, colorSpace: colorSpace))
-    }
-
-    /// Consume the same immutable, row-ordered samples as k-means. Package
-    /// access lets the benchmark target measure accumulation without decoding.
-    package init(samples: [TilePalette.ColorSample]) {
         var weightSum = [Float](repeating: 0, count: Self.padded * Self.padded * Self.padded)
         var sumL = weightSum
         var sumA = weightSum
@@ -56,9 +56,27 @@ package struct WuQuantizer: Sendable {
         var sumAA = weightSum
         var sumBB = weightSum
 
-        for sample in samples {
-            let alpha = sample.alpha
-            let oklab = sample.oklab
+        let pixelCount = width * height
+        for i in 0..<pixelCount {
+            let offset = i * 4
+            let alpha = Float(pixels[offset + 3]) / 255
+            if alpha == 0 { continue }
+            let r = Float(pixels[offset]) / 255
+            let g = Float(pixels[offset + 1]) / 255
+            let b = Float(pixels[offset + 2]) / 255
+            let rUn = min(r / alpha, 1)
+            let gUn = min(g / alpha, 1)
+            let bUn = min(b / alpha, 1)
+            let linear = SIMD3<Float>(
+                ColorConversion.sRGBDecode(rUn),
+                ColorConversion.sRGBDecode(gUn),
+                ColorConversion.sRGBDecode(bUn)
+            )
+            let oklab: SIMD3<Float>
+            switch colorSpace {
+            case .sRGB: oklab = ColorConversion.linearSRGBToOKLAB(linear)
+            case .displayP3: oklab = ColorConversion.linearP3ToOKLAB(linear)
+            }
 
             // Bin indices in [1...32] (index 0 reserved for the zero-padded plane).
             let li = Self.binIndex(oklab.x, axisLo: 0, axisHi: 1)
@@ -99,7 +117,7 @@ package struct WuQuantizer: Sendable {
     /// clamp so test callers and production callers see identical behavior.
     /// Output count is at most `clamp(maxColors, 2, 256)`; fewer if the source
     /// has fewer distinct colors than the target.
-    package func palette(maxColors: Int) -> [SIMD3<Float>] {
+    func palette(maxColors: Int) -> [SIMD3<Float>] {
         let target = max(2, min(256, maxColors))
         // The cache only recoups its bookkeeping cost once a palette is large
         // enough to drive enough subdivisions. The default 16-colour path
@@ -309,5 +327,109 @@ package struct WuQuantizer: Sendable {
                 }
             }
         }
+    }
+}
+
+internal enum ASKI92ControlKMeans {
+
+    static let maxIterations = 5
+    static let convergenceThreshold: Float = 0.001
+
+    /// Refine `palette` (initial cluster centers in OKLAB) against the same
+    /// premultiplied RGBA `pixels` Wu used. Returns up to `palette.count`
+    /// converged centroids. Empty clusters are dropped at the end of each
+    /// iteration.
+    static func refine(
+        palette: [SIMD3<Float>],
+        pixels: [UInt8],
+        width: Int,
+        height: Int,
+        colorSpace: RenderColorSpace
+    ) -> [SIMD3<Float>] {
+        guard !palette.isEmpty else { return [] }
+
+        var centers = palette
+        let samples = makeSamples(
+            pixels: pixels,
+            width: width,
+            height: height,
+            colorSpace: colorSpace
+        )
+
+        for _ in 0..<maxIterations {
+            var sums = [SIMD3<Float>](repeating: .zero, count: centers.count)
+            var weights = [Float](repeating: 0, count: centers.count)
+
+            for sample in samples {
+                var nearestIndex = 0
+                var nearestDistance = Float.infinity
+                for (index, center) in centers.enumerated() {
+                    let distance = simd_length_squared(center - sample.oklab)
+                    if distance < nearestDistance {
+                        nearestDistance = distance
+                        nearestIndex = index
+                    }
+                }
+
+                sums[nearestIndex] += sample.alpha * sample.oklab
+                weights[nearestIndex] += sample.alpha
+            }
+
+            var newCenters: [SIMD3<Float>] = []
+            newCenters.reserveCapacity(centers.count)
+            for (index, weight) in weights.enumerated() where weight > 0 {
+                newCenters.append(sums[index] / weight)
+            }
+            if newCenters.isEmpty { return [] }
+
+            if newCenters.count == centers.count {
+                var maxMove: Float = 0
+                for (oldCenter, newCenter) in zip(centers, newCenters) {
+                    maxMove = max(maxMove, simd_length(oldCenter - newCenter))
+                }
+                centers = newCenters
+                if maxMove < Self.convergenceThreshold { break }
+            } else {
+                centers = newCenters
+            }
+        }
+
+        return centers
+    }
+
+    static func makeSamples(
+        pixels: [UInt8],
+        width: Int,
+        height: Int,
+        colorSpace: RenderColorSpace
+    ) -> [Sample] {
+        var samples: [Sample] = []
+        samples.reserveCapacity(width * height)
+        for i in 0..<(width * height) {
+            let offset = i * 4
+            let alpha = Float(pixels[offset + 3]) / 255
+            if alpha == 0 { continue }
+
+            let red = min(Float(pixels[offset + 0]) / 255 / alpha, 1)
+            let green = min(Float(pixels[offset + 1]) / 255 / alpha, 1)
+            let blue = min(Float(pixels[offset + 2]) / 255 / alpha, 1)
+            let linear = SIMD3<Float>(
+                ColorConversion.sRGBDecode(red),
+                ColorConversion.sRGBDecode(green),
+                ColorConversion.sRGBDecode(blue)
+            )
+            let oklab: SIMD3<Float>
+            switch colorSpace {
+            case .sRGB: oklab = ColorConversion.linearSRGBToOKLAB(linear)
+            case .displayP3: oklab = ColorConversion.linearP3ToOKLAB(linear)
+            }
+            samples.append(Sample(oklab: oklab, alpha: alpha))
+        }
+        return samples
+    }
+
+    struct Sample {
+        let oklab: SIMD3<Float>
+        let alpha: Float
     }
 }
