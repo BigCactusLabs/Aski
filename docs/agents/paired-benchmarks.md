@@ -119,7 +119,7 @@ Status checked on 2026-10-27. Existing PR descriptions contain the detailed rule
 | ASKI-87 | [PR #8](https://github.com/BigCactusLabs/Aski/pull/8), reported native parity | Five pairs of all 52 workloads, including eager setup and small/dotMatrix controls. |
 | ASKI-90 | [PR #9](https://github.com/BigCactusLabs/Aski/pull/9), reported native parity | Add the missing standalone setup measurement/profile; compare all 70 end-to-end workloads. |
 | ASKI-92 | [PR #10](https://github.com/BigCactusLabs/Aski/pull/10), candidate awaiting native checks | Native palette/tile parity, then 66 end-to-end workloads and the separate 120 phase probes; measure sample-buffer/Wu-table lifetime overlap. |
-| ASKI-93 | [Frame-selection contract](../../Scripts/research/video-frame-selection.md) | Run the synthetic matrix, then move conversion behind selection with native identity/pixel/cancellation and occupancy evidence. |
+| ASKI-93 | [Early-selection candidate and measurement plan](../../Scripts/research/video-frame-selection.md) | Native identity/pixel/cancellation and image-lifetime checks, then five pairs of all nine video workloads with shared cached source bytes and wall/CPU/allocation/peak-RSS evidence. |
 
 None of those performance tasks is completed by this readout tool. ASKI-5's
 representative budget selection and gate placement remain separate work.

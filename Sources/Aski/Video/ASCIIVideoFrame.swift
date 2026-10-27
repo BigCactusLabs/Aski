@@ -3,9 +3,9 @@ import CoreMedia
 
 /// A converted video frame: an `ASCIIGrid` plus its source presentation time.
 ///
-/// `CMTime` is `Sendable`; `ASCIIGrid` is `Sendable`. The decoder yields only
-/// this type across isolation — the non-Sendable `CVPixelBuffer` it was built
-/// from never escapes the decoder's serial executor.
+/// `CMTime` is `Sendable`; `ASCIIGrid` is `Sendable`. Public decoder streams
+/// yield this type. The internal selection path also transfers immutable
+/// images; non-Sendable `CVPixelBuffer`s stay on the decoder's serial executor.
 public struct ASCIIVideoFrame: Sendable {
     public let grid: ASCIIGrid
     /// Source presentation timestamp — timing is preserved (no fps resampling).
