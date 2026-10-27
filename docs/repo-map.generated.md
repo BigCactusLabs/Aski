@@ -143,3 +143,4 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 - `ResampleReport.swift` — enum ResampleError, struct ResampleReport, actor ResampleStats, let maxResampledFrames, let maxTargetFPS
 - `ResampleSession.swift` — enum FrameTiming, actor ResampleSession, func resamplePreflight
 - `VideoExportOptions.swift` — enum VideoCodec, struct VideoExportOptions
+- `VideoFrameSelectionPump.swift` — struct DecodedVideoFrame, actor VideoFrameSelectionPump
