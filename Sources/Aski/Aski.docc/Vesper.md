@@ -36,6 +36,9 @@ in the preset lab. These are the choices for that look, not universal best setti
 - **Courier Prime at 14 pt, rendered at 2×:** the bundled font is part of the recipe.
 - **Charcoal canvas:** `#161616`, a deliberate alternative to pure black.
 
+Opaque near-white regions whose shape query is all zeros intentionally leave the
+charcoal ground visible, preserving figure/ground separation.
+
 Golden tests protect intentional recipe changes. A bundled font reduces one source of
 variation; it does **not** guarantee identical Core Text or GPU output on every OS and
 device. The v0.7.0 render goldens were recorded on macOS 27 / Xcode 27. Compare on the

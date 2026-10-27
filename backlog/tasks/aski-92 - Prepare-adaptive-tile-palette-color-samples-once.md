@@ -1,9 +1,10 @@
 ---
 id: ASKI-92
 title: Prepare adaptive tile palette color samples once
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - tiles
@@ -14,6 +15,7 @@ references:
   - Sources/Aski/Tiles/WuQuantizer.swift
   - Sources/Aski/Tiles/KMeansRefinement.swift
   - Benchmarks/AskiBenchmarks/TileGridBenchmarks.swift
+  - https://github.com/BigCactusLabs/Aski/pull/10
 priority: medium
 type: enhancement
 ordinal: 93000
@@ -35,3 +37,11 @@ Source mechanism verified at c49bbd in the 2026-09-29 sweep. The existing tile-q
 - [ ] #4 Repeated end-to-end tile benchmarks show a material benefit against a stated bar, or the task records rejection.
 - [ ] #5 If adopted, just check and tile/color benchmarks pass without relaxed thresholds or a quantization-policy change.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Existing work reconciled — 2026-10-27
+
+Draft PR #10 is open at e53d62f01e220c041e3b98394e9a305b1a9295e3: https://github.com/BigCactusLabs/Aski/pull/10 . Native palette/tile parity and full gate remain unverified; the reported packed-stride probe is not a process-memory result. Follow its control recipe and compare all 66 end-to-end workloads. Run its 120 candidate phase probes separately; candidate-only helpers do not belong in the restored scalar control. The prepared sample buffer overlaps the Wu tables, so require allocation/RSS evidence as well as time. The new paired reader prepares the readout, not the adoption verdict. Task stays open.
+<!-- SECTION:NOTES:END -->
