@@ -1,10 +1,10 @@
 ---
 id: ASKI-5
 title: Enforce representative conversion and media performance budgets
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-08-18 18:01'
-updated_date: '2026-09-10 04:21'
+created_date: 2026-08-18 18:01
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - benchmarks
@@ -34,6 +34,12 @@ The benchmark suite contains broad measurement coverage, but only a minority of 
 - [ ] #6 just check and just bench pass with the new enforcement enabled.
 <!-- AC:END -->
 
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Groundwork 2026-10-27: add a portable paired-run readout for complete ASKI-86 evidence, preserving workload/metric identities, provenance, and repeated-run noise. Use it to prepare future budgets; do not select or enforce numeric performance budgets from synthetic tests. Existing preparation/media dependencies remain open.
+<!-- SECTION:PLAN:END -->
+
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
@@ -50,4 +56,8 @@ Validation to run: the verified full benchmark command is `just bench`, which ru
 First step: freeze the representative fixture matrix and capture current p50/p90 wall, CPU, allocation, and resident-memory results for static, render, identity/rotated video, and long-GIF paths before selecting thresholds or gate placement.
 
 Source map: `Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift`, `Benchmarks/AskiBenchmarks/GIFMetadataBenchmarks.swift`.
+
+### Groundwork delivered — 2026-10-27
+
+Added `Scripts/research/compare-benchmarks.py`, portable regression coverage, and `docs/agents/paired-benchmarks.md`. The reader validates complete ASKI-86 reports and sample hashes, rejects incompatible/missing/reused evidence, and reports per-workload paired changes and run-to-run spread. At least five complete pairs are required for a reviewable numeric series. Budget/adoption verdicts remain explicitly unevaluated; synthetic fixtures do not set thresholds. Existing media/preparation dependencies and every acceptance criterion remain open.
 <!-- SECTION:NOTES:END -->

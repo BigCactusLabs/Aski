@@ -1,9 +1,10 @@
 ---
 id: ASKI-87
 title: Reuse log-polar footprint geometry across cells
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - conversion
@@ -13,6 +14,7 @@ references:
   - Sources/Aski/Algorithms/ShapeContext.swift
   - Sources/Aski/Algorithms/LogPolarKernel.swift
   - Benchmarks/AskiBenchmarks/Benchmarks.swift
+  - https://github.com/BigCactusLabs/Aski/pull/8
 priority: medium
 type: enhancement
 ordinal: 88000
@@ -34,3 +36,11 @@ The 2026-09-29 sweep at c49bbd on Swift 6.4 compiled the current source with -O 
 - [ ] #4 The task records a material end-to-end benefit against a stated decision bar, or a rejection if only the isolated histogram improves.
 - [ ] #5 If adopted, just check and relevant conversion/animation benchmarks pass without loosening thresholds; any output-changing experiment is scoped separately under the research rules.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Existing work reconciled — 2026-10-27
+
+PR #8 is open at 0af4bf6a71871b9efa5fc29d871edf00c4d3bc86: https://github.com/BigCactusLabs/Aski/pull/8 . It reports native parity and `just check`; the five-pair, 52-workload adoption measurement remains outstanding. Retain its scalar-control reconstruction, setup-inclusive timing and small/dotMatrix controls. `Scripts/research/compare-benchmarks.py` plus `docs/agents/paired-benchmarks.md` now provides the portable readout for the full predeclared inventory. Source cleanliness, identical harnesses, native parity and noisy-result judgment remain separate. No speedup or adoption claimed; task stays open.
+<!-- SECTION:NOTES:END -->
