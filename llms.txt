@@ -41,6 +41,7 @@
 - [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Questions, protocols, evidence, negative results, and retractions. Historical private SHAs are not public replay guarantees.
 - [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm evidence.
 - [Paired benchmark readouts](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/paired-benchmarks.md): Portable comparison of complete captures, repeated-run noise and explicit adoption limits; links the early video frame-selection contract.
+- [Brightness-pool groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/brightness-pool-groundwork.md): ASKI-88 exact-order contracts, lab-only insertion/heap probes, 42 native workload identities, and measurement/adoption boundaries.
 - [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
 
 ## Interpretation notes
