@@ -38,6 +38,7 @@ describe intended assets; do not assume a hosted API site.
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or prepare early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract](../Scripts/research/video-frame-selection.md) |
+| Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |
 | Historical color-theory planning—not the current work queue | [research-plan.md](research-plan.md) |
 | Machine-readable navigation | [llms.txt](../llms.txt) |
