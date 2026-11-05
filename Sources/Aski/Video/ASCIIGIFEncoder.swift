@@ -19,6 +19,9 @@ public struct ASCIIGIFEncoder: Sendable {
     ///
     /// Input contract:
     /// - empty `frames` -> throws `.noFrames` (ImageIO can't finalize 0 images).
+    /// - `loopCount` must be in `0...32767`: 0 = infinite, 1 = once, and
+    ///   2...32767 = total plays. Other values throw `.invalidLoopCount`
+    ///   before creating the destination; ImageIO does not round-trip them.
     /// - delay that is non-finite (NaN/inf) or <= 0 -> normalized to 0.1s; 0 is
     ///   never written (a written 0/neg/NaN round-trips as UnclampedDelayTime 0).
     /// - valid sub-floor delays (0 < d < 0.02s) are written RAW and counted into
@@ -26,6 +29,9 @@ public struct ASCIIGIFEncoder: Sendable {
     @discardableResult
     public func write(_ frames: [RenderedGIFFrame], loopCount: Int, to url: URL) throws -> GIFEncodeReport {
         guard !frames.isEmpty else { throw GIFEncodeError.noFrames }
+        guard (0...32767).contains(loopCount) else {
+            throw GIFEncodeError.invalidLoopCount(loopCount)
+        }
         guard
             let destination = CGImageDestinationCreateWithURL(
                 url as CFURL,
@@ -57,9 +63,10 @@ public struct ASCIIGIFEncoder: Sendable {
         guard CGImageDestinationFinalize(destination) else {
             throw GIFEncodeError.cannotFinalize(url.path)
         }
+        let encodedHeader = try ASCIIGIFDecoder().containerHeader(ofGIFAt: url)
         return GIFEncodeReport(
             framesWritten: frames.count,
-            loopCount: loopCount,
+            loopCount: encodedHeader.loopCount,
             subFloorDelayCount: subFloorDelayCount,
             minDelay: minDelay
         )
