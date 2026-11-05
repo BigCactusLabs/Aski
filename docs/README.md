@@ -31,6 +31,7 @@ describe intended assets; do not assume a hosted API site.
 | You want to know… | Read |
 | --- | --- |
 | Setup, local gates, snapshot baseline, and PR expectations | [CONTRIBUTING.md](../CONTRIBUTING.md) |
+| Package a CLI candidate or configure hosted package documentation | [Distribution guide](guides/distribution.md) |
 | Agent conventions and hard engineering rules | [AGENTS.md](../AGENTS.md) |
 | Products, targets, conversion pipeline, and dependencies | [architecture.md](architecture.md) |
 | CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |

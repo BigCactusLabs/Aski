@@ -36,6 +36,7 @@
 
 ## Contributing and research
 
+- [Distribution guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/distribution.md): Local CLI candidate archives with complete resources, an isolated build and relocated smoke check, release provenance, and Swift Package Index DocC configuration. Native validation, indexing, and publication remain separate steps.
 - [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification (including portable just test-infra), isolated DocC exports and output-path migration, docs standards, and release hygiene. No hosted CI workflow is supplied.
 - [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
 - [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.

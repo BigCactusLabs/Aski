@@ -82,6 +82,11 @@ doctor *args:
 release-preflight *args:
     ./Scripts/repo-doctor.sh {{ args }}
 
+# Build a relocatable CLI candidate; output_dir must not already exist.
+# Export the argument so paths are not interpolated as shell code.
+package-cli $output_dir:
+    ./Scripts/package-cli.sh --output-dir "$output_dir"
+
 # Portable script regression tests (Python 3 standard library; fake Apple tools).
 # Separate from the unchanged, macOS-only acceptance gate.
 test-infra:
