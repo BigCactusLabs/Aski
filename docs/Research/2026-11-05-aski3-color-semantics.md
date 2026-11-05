@@ -2,14 +2,14 @@
 title: "ASKI-3 — color interpretation correction and frozen-selection guard"
 slug: 2026-11-05-aski3-color-semantics
 date: 2026-11-05
-status: active
+status: complete
 subsystem: [color-science, tile-grid]
-summary: "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native non-neutral pixel regressions decide color correctness. A paired frozen-selection census guards glyph selection; it cannot establish color fidelity. No census results have been read."
+summary: "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Full local gate passes; reviewed goldens and migration guidance accompany the correction."
 related_specs: [Sources/Aski/ASCIICell.swift, Sources/Aski/Tiles/TileCell.swift, docs/agents/research-methodology.md, docs/Research/2026-09-02-aski-31-lattice-no-harm.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1, docs/Research/Corpus/nasa-occupancy-v1]
 runners: [AskiColorLab]
-results: []
-next_action: "Run the frozen control and corrected renderer after this rule is committed; retain per-side CSVs, hashes, native color checks, and any changed golden images."
+results: [docs/Research/Results/2026-11-05-aski3-color-semantics]
+next_action: "Review ASKI-3 above draft PR15. ASKI-15 and ASKI-98 remain follow-up options; work is paused at the user request."
 ---
 
 # ASKI-3 — color interpretation and frozen-selection guard
@@ -77,3 +77,77 @@ Retain stdout separately. Use the CSV fields, not the stdout rounded table, to
 apply the rule. Record macOS, Xcode, Swift, source revisions and executable hashes
 in the result manifest. The output directory must follow the research registry's
 manifest and file-completeness checks.
+
+## Results — 2026-11-05
+
+The rule above was committed unchanged at
+`6b47141d13409e5fdde52bafb370e646b9d5c40a` before measurements. The
+[result package](Results/2026-11-05-aski3-color-semantics/README.md) retains all
+before/after CSVs, source patch, executable/input hashes, commands, and toolchain.
+All production and floor-comparator quality/selection fields are exactly unchanged;
+timing and revision identity differ. All six production MAE/GMSD ratios are 1.0.
+This passes the frozen guard across 75,468 cells per side.
+
+Native regressions first failed on the control's RGB values, then passed with
+explicit encoded source colors and engine gamut conversion. The source-component
+contract, output tags, independent Core Graphics conversion reference, alpha and
+coverage, linear composition, active ground, and inherited character fallback
+are covered by `RenderColorSemanticsTests`. NaN/infinity engine probes did not
+reproduce the review's conditional conversion-trap concern.
+
+### Integration test contract
+
+Correcting Generic RGB interpretation changes mid-gray neutrals as well as
+non-neutral colors. The bloom test now uses an independent conversion of its old
+physical gray stimulus, leaving bloom strength, radius, and every assertion
+threshold unchanged.
+
+The horizontal gradient's total MSSIM fell from 0.07575288421475966 to
+0.06950675148949562, below its former 0.07 floor; the diagonal score moved from
+0.07237566291470883 to 0.07008130072440694. An independent remap reproduces the old
+interpretation on the fixed renderer and matches the control's complete raw pixel
+hash and score **exactly** for both fixtures. The result package retains the probe
+and measurements. This attributes the drop to the intended tone correction on
+these fixtures.
+
+The structure tests now compare the original full-color result against the same
+cells in reverse row/column order. They require a strict win and retain the
+`blank + 0.03` margin, identity check, and high-frequency-loss control. The new
+contract detects incorrect arrangement and blank collapse; it removes the
+absolute total-fidelity floor and is weaker against gradual fidelity loss. Native
+color checks and inspected goldens cover tone/color. No benchmark thresholds or
+snapshot tolerances change. This is a correctness fix, not a universal quality
+improvement claim.
+
+### Review and limits
+
+Independent review found no required production correction. The inherited
+character fallback engine test and clipping documentation close its small
+coverage/documentation observations. Per-call gamut conversion cost is unmeasured;
+no performance improvement is claimed. The existing split in literal Generic RGB
+mask paint interpretation across sync/effects paths is tracked separately in
+ASKI-98. Explicitly named caller colors keep their own source spaces.
+
+### Final validation and pause point
+
+The full local `just check` passed on the final production and test contents:
+1,449 core tests, 156 serial media tests, and two isolated deadlock sentinels
+(1,607 total), plus format, build, research registry, repo-map, and DocC checks.
+The separate snapshot/golden run passed all 53 tests after inspecting and
+replacing 61 PNG references and the G0 byte reference. Two DocC mask-ground
+examples were regenerated from their existing canonical test; the mask asset
+itself is unchanged. The result package records asset hashes and alpha attribution.
+The final status/validation text was added afterward and the research registry
+was regenerated and checked again; production and test file hashes were unchanged.
+
+This completes ASKI-3 on `fix/aski-3-render-color-space`, above the existing
+`batch/aski-current-2026-11-05` draft PR15 (ASKI-8, ASKI-83, ASKI-97). The control
+checkout and local execution logs are retained. No follow-up implementation has
+started. Review this branch against the PR15 branch to keep the two batches
+separate. Work pauses after committing and pushing this layer.
+
+Core Graphics contract references: Apple's
+[component constructor](https://developer.apple.com/documentation/coregraphics/cgcolor/init(red:green:blue:alpha:)),
+[explicit-space constructor](https://developer.apple.com/documentation/coregraphics/cgcolor/init(colorspace:components:)),
+and [color conversion API](https://developer.apple.com/documentation/coregraphics/cgcolor/converted(to:intent:options:)).
+The native measurements above establish Aski behavior on the recorded toolchain.

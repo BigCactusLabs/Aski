@@ -13,6 +13,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
+- **Raster output honors cell color spaces (ASKI-3).** ASCII, tile, and effects
+  rendering interpret encoded cell colors in their declared sRGB or Display P3
+  gamut. `AskiRenderEngine` converts colors across gamuts and preserves masked
+  background colorimetry. Raster colors, including mid-gray neutrals, change; glyph selection and
+  attributed-string output do not. Review saved renders and remove compensation
+  for the previous Generic RGB interpretation; see the rendering guide.
 - **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
   (`0` means infinite; `1` means once), rejects unsupported values before opening the
   destination, and reports the loop metadata read from the finalized file.

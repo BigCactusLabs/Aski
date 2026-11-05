@@ -1,0 +1,290 @@
+diff --git a/Sources/Aski/Effects/AskiRenderEngine.swift b/Sources/Aski/Effects/AskiRenderEngine.swift
+index 218c0c6..f91df4f 100644
+--- a/Sources/Aski/Effects/AskiRenderEngine.swift
++++ b/Sources/Aski/Effects/AskiRenderEngine.swift
+@@ -101,24 +101,101 @@ public actor AskiRenderEngine {
+ 
+     private func applyingEngineColorSpace(to grid: ASCIIGrid) -> ASCIIGrid {
+         guard grid.colorSpace != colorSpace else { return grid }
++        var colors: [SIMD3<Float>: SIMD3<Float>] = [:]
++        let cells = grid.cells.map { row in
++            row.map { cell in
++                ASCIICell(
++                    character: cell.character,
++                    displayColor: convertedDisplayColor(cell.displayColor, from: grid.colorSpace, cache: &colors),
++                    alpha: cell.alpha,
++                    brightness: cell.brightness,
++                    coverage: cell.coverage
++                )
++            }
++        }
+         return ASCIIGrid(
+-            cells: grid.cells,
++            cells: cells,
+             colorSpace: colorSpace,
+             composition: grid.composition,
+-            maskFallback: grid.maskFallback,
+-            maskGroundColor: grid.maskGroundColor,
++            maskFallback: pinLiteralMaskFallback(grid.maskFallback, to: grid.colorSpace),
++            maskGroundColor: grid.maskGroundColor.map { pinLiteralMaskColor($0, to: grid.colorSpace) },
+             maskUsesHardEdges: grid.maskUsesHardEdges
+         )
+     }
+ 
+     private func applyingEngineColorSpace(to grid: TileGrid) -> TileGrid {
+         guard grid.colorSpace != colorSpace else { return grid }
++        var colors: [SIMD3<Float>: SIMD3<Float>] = [:]
++        let cells = grid.cells.map { row in
++            row.map { cell in
++                TileCell(
++                    displayColor: convertedDisplayColor(cell.displayColor, from: grid.colorSpace, cache: &colors),
++                    alpha: cell.alpha,
++                    brightness: cell.brightness,
++                    coverage: cell.coverage
++                )
++            }
++        }
+         return TileGrid(
+-            cells: grid.cells,
++            cells: cells,
+             colorSpace: colorSpace,
+-            maskFallback: grid.maskFallback,
+-            maskGroundColor: grid.maskGroundColor,
++            maskFallback: pinLiteralMaskFallback(grid.maskFallback, to: grid.colorSpace),
++            maskGroundColor: grid.maskGroundColor.map { pinLiteralMaskColor($0, to: grid.colorSpace) },
+             maskUsesHardEdges: grid.maskUsesHardEdges
+         )
+     }
++
++    private func convertedDisplayColor(
++        _ rgb: SIMD3<Float>,
++        from source: RenderColorSpace,
++        cache: inout [SIMD3<Float>: SIMD3<Float>]
++    ) -> SIMD3<Float> {
++        if let converted = cache[rgb] { return converted }
++        guard
++            let converted = source.encodedColor(rgb, alpha: 1).converted(
++                to: colorSpace.encodedCGColorSpace, intent: .perceptual, options: nil
++            ), let components = converted.components, components.count >= 3
++        else {
++            preconditionFailure("Known RGB color spaces must support color matching")
++        }
++        let result = SIMD3<Float>(
++            Float(max(0, min(1, components[0]))),
++            Float(max(0, min(1, components[1]))),
++            Float(max(0, min(1, components[2])))
++        )
++        cache[rgb] = result
++        return result
++    }
++
++    private func pinLiteralMaskFallback(_ fallback: MaskFallback?, to source: RenderColorSpace) -> MaskFallback? {
++        guard let fallback else { return nil }
++        guard case .solid(let color) = fallback else { return fallback }
++        return .solid(pinLiteralMaskColor(color, to: source))
++    }
++
++    private func pinLiteralMaskColor(_ color: CGColor, to source: RenderColorSpace) -> CGColor {
++        // The mask factory interprets Generic RGB and unnamed RGB components
++        // literally in the grid gamut. Preserve that original meaning when the
++        // engine changes the grid gamut; named caller colors keep their tags.
++        guard color.alpha.isFinite, color.colorSpace?.model == .rgb,
++            let components = color.components, components.count >= 3
++        else { return color }
++        if let name = color.colorSpace?.name, (name as String) != "kCGColorSpaceGenericRGB" {
++            return color
++        }
++        guard
++            let pinned = CGColor(
++                colorSpace: source.encodedCGColorSpace,
++                components: [
++                    max(0, min(1, components[0])),
++                    max(0, min(1, components[1])),
++                    max(0, min(1, components[2])),
++                    color.alpha,
++                ]
++            )
++        else {
++            preconditionFailure("Known RGB color spaces must accept RGBA components")
++        }
++        return pinned
++    }
+ }
+diff --git a/Sources/Aski/Effects/Internal/CellRasterBuilder.swift b/Sources/Aski/Effects/Internal/CellRasterBuilder.swift
+index d923091..10a2d98 100644
+--- a/Sources/Aski/Effects/Internal/CellRasterBuilder.swift
++++ b/Sources/Aski/Effects/Internal/CellRasterBuilder.swift
+@@ -77,12 +77,7 @@ internal enum CellRasterBuilder {
+                     }
+                 let effectiveAlpha = max(0, min(1, rawAlpha))
+                 guard effectiveAlpha > 0 else { continue }
+-                let foregroundColor = CGColor(
+-                    red: CGFloat(cell.displayColor.x),
+-                    green: CGFloat(cell.displayColor.y),
+-                    blue: CGFloat(cell.displayColor.z),
+-                    alpha: CGFloat(effectiveAlpha)
+-                )
++                let foregroundColor = grid.colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
+ 
+                 let codepoint = cell.character.unicodeScalars.first?.value ?? 0
+                 if (0x2800...0x28FF).contains(codepoint) {
+diff --git a/Sources/Aski/RenderColorSpace.swift b/Sources/Aski/RenderColorSpace.swift
+index 590ef09..6fbe9dc 100644
+--- a/Sources/Aski/RenderColorSpace.swift
++++ b/Sources/Aski/RenderColorSpace.swift
+@@ -1,4 +1,32 @@
++import CoreGraphics
++
+ public enum RenderColorSpace: Sendable, Hashable {
+     case sRGB
+     case displayP3
+ }
++
++internal extension RenderColorSpace {
++    // Cell components are transfer-encoded, even when the destination context
++    // uses a linear-light composition policy.
++    var encodedCGColorSpace: CGColorSpace {
++        switch self {
++        case .sRGB: Self.encodedSRGB
++        case .displayP3: Self.encodedDisplayP3
++        }
++    }
++
++    func encodedColor(_ rgb: SIMD3<Float>, alpha: Float) -> CGColor {
++        guard
++            let color = CGColor(
++                colorSpace: encodedCGColorSpace,
++                components: [CGFloat(rgb.x), CGFloat(rgb.y), CGFloat(rgb.z), CGFloat(alpha)]
++            )
++        else {
++            preconditionFailure("Known RGB color spaces must accept RGBA components")
++        }
++        return color
++    }
++
++    private static let encodedSRGB = CGColorSpace(name: CGColorSpace.sRGB)!
++    private static let encodedDisplayP3 = CGColorSpace(name: CGColorSpace.displayP3)!
++}
+diff --git a/Sources/Aski/Renderers/ImageRenderer.swift b/Sources/Aski/Renderers/ImageRenderer.swift
+index 89f0b7e..4cdfb41 100644
+--- a/Sources/Aski/Renderers/ImageRenderer.swift
++++ b/Sources/Aski/Renderers/ImageRenderer.swift
+@@ -253,8 +253,8 @@ public extension ASCIIGrid {
+             )
+         }
+ 
+-        // Identity transform: the encoded 8-bit display colour, byte-for-byte
+-        // what the renderer has always produced.
++        // Interpret the display-ready components in the grid's encoded gamut;
++        // the context applies any composition-space conversion.
+         drawCells(
+             in: context,
+             font: font,
+@@ -262,12 +262,7 @@ public extension ASCIIGrid {
+             fontAttribute: fontAttribute,
+             colorAttribute: colorAttribute
+         ) { cell, effectiveAlpha in
+-            CGColor(
+-                red: CGFloat(cell.displayColor.x),
+-                green: CGFloat(cell.displayColor.y),
+-                blue: CGFloat(cell.displayColor.z),
+-                alpha: CGFloat(effectiveAlpha)
+-            )
++            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
+         }
+ 
+         return context.makeImage() ?? Self.emptyImage()
+@@ -438,8 +433,8 @@ public extension ASCIIGrid {
+             )
+         }
+ 
+-        // Identity transform: the encoded 8-bit display colour, byte-for-byte
+-        // what the renderer has always produced.
++        // Interpret the display-ready components in the grid's encoded gamut;
++        // the context applies any composition-space conversion.
+         drawCells(
+             in: context,
+             font: font,
+@@ -447,12 +442,7 @@ public extension ASCIIGrid {
+             fontAttribute: fontAttribute,
+             colorAttribute: colorAttribute
+         ) { cell, effectiveAlpha in
+-            CGColor(
+-                red: CGFloat(cell.displayColor.x),
+-                green: CGFloat(cell.displayColor.y),
+-                blue: CGFloat(cell.displayColor.z),
+-                alpha: CGFloat(effectiveAlpha)
+-            )
++            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
+         }
+ 
+         return context.makeImage() ?? Self.emptyImage()
+@@ -1023,12 +1013,7 @@ public extension ASCIIGrid {
+             colorAttribute: colorAttribute,
+             coverageMode: .intrinsicAlpha
+         ) { cell, effectiveAlpha in
+-            CGColor(
+-                red: CGFloat(cell.displayColor.x),
+-                green: CGFloat(cell.displayColor.y),
+-                blue: CGFloat(cell.displayColor.z),
+-                alpha: CGFloat(effectiveAlpha)
+-            )
++            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
+         }
+ 
+         inactiveContext.setFillColor(backgroundColor)
+@@ -1144,12 +1129,7 @@ public extension ASCIIGrid {
+                     if let color {
+                         fallbackColor = color.copy(alpha: color.alpha * CGFloat(inverse)) ?? color
+                     } else {
+-                        fallbackColor = CGColor(
+-                            red: CGFloat(cell.displayColor.x),
+-                            green: CGFloat(cell.displayColor.y),
+-                            blue: CGFloat(cell.displayColor.z),
+-                            alpha: CGFloat(inverse)
+-                        )
++                        fallbackColor = colorSpace.encodedColor(cell.displayColor, alpha: inverse)
+                     }
+                     let attributed = NSAttributedString(
+                         string: String(character),
+diff --git a/Sources/Aski/Tiles/TileGrid+Rendering.swift b/Sources/Aski/Tiles/TileGrid+Rendering.swift
+index 619ae10..7e672b1 100644
+--- a/Sources/Aski/Tiles/TileGrid+Rendering.swift
++++ b/Sources/Aski/Tiles/TileGrid+Rendering.swift
+@@ -11,8 +11,13 @@ public extension TileGrid {
+             let alpha: UInt32
+         }
+ 
++        let colorSpace: RenderColorSpace
+         private var colors: [Key: CGColor] = [:]
+ 
++        init(colorSpace: RenderColorSpace) {
++            self.colorSpace = colorSpace
++        }
++
+         mutating func color(red: Float, green: Float, blue: Float, alpha: Float) -> CGColor {
+             let alpha = max(0, min(1, alpha))
+             let key = Key(
+@@ -25,12 +30,7 @@ public extension TileGrid {
+                 return color
+             }
+ 
+-            let color = CGColor(
+-                red: CGFloat(red),
+-                green: CGFloat(green),
+-                blue: CGFloat(blue),
+-                alpha: CGFloat(alpha)
+-            )
++            let color = colorSpace.encodedColor(SIMD3<Float>(red, green, blue), alpha: alpha)
+             colors[key] = color
+             return color
+         }
+@@ -292,7 +292,7 @@ public extension TileGrid {
+             case .mosaic: false
+             }
+         var mosaicCache = MosaicPathCache()
+-        var colorCache = RasterColorCache()
++        var colorCache = RasterColorCache(colorSpace: colorSpace)
+         for (rowIndex, row) in cells.enumerated() {
+             for (columnIndex, cell) in row.enumerated() {
+                 let effectiveAlpha =

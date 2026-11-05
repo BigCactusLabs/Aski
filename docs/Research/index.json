@@ -1515,7 +1515,7 @@
         "docs/Research/Corpus/nasa-occupancy-v1"
       ],
       "date" : "2026-11-05",
-      "next_action" : "Run the frozen control and corrected renderer after this rule is committed; retain per-side CSVs, hashes, native color checks, and any changed golden images.",
+      "next_action" : "Review ASKI-3 above draft PR15. ASKI-15 and ASKI-98 remain follow-up options; work is paused at the user request.",
       "path" : "docs/Research/2026-11-05-aski3-color-semantics.md",
       "related_specs" : [
         "Sources/Aski/ASCIICell.swift",
@@ -1524,18 +1524,18 @@
         "docs/Research/2026-09-02-aski-31-lattice-no-harm.md"
       ],
       "results" : [
-
+        "docs/Research/Results/2026-11-05-aski3-color-semantics"
       ],
       "runners" : [
         "AskiColorLab"
       ],
       "slug" : "2026-11-05-aski3-color-semantics",
-      "status" : "active",
+      "status" : "complete",
       "subsystem" : [
         "color-science",
         "tile-grid"
       ],
-      "summary" : "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native non-neutral pixel regressions decide color correctness. A paired frozen-selection census guards glyph selection; it cannot establish color fidelity. No census results have been read.",
+      "summary" : "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Full local gate passes; reviewed goldens and migration guidance accompany the correction.",
       "title" : "ASKI-3 — color interpretation correction and frozen-selection guard"
     }
   ],
@@ -1976,6 +1976,53 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "Rule applied mechanically (verdict.md): arm 1, the orthogonality to tone fallback, is KILL, because standard MAE rises x1.0301-1.0423 on both PNG corpora at 80 and 288 columns past the 1.0300 bar, with GMSD x1.15-1.43, although it removes the all-blank grid on every sparse-set fixture and passes every no-harm row. Arm 2, arm 1 plus serial Floyd-Steinberg tone centring, is INCONCLUSIVE: runs of five or more fall 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of four rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Arm P reproduces all 43 phase-1 baseline P rows exactly."
+    },
+    {
+      "aski_git_sha" : "6b47141d13409e5fdde52bafb370e646b9d5c40a+dirty:0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+      "command" : "aski lab color selection-ceiling --charset blocks --columns 76 --oversample 2 --footprint 24 --stride 1 --shape-query-polarity inverted --corpus docs/Research/Corpus/<corpus>/assets --output .build/aski-3-2026-11-05/census/<side>/<corpus>.csv (six recorded invocations in before/provenance.json and after/provenance.json)",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-05",
+      "generators" : [
+        "SSIMAttributionProbe.swift",
+        "RasterAttributionProbe.swift"
+      ],
+      "outputs" : [
+        "README.md",
+        "before/nasa-occupancy-v1.csv",
+        "before/nasa-steerable-v1.csv",
+        "before/nasa-structure-v1.csv",
+        "before/provenance.json",
+        "after/nasa-occupancy-v1.csv",
+        "after/nasa-steerable-v1.csv",
+        "after/nasa-structure-v1.csv",
+        "after/provenance.json",
+        "comparison.csv",
+        "production.patch",
+        "production.patch.sha256",
+        "source-sha256.json",
+        "ssim-attribution.json",
+        "raster-attribution.json",
+        "golden-deltas.csv",
+        "docc-asset-hashes.json"
+      ],
+      "path" : "docs/Research/Results/2026-11-05-aski3-color-semantics",
+      "provenance" : [
+        "Rule frozen at 6b47141d13409e5fdde52bafb370e646b9d5c40a in docs/Research/2026-11-05-aski3-color-semantics.md before measurement",
+        "Before code: 14c8697ce0211098630088cab14ef9e8a79b048e; CSV gitSHA records the documentation-only rule revision",
+        "Before executable SHA-256: a5107177d3dd2b0111e9213d614f8394e6c3c95f3f9f623e8a1e2680a1b259f5",
+        "After code: 6b47141d13409e5fdde52bafb370e646b9d5c40a plus production.patch; patch SHA-256: 0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+        "After executable SHA-256: 4052c0e1ab39d9a9f1339f27c707c403498dc85582f8191aa202642487698f25",
+        "Release builds; macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4",
+        "All input asset hashes, CSV hashes, and actual run arguments retained in sanitized per-side provenance; five production source hashes retained in source-sha256.json",
+        "Monochrome sRGB selection instrument; pooled corpus rows do not measure Vesper Display P3 color fidelity or exclude cancelling per-fixture changes"
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-3 paired selection guard passes: all six production MAE/GMSD ratios equal 1.0 across 75468 cells per side; all P/F quality and selection fields exactly unchanged. Pooled monochrome sRGB evidence only; no Display P3 Vesper color-quality claim. Integration validation is recorded in the linked research note."
     },
     {
       "aski_git_sha" : "b17e791a8a8ddb3b4d09cf330d6928db46ef3c07",

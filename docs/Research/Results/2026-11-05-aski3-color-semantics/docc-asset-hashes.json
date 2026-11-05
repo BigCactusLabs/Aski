@@ -1,0 +1,17 @@
+[
+  {
+    "path": "Sources/Aski/Aski.docc/Resources/mask-ground-after.png",
+    "before_sha256": "234ca44aceba28cc5bb8ef19c237b4a0bc355ac7efee7d0d3aaf3b262f2adc8a",
+    "after_sha256": "fe53134f016ece7b2beb015ce2d857864eb891b438a5e31332433f2114187032"
+  },
+  {
+    "path": "Sources/Aski/Aski.docc/Resources/mask-ground-before.png",
+    "before_sha256": "db17faeb3f109f931374102235f68e67991493b79ec76a2014670865f011962f",
+    "after_sha256": "4698fa2353ead72b744960bf0cd0436e393b25cf2037296c83e9fde07e9f3b3e"
+  },
+  {
+    "path": "Sources/Aski/Aski.docc/Resources/mask-ground-circle.png",
+    "before_sha256": "e8b415780a5fa983af678138f574c2c824565678eeea04450fb281a3d058d4b4",
+    "after_sha256": "e8b415780a5fa983af678138f574c2c824565678eeea04450fb281a3d058d4b4"
+  }
+]

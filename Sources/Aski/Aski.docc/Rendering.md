@@ -44,6 +44,23 @@ let rendered = grid.renderImage(
 - Braille cells (U+2800–U+28FF) are rasterized programmatically — no braille-capable font needs to be bundled.
 - Mask fallbacks draw as an underlay: `.solid`, `.originalImage` (with `stretch`/`fill`/`fit` sizing), and `.character` fallbacks are painted per cell at inverse-coverage alpha before the visible glyphs.
 
+### Color interpretation
+
+Cell `displayColor` values are encoded sRGB or Display P3 components, as declared by
+the grid's ``RenderColorSpace``. ASCII, tile, and effects rendering use that source
+space, including when the composition policy blends in linear light.
+``AskiRenderEngine`` converts cell colors when its output gamut differs from the
+grid's gamut. Out-of-gamut components are clipped after conversion, which can shift
+hue for saturated colors. Changing
+the engine's output space does not merely relabel the cell components.
+
+The ASKI-3 correction changes raster colors that were previously interpreted as
+Generic RGB. Public signatures, glyph choices, and attributed-string colors are
+unchanged. When upgrading, review saved render references and remove any manual
+palette compensation for the old raster output. Use explicitly tagged `CGColor`
+values for backgrounds, mask fallbacks, and ground colors when exact color intent
+matters.
+
 ### Exact pixel width
 
 For monochrome monospaced fonts, the effective pixel size is `pointSize × scale` and nothing else; doubling the font size and doubling `scale` are the same operation. This was measured 2026-09-01 on the bundled Courier Prime and on Menlo at six size-times-scale ratios, 0 differing bytes; see the issue #33 research note.
