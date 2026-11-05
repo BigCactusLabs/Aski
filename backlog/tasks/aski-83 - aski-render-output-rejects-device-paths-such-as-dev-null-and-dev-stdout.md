@@ -1,11 +1,11 @@
 ---
 id: ASKI-83
 title: aski render --output rejects device paths such as /dev/null and /dev/stdout
-status: In Progress
+status: Done
 assignee:
   - '@codex'
 created_date: 2026-09-27 17:36
-updated_date: '2026-11-05T18:12:00Z'
+updated_date: '2026-11-05T18:54:00Z'
 labels:
   - cli
   - correctness
@@ -51,10 +51,12 @@ Discarding the text grid while keeping `--render-png` is an ordinary scripting n
 Implemented direct text streams for /dev/null and /dev/stdout, special-file rejection before staging, and regular-file rollback. Focused batch passed 60 tests across six suites. Native CLI probes passed null+PNG, pipe and regular-file stdout redirection, append, aliases, FIFO rejection and closed-fd rollback. Independent review prompted a confirmed broken-pipe probe: SIGPIPE terminates before cleanup. Descriptor-scoped suppression and an isolated regression are in progress before full acceptance.
 
 Closed-pipe handling is now descriptor-scoped with restoration; four isolated cases prove successful writes, typed failures, rollback, no leftovers and restored flags. All ten CLI subprocess probes pass. Full just check is blocked by existing composition/effect/mask snapshots, reproduced unchanged on clean origin/main 06adfdb. Task remains In Progress pending the repository-wide gate; no golden files or thresholds changed.
+
+Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Text output to /dev/null and /dev/stdout now writes directly, including symlink aliases; unsupported special files are rejected before staging. Regular artifacts retain rollback, and descriptor-scoped SIGPIPE handling permits rollback on closed pipes without changing process-wide signals. Focused tests and ten native CLI scenarios pass, including redirect/append, FIFO rejection, closed fd and broken-pipe cleanup. Full gate remains blocked by snapshot mismatches reproduced on clean origin/main; task remains In Progress.
+Text output to /dev/null and /dev/stdout writes directly, including supported aliases; unsupported special targets fail before staging. Companion regular files retain transactional rollback. Descriptor-scoped SIGPIPE handling reports closed-pipe errors and restores flags without changing process-wide signals. Focused tests, ten native CLI scenarios, full local gate and parallel-core stability repeat pass.
 <!-- SECTION:FINAL_SUMMARY:END -->

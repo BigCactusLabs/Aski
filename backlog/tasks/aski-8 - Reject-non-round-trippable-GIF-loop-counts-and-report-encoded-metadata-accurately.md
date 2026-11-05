@@ -3,11 +3,11 @@ id: ASKI-8
 title: >-
   Reject non-round-trippable GIF loop counts and report encoded metadata
   accurately
-status: In Progress
+status: Done
 assignee:
   - '@codex'
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-05T18:12:00Z'
+updated_date: '2026-11-05T18:54:00Z'
 labels:
   - video
   - gif
@@ -30,7 +30,7 @@ ASCIIGIFEncoder accepts any Int loopCount, passes it to ImageIO, and returns the
 - [x] #2 A loop count outside that domain throws a caller-matchable error before destination creation and leaves any pre-existing destination unchanged.
 - [x] #3 For every accepted loop count, GIFEncodeReport.loopCount equals the loop count decoded from the finalized output file.
 - [x] #4 Regression coverage includes negative values, 0, representative finite values, 65535, 65536, and Int.max.
-- [ ] #5 convertGIF source-loop preservation and valid override behavior remain stable, and focused tests plus just check pass.
+- [x] #5 convertGIF source-loop preservation and valid override behavior remain stable, and focused tests plus just check pass.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -59,10 +59,12 @@ Source map: `Sources/Aski/Video/ASCIIGIFTypes.swift`, `Sources/Aski/Video/ASCIIG
 Native verification on macOS 27.0.1 / Xcode 27.0 / Swift 6.4 established the accepted ImageIO loop domain 0...32767 for one- and two-frame output. 32768 and 65535 decode as 1; 65536 decodes as 0. Added typed preflight rejection, finalized metadata readback, encoder boundary/destination regressions, converter source/override regressions, and Video documentation. Focused batch passed 60 tests across six suites. Independent code review found no required GIF correction. Full just check pending.
 
 Full gate ran on the combined batch. Format, build, research registry and repo map passed; core tests stopped on unrelated composition/effect/mask snapshot mismatches. A clean detached origin/main 06adfdb control reproduced all 16 isolated mismatches on macOS 27.0.1/Xcode 27.0/Swift 6.4. No goldens or thresholds changed. AC5 remains unchecked and task stays In Progress because just check is not green.
+
+Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Added GIFEncodeError.invalidLoopCount for values outside the natively verified 0...32767 range before destination creation, and report finalized loop metadata. Added one/multi-frame boundaries, unchanged-destination checks, source-loop preservation and valid override regressions; documented the source compatibility boundary. Focused tests, 156 serial media tests, both deadlock sentinels and DocC pass. Full just check remains red on unrelated image snapshots reproduced on clean origin/main 06adfdb; AC5 stays open.
+Rejects loop counts outside the natively verified 0...32767 ImageIO range before destination creation with GIFEncodeError.invalidLoopCount, and reports finalized loop metadata. Boundary, unchanged-destination, source-loop preservation and valid override regressions pass. Public video docs explain the range and semantics. Full local gate and an additional parallel-core stability run pass; prior snapshot blocker is closed by ASKI-97.
 <!-- SECTION:FINAL_SUMMARY:END -->
