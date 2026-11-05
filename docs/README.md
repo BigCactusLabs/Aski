@@ -8,6 +8,7 @@ navigation hub; the [project README](../README.md) is the front door.
 | You want to… | Start here |
 | --- | --- |
 | Try the package on a bundled image | [README: Try it](../README.md#try-it) |
+| Compare source and character art, then try three treatments | [Character-art examples and recipes](guides/character-art-recipes.md) |
 | Convert files, export PNGs, use masks, or inspect JSON | [Command-line guide](../Sources/Aski/Aski.docc/CommandLine.md) |
 | Add the library and make a first conversion | [Installation](../README.md#use-in-swift), [Getting Started](../Sources/Aski/Aski.docc/GettingStarted.md) |
 | Choose text, attributed text, or raster output | [Rendering](../Sources/Aski/Aski.docc/Rendering.md) |
