@@ -3,10 +3,11 @@ id: ASKI-8
 title: >-
   Reject non-round-trippable GIF loop counts and report encoded metadata
   accurately
-status: To Do
-assignee: []
-created_date: '2026-08-18 18:01'
-updated_date: '2026-09-10 04:15'
+status: Done
+assignee:
+  - '@codex'
+created_date: 2026-08-18 18:01
+updated_date: '2026-11-05T18:54:00Z'
 labels:
   - video
   - gif
@@ -25,12 +26,18 @@ ASCIIGIFEncoder accepts any Int loopCount, passes it to ImageIO, and returns the
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The supported GIF loop-count domain and its infinite, once, and finite-play semantics are documented from verified ImageIO round-trip behavior.
-- [ ] #2 A loop count outside that domain throws a caller-matchable error before destination creation and leaves any pre-existing destination unchanged.
-- [ ] #3 For every accepted loop count, GIFEncodeReport.loopCount equals the loop count decoded from the finalized output file.
-- [ ] #4 Regression coverage includes negative values, 0, representative finite values, 65535, 65536, and Int.max.
-- [ ] #5 convertGIF source-loop preservation and valid override behavior remain stable, and focused tests plus just check pass.
+- [x] #1 The supported GIF loop-count domain and its infinite, once, and finite-play semantics are documented from verified ImageIO round-trip behavior.
+- [x] #2 A loop count outside that domain throws a caller-matchable error before destination creation and leaves any pre-existing destination unchanged.
+- [x] #3 For every accepted loop count, GIFEncodeReport.loopCount equals the loop count decoded from the finalized output file.
+- [x] #4 Regression coverage includes negative values, 0, representative finite values, 65535, 65536, and Int.max.
+- [x] #5 convertGIF source-loop preservation and valid override behavior remain stable, and focused tests plus just check pass.
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Measure ImageIO loop metadata round trips at accepted and invalid boundaries. 2. Add typed preflight validation before output creation and report finalized metadata. 3. Cover encoder and converter semantics and document the verified domain. 4. Run focused regressions, independent review, and the full just check gate.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
@@ -48,4 +55,16 @@ Validation to run: Extend focused encoder and converter tests across negative, 0
 First step: build a small behavior table from the task's recorded cases plus actual ImageIO output reads, then place the typed preflight before destination creation and choose a report-construction rule that matches the verified finalized metadata. Recheck all `ASCIIGIFEncoder.write` callers, especially `Tools/AskiVideoLab/VideoLabCLI.swift` and MotionLab, for override semantics.
 
 Source map: `Sources/Aski/Video/ASCIIGIFTypes.swift`, `Sources/Aski/Video/ASCIIGIFDecoder.swift`, `Sources/Aski/Video/ASCIIGIFConverter.swift`, `Tests/AskiTests/AskiGIFConverterTests.swift`, `docs/Research/Discoveries.md`.
+
+Native verification on macOS 27.0.1 / Xcode 27.0 / Swift 6.4 established the accepted ImageIO loop domain 0...32767 for one- and two-frame output. 32768 and 65535 decode as 1; 65536 decodes as 0. Added typed preflight rejection, finalized metadata readback, encoder boundary/destination regressions, converter source/override regressions, and Video documentation. Focused batch passed 60 tests across six suites. Independent code review found no required GIF correction. Full just check pending.
+
+Full gate ran on the combined batch. Format, build, research registry and repo map passed; core tests stopped on unrelated composition/effect/mask snapshot mismatches. A clean detached origin/main 06adfdb control reproduced all 16 isolated mismatches on macOS 27.0.1/Xcode 27.0/Swift 6.4. No goldens or thresholds changed. AC5 remains unchecked and task stays In Progress because just check is not green.
+
+Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Rejects loop counts outside the natively verified 0...32767 ImageIO range before destination creation with GIFEncodeError.invalidLoopCount, and reports finalized loop metadata. Boundary, unchanged-destination, source-loop preservation and valid override regressions pass. Public video docs explain the range and semantics. Full local gate and an additional parallel-core stability run pass; prior snapshot blocker is closed by ASKI-97.
+<!-- SECTION:FINAL_SUMMARY:END -->

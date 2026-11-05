@@ -407,6 +407,29 @@ import UniformTypeIdentifiers
         #expect(image?.height ?? 0 > 0)
     }
 
+    @Test func discardsTextToNullWhileRenderingPNG() throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let input = directory.appending(path: "input.png")
+        let pngOutput = directory.appending(path: "out.png")
+        try writeFixturePNG(to: input, width: 80, height: 40)
+        let before = try FileManager.default.attributesOfItem(atPath: "/dev/null")
+        var stdout = ""
+        var stderr = ""
+        let command = try AskiDemoCommand.parse([
+            input.path, "--columns", "12", "--output", "/dev/null", "--render-png", pngOutput.path,
+        ])
+
+        #expect(command.execute(standardOutput: { stdout += $0 }, standardError: { stderr += $0 }) == .success)
+        #expect(stdout.isEmpty)
+        #expect(stderr.isEmpty)
+        let source = CGImageSourceCreateWithURL(pngOutput as CFURL, nil)
+        #expect(source.flatMap { CGImageSourceCreateImageAtIndex($0, 0, nil) } != nil)
+        let after = try FileManager.default.attributesOfItem(atPath: "/dev/null")
+        #expect(after[.type] as? FileAttributeType == .typeCharacterSpecial)
+        #expect(after[.systemFileNumber] as? NSNumber == before[.systemFileNumber] as? NSNumber)
+    }
+
     // Portrait fixture is 3:4 (768x1024, aspect 1.3333), NOT an extreme 3:1.
     // Verified empirically: at 512 columns a 3:1 (256x768) source converts to an
     // EMPTY grid — the converter floors `cellWidth = thumbnailWidth / columns` to

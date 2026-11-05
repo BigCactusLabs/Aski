@@ -1946,6 +1946,33 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "Rule applied mechanically (verdict.md): arm 1, the orthogonality to tone fallback, is KILL, because standard MAE rises x1.0301-1.0423 on both PNG corpora at 80 and 288 columns past the 1.0300 bar, with GMSD x1.15-1.43, although it removes the all-blank grid on every sparse-set fixture and passes every no-harm row. Arm 2, arm 1 plus serial Floyd-Steinberg tone centring, is INCONCLUSIVE: runs of five or more fall 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of four rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Arm P reproduces all 43 phase-1 baseline P rows exactly."
+    },
+    {
+      "aski_git_sha" : "b17e791a8a8ddb3b4d09cf330d6928db46ef3c07",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-05",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "README.md",
+        "drift.csv",
+        "vector-glyph-drift.csv",
+        "vector-set-summary.csv"
+      ],
+      "path" : "docs/Research/Results/2026-11-05-aski97-render-drift",
+      "provenance" : [
+        "Original golden commit 0e654023; unchanged control 06adfdb; changed checkout b17e791",
+        "macOS 27.0.1 (26A434); Xcode 27.0 (27A266a); Swift 6.4",
+        "Four isolated control captures are byte-identical for each of 16 emitted candidate PNGs",
+        "All current reference hashes verified before replacement; candidate hashes verified after copying",
+        "Read-only vector audit CSVs copied without modifying committed ShapeData",
+        "Parallel control core run emitted the same 16 PNGs; changed-tree targeted snapshot and Vesper tests passed"
+      ],
+      "schema_version" : "1",
+      "summary" : "ASKI-97 exact-render rebaseline evidence: 16 images, maximum RGB channel delta 1, unchanged alpha and metadata; no tolerance or frozen Vesper preset changes."
     }
   ]
 }

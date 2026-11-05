@@ -166,7 +166,8 @@ public struct RenderArguments: ParsableArguments {
 
             var artifacts: [DemoOutputTransaction.Artifact] = []
             if let output {
-                artifacts.append(.init(destination: URL(fileURLWithPath: output), data: textData))
+                artifacts.append(
+                    .init(destination: URL(fileURLWithPath: output), data: textData, allowsTextStream: true))
             }
             if let renderPng, let pngData {
                 artifacts.append(.init(destination: URL(fileURLWithPath: renderPng), data: pngData))

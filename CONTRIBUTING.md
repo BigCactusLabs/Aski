@@ -37,6 +37,14 @@ macOS 27.0 / Xcode 27.0 / Swift 6.4. Render snapshots are known to differ on mac
 That is a contributor reproduction constraint, not a macOS 27 deployment requirement.
 A supported Swift compiler alone does not guarantee identical raster output.
 
+The current checkout's exact-render baseline is **macOS 27.0.1
+(26A434) / Xcode 27.0 (27A266a) / Swift 6.4**. The
+[render-drift evidence](docs/Research/Results/2026-11-05-aski97-render-drift/README.md)
+records 16 one-step RGB snapshot differences and four stable isolated captures.
+Use this patch version for current golden reproduction; the historical v0.7.0
+baseline above applies to that release. Exact raster output is not guaranteed
+across OS versions, including macOS 27.0 versus 27.0.1.
+
 Install [just](https://github.com/casey/just) for the canonical task runner. The
 [Makefile](Makefile) forwards to `just`; `make check` is not a way to avoid that dependency.
 Research and task-management tools are needed only for their respective workflows.

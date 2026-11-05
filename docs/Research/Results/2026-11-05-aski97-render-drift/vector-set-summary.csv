@@ -1,0 +1,11 @@
+set,glyph_count,byte_identical,changed_glyph_count,max_delta,sort_permutation_changed,threshold_exceeded
+standard,95,false,94,0.0234945342,true,true
+minimal,10,false,9,0.0161540806,false,true
+blocks,8,false,2,0.0451757461,false,true
+dots,8,false,7,0.0206955224,false,true
+lines,12,false,11,0.00336229801,false,true
+diagonal,4,false,3,0.0135282874,false,true
+cross,5,false,4,0.0234945342,false,true
+diamond,4,false,3,0.00405175984,false,true
+mixed,12,false,8,0.0234945342,false,true
+braille,256,true,0,0,false,false
