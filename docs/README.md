@@ -35,6 +35,7 @@ describe intended assets; do not assume a hosted API site.
 | CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |
 | Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
 | Research findings, decisions, and retractions | [Research index](Research/README.md) |
+| Color-interpretation correction and its frozen-selection guard | [ASKI-3 protocol](Research/2026-11-05-aski3-color-semantics.md) |
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |

@@ -42,6 +42,8 @@
 - [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm evidence.
 - [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
 
+- [ASKI-3 color correction protocol](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-05-aski3-color-semantics.md): Native color-contract regressions and the paired frozen-selection guard; census evidence does not score color fidelity.
+
 ## Interpretation notes
 
 The default color path is linear-light averaging, OKLab Euclidean palette matching, and Ray Trace gamut mapping. The 60D log-polar matcher has measured sparse-support limitations; do not infer reliable orientation preservation from its descriptor size. Lab commands and experimental policies are not blanket production-readiness claims. Build the CLI on a Mac from a checkout or consume a published package tag; v0.7.0 begins the public release history. The CLI's --version reports a Git SHA (or unknown), not a semantic version.
