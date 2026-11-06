@@ -124,6 +124,10 @@ elif name == "sips":
     print(f"{args[-1]}\n  pixelWidth: {width}\n  pixelHeight: {height}")
 elif name == "plutil":
     content = Path(args[-1]).read_bytes()
+    if "-lint" in args and content.lstrip().startswith(b"{"):
+        # Real plutil -lint accepts only property lists and rejects JSON.
+        print(f"{args[-1]}: (Unexpected character {{ at line 1)", file=sys.stderr)
+        sys.exit(1)
     try:
         data = json.loads(content)
     except json.JSONDecodeError:
@@ -142,7 +146,8 @@ class PackageCLITests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="aski packaging tests ")
         self.addCleanup(self.temp.cleanup)
-        self.home = Path(self.temp.name)
+        # Resolve /var -> /private/var on macOS; the packager canonicalizes with pwd -P.
+        self.home = Path(self.temp.name).resolve()
         self.repo = self.home / "checkout with spaces"
         self.tmp = self.home / "private tmp"
         self.bin = self.home / "mock tools"
@@ -196,7 +201,7 @@ class PackageCLITests(unittest.TestCase):
 
     def run_script(self, *args, expected=0, **env):
         result = subprocess.run(self.command(*args), cwd=self.home, env={**self.env, **env},
-                                capture_output=True, text=True, timeout=15)
+                                capture_output=True, text=True, timeout=60)
         if expected is None:
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
         else:

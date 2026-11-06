@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# An exported CDPATH would redirect the cd-based path resolution below.
+unset CDPATH
 
 usage() {
     cat <<'USAGE'
@@ -155,7 +157,8 @@ $swift_version
 $xcode_version
 INFO
 archive="$work_root/output/$stem.tar.gz"
-COPYFILE_DISABLE=1 tar -czf "$archive" -C "$work_root/stage" "$stem"
+# Omit the builder's account name and macOS extended attributes (e.g. provenance).
+COPYFILE_DISABLE=1 tar --no-xattrs --numeric-owner -czf "$archive" -C "$work_root/stage" "$stem"
 
 # The binary cannot fall back to its compiled-in resource path after this removal.
 # SwiftPM also tests executables moved together with their resource-bundle siblings:
@@ -177,7 +180,8 @@ smoke_cli="$work_root/unpacked/$stem/aski"
     [[ "$height" =~ ^[1-9][0-9]*$ ]] || die "smoke PNG has invalid height"
     first_token="$(awk 'match($0, /[^[:space:]]/) { print substr($0, RSTART, 1); exit }' inspection.json)"
     [ "$first_token" = '{' ] || die "inspection output is not a JSON object"
-    plutil -lint -s -- inspection.json || die "inspection JSON is invalid"
+    # plutil -lint rejects JSON on macOS; -convert parses JSON and plists alike.
+    plutil -convert xml1 -o /dev/null -- inspection.json || die "inspection JSON is invalid"
     schema_version="$(plutil -extract schemaVersion raw -expect integer -o - -- inspection.json)" || die "missing inspection schema"
     [ "$schema_version" = 1 ] || die "unexpected inspection schema"
     inspection_columns="$(plutil -extract conversion.columns raw -expect integer -o - -- inspection.json)" || die "missing inspection columns"
