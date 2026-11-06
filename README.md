@@ -91,7 +91,7 @@ func renderCharacterArt(from image: CGImage) -> CGImage {
     let grid = DefaultConverter().convert(image, columns: 80)
     return grid.renderImage(
         font: .system(size: 12),
-        backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+        backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
         scale: 2,
         preserveSourceAspect: true
     )

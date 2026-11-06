@@ -430,6 +430,51 @@ import UniformTypeIdentifiers
         #expect(after[.systemFileNumber] as? NSNumber == before[.systemFileNumber] as? NSNumber)
     }
 
+    /// CLI hex colors are sRGB: the written PNG must carry the requested bytes.
+    /// Generic RGB construction rendered `#808080` as `#929292`.
+    @Test(arguments: [
+        (["--background", "#808080"], [128, 128, 128]),
+        (["--background", "#336699"], [51, 102, 153]),
+        (["--background", "gray"], [128, 128, 128]),
+        (["--mask-fallback", "solid", "--mask-fallback-color", "#C04020"], [192, 64, 32]),
+    ])
+    func renderedPNGHonorsSRGBHexColors(arguments: [String], expected: [Int]) throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let input = directory.appending(path: "input.png")
+        let mask = directory.appending(path: "black-mask.png")
+        let pngOutput = directory.appending(path: "out.png")
+        try writeSolidPNG(to: input, width: 80, height: 40, gray: 0)
+        try writeSolidPNG(to: mask, width: 80, height: 40, gray: 0)
+        let maskArguments = arguments.first == "--mask-fallback" ? ["--mask", mask.path] : []
+        let command = try AskiDemoCommand.parse(
+            [input.path, "--columns", "12", "--render-png", pngOutput.path] + maskArguments + arguments
+        )
+
+        #expect(command.execute(standardOutput: { _ in }, standardError: { _ in }) == .success)
+        let source = try #require(CGImageSourceCreateWithURL(pngOutput as CFURL, nil))
+        let image = try #require(CGImageSourceCreateImageAtIndex(source, 0, nil))
+        #expect(image.colorSpace?.name == CGColorSpace.sRGB)
+        let sRGB = try #require(CGColorSpace(name: CGColorSpace.sRGB))
+        let context = try #require(
+            CGContext(
+                data: nil, width: image.width, height: image.height, bitsPerComponent: 8,
+                bytesPerRow: image.width * 4, space: sRGB,
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        context.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
+        let data = try #require(context.data).assumingMemoryBound(to: UInt8.self)
+        // The solid black source draws no visible ink over the ground; the most
+        // frequent pixel is the requested background or fallback paint.
+        var counts: [[Int]: Int] = [:]
+        for offset in stride(from: 0, to: image.width * image.height * 4, by: 4) {
+            counts[(0..<4).map { Int(data[offset + $0]) }, default: 0] += 1
+        }
+        let modal = try #require(counts.max { $0.value < $1.value }?.key)
+        #expect(
+            zip(modal, expected + [255]).allSatisfy { abs($0 - $1) <= 1 },
+            "\(arguments): modal pixel \(modal), expected \(expected)")
+    }
+
     // Portrait fixture is 3:4 (768x1024, aspect 1.3333), NOT an extreme 3:1.
     // Verified empirically: at 512 columns a 3:1 (256x768) source converts to an
     // EMPTY grid — the converter floors `cellWidth = thumbnailWidth / columns` to

@@ -57,11 +57,14 @@ import CoreGraphics
             coverage: 0
         )
         let cells = Array(repeating: Array(repeating: cell, count: 3), count: 3)
+        let sourceColorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+        let sourceFallback = CGColor(colorSpace: sourceColorSpace, components: fallback.components!)!
+        let sourceGround = CGColor(colorSpace: sourceColorSpace, components: ground.components!)!
         let directGrid = ASCIIGrid(
             cells: cells,
             colorSpace: .displayP3,
-            maskFallback: .solid(fallback),
-            maskGroundColor: ground,
+            maskFallback: .solid(sourceFallback),
+            maskGroundColor: sourceGround,
             maskUsesHardEdges: true
         )
         let adaptedGrid = ASCIIGrid(
@@ -100,11 +103,14 @@ import CoreGraphics
             coverage: 0
         )
         let cells = Array(repeating: Array(repeating: cell, count: 3), count: 3)
+        let sourceColorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+        let sourceFallback = CGColor(colorSpace: sourceColorSpace, components: fallback.components!)!
+        let sourceGround = CGColor(colorSpace: sourceColorSpace, components: ground.components!)!
         let directGrid = TileGrid(
             cells: cells,
             colorSpace: .displayP3,
-            maskFallback: .solid(fallback),
-            maskGroundColor: ground,
+            maskFallback: .solid(sourceFallback),
+            maskGroundColor: sourceGround,
             maskUsesHardEdges: true
         )
         let adaptedGrid = TileGrid(

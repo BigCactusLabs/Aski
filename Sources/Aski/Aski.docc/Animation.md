@@ -23,7 +23,7 @@ let frame = animated.grid(at: 0.5)
 let rendered = animated.renderImage(
     at: 0.5,
     font: .system(size: 12),
-    backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+    backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
     scale: 2
 )
 ```

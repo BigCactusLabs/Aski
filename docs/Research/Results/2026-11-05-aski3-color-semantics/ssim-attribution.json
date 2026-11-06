@@ -1,0 +1,122 @@
+{
+  "control": [
+    {
+      "blank_score": 0.002477774855613454,
+      "blank_sha256": "102e94f0d3103e28ab058ac558f121a60464e4ae09b7533178b367373cf59052",
+      "fixture": "horizontal",
+      "generic_rgb_to_srgb": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 216,
+        "raw_sha256": "e67b40f0cf8a9074785417cb5394a2a06c6e07806909f8ea4ecdf31e28e55e18",
+        "score": 0.08140294130908333,
+        "width": 480
+      },
+      "original": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 216,
+        "raw_sha256": "581340680361274a84c644265301e101388fc690d4bf5c7f93dacd4dab8b4502",
+        "score": 0.07575288421475966,
+        "width": 480
+      },
+      "probe": "ASKI3-SSIM-attribution",
+      "source_sha256": "7e844bcf3ac6010bf1e59bbb32c47cbaa0823d9a953579694a0cc86f570cd729"
+    },
+    {
+      "blank_score": 0.0008751375004695014,
+      "blank_sha256": "fc0979d4fbcd28184da2deba9d914420caa06339556f6d3a011f22fad979c383",
+      "fixture": "diagonal",
+      "generic_rgb_to_srgb": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 252,
+        "raw_sha256": "653edcaca331cacfbc1b8245cbd7e50e88f8e66a3ae3c4f6987a8ab78cdaf3ae",
+        "score": 0.07463701808499704,
+        "width": 480
+      },
+      "original": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 252,
+        "raw_sha256": "5a269f025a04fcceb206fef4a86a9817616982c6ebca4c171dc892481c7d3e45",
+        "score": 0.07237566291470883,
+        "width": 480
+      },
+      "probe": "ASKI3-SSIM-attribution",
+      "source_sha256": "86571afa8e73c87aaefab18937f2e9ca12ecd137f7b74ab836c5d1b54c1cd4e6"
+    }
+  ],
+  "fixed": [
+    {
+      "blank_score": 0.002477774855613454,
+      "blank_sha256": "102e94f0d3103e28ab058ac558f121a60464e4ae09b7533178b367373cf59052",
+      "fixture": "horizontal",
+      "generic_rgb_to_srgb": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 216,
+        "raw_sha256": "581340680361274a84c644265301e101388fc690d4bf5c7f93dacd4dab8b4502",
+        "score": 0.07575288421475966,
+        "width": 480
+      },
+      "original": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 216,
+        "raw_sha256": "352d3bd1080cc495474e6236290dbc80386c66f2fdf80407790ff5b8d77ed944",
+        "score": 0.06950675148949562,
+        "width": 480
+      },
+      "probe": "ASKI3-SSIM-attribution",
+      "source_sha256": "7e844bcf3ac6010bf1e59bbb32c47cbaa0823d9a953579694a0cc86f570cd729"
+    },
+    {
+      "blank_score": 0.0008751375004695014,
+      "blank_sha256": "fc0979d4fbcd28184da2deba9d914420caa06339556f6d3a011f22fad979c383",
+      "fixture": "diagonal",
+      "generic_rgb_to_srgb": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 252,
+        "raw_sha256": "5a269f025a04fcceb206fef4a86a9817616982c6ebca4c171dc892481c7d3e45",
+        "score": 0.07237566291470883,
+        "width": 480
+      },
+      "original": {
+        "bitmap_info": 1,
+        "bits_per_component": 8,
+        "bits_per_pixel": 32,
+        "bytes_per_row": 1920,
+        "color_space": "kCGColorSpaceSRGB",
+        "height": 252,
+        "raw_sha256": "9a094ed41053b0b7ed5d6f719436214a8e9a4182dd4727e1199fe24892dd4dab",
+        "score": 0.07008130072440694,
+        "width": 480
+      },
+      "probe": "ASKI3-SSIM-attribution",
+      "source_sha256": "86571afa8e73c87aaefab18937f2e9ca12ecd137f7b74ab836c5d1b54c1cd4e6"
+    }
+  ]
+}
