@@ -151,9 +151,10 @@ public actor AskiRenderEngine {
         cache: inout [SIMD3<Float>: SIMD3<Float>]
     ) -> SIMD3<Float> {
         if let converted = cache[rgb] { return converted }
+        // CG clips out-of-gamut values for the matrix sRGB/Display P3 profiles.
         guard
             let converted = source.encodedColor(rgb, alpha: 1).converted(
-                to: colorSpace.encodedCGColorSpace, intent: .perceptual, options: nil
+                to: colorSpace.encodedCGColorSpace, intent: .relativeColorimetric, options: nil
             ), let components = converted.components, components.count >= 3
         else {
             preconditionFailure("Known RGB color spaces must support color matching")
@@ -180,7 +181,7 @@ public actor AskiRenderEngine {
         guard color.alpha.isFinite, color.colorSpace?.model == .rgb,
             let components = color.components, components.count >= 3
         else { return color }
-        if let name = color.colorSpace?.name, (name as String) != "kCGColorSpaceGenericRGB" {
+        if let name = color.colorSpace?.name, !MaskFallbackImageFactory.isGenericRGB(name) {
             return color
         }
         guard

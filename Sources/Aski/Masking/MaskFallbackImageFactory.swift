@@ -117,7 +117,13 @@ internal enum MaskFallbackImageFactory {
     private static func shouldTreatAsLiteralRGB(_ colorSpace: CGColorSpace?) -> Bool {
         guard let colorSpace else { return true }
         guard let name = colorSpace.name else { return true }
-        return (name as String) == "kCGColorSpaceGenericRGB"
+        return isGenericRGB(name)
+    }
+
+    /// `CGColorSpace.genericRGB` is unavailable in Swift, so read the name from
+    /// the space `CGColor(red:green:blue:alpha:)` produces.
+    static func isGenericRGB(_ name: CFString) -> Bool {
+        name == CGColor(red: 0, green: 0, blue: 0, alpha: 1).colorSpace?.name
     }
 
     private static func makeCharacterFallback(

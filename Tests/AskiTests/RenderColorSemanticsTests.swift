@@ -219,4 +219,43 @@ import Testing
             try check(image, expected: expected, tag: space(output).name!, label: "\(source) ground=\(ground) \(label)")
         }
     }
+
+    /// These Display P3 colors lie outside sRGB. The engine-adapted path must match
+    /// Core Graphics' own relative-colorimetric conversion, clipped to the sRGB
+    /// encoding range, and leave cell alpha untouched. A P3 primary clips back to
+    /// the same sRGB components, so the non-primary colors also catch a skipped
+    /// conversion.
+    @Test(
+        arguments: [SIMD3<Float>(0, 1, 0), SIMD3<Float>(0.1, 0.9, 0.4), SIMD3<Float>(1, 0.5, 0)],
+        [Float(1), 0.6])
+    func engineMatchesRelativeColorimetricForOutOfGamutP3(rgb: SIMD3<Float>, alpha: Float) async throws {
+        let sRGB = space(.sRGB)
+        let source = try #require(
+            CGColor(colorSpace: space(.displayP3), components: [CGFloat(rgb.x), CGFloat(rgb.y), CGFloat(rgb.z), 1]))
+        let extended = try #require(
+            source.converted(
+                to: CGColorSpace(name: CGColorSpace.extendedSRGB)!, intent: .relativeColorimetric, options: nil
+            )?.components)
+        #expect(extended.prefix(3).contains { $0 < 0 || $0 > 1 }, "fixture must lie outside sRGB")
+        let converted = try #require(source.converted(to: sRGB, intent: .relativeColorimetric, options: nil))
+        let components = try #require(converted.components)
+        let clipped = components.prefix(3).map { max(0, min(1, $0)) }
+        let reference = try #require(
+            CGColor(colorSpace: sRGB, components: clipped + [CGFloat(alpha)]))
+        let expected = try oracle(reference, destination: sRGB)
+        #expect(expected[3] == Int((alpha * 255).rounded()), "oracle alpha")
+
+        let grid = ASCIIGrid(
+            cells: [[ASCIICell(character: "█", displayColor: rgb, alpha: alpha, brightness: 0.5, coverage: 1)]],
+            colorSpace: .displayP3)
+        let tileGrid = TileGrid(
+            cells: [[TileCell(displayColor: rgb, alpha: alpha, brightness: 0.5, coverage: 1)]],
+            colorSpace: .displayP3)
+        let engine = AskiRenderEngine(colorSpace: .sRGB)
+        let a = try await engine.render(grid, font: font, backgroundColor: clear, scale: 1)
+        let t = try await engine.render(tileGrid, scale: 32, backgroundColor: clear)
+        for (label, image) in [("ASCII engine", a), ("tile engine", t)] {
+            try check(image, expected: expected, tag: sRGB.name!, label: "P3 \(rgb) alpha \(alpha) -> sRGB \(label)")
+        }
+    }
 }
