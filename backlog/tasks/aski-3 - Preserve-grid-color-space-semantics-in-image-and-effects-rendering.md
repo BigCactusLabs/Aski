@@ -5,7 +5,7 @@ status: Done
 assignee:
   - '@codex'
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-05T20:47:00Z'
+updated_date: '2026-11-06T17:42:00Z'
 labels:
   - correctness
   - rendering
@@ -55,6 +55,8 @@ First step: capture the current direct, effects, and engine-adapted pixel/tag be
 Source map: `Sources/Aski/ASCIICell.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `Sources/Aski/Effects/Internal/CellRasterBuilder.swift`, `Sources/Aski/Effects/AskiRenderEngine.swift`, `Sources/Aski/ColorPipelinePolicies.swift`, `Tests/AskiTests/AskiRenderEngineTests.swift`, `Tests/AskiTests/RenderCompositionPropagationTests.swift`.
 
 Pause handoff, 2026-11-05: fix/aski-3-render-color-space builds on batch/aski-current-2026-11-05 (draft PR15, head14c8697; completed ASKI-8/83/97). Protocol commit6b47141 precedes every census measurement. Public methods, evidence, SSIM contract rationale, golden review, validation, limits and next actions are in docs/Research/2026-11-05-aski3-color-semantics.md and its linked Results directory. Full gate completed before final status text; production/test hashes remain unchanged. Control checkout and local logs retained. User requested commit, push, then pause; no new task started. On resume, review this layer against the PR15 branch; ASKI-15 and ASKI-98 are follow-up options.
+
+Review repairs and re-record, 2026-11-06: CLI --background/--mask-fallback-color/--mask-ground and HDR lab --background-hex colors now built in sRGB (#808080 no longer renders #929292); engine and attributed-string gamut conversion use relative colorimetric intent (output unchanged on this host); Generic RGB mask-paint check reads the name from CGColor(red:green:blue:alpha:) once instead of a string literal; DocC/README examples tag colors as sRGB; regression tests added for the CLI colors and out-of-gamut Display P3 to sRGB engine output. Merged base 89fd227, which withdraws the ASKI-97 27.0.1 re-baseline (ASKI-97 reopened); the 27.0.1 re-baseline is not current. Re-recorded 11 composition snapshot references and the 2 DocC mask-ground test references plus their catalog assets on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, Apple M3 Max; snapshot suites passed twice without recording; full just check passed at cc98d95 (1451 core, 156 media, 2 sentinel tests). Selection census unaffected (no selection-path change); research note and result package updated.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
