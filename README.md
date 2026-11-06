@@ -81,7 +81,7 @@ Then attach the library product to your app or executable target:
 These are excerpts from a package manifest, not a complete manifest. `v0.7.0` is
 [published](https://github.com/BigCactusLabs/Aski/releases/tag/v0.7.0); the source checkout
 above also includes work since that release. In particular, the CLI's `--algorithm`,
-`--coverage`, and `--palette` options require current `main` and are not in `v0.7.0`.
+`--coverage`, and `--palette` options were added after `v0.7.0`.
 Earlier private-history tags are not available in this repository.
 
 Given a `CGImage`, the conversion-and-render path is small:
@@ -173,8 +173,6 @@ in retained research refer to private development and may not be accessible here
 Good bug reports, clearer examples, surprising renders, and careful experiments are
 all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) for setup, verification,
 research etiquette, and what belongs in a PR.
-
-If Aski is useful to you, star the repository to save it for your next project.
 
 Work lands through short-lived branches and pull requests. The [Backlog](backlog/)
 tracks tasks; [Blotter](AGENTS.md#blotter) records reusable engineering lessons. Both

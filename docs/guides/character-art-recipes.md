@@ -9,9 +9,9 @@ recipes use Aski's macOS CLI; the same conversion engine is available as a Swift
 | --- | --- |
 | ![The Cosmic Cliffs in the Carina Nebula, before conversion](../Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg) | ![The Cosmic Cliffs rendered by Aski as colored character art](../assets/hero-carina-512.png) |
 
-The render is the existing README artwork: **512 columns × 133 rows of characters**.
-Open the image to see the glyphs at full size. The recipes below use smaller grids;
-they do not reproduce that image byte for byte.
+The render is the README artwork: **512 columns × 133 rows of characters**. Open the
+image to see the glyphs at full size. The recipes below use 100–120 columns, and each
+shows the PNG its command writes.
 
 Image credit: NASA/ESA/CSA/STScI. [Source catalog](https://images.nasa.gov/details/carina_nebula)
 and [corpus provenance](../Research/Corpus/nasa-occupancy-v1/PROVENANCE.md) record the
@@ -32,36 +32,47 @@ mkdir -p /tmp/aski-recipes
 
 The first render resolves dependencies and builds the executable. Run all recipes
 from the repository root. They use the bundled Carina image, so no extra download
-or personal photograph is needed.
+or personal photograph is needed. For the default settings, see
+[README: Try it](../../README.md#try-it).
 
 **Version note:** `--algorithm`, `--coverage`, and `--palette` were added after
-`v0.7.0`. The monochrome recipe needs the current source checkout; those flags are
-not available in the `v0.7.0` CLI.
+`v0.7.0`. Every recipe below uses at least one of them, so use the source checkout;
+the `v0.7.0` CLI does not accept them.
 
-## 1. Color character art
+All three recipes use `--algorithm dotMatrix`, which picks each glyph by brightness,
+and `--coverage 1`, which applies full-strength Floyd–Steinberg dithering. The default
+`logPolar` matcher picks by shape instead. On this image it draws about 40% of the color
+grid's cells as `|`, and it leaves `minimal` blank. The
+[algorithm guide](../../Sources/Aski/Aski.docc/Algorithms.md) records the measured
+pairings and limitations.
 
-Keep the default printable-ASCII set and source-colored glyphs. Save both the text
-grid and a PNG with an exact width of 1600 pixels:
+## 1. Color ASCII
+
+The default printable-ASCII set with source-colored glyphs on black. Saves the text
+grid and a PNG exactly 1200 pixels wide:
 
 ```bash
 xcrun swift run -c release aski render \
   docs/Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg \
   --columns 120 \
+  --algorithm dotMatrix \
+  --coverage 1 \
   --output /tmp/aski-recipes/carina-color.txt \
   --render-png /tmp/aski-recipes/carina-color.png \
-  --width 1600
+  --width 1200
 
 open /tmp/aski-recipes/carina-color.png
 ```
 
-The PNG uses an opaque black background and preserves the source aspect ratio.
-The `.txt` file contains characters and line breaks, without color. Columns control
-the character grid's detail; `--width` controls the PNG's pixel width.
+![Color ASCII render of the Cosmic Cliffs: source-colored punctuation, digits and letters on black](../assets/recipes/carina-color.png)
 
-## 2. A monochrome, dithered treatment
+The PNG has an opaque black background and keeps the source aspect ratio. The `.txt`
+file holds the characters and line breaks, without color. `--columns` sets the grid's
+detail; `--width` sets the PNG's pixel width.
 
-Use the small `minimal` character set with `dotMatrix`, full dither strength, and
-white glyph ink on the default black background:
+## 2. Monochrome, dithered
+
+The small `minimal` set in white on the default black background:
 
 ```bash
 xcrun swift run -c release aski render \
@@ -73,37 +84,40 @@ xcrun swift run -c release aski render \
   --palette monochrome \
   --output /tmp/aski-recipes/carina-monochrome.txt \
   --render-png /tmp/aski-recipes/carina-monochrome.png \
-  --width 1600
+  --width 1200
 
 open /tmp/aski-recipes/carina-monochrome.png
 ```
 
-Keep `--algorithm dotMatrix` with this recipe: the default `logPolar` matcher
-currently produces an all-space grid with `minimal`. `--coverage` controls
-Floyd–Steinberg dither strength for `dotMatrix`; setting it to `0` disables dithering.
-See the [algorithm guide](../../Sources/Aski/Aski.docc/Algorithms.md) for other pairings
-and measured limitations.
+![Monochrome dithered render of the Cosmic Cliffs in white punctuation on black](../assets/recipes/carina-monochrome.png)
 
-## 3. Colored blocks on transparent ground
+Keep `--algorithm dotMatrix` here: under the default `logPolar` matcher, `minimal`
+renders every cell as a space. Set `--coverage 0` to turn dithering off.
 
-Choose Unicode block characters and an alpha-zero PNG background:
+## 3. Braille dots on a transparent ground
+
+Unicode braille cells in source color, with an alpha-zero background:
 
 ```bash
 xcrun swift run -c release aski render \
   docs/Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg \
-  --columns 100 \
-  --charset blocks \
+  --columns 120 \
+  --charset braille \
+  --algorithm dotMatrix \
+  --coverage 1 \
   --background clear \
-  --output /tmp/aski-recipes/carina-blocks.txt \
-  --render-png /tmp/aski-recipes/carina-blocks.png \
-  --width 1600
+  --output /tmp/aski-recipes/carina-braille.txt \
+  --render-png /tmp/aski-recipes/carina-braille.png \
+  --width 1200
 
-open /tmp/aski-recipes/carina-blocks.png
+open /tmp/aski-recipes/carina-braille.png
 ```
 
-This makes the ground transparent; it does not remove glyphs selected for the
-source image's background. Use a raster mask when you want a cutout. A viewer may
-display transparent pixels over a checkerboard, white, or another canvas color.
+![Braille render of the Cosmic Cliffs: colored dots on a transparent background](../assets/recipes/carina-braille.png)
+
+Only the space between dots is transparent, so the page or app behind the PNG shows
+through. Your viewer may draw that area as a checkerboard, white, or its own canvas
+color. To cut a subject out of the image instead, use a raster mask.
 
 ## Use your own image or integrate in Swift
 
@@ -119,10 +133,7 @@ shows how to load a `CGImage`, convert it once, and choose text or image output.
 
 ## Reproduction notes
 
-These commands were checked against the CLI source at
-[`06adfdb`](https://github.com/BigCactusLabs/Aski/tree/06adfdb78cfb9af122f23903d05e529364d281f4).
-They have not been executed on a Mac for this guide, and the gallery above reuses
-existing committed artwork rather than newly generated recipe outputs. Raster output
-can vary with OS, fonts, and toolchain; the
-[contributor guide](../../CONTRIBUTING.md#toolchain-and-snapshot-baseline) records
+The three recipe images are the unedited PNGs these commands wrote on macOS 27.0.1
+with Swift 6.4 (Xcode toolchain). Raster output can vary with OS, fonts, and toolchain;
+the [contributor guide](../../CONTRIBUTING.md#toolchain-and-snapshot-baseline) records
 the snapshot baseline.
