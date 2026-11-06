@@ -73,7 +73,13 @@ elif name == "xcrun" and args[:2] == ["swift", "build"]:
         sys.exit(23)
     shutil.copyfile(__file__, output / "aski")
     (output / "aski").chmod(0o755)
+    # Swift Build (the default) nests resources in Contents/Resources; native is flat.
     bundle = output / "Aski_Aski.bundle"
+    if os.environ.get("MOCK_BUNDLE_LAYOUT", "contents") == "contents":
+        bundle.mkdir()
+        (bundle / "Contents").mkdir()
+        (bundle / "Contents/Info.plist").write_text("mock bundle plist")
+        bundle = bundle / "Contents/Resources"
     shutil.copytree(source / "Sources/Aski/Resources", bundle)
     shutil.copyfile(source / "Sources/Aski/PrivacyInfo.xcprivacy", bundle / "PrivacyInfo.xcprivacy")
     (bundle / "generated-extra.dat").write_text("generated bundle resource")
@@ -90,6 +96,8 @@ elif name == "xcrun" and args[:2] == ["lipo", "-archs"]:
 elif name == "aski":
     assert not event["private_paths_remaining"], "smoke ran before private source/build removal"
     bundle = Path(__file__).parent / "Aski_Aski.bundle"
+    if (bundle / "Contents/Resources").is_dir():
+        bundle = bundle / "Contents/Resources"
     assert (bundle / "generated-extra.dat").read_text() == "generated bundle resource"
     fault = os.environ.get("MOCK_SMOKE_FAULT")
     if args == ["--help"]:
@@ -230,17 +238,17 @@ class PackageCLITests(unittest.TestCase):
         self.assertFalse(self.events("xcrun"))
 
     def test_archive_contains_complete_relocated_product_and_matching_checksums(self):
-        for arch in ("arm64", "x86_64"):
-            with self.subTest(architecture=arch):
-                self.output = self.home / f"release output {arch}"
-                self.package(MOCK_ARCH=arch)
-                stem = f"aski-{self.commit[:12]}-macos-{arch}"
+        for layout, prefix in (("contents", "Aski_Aski.bundle/Contents/Resources"), ("flat", "Aski_Aski.bundle")):
+            with self.subTest(layout=layout):
+                self.output = self.home / f"release output {layout}"
+                self.package(MOCK_BUNDLE_LAYOUT=layout)
+                stem = f"aski-{self.commit[:12]}-macos-arm64"
                 archive = self.output / f"{stem}.tar.gz"
                 self.assertEqual({p.name for p in self.output.iterdir()}, {archive.name, "SHA256SUMS"})
                 digest, filename = (self.output / "SHA256SUMS").read_text().split()
                 self.assertEqual(filename, archive.name)
                 self.assertEqual(digest, hashlib.sha256(archive.read_bytes()).hexdigest())
-                unpacked = self.home / f"consumer {arch}"
+                unpacked = self.home / f"consumer {layout}"
                 unpacked.mkdir()
                 subprocess.run(["tar", "-xzf", str(archive), "-C", str(unpacked)], check=True, timeout=10)
                 self.assertEqual([p.name for p in unpacked.iterdir()], [stem])
@@ -248,19 +256,23 @@ class PackageCLITests(unittest.TestCase):
                 self.assertTrue(os.access(product / "aski", os.X_OK))
                 for path in (self.repo / "Sources/Aski/Resources").rglob("*"):
                     if path.is_file():
-                        target = product / "Aski_Aski.bundle" / path.relative_to(self.repo / "Sources/Aski/Resources")
+                        target = product / prefix / path.relative_to(self.repo / "Sources/Aski/Resources")
                         self.assertEqual(target.read_bytes(), path.read_bytes())
                 for source, target in (("LICENSE", "LICENSE"), ("NOTICE", "NOTICE"),
                                        ("Sources/Aski/Resources/Fonts/OFL.txt", "OFL.txt"),
-                                       ("Sources/Aski/PrivacyInfo.xcprivacy", "Aski_Aski.bundle/PrivacyInfo.xcprivacy")):
+                                       ("Sources/Aski/PrivacyInfo.xcprivacy", f"{prefix}/PrivacyInfo.xcprivacy")):
                     self.assertEqual((product / target).read_bytes(), (self.repo / source).read_bytes())
-                self.assertEqual((product / "Aski_Aski.bundle/generated-extra.dat").read_text(), "generated bundle resource")
-                self.assertIn(self.commit, (product / "release-info.txt").read_text())
+                self.assertEqual((product / prefix / "generated-extra.dat").read_text(), "generated bundle resource")
+                info = (product / "release-info.txt").read_text()
+                self.assertIn(self.commit, info)
+                self.assertIn("architecture: arm64\n", info)
+                self.assertIn(f"resource bundle layout: {'Contents/Resources' if layout == 'contents' else 'flat'})", info)
         builds = [event["args"] for event in self.events("xcrun") if event["args"][:2] == ["swift", "build"]]
         self.assertEqual(len(builds), 4)
         for args in builds:
             self.assertIn("--force-resolved-versions", args)
-            for flag, value in (("--build-system", "native"), ("-c", "release"), ("--product", "aski")):
+            self.assertNotIn("--build-system", args)
+            for flag, value in (("-c", "release"), ("--product", "aski")):
                 self.assertEqual(args[args.index(flag) + 1], value)
             self.assertTrue(Path(args[args.index("--scratch-path") + 1]).is_relative_to(self.tmp))
         smoke = self.events("aski")
@@ -310,7 +322,7 @@ class PackageCLITests(unittest.TestCase):
         self.assertTrue(all(not event["private_paths_remaining"] for event in self.events("aski")))
 
     def test_unknown_or_multiple_architectures_cannot_be_mislabeled(self):
-        for arch in ("armv7", "arm64 x86_64"):
+        for arch in ("x86_64", "armv7", "arm64 x86_64"):
             with self.subTest(architecture=arch):
                 self.package(expected=1, MOCK_ARCH=arch)
                 self.assertFalse(self.output.exists())

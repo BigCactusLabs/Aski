@@ -84,8 +84,10 @@ release-preflight *args:
 
 # Build a relocatable CLI candidate; output_dir must not already exist.
 # Export the argument so paths are not interpolated as shell code.
+# [no-cd]: a relative output_dir resolves against the invoking directory.
+[no-cd]
 package-cli $output_dir:
-    ./Scripts/package-cli.sh --output-dir "$output_dir"
+    "{{ justfile_directory() }}/Scripts/package-cli.sh" --output-dir "$output_dir"
 
 # Portable script regression tests (Python 3 standard library; fake Apple tools).
 # Separate from the unchanged, macOS-only acceptance gate.

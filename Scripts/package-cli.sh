@@ -11,7 +11,8 @@ Build a macOS CLI release candidate from the clean, committed checkout.
 The output directory must not exist; its parent must already exist.
 It receives an archive and SHA256SUMS only after an extracted render smoke check.
 
-Requires macOS, full Xcode with the package's Swift toolchain, and Git.
+Requires an Apple silicon Mac, full Xcode with the package's Swift toolchain, and Git.
+The candidate is arm64-only; it is not a universal binary.
 Run the repository's normal release gates separately on the same commit.
 This command does not sign, notarize, tag, upload, or install the candidate.
 USAGE
@@ -101,10 +102,11 @@ source_root="$work_root/source"
 [ -s "$source_root/Package.resolved" ] || die "Package.resolved is required"
 cp "$source_root/docs/Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg" "$work_root/smoke/input.jpg"
 
-# Both calls use the same native backend, lockfile, configuration and scratch path.
+# Both calls use the toolchain's default build system (Swift Build since Swift 6.4;
+# the native backend is deprecated there), the lockfile, configuration and scratch path.
 # --force-resolved-versions: https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/SwiftBuild.md
 build_args=(swift build --package-path "$source_root" --scratch-path "$work_root/build"
-    --build-system native --force-resolved-versions -c release --product aski)
+    --force-resolved-versions -c release --product aski)
 printf 'package-cli: building committed source %s\n' "$source_commit" >&2
 set -m
 xcrun "${build_args[@]}" >&2 &
@@ -117,7 +119,7 @@ case "$bin_dir" in "$work_root/build"/*) ;; *) die "binary directory escaped the
 [ -x "$bin_dir/aski" ] || die "aski executable is missing"
 [ -d "$bin_dir/Aski_Aski.bundle" ] && [ ! -L "$bin_dir/Aski_Aski.bundle" ] || die "Aski_Aski.bundle is missing"
 architecture="$(xcrun lipo -archs "$bin_dir/aski")"
-case "$architecture" in arm64|x86_64) ;; *) die "expected one supported architecture, got: $architecture" ;; esac
+[ "$architecture" = arm64 ] || die "expected an arm64-only executable, got: $architecture"
 stem="aski-${source_commit:0:12}-macos-$architecture"
 package_dir="$work_root/stage/$stem"
 mkdir "$package_dir"
@@ -131,24 +133,30 @@ cp "$source_root/Sources/Aski/Resources/Fonts/OFL.txt" "$package_dir/OFL.txt"
 bundle="$package_dir/Aski_Aski.bundle"
 bundle_links="$(find "$bundle" -type l -print)" || die "cannot inspect bundle links"
 [ -z "$bundle_links" ] || die "resource bundle must not contain symlinks"
+# Swift Build emits a macOS bundle (Contents/Resources); the native backend a flat one.
+if [ -d "$bundle/Contents/Resources" ]; then
+    resources="$bundle/Contents/Resources"; bundle_layout="Contents/Resources"
+else
+    resources="$bundle"; bundle_layout="flat"
+fi
 for resource_dir in Fonts ShapeData Kernels; do
-    diff -qr "$source_root/Sources/Aski/Resources/$resource_dir" "$bundle/$resource_dir" >&2 ||
+    diff -qr "$source_root/Sources/Aski/Resources/$resource_dir" "$resources/$resource_dir" >&2 ||
         die "incomplete or changed $resource_dir resources"
 done
 for charset in standard minimal blocks dots lines diagonal cross diamond mixed braille; do
-    [ -s "$bundle/ShapeData/$charset.bin" ] || die "missing character set: $charset"
+    [ -s "$resources/ShapeData/$charset.bin" ] || die "missing character set: $charset"
 done
 for resource in Fonts/CourierPrime-Regular.ttf Fonts/OFL.txt Kernels/default.metallib PrivacyInfo.xcprivacy; do
-    [ -s "$bundle/$resource" ] || die "missing resource: $resource"
+    [ -s "$resources/$resource" ] || die "missing resource: $resource"
 done
-cmp -s "$source_root/Sources/Aski/PrivacyInfo.xcprivacy" "$bundle/PrivacyInfo.xcprivacy" || die "privacy manifest changed"
+cmp -s "$source_root/Sources/Aski/PrivacyInfo.xcprivacy" "$resources/PrivacyInfo.xcprivacy" || die "privacy manifest changed"
 cat > "$package_dir/release-info.txt" <<INFO
 Aski CLI release candidate
 source-commit: $source_commit
 architecture: $architecture
 build-macos: $build_os
 configuration: release
-build-system: native
+build-system: toolchain default (resource bundle layout: $bundle_layout)
 dependencies: Package.resolved (--force-resolved-versions)
 signing: no distribution signing or notarization performed
 version-note: CLI --version probes the working directory; source-commit identifies this archive.
