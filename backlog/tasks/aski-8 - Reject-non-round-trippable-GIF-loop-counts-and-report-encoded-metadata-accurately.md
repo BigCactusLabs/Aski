@@ -7,7 +7,7 @@ status: Done
 assignee:
   - '@codex'
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-05T18:54:00Z'
+updated_date: '2026-11-06T17:30:00Z'
 labels:
   - video
   - gif
@@ -61,10 +61,12 @@ Native verification on macOS 27.0.1 / Xcode 27.0 / Swift 6.4 established the acc
 Full gate ran on the combined batch. Format, build, research registry and repo map passed; core tests stopped on unrelated composition/effect/mask snapshot mismatches. A clean detached origin/main 06adfdb control reproduced all 16 isolated mismatches on macOS 27.0.1/Xcode 27.0/Swift 6.4. No goldens or thresholds changed. AC5 remains unchecked and task stays In Progress because just check is not green.
 
 Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
+
+2026-11-06 correction: the ASKI-97 re-baseline cited above was withdrawn (host-dependent drift; original goldens restored in 25460c3). This task's closure does not depend on it: with the original goldens, full just check passed on an Apple M3 Max host with macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4 (1441 core, 156 media, 2 sentinels, DocC). The snapshot mismatches seen earlier were host-dependent raster drift unrelated to this change; ASKI-78 owns that policy.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Rejects loop counts outside the natively verified 0...32767 ImageIO range before destination creation with GIFEncodeError.invalidLoopCount, and reports finalized loop metadata. Boundary, unchanged-destination, source-loop preservation and valid override regressions pass. Public video docs explain the range and semantics. Full local gate and an additional parallel-core stability run pass; prior snapshot blocker is closed by ASKI-97.
+Rejects loop counts outside the natively verified 0...32767 ImageIO range before destination creation with GIFEncodeError.invalidLoopCount, and reports finalized loop metadata. Boundary, unchanged-destination, source-loop preservation and valid override regressions pass. Public video docs explain the range and semantics. Full local gate passes with the original render goldens on an M3 Max macOS 27.0.1 host; the earlier snapshot mismatches were host-dependent drift, and the ASKI-97 re-baseline was withdrawn.
 <!-- SECTION:FINAL_SUMMARY:END -->

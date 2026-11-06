@@ -5,7 +5,7 @@ status: Done
 assignee:
   - '@codex'
 created_date: 2026-09-27 17:36
-updated_date: '2026-11-05T18:54:00Z'
+updated_date: '2026-11-06T17:30:00Z'
 labels:
   - cli
   - correctness
@@ -53,10 +53,12 @@ Implemented direct text streams for /dev/null and /dev/stdout, special-file reje
 Closed-pipe handling is now descriptor-scoped with restoration; four isolated cases prove successful writes, typed failures, rollback, no leftovers and restored flags. All ten CLI subprocess probes pass. Full just check is blocked by existing composition/effect/mask snapshots, reproduced unchanged on clean origin/main 06adfdb. Task remains In Progress pending the repository-wide gate; no golden files or thresholds changed.
 
 Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
+
+2026-11-06 correction: the ASKI-97 re-baseline cited above was withdrawn (host-dependent drift; original goldens restored in 25460c3). This task's closure does not depend on it: with the original goldens, full just check passed on an Apple M3 Max host with macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4 (1441 core, 156 media, 2 sentinels, DocC). The snapshot mismatches seen earlier were host-dependent raster drift unrelated to this change; ASKI-78 owns that policy.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Text output to /dev/null and /dev/stdout writes directly, including supported aliases; unsupported special targets fail before staging. Companion regular files retain transactional rollback. Descriptor-scoped SIGPIPE handling reports closed-pipe errors and restores flags without changing process-wide signals. Focused tests, ten native CLI scenarios, full local gate and parallel-core stability repeat pass.
+Text output to /dev/null and /dev/stdout writes directly, including supported aliases; unsupported special targets fail before staging. Companion regular files retain transactional rollback. Descriptor-scoped SIGPIPE handling reports closed-pipe errors and restores flags without changing process-wide signals. Focused tests, ten native CLI scenarios and the full local gate pass with the original render goldens on an M3 Max macOS 27.0.1 host; the ASKI-97 re-baseline was withdrawn.
 <!-- SECTION:FINAL_SUMMARY:END -->
