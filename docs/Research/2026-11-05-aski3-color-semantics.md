@@ -4,12 +4,12 @@ slug: 2026-11-05-aski3-color-semantics
 date: 2026-11-05
 status: complete
 subsystem: [color-science, tile-grid]
-summary: "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Full local gate passes; reviewed goldens and migration guidance accompany the correction."
+summary: "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Review repairs (sRGB CLI colors, relative colorimetric intent) leave selection untouched; goldens were re-recorded on macOS 27.0.1 / Xcode 27.0 on an M3 Max after the ASKI-97 re-baseline was withdrawn."
 related_specs: [Sources/Aski/ASCIICell.swift, Sources/Aski/Tiles/TileCell.swift, docs/agents/research-methodology.md, docs/Research/2026-09-02-aski-31-lattice-no-harm.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1, docs/Research/Corpus/nasa-occupancy-v1]
 runners: [AskiColorLab]
 results: [docs/Research/Results/2026-11-05-aski3-color-semantics]
-next_action: "Review ASKI-3 above draft PR15. ASKI-15 and ASKI-98 remain follow-up options; work is paused at the user request."
+next_action: "Review ASKI-3 with its review repairs and re-recorded goldens. ASKI-15 and ASKI-98 remain follow-up options."
 ---
 
 # ASKI-3 — color interpretation and frozen-selection guard
@@ -145,6 +145,52 @@ This completes ASKI-3 on `fix/aski-3-render-color-space`, above the existing
 checkout and local execution logs are retained. No follow-up implementation has
 started. Review this branch against the PR15 branch to keep the two batches
 separate. Work pauses after committing and pushing this layer.
+
+### Review repairs and re-record — 2026-11-06
+
+Review repairs followed the census. They change raster and CLI color construction only:
+
+- The CLI's `--background`, `--mask-fallback-color` and `--mask-ground` colors, and
+  the HDR lab's `--background-hex`, are built in sRGB instead of Generic RGB.
+  Before, `aski render --background "#808080"` wrote `#929292` pixels while its
+  manifest recorded `#808080FF`.
+- `AskiRenderEngine` gamut conversion and attributed-string color resolution use
+  the relative colorimetric intent. Core Graphics clips out-of-gamut values for
+  the matrix sRGB and Display P3 profiles, and every intent gave identical
+  components on the re-record host, so output did not change.
+- The literal Generic RGB mask-paint check compares against the color-space name
+  that `CGColor(red:green:blue:alpha:)` produces, read once. It no longer uses a
+  string literal. Behavior is unchanged.
+- DocC and README examples tag their colors as sRGB.
+
+Regression tests cover the first two items. A CLI render test decodes the
+written PNG for gray, non-neutral and mask-fallback colors. An engine test
+converts Display P3 colors that lie outside sRGB to sRGB output and compares
+them with Core Graphics' own relative colorimetric conversion. Both tests failed
+against a temporary revert of their fix. `review-repairs.patch` and the
+`review_repairs` entry in `source-sha256.json` in the
+[result package](Results/2026-11-05-aski3-color-semantics/README.md) identify
+these source changes. `production.patch` still identifies the census code.
+
+None of these repairs touches glyph selection, sampling or the conversion color
+path that the `selection-ceiling` instrument scores. The census therefore still
+describes this code and was not rerun.
+
+The branch then merged the base that withdraws the ASKI-97 re-baseline. The
+control's macOS 27.0.1 render baseline mentioned above is no longer current, and
+ASKI-97 is open again. Fifteen CoreImage-path references were re-recorded with
+`SNAPSHOT_TESTING_RECORD=failed`. The two DocC mask-ground assets were
+regenerated together with `ASKI_RECORD_MASK_GROUND_DOCC=1` and stay
+byte-identical to their test references. The re-record host was macOS 27.0.1
+(26A434), Xcode 27.0 (27A266a) and Swift 6.4 on an Apple M3 Max. That is the
+host on which the restored original goldens pass. Two later non-recording
+snapshot runs passed every test. Against the original goldens, each re-recorded
+image changes by the same pixel counts and maximum channel deltas as the census
+review recorded, with at most two pixels' difference. Against this branch's
+earlier recordings, each differs by at most one 8-bit step, with alpha
+unchanged. That is the host-dependent drift ASKI-97 documents.
+`golden-deltas.csv` now uses the base's original goldens as `before`.
+Exact rasters remain host-dependent, as ASKI-78 tracks.
 
 Core Graphics contract references: Apple's
 [component constructor](https://developer.apple.com/documentation/coregraphics/cgcolor/init(red:green:blue:alpha:)),

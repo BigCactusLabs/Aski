@@ -1515,7 +1515,7 @@
         "docs/Research/Corpus/nasa-occupancy-v1"
       ],
       "date" : "2026-11-05",
-      "next_action" : "Review ASKI-3 above draft PR15. ASKI-15 and ASKI-98 remain follow-up options; work is paused at the user request.",
+      "next_action" : "Review ASKI-3 with its review repairs and re-recorded goldens. ASKI-15 and ASKI-98 remain follow-up options.",
       "path" : "docs/Research/2026-11-05-aski3-color-semantics.md",
       "related_specs" : [
         "Sources/Aski/ASCIICell.swift",
@@ -1535,7 +1535,7 @@
         "color-science",
         "tile-grid"
       ],
-      "summary" : "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Full local gate passes; reviewed goldens and migration guidance accompany the correction.",
+      "summary" : "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Review repairs (sRGB CLI colors, relative colorimetric intent) leave selection untouched; goldens were re-recorded on macOS 27.0.1 / Xcode 27.0 on an M3 Max after the ASKI-97 re-baseline was withdrawn.",
       "title" : "ASKI-3 — color interpretation correction and frozen-selection guard"
     }
   ],
@@ -2003,6 +2003,8 @@
         "comparison.csv",
         "production.patch",
         "production.patch.sha256",
+        "review-repairs.patch",
+        "review-repairs.patch.sha256",
         "source-sha256.json",
         "ssim-attribution.json",
         "raster-attribution.json",
@@ -2018,11 +2020,13 @@
         "After executable SHA-256: 4052c0e1ab39d9a9f1339f27c707c403498dc85582f8191aa202642487698f25",
         "Release builds; macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4",
         "All input asset hashes, CSV hashes, and actual run arguments retained in sanitized per-side provenance; five production source hashes retained in source-sha256.json",
+        "Review repairs after the census (sRGB CLI colors, relative colorimetric intent, Generic RGB name check) are in review-repairs.patch on top of ef5cf51; they do not touch the selection path, so the census was not rerun",
+        "Goldens re-recorded 2026-11-06 after merging the ASKI-97 re-baseline withdrawal; golden-deltas.csv before = original goldens at 89fd227; host macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, Apple M3 Max",
         "Monochrome sRGB selection instrument; pooled corpus rows do not measure Vesper Display P3 color fidelity or exclude cancelling per-fixture changes"
       ],
       "runner" : "AskiColorLab",
       "schema_version" : "1",
-      "summary" : "ASKI-3 paired selection guard passes: all six production MAE/GMSD ratios equal 1.0 across 75468 cells per side; all P/F quality and selection fields exactly unchanged. Pooled monochrome sRGB evidence only; no Display P3 Vesper color-quality claim. Integration validation is recorded in the linked research note."
+      "summary" : "ASKI-3 paired selection guard passes: all six production MAE/GMSD ratios equal 1.0 across 75468 cells per side; all P/F quality and selection fields exactly unchanged. Pooled monochrome sRGB evidence only; no Display P3 Vesper color-quality claim. Review repairs leave selection untouched; goldens re-recorded on an M3 Max host. Integration validation is recorded in the linked research note."
     },
     {
       "aski_git_sha" : "b17e791a8a8ddb3b4d09cf330d6928db46ef3c07",

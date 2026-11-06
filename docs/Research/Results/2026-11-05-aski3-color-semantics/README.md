@@ -31,7 +31,12 @@ executable used rule revision `6b47141` plus the production patch whose SHA-256 
 `production.patch` preserves that source change; `production.patch.sha256` and
 `source-sha256.json` identify the patch and the five corrected production files.
 Both release executables ran on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), and
-Swift 6.4. Build commands and executable paths relative to each checkout are
+Swift 6.4. Review repairs made after the census are recorded separately in
+`review-repairs.patch` (diffed against `ef5cf51`) with its `.sha256` and the
+`review_repairs` entry in `source-sha256.json`. They change CLI color
+construction, the gamut-conversion intent and the Generic RGB name check. They
+do not touch selection, so this census still applies to the code and was not
+rerun. Build commands and executable paths relative to each checkout are
 recorded in provenance. Asset attribution remains with the linked corpus manifests.
 
 ## Limits
@@ -79,7 +84,14 @@ it is an evidence generator, not a permanent correctness oracle.
 ## Golden and alpha review
 
 `golden-deltas.csv` records the before/after PNG hashes, dimensions, and decoded
-RGBA differences for all 61 changed image references. Both sides were visually
+RGBA differences for all 61 changed image references. Since 2026-11-06 its `before`
+column holds the base's original goldens (`89fd227`, after the ASKI-97
+re-baseline was withdrawn). Its `after` column holds the references re-recorded
+on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, Apple M3 Max. Only
+the 15 rows whose bytes changed were recomputed. Their pixel counts and maximum
+deltas match the earlier recording to within two pixels.
+`docc-asset-hashes.json` records the regenerated DocC mask-ground assets, which
+are byte-identical to their test references. Both sides were visually
 inspected in paired sheets, with a larger Vesper comparison. Glyph/tile layouts
 remain the same; color and tone change. Source control retains the old references
 at the rule commit. The raw G0 reference was also inspected at enlarged scale:
