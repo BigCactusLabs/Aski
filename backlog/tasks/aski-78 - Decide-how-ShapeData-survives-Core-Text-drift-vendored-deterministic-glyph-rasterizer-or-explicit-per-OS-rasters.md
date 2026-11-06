@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: 2026-09-23 15:47
-updated_date: '2026-11-05T18:54:00Z'
+updated_date: '2026-11-06T17:30:00Z'
 labels:
   - spike
   - gate
@@ -33,4 +33,6 @@ The ASKI-51 audit TRIGGERED on macOS 27.0 (26A428) / Xcode 27.0 (27A266a) / Swif
 
 <!-- SECTION:NOTES:BEGIN -->
 ASKI-97 repeated the read-only audit on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4. Nine of ten sets drift; max component delta 0.0451757461, standard brightness sort changes, braille byte-identical. ShapeData remains untouched. Retained CSVs: docs/Research/Results/2026-11-05-aski97-render-drift/. Summary matches the known macOS 27 trigger; no earlier per-glyph CSV comparison was possible. ASKI-97 separately advances exact render goldens to 27.0.1 and records the cross-OS limitation in CONTRIBUTING. This task still owns the durable raster/platform policy decision.
+
+2026-11-06 correction: the ASKI-97 move of exact render goldens to 27.0.1 was withdrawn and the original goldens restored (25460c3). An M3 Max host with the same macOS 27.0.1 (26A434) and Xcode 27.0 (27A266a) builds passes them, while the recording host saw 16 one-step differences, so exact raster output is host-dependent. AC4's golden policy must cover hosts, not only OS versions.
 <!-- SECTION:NOTES:END -->

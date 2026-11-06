@@ -1,6 +1,12 @@
-# Exact-render baseline evidence
+# Exact-render drift evidence (re-baseline withdrawn)
 
-This change updates 16 exact render PNGs using the measurements below. No comparator tolerance, renderer source, font vector, or frozen Vesper preset test was changed.
+**Status: withdrawn.** This evidence first supported replacing 16 exact render PNGs. That re-baseline was withdrawn on 2026-11-06 and the original goldens from `06adfdb` were restored. The measurements below are kept as history; they describe raster drift on the recording host, not a new baseline.
+
+## Non-reproduction on a second host
+
+A second host with the same OS and toolchain builds, macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, on an Apple M3 Max, did not reproduce the drift. In detached checkouts, `xcrun swift test --skip-build --no-parallel --filter 'CompositionSnapshotTests|EffectKernelSnapshotTests|MaskSnapshotTests'` passed 11/11 on the original goldens at `06adfdb`, and the re-baselined commit `14c8697` failed exactly the 16 PNGs it replaced, each by one 8-bit step. The recording host's hardware was not recorded.
+
+The OS build, Xcode build, and Swift version match on both hosts, so the 16 differences depend on the host (hardware, GPU, or other host state), not only on the OS patch version. Replacing the goldens would move the failure from one host to the other. The original goldens stay, and a policy for host-dependent exact rasters belongs with ASKI-78. The original no-harm reasoning below still holds: the drift is one step per channel and no comparator tolerance, renderer source, font vector, or frozen Vesper preset test changed.
 
 ## Provenance
 
@@ -42,8 +48,8 @@ The fraction is changed pixels divided by total pixels; CSV fractions are unitle
 
 ## Scope and limits
 
-- Only these 16 render PNGs are replaced. The frozen Vesper preset tests, selection goldens, matching vectors, production source, and strict comparison settings remain unchanged.
-- The old OS is unavailable, so this run cannot directly reproduce the original raster environment or isolate the exact OS/framework cause.
+- The re-baseline replaced only these 16 render PNGs, and that replacement is now withdrawn. The frozen Vesper preset tests, selection goldens, matching vectors, production source, and strict comparison settings remain unchanged.
+- The old OS is unavailable, so this run cannot directly reproduce the original raster environment or isolate the exact OS/framework cause. The second-host comparison above shows the same OS build can reproduce the original goldens.
 - Four stable isolated captures establish repeatability in that context. A fresh parallel control core run (1,434 tests) also emitted all 16 images byte-identical to the isolated captures. An earlier changed-tree core run reported 15 issues, omitting mask-before; the fresh control run did not reproduce that discrepancy. The original run's image was not retained separately, so its cause is unproved.
 - No before/after matcher quality claim is made. This change does not change a frozen-preset golden; a future change that does must carry its required MAE/GMSD no-harm census.
 - The changed tree passes the three affected snapshot test functions plus all seven `VesperPresetTests` (10 tests total). Final full-gate and parallel-core stability results are recorded in ASKI-97. This evidence makes no cross-OS exact-render reproducibility claim.
