@@ -121,9 +121,15 @@ internal enum MaskFallbackImageFactory {
     }
 
     /// `CGColorSpace.genericRGB` is unavailable in Swift, so read the name from
-    /// the space `CGColor(red:green:blue:alpha:)` produces.
+    /// the space `CGColor(red:green:blue:alpha:)` produces. Cached as `String`
+    /// because `CFString` is not `Sendable`.
+    private static let genericRGBName: String? = {
+        let space = CGColor(red: 0, green: 0, blue: 0, alpha: 1).colorSpace
+        return space?.name as String?
+    }()
+
     static func isGenericRGB(_ name: CFString) -> Bool {
-        name == CGColor(red: 0, green: 0, blue: 0, alpha: 1).colorSpace?.name
+        (name as String) == genericRGBName
     }
 
     private static func makeCharacterFallback(
