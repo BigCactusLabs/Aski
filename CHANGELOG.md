@@ -18,7 +18,11 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   gamut. `AskiRenderEngine` converts colors across gamuts and preserves masked
   background colorimetry. Raster colors, including mid-gray neutrals, change; glyph selection and
   attributed-string output do not. Review saved renders and remove compensation
-  for the previous Generic RGB interpretation; see the rendering guide.
+  for the previous Generic RGB interpretation; see the rendering guide. The CLI
+  now builds `--background`, `--mask-fallback-color`, and `--mask-ground` colors in
+  sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
+  `#929292` before) and gray or colored values now match the manifest's
+  `#RRGGBBAA` record.
 - **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
   (`0` means infinite; `1` means once), rejects unsupported values before opening the
   destination, and reports the loop metadata read from the finalized file.
