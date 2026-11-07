@@ -11,6 +11,15 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Fixed
+
+- **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
+  (`0` means infinite; `1` means once), rejects unsupported values before opening the
+  destination, and reports the loop metadata read from the finalized file.
+- **CLI text output supports `/dev/null` and `/dev/stdout` (ASKI-83).** Text streams are
+  written directly after regular outputs are ready. Other special destinations are
+  rejected with an explicit reason; device nodes are never staged or replaced.
+
 ### Added
 
 - **`aski render` selects the algorithm, dither strength and palette (ASKI-82).** New flags
