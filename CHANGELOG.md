@@ -45,6 +45,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Documentation
 
+- **README hero regenerated from the current build (ASKI-15).** The previous Carina hero
+  could not be reproduced by any converter build: it had about 1.9× the source's
+  per-cell chroma and a 17% pure-black floor, while every build since June 2026 matches
+  the source's color. The new hero is a default-settings render, and its caption gives
+  the command and the correct 134-row grid size. Converter output is unchanged; see the
+  [ASKI-15 note](docs/Research/2026-11-07-aski15-hero-provenance.md).
 - **logPolar pairings match measured behavior (ASKI-79).** `logPolar` is now recommended with
   `standard` and `braille` only. At the default `oversample`, `minimal`, `dots`, `diagonal`, `cross`
   and `diamond` render every cell as a space under `logPolar`, and `blocks`, `lines` and `mixed`
