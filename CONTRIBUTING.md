@@ -190,6 +190,13 @@ expectations; never describe an earlier commit's checks as verification of a lat
 The public release history begins at v0.7.0. Earlier tags, PR numbers, and commit SHAs
 in retained notes refer to private development and are not available in this history.
 
+For a CLI distribution candidate, run `just package-cli /tmp/aski-cli-candidate`
+from a clean checkout after the gates above. The destination must be new. The
+[distribution guide](docs/guides/distribution.md) explains the isolated build,
+resource checks, relocated smoke test, archive metadata, and remaining release
+steps. Packaging is a separate check; it does not run the full acceptance gate or
+publish assets. The same guide covers the Swift Package Index documentation config.
+
 ## Licensing and attribution
 
 Keep [LICENSE](LICENSE), [NOTICE](NOTICE), bundled-font notices, and corpus attribution
