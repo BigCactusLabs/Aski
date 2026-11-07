@@ -20,36 +20,51 @@ import Testing
         #expect(score < 0.2, "MSSIM = \(score)")
     }
 
+    // These checks cover spatial arrangement and a non-blank result. Native
+    // color regressions and goldens own color/tone fidelity; the census guards
+    // glyph selection. Total MSSIM also responds to tone, not just structure.
     @Test func convertAndRenderBackPreservesHorizontalGradientStructure() {
         let source = TestImages.horizontalGradient(width: 400, height: 200)
-        let grid = DefaultConverter().convert(source, columns: 80)
-        let rendered = grid.renderImage(
-            font: .system(size: 10),
-            backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
-            scale: 1
-        )
-        let score = Self.computeMSSIM(source: source, rendered: rendered)
-        let blank = Self.solidGray(0, width: rendered.width, height: rendered.height)
-        let blankScore = Self.computeMSSIM(source: source, rendered: blank)
-
-        #expect(score >= 0.07, "MSSIM = \(score)")
-        #expect(score > blankScore + 0.03, "MSSIM = \(score), blank MSSIM = \(blankScore)")
+        // Rows are identical here: reversing columns supplies the discriminator.
+        Self.expectSpatialArrangementPreserved(source: source)
     }
 
     @Test func convertAndRenderBackPreservesDiagonalStructure() {
         let source = Self.diagonalGradient(width: 400, height: 240)
+        Self.expectSpatialArrangementPreserved(source: source)
+    }
+
+    private static func expectSpatialArrangementPreserved(source: CGImage) {
         let grid = DefaultConverter().convert(source, columns: 80)
-        let rendered = grid.renderImage(
-            font: .system(size: 10),
-            backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
-            scale: 1
+        let reversed = ASCIIGrid(
+            cells: grid.cells.reversed().map { Array($0.reversed()) },
+            colorSpace: grid.colorSpace,
+            composition: grid.composition,
+            maskFallback: grid.maskFallback,
+            maskGroundColor: grid.maskGroundColor,
+            maskUsesHardEdges: grid.maskUsesHardEdges
         )
+        #expect(grid.cells != reversed.cells, "The rotated arrangement must change the fixture")
+
+        func render(_ grid: ASCIIGrid) -> CGImage {
+            grid.renderImage(
+                font: .system(size: 10),
+                backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+                scale: 1
+            )
+        }
+        let rendered = render(grid)
+        let reversedImage = render(reversed)
+        #expect(rendered.width == reversedImage.width && rendered.height == reversedImage.height)
+        #expect(TestImages.deviceRGBBytes(rendered) != TestImages.deviceRGBBytes(reversedImage))
+
         let score = Self.computeMSSIM(source: source, rendered: rendered)
+        let reversedScore = Self.computeMSSIM(source: source, rendered: reversedImage)
         let blank = Self.solidGray(0, width: rendered.width, height: rendered.height)
         let blankScore = Self.computeMSSIM(source: source, rendered: blank)
 
-        #expect(score >= 0.07, "MSSIM = \(score)")
-        #expect(score > blankScore + 0.03, "MSSIM = \(score), blank MSSIM = \(blankScore)")
+        #expect(score > reversedScore, "MSSIM = \(score), blank MSSIM = \(blankScore), reversed MSSIM = \(reversedScore)")
+        #expect(score > blankScore + 0.03, "MSSIM = \(score), blank MSSIM = \(blankScore), reversed MSSIM = \(reversedScore)")
     }
 
     /// Local-window mean SSIM on luminance, using Wang et al.-style constants:
