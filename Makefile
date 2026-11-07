@@ -1,4 +1,4 @@
-.PHONY: test-infra check check-fast format-check test test-without-video-deadlock test-video-deadlock test-fast test-snapshots test-media test-research test-artifacts docc research-check lifecycle-check bench regen-kernels regen-vectors audit-vectors regen-repo-map repo-map-check doctor release-preflight
+.PHONY: test-infra check check-fast format-check test test-without-video-deadlock test-video-deadlock test-fast test-snapshots test-media test-research test-artifacts docc research-check lifecycle-check bench regen-kernels regen-vectors audit-vectors regen-repo-map repo-map-check doctor release-preflight package-cli
 
 check:
 	just check
@@ -65,6 +65,10 @@ doctor:
 
 release-preflight:
 	just release-preflight
+
+package-cli: export ASKI_PACKAGE_DESTINATION := $(value ASKI_PACKAGE_OUTPUT)
+package-cli:
+	just package-cli "$${ASKI_PACKAGE_DESTINATION:?Set ASKI_PACKAGE_OUTPUT to a new output directory}"
 
 test-infra:
 	just test-infra
