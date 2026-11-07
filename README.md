@@ -11,8 +11,10 @@ trade the characters for pixel-art, brick, and mosaic tiles. Conversion runs loc
 
 ![The Cosmic Cliffs of the Carina Nebula rendered as colored character art](docs/assets/hero-carina-512.png)
 
-<sub>512 columns × 133 rows of characters, rendered to PNG by Aski. Zoom in: the texture is type.
-Source image: NASA/ESA/CSA/STScI. [Image and corpus](docs/Research/Corpus/nasa-occupancy-v1/).</sub>
+<sub>512 columns × 134 rows of characters, rendered to PNG by Aski with default settings:
+`aski render carina-cosmic-cliffs.jpg --columns 512 --font-size 16 --render-png hero.png`.
+Zoom in: the texture is type. Source image: NASA/ESA/CSA/STScI.
+[Image and corpus](docs/Research/Corpus/nasa-occupancy-v1/).</sub>
 
 **Swift 6.3+ · iOS 18+ · macOS 15+ · visionOS 2+ · [Apache 2.0](LICENSE)**
 
