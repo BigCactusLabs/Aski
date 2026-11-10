@@ -23,6 +23,20 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
   `#929292` before) and gray or colored values now match the manifest's
   `#RRGGBBAA` record.
+- **Color overlays and point lights honor their color space (ASKI-99).** `ColorOverlay` and
+  `PointLight` colors are interpreted in their `CGColor`'s declared color space, as
+  `Background.solid` already was. Their components were previously read as sRGB numbers: a
+  Display P3 (0.8, 0.2, 0.1) overlay rendered (204, 51, 25) in sRGB output instead of about
+  (222, 24, 0). `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, so overlays and
+  lights built with it now render slightly differently; use `CGColor(srgbRed:green:blue:alpha:)`
+  to keep the previous result. sRGB-tagged colors, overlay opacity, blend modes and light
+  intensity are unchanged.
+- **MP4 export keeps its colors (ASKI-100).** Frames are drawn in the grid's encoded gamut (sRGB
+  or Display P3) instead of an untagged device RGB space, and the H.264 or HEVC track is tagged
+  with its color primaries (BT.709 or P3 D65), the sRGB transfer function and the BT.709 Y'CbCr
+  matrix, at video range. Untagged files let decoders guess the matrix from the frame size, which
+  shifted colors in small exports, and Display P3 frames were clipped to sRGB before encoding.
+  Exported MP4 bytes change.
 - **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
   (`0` means infinite; `1` means once), rejects unsupported values before opening the
   destination, and reports the loop metadata read from the finalized file.
