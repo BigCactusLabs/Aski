@@ -54,7 +54,6 @@ let benchmarks: @Sendable () -> Void = {
     addGIFMetadataBenchmarks()
     addASTSK55Benchmarks()
     addTileColorSampleBenchmarks()
-    addTileColorSamplePhaseBenchmarks()
 }
 
 internal func makeGradient(width: Int, height: Int) -> CGImage {
