@@ -4,7 +4,8 @@ import Testing
 
 /// ASKI-71: selection and rendered-cell bytes captured before glyph ownership
 /// moves behind the internal bank. The fixture and matrix are deliberately
-/// independent of the bank implementation.
+/// independent of the bank implementation. Re-recorded for ASKI-1, when sources
+/// larger than the conversion budget moved to direct resampling.
 @Suite struct GlyphBankConversionGoldenTests {
     @Test func everyBuiltInAndAlgorithmMatchesThePreMigrationDigest() {
         let image = TestImages.structuredPortraitProxy(width: 240, height: 320)
@@ -54,26 +55,26 @@ import Testing
     ]
 
     private static let expected: [String: UInt64] = [
-        "blocks/dotMatrix": 17_880_057_928_480_335_288,
-        "blocks/logPolar": 16_420_574_259_635_996_134,
-        "braille/dotMatrix": 10_497_106_337_717_151_888,
-        "braille/logPolar": 6_229_418_005_544_245_927,
-        "cross/dotMatrix": 818_763_795_777_019_728,
-        "cross/logPolar": 11_382_216_875_173_112_104,
-        "diagonal/dotMatrix": 6_323_816_355_091_133_352,
-        "diagonal/logPolar": 11_382_216_875_173_112_104,
-        "diamond/dotMatrix": 8_685_068_120_567_966_428,
-        "diamond/logPolar": 11_382_216_875_173_112_104,
-        "dots/dotMatrix": 8_718_204_461_934_864_732,
-        "dots/logPolar": 11_382_216_875_173_112_104,
-        "lines/dotMatrix": 4_556_211_967_393_641_184,
-        "lines/logPolar": 16_840_191_759_657_335_000,
-        "minimal/dotMatrix": 623_767_257_914_818_696,
-        "minimal/logPolar": 11_382_216_875_173_112_104,
-        "mixed/dotMatrix": 3_227_114_315_477_771_464,
-        "mixed/logPolar": 15_635_137_281_816_077_016,
-        "standard/dotMatrix": 578_668_299_132_216_088,
-        "standard/logPolar": 5_274_591_087_475_449_036,
+        "blocks/dotMatrix": 6_155_001_706_851_922_987,
+        "blocks/logPolar": 15_142_091_769_664_063_705,
+        "braille/dotMatrix": 10_925_640_482_195_603_315,
+        "braille/logPolar": 6_841_031_301_294_466_235,
+        "cross/dotMatrix": 4_110_848_941_932_915_335,
+        "cross/logPolar": 10_691_118_721_304_012_055,
+        "diagonal/dotMatrix": 6_336_918_789_892_181_975,
+        "diagonal/logPolar": 10_691_118_721_304_012_055,
+        "diamond/dotMatrix": 8_289_470_158_390_172_331,
+        "diamond/logPolar": 10_691_118_721_304_012_055,
+        "dots/dotMatrix": 17_380_711_769_955_295_427,
+        "dots/logPolar": 10_691_118_721_304_012_055,
+        "lines/dotMatrix": 2_568_444_975_854_573_015,
+        "lines/logPolar": 4_945_830_320_128_152_719,
+        "minimal/dotMatrix": 6_725_532_002_683_423_747,
+        "minimal/logPolar": 10_691_118_721_304_012_055,
+        "mixed/dotMatrix": 15_833_333_427_314_417_451,
+        "mixed/logPolar": 7_579_819_307_625_272_211,
+        "standard/dotMatrix": 15_013_198_537_264_470_435,
+        "standard/logPolar": 13_774_220_104_195_781_987,
     ]
 
     private static func digest(_ grid: ASCIIGrid) -> UInt64 {

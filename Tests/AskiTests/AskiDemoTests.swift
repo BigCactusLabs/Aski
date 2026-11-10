@@ -477,7 +477,8 @@ import UniformTypeIdentifiers
     // Verified empirically: at 512 columns a 3:1 (256x768) source converts to an
     // EMPTY grid — the converter floors `cellWidth = thumbnailWidth / columns` to
     // 0 when the source's pixel width (256) is below the column count (512), and
-    // `ImageIOThumbnail.decode` never upscales (`Sources/Aski/ImageIOThumbnail.swift:34`).
+    // neither the CLI's ImageIO thumbnail nor the converter's own preparation
+    // upscales (`preparedSize` in `Sources/Aski/CellSampling.swift`).
     // A 3:4 portrait yields cols=512, rows=310 and reproduces source aspect to
     // ~0.1%. Fixing the extreme-aspect floor is a library/conversion change and is
     // OUT OF SCOPE for this sweep (the spec's Scope line forbids Sources/Aski
