@@ -53,6 +53,7 @@ let benchmarks: @Sendable () -> Void = {
     addVideoPipelineBenchmarks()
     addGIFMetadataBenchmarks()
     addASTSK55Benchmarks()
+    addPreparationBenchmarks()
 }
 
 internal func makeGradient(width: Int, height: Int) -> CGImage {
