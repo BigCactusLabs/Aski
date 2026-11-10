@@ -150,4 +150,22 @@ import Testing
             lightCenter(p3Light, intensity: intensity), lightCenter(sRGBLight, intensity: intensity),
             "intensity \(intensity)")
     }
+
+    // MARK: - Generic RGB
+
+    /// `CGColor(red:green:blue:alpha:)` is tagged Generic RGB. Effect colors follow
+    /// that tag like any other, matching `Background.solid`.
+    @Test(arguments: [RenderColorSpace.sRGB, .displayP3])
+    func genericRGBOverlayIsColorMatched(output: RenderColorSpace) throws {
+        let overlay = CGColor(red: 0.8, green: 0.2, blue: 0.1, alpha: 1)
+        #expect(overlay.colorSpace?.name.map(MaskFallbackImageFactory.isGenericRGB) == true)
+        let image = overlayRender(overlay, output: output)
+        expectClose(try center(image), try oracle(overlay, destination: space(output)), "Generic RGB overlay into \(output)")
+    }
+
+    @Test func genericRGBPointLightMatchesItsSRGBEquivalent() throws {
+        let generic = CGColor(red: 0.9, green: 0.5, blue: 0.3, alpha: 1)
+        let equivalent = try #require(generic.converted(to: sRGB, intent: .relativeColorimetric, options: nil))
+        expectClose(lightCenter(generic, intensity: 0.6), lightCenter(equivalent, intensity: 0.6), "Generic RGB light")
+    }
 }
