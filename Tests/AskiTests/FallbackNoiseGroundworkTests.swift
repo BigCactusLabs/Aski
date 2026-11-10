@@ -72,7 +72,8 @@ import Testing
                 image = try stock.apply(to: image, in: context)
             }
         }
-        #expect(image.extent == extent)
+        // Core Image rounds raster extents outward; routed and stock arms agree.
+        #expect(image.extent == extent.integral)
         // Force evaluation. Merely black-holing a CIImage would leave the
         // filter recipe deferred. Integral bounds also include fractional edges.
         let bounds = extent.integral
