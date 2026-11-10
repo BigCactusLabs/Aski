@@ -11,6 +11,8 @@ import simd
 /// explicitly to guard against regressions in the legacy code path.
 /// The character must match exactly; floats are compared with ε = 1e-5 to
 /// absorb harmless float reassociation drift from loop-order changes.
+/// Re-recorded for ASKI-1, when sources larger than the conversion budget moved
+/// from the ImageIO thumbnail to direct resampling.
 @Suite struct CharacterizationTests {
     private static let goldenColumns = 8
     private static let goldenImageWidth = 64
@@ -26,36 +28,36 @@ import simd
     private static let golden: [[GoldenCell]] = [
         // row 0
         [
-            GoldenCell(character: ".", displayColor: SIMD3(0.043137, 0.043137, 0.043137), alpha: 1.000000, brightness: 0.149577),
-            GoldenCell(character: "-", displayColor: SIMD3(0.172549, 0.172549, 0.172549), alpha: 1.000000, brightness: 0.293128),
-            GoldenCell(character: "*", displayColor: SIMD3(0.303922, 0.303921, 0.303922), alpha: 1.000000, brightness: 0.422083),
-            GoldenCell(character: "t", displayColor: SIMD3(0.433333, 0.433333, 0.433333), alpha: 1.000000, brightness: 0.539972),
-            GoldenCell(character: "z", displayColor: SIMD3(0.566667, 0.566667, 0.566667), alpha: 1.000000, brightness: 0.655004),
-            GoldenCell(character: "e", displayColor: SIMD3(0.696078, 0.696078, 0.696078), alpha: 1.000000, brightness: 0.761985),
-            GoldenCell(character: "m", displayColor: SIMD3(0.829412, 0.829412, 0.829412), alpha: 1.000000, brightness: 0.868404),
-            GoldenCell(character: "#", displayColor: SIMD3(0.956863, 0.956863, 0.956863), alpha: 1.000000, brightness: 0.967153),
+            GoldenCell(character: ".", displayColor: SIMD3(0.054902, 0.054902, 0.054902), alpha: 1.000000, brightness: 0.163758),
+            GoldenCell(character: "-", displayColor: SIMD3(0.182353, 0.182353, 0.182353), alpha: 1.000000, brightness: 0.303189),
+            GoldenCell(character: "*", displayColor: SIMD3(0.309804, 0.309804, 0.309804), alpha: 1.000000, brightness: 0.427608),
+            GoldenCell(character: "t", displayColor: SIMD3(0.435294, 0.435294, 0.435294), alpha: 1.000000, brightness: 0.541706),
+            GoldenCell(character: "z", displayColor: SIMD3(0.564706, 0.564706, 0.564706), alpha: 1.000000, brightness: 0.653351),
+            GoldenCell(character: "e", displayColor: SIMD3(0.690196, 0.690196, 0.690196), alpha: 1.000000, brightness: 0.757207),
+            GoldenCell(character: "m", displayColor: SIMD3(0.817647, 0.817647, 0.817647), alpha: 1.000000, brightness: 0.859150),
+            GoldenCell(character: "#", displayColor: SIMD3(0.945098, 0.945098, 0.945098), alpha: 1.000000, brightness: 0.958147),
         ],
         // row 1
         [
-            GoldenCell(character: ".", displayColor: SIMD3(0.043137, 0.043137, 0.043137), alpha: 1.000000, brightness: 0.149577),
-            GoldenCell(character: "-", displayColor: SIMD3(0.172549, 0.172549, 0.172549), alpha: 1.000000, brightness: 0.293128),
-            GoldenCell(character: "*", displayColor: SIMD3(0.303922, 0.303921, 0.303922), alpha: 1.000000, brightness: 0.422083),
-            GoldenCell(character: "t", displayColor: SIMD3(0.433333, 0.433333, 0.433333), alpha: 1.000000, brightness: 0.539972),
-            GoldenCell(character: "z", displayColor: SIMD3(0.566667, 0.566667, 0.566667), alpha: 1.000000, brightness: 0.655004),
-            GoldenCell(character: "e", displayColor: SIMD3(0.696078, 0.696078, 0.696078), alpha: 1.000000, brightness: 0.761985),
-            GoldenCell(character: "m", displayColor: SIMD3(0.829412, 0.829412, 0.829412), alpha: 1.000000, brightness: 0.868404),
-            GoldenCell(character: "#", displayColor: SIMD3(0.956863, 0.956863, 0.956863), alpha: 1.000000, brightness: 0.967153),
+            GoldenCell(character: ".", displayColor: SIMD3(0.054902, 0.054902, 0.054902), alpha: 1.000000, brightness: 0.163758),
+            GoldenCell(character: "-", displayColor: SIMD3(0.182353, 0.182353, 0.182353), alpha: 1.000000, brightness: 0.303189),
+            GoldenCell(character: "*", displayColor: SIMD3(0.309804, 0.309804, 0.309804), alpha: 1.000000, brightness: 0.427608),
+            GoldenCell(character: "t", displayColor: SIMD3(0.435294, 0.435294, 0.435294), alpha: 1.000000, brightness: 0.541706),
+            GoldenCell(character: "z", displayColor: SIMD3(0.564706, 0.564706, 0.564706), alpha: 1.000000, brightness: 0.653351),
+            GoldenCell(character: "e", displayColor: SIMD3(0.690196, 0.690196, 0.690196), alpha: 1.000000, brightness: 0.757207),
+            GoldenCell(character: "m", displayColor: SIMD3(0.817647, 0.817647, 0.817647), alpha: 1.000000, brightness: 0.859150),
+            GoldenCell(character: "#", displayColor: SIMD3(0.945098, 0.945098, 0.945098), alpha: 1.000000, brightness: 0.958147),
         ],
         // row 2
         [
-            GoldenCell(character: ".", displayColor: SIMD3(0.043137, 0.043137, 0.043137), alpha: 1.000000, brightness: 0.149577),
-            GoldenCell(character: "-", displayColor: SIMD3(0.172549, 0.172549, 0.172549), alpha: 1.000000, brightness: 0.293128),
-            GoldenCell(character: "*", displayColor: SIMD3(0.303922, 0.303921, 0.303922), alpha: 1.000000, brightness: 0.422083),
-            GoldenCell(character: "t", displayColor: SIMD3(0.433333, 0.433333, 0.433333), alpha: 1.000000, brightness: 0.539972),
-            GoldenCell(character: "z", displayColor: SIMD3(0.566667, 0.566667, 0.566667), alpha: 1.000000, brightness: 0.655004),
-            GoldenCell(character: "e", displayColor: SIMD3(0.696078, 0.696078, 0.696078), alpha: 1.000000, brightness: 0.761985),
-            GoldenCell(character: "m", displayColor: SIMD3(0.829412, 0.829412, 0.829412), alpha: 1.000000, brightness: 0.868404),
-            GoldenCell(character: "#", displayColor: SIMD3(0.956863, 0.956863, 0.956863), alpha: 1.000000, brightness: 0.967153),
+            GoldenCell(character: ".", displayColor: SIMD3(0.054902, 0.054902, 0.054902), alpha: 1.000000, brightness: 0.163758),
+            GoldenCell(character: "-", displayColor: SIMD3(0.182353, 0.182353, 0.182353), alpha: 1.000000, brightness: 0.303189),
+            GoldenCell(character: "*", displayColor: SIMD3(0.309804, 0.309804, 0.309804), alpha: 1.000000, brightness: 0.427608),
+            GoldenCell(character: "t", displayColor: SIMD3(0.435294, 0.435294, 0.435294), alpha: 1.000000, brightness: 0.541706),
+            GoldenCell(character: "z", displayColor: SIMD3(0.564706, 0.564706, 0.564706), alpha: 1.000000, brightness: 0.653351),
+            GoldenCell(character: "e", displayColor: SIMD3(0.690196, 0.690196, 0.690196), alpha: 1.000000, brightness: 0.757207),
+            GoldenCell(character: "m", displayColor: SIMD3(0.817647, 0.817647, 0.817647), alpha: 1.000000, brightness: 0.859150),
+            GoldenCell(character: "#", displayColor: SIMD3(0.945098, 0.945098, 0.945098), alpha: 1.000000, brightness: 0.958147),
         ],
     ]
 

@@ -272,22 +272,20 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         let maskGroundColor = sampledCoverage == nil ? nil : mask?.groundColor
         let maskUsesHardEdges = sampledCoverage == nil ? false : !(mask?.softEdges ?? true)
 
-        // Sampling contract (ASKI-25, ASKI-65). The cell pitch is the FLOORED
-        // integer quotient, so it stays uniform across the grid, but the raster
-        // the samplers read is drawn at exactly `cols*cellWidth ×
-        // rows*cellHeight` rather than at the thumbnail's own size. The
-        // origin-anchored walk therefore tiles the raster exactly: there is no
-        // bottom/right remainder, and the ≤ one-pitch anisotropic rescale folds
-        // what used to be the unread edge back into the sampled cells. Pinned by
-        // `SamplingLatticeContractTests`; `SamplingGeometry.droppedX`/`droppedY`
-        // report the (now always zero) remainder to research callers.
+        // Sampling contract (ASKI-25, ASKI-65, ASKI-1). The cell pitch is the
+        // FLOORED integer quotient of the prepared size, so it stays uniform
+        // across the grid, but the raster the samplers read is produced at
+        // exactly `cols*cellWidth × rows*cellHeight`. The origin-anchored walk
+        // therefore tiles the raster exactly: there is no bottom/right
+        // remainder. A source larger than `maxPixelSize` is resampled straight
+        // to that raster, with no intermediate thumbnail or PNG round-trip.
+        // Pinned by `SamplingLatticeContractTests` and
+        // `TargetSizePreparationTests`; `SamplingGeometry.droppedX`/`droppedY`
+        // report the (always zero) remainder to research callers.
         guard
-            let thumbnail = try? ImageIOThumbnail.decode(
-                image: image,
-                maxPixelSize: maxPixelSize
-            ),
             let lattice = samplingLattice(
-                thumbnail: thumbnail,
+                image: image,
+                maxPixelSize: maxPixelSize,
                 columns: cols,
                 rows: rows,
                 colorSpace: colorSpace

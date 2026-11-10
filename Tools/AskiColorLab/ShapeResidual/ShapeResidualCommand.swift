@@ -136,11 +136,11 @@ public enum ShapeResidualCommand {
     ///
     /// The residual MUST be sampled from the same pixels the oracle reads
     /// (`fixture.lumaBlock` native blocks). With the default `oversample = 2`,
-    /// `convertWithResidual` thumbnails a 256px fixture to
+    /// `convertWithResidual` resamples a 256px fixture to
     /// `max(cols,rows)·2 = 160px` at `columns=80` — a downscale, which would let
-    /// ImageIO resampling loss masquerade as glyph residual. We instead pick an
-    /// oversample large enough that the thumbnail ≥ the fixture's longest side,
-    /// so `ImageIOThumbnail.decode` returns the **native** image (no resampling)
+    /// resampling loss masquerade as glyph residual. We instead pick an
+    /// oversample large enough that the budget ≥ the fixture's longest side,
+    /// so the converter reads the **native** image (no resampling)
     /// and the residual + oracle are pixel-aligned. Mirrors AskiDecolorLab's
     /// no-downscale invariant. Dynamic (per `columns`) so the whole column sweep
     /// stays no-downscale — e.g. `columns=80 → 4`, `columns=32 → 8`. Raising

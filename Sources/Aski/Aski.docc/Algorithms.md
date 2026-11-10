@@ -80,16 +80,16 @@ Out-of-range values clamp silently.
 
 ``ASCIIConverter`` accepts an `oversample` init parameter (default `2`) that
 controls how aggressively the input is downsampled before per-cell feature
-extraction. The converter thumbnails the source to roughly
+extraction. The converter resamples the source so its longest side is roughly
 `max(columns, rows) * oversample` pixels, then carves it into cells.
 
 The cell pitch is a floored integer quotient, so it stays uniform across the
-grid, and the thumbnail is then drawn into a *sampling lattice* of exactly
+grid, and the source is resampled straight into a *sampling lattice* of exactly
 `columns * cellWidth × rows * cellHeight` before any cell is read. Sampling is
 anchored at the origin and walks whole cells, so the lattice is tiled exactly:
 every source row and column lands inside some cell and nothing is dropped off
 the bottom or right edge. Folding the remainder in costs a rescale of at most
-one cell pitch per axis, applied once at decode. This is a test-pinned contract;
+one cell pitch per axis, applied in that same single resample. This is a test-pinned contract;
 `SamplingGeometry.droppedX`/`droppedY` report zero.
 
 Earlier versions sampled the thumbnail at its own decoded size, which left a
@@ -119,7 +119,7 @@ Default stays `2` to preserve bit-identical pre-A1 default output.
 
 `oversample` also determines how much of the 60-bin log-polar descriptor is
 reachable at all, and the effect is severe. The cell pitch is an integer
-quotient of the thumbnail size, so the cell ends up exactly `oversample` pixels
+quotient of the prepared size, so the cell ends up exactly `oversample` pixels
 wide — measured across source aspect ratios from 3:1 through 1:3, so this is not
 a landscape-only quirk. At the default `2` the descriptor's radius gate admits
 2–3 pixels of 8 and reaches **2–3 of the 60 bins**; at `oversample: 32` it

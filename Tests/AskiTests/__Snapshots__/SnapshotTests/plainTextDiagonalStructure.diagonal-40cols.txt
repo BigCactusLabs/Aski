@@ -1,10 +1,10 @@
 ===<ttcczzzzzzzssseeeeew@@@@@@mmm#######
 **===<tttczzzzzzzsssseeeew@@@@@@mmm#####
-|||**===<ttczzzzzzzsssseeeeww@@@@@@mmm##
-|||||**===<ttcczzzzzzzsssseeeew@@@@@@mmm
-|||||||***==<tttczzzzzzzsssseeeeww@@@@@m
+|||**===<ttcczzzzzzsssseeeeww@@@@@@mmm##
+|||||**===<tttczzzzzzzsssseeeew@@@@@@mmm
+|||||||***==<<ttczzzzzzzsssseeeeww@@@@@m
 ||||||||||**===<ttcczzzzzzzssseeeeew@@@@
-.|||||||||||***==<tttczzzzzzzsssseeeeww@
+.|||||||||||**===<tttczzzzzzzsssseeeew@@
 ...||||||||||||**===<ttcczzzzzzsssseeeew
   ...||||||||||||**===<tttczzzzzzzssssee
-    ....|||||||||||***===<ttczzzzzzzssss
+    ....|||||||||||***==<<ttczzzzzzzssss

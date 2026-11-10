@@ -53,19 +53,14 @@ public struct TileGridConverter: Sendable {
         let maskGroundColor = sampledCoverage == nil ? nil : mask?.groundColor
         let maskUsesHardEdges = sampledCoverage == nil ? false : !(mask?.softEdges ?? true)
 
-        let thumbnail: CGImage
-        do {
-            thumbnail = try ImageIOThumbnail.decode(image: image, maxPixelSize: maxPixelSize)
-        } catch {
-            return TileGrid(cells: [], colorSpace: colorSpace)
-        }
-
         // Same sampling lattice as `prepareConversion` — an exact multiple of
-        // the grid, so no source row or column goes unread (ASKI-65). The
-        // palette is quantized from the same lattice raster the cells sample.
+        // the grid, so no source row or column goes unread (ASKI-65), prepared
+        // straight from the source image (ASKI-1). The palette is quantized
+        // from the same lattice raster the cells sample.
         guard
             let lattice = samplingLattice(
-                thumbnail: thumbnail,
+                image: image,
+                maxPixelSize: maxPixelSize,
                 columns: cols,
                 rows: rows,
                 colorSpace: colorSpace

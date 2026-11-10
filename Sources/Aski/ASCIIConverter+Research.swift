@@ -17,14 +17,15 @@ extension ASCIIConverter {
     /// `cellWidth`/`cellHeight` are the **integer** working-pixel pitch per
     /// cell, and `thumbnailWidth`/`thumbnailHeight` are the size of the raster
     /// the samplers actually read — the *sampling lattice*, which the converter
-    /// draws the decoded thumbnail into at exactly `columns*cellWidth ×
-    /// rows*cellHeight` (ASKI-65). It is therefore an exact multiple of the
-    /// grid on both axes: `columns * cellWidth == thumbnailWidth`,
+    /// prepares at exactly `columns*cellWidth × rows*cellHeight` (ASKI-65): a
+    /// source larger than the conversion budget is resampled straight to it
+    /// (ASKI-1), and a smaller one is drawn into it. It is therefore an exact
+    /// multiple of the grid on both axes: `columns * cellWidth == thumbnailWidth`,
     /// `rows * cellHeight == thumbnailHeight`, and `droppedX`/`droppedY` are
     /// zero. The lattice covers the whole source, so an instrument may
     /// re-partition the native image into equal `rows × columns` blocks — but
     /// the pitch is still the floored quotient, so it must scale through this
-    /// lattice rather than assume the thumbnail's own decoded size.
+    /// lattice rather than assume the source's prepared size.
     ///
     /// Returns `nil` on the same branches where `convert` returns an empty grid.
     @_spi(AskiResearch)

@@ -6,6 +6,8 @@ import Testing
 /// ASKI-72: exact ordinary, ranked, and residual fingerprints captured before
 /// the three converter loops were consolidated. These tests describe only the
 /// converter's observable results and do not depend on the shared-engine shape.
+/// Re-recorded for ASKI-1, when sources larger than the conversion budget moved
+/// to direct resampling.
 @Suite(.serialized) struct ConverterEngineGoldenTests {
     @Test func ordinaryRankedAndResidualSurfacesMatchFrozenFingerprints() {
         let first = Self.fingerprints()
@@ -172,20 +174,20 @@ import Testing
     private static let expected: [String: UInt64] = [
         "branches/failed-preparation": 8_282_888_707_755_408_745,
         "branches/invalid-columns": 8_282_888_707_755_408_745,
-        "dot/plain/forcedParallel": 6_429_871_333_101_551_316,
-        "dot/plain/serial": 6_429_871_333_101_551_316,
-        "dot/plain/serial/masked": 16_272_798_101_133_468_325,
-        "dot/ranked/stride1": 17_912_684_743_978_736_175,
-        "dot/ranked/stride6": 16_887_482_784_655_848_830,
-        "dot/residual/nan": 193_570_761_966_645_244,
-        "log/plain/parallel": 3_698_835_258_009_606_004,
-        "log/plain/parallel/masked": 12_519_869_327_797_796_533,
-        "log/plain/serial": 3_698_835_258_009_606_004,
-        "log/ranked/stride1/serial": 13_422_579_521_392_179_191,
-        "log/ranked/stride6/parallel/masked": 11_547_507_569_938_779_841,
-        "log/ranked/stride6/serial/masked": 11_547_507_569_938_779_841,
-        "log/residual/parallel": 3_964_614_954_471_016_525,
-        "log/residual/serial": 3_964_614_954_471_016_525,
+        "dot/plain/forcedParallel": 4_938_633_440_012_171_066,
+        "dot/plain/serial": 4_938_633_440_012_171_066,
+        "dot/plain/serial/masked": 16_811_362_034_668_019_159,
+        "dot/ranked/stride1": 17_544_324_138_462_006_059,
+        "dot/ranked/stride6": 8_115_073_033_212_574_956,
+        "dot/residual/nan": 1_978_897_733_227_169_742,
+        "log/plain/parallel": 17_230_400_894_058_909_258,
+        "log/plain/parallel/masked": 15_805_305_352_193_642_431,
+        "log/plain/serial": 17_230_400_894_058_909_258,
+        "log/ranked/stride1/serial": 13_959_007_273_981_685_313,
+        "log/ranked/stride6/parallel/masked": 1_832_401_703_565_869_259,
+        "log/ranked/stride6/serial/masked": 1_832_401_703_565_869_259,
+        "log/residual/parallel": 4_160_399_634_450_098_249,
+        "log/residual/serial": 4_160_399_634_450_098_249,
     ]
 
     private static func digest(_ grid: ASCIIGrid) -> UInt64 {
