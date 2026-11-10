@@ -61,6 +61,13 @@ palette compensation for the old raster output. Use explicitly tagged `CGColor`
 values for backgrounds, mask fallbacks, and ground colors when exact color intent
 matters.
 
+Solid mask fallback and mask ground colors follow the same rule on every raster
+path: the `CGColor` is interpreted in its declared color space and color-matched
+into the grid's gamut, including Generic RGB colors from
+`CGColor(red:green:blue:alpha:)`. Engine gamut adaptation converts them from that
+declared space. For the old literal meaning on effects, async, and engine paths,
+tag the components with the grid's space. See <doc:Masking>.
+
 ### Exact pixel width
 
 For monochrome monospaced fonts, the effective pixel size is `pointSize × scale` and nothing else; doubling the font size and doubling `scale` are the same operation. This was measured 2026-09-01 on the bundled Courier Prime and on Menlo at six size-times-scale ratios, 0 differing bytes; see the issue #33 research note.

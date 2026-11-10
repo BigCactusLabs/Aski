@@ -4,19 +4,19 @@ import Foundation
 import Testing
 @testable import Aski
 
-/// ASKI-98 characterization of the current split in solid mask-fallback and
-/// visible mask-ground paint. Two candidate contracts are drawn independently
-/// by Core Graphics:
+/// ASKI-98 contract for solid mask-fallback and visible mask-ground paint: a
+/// caller `CGColor` is interpreted in its declared color space and color-matched
+/// into the render output, on every raster path. Generic RGB is no exception.
+/// Two references are drawn independently by Core Graphics:
 ///
-/// - A, declared space: the caller color is color-matched from its own space
-///   into the output space.
-/// - B, literal in grid gamut: the color's numeric RGB components are read as
-///   encoded components of the grid's sRGB or Display P3 gamut, then converted
-///   to the output space.
+/// - A, declared space (the contract): the caller color filled into the output
+///   space.
+/// - B, literal in grid gamut (the retired behavior of the Core Image mask
+///   paths): the same numeric components tagged with the grid's sRGB or Display
+///   P3 space, then filled into the output space.
 ///
-/// These tests record which contract each path satisfies today. They do not
-/// choose a contract.
-@Suite struct LiteralMaskColorCharacterizationTests {
+/// Keeping B lets a regression to literal interpretation fail by name.
+@Suite struct MaskColorContractTests {
     private static let components: [CGFloat] = [0.8, 0.2, 0.1]
     private let clear = CGColor(gray: 0, alpha: 0)
     private let font = ASCIIFont.system(size: 40)
@@ -24,17 +24,14 @@ import Testing
     enum Paint: String, CaseIterable, Sendable {
         /// `CGColor(red:green:blue:alpha:)`, Generic RGB on macOS.
         case genericRGB
-        /// A calibrated RGB space with no name; the mask factory treats unnamed
-        /// RGB like Generic RGB.
+        /// A calibrated RGB space with no name.
         case unnamedRGB
         case sRGB
         case displayP3
         case deviceRGB
 
-        var isLiteralInFactory: Bool { self == .genericRGB || self == .unnamedRGB }
-
         func color(alpha: CGFloat = 1) -> CGColor {
-            let rgba = LiteralMaskColorCharacterizationTests.components + [alpha]
+            let rgba = MaskColorContractTests.components + [alpha]
             switch self {
             case .genericRGB:
                 return CGColor(red: rgba[0], green: rgba[1], blue: rgba[2], alpha: alpha)
@@ -79,24 +76,6 @@ import Testing
         case literalInGridGamut = "B"
         case indistinguishable = "A=B"
         case neither
-    }
-
-    /// The contract each path applies today to Generic RGB and unnamed RGB paint,
-    /// observed on base `0cc6a90`. Explicitly named colors follow A on every path.
-    static func currentLiteralContract(_ path: Path, _ paint: MaskPaint) -> Contract {
-        switch (path, paint) {
-        case (.directASCII, _), (.targetWidthASCII, _):
-            // Core Graphics fills color-match the caller color into the context.
-            return .declaredSpace
-        case (.directTilePixelArt, .fallback):
-            // Core Graphics fill in the direct tile overlay.
-            return .declaredSpace
-        default:
-            // MaskFallbackImageFactory reads literal components; the engine pins
-            // them to the source grid gamut. A visible ground and a partially
-            // covered mosaic route the direct tile renderer through it too.
-            return .literalInGridGamut
-        }
     }
 
     // MARK: - Rendering
@@ -310,7 +289,7 @@ import Testing
                 + "coverage=\(coverage.map { "\($0)" } ?? "full")|actual=\(actual)|A=\(refs.a)|B=\(refs.b)|\(contract)")
     }
 
-    // MARK: - Characterization
+    // MARK: - Contract
 
     /// The fixture discriminates the contracts: Generic RGB (0.8, 0.2, 0.1) does
     /// not land on its literal components in either gamut.
@@ -326,27 +305,27 @@ import Testing
         #expect(try references(Paint.genericRGB.color(), grid: gamut, output: gamut).b == [204, 51, 26, 255])
     }
 
-    /// Current split: direct ASCII, target-width ASCII and the direct tile
-    /// fallback overlay follow A; every Core Image mask path, the engine, and the
-    /// direct tile renderer's ground and mosaic reroutes follow B.
+    /// Generic RGB and unnamed RGB paint is color-matched from its declared
+    /// space on every path, including the Core Image mask factory, engine gamut
+    /// adaptation, and the direct tile renderer's ground and mosaic reroutes.
     @Test(
         arguments: Path.allCases,
         [Paint.genericRGB, .unnamedRGB])
-    func literalMaskPaintFollowsCurrentPathSplit(path: Path, paint: Paint) async throws {
+    func genericAndUnnamedRGBMaskPaintIsColorMatchedOnEveryPath(path: Path, paint: Paint) async throws {
         for gamut in [RenderColorSpace.sRGB, .displayP3] {
             for mask in MaskPaint.allCases {
                 let result = try await measure(path, gamut: gamut, paint: paint, mask: mask)
                 #expect(result.a != result.b, "fixture must separate A and B")
-                let expected = Self.currentLiteralContract(path, mask)
                 #expect(
-                    result.contract == expected,
+                    result.contract == .declaredSpace,
                     "\(path) \(gamut) \(paint) \(mask): actual \(result.actual), A \(result.a), B \(result.b)")
                 #expect(result.image.colorSpace?.name == Self.space(Self.outputGamut(path, grid: gamut)).name)
             }
         }
     }
 
-    /// Named caller colors keep their tags on every path today.
+    /// Named caller colors keep their tags on every path. Where the tag equals
+    /// the output space, A and B coincide.
     @Test(arguments: Path.allCases, [Paint.sRGB, .displayP3, .deviceRGB])
     func namedMaskPaintIsColorMatchedOnEveryPath(path: Path, paint: Paint) async throws {
         for gamut in [RenderColorSpace.sRGB, .displayP3] {
@@ -364,13 +343,12 @@ import Testing
         return pixel.prefix(3).map { Int((Double($0) * 255 / Double(pixel[3])).rounded()) } + [255]
     }
 
-    /// Partial coverage and paint alpha keep the same color split. Coverage
-    /// changes the composite alpha differently by path (see
+    /// Partial coverage, paint alpha, and hard or soft edges keep contract A.
+    /// Coverage changes the composite alpha differently by path (see
     /// `softCoverageWeightCurrentlyDependsOnPath`), so the contract is read
-    /// from the un-premultiplied color against opaque references. Soft and
-    /// hard edges agree for a single cell, whose coverage is uniform.
+    /// from the un-premultiplied color against opaque references.
     @Test(arguments: Path.allCases, [false, true])
-    func partialCoverageAndAlphaKeepTheSplit(path: Path, hardEdges: Bool) async throws {
+    func partialCoverageAndAlphaKeepDeclaredSpace(path: Path, hardEdges: Bool) async throws {
         for gamut in [RenderColorSpace.sRGB, .displayP3] {
             for mask in MaskPaint.allCases {
                 let output = Self.outputGamut(path, grid: gamut)
@@ -385,7 +363,7 @@ import Testing
                 // about four steps; A and B differ by at least 13 steps here.
                 let contract = Self.classify(Self.unpremultiplied(actual), a: refs.a, b: refs.b, tolerance: 6)
                 #expect(
-                    contract == Self.currentLiteralContract(path, mask),
+                    contract == .declaredSpace,
                     "\(path) \(gamut) \(mask) hardEdges=\(hardEdges): actual \(actual), A \(refs.a), B \(refs.b)")
             }
         }
