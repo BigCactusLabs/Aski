@@ -1565,6 +1565,33 @@
       ],
       "summary" : "The README hero's higher saturation is not reproducible from any converter build. Nineteen builds from 2026-06-08 through the ASKI-3 fix all give the same per-cell chroma, which matches the source image's own per-cell chroma; the old hero has about 1.9x that chroma at the same hue plus a 17% pure-black floor, the shape of an outside saturation and black-point adjustment. The only glyph change since June is the ASKI-65 lattice correctness fix. Verdict: keep current behavior; the hero is regenerated from the current build with a recorded command.",
       "title" : "ASKI-15 — Carina hero saturation is not a converter regression"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1"
+      ],
+      "date" : "2026-11-10",
+      "next_action" : "Run the five selection-ceiling invocations before (954a1c5) and after (the ASKI-1 implementation commit) in release builds, commit the CSVs under docs/Research/Results/2026-11-10-aski-1-direct-cgimage-preparation/, and read the verdict mechanically from section 3.",
+      "path" : "docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md",
+      "related_specs" : [
+        "docs/Research/2026-09-02-aski-31-lattice-no-harm.md",
+        "docs/Research/2026-08-19-house-oracle-audit.md",
+        "docs/Research/2026-08-19-sampling-lattice-support-collapse.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-11-10-aski-1-direct-cgimage-preparation",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "ASKI-1 replaces the PNG encode and CGImageSource thumbnail that a decoded CGImage went through before conversion with one vImage Lanczos resample straight to the sampling lattice. A probe against the exact area average of each lattice pixel's source footprint chose Lanczos over CoreGraphics high and medium draws. Because the change moves the frozen-preset golden, this note pre-registers the ASKI-31 selection-ceiling reading rule before any census number is read: MAE-gated at a 1.01 no-harm guard on the frozen preset on both naturals corpora, GMSD reported and non-gating.",
+      "title" : "ASKI-1 — direct CGImage preparation: resampler choice and selection-ceiling no-harm census"
     }
   ],
   "results" : [
