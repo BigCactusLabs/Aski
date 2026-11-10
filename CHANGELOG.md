@@ -13,16 +13,6 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
-- **Raster output honors cell color spaces (ASKI-3).** ASCII, tile, and effects
-  rendering interpret encoded cell colors in their declared sRGB or Display P3
-  gamut. `AskiRenderEngine` converts colors across gamuts and preserves masked
-  background colorimetry. Raster colors, including mid-gray neutrals, change; glyph selection and
-  attributed-string output do not. Review saved renders and remove compensation
-  for the previous Generic RGB interpretation; see the rendering guide. The CLI
-  now builds `--background`, `--mask-fallback-color`, and `--mask-ground` colors in
-  sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
-  `#929292` before) and gray or colored values now match the manifest's
-  `#RRGGBBAA` record.
 - **Mask paint is color-matched on every render path (ASKI-98).** `MaskFallback.solid(_:)` and
   `MaskOptions.groundColor` colors are interpreted in the color space their `CGColor` declares
   and color-matched into the grid's render color space on every raster path, including effects,
@@ -51,9 +41,26 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   matrix, at video range. Untagged files let decoders guess the matrix from the frame size, which
   shifted colors in small exports, and Display P3 frames were clipped to sRGB before encoding.
   Exported MP4 bytes change.
+
+## v0.8.0 — 2026-11-10
+
+### Fixed
+
+- **Raster output honors cell color spaces (ASKI-3).** ASCII, tile, and effects
+  rendering interpret encoded cell colors in their declared sRGB or Display P3
+  gamut. `AskiRenderEngine` converts colors across gamuts and preserves masked
+  background colorimetry. Raster colors, including mid-gray neutrals, change; glyph selection and
+  attributed-string output do not. Review saved renders and remove compensation
+  for the previous Generic RGB interpretation; see the rendering guide. The CLI
+  now builds `--background`, `--mask-fallback-color`, and `--mask-ground` colors in
+  sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
+  `#929292` before) and gray or colored values now match the manifest's
+  `#RRGGBBAA` record. `aski lab hdr --background-hex` also builds its color in sRGB.
 - **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
   (`0` means infinite; `1` means once), rejects unsupported values before opening the
-  destination, and reports the loop metadata read from the finalized file.
+  destination, and reports the loop metadata read from the finalized file. Out-of-range
+  values throw the new `GIFEncodeError.invalidLoopCount(_:)` case; an exhaustive `switch`
+  over `GIFEncodeError` needs a branch for it.
 - **CLI text output supports `/dev/null` and `/dev/stdout` (ASKI-83).** Text streams are
   written directly after regular outputs are ready. Other special destinations are
   rejected with an explicit reason; device nodes are never staged or replaced.
@@ -64,15 +71,38 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   `--algorithm logPolar|dotMatrix`, `--coverage 0...1` and `--palette fullColor|monochrome`;
   defaults (`logPolar`, `0`, `fullColor`) keep existing output. `--write-manifest` records all three
   as additive, optional fields in the v1 render manifest schema.
+- **CLI distribution candidates and Swift Package Index docs config.** `just package-cli <new-dir>`
+  (or `make package-cli ASKI_PACKAGE_OUTPUT=<new-dir>`) builds an arm64-only, relocatable `aski`
+  candidate from a clean checkout, checks its bundled resources, smoke-tests a relocated copy, and
+  writes a `.tar.gz` archive (including `release-info.txt`) with `SHA256SUMS`. It does not run the
+  acceptance gates or publish assets.
+  `.spi.yml` declares `Aski` as the documentation target for Swift Package Index. See the
+  [distribution guide](docs/guides/distribution.md).
+- **`just test-infra` (contributors).** Portable regression tests for the doctor, DocC, and Metal
+  restoration scripts, using Python 3's standard library, disposable Git repositories, and fake
+  Apple tools. They do not build Swift or replace `just check`.
 
 ### Changed
 
 - **Glyph cycling works with `dotMatrix` (ASKI-81).** Cycling previously filled every candidate slot
   with the one dotMatrix pick, so animation never changed glyphs. Candidates after the base pick are
   now the other glyphs nearest in ink density. The base frame is unchanged and matches `convert()`.
+- **DocC Markdown export no longer writes to `/tmp/aski-docc-markdown` (contributors).**
+  `./Scripts/validate-docc.sh --emit-markdown` writes to a new directory and prints it as
+  `DocC Markdown output: ...`; pass `--output-dir <new-dir>` for a fixed location. Packaging scripts
+  that read the old shared path need updating. The doctor and DocC scripts now use private
+  temporary space per run, fail explicitly when another run holds the same checkout's lock, and stop
+  an interrupted Metal regeneration before restoring the checked-in library; see
+  [CONTRIBUTING.md](CONTRIBUTING.md#pull-requests-and-releases).
 
 ### Documentation
 
+- **Character-art recipes guide.** [docs/guides/character-art-recipes.md](docs/guides/character-art-recipes.md)
+  shows the Carina source beside rendered output and gives three recipes (color ASCII, monochrome
+  dithered, braille on a transparent ground) with their exact commands and committed output PNGs.
+  The README links to it.
+- **Color examples use sRGB.** README and DocC snippets build example colors with
+  `CGColor(srgbRed:green:blue:alpha:)` instead of the Generic RGB initializer.
 - **README hero regenerated from the current build (ASKI-15).** The previous Carina hero
   could not be reproduced by any converter build: it had about 1.9× the source's
   per-cell chroma and a 17% pure-black floor, while every build since June 2026 matches
