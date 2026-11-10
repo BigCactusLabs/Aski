@@ -1515,7 +1515,7 @@
         "docs/Research/Corpus/nasa-occupancy-v1"
       ],
       "date" : "2026-11-05",
-      "next_action" : "Review ASKI-3 with its review repairs and re-recorded goldens. ASKI-15 and ASKI-98 remain follow-up options.",
+      "next_action" : "None. ASKI-98 (2026-11-09) replaced the preserved literal Generic RGB mask-paint rule with color matching on every path; see the addendum.",
       "path" : "docs/Research/2026-11-05-aski3-color-semantics.md",
       "related_specs" : [
         "Sources/Aski/ASCIICell.swift",
