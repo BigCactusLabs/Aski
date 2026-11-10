@@ -253,8 +253,8 @@ public extension ASCIIGrid {
             )
         }
 
-        // Identity transform: the encoded 8-bit display colour, byte-for-byte
-        // what the renderer has always produced.
+        // Interpret the display-ready components in the grid's encoded gamut;
+        // the context applies any composition-space conversion.
         drawCells(
             in: context,
             font: font,
@@ -262,12 +262,7 @@ public extension ASCIIGrid {
             fontAttribute: fontAttribute,
             colorAttribute: colorAttribute
         ) { cell, effectiveAlpha in
-            CGColor(
-                red: CGFloat(cell.displayColor.x),
-                green: CGFloat(cell.displayColor.y),
-                blue: CGFloat(cell.displayColor.z),
-                alpha: CGFloat(effectiveAlpha)
-            )
+            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
         }
 
         return context.makeImage() ?? Self.emptyImage()
@@ -438,8 +433,8 @@ public extension ASCIIGrid {
             )
         }
 
-        // Identity transform: the encoded 8-bit display colour, byte-for-byte
-        // what the renderer has always produced.
+        // Interpret the display-ready components in the grid's encoded gamut;
+        // the context applies any composition-space conversion.
         drawCells(
             in: context,
             font: font,
@@ -447,12 +442,7 @@ public extension ASCIIGrid {
             fontAttribute: fontAttribute,
             colorAttribute: colorAttribute
         ) { cell, effectiveAlpha in
-            CGColor(
-                red: CGFloat(cell.displayColor.x),
-                green: CGFloat(cell.displayColor.y),
-                blue: CGFloat(cell.displayColor.z),
-                alpha: CGFloat(effectiveAlpha)
-            )
+            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
         }
 
         return context.makeImage() ?? Self.emptyImage()
@@ -1023,12 +1013,7 @@ public extension ASCIIGrid {
             colorAttribute: colorAttribute,
             coverageMode: .intrinsicAlpha
         ) { cell, effectiveAlpha in
-            CGColor(
-                red: CGFloat(cell.displayColor.x),
-                green: CGFloat(cell.displayColor.y),
-                blue: CGFloat(cell.displayColor.z),
-                alpha: CGFloat(effectiveAlpha)
-            )
+            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
         }
 
         inactiveContext.setFillColor(backgroundColor)
@@ -1144,12 +1129,7 @@ public extension ASCIIGrid {
                     if let color {
                         fallbackColor = color.copy(alpha: color.alpha * CGFloat(inverse)) ?? color
                     } else {
-                        fallbackColor = CGColor(
-                            red: CGFloat(cell.displayColor.x),
-                            green: CGFloat(cell.displayColor.y),
-                            blue: CGFloat(cell.displayColor.z),
-                            alpha: CGFloat(inverse)
-                        )
+                        fallbackColor = colorSpace.encodedColor(cell.displayColor, alpha: inverse)
                     }
                     let attributed = NSAttributedString(
                         string: String(character),

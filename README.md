@@ -2,8 +2,8 @@
 
 **Pictures, reconsidered as type.**
 
-Aski turns images into character art: portraits in blocks, landscapes in punctuation,
-photographs with a second life as a grid of glyphs.
+Aski turns images into **ASCII and Unicode character art**: portraits in blocks,
+landscapes in punctuation, photographs with a second life as a grid of glyphs.
 
 It's a **Swift library and macOS command-line tool**. Convert an image once, then render
 plain text, colored attributed text, or a `CGImage`. Add masks, motion, and effects—or
@@ -11,17 +11,20 @@ trade the characters for pixel-art, brick, and mosaic tiles. Conversion runs loc
 
 ![The Cosmic Cliffs of the Carina Nebula rendered as colored character art](docs/assets/hero-carina-512.png)
 
-<sub>512 columns × 133 rows of characters, rendered to PNG by Aski. Zoom in: the texture is type.
-Source image: NASA/ESA/CSA/STScI. [Image and corpus](docs/Research/Corpus/nasa-occupancy-v1/).</sub>
+<sub>512 columns × 134 rows of characters, rendered to PNG by Aski with default settings:
+`aski render carina-cosmic-cliffs.jpg --columns 512 --font-size 16 --render-png hero.png`.
+Zoom in: the texture is type. Source image: NASA/ESA/CSA/STScI.
+[Image and corpus](docs/Research/Corpus/nasa-occupancy-v1/).</sub>
 
 **Swift 6.3+ · iOS 18+ · macOS 15+ · visionOS 2+ · [Apache 2.0](LICENSE)**
 
-[Try the CLI](#try-it) · [Use in Swift](#use-in-swift) · [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
+[Examples and recipes](docs/guides/character-art-recipes.md) · [Try the CLI](#try-it) ·
+[Use in Swift](#use-in-swift) · [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
 
 ## Try it
 
 On a Mac with full Xcode selected and a Swift 6.3+ toolchain, start with the image
-already in the repository. No hunt for a sample file required.
+already in the repository. These commands use a checkout of the current `main` branch.
 
 ```bash
 git clone https://github.com/BigCactusLabs/Aski.git
@@ -77,9 +80,11 @@ Then attach the library product to your app or executable target:
 )
 ```
 
-These are excerpts from a package manifest, not a complete manifest. Before the
-`v0.7.0` tag is published, use the source-checkout route above or add the checkout as a
-local package in Xcode. Earlier private-history tags are not available in this repository.
+These are excerpts from a package manifest, not a complete manifest. `v0.7.0` is
+[published](https://github.com/BigCactusLabs/Aski/releases/tag/v0.7.0); the source checkout
+above also includes work since that release. In particular, the CLI's `--algorithm`,
+`--coverage`, and `--palette` options were added after `v0.7.0`.
+Earlier private-history tags are not available in this repository.
 
 Given a `CGImage`, the conversion-and-render path is small:
 
@@ -91,7 +96,7 @@ func renderCharacterArt(from image: CGImage) -> CGImage {
     let grid = DefaultConverter().convert(image, columns: 80)
     return grid.renderImage(
         font: .system(size: 12),
-        backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+        backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
         scale: 2,
         preserveSourceAspect: true
     )

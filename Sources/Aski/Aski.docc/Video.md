@@ -28,6 +28,18 @@ let report = try await convertVideo(
 
 `targetFPS` resamples to a constant frame rate; omit it to preserve the source cadence. For GIFs, `loopCount: nil` preserves the source's reported loop value (once stays once, infinite stays infinite), and `maximumFrameCount` (default 10,000) rejects oversized inputs before any decode work.
 
+The GIF encoder accepts `loopCount` in `0...32767`: `0` means infinite playback,
+`1` means play once, and `2...32767` gives the total number of plays. These values
+round-trip through ImageIO for both one-frame and multi-frame GIFs on the recorded
+toolchain. The raw Netscape extension stores one fewer repeat for finite playback;
+an absent extension means play once. Values outside the supported range throw
+``GIFEncodeError/invalidLoopCount(_:)`` before the encoder creates or changes the
+destination. There is no clamping. ``GIFEncodeReport/loopCount`` reports the value
+decoded from the finalized output. A source loop count outside this encoding
+range also needs a valid explicit override when using `convertGIF`.
+The video lab preserves source loops and rejects an out-of-range source; it does
+not offer a loop-count override.
+
 ## Streaming building blocks
 
 For finer control, compose the halves directly:

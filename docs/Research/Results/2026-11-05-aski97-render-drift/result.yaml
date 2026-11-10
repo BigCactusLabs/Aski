@@ -1,0 +1,19 @@
+---
+schema_version: "1"
+date: 2026-11-05
+aski_git_sha: "b17e791a8a8ddb3b4d09cf330d6928db46ef3c07"
+provenance:
+  - "Original golden commit 0e654023; unchanged control 06adfdb; changed checkout b17e791"
+  - "macOS 27.0.1 (26A434); Xcode 27.0 (27A266a); Swift 6.4"
+  - "Four isolated control captures are byte-identical for each of 16 emitted candidate PNGs"
+  - "All current reference hashes verified before replacement; candidate hashes verified after copying"
+  - "Read-only vector audit CSVs copied without modifying committed ShapeData"
+  - "Parallel control core run emitted the same 16 PNGs; changed-tree targeted snapshot and Vesper tests passed"
+  - "Not reproduced on an Apple M3 Max host with the same macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: 06adfdb snapshot suites pass 11/11, 14c8697 fails the 16 replaced PNGs"
+outputs:
+  - README.md
+  - drift.csv
+  - vector-glyph-drift.csv
+  - vector-set-summary.csv
+summary: "ASKI-97 exact-render drift evidence, re-baseline WITHDRAWN: 16 images differed by one RGB step on the recording host, but an M3 Max host with the same macOS 27.0.1 and Xcode 27.0 builds reproduces the original goldens, so the drift is host-dependent and the original goldens stay."
+---
