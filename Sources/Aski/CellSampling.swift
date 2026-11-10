@@ -1,3 +1,4 @@
+import Accelerate
 import CoreGraphics
 import Foundation
 import simd
@@ -142,12 +143,13 @@ internal func readRGBA8(_ image: CGImage, targetColorSpace: RenderColorSpace) ->
 /// `[UInt8]` pixel buffer in premultiplied-last layout. Returns `nil` if the
 /// requested size is not positive or CGContext creation fails.
 ///
-/// The converter passes the **sampling lattice** size here, not the thumbnail's
-/// own size, so the drawn raster is an exact multiple of the grid and every
-/// source pixel lands inside some cell (ASKI-65). The rescale is at most one
-/// cell pitch on each axis and is anisotropic by up to that much; `.high`
-/// interpolation makes it an area-weighted fold of the remainder rather than a
-/// nearest-neighbour drop.
+/// For a source already within the conversion budget the converter passes the
+/// **sampling lattice** size here, not the source's own size, so the drawn
+/// raster is an exact multiple of the grid and every source pixel lands inside
+/// some cell (ASKI-65). The rescale is at most one cell pitch on each axis and
+/// is anisotropic by up to that much; `.high` interpolation makes it an
+/// area-weighted fold of the remainder rather than a nearest-neighbour drop.
+/// Sources larger than the budget go through `resampleRGBA8` instead.
 internal func readRGBA8(
     _ image: CGImage,
     width: Int,
@@ -192,42 +194,149 @@ internal func readRGBA8(
     return didDraw ? pixels : nil
 }
 
-/// The converter's sampling lattice for a decoded `thumbnail` at `columns × rows`.
+/// Resamples `image` straight to `width × height` in the target color space,
+/// returning the same premultiplied-last RGBA8 layout as `readRGBA8`.
 ///
-/// The cell pitch stays the floored integer quotient of the thumbnail size by
-/// the grid size — a uniform pitch, so the cell-height parity split that made
-/// the fractional lattice unusable (ASKI-25 phase B2) cannot fire. The raster
-/// the samplers read is then drawn at exactly `columns*cellWidth ×
-/// rows*cellHeight`, so `pixelWidth`/`pixelHeight` are exact multiples of the
-/// grid, the origin-anchored walk covers the whole raster, and no source row or
-/// column goes unread (ASKI-65). The scale from thumbnail to lattice is at most
-/// one cell pitch per axis.
+/// This is the converter's downscale for a decoded `CGImage` larger than the
+/// conversion budget (ASKI-1). vImage converts the source to the target RGBA8
+/// format once and applies its Lanczos filter (`kvImageHighQualityResampling`)
+/// in one pass to the lattice size; no PNG encode and no second `CGImageSource`
+/// is involved. Lanczos was chosen on a measured probe against the exact
+/// area-average of each lattice pixel's source footprint, across the committed
+/// photo corpora at three grid geometries: it was never more than 1.19× the
+/// old ImageIO-thumbnail path's error, where CoreGraphics `.high` and
+/// `.medium` draws were up to 7× worse on some images
+/// (`docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`). The filter
+/// can ring, so color is clipped to alpha afterwards to keep the raster validly
+/// premultiplied.
+///
+/// When vImage cannot describe the source (a format its converter rejects), this
+/// falls back to a CoreGraphics `.high` draw rather than failing the conversion.
+internal func resampleRGBA8(
+    _ image: CGImage,
+    width: Int,
+    height: Int,
+    targetColorSpace: RenderColorSpace
+) -> [UInt8]? {
+    guard width > 0, height > 0 else {
+        return nil
+    }
+    guard
+        let format = vImage_CGImageFormat(
+            bitsPerComponent: 8,
+            bitsPerPixel: 32,
+            colorSpace: targetColorSpace.encodedCGColorSpace,
+            bitmapInfo: CGBitmapInfo(
+                rawValue: CGImageAlphaInfo.premultipliedLast.rawValue
+                    | CGBitmapInfo.byteOrder32Big.rawValue
+            ),
+            renderingIntent: .defaultIntent
+        ),
+        var source = try? vImage_Buffer(cgImage: image, format: format)
+    else {
+        return readRGBA8(image, width: width, height: height, targetColorSpace: targetColorSpace)
+    }
+    defer { source.free() }
+
+    var pixels = [UInt8](repeating: 0, count: width * height * 4)
+    let status = pixels.withUnsafeMutableBytes { rawBuffer -> vImage_Error in
+        var destination = vImage_Buffer(
+            data: rawBuffer.baseAddress,
+            height: vImagePixelCount(height),
+            width: vImagePixelCount(width),
+            rowBytes: width * 4
+        )
+        let scaled = vImageScale_ARGB8888(
+            &source,
+            &destination,
+            nil,
+            vImage_Flags(kvImageHighQualityResampling)
+        )
+        guard scaled == kvImageNoError else {
+            return scaled
+        }
+        return vImageClipToAlpha_RGBA8888(&destination, &destination, vImage_Flags(kvImageNoFlags))
+    }
+    return status == kvImageNoError ? pixels : nil
+}
+
+/// The size a decoded `CGImage` is prepared at before the lattice pitch is
+/// taken: the source's own size when its longest side is within
+/// `maxPixelSize`, otherwise the source scaled so its longest side is exactly
+/// `maxPixelSize`, the shorter side rounded to the nearest pixel and never
+/// below one. Preparation never upscales.
+///
+/// This replaces the size the ImageIO thumbnail used to report for a direct
+/// `CGImage` (ASKI-1). ImageIO floors through an internal power-of-two
+/// subsample before scaling, so its short side can land a pixel below the
+/// proportional size; plain rounding keeps it at or above that size, and for
+/// portrait sources, whose `maxPixelSize` is set so the width lands on the
+/// `columns * oversample` budget, the width therefore never falls under it.
+internal func preparedSize(
+    width: Int,
+    height: Int,
+    maxPixelSize: Int
+) -> (width: Int, height: Int)? {
+    guard width > 0, height > 0, maxPixelSize > 0 else {
+        return nil
+    }
+    let longestSide = max(width, height)
+    guard longestSide > maxPixelSize else {
+        return (width, height)
+    }
+    let scale = Double(maxPixelSize) / Double(longestSide)
+    // `shortSide * scale` is below `shortSide` because `scale < 1`, so the
+    // conversion stays inside the named `Int` bound.
+    let shortSide = max(1, Int((Double(min(width, height)) * scale).rounded()))
+    return width >= height ? (maxPixelSize, shortSide) : (shortSide, maxPixelSize)
+}
+
+/// The converter's sampling lattice for a decoded `image` at `columns × rows`.
+///
+/// The prepared size (`preparedSize`) fixes the cell pitch as the floored
+/// integer quotient of that size by the grid size — a uniform pitch, so the
+/// cell-height parity split that made the fractional lattice unusable (ASKI-25
+/// phase B2) cannot fire. The raster the samplers read is then produced at
+/// exactly `columns*cellWidth × rows*cellHeight`, so `pixelWidth`/`pixelHeight`
+/// are exact multiples of the grid, the origin-anchored walk covers the whole
+/// raster, and no source row or column goes unread (ASKI-65).
+///
+/// A source within `maxPixelSize` is drawn into the lattice as before, a
+/// rescale of at most one cell pitch per axis. A larger source is resampled
+/// straight from its own pixels to the lattice (`resampleRGBA8`), one
+/// interpolation instead of the earlier thumbnail-then-lattice pair (ASKI-1).
 ///
 /// Returns `nil` when the grid is non-positive or the pitch degenerates to zero
 /// on either axis — the branches where every caller already bails.
 internal func samplingLattice(
-    thumbnail: CGImage,
+    image: CGImage,
+    maxPixelSize: Int,
     columns: Int,
     rows: Int,
     colorSpace: RenderColorSpace
 ) -> (pixels: [UInt8], cellWidth: Int, cellHeight: Int, pixelWidth: Int, pixelHeight: Int)? {
-    guard columns > 0, rows > 0 else {
+    guard
+        columns > 0, rows > 0,
+        let prepared = preparedSize(
+            width: image.width,
+            height: image.height,
+            maxPixelSize: maxPixelSize
+        )
+    else {
         return nil
     }
-    let cellWidth = thumbnail.width / columns
-    let cellHeight = thumbnail.height / rows
+    let cellWidth = prepared.width / columns
+    let cellHeight = prepared.height / rows
     guard cellWidth > 0, cellHeight > 0 else {
         return nil
     }
     let pixelWidth = columns * cellWidth
     let pixelHeight = rows * cellHeight
+    let downscales = max(image.width, image.height) > maxPixelSize
     guard
-        let pixels = readRGBA8(
-            thumbnail,
-            width: pixelWidth,
-            height: pixelHeight,
-            targetColorSpace: colorSpace
-        )
+        let pixels = downscales
+            ? resampleRGBA8(image, width: pixelWidth, height: pixelHeight, targetColorSpace: colorSpace)
+            : readRGBA8(image, width: pixelWidth, height: pixelHeight, targetColorSpace: colorSpace)
     else {
         return nil
     }

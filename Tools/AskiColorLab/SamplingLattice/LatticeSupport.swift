@@ -92,10 +92,10 @@ enum LatticeSupport {
 
     /// Target longest sides tried, smallest first.
     ///
-    /// `ImageIOThumbnail` returns the source **unscaled** when its longest side is
+    /// The converter keeps the source at its own size when its longest side is
     /// already inside the budget, and then the probe reports a footprint that is
     /// an artifact of the probe's own size rather than a regime conversion
-    /// resolves from a real photo. So grow the probe until the thumbnail actually
+    /// resolves from a real photo. So grow the probe until the budget actually
     /// binds, and take the first size that does. The bind is *detected*, never
     /// predicted, so this cannot drift from `thumbnailMaxPixelSize`.
     ///
