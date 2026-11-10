@@ -150,7 +150,7 @@ import Testing
             let after = Self.renderSameSourceMask(
                 source: source,
                 mask: mask,
-                groundColor: CGColor(red: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
+                groundColor: CGColor(srgbRed: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
             )
 
             assertSnapshot(of: Self.nsImage(from: before), as: .image, named: "same-source-before")
@@ -164,7 +164,7 @@ import Testing
             let after = Self.renderSameSourceMask(
                 source: source,
                 mask: mask,
-                groundColor: CGColor(red: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
+                groundColor: CGColor(srgbRed: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
             )
 
             if ProcessInfo.processInfo.environment["ASKI_RECORD_MASK_GROUND_DOCC"] == "1" {

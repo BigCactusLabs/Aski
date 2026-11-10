@@ -210,10 +210,14 @@ import Testing
         let explicitASCII = try await engine.render(a(explicit), font: font, backgroundColor: clear, scale: 1)
         let actualTile = try await engine.render(t(literal), scale: 32, backgroundColor: clear)
         let explicitTile = try await engine.render(t(explicit), scale: 32, backgroundColor: clear)
-        let expected = try oracle(explicit, destination: space(output))
-        for (label, image) in [
-            ("literal ASCII", actualASCII), ("tagged ASCII", explicitASCII),
-            ("literal tile", actualTile), ("tagged tile", explicitTile),
+        // Mask paint is color-matched from its declared space, including
+        // Generic RGB; engine adaptation does not reinterpret its components.
+        let literalExpected = try oracle(literal, destination: space(output))
+        let explicitExpected = try oracle(explicit, destination: space(output))
+        #expect(literalExpected != explicitExpected, "fixture must separate declared-space and literal paint")
+        for (label, image, expected) in [
+            ("literal ASCII", actualASCII, literalExpected), ("tagged ASCII", explicitASCII, explicitExpected),
+            ("literal tile", actualTile, literalExpected), ("tagged tile", explicitTile, explicitExpected),
         ] {
             #expect(try interior(image)[3] > 0, "\(label): fixture paint must be visible")
             try check(image, expected: expected, tag: space(output).name!, label: "\(source) ground=\(ground) \(label)")
