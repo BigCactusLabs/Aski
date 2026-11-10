@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-10T02:41:00Z'
+updated_date: '2026-11-10T04:13:00Z'
 labels:
   - correctness
   - rendering
@@ -28,3 +29,9 @@ Found while fixing ASKI-99. An sRGB (0.8, 0.2, 0.1) PointLight at intensity 1, a
 - [ ] #2 The lighting composite matches that meaning within 1/255 at the light center, for sRGB and Display P3 outputs
 - [ ] #3 Moved lighting goldens are re-recorded with a before/after note and the CHANGELOG explains the brightness change
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Batch follow-up (2026-11-09, ruling R6): LightingApplicator now converts the light to extended sRGB, scales by intensity, and clamps each component to [min(0, c), max(1, c)]. sRGB lights match the pre-ASKI-99 0...1 saturation at every intensity; a Display P3 light outside sRGB keeps its extended components at intensity <= 1 and saturates at them above 1. Pinned by EffectColorSpaceTests (sRGBTaggedPointLightMatchesLegacyConstruction, outOfGamutP3PointLight*). A redesign of the intensity model here should revisit that clamp together with the alpha accumulation.
+<!-- SECTION:NOTES:END -->
