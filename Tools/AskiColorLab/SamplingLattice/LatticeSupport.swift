@@ -102,7 +102,7 @@ enum LatticeSupport {
     /// Starting small matters: at `columns: 80, oversample: 2` the budget is 160px,
     /// so a 512px probe binds and a 2048px one wastes 16× the pixels on an identical
     /// answer. The high end is still needed — the portrait branch of
-    /// `thumbnailMaxPixelSize` scales the cap by the aspect ratio to protect the
+    /// `samplingMaxPixelSize` scales the cap by the aspect ratio to protect the
     /// width, so a 1:3 source at `oversample: 16` needs a budget near 3840px.
     static let probeTargetSides = [512, 1024, 2048, 4096, 8192]
 

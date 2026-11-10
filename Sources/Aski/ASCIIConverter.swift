@@ -326,8 +326,8 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
     /// `package`, not `public`: the command-line loader decodes files through
     /// ImageIO's `kCGImageSourceThumbnailMaxPixelSize` and sizes that decode
     /// from this rule. It used to keep its own copy of the rule, which never
-    /// gained the portrait branch below, so CLI portraits were sampled at about
-    /// half the intended cell width (ASKI-104).
+    /// gained the portrait branch of `samplingMaxPixelSize`, so CLI portraits
+    /// were sampled at about half the intended cell width (ASKI-104).
     package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
         guard
             let (cols, rows) = gridDimensions(
@@ -346,36 +346,11 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         thumbnailMaxPixelSize(width: image.width, height: image.height, columns: columns, rows: rows)
     }
 
+    /// The longest side a `width × height` source is prepared at for a
+    /// `columns × rows` grid: the size rule shared with `TileGridConverter`
+    /// (`samplingMaxPixelSize`).
     internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
-        let side = max(columns, rows)
-        let result = side.multipliedReportingOverflow(by: oversample)
-        guard !result.overflow, result.partialValue > 0 else {
-            return nil
-        }
-        // `maxPixelSize` caps the thumbnail's LONGEST side, so for a portrait
-        // image the width lands below `columns * oversample`, and once
-        // `thumbnail.width / columns` truncates to <2 px the log-polar
-        // histogram's radius gate excludes every pixel — a zero descriptor
-        // exactly matches the space glyph and the whole render goes blank.
-        // Cap the longest side (the height) at exactly what keeps the WIDTH
-        // on the `columns * oversample` budget. Derive it from `columns`, not
-        // `max(columns, rows)`: for tall sources `rows` already encodes the
-        // aspect ratio, and scaling it by height/width again would inflate
-        // the cap quadratically (a long screenshot could bypass thumbnail
-        // downscaling entirely). Square and landscape inputs are untouched
-        // (bit-identical output).
-        guard height > width, width > 0 else {
-            return result.partialValue
-        }
-        let widthBudget = columns.multipliedReportingOverflow(by: oversample)
-        guard !widthBudget.overflow else { return nil }
-        let scaled = (Double(widthBudget.partialValue) * Double(height) / Double(width))
-            .rounded(.up)
-        // `scaled` is a derived thumbnail dimension. `Double(Int.max)` rounds
-        // to the first unrepresentable 64-bit integer, so stay strictly inside
-        // the named `Int` bound before converting.
-        guard scaled.isFinite, scaled > 0, scaled < Double(Int.max) else { return nil }
-        return Int(scaled)
+        samplingMaxPixelSize(width: width, height: height, columns: columns, rows: rows, oversample: oversample)
     }
 
     private func makeGrid(

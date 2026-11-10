@@ -132,7 +132,8 @@ format explicitly makes them part of its contract.
 5. Renderers produce plain text, AttributedString, or CGImage (`Sources/Aski/Renderers/`)
 
 **Sampling lattice (step 1).** `prepareConversion` puts the source's longest side on the
-conversion budget (`thumbnailMaxPixelSize`, never upscaling), takes a floored integer cell
+conversion budget (`samplingMaxPixelSize`, `CellSampling.swift`, shared with
+`TileGridConverter`; never upscaling), takes a floored integer cell
 pitch (`prepared.width / cols`, `prepared.height / rows`) — uniform across the grid — and
 prepares a lattice raster of exactly `cols * cellWidth × rows * cellHeight`
 (`samplingLattice`, `CellSampling.swift`). A source larger than the budget is converted to
@@ -212,8 +213,8 @@ oversized inputs. The loader takes the size from the converter it will hand the
 image to (`preparationMaxPixelSize`, `package` access on `ASCIIConverter` and
 `TileGridConverter`) rather than keeping its own copy of the rule, and passes the
 source's displayed dimensions, with EXIF orientation applied as ImageIO's
-thumbnail applies it. For a portrait, `ASCIIConverter`'s cap keeps the width at
-`columns × oversample` (`TileGridConverter`'s cap has no portrait case yet);
+thumbnail applies it. For a portrait, both converters' cap (`samplingMaxPixelSize`)
+keeps the width at `columns × oversample` (ASKI-105);
 ImageIO can decode that width one pixel short, so the loader retries one pixel
 larger until it reaches the width the cap implies (ASKI-104). `aski render` and
 `aski inspect` share one `ToolImageConversion` snapshot so metadata describes the

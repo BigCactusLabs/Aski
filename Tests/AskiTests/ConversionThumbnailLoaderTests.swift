@@ -1,4 +1,4 @@
-@_spi(AskiResearch) import Aski
+@_spi(AskiResearch) @testable import Aski
 import AskiToolSupport
 import CoreGraphics
 import Foundation
@@ -117,6 +117,30 @@ import UniformTypeIdentifiers
 
         let budget = try #require(tiles.preparationMaxPixelSize(sourceWidth: 1280, sourceHeight: 975, columns: 60))
         #expect(max(image.width, image.height) == budget)
+    }
+
+    /// The loader and the tile converter together give a tile-matrix portrait
+    /// the intended cell width: the loader decodes at `TileGridConverter`'s
+    /// portrait budget (ASKI-105) and retries past ImageIO's one-pixel width
+    /// undershoot, and the tile converter samples that decode at
+    /// `cellWidth == oversample`. 975×1280 at 60 columns is the geometry where
+    /// ImageIO undershoots.
+    @Test(arguments: [1, 2, 3])
+    func tileLoaderGivesPortraitsTheIntendedCellWidth(oversample: Int) throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let input = directory.appending(path: "portrait.png")
+        try writeImage(gradient(width: 975, height: 1280), to: input, type: .png)
+        let tiles = TileGridConverter(oversample: oversample)
+
+        let image = try DemoImageIO.loadThumbnailForConversion(at: input.path, columns: 60, converter: tiles)
+
+        #expect(image.height > image.width)
+        #expect(image.width >= 60 * oversample)
+        let prepared = try #require(tiles.prepareLattice(image, columns: 60))
+        #expect(prepared.cols == 60)
+        #expect(prepared.lattice.cellWidth == oversample)
+        #expect(prepared.lattice.cellHeight >= oversample)
     }
 
     /// The visible cost of the bug: a one-pixel-wide cell has no shape

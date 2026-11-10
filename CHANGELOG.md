@@ -101,9 +101,23 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   ImageIO decodes a portrait one pixel narrower than that size implies. CLI portrait output
   changes. The row count comes from the decoded aspect ratio, which the larger decode keeps
   closer to the source's, so a portrait can gain or lose one row. Landscape and square inputs
-  decode exactly as before. Tile-matrix portraits follow `TileGridConverter`'s own size rule,
-  which still lacks the portrait correction. Library callers that pass a `CGImage` are
-  unaffected.
+  decode exactly as before. Library callers that pass a `CGImage` are unaffected.
+- **`TileGridConverter` samples portraits at the intended cell width (ASKI-105).** The tile
+  converter capped its sampling lattice's longest side at `max(columns, rows) × oversample`, which
+  in a portrait is the height, so the width came out below `columns × oversample`. A 975×1280
+  portrait at 60 columns was sampled 119 pixels wide at the default oversample 2, one source
+  pixel per cell instead of two, and 59 pixels wide at oversample 1, where the cell width floored
+  to zero and `convert` returned an empty grid. `TileGridConverter` now uses `ASCIIConverter`'s
+  size rule, which raises a portrait's cap to the height that puts the width on
+  `columns × oversample`; the two converters share one implementation. Portrait tile output
+  changes: cell colors and the adaptive palette move, and grid dimensions stay the same. Square
+  and landscape tile output is unchanged. Sharing the rule also fixes `ASCIIConverter` with the
+  `.tall` sampling shape, which gives a portrait more rows than columns × height/width. Its
+  portrait branch replaced the base cap even where the base was larger, which halved the cell
+  height of `.tall` portraits and returned an empty grid at oversample 1; the shared rule keeps
+  the larger cap. All other `ASCIIConverter` output, including the frozen Vesper preset, is
+  unchanged. `AskiTileMatrix` takes its decode size from `TileGridConverter` (ASKI-104), so its
+  portraits now decode at this portrait size and are sampled at the intended cell width too.
 
 ## v0.8.0 — 2026-11-10
 

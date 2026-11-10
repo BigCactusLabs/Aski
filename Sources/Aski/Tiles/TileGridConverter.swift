@@ -33,17 +33,7 @@ public struct TileGridConverter: Sendable {
         }
 
         let resolvedOptions = ResolvedRenderingOptions(options)
-        guard
-            let (cols, rows) = gridDimensions(
-                imageWidth: image.width,
-                imageHeight: image.height,
-                columns: columns,
-                tileShape: samplingShape
-            )
-        else {
-            return TileGrid(cells: [], colorSpace: colorSpace)
-        }
-        guard let maxPixelSize = thumbnailMaxPixelSize(columns: cols, rows: rows) else {
+        guard let (cols, rows, lattice) = prepareLattice(image, columns: columns) else {
             return TileGrid(cells: [], colorSpace: colorSpace)
         }
         let sampledCoverage = mask.flatMap { options in
@@ -52,22 +42,6 @@ public struct TileGridConverter: Sendable {
         let maskFallback = sampledCoverage == nil ? nil : mask?.fallback
         let maskGroundColor = sampledCoverage == nil ? nil : mask?.groundColor
         let maskUsesHardEdges = sampledCoverage == nil ? false : !(mask?.softEdges ?? true)
-
-        // Same sampling lattice as `prepareConversion` — an exact multiple of
-        // the grid, so no source row or column goes unread (ASKI-65), prepared
-        // straight from the source image (ASKI-1). The palette is quantized
-        // from the same lattice raster the cells sample.
-        guard
-            let lattice = samplingLattice(
-                image: image,
-                maxPixelSize: maxPixelSize,
-                columns: cols,
-                rows: rows,
-                colorSpace: colorSpace
-            )
-        else {
-            return TileGrid(cells: [], colorSpace: colorSpace)
-        }
 
         let resolvedPalette = palette.resolved(
             pixels: lattice.pixels,
@@ -136,16 +110,64 @@ public struct TileGridConverter: Sendable {
         else {
             return nil
         }
-        return thumbnailMaxPixelSize(columns: cols, rows: rows)
+        return thumbnailMaxPixelSize(width: sourceWidth, height: sourceHeight, columns: cols, rows: rows)
     }
 
-    private func thumbnailMaxPixelSize(columns: Int, rows: Int) -> Int? {
-        let side = max(columns, rows)
-        let effectiveOversample = max(1, oversample)
-        let result = side.multipliedReportingOverflow(by: effectiveOversample)
-        guard !result.overflow, result.partialValue > 0 else {
+    /// The grid and sampling lattice `convert(_:columns:mask:)` reads `image`
+    /// through, or `nil` where it returns an empty grid. `internal` so tests
+    /// can pin the cell pitch.
+    ///
+    /// Same sampling lattice as `ASCIIConverter.prepareConversion`: an exact
+    /// multiple of the grid, so no source row or column goes unread (ASKI-65),
+    /// prepared straight from the source image (ASKI-1), at the size the shared
+    /// `samplingMaxPixelSize` rule gives (ASKI-105). The palette is quantized
+    /// from the same lattice raster the cells sample.
+    internal func prepareLattice(
+        _ image: CGImage,
+        columns: Int
+    ) -> (
+        cols: Int,
+        rows: Int,
+        lattice: (pixels: [UInt8], cellWidth: Int, cellHeight: Int, pixelWidth: Int, pixelHeight: Int)
+    )? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: image.width,
+                imageHeight: image.height,
+                columns: columns,
+                tileShape: samplingShape
+            ),
+            let maxPixelSize = thumbnailMaxPixelSize(
+                width: image.width,
+                height: image.height,
+                columns: cols,
+                rows: rows
+            ),
+            let lattice = samplingLattice(
+                image: image,
+                maxPixelSize: maxPixelSize,
+                columns: cols,
+                rows: rows,
+                colorSpace: colorSpace
+            )
+        else {
             return nil
         }
-        return result.partialValue
+        return (cols, rows, lattice)
+    }
+
+    /// The longest side a `width × height` source is prepared at for a
+    /// `columns × rows` grid: the size rule shared with `ASCIIConverter`
+    /// (`samplingMaxPixelSize`). `oversample` is not clamped where it is
+    /// stored, so it is clamped here, for both the converter and the
+    /// command-line loader.
+    internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
+        samplingMaxPixelSize(
+            width: width,
+            height: height,
+            columns: columns,
+            rows: rows,
+            oversample: max(1, oversample)
+        )
     }
 }

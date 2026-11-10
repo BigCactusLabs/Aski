@@ -81,7 +81,10 @@ Out-of-range values clamp silently.
 ``ASCIIConverter`` accepts an `oversample` init parameter (default `2`) that
 controls how aggressively the input is downsampled before per-cell feature
 extraction. The converter resamples the source so its longest side is roughly
-`max(columns, rows) * oversample` pixels, then carves it into cells.
+`max(columns, rows) * oversample` pixels. In a portrait that longest side is the
+height, so it is raised where needed to put the width on `columns * oversample`,
+which keeps every cell at least `oversample` pixels wide. The converter then
+carves the result into cells. ``TileGridConverter`` uses the same rule.
 
 The cell pitch is a floored integer quotient, so it stays uniform across the
 grid, and the source is resampled straight into a *sampling lattice* of exactly
