@@ -23,8 +23,11 @@ On GitHub, its symbol links appear in source form; `just docc` validates the res
 catalog locally. `./Scripts/validate-docc.sh --emit-markdown` additionally emits optional
 Markdown sidecars and a manifest in a unique, retained directory printed by the script.
 For packaging, pass `--output-dir` with a new directory; see the
-[output-path migration](../CONTRIBUTING.md#pull-requests-and-releases). Release notes
-describe intended assets; do not assume a hosted API site.
+[output-path migration](../CONTRIBUTING.md#pull-requests-and-releases). Swift Package
+Index hosts the rendered
+[API documentation](https://swiftpackageindex.com/BigCactusLabs/Aski/documentation/aski)
+and Aski's [package page](https://swiftpackageindex.com/BigCactusLabs/Aski), which lists
+releases and the Swift versions and platforms the package builds with.
 
 ## Understand or contribute
 
