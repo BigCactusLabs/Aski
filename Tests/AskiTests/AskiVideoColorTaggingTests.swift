@@ -102,6 +102,50 @@ import Testing
         #expect(decoded == [128, 128, 128], "decoded \(decoded)")
     }
 
+    /// The first frame fixes the file's gamut. A later frame in the other gamut
+    /// keeps the first frame's tags and is color-matched into the first frame's
+    /// space when drawn. The discriminator's P3 encoding is outside sRGB, so a
+    /// later frame drawn in its own space, or untagged, decodes visibly wrong.
+    @Test(arguments: [(RenderColorSpace.sRGB, RenderColorSpace.displayP3), (.displayP3, .sRGB)], [VideoCodec.h264, .hevc])
+    func mixedGamutSequenceKeepsFirstFrameGamut(order: (RenderColorSpace, RenderColorSpace), codec: VideoCodec)
+        async throws
+    {
+        let (first, second) = order
+        let images = [first, second].map { solidGridFrame(space: $0, rgb: Self.discriminator, columns: 4, rows: 4) }
+        #expect(images[0].width == images[1].width && images[0].height == images[1].height)
+        let url = tempVideoURL("mixed-\(first)-\(second)-\(codec).mp4")
+        try await ASCIIVideoEncoder().write(
+            frameSequence([
+                RenderedVideoFrame(image: images[0], time: .zero),
+                RenderedVideoFrame(image: images[1], time: CMTime(value: 1, timescale: 12)),
+            ]),
+            to: url,
+            options: VideoExportOptions(codec: codec)
+        )
+        defer { try? FileManager.default.removeItem(at: url) }
+
+        let extensions = try await trackColorExtensions(url)
+        let expectedPrimaries =
+            first == .displayP3 ? kCVImageBufferColorPrimaries_P3_D65 : kCVImageBufferColorPrimaries_ITU_R_709_2
+        #expect(extensions.primaries == expectedPrimaries as String)
+        #expect(extensions.transferFunction == kCVImageBufferTransferFunction_sRGB as String)
+        #expect(extensions.matrix == kCVImageBufferYCbCrMatrix_ITU_R_709_2 as String)
+
+        let firstSpace = CGColorSpace(name: first == .displayP3 ? CGColorSpace.displayP3 : CGColorSpace.sRGB)!
+        let decoded = try await decodedCenterRGBs(url, readingIn: first)
+        try #require(decoded.count == 2, "decoded \(decoded.count) frames")
+        for (index, image) in images.enumerated() {
+            let expected = renderCenterPixel(image, space: firstSpace).map(Double.init)
+            #expect(
+                maxDelta(decoded[index], expected) <= Self.tolerance,
+                "frame \(index) (\(index == 0 ? first : second)): decoded \(decoded[index]) vs \(expected)"
+            )
+        }
+        // The later frame's source bytes are not what the first frame's gamut holds.
+        let secondSource = encodedBytes(Self.discriminator).map(Double.init)
+        #expect(maxDelta(decoded[1], secondSource) > 15, "second frame was not color-matched: \(decoded[1])")
+    }
+
     @Test func outputGamutMapsColorSpacesByName() {
         func gamut(_ name: CFString) -> VideoOutputGamut {
             VideoOutputGamut(imageColorSpace: CGColorSpace(name: name))
@@ -203,6 +247,13 @@ private func trackColorExtensions(_ url: URL) async throws -> TrackColorExtensio
 /// encoded RGB values in `space`; a mis-tagged track would be converted and show
 /// up as a color error.
 private func decodedCenterRGB(_ url: URL, readingIn space: RenderColorSpace) async throws -> [Double] {
+    try #require(try await decodedCenterRGBs(url, readingIn: space, limit: 1).first)
+}
+
+/// `decodedCenterRGB` for every frame in presentation order, up to `limit`.
+private func decodedCenterRGBs(
+    _ url: URL, readingIn space: RenderColorSpace, limit: Int = .max
+) async throws -> [[Double]] {
     let asset = AVURLAsset(url: url)
     let track = try #require(try await asset.loadTracks(withMediaType: .video).first)
     let reader = try AVAssetReader(asset: asset)
@@ -220,8 +271,14 @@ private func decodedCenterRGB(_ url: URL, readingIn space: RenderColorSpace) asy
     )
     reader.add(output)
     #expect(reader.startReading())
-    let sample = try #require(output.copyNextSampleBuffer())
-    let buffer = try #require(CMSampleBufferGetImageBuffer(sample))
+    var frames: [[Double]] = []
+    while frames.count < limit, let sample = output.copyNextSampleBuffer() {
+        frames.append(try centerMean(of: try #require(CMSampleBufferGetImageBuffer(sample))))
+    }
+    return frames
+}
+
+private func centerMean(of buffer: CVPixelBuffer) throws -> [Double] {
     CVPixelBufferLockBaseAddress(buffer, .readOnly)
     defer { CVPixelBufferUnlockBaseAddress(buffer, .readOnly) }
     let base = try #require(CVPixelBufferGetBaseAddress(buffer)).assumingMemoryBound(to: UInt8.self)

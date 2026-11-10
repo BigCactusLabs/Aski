@@ -124,18 +124,96 @@ import Testing
 
     // MARK: - Point lights
 
-    private func lightCenter(_ light: CGColor, intensity: Double) -> [Int] {
-        // A large extent keeps the radial falloff at the sampled center pixel far below 1/255.
-        let extent = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+    // A large extent keeps the radial falloff at the sampled center pixel far below 1/255.
+    private static let lightExtent = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+    private static let lightSample = CGPoint(x: 512, y: 512)
+
+    private func lightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat = 1) -> [Int] {
+        let extent = Self.lightExtent
         let context = EffectContext(
             workingColorSpace: WorkingColorSpace.extendedLinearSRGB, outputExtent: extent,
             renderColorSpace: .sRGB, deviceCapability: .full)
-        let white = CIImage(color: CIColor(red: 1, green: 1, blue: 1, alpha: 1)).cropped(to: extent)
+        let input = CIImage(color: CIColor(red: gray, green: gray, blue: gray, alpha: 1)).cropped(to: extent)
         let lighting = LightingOptions(
             lights: [PointLight(position: CGPoint(x: 0.5, y: 0.5), radius: 1, intensity: intensity, color: light)],
             ambient: 0)
-        let result = LightingApplicator().apply(lighting, to: white, in: context)
-        return render(result, at: CGPoint(x: 512, y: 512), into: sRGB)
+        let result = LightingApplicator().apply(lighting, to: input, in: context)
+        return render(result, at: Self.lightSample, into: sRGB)
+    }
+
+    /// The pre-ASKI-99 point-light chain, rebuilt from Core Image filters: the light
+    /// color is `CIColor(cgColor:)` with each component scaled by intensity, in the
+    /// default (sRGB) `CIColor` space, then added over black and an ambient of 0 and
+    /// multiplied into the input.
+    private func legacyLightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat) throws -> [Int] {
+        let extent = Self.lightExtent
+        let input = CIImage(color: CIColor(red: gray, green: gray, blue: gray, alpha: 1)).cropped(to: extent)
+        let scale = CGFloat(intensity)
+        let legacy = CIColor(cgColor: light)
+        let radial = try #require(CIFilter(name: "CIRadialGradient"))
+        radial.setValue(CIVector(x: extent.midX, y: extent.midY), forKey: "inputCenter")
+        radial.setValue(0, forKey: "inputRadius0")
+        radial.setValue(extent.width, forKey: "inputRadius1")
+        radial.setValue(
+            CIColor(red: legacy.red * scale, green: legacy.green * scale, blue: legacy.blue * scale, alpha: 1),
+            forKey: "inputColor0")
+        radial.setValue(CIColor(red: 0, green: 0, blue: 0, alpha: 1), forKey: "inputColor1")
+
+        func composite(_ name: String, _ first: CIImage, _ second: CIImage) throws -> CIImage {
+            let filter = try #require(CIFilter(name: name))
+            filter.setValue(first, forKey: kCIInputImageKey)
+            filter.setValue(second, forKey: kCIInputBackgroundImageKey)
+            return try #require(filter.outputImage).cropped(to: extent)
+        }
+        let black = CIImage(color: .black).cropped(to: extent)
+        let lightField = try composite(
+            "CIAdditionCompositing", black, try #require(radial.outputImage).cropped(to: extent))
+        let ambient = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 1)).cropped(to: extent)
+        let combined = try composite("CIAdditionCompositing", lightField, ambient)
+        let result = try composite("CIMultiplyCompositing", input, combined)
+        return render(result, at: Self.lightSample, into: sRGB)
+    }
+
+    /// An sRGB-tagged light keeps its pre-ASKI-99 meaning at every intensity,
+    /// including above 1. The dark input keeps every channel below saturation.
+    @Test(arguments: [0.0, 0.6, 1.0, 2.0])
+    func sRGBTaggedPointLightMatchesLegacyConstruction(intensity: Double) throws {
+        let light = color(sRGB, [0.9, 0.5, 0.3])
+        let actual = lightCenter(light, intensity: intensity, input: 0.2)
+        let legacy = try legacyLightCenter(light, intensity: intensity, input: 0.2)
+        if intensity > 0 {
+            #expect(actual.prefix(3).allSatisfy { $0 > 0 && $0 < 255 }, "saturated or black: \(actual)")
+        }
+        expectClose(actual, legacy, "sRGB light intensity \(intensity)")
+    }
+
+    /// Display P3 red lies outside sRGB. Its extended-sRGB components (red above 1,
+    /// green and blue below 0) reach the light field unclipped: the result equals a
+    /// light declared in extended sRGB with those components, and differs from the
+    /// clipped sRGB (1, 0, 0) light in the red channel.
+    @Test func outOfGamutP3PointLightKeepsExtendedComponents() throws {
+        let extendedSRGB = try #require(CGColorSpace(name: CGColorSpace.extendedSRGB))
+        let p3Red = color(displayP3, [1, 0, 0])
+        let converted = try #require(
+            p3Red.converted(to: extendedSRGB, intent: .relativeColorimetric, options: nil)?.components)
+        #expect(converted[0] > 1.05 && converted[1] < -0.1, "extended components \(converted)")
+        let declared = color(extendedSRGB, Array(converted.prefix(3)))
+        let clipped = color(sRGB, [1, 0, 0])
+
+        let p3Result = lightCenter(p3Red, intensity: 1, input: 0.5)
+        expectClose(p3Result, lightCenter(declared, intensity: 1, input: 0.5), "P3 red vs extended sRGB")
+        let clippedResult = lightCenter(clipped, intensity: 1, input: 0.5)
+        #expect(p3Result[0] - clippedResult[0] >= 5, "P3 \(p3Result) vs clipped \(clippedResult)")
+    }
+
+    /// Above intensity 1 a wide-gamut light saturates at its own extended
+    /// components (red above 1) instead of overdriving, and still keeps them.
+    @Test func outOfGamutP3PointLightSaturatesAtItsOwnComponents() throws {
+        let p3Red = color(displayP3, [1, 0, 0])
+        let atTwo = lightCenter(p3Red, intensity: 2, input: 0.5)
+        expectClose(atTwo, lightCenter(p3Red, intensity: 1, input: 0.5), "P3 red at intensity 2 vs 1")
+        let clippedResult = lightCenter(color(sRGB, [1, 0, 0]), intensity: 2, input: 0.5)
+        #expect(atTwo[0] - clippedResult[0] >= 5, "P3 \(atTwo) vs clipped \(clippedResult)")
     }
 
     /// The light field's absolute scale is the applicator's own model, so the
