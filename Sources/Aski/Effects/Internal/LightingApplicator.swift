@@ -51,19 +51,38 @@ internal struct LightingApplicator: Sendable {
         filter.setValue(0, forKey: "inputRadius0")
         filter.setValue(radiusInPixels, forKey: "inputRadius1")
 
+        // Intensity scales encoded sRGB components, as it always has. Convert the
+        // caller's color from its declared space first instead of reading its raw
+        // components as sRGB.
         let intensity = CGFloat(light.intensity)
-        let color = CIColor(cgColor: light.color)
+        let rgb = Self.encodedSRGBComponents(of: light.color)
         filter.setValue(
             CIColor(
-                red: color.red * intensity,
-                green: color.green * intensity,
-                blue: color.blue * intensity,
-                alpha: 1
-            ),
+                red: rgb.red * intensity,
+                green: rgb.green * intensity,
+                blue: rgb.blue * intensity,
+                alpha: 1,
+                colorSpace: Self.extendedSRGB
+            ) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 1),
             forKey: "inputColor0"
         )
         filter.setValue(CIColor(red: 0, green: 0, blue: 0, alpha: 1), forKey: "inputColor1")
         return (filter.outputImage ?? CIImage(color: .black)).cropped(to: extent)
+    }
+
+    private static let extendedSRGB: CGColorSpace =
+        CGColorSpace(name: CGColorSpace.extendedSRGB) ?? CGColorSpaceCreateDeviceRGB()
+
+    /// Extended-range encoded sRGB components, so wide-gamut colors are not clipped.
+    private static func encodedSRGBComponents(of color: CGColor) -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
+        guard
+            let converted = color.converted(to: extendedSRGB, intent: .relativeColorimetric, options: nil),
+            let components = converted.components, components.count >= 3
+        else {
+            let fallback = CIColor(cgColor: color)
+            return (fallback.red, fallback.green, fallback.blue)
+        }
+        return (components[0], components[1], components[2])
     }
 
     private func additive(_ first: CIImage, with second: CIImage, extent: CGRect) -> CIImage {
