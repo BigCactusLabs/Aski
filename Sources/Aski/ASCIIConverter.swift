@@ -318,7 +318,35 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         )
     }
 
+    /// The longest side, in pixels, that `convert(_:columns:)` prepares a
+    /// `sourceWidth × sourceHeight` image at, or `nil` where it returns an
+    /// empty grid. An image decoded to this size is sampled without a further
+    /// downscale.
+    ///
+    /// `package`, not `public`: the command-line loader decodes files through
+    /// ImageIO's `kCGImageSourceThumbnailMaxPixelSize` and sizes that decode
+    /// from this rule. It used to keep its own copy of the rule, which never
+    /// gained the portrait branch below, so CLI portraits were sampled at about
+    /// half the intended cell width (ASKI-104).
+    package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: sourceWidth,
+                imageHeight: sourceHeight,
+                columns: columns,
+                tileShape: tileShape
+            )
+        else {
+            return nil
+        }
+        return thumbnailMaxPixelSize(width: sourceWidth, height: sourceHeight, columns: cols, rows: rows)
+    }
+
     internal func thumbnailMaxPixelSize(image: CGImage, columns: Int, rows: Int) -> Int? {
+        thumbnailMaxPixelSize(width: image.width, height: image.height, columns: columns, rows: rows)
+    }
+
+    internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
         let side = max(columns, rows)
         let result = side.multipliedReportingOverflow(by: oversample)
         guard !result.overflow, result.partialValue > 0 else {
@@ -336,12 +364,12 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         // the cap quadratically (a long screenshot could bypass thumbnail
         // downscaling entirely). Square and landscape inputs are untouched
         // (bit-identical output).
-        guard image.height > image.width, image.width > 0 else {
+        guard height > width, width > 0 else {
             return result.partialValue
         }
         let widthBudget = columns.multipliedReportingOverflow(by: oversample)
         guard !widthBudget.overflow else { return nil }
-        let scaled = (Double(widthBudget.partialValue) * Double(image.height) / Double(image.width))
+        let scaled = (Double(widthBudget.partialValue) * Double(height) / Double(width))
             .rounded(.up)
         // `scaled` is a derived thumbnail dimension. `Double(Int.max)` rounds
         // to the first unrepresentable 64-bit integer, so stay strictly inside

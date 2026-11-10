@@ -121,6 +121,24 @@ public struct TileGridConverter: Sendable {
         )
     }
 
+    /// The longest side, in pixels, that `convert(_:columns:)` prepares a
+    /// `sourceWidth × sourceHeight` image at, or `nil` where it returns an
+    /// empty grid. `package` for the command-line loader, as
+    /// `ASCIIConverter.preparationMaxPixelSize` is (ASKI-104).
+    package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: sourceWidth,
+                imageHeight: sourceHeight,
+                columns: columns,
+                tileShape: samplingShape
+            )
+        else {
+            return nil
+        }
+        return thumbnailMaxPixelSize(columns: cols, rows: rows)
+    }
+
     private func thumbnailMaxPixelSize(columns: Int, rows: Int) -> Int? {
         let side = max(columns, rows)
         let effectiveOversample = max(1, oversample)
