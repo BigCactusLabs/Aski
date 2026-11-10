@@ -72,7 +72,6 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   The README links to it.
 - **Color examples use sRGB.** README and DocC snippets build example colors with
   `CGColor(srgbRed:green:blue:alpha:)` instead of the Generic RGB initializer.
-
 - **README hero regenerated from the current build (ASKI-15).** The previous Carina hero
   could not be reproduced by any converter build: it had about 1.9× the source's
   per-cell chroma and a 17% pure-black floor, while every build since June 2026 matches

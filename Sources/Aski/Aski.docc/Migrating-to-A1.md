@@ -49,7 +49,7 @@ destinations must be regular files. See <doc:CommandLine>.
 
 ## Moving to v0.7.0
 
-Once the public tag is published, update the package dependency:
+Update the package dependency:
 
 ```swift
 .package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.7.0")

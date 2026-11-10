@@ -82,8 +82,8 @@ Then attach the library product to your app or executable target:
 
 These are excerpts from a package manifest, not a complete manifest. The CLI's
 `--algorithm`, `--coverage`, and `--palette` options are available from
-[`v0.8.0`](https://github.com/BigCactusLabs/Aski/releases/tag/v0.8.0); the source checkout
-above can also include work since that release.
+[`v0.8.0`](https://github.com/BigCactusLabs/Aski/releases/tag/v0.8.0). A source checkout of
+`main` may include changes made after the latest release.
 Earlier private-history tags are not available in this repository.
 
 Given a `CGImage`, the conversion-and-render path is small:
