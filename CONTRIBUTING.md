@@ -31,9 +31,10 @@ macOS 15, and visionOS 2. Development and the CLI require a Mac with full Xcode 
 command-line tools selected; a standalone Swift installation is not the complete
 Apple-framework/Metal toolchain used by this repository.
 
-**For the v0.7.0 render goldens and checked-in Metal library, use the recorded
-macOS 27 / Xcode 27 baseline.** The release branch records successful verification on
-macOS 27.0 / Xcode 27.0 / Swift 6.4. Render snapshots are known to differ on macOS 26.
+**For the render goldens and checked-in Metal library, use the recorded
+macOS 27 / Xcode 27 baseline.** The v0.7.0 release branch recorded successful verification on
+macOS 27.0 / Xcode 27.0 / Swift 6.4; the goldens changed by ASKI-3 after v0.7.0 were
+re-recorded on macOS 27.0.1 / Xcode 27.0 / Swift 6.4. Render snapshots are known to differ on macOS 26.
 That is a contributor reproduction constraint, not a macOS 27 deployment requirement.
 A supported Swift compiler alone does not guarantee identical raster output.
 

@@ -5,7 +5,7 @@
 ## Start here
 
 - [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
-- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options were added after v0.7.0.
+- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options require v0.8.0 or later.
 - [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
 - [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
 - [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.

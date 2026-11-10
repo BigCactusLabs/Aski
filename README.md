@@ -63,11 +63,11 @@ Masks, exact-width exports, manifests, reusable builds, and troubleshooting:
 
 Add Aski through Xcode's package dependencies, or add it to `Package.swift`. Choose a
 published tag from [Releases](https://github.com/BigCactusLabs/Aski/releases); the
-`v0.7.0` dependency is:
+`v0.8.0` dependency is:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.7.0"),
+    .package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.8.0"),
 ]
 ```
 
@@ -80,10 +80,10 @@ Then attach the library product to your app or executable target:
 )
 ```
 
-These are excerpts from a package manifest, not a complete manifest. `v0.7.0` is
-[published](https://github.com/BigCactusLabs/Aski/releases/tag/v0.7.0); the source checkout
-above also includes work since that release. In particular, the CLI's `--algorithm`,
-`--coverage`, and `--palette` options were added after `v0.7.0`.
+These are excerpts from a package manifest, not a complete manifest. The CLI's
+`--algorithm`, `--coverage`, and `--palette` options are available from
+[`v0.8.0`](https://github.com/BigCactusLabs/Aski/releases/tag/v0.8.0). A source checkout of
+`main` may include changes made after the latest release.
 Earlier private-history tags are not available in this repository.
 
 Given a `CGImage`, the conversion-and-render path is small:
