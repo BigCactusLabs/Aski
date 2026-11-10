@@ -1,10 +1,10 @@
 ---
 id: ASKI-104
 title: CLI loader samples portraits at half the intended cell width
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-11-10T20:31:00Z'
-updated_date: '2026-11-10T20:44:00Z'
+updated_date: '2026-11-10T21:20:00Z'
 labels:
   - correctness
   - cli
@@ -34,4 +34,6 @@ aski render and aski inspect (and AskiTileMatrix and aski lab motion --image) de
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-11-10: fixed on branch aski-104-cli-portrait-budget. ASCIIConverter and TileGridConverter gain package preparationMaxPixelSize(sourceWidth:sourceHeight:columns:); the loader takes the converter and asks it for the size, from displayed (EXIF-oriented) dimensions, and retries one pixel larger while a portrait decodes narrower than floor(cap x W/H). ToolArgumentBounds.thumbnailMaxPixelSize deleted; the shape-residual lab keeps its old formula as a private helper. Lovell at 60 columns now decodes 120x159 (was 91x120). ConversionThumbnailLoaderTests pins portrait width, cellWidth == oversample and supportsShapeDescriptor, EXIF orientations 5-8, and unchanged landscape/square sizes. No goldens moved, so no census. just check green on the committed tree. Follow-up: TileGridConverter's own size rule has no portrait case, so tile-matrix portraits still undersample.
+
+2026-11-10: PR #24 merged as c84199d (merge tree = gated head e77a219, which includes main d6d838d with PR #23). just check passed on e77a219 under the shared lock: 1483 + 163 + 2 tests plus DocC. The TileGridConverter portrait follow-up is ASKI-105 (PR #25).
 <!-- SECTION:NOTES:END -->
