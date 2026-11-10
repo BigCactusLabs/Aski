@@ -87,8 +87,10 @@ import Testing
             #expect(a.cells == b.cells)
             let font = ASCIIFont.system(size: 10)
             let background = CGColor(gray: 0, alpha: 1)
-            let imageA = a.renderImage(font: font, backgroundColor: background, scale: 1)
-            let imageB = b.renderImage(font: font, backgroundColor: background, scale: 1)
+            // The explicit argument selects the synchronous plain renderer;
+            // in an async test the bare call resolves to the effects overload.
+            let imageA = a.renderImage(font: font, backgroundColor: background, scale: 1, preserveSourceAspect: false)
+            let imageB = b.renderImage(font: font, backgroundColor: background, scale: 1, preserveSourceAspect: false)
             #expect(imageA.width == imageB.width && imageA.height == imageB.height)
             #expect(earlySelectionRGBA(imageA) == earlySelectionRGBA(imageB))
         }
