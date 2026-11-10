@@ -40,6 +40,23 @@ range also needs a valid explicit override when using `convertGIF`.
 The video lab preserves source loops and rejects an out-of-range source; it does
 not offer a loop-count override.
 
+## MP4 color
+
+The MP4 encoder keeps the grid's gamut and tags the track to match. The first
+frame's color space picks the gamut: Display P3 (including the linear variant
+rendered under ``RenderCompositionPolicy/extendedLinearPerGamut``) encodes as P3;
+sRGB, any other color space, and untagged images encode as sRGB. Frames are drawn
+in that gamut's encoded, non-linear space, and both the pixel buffers and the
+H.264 or HEVC track carry this triple:
+
+| Gamut | Color primaries | Transfer function | Y'CbCr matrix |
+|---|---|---|---|
+| sRGB | ITU-R BT.709 | IEC 61966-2-1 (sRGB) | ITU-R BT.709 |
+| Display P3 | P3 D65 | IEC 61966-2-1 (sRGB) | ITU-R BT.709 |
+
+The encoder writes video (limited) range. A decoder that honors the tags
+reproduces the rendered colors; a P3 export is not clipped to sRGB.
+
 ## Streaming building blocks
 
 For finer control, compose the halves directly:

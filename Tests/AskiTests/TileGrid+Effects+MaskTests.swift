@@ -82,7 +82,7 @@ import Testing
         let grid = TileGrid(
             cells: [[TileCell(displayColor: SIMD3<Float>(1, 0, 0), alpha: 1, brightness: 1, coverage: 0)]],
             colorSpace: .sRGB,
-            maskFallback: .solid(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
+            maskFallback: .solid(CGColor(srgbRed: 0, green: 0, blue: 1, alpha: 1))
         )
         let image = grid.renderImage(
             mode: .mosaic(grout: CGColor(red: 1, green: 0, blue: 0, alpha: 1), groutThickness: 0.3),

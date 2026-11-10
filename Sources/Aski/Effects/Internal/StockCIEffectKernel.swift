@@ -161,14 +161,10 @@ internal struct StockCIEffectKernel: EffectKernel {
         in context: EffectContext
     ) -> CIImage {
         let extent = context.outputExtent
-        let ciColor = CIColor(cgColor: color)
-        let scaledColor = CIColor(
-            red: ciColor.red,
-            green: ciColor.green,
-            blue: ciColor.blue,
-            alpha: CGFloat(max(0, min(1, opacity)))
-        )
-        let overlay = CIImage(color: scaledColor).cropped(to: extent)
+        // Opacity replaces the color's own alpha. Keep the caller's color space so
+        // Core Image color-matches the overlay into the working space.
+        let alpha = CGFloat(max(0, min(1, opacity)))
+        let overlay = CIImage(color: CIColor(cgColor: color.copy(alpha: alpha) ?? color)).cropped(to: extent)
 
         guard let kernel = BlendModeMapping.kernel(for: blendMode) else {
             return image

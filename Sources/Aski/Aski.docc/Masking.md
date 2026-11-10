@@ -52,7 +52,7 @@ let mask = MaskOptions(
     image: maskCGImage,
     fallback: .originalImage(sourceImage, sizing: .fill),
     groundColor: CGColor(
-        red: groundComponent,
+        srgbRed: groundComponent,
         green: groundComponent,
         blue: groundComponent,
         alpha: 1
@@ -135,6 +135,12 @@ When `--write-manifest` is present, render-manifest v1 adds a `mask` block only 
 Fallbacks are never painted as a full backing layer. Without an effective ground, the renderer retains the legacy coverage path and an all-white mask renders identically to an unmasked grid. With a positive-alpha ground, the fallback completes the inactive branch and the ground completes the active branch before final coverage interpolation. A ground still applies when the sampled mask is entirely white.
 
 Plain-text and attributed-string renderers threshold coverage at `0.5`: visible cells render normally, masked-out cells render the replacement character when ``MaskFallback/character(_:color:)`` is set, and otherwise render as spaces. These text renderers ignore ``MaskOptions/groundColor`` because it is a raster-only option.
+
+### Mask paint color
+
+A ``MaskFallback/solid(_:)`` color and a ``MaskOptions/groundColor`` are interpreted in the color space the `CGColor` declares, then color-matched into the grid's ``RenderColorSpace``. Every raster path does this: direct and target-width ASCII, tile rendering, effects and async rendering, `renderCIImage`, and ``AskiRenderEngine`` when it converts to another gamut. `CGColor(red:green:blue:alpha:)` declares Generic RGB on macOS, so its components are color-matched like any other tagged color, not read as sRGB or Display P3 values. To keep components exact, tag them with the grid's space: `CGColor(srgbRed:green:blue:alpha:)` for an sRGB grid, or `CGColor(colorSpace: CGColorSpace(name: CGColorSpace.displayP3)!, components: [r, g, b, a])` for a Display P3 grid. Core Graphics has no `displayP3Red:` initializer for `CGColor`. The command line builds `--mask-fallback-color` and `--mask-ground` colors as sRGB.
+
+Before ASKI-98, effects, async, `renderCIImage`, and engine renders, and tile renders with a ground or a partly covered mosaic, read Generic RGB and unnamed-RGB mask paint components as values in the grid's gamut. Direct ASCII renders and the direct tile fallback overlay already color-matched them. To reproduce the old numbers on those paths, tag the color with the grid's space as above.
 
 ## Effects
 

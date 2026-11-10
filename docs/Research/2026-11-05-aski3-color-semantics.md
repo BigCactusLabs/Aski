@@ -9,7 +9,7 @@ related_specs: [Sources/Aski/ASCIICell.swift, Sources/Aski/Tiles/TileCell.swift,
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1, docs/Research/Corpus/nasa-occupancy-v1]
 runners: [AskiColorLab]
 results: [docs/Research/Results/2026-11-05-aski3-color-semantics]
-next_action: "Review ASKI-3 with its review repairs and re-recorded goldens. ASKI-15 and ASKI-98 remain follow-up options."
+next_action: "None. ASKI-98 (2026-11-09) replaced the preserved literal Generic RGB mask-paint rule with color matching on every path; see the addendum."
 ---
 
 # ASKI-3 — color interpretation and frozen-selection guard
@@ -197,3 +197,14 @@ Core Graphics contract references: Apple's
 [explicit-space constructor](https://developer.apple.com/documentation/coregraphics/cgcolor/init(colorspace:components:)),
 and [color conversion API](https://developer.apple.com/documentation/coregraphics/cgcolor/converted(to:intent:options:)).
 The native measurements above establish Aski behavior on the recorded toolchain.
+
+### Addendum — 2026-11-09
+
+ASKI-98 replaced the rule this note preserved for literal Generic RGB solid mask
+fallback and ground colors. Mask paint is now color-matched from its declared
+color space on every raster path, Generic RGB included, and `AskiRenderEngine`
+no longer pins those components across gamut adaptation. The Generic RGB name
+check described under the review repairs was removed with that rule. ASKI-99
+applied the same contract to `ColorOverlay` and `PointLight` colors. The
+measurements and verdicts above are unchanged; see `CHANGELOG.md` for the
+migration guidance.
