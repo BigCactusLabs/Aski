@@ -91,7 +91,8 @@ public extension ASCIIGrid {
 
     private static func resolvedColor(for color: CGColor, in colorSpace: RenderColorSpace) -> ResolvedTextColor {
         let target = cgColorSpace(for: colorSpace)
-        guard let converted = color.converted(to: target, intent: .perceptual, options: nil),
+        // CG clips out-of-gamut values for the matrix sRGB/Display P3 profiles.
+        guard let converted = color.converted(to: target, intent: .relativeColorimetric, options: nil),
             let components = converted.components,
             components.count >= 3
         else {

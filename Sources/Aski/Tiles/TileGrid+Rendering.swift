@@ -11,7 +11,12 @@ public extension TileGrid {
             let alpha: UInt32
         }
 
+        let colorSpace: RenderColorSpace
         private var colors: [Key: CGColor] = [:]
+
+        init(colorSpace: RenderColorSpace) {
+            self.colorSpace = colorSpace
+        }
 
         mutating func color(red: Float, green: Float, blue: Float, alpha: Float) -> CGColor {
             let alpha = max(0, min(1, alpha))
@@ -25,12 +30,7 @@ public extension TileGrid {
                 return color
             }
 
-            let color = CGColor(
-                red: CGFloat(red),
-                green: CGFloat(green),
-                blue: CGFloat(blue),
-                alpha: CGFloat(alpha)
-            )
+            let color = colorSpace.encodedColor(SIMD3<Float>(red, green, blue), alpha: alpha)
             colors[key] = color
             return color
         }
@@ -292,7 +292,7 @@ public extension TileGrid {
             case .mosaic: false
             }
         var mosaicCache = MosaicPathCache()
-        var colorCache = RasterColorCache()
+        var colorCache = RasterColorCache(colorSpace: colorSpace)
         for (rowIndex, row) in cells.enumerated() {
             for (columnIndex, cell) in row.enumerated() {
                 let effectiveAlpha =

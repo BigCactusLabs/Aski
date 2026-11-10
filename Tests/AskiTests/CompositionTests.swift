@@ -483,10 +483,14 @@ struct CompositionSnapshotTests {
     private let font = ASCIIFont.system(size: 18)
 
     private func makeGrid() -> ASCIIGrid {
-        // Mid-gray so bloom has headroom to brighten; pure white would saturate.
+        // Keep the old fixture's physical mid-gray across the ASKI-3 source-tag
+        // correction, so bloom retains the same input colorimetry and headroom.
+        let legacyGray = CGColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+        let sRGB = CGColorSpace(name: CGColorSpace.sRGB)!
+        let components = legacyGray.converted(to: sRGB, intent: .perceptual, options: nil)!.components!
         let cell = ASCIICell(
             character: "@",
-            displayColor: SIMD3<Float>(0.4, 0.4, 0.4),
+            displayColor: SIMD3<Float>(Float(components[0]), Float(components[1]), Float(components[2])),
             alpha: 1,
             brightness: 0.4
         )

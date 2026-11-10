@@ -1,0 +1,46 @@
+---
+schema_version: "1"
+date: 2026-11-05
+aski_git_sha: "6b47141d13409e5fdde52bafb370e646b9d5c40a+dirty:0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78"
+runner: AskiColorLab
+command: "aski lab color selection-ceiling --charset blocks --columns 76 --oversample 2 --footprint 24 --stride 1 --shape-query-polarity inverted --corpus docs/Research/Corpus/<corpus>/assets --output .build/aski-3-2026-11-05/census/<side>/<corpus>.csv (six recorded invocations in before/provenance.json and after/provenance.json)"
+provenance:
+  - "Rule frozen at 6b47141d13409e5fdde52bafb370e646b9d5c40a in docs/Research/2026-11-05-aski3-color-semantics.md before measurement"
+  - "Before code: 14c8697ce0211098630088cab14ef9e8a79b048e; CSV gitSHA records the documentation-only rule revision"
+  - "Before executable SHA-256: a5107177d3dd2b0111e9213d614f8394e6c3c95f3f9f623e8a1e2680a1b259f5"
+  - "After code: 6b47141d13409e5fdde52bafb370e646b9d5c40a plus production.patch; patch SHA-256: 0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78"
+  - "After executable SHA-256: 4052c0e1ab39d9a9f1339f27c707c403498dc85582f8191aa202642487698f25"
+  - "Release builds; macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4"
+  - "All input asset hashes, CSV hashes, and actual run arguments retained in sanitized per-side provenance; five production source hashes retained in source-sha256.json"
+  - "Review repairs after the census (sRGB CLI colors, relative colorimetric intent, Generic RGB name check) are in review-repairs.patch on top of ef5cf51; they do not touch the selection path, so the census was not rerun"
+  - "Goldens re-recorded 2026-11-06 after merging the ASKI-97 re-baseline withdrawal; golden-deltas.csv before = original goldens at 89fd227; host macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, Apple M3 Max"
+  - "Monochrome sRGB selection instrument; pooled corpus rows do not measure Vesper Display P3 color fidelity or exclude cancelling per-fixture changes"
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - README.md
+  - before/nasa-occupancy-v1.csv
+  - before/nasa-steerable-v1.csv
+  - before/nasa-structure-v1.csv
+  - before/provenance.json
+  - after/nasa-occupancy-v1.csv
+  - after/nasa-steerable-v1.csv
+  - after/nasa-structure-v1.csv
+  - after/provenance.json
+  - comparison.csv
+  - production.patch
+  - production.patch.sha256
+  - review-repairs.patch
+  - review-repairs.patch.sha256
+  - source-sha256.json
+  - ssim-attribution.json
+  - raster-attribution.json
+  - golden-deltas.csv
+  - docc-asset-hashes.json
+generators:
+  - SSIMAttributionProbe.swift
+  - RasterAttributionProbe.swift
+summary: "ASKI-3 paired selection guard passes: all six production MAE/GMSD ratios equal 1.0 across 75468 cells per side; all P/F quality and selection fields exactly unchanged. Pooled monochrome sRGB evidence only; no Display P3 Vesper color-quality claim. Review repairs leave selection untouched; goldens re-recorded on an M3 Max host. Integration validation is recorded in the linked research note."
+---

@@ -1,10 +1,10 @@
 ---
 id: ASKI-15
 title: Investigate full-color desaturation vs June-era converter output
-status: To Do
+status: Done
 assignee: []
-created_date: '2026-08-19 03:49'
-updated_date: '2026-09-16 17:37'
+created_date: 2026-08-19 03:49
+updated_date: '2026-11-07T22:48:00Z'
 labels: []
 dependencies:
   - ASKI-3
@@ -19,9 +19,9 @@ Rendering the committed Carina corpus image with the current build (xcrun swift 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Root-cause the saturation drop with a bisect or instrumented A/B on the Carina corpus image, separating glyph-pick drift from per-cell color drift
-- [ ] #2 Settle keep/revert/knob with a pass rule frozen before the decisive measurement
-- [ ] #3 If current-build vibrancy is restored, regenerate the README hero from a clone and add the verbatim-reproducibility claim back to its caption
+- [x] #1 Root-cause the saturation drop with a bisect or instrumented A/B on the Carina corpus image, separating glyph-pick drift from per-cell color drift
+- [x] #2 Settle keep/revert/knob with a pass rule frozen before the decisive measurement
+- [x] #3 If current-build vibrancy is restored, regenerate the README hero from a clone and add the verbatim-reproducibility claim back to its caption
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -42,6 +42,8 @@ Board audit 2026-08-24 (deep pass): Repro-command drift: swift run AskiDemo stil
 **First step.** Write the frozen measurement rule and clone the current hero command into a dated result directory. Use the committed hero PNG as the image baseline. Verify its historical command and build provenance before claiming an exact reproduction; the June source tree is not in the local public history.
 
 Source map: `CHANGELOG.md`, `Sources/Aski/ASCIIConverter.swift`, `Tests/AskiTests/AskiColorLabSamplingPoliciesTests.swift`, `Tests/AskiTests/AskiDemoTests.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `README.md`.
+
+Closed 2026-11-07 (docs/Research/2026-11-07-aski15-hero-provenance.md). AC#1: nineteen builds from 2026-06-08 through the ASKI-3 fix were rendered with the documented command. Per-cell chroma is flat (same-glyph ratio 1.000-1.010 vs a 2026-06-29 anchor; black floor 0.74-0.77%) and matches the source's own per-cell chroma; the only glyph change is the ASKI-65 lattice fix (55.7% of cells re-registered). The previous README hero is not reproducible from any build: 1.93x chroma at the same hue and a 17% black floor, consistent with an outside saturation/black-point adjustment. AC#2: bisect class thresholds were fixed before any row was computed; no build is hero-like, so there is nothing to revert and no knob recovers the look. Verdict: keep. AC#3 (amended): vibrancy was not restored because nothing was lost; the hero was regenerated from the current build instead, with the command in the README caption and the 134-row size corrected (the 133 figure was a wc -l artifact; the geometry needs aspect preserved, not --no-preserve-aspect). A vibrancy option would be a new pre-registered research arm.
 <!-- SECTION:NOTES:END -->
 
 ## Comments

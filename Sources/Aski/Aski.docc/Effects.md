@@ -27,7 +27,7 @@ Active-region grounds use the same grouped ordering in synchronous and asynchron
 import Aski
 import CoreGraphics
 
-let background = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+let background = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
 let grid = DefaultConverter().convert(image, columns: 120)
 
 let rendered = grid.renderImage(
@@ -38,7 +38,7 @@ let rendered = grid.renderImage(
         background: .blurred(image, radius: 16, opacity: 0.6, sizing: .fill),
         characterBlendMode: .screen,
         colorOverlay: ColorOverlay(
-            color: CGColor(red: 1, green: 0.8, blue: 0.6, alpha: 1),
+            color: CGColor(srgbRed: 1, green: 0.8, blue: 0.6, alpha: 1),
             blendMode: .multiply
         ),
         perCharacter: PerCharacterEffects(
@@ -51,7 +51,7 @@ let rendered = grid.renderImage(
                 position: CGPoint(x: 0.7, y: 0.3),
                 radius: 0.4,
                 intensity: 1.2,
-                color: CGColor(red: 1, green: 0.8, blue: 0.4, alpha: 1)
+                color: CGColor(srgbRed: 1, green: 0.8, blue: 0.4, alpha: 1)
             )
         ],
         ambient: 0.6
