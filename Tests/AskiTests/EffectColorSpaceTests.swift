@@ -206,6 +206,16 @@ import Testing
         #expect(p3Result[0] - clippedResult[0] >= 5, "P3 \(p3Result) vs clipped \(clippedResult)")
     }
 
+    /// Above intensity 1 a wide-gamut light saturates at its own extended
+    /// components (red above 1) instead of overdriving, and still keeps them.
+    @Test func outOfGamutP3PointLightSaturatesAtItsOwnComponents() throws {
+        let p3Red = color(displayP3, [1, 0, 0])
+        let atTwo = lightCenter(p3Red, intensity: 2, input: 0.5)
+        expectClose(atTwo, lightCenter(p3Red, intensity: 1, input: 0.5), "P3 red at intensity 2 vs 1")
+        let clippedResult = lightCenter(color(sRGB, [1, 0, 0]), intensity: 2, input: 0.5)
+        #expect(atTwo[0] - clippedResult[0] >= 5, "P3 \(atTwo) vs clipped \(clippedResult)")
+    }
+
     /// The light field's absolute scale is the applicator's own model, so the
     /// reference is the same physical color declared in sRGB. Intensity keeps its
     /// existing meaning: an sRGB color and its Display P3 equivalent light the

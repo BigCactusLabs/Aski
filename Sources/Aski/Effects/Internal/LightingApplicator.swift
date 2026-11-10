@@ -53,14 +53,20 @@ internal struct LightingApplicator: Sendable {
 
         // Intensity scales encoded sRGB components, as it always has. Convert the
         // caller's color from its declared space first instead of reading its raw
-        // components as sRGB.
+        // components as sRGB. Each scaled component then stops at
+        // [min(0, c), max(1, c)]: for an sRGB color that is the 0...1 saturation
+        // the sRGB CIColor always applied, and a wide-gamut color keeps its
+        // extended components but cannot be overdriven past them.
         let intensity = CGFloat(light.intensity)
         let rgb = Self.encodedSRGBComponents(of: light.color)
+        func scaled(_ component: CGFloat) -> CGFloat {
+            min(max(component * intensity, min(0, component)), max(1, component))
+        }
         filter.setValue(
             CIColor(
-                red: rgb.red * intensity,
-                green: rgb.green * intensity,
-                blue: rgb.blue * intensity,
+                red: scaled(rgb.red),
+                green: scaled(rgb.green),
+                blue: scaled(rgb.blue),
                 alpha: 1,
                 colorSpace: Self.extendedSRGB
             ) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 1),
