@@ -23,13 +23,18 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   on the two rotated-video end-to-end benchmarks. The likely cause is the full-size RGBA8 copy the
   converter now makes of each oriented frame before resampling; ASKI-2, which moves orientation
   into frame preparation, would remove that full-size frame. Rendered output changes for these
-  inputs: cell colors and glyph picks move, in some images visibly (in the DocC mask-ground
-  figure, the standard set's picks inside the mask shift from letter shapes toward denser glyphs
-  such as `#` and `@`), and the prepared size rounds the short side to the nearest pixel, so a
-  cell pitch can differ by one pixel from the size ImageIO produced. Grid dimensions do not
-  change. On the frozen Vesper preset the change passes the pre-registered no-harm census:
-  production-arm MAE moves by ×1.0000 and ×0.9991 on the two naturals corpora. A source already
-  within the budget renders byte for byte as before, and so does anything loaded through
+  inputs: cell colors and some glyph picks move, and grid dimensions stay the same. One change is
+  visible. ImageIO's thumbnail could land a decoded portrait one pixel below the width budget, and
+  the cell pitch is that width divided by the column count and floored, so such a source was
+  sampled at `oversample − 1` working pixels per cell: 1 instead of 2 at the default. A cell one
+  pixel wide is too narrow for the shape descriptor, so those cells were matched on tone alone.
+  The prepared size now rounds to the nearest pixel and meets the budget. This is why the DocC
+  mask-ground figure changes visibly: its 975×1280 source now gets 2-pixel cells, and its picks
+  inside the mask move from varied letters to the shape matcher's runs of one glyph per tone band
+  (ASKI-80). The rounding and resampler changes were not measured separately. On the frozen Vesper
+  preset the change passes the pre-registered no-harm census: production-arm MAE moves by ×1.0000
+  and ×0.9991 on the two naturals corpora. A source already within the budget renders byte for
+  byte as before, and so does anything loaded through
   `ImageIOThumbnail.decode(data:maxPixelSize:)` or `decode(source:maxPixelSize:)`, including `aski
   render` and `aski inspect`. Resampler choice and census:
   `docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`.

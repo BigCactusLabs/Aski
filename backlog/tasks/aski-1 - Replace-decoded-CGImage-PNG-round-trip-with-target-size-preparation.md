@@ -4,7 +4,7 @@ title: Replace decoded-CGImage PNG round-trip with target-size preparation
 status: In Progress
 assignee: []
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-10T20:10:00Z'
+updated_date: '2026-11-10T20:22:00Z'
 labels:
   - performance
   - conversion
@@ -57,4 +57,6 @@ Source map: `Sources/Aski/ImageIOThumbnail.swift`, `Sources/Aski/ASCIIConverter.
 - AC5: just check and just bench pass on merge commit a56a570 (main 810c908, PR #22, merged in; four conflicting mask snapshots and the DocC mask-ground-after figure re-recorded against the combined code), and on b674dd5 before the merge. No benchmark threshold changed.
 - Goldens (18 snapshots, inline digests, two DocC figures) re-recorded on one Mac only; no second-host check.
 - Visible change for owner review: in the DocC mask-ground figure (standard set) the picks inside the mask shift from letter shapes toward denser glyphs such as # and @. The census measures tone error, not glyph identity across sides, and the cause on this figure is not established. Before/after images are in the PR.
+
+2026-11-10: the owner accepted both PR #23 calls (rotated-video peak memory, with ASKI-2 as the fix; the DocC glyph shift). Cause of the glyph shift: on main the 975x1280 portrait's ImageIO thumbnail was 119x158 against a 120-pixel width budget, so cellWidth was 1 and LogPolarKernel took its tone-only fallback (cellSupportsShapeDescriptor false); preparedSize rounds to 120, so cellWidth is 2 and the shape descriptor runs, giving ASKI-80's same-glyph runs. The rounding and resampler changes were not measured separately. CHANGELOG and PR body updated.
 <!-- SECTION:NOTES:END -->
