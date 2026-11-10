@@ -215,8 +215,9 @@ source's displayed dimensions, with EXIF orientation applied as ImageIO's
 thumbnail applies it. For a portrait, `ASCIIConverter`'s cap keeps the width at
 `columns × oversample` (`TileGridConverter`'s cap has no portrait case yet);
 ImageIO can decode that width one pixel short, so the loader retries one pixel
-larger until it reaches the width the cap implies (ASKI-104). `aski render` and `aski inspect` share one `ToolImageConversion`
-snapshot so metadata describes the exact in-memory grid and text being rendered.
+larger until it reaches the width the cap implies (ASKI-104). `aski render` and
+`aski inspect` share one `ToolImageConversion` snapshot so metadata describes the
+exact in-memory grid and text being rendered.
 Direct library callers pass a `CGImage`, and the converter resamples it to the
 conversion size itself, with no ImageIO round trip (ASKI-1).
 
