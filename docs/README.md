@@ -8,6 +8,7 @@ navigation hub; the [project README](../README.md) is the front door.
 | You want to… | Start here |
 | --- | --- |
 | Try the package on a bundled image | [README: Try it](../README.md#try-it) |
+| Compare source and character art, then try three treatments | [Character-art examples and recipes](guides/character-art-recipes.md) |
 | Convert files, export PNGs, use masks, or inspect JSON | [Command-line guide](../Sources/Aski/Aski.docc/CommandLine.md) |
 | Add the library and make a first conversion | [Installation](../README.md#use-in-swift), [Getting Started](../Sources/Aski/Aski.docc/GettingStarted.md) |
 | Choose text, attributed text, or raster output | [Rendering](../Sources/Aski/Aski.docc/Rendering.md) |
@@ -30,11 +31,13 @@ describe intended assets; do not assume a hosted API site.
 | You want to know… | Read |
 | --- | --- |
 | Setup, local gates, snapshot baseline, and PR expectations | [CONTRIBUTING.md](../CONTRIBUTING.md) |
+| Package a CLI candidate or configure hosted package documentation | [Distribution guide](guides/distribution.md) |
 | Agent conventions and hard engineering rules | [AGENTS.md](../AGENTS.md) |
 | Products, targets, conversion pipeline, and dependencies | [architecture.md](architecture.md) |
 | CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |
 | Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
 | Research findings, decisions, and retractions | [Research index](Research/README.md) |
+| Color-interpretation correction and its frozen-selection guard | [ASKI-3 protocol](Research/2026-11-05-aski3-color-semantics.md) |
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or prepare early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract](../Scripts/research/video-frame-selection.md) |

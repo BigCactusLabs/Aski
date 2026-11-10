@@ -7,7 +7,7 @@ Aski accepts raster masks as `CGImage` values on both ``ASCIIConverter`` and ``T
 ```swift
 let mask = MaskOptions(
     image: maskCGImage,
-    fallback: .solid(CGColor(red: 0, green: 0, blue: 0, alpha: 1)),
+    fallback: .solid(CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)),
     groundColor: nil,
     softEdges: true,
     invert: false
@@ -16,7 +16,7 @@ let mask = MaskOptions(
 let grid = DefaultConverter().convert(sourceImage, columns: 80, mask: mask)
 let rendered = grid.renderImage(
     font: .courierPrime(size: 10),
-    backgroundColor: CGColor(red: 1, green: 1, blue: 1, alpha: 1),
+    backgroundColor: CGColor(srgbRed: 1, green: 1, blue: 1, alpha: 1),
     scale: 2
 )
 ```
@@ -63,7 +63,7 @@ let mask = MaskOptions(
 let grid = DefaultConverter().convert(sourceImage, columns: 60, mask: mask)
 let rendered = grid.renderImage(
     font: .courierPrime(size: 8),
-    backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+    backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
     scale: 1,
     composition: CompositionOptions(
         background: .original(sourceImage, sizing: .fill)
@@ -107,12 +107,12 @@ The matching library form uses the same mask/fallback/ground choices. The CLI ha
 let cliMask = MaskOptions(
     image: maskCGImage,
     fallback: .originalImage(sourceImage, sizing: .stretch),
-    groundColor: CGColor(red: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
+    groundColor: CGColor(srgbRed: 8 / 255, green: 8 / 255, blue: 8 / 255, alpha: 1)
 )
 let cliGrid = DefaultConverter().convert(sourceImage, columns: 60, mask: cliMask)
 let cliImage = cliGrid.renderImage(
     font: .system(size: 8),
-    backgroundColor: CGColor(red: 0, green: 0, blue: 0, alpha: 1),
+    backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
     scale: 1,
     preserveSourceAspect: true
 )

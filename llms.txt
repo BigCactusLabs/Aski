@@ -5,6 +5,7 @@
 ## Start here
 
 - [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
+- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options were added after v0.7.0.
 - [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
 - [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
 - [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.
@@ -35,6 +36,7 @@
 
 ## Contributing and research
 
+- [Distribution guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/distribution.md): Local CLI candidate archives with complete resources, an isolated build and relocated smoke check, release provenance, and Swift Package Index DocC configuration. Native validation, indexing, and publication remain separate steps.
 - [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification (including portable just test-infra), isolated DocC exports and output-path migration, docs standards, and release hygiene. No hosted CI workflow is supplied.
 - [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
 - [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.
@@ -43,6 +45,8 @@
 - [Paired benchmark readouts](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/paired-benchmarks.md): Portable comparison of complete captures, repeated-run noise and explicit adoption limits; links the early video frame-selection contract.
 - [Rendering task groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/rendering-groundwork.md): ASKI-91/94/95 contracts, 51 benchmark identities, native verification gaps, and measured-adoption boundaries.
 - [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
+
+- [ASKI-3 color correction protocol](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-05-aski3-color-semantics.md): Native color-contract regressions and the paired frozen-selection guard; census evidence does not score color fidelity.
 
 ## Interpretation notes
 

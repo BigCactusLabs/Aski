@@ -46,6 +46,42 @@ import Testing
         }
     }
 
+    @Test(arguments: [0, 1, 2, 4, 32766, 32767], [1, 2])
+    func supportedLoopCountsMatchFinalizedMetadata(loopCount: Int, frameCount: Int) throws {
+        let url = tempGIF()
+        defer { try? FileManager.default.removeItem(at: url) }
+        let frames = (0..<frameCount).map { index in
+            RenderedGIFFrame(image: solid(UInt8(index * 255), 20, 30), delay: 0.1)
+        }
+
+        let report = try ASCIIGIFEncoder().write(frames, loopCount: loopCount, to: url)
+        let header = try ASCIIGIFDecoder().containerHeader(ofGIFAt: url)
+        #expect(header.frameCount == frameCount)
+        #expect(header.loopCount == loopCount)
+        #expect(report.loopCount == header.loopCount)
+    }
+
+    @Test(arguments: [Int.min, -1, 32768, 65534, 65535, 65536, Int.max], [false, true])
+    func invalidLoopCountsLeaveDestinationUnchanged(loopCount: Int, existing: Bool) throws {
+        let url = tempGIF()
+        defer { try? FileManager.default.removeItem(at: url) }
+        let sentinel = Data("existing destination".utf8)
+        if existing { try sentinel.write(to: url) }
+        let frames = [RenderedGIFFrame(image: solid(10, 20, 30), delay: 0.1)]
+
+        #expect {
+            try ASCIIGIFEncoder().write(frames, loopCount: loopCount, to: url)
+        } throws: { error in
+            guard case GIFEncodeError.invalidLoopCount(let rejected) = error else { return false }
+            return rejected == loopCount
+        }
+        if existing {
+            #expect(try Data(contentsOf: url) == sentinel)
+        } else {
+            #expect(!FileManager.default.fileExists(atPath: url.path))
+        }
+    }
+
     @Test func nonFiniteAndNonPositiveDelaysNormalizeToDefault() throws {
         let url = tempGIF()
         defer { try? FileManager.default.removeItem(at: url) }

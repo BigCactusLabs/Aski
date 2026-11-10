@@ -75,6 +75,8 @@ public struct GIFContainerInfo: Sendable {
 /// callers decide what to surface (e.g. the sub-floor browser-portability note).
 public struct GIFEncodeReport: Sendable {
     public let framesWritten: Int
+    /// Loop count decoded from the finalized output: 0 = infinite, 1 = once,
+    /// and larger values = total plays.
     public let loopCount: Int
     /// Frames whose written delay is < 0.02s (the reliable browser floor).
     public let subFloorDelayCount: Int
@@ -103,6 +105,8 @@ public struct GIFEncodeReport: Sendable {
 public enum GIFEncodeError: Error, CustomStringConvertible {
     /// Empty frame array — `CGImageDestinationFinalize` returns false for 0 images.
     case noFrames
+    /// ImageIO only round-trips total play counts in `0...32767` (0 = infinite).
+    case invalidLoopCount(Int)
     case cannotCreateDestination(String)
     case cannotFinalize(String)
 
@@ -110,6 +114,8 @@ public enum GIFEncodeError: Error, CustomStringConvertible {
         switch self {
         case .noFrames:
             "cannot encode a GIF with zero frames"
+        case .invalidLoopCount(let count):
+            "GIF loop count \(count) is outside the supported range 0...32767"
         case .cannotCreateDestination(let path):
             "could not create GIF destination '\(path)'"
         case .cannotFinalize(let path):

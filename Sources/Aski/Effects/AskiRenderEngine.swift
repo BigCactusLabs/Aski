@@ -101,24 +101,102 @@ public actor AskiRenderEngine {
 
     private func applyingEngineColorSpace(to grid: ASCIIGrid) -> ASCIIGrid {
         guard grid.colorSpace != colorSpace else { return grid }
+        var colors: [SIMD3<Float>: SIMD3<Float>] = [:]
+        let cells = grid.cells.map { row in
+            row.map { cell in
+                ASCIICell(
+                    character: cell.character,
+                    displayColor: convertedDisplayColor(cell.displayColor, from: grid.colorSpace, cache: &colors),
+                    alpha: cell.alpha,
+                    brightness: cell.brightness,
+                    coverage: cell.coverage
+                )
+            }
+        }
         return ASCIIGrid(
-            cells: grid.cells,
+            cells: cells,
             colorSpace: colorSpace,
             composition: grid.composition,
-            maskFallback: grid.maskFallback,
-            maskGroundColor: grid.maskGroundColor,
+            maskFallback: pinLiteralMaskFallback(grid.maskFallback, to: grid.colorSpace),
+            maskGroundColor: grid.maskGroundColor.map { pinLiteralMaskColor($0, to: grid.colorSpace) },
             maskUsesHardEdges: grid.maskUsesHardEdges
         )
     }
 
     private func applyingEngineColorSpace(to grid: TileGrid) -> TileGrid {
         guard grid.colorSpace != colorSpace else { return grid }
+        var colors: [SIMD3<Float>: SIMD3<Float>] = [:]
+        let cells = grid.cells.map { row in
+            row.map { cell in
+                TileCell(
+                    displayColor: convertedDisplayColor(cell.displayColor, from: grid.colorSpace, cache: &colors),
+                    alpha: cell.alpha,
+                    brightness: cell.brightness,
+                    coverage: cell.coverage
+                )
+            }
+        }
         return TileGrid(
-            cells: grid.cells,
+            cells: cells,
             colorSpace: colorSpace,
-            maskFallback: grid.maskFallback,
-            maskGroundColor: grid.maskGroundColor,
+            maskFallback: pinLiteralMaskFallback(grid.maskFallback, to: grid.colorSpace),
+            maskGroundColor: grid.maskGroundColor.map { pinLiteralMaskColor($0, to: grid.colorSpace) },
             maskUsesHardEdges: grid.maskUsesHardEdges
         )
+    }
+
+    private func convertedDisplayColor(
+        _ rgb: SIMD3<Float>,
+        from source: RenderColorSpace,
+        cache: inout [SIMD3<Float>: SIMD3<Float>]
+    ) -> SIMD3<Float> {
+        if let converted = cache[rgb] { return converted }
+        // CG clips out-of-gamut values for the matrix sRGB/Display P3 profiles.
+        guard
+            let converted = source.encodedColor(rgb, alpha: 1).converted(
+                to: colorSpace.encodedCGColorSpace, intent: .relativeColorimetric, options: nil
+            ), let components = converted.components, components.count >= 3
+        else {
+            preconditionFailure("Known RGB color spaces must support color matching")
+        }
+        let result = SIMD3<Float>(
+            Float(max(0, min(1, components[0]))),
+            Float(max(0, min(1, components[1]))),
+            Float(max(0, min(1, components[2])))
+        )
+        cache[rgb] = result
+        return result
+    }
+
+    private func pinLiteralMaskFallback(_ fallback: MaskFallback?, to source: RenderColorSpace) -> MaskFallback? {
+        guard let fallback else { return nil }
+        guard case .solid(let color) = fallback else { return fallback }
+        return .solid(pinLiteralMaskColor(color, to: source))
+    }
+
+    private func pinLiteralMaskColor(_ color: CGColor, to source: RenderColorSpace) -> CGColor {
+        // The mask factory interprets Generic RGB and unnamed RGB components
+        // literally in the grid gamut. Preserve that original meaning when the
+        // engine changes the grid gamut; named caller colors keep their tags.
+        guard color.alpha.isFinite, color.colorSpace?.model == .rgb,
+            let components = color.components, components.count >= 3
+        else { return color }
+        if let name = color.colorSpace?.name, !MaskFallbackImageFactory.isGenericRGB(name) {
+            return color
+        }
+        guard
+            let pinned = CGColor(
+                colorSpace: source.encodedCGColorSpace,
+                components: [
+                    max(0, min(1, components[0])),
+                    max(0, min(1, components[1])),
+                    max(0, min(1, components[2])),
+                    color.alpha,
+                ]
+            )
+        else {
+            preconditionFailure("Known RGB color spaces must accept RGBA components")
+        }
+        return pinned
     }
 }

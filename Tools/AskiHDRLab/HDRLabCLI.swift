@@ -272,6 +272,6 @@ public enum HDRLabCLI {
             let g = UInt8(string.dropFirst(2).prefix(2), radix: 16),
             let b = UInt8(string.dropFirst(4).prefix(2), radix: 16)
         else { return nil }
-        return CGColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
+        return CGColor(srgbRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
     }
 }

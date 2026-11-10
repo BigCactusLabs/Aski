@@ -1,0 +1,19 @@
+---
+schema_version: "1"
+date: 2026-11-07
+aski_git_sha: "19ea3b59012b38c02392a012aa48f16fbb36f624"
+provenance:
+  - "Regenerated hero rendered at 19ea3b5 (ASKI-3 fix) with a release build; two renders byte-identical"
+  - "Seventeen pre-public builds (2026-06-08 through 2026-09-23) rendered from read-only clones of the pre-public histories; commits are not in this repository"
+  - "Public main dbfec3a and 19ea3b5 rendered from detached worktrees"
+  - "macOS 27.0.1 (26A434); Xcode 27.0 (27A266a); Swift 6.4; Apple M3 Max"
+  - "Bisect class thresholds fixed before any bisect row was computed"
+command: "xcrun swift run -c release aski render docs/Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg --columns 512 --font-size 16 --render-png docs/assets/hero-carina-512.png"
+datasets:
+  - docs/Research/Corpus/nasa-occupancy-v1
+outputs:
+  - README.md
+  - bisect.csv
+  - hero-stats.csv
+summary: "ASKI-15 hero provenance: no converter build from 2026-06-08 through the ASKI-3 fix reproduces the previous README hero's 1.9x chroma or 17% black floor; current color matches the source; the hero is regenerated from the current build."
+---
