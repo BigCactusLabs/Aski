@@ -69,6 +69,14 @@ import Testing
         }
 
         var isTile: Bool { rawValue.contains("Tile") }
+
+        /// The six paths that return a `CIImage`, whose consumer chooses the working
+        /// space. Listed explicitly: "ASCII" contains "CI", so a name match would
+        /// include every ASCII path.
+        var isCIOutput: Bool {
+            [.syncCIASCII, .asyncCIASCII, .engineCrossCIASCII, .syncCITile, .asyncCITile, .engineCrossCITile]
+                .contains(self)
+        }
     }
 
     enum Contract: String, Sendable {
@@ -127,15 +135,25 @@ import Testing
             maskUsesHardEdges: hardEdges)
     }
 
-    private func cgImage(_ image: CIImage, destination: CGColorSpace) throws -> CGImage {
-        let context = CIContext(options: [.workingColorSpace: destination, .outputColorSpace: destination])
+    /// The working space a consumer's `CIContext` uses to read a `renderCIImage` output.
+    enum CIConsumer: String, CaseIterable, Sendable {
+        /// The output space itself, an encoded (nonlinear) working space.
+        case encoded
+        /// Extended linear sRGB, the Core Image default.
+        case linear
+    }
+
+    private func cgImage(_ image: CIImage, destination: CGColorSpace, consumer: CIConsumer = .encoded) throws -> CGImage {
+        let working =
+            consumer == .linear ? CGColorSpace(name: CGColorSpace.extendedLinearSRGB)! : destination
+        let context = CIContext(options: [.workingColorSpace: working, .outputColorSpace: destination])
         return try #require(context.createCGImage(image, from: image.extent, format: .RGBA8, colorSpace: destination))
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     private func render(
         _ path: Path, gamut: RenderColorSpace, paint: CGColor, mask: MaskPaint,
-        coverage: Float? = nil, hardEdges: Bool = false
+        coverage: Float? = nil, hardEdges: Bool = false, consumer: CIConsumer = .encoded
     ) async throws -> CGImage {
         let a = asciiGrid(gamut, paint: paint, mask: mask, coverage: coverage, hardEdges: hardEdges)
         let t = tileGrid(gamut, paint: paint, mask: mask, coverage: coverage, hardEdges: hardEdges)
@@ -167,10 +185,10 @@ import Testing
         case .asyncASCII:
             return try await a.renderImage(font: font, backgroundColor: clear, scale: 1)
         case .syncCIASCII:
-            return try cgImage(syncCI(), destination: gridSpace)
+            return try cgImage(syncCI(), destination: gridSpace, consumer: consumer)
         case .asyncCIASCII:
             let image = try await a.renderCIImage(font: font, backgroundColor: clear, scale: 1)
-            return try cgImage(image, destination: gridSpace)
+            return try cgImage(image, destination: gridSpace, consumer: consumer)
         case .engineSameASCII:
             return try await AskiRenderEngine(colorSpace: gamut).render(a, font: font, backgroundColor: clear, scale: 1)
         case .engineCrossASCII:
@@ -179,7 +197,7 @@ import Testing
         case .engineCrossCIASCII:
             let image = try await AskiRenderEngine(colorSpace: Self.opposite(gamut))
                 .renderCIImage(a, font: font, backgroundColor: clear, scale: 1)
-            return try cgImage(image, destination: crossSpace)
+            return try cgImage(image, destination: crossSpace, consumer: consumer)
         case .directTilePixelArt:
             return directTile(.pixelArt)
         case .directTileMosaic:
@@ -189,10 +207,10 @@ import Testing
         case .asyncTile:
             return try await t.renderImage(scale: 32, backgroundColor: clear)
         case .syncCITile:
-            return try cgImage(syncCITile(), destination: gridSpace)
+            return try cgImage(syncCITile(), destination: gridSpace, consumer: consumer)
         case .asyncCITile:
             let image = try await t.renderCIImage(scale: 32, backgroundColor: clear)
-            return try cgImage(image, destination: gridSpace)
+            return try cgImage(image, destination: gridSpace, consumer: consumer)
         case .engineSameTile:
             return try await AskiRenderEngine(colorSpace: gamut).render(t, scale: 32, backgroundColor: clear)
         case .engineCrossTile:
@@ -200,7 +218,7 @@ import Testing
         case .engineCrossCITile:
             let image = try await AskiRenderEngine(colorSpace: Self.opposite(gamut))
                 .renderCIImage(t, scale: 32, backgroundColor: clear)
-            return try cgImage(image, destination: crossSpace)
+            return try cgImage(image, destination: crossSpace, consumer: consumer)
         }
     }
 
@@ -344,9 +362,9 @@ import Testing
     }
 
     /// Partial coverage, paint alpha, and hard or soft edges keep contract A.
-    /// Coverage changes the composite alpha differently by path (see
-    /// `softCoverageWeightCurrentlyDependsOnPath`), so the contract is read
-    /// from the un-premultiplied color against opaque references.
+    /// The color contract is read from the un-premultiplied color against
+    /// opaque references, so it holds apart from the coverage weight, which
+    /// `softCoverageIsALinearWeightOnEveryPath` pins.
     @Test(arguments: Path.allCases, [false, true])
     func partialCoverageAndAlphaKeepDeclaredSpace(path: Path, hardEdges: Bool) async throws {
         for gamut in [RenderColorSpace.sRGB, .displayP3] {
@@ -359,7 +377,7 @@ import Testing
                 #expect(actual[3] >= 30, "fixture paint must be visible: \(actual)")
                 let refs = try references(Paint.genericRGB.color(), grid: gamut, output: output)
                 Self.record(path, gamut, .genericRGB, mask, 0.6, 0.5, actual, refs)
-                // Un-premultiplying an alpha near 33 amplifies 8-bit rounding to
+                // Un-premultiplying an alpha near 77 amplifies 8-bit rounding to
                 // about four steps; A and B differ by at least 13 steps here.
                 let contract = Self.classify(Self.unpremultiplied(actual), a: refs.a, b: refs.b, tolerance: 6)
                 #expect(
@@ -369,26 +387,50 @@ import Testing
         }
     }
 
-    /// Not a color-contract question, recorded because ASKI-98 measured it:
-    /// at coverage 0.5 and paint alpha 0.6, the Core Graphics fallback overlay
-    /// weights the paint by `1 - coverage` (alpha 0.3, byte 77). The Core Image
-    /// mask compositor reads the Device Gray coverage image through the sRGB
-    /// transfer in its linear working space, so 0.5 becomes about 0.214: the
-    /// fallback gets 0.6 x 0.786 (byte 120) and the ground 0.6 x 0.214 (byte 33).
-    /// CIImage outputs are excluded because their weight depends on the
-    /// consumer's working space.
-    @Test(arguments: [RenderColorSpace.sRGB, .displayP3])
-    func softCoverageWeightCurrentlyDependsOnPath(gamut: RenderColorSpace) async throws {
-        let cgOverlay: Set<Path> = [.directASCII, .targetWidthASCII, .directTilePixelArt]
-        let ciOutputs: Set<Path> = [.syncCIASCII, .asyncCIASCII, .engineCrossCIASCII, .syncCITile, .asyncCITile, .engineCrossCITile]
-        for path in Path.allCases where !ciOutputs.contains(path) {
-            for mask in MaskPaint.allCases {
-                let image = try await render(
-                    path, gamut: gamut, paint: Paint.genericRGB.color(alpha: 0.6), mask: mask, coverage: 0.5)
-                let alpha = try interior(image)[3]
-                let expected = mask == .fallback ? (cgOverlay.contains(path) ? 77 : 120) : 33
-                #expect(abs(alpha - expected) <= 1, "\(path) \(gamut) \(mask): alpha \(alpha), expected \(expected)")
+    /// ASKI-101 contract: soft mask coverage is a linear weight. A cell with
+    /// coverage `c` shows the ground at `c` and the fallback at `1 - c` of the
+    /// paint's alpha on every path. CIImage outputs are read by a consumer in an
+    /// encoded and in a linear working space, and the weight must not depend on
+    /// that choice. The reference is a Core Graphics fill of the paint at the
+    /// weighted alpha (CSS Masking 1, "Mask processing": the mask value
+    /// multiplies alpha; PNG 3, section 4.3: alpha is a linear fraction of
+    /// opacity).
+    ///
+    /// The retired behavior read the Device Gray coverage image through the sRGB
+    /// transfer in Core Image's linear working space, weighting by the sRGB
+    /// EOTF of `c` (0.5 became about 0.216): fallback alpha 120 and ground 33
+    /// at `c = 0.5` and paint alpha 0.6, against 77 here.
+    @Test(arguments: Path.allCases)
+    func softCoverageIsALinearWeightOnEveryPath(path: Path) async throws {
+        let paintAlpha: CGFloat = 0.6
+        for gamut in [RenderColorSpace.sRGB, .displayP3] {
+            let destination = Self.space(Self.outputGamut(path, grid: gamut))
+            for coverage: Float in [0.25, 0.5, 0.75] {
+                for mask in MaskPaint.allCases {
+                    let weight = CGFloat(mask == .ground ? coverage : 1 - coverage)
+                    let paint = Paint.genericRGB.color(alpha: paintAlpha)
+                    let linear = try reference(paint.copy(alpha: paintAlpha * weight)!, destination: destination)[3]
+                    let retired = Self.retiredWeight(Double(coverage), mask: mask)
+                    let encoded = Int((Double(paintAlpha) * retired * 255).rounded())
+                    // The fixture separates the two interpretations by at least 15 steps.
+                    #expect(abs(linear - encoded) >= 15, "fixture \(mask) c=\(coverage): \(linear) vs \(encoded)")
+                    for consumer in path.isCIOutput ? CIConsumer.allCases : [.encoded] {
+                        let image = try await render(
+                            path, gamut: gamut, paint: paint, mask: mask, coverage: coverage, consumer: consumer)
+                        let alpha = try interior(image)[3]
+                        #expect(
+                            abs(alpha - linear) <= 1,
+                            "\(path) \(gamut) \(mask) c=\(coverage) \(consumer): alpha \(alpha), linear \(linear), retired \(encoded)")
+                    }
+                }
             }
         }
+    }
+
+    /// The weight the retired Core Image path applied: coverage decoded by the
+    /// sRGB EOTF before it weighted the ground, the rest going to the fallback.
+    private static func retiredWeight(_ coverage: Double, mask: MaskPaint) -> Double {
+        let decoded = coverage <= 0.04045 ? coverage / 12.92 : pow((coverage + 0.055) / 1.055, 2.4)
+        return mask == .ground ? decoded : 1 - decoded
     }
 }
