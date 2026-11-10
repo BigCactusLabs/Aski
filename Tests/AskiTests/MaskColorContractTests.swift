@@ -70,8 +70,13 @@ import Testing
 
         var isTile: Bool { rawValue.contains("Tile") }
 
-        /// Paths that return a `CIImage`, whose consumer chooses the working space.
-        var isCIOutput: Bool { rawValue.contains("CI") }
+        /// The six paths that return a `CIImage`, whose consumer chooses the working
+        /// space. Listed explicitly: "ASCII" contains "CI", so a name match would
+        /// include every ASCII path.
+        var isCIOutput: Bool {
+            [.syncCIASCII, .asyncCIASCII, .engineCrossCIASCII, .syncCITile, .asyncCITile, .engineCrossCITile]
+                .contains(self)
+        }
     }
 
     enum Contract: String, Sendable {

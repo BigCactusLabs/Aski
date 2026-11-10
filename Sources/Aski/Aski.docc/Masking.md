@@ -35,7 +35,7 @@ The weight is the same everywhere, but the colors it mixes are combined in each 
 
 This follows how [CSS Masking Level 1](https://www.w3.org/TR/css-masking-1/#MaskValues) applies a mask: the mask value multiplies the masked content's alpha, with no transfer function in between. [PNG](https://www.w3.org/TR/png-3/#4Concepts.ColourSpaces) defines alpha the same way, as a linear fraction of full opacity that gamma correction does not touch. Aski derives coverage the way a CSS luminance mask does with its default `color-interpolation: sRGB`: luminance is computed from the mask's sRGB-encoded channel values.
 
-Before ASKI-101, the Core Image mask paths (effects, async, `renderCIImage` and engine renders, any render with a ground, and partly covered tile mosaics) read coverage through the sRGB transfer function in Core Image's linear working space. At `c = 0.5` they showed the fallback at about 0.78 of its alpha and the ground at about 0.22, while direct ASCII renders and direct pixel-art and brick tiles used 0.5. A `renderCIImage` result read in an encoded working space used 0.5. Hard masks were not affected.
+Earlier releases weighted soft edges differently on the Core Image paths; the ASKI-101 entry in the [changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) lists the old weights.
 
 ## Active-Region Grounds
 
