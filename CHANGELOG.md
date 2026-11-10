@@ -11,6 +11,25 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Fixed
+
+- **Raster output honors cell color spaces (ASKI-3).** ASCII, tile, and effects
+  rendering interpret encoded cell colors in their declared sRGB or Display P3
+  gamut. `AskiRenderEngine` converts colors across gamuts and preserves masked
+  background colorimetry. Raster colors, including mid-gray neutrals, change; glyph selection and
+  attributed-string output do not. Review saved renders and remove compensation
+  for the previous Generic RGB interpretation; see the rendering guide. The CLI
+  now builds `--background`, `--mask-fallback-color`, and `--mask-ground` colors in
+  sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
+  `#929292` before) and gray or colored values now match the manifest's
+  `#RRGGBBAA` record.
+- **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
+  (`0` means infinite; `1` means once), rejects unsupported values before opening the
+  destination, and reports the loop metadata read from the finalized file.
+- **CLI text output supports `/dev/null` and `/dev/stdout` (ASKI-83).** Text streams are
+  written directly after regular outputs are ready. Other special destinations are
+  rejected with an explicit reason; device nodes are never staged or replaced.
+
 ### Added
 
 - **`aski render` selects the algorithm, dither strength and palette (ASKI-82).** New flags
@@ -26,6 +45,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Documentation
 
+- **README hero regenerated from the current build (ASKI-15).** The previous Carina hero
+  could not be reproduced by any converter build: it had about 1.9× the source's
+  per-cell chroma and a 17% pure-black floor, while every build since June 2026 matches
+  the source's color. The new hero is a default-settings render, and its caption gives
+  the command and the correct 134-row grid size. Converter output is unchanged; see the
+  [ASKI-15 note](docs/Research/2026-11-07-aski15-hero-provenance.md).
 - **logPolar pairings match measured behavior (ASKI-79).** `logPolar` is now recommended with
   `standard` and `braille` only. At the default `oversample`, `minimal`, `dots`, `diagonal`, `cross`
   and `diamond` render every cell as a space under `logPolar`, and `blocks`, `lines` and `mixed`

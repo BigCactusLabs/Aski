@@ -1,0 +1,25 @@
+{
+  "code_identity": "6b47141d13409e5fdde52bafb370e646b9d5c40a+dirty:0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+  "production_patch_sha256": "0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+  "hash_algorithm": "SHA-256",
+  "source_files": {
+    "Sources/Aski/Effects/AskiRenderEngine.swift": "9b45e8c0e7aba1132435273a51c4801d53d47985522c98cb851f45b83c8dd308",
+    "Sources/Aski/Effects/Internal/CellRasterBuilder.swift": "2355030f542e0d1a7afe6161de5bb13400c9498d259f8634bf8dd1867d8289d7",
+    "Sources/Aski/RenderColorSpace.swift": "8cd168a76f1e6c2f8acb5183097cfb85d36e0ca45c9b4177e4336db1329fd48f",
+    "Sources/Aski/Renderers/ImageRenderer.swift": "f9d4b9bdfab826c08b5868cf8b33c50840cfc99601ae005e1cf039cf28e79b59",
+    "Sources/Aski/Tiles/TileGrid+Rendering.swift": "5b6577e1be788a35c45a5c220d9b291872dcfde56490a2e7331fb7c070605e44"
+  },
+  "review_repairs": {
+    "note": "Raster/CLI review repairs after the census, applied on top of ef5cf51 (the census code). They do not touch the selection path; the census identity above is unchanged.",
+    "base_revision": "ef5cf518e80cf76adfa6bd7e91ed4966c60f7cae",
+    "patch": "review-repairs.patch",
+    "patch_sha256": "bc7edf87cfdc6a9a18d8b53297b569a03bd52160f1e520bdf4789bfac80eca42",
+    "source_files": {
+      "Sources/Aski/Effects/AskiRenderEngine.swift": "b79f959ffda27f19631042ea1ebc9f449580d6f5ee80d3dbffc9ab3f94a96bf0",
+      "Sources/Aski/Masking/MaskFallbackImageFactory.swift": "8c3f47666a4c927ff7f95af82e8c382f85432881fb75f80e74083e782d68a818",
+      "Sources/Aski/Renderers/AttributedStringRenderer.swift": "cc0d354aed3510f817f1acd09a4219afc86d80183acecf753ede3031ffa25407",
+      "Tools/AskiHDRLab/HDRLabCLI.swift": "777c78a2688eadc5feb12c2cedb98913fb07b816ed93b3855e03e0310b0a1913",
+      "Tools/AskiToolSupport/BackgroundColor.swift": "b46c8a39164e5be5f8b52852f3197149dfc24c9238dd3a98628bae1496a6f937"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+diff --git a/Sources/Aski/Effects/AskiRenderEngine.swift b/Sources/Aski/Effects/AskiRenderEngine.swift
+index f91df4f..9093820 100644
+--- a/Sources/Aski/Effects/AskiRenderEngine.swift
++++ b/Sources/Aski/Effects/AskiRenderEngine.swift
+@@ -151,9 +151,10 @@ public actor AskiRenderEngine {
+         cache: inout [SIMD3<Float>: SIMD3<Float>]
+     ) -> SIMD3<Float> {
+         if let converted = cache[rgb] { return converted }
++        // CG clips out-of-gamut values for the matrix sRGB/Display P3 profiles.
+         guard
+             let converted = source.encodedColor(rgb, alpha: 1).converted(
+-                to: colorSpace.encodedCGColorSpace, intent: .perceptual, options: nil
++                to: colorSpace.encodedCGColorSpace, intent: .relativeColorimetric, options: nil
+             ), let components = converted.components, components.count >= 3
+         else {
+             preconditionFailure("Known RGB color spaces must support color matching")
+@@ -180,7 +181,7 @@ public actor AskiRenderEngine {
+         guard color.alpha.isFinite, color.colorSpace?.model == .rgb,
+             let components = color.components, components.count >= 3
+         else { return color }
+-        if let name = color.colorSpace?.name, (name as String) != "kCGColorSpaceGenericRGB" {
++        if let name = color.colorSpace?.name, !MaskFallbackImageFactory.isGenericRGB(name) {
+             return color
+         }
+         guard
+diff --git a/Sources/Aski/Masking/MaskFallbackImageFactory.swift b/Sources/Aski/Masking/MaskFallbackImageFactory.swift
+index 03e51e1..978617b 100644
+--- a/Sources/Aski/Masking/MaskFallbackImageFactory.swift
++++ b/Sources/Aski/Masking/MaskFallbackImageFactory.swift
+@@ -117,7 +117,19 @@ internal enum MaskFallbackImageFactory {
+     private static func shouldTreatAsLiteralRGB(_ colorSpace: CGColorSpace?) -> Bool {
+         guard let colorSpace else { return true }
+         guard let name = colorSpace.name else { return true }
+-        return (name as String) == "kCGColorSpaceGenericRGB"
++        return isGenericRGB(name)
++    }
++
++    /// `CGColorSpace.genericRGB` is unavailable in Swift, so read the name from
++    /// the space `CGColor(red:green:blue:alpha:)` produces. Cached as `String`
++    /// because `CFString` is not `Sendable`.
++    private static let genericRGBName: String? = {
++        let space = CGColor(red: 0, green: 0, blue: 0, alpha: 1).colorSpace
++        return space?.name as String?
++    }()
++
++    static func isGenericRGB(_ name: CFString) -> Bool {
++        (name as String) == genericRGBName
+     }
+ 
+     private static func makeCharacterFallback(
+diff --git a/Sources/Aski/Renderers/AttributedStringRenderer.swift b/Sources/Aski/Renderers/AttributedStringRenderer.swift
+index a915775..cd97d80 100644
+--- a/Sources/Aski/Renderers/AttributedStringRenderer.swift
++++ b/Sources/Aski/Renderers/AttributedStringRenderer.swift
+@@ -91,7 +91,8 @@ public extension ASCIIGrid {
+ 
+     private static func resolvedColor(for color: CGColor, in colorSpace: RenderColorSpace) -> ResolvedTextColor {
+         let target = cgColorSpace(for: colorSpace)
+-        guard let converted = color.converted(to: target, intent: .perceptual, options: nil),
++        // CG clips out-of-gamut values for the matrix sRGB/Display P3 profiles.
++        guard let converted = color.converted(to: target, intent: .relativeColorimetric, options: nil),
+             let components = converted.components,
+             components.count >= 3
+         else {
+diff --git a/Tools/AskiHDRLab/HDRLabCLI.swift b/Tools/AskiHDRLab/HDRLabCLI.swift
+index 80b14b6..bd9f9e1 100644
+--- a/Tools/AskiHDRLab/HDRLabCLI.swift
++++ b/Tools/AskiHDRLab/HDRLabCLI.swift
+@@ -272,6 +272,6 @@ public enum HDRLabCLI {
+             let g = UInt8(string.dropFirst(2).prefix(2), radix: 16),
+             let b = UInt8(string.dropFirst(4).prefix(2), radix: 16)
+         else { return nil }
+-        return CGColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
++        return CGColor(srgbRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
+     }
+ }
+diff --git a/Tools/AskiToolSupport/BackgroundColor.swift b/Tools/AskiToolSupport/BackgroundColor.swift
+index f636919..25567d2 100644
+--- a/Tools/AskiToolSupport/BackgroundColor.swift
++++ b/Tools/AskiToolSupport/BackgroundColor.swift
+@@ -23,7 +23,7 @@ public struct BackgroundColor: ExpressibleByArgument, Equatable, Sendable {
+     public static let clear = BackgroundColor(red: 0, green: 0, blue: 0, alpha: 0)
+ 
+     public var cgColor: CGColor {
+-        CGColor(red: red, green: green, blue: blue, alpha: alpha)
++        CGColor(srgbRed: red, green: green, blue: blue, alpha: alpha)
+     }
+ 
+     /// Canonical uppercase `#RRGGBBAA` serialization for deterministic records.

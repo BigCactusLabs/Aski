@@ -53,6 +53,14 @@ xcrun swift run aski render photo.jpg \
   --columns 100 --output photo.txt --render-png photo-ascii.png
 ```
 
+Use `--output /dev/null` to discard text while keeping `--render-png`. Use
+`--output /dev/stdout` to send text to a pipe or redirected standard output. These
+text destinations (including symlinks to them) are written directly after the
+regular files are prepared and replaced; their device nodes are never replaced.
+Stream writes cannot be rolled back if a write fails after sending some bytes.
+Other special destinations, including FIFOs, are rejected before any output is
+changed. PNG and manifest destinations must be regular files.
+
 `--columns` controls grid detail, not output pixel width. The CLI preserves the source
 aspect ratio in PNG output by default; `--no-preserve-aspect` requests the historical
 glyph-cell aspect instead. Direct library rendering has a different default, so pass

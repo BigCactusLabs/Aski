@@ -1,0 +1,20 @@
+build,date,note,glyph_diff_vs_anchor,median_ink_chroma_ratio_vs_anchor,black_floor_frac,cellgrid_hsvS,cellgrid_hsvV,colour_class,glyph_class
+README hero (2026-08-18 commit),2026-08-18,previous docs/assets/hero-carina-512.png; glyphs recovered by template matching,0.3293,1.9323,0.1700,0.7359,0.0798,hero-like,drifted
+pre-public build,2026-06-08,main line,0.0002,1.0000,0.0074,0.4723,0.0748,anchor-like,drifted
+pre-public build,2026-06-10,main line,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-06-11,main line,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-06-12,main line; Carina corpus present from this date,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-06-16,main line,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build (anchor),2026-06-29,main line; June comparison anchor,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-07-23,main line; last Sources change before v0.6.0,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+v0.6.0,2026-08-17,,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-08-24,after v0.6.0,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-09-01,ASKI-63 merged,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-09-01,parent of ASKI-65 lattice fix,0.0000,1.0000,0.0074,0.4723,0.0748,anchor-like,anchor-identical
+pre-public build,2026-09-02,ASKI-65 lattice fix (first glyph change),0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+pre-public build,2026-09-02,ASKI-65 merged,0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+pre-public build,2026-09-04,after ASKI-65,0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+pre-public build,2026-09-04,ASKI-68 cleanup,0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+pre-public build,2026-09-23,last private-history state before the public cutover,0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+public main dbfec3a,2026-11-05,,0.5568,1.0102,0.0077,0.4744,0.0718,anchor-like,drifted
+ASKI-3 fix (PR #18 head 19ea3b5),2026-11-06,,0.5568,1.0013,0.0077,0.5106,0.0628,anchor-like,drifted

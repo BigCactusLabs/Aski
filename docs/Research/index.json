@@ -1507,6 +1507,64 @@
       ],
       "summary" : "The frozen PASS/KILL/INCONCLUSIVE rule for the ASKI-79 blank-collapse fix candidate and the ASKI-80 texture intervention, committed after the phase-1 instrument and production baseline and before any arm-1 or arm-2 number was read. Arm 1 falls back to the tone-nearest pooled glyph when the cell's query shares no bins with any non-blank pooled candidate; arm 2 adds serial Floyd–Steinberg tone centring and is lab-only. MAE is the gating oracle, GMSD a cross-check that can demote a PASS, and texture readouts gate arm 2 and guard arm 1 on standard. The verdict corpus is nasa-steerable-v1, the held-out no-harm corpus nasa-structure-v1, and the frozen preset is also guarded on nasa-occupancy-v1, the only corpus with white-ground cells.",
       "title" : "Pre-registered verdict rule — ASKI-79 + ASKI-80 orthogonality-to-tone fallback, frozen before the decisive run"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-05",
+      "next_action" : "Review ASKI-3 with its review repairs and re-recorded goldens. ASKI-15 and ASKI-98 remain follow-up options.",
+      "path" : "docs/Research/2026-11-05-aski3-color-semantics.md",
+      "related_specs" : [
+        "Sources/Aski/ASCIICell.swift",
+        "Sources/Aski/Tiles/TileCell.swift",
+        "docs/agents/research-methodology.md",
+        "docs/Research/2026-09-02-aski-31-lattice-no-harm.md"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-11-05-aski3-color-semantics"
+      ],
+      "runners" : [
+        "AskiColorLab"
+      ],
+      "slug" : "2026-11-05-aski3-color-semantics",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "tile-grid"
+      ],
+      "summary" : "Pre-registered checks for correcting Generic RGB reinterpretation of encoded sRGB/Display P3 cell colors and engine gamut retagging. Native pixel regressions pass. All six paired production MAE/GMSD ratios equal 1.0 across 75468 cells; pooled selection evidence does not establish color fidelity. Review repairs (sRGB CLI colors, relative colorimetric intent) leave selection untouched; goldens were re-recorded on macOS 27.0.1 / Xcode 27.0 on an M3 Max after the ASKI-97 re-baseline was withdrawn.",
+      "title" : "ASKI-3 — color interpretation correction and frozen-selection guard"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-07",
+      "next_action" : "None for ASKI-15. A higher-vibrancy rendering option would be a new pre-registered research arm, not a fix.",
+      "path" : "docs/Research/2026-11-07-aski15-hero-provenance.md",
+      "related_specs" : [
+        "README.md",
+        "Sources/Aski/CellSampling.swift",
+        "docs/Research/2026-11-05-aski3-color-semantics.md",
+        "docs/agents/research-methodology.md"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-11-07-aski15-hero-provenance"
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-07-aski15-hero-provenance",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "meta"
+      ],
+      "summary" : "The README hero's higher saturation is not reproducible from any converter build. Nineteen builds from 2026-06-08 through the ASKI-3 fix all give the same per-cell chroma, which matches the source image's own per-cell chroma; the old hero has about 1.9x that chroma at the same hue plus a 17% pure-black floor, the shape of an outside saturation and black-point adjustment. The only glyph change since June is the ASKI-65 lattice correctness fix. Verdict: keep current behavior; the hero is regenerated from the current build with a recorded command.",
+      "title" : "ASKI-15 — Carina hero saturation is not a converter regression"
     }
   ],
   "results" : [
@@ -1946,6 +2004,111 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "Rule applied mechanically (verdict.md): arm 1, the orthogonality to tone fallback, is KILL, because standard MAE rises x1.0301-1.0423 on both PNG corpora at 80 and 288 columns past the 1.0300 bar, with GMSD x1.15-1.43, although it removes the all-blank grid on every sparse-set fixture and passes every no-harm row. Arm 2, arm 1 plus serial Floyd-Steinberg tone centring, is INCONCLUSIVE: runs of five or more fall 0.27-0.38 against arm 1, but glyphsUsed does not rise on three of four rows and braille on nasa-steerable-v1 exceeds the 1.0100 MAE and GMSD guards. Arm P reproduces all 43 phase-1 baseline P rows exactly."
+    },
+    {
+      "aski_git_sha" : "6b47141d13409e5fdde52bafb370e646b9d5c40a+dirty:0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+      "command" : "aski lab color selection-ceiling --charset blocks --columns 76 --oversample 2 --footprint 24 --stride 1 --shape-query-polarity inverted --corpus docs/Research/Corpus/<corpus>/assets --output .build/aski-3-2026-11-05/census/<side>/<corpus>.csv (six recorded invocations in before/provenance.json and after/provenance.json)",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-steerable-v1",
+        "docs/Research/Corpus/nasa-structure-v1",
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-05",
+      "generators" : [
+        "SSIMAttributionProbe.swift",
+        "RasterAttributionProbe.swift"
+      ],
+      "outputs" : [
+        "README.md",
+        "before/nasa-occupancy-v1.csv",
+        "before/nasa-steerable-v1.csv",
+        "before/nasa-structure-v1.csv",
+        "before/provenance.json",
+        "after/nasa-occupancy-v1.csv",
+        "after/nasa-steerable-v1.csv",
+        "after/nasa-structure-v1.csv",
+        "after/provenance.json",
+        "comparison.csv",
+        "production.patch",
+        "production.patch.sha256",
+        "review-repairs.patch",
+        "review-repairs.patch.sha256",
+        "source-sha256.json",
+        "ssim-attribution.json",
+        "raster-attribution.json",
+        "golden-deltas.csv",
+        "docc-asset-hashes.json"
+      ],
+      "path" : "docs/Research/Results/2026-11-05-aski3-color-semantics",
+      "provenance" : [
+        "Rule frozen at 6b47141d13409e5fdde52bafb370e646b9d5c40a in docs/Research/2026-11-05-aski3-color-semantics.md before measurement",
+        "Before code: 14c8697ce0211098630088cab14ef9e8a79b048e; CSV gitSHA records the documentation-only rule revision",
+        "Before executable SHA-256: a5107177d3dd2b0111e9213d614f8394e6c3c95f3f9f623e8a1e2680a1b259f5",
+        "After code: 6b47141d13409e5fdde52bafb370e646b9d5c40a plus production.patch; patch SHA-256: 0f4338104b5dbe897b1deef12150039c80ebe197fa4552fe006cb6f3b9ee2b78",
+        "After executable SHA-256: 4052c0e1ab39d9a9f1339f27c707c403498dc85582f8191aa202642487698f25",
+        "Release builds; macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4",
+        "All input asset hashes, CSV hashes, and actual run arguments retained in sanitized per-side provenance; five production source hashes retained in source-sha256.json",
+        "Review repairs after the census (sRGB CLI colors, relative colorimetric intent, Generic RGB name check) are in review-repairs.patch on top of ef5cf51; they do not touch the selection path, so the census was not rerun",
+        "Goldens re-recorded 2026-11-06 after merging the ASKI-97 re-baseline withdrawal; golden-deltas.csv before = original goldens at 89fd227; host macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, Apple M3 Max",
+        "Monochrome sRGB selection instrument; pooled corpus rows do not measure Vesper Display P3 color fidelity or exclude cancelling per-fixture changes"
+      ],
+      "runner" : "AskiColorLab",
+      "schema_version" : "1",
+      "summary" : "ASKI-3 paired selection guard passes: all six production MAE/GMSD ratios equal 1.0 across 75468 cells per side; all P/F quality and selection fields exactly unchanged. Pooled monochrome sRGB evidence only; no Display P3 Vesper color-quality claim. Review repairs leave selection untouched; goldens re-recorded on an M3 Max host. Integration validation is recorded in the linked research note."
+    },
+    {
+      "aski_git_sha" : "b17e791a8a8ddb3b4d09cf330d6928db46ef3c07",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-05",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "README.md",
+        "drift.csv",
+        "vector-glyph-drift.csv",
+        "vector-set-summary.csv"
+      ],
+      "path" : "docs/Research/Results/2026-11-05-aski97-render-drift",
+      "provenance" : [
+        "Original golden commit 0e654023; unchanged control 06adfdb; changed checkout b17e791",
+        "macOS 27.0.1 (26A434); Xcode 27.0 (27A266a); Swift 6.4",
+        "Four isolated control captures are byte-identical for each of 16 emitted candidate PNGs",
+        "All current reference hashes verified before replacement; candidate hashes verified after copying",
+        "Read-only vector audit CSVs copied without modifying committed ShapeData",
+        "Parallel control core run emitted the same 16 PNGs; changed-tree targeted snapshot and Vesper tests passed",
+        "Not reproduced on an Apple M3 Max host with the same macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: 06adfdb snapshot suites pass 11/11, 14c8697 fails the 16 replaced PNGs"
+      ],
+      "schema_version" : "1",
+      "summary" : "ASKI-97 exact-render drift evidence, re-baseline WITHDRAWN: 16 images differed by one RGB step on the recording host, but an M3 Max host with the same macOS 27.0.1 and Xcode 27.0 builds reproduces the original goldens, so the drift is host-dependent and the original goldens stay."
+    },
+    {
+      "aski_git_sha" : "19ea3b59012b38c02392a012aa48f16fbb36f624",
+      "command" : "xcrun swift run -c release aski render docs/Research/Corpus/nasa-occupancy-v1/assets/carina-cosmic-cliffs.jpg --columns 512 --font-size 16 --render-png docs/assets/hero-carina-512.png",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-07",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "README.md",
+        "bisect.csv",
+        "hero-stats.csv"
+      ],
+      "path" : "docs/Research/Results/2026-11-07-aski15-hero-provenance",
+      "provenance" : [
+        "Regenerated hero rendered at 19ea3b5 (ASKI-3 fix) with a release build; two renders byte-identical",
+        "Seventeen pre-public builds (2026-06-08 through 2026-09-23) rendered from read-only clones of the pre-public histories; commits are not in this repository",
+        "Public main dbfec3a and 19ea3b5 rendered from detached worktrees",
+        "macOS 27.0.1 (26A434); Xcode 27.0 (27A266a); Swift 6.4; Apple M3 Max",
+        "Bisect class thresholds fixed before any bisect row was computed"
+      ],
+      "schema_version" : "1",
+      "summary" : "ASKI-15 hero provenance: no converter build from 2026-06-08 through the ASKI-3 fix reproduces the previous README hero's 1.9x chroma or 17% black floor; current color matches the source; the hero is regenerated from the current build."
     }
   ]
 }
