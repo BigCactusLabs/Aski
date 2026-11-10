@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
-## v0.8.0 — 2026-11-09
+## v0.8.0 — 2026-11-10
 
 ### Fixed
 
