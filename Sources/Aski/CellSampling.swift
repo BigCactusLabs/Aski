@@ -268,10 +268,11 @@ internal func resampleRGBA8(
 ///
 /// This replaces the size the ImageIO thumbnail used to report for a direct
 /// `CGImage` (ASKI-1). ImageIO floors through an internal power-of-two
-/// subsample before scaling, so its short side can land a pixel below the
-/// proportional size; plain rounding keeps it at or above that size, and for
-/// portrait sources, whose `maxPixelSize` is set so the width lands on the
-/// `columns * oversample` budget, the width therefore never falls under it.
+/// subsample before scaling, so its short side could land a pixel below the
+/// floor of the proportional size; rounding never goes below that floor. For
+/// portrait sources, whose `maxPixelSize` is set so the proportional width is
+/// at least the `columns * oversample` budget, the prepared width therefore
+/// never falls under the budget.
 internal func preparedSize(
     width: Int,
     height: Int,

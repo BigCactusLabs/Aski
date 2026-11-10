@@ -11,6 +11,35 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Changed
+
+- **A decoded `CGImage` is prepared directly at the conversion size (ASKI-1).** A `CGImage` whose
+  longest side exceeds the conversion budget is no longer PNG-encoded and decoded through an
+  ImageIO thumbnail before conversion. The converter, the temporal (video-frame) path and the tile
+  converter convert it to the target color space and resample it once with vImage Lanczos straight
+  to the sampling lattice. On the ASKI-1 benchmarks (median, one Mac), preparing a 4032×3024 photo
+  for the Vesper preset drops from 677 ms to 28 ms and a 1920×1080 frame from 21.9 ms to 4.7 ms,
+  and the 720p video benchmarks run 33–85% faster end to end. Peak resident memory rises by 5–8 MB
+  on the two rotated-video end-to-end benchmarks. The likely cause is the full-size RGBA8 copy the
+  converter now makes of each oriented frame before resampling; ASKI-2, which moves orientation
+  into frame preparation, would remove that full-size frame. Rendered output changes for these
+  inputs: cell colors and some glyph picks move, and the prepared size rounds the short side to
+  the nearest pixel, so a cell pitch can differ by one pixel from the size ImageIO produced. Grid
+  dimensions do not change. On the frozen Vesper preset the change passes the pre-registered
+  no-harm census: production-arm MAE moves by ×1.0000 and ×0.9991 on the two naturals corpora. A
+  source already within the budget renders byte for byte as before, and so does anything loaded
+  through `ImageIOThumbnail.decode(data:maxPixelSize:)` or `decode(source:maxPixelSize:)`,
+  including `aski render` and `aski inspect`. Resampler choice and census:
+  `docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`.
+
+### Removed
+
+- **`ImageIOThumbnail.decode(image:maxPixelSize:)` (ASKI-1, source-breaking).** It shrank a
+  decoded image by PNG-encoding it and decoding an ImageIO thumbnail. Pass the `CGImage` to
+  `convert` directly; the converter now resamples it itself. For encoded input, keep using
+  `ImageIOThumbnail.decode(data:maxPixelSize:)` or `decode(source:maxPixelSize:)`, which avoid
+  materializing the full raster and apply EXIF orientation.
+
 ### Fixed
 
 - **Mask paint is color-matched on every render path (ASKI-98).** `MaskFallback.solid(_:)` and

@@ -125,18 +125,26 @@ format explicitly makes them part of its contract.
 
 ## Pipeline (CGImage → ASCIIGrid)
 
-1. ImageIO thumbnail decoding (`ImageIOThumbnail.swift`)
+1. Preparation at the conversion size: the source is resampled into the sampling lattice (`samplingLattice`, `CellSampling.swift`)
 2. OKLAB color conversion with fused matrix transforms (`ColorConversion.swift`)
 3. 60D log-polar shape-context character matching (`ShapeMatching.swift`, with kernels in `Sources/Aski/Algorithms/`)
 4. Ray Trace gamut mapping for display output (`GamutMapping.swift`; `.adaptiveL0` remains available for legacy comparison)
 5. Renderers produce plain text, AttributedString, or CGImage (`Sources/Aski/Renderers/`)
 
-**Sampling lattice (between steps 1 and 3).** `prepareConversion` takes a floored integer
-cell pitch (`thumbnail.width / cols`, `thumbnail.height / rows`) — uniform across the grid —
-and then draws the decoded thumbnail into a lattice raster of exactly
-`cols * cellWidth × rows * cellHeight` (`samplingLattice`, `CellSampling.swift`). Every
-sampler indexes from the origin and walks whole cells, so the lattice is tiled exactly and no
-source row or column goes unread; the fold costs a rescale of at most one cell pitch per axis.
+**Sampling lattice (step 1).** `prepareConversion` puts the source's longest side on the
+conversion budget (`thumbnailMaxPixelSize`, never upscaling), takes a floored integer cell
+pitch (`prepared.width / cols`, `prepared.height / rows`) — uniform across the grid — and
+prepares a lattice raster of exactly `cols * cellWidth × rows * cellHeight`
+(`samplingLattice`, `CellSampling.swift`). A source larger than the budget is converted to
+premultiplied RGBA8 in the target color space and resampled once with vImage Lanczos
+(`kvImageHighQualityResampling`) straight to the lattice, then clipped to alpha because
+Lanczos can overshoot. A source already within the budget is drawn into the lattice with
+CoreGraphics `.high` interpolation. Before ASKI-1 an oversized `CGImage` was PNG-encoded and
+decoded through an ImageIO thumbnail first. The resampler choice and the frozen-preset
+no-harm census are recorded in `docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`,
+and `TargetSizePreparationTests` pins the preparation contract. Every sampler indexes from
+the origin and walks whole cells, so the lattice is tiled exactly and no source row or column
+goes unread; the fold costs a rescale of at most one cell pitch per axis.
 Earlier versions sampled the thumbnail at its decoded size and dropped the bottom/right
 remainder — up to 10% of image height — which stretched the render downward against the
 full-aspect grid (ASKI-65, issue #36). The lattice contract is pinned by
@@ -202,8 +210,8 @@ to decode a conversion-sized thumbnail from the source `CGImageSource` before
 handing the image to the converter, avoiding full-raster materialization for
 oversized inputs. `aski render` and `aski inspect` share one `ToolImageConversion`
 snapshot so metadata describes the exact in-memory grid and text being rendered.
-Direct library callers still pass a `CGImage` and the converter performs its own
-ImageIO thumbnail step.
+Direct library callers pass a `CGImage`, and the converter resamples it to the
+conversion size itself, with no ImageIO round trip (ASKI-1).
 
 ## Key files
 

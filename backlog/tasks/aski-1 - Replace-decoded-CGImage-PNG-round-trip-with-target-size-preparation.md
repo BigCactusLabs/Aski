@@ -1,10 +1,10 @@
 ---
 id: ASKI-1
 title: Replace decoded-CGImage PNG round-trip with target-size preparation
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-08-18 18:01'
-updated_date: '2026-09-10 04:15'
+created_date: 2026-08-18 18:01
+updated_date: '2026-11-10T19:35:00Z'
 labels:
   - performance
   - conversion
