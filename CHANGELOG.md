@@ -23,6 +23,18 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
   `#929292` before) and gray or colored values now match the manifest's
   `#RRGGBBAA` record.
+- **Mask paint is color-matched on every render path (ASKI-98).** `MaskFallback.solid(_:)` and
+  `MaskOptions.groundColor` colors are interpreted in the color space their `CGColor` declares
+  and color-matched into the grid's render color space on every raster path, including effects,
+  async, `renderCIImage` and `AskiRenderEngine` gamut adaptation. Before, those Core Image paths
+  (and tile renders with a ground or a partly covered mosaic) read Generic RGB and unnamed-RGB
+  components as values in the grid's gamut, while direct ASCII rendering color-matched them.
+  Generic RGB (0.9, 0, 0) now renders as sRGB (237, 34, 0) on those paths instead of
+  (229, 0, 0), and Generic `#080808` as `#060606`. To keep the old numbers, tag the components
+  with the grid's space: `CGColor(srgbRed:green:blue:alpha:)` for sRGB grids, or
+  `CGColor(colorSpace: CGColorSpace(name: CGColorSpace.displayP3)!, components: [r, g, b, a])`
+  for Display P3 grids. The CLI's `--mask-fallback-color` and `--mask-ground` are already sRGB
+  and do not change.
 - **Color overlays and point lights honor their color space (ASKI-99).** `ColorOverlay` and
   `PointLight` colors are interpreted in their `CGColor`'s declared color space, as
   `Background.solid` already was. Their components were previously read as sRGB numbers: a

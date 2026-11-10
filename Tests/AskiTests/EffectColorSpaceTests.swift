@@ -158,7 +158,7 @@ import Testing
     @Test(arguments: [RenderColorSpace.sRGB, .displayP3])
     func genericRGBOverlayIsColorMatched(output: RenderColorSpace) throws {
         let overlay = CGColor(red: 0.8, green: 0.2, blue: 0.1, alpha: 1)
-        #expect(overlay.colorSpace?.name.map(MaskFallbackImageFactory.isGenericRGB) == true)
+        #expect((overlay.colorSpace?.name as String?) == "kCGColorSpaceGenericRGB")
         let image = overlayRender(overlay, output: output)
         expectClose(try center(image), try oracle(overlay, destination: space(output)), "Generic RGB overlay into \(output)")
     }
