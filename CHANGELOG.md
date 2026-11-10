@@ -41,6 +41,18 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   matrix, at video range. Untagged files let decoders guess the matrix from the frame size, which
   shifted colors in small exports, and Display P3 frames were clipped to sRGB before encoding.
   Exported MP4 bytes change.
+- **Soft mask edges use the same coverage weight on every path (ASKI-101).** Mask coverage is a
+  linear weight: a cell with coverage `c` shows `c` of the active branch (glyphs or tiles, and
+  the ground) and `1 - c` of the fallback. Effects, async, `renderCIImage` and `AskiRenderEngine`
+  renders, renders with a `groundColor`, and partly covered tile mosaics read coverage through the
+  sRGB transfer function in Core Image's linear working space, so at coverage 0.5 they showed
+  the fallback at about 0.78 of its alpha and the ground at about 0.22. Direct ASCII,
+  target-width, and direct pixel-art and brick tile renders already used 0.5, and
+  `renderCIImage` results now carry the same weight whatever working space reads them. Soft-edged
+  masks on those Core Image paths render differently at partly covered cells: the active branch
+  is stronger and the fallback weaker. Hard-edged masks, unmasked renders, and direct renders
+  without a ground do not change. Where both branches are opaque, Core Image paths still mix in
+  linear light and Core Graphics paths in encoded values (see the Masking guide).
 
 ## v0.8.0 — 2026-11-10
 
