@@ -4,7 +4,7 @@ title: Soft mask coverage weights fallback and ground differently by render path
 status: To Do
 assignee: []
 created_date: '2026-11-10T02:41:00Z'
-updated_date: '2026-11-10T03:03:00Z'
+updated_date: '2026-11-10T06:46:00Z'
 labels:
   - correctness
   - rendering
@@ -27,3 +27,9 @@ Found while characterizing ASKI-98. With paint alpha 0.6 and soft mask coverage 
 - [ ] #2 Every render path, CGImage and CIImage outputs, applies the same weight at soft mask edges within 1/255
 - [ ] #3 softCoverageWeightCurrentlyDependsOnPath is replaced by a contract test; moved soft-edge mask goldens are re-recorded with a before/after note
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-10: the ASKI-98 color-space batch landed on main in PR #21 (merge f6f25cb), so MaskColorContractTests.softCoverageWeightCurrentlyDependsOnPath is on main and pins the current path split. A fix here should update that pin deliberately.
+<!-- SECTION:NOTES:END -->
