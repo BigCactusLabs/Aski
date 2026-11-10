@@ -2,20 +2,20 @@
 title: "ASKI-1 — direct CGImage preparation: resampler choice and selection-ceiling no-harm census"
 slug: 2026-11-10-aski-1-direct-cgimage-preparation
 date: 2026-11-10
-status: active
+status: complete
 subsystem: [shape-context]
-summary: "ASKI-1 replaces the PNG encode and CGImageSource thumbnail that a decoded CGImage went through before conversion with one vImage Lanczos resample straight to the sampling lattice. A probe against the exact area average of each lattice pixel's source footprint chose Lanczos over CoreGraphics high and medium draws. Because the change moves the frozen-preset golden, this note pre-registers the ASKI-31 selection-ceiling reading rule before any census number is read: MAE-gated at a 1.01 no-harm guard on the frozen preset on both naturals corpora, GMSD reported and non-gating."
+summary: "ASKI-1 closes NO HARM. ASKI-1 replaces the PNG encode and CGImageSource thumbnail that a decoded CGImage went through before conversion with one vImage Lanczos resample straight to the sampling lattice. A probe against the exact area average of each lattice pixel's source footprint chose Lanczos over CoreGraphics high and medium draws. Because the change moves the frozen-preset golden, this note pre-registered the ASKI-31 selection-ceiling reading rule before any census number was read (MAE-gated at a 1.01 no-harm guard on the frozen preset on both naturals corpora, GMSD reported and non-gating), then ran the census at 954a1c5 and at the implementation commit 05af50c. Frozen-preset production-arm MAE moves by x1.0000 on nasa-steerable-v1 and x0.9991 on nasa-structure-v1; every secondary arm stays within 0.1 percent of parity. GMSD rises 0.09 percent on nasa-structure-v1, a labelled direction disagreement. The frozen preset's production arm uses one to three glyphs, so the dense charsets are the sensitive cross-check, and they move by at most +0.09 percent MAE."
 related_specs: [docs/Research/2026-09-02-aski-31-lattice-no-harm.md, docs/Research/2026-08-19-house-oracle-audit.md, docs/Research/2026-08-19-sampling-lattice-support-collapse.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1]
 runners: [AskiColorLab]
-next_action: "Run the five selection-ceiling invocations before (954a1c5) and after (the ASKI-1 implementation commit) in release builds, commit the CSVs under docs/Research/Results/2026-11-10-aski-1-direct-cgimage-preparation/, and read the verdict mechanically from section 3."
+next_action: "ASKI-1 is closed by this census. The before/after CSVs are the baseline for ASKI-2, which moves video-frame orientation into the same preparation step."
 ---
 
 # ASKI-1 — direct CGImage preparation
 
 **Task:** ASKI-1 · **Registered:** 2026-11-10, before any census number was read ·
 **Before:** `954a1c5` (main `d53570d` plus the ASKI-1 benchmark file; library code identical to main) ·
-**After:** the ASKI-1 implementation commit on branch `aski-1-direct-cgimage-preparation`.
+**After:** `05af50c`, the ASKI-1 implementation commit on branch `aski-1-direct-cgimage-preparation`.
 
 ## 1. What changed
 
@@ -132,4 +132,66 @@ Stdout goes to the matching `.txt`. Artifacts:
 
 ## 5. Results
 
-Pending. Filled in after both sides have run.
+Both sides ran clean (exit 0, no deviations from section 4). `before/` was built at `954a1c5` and
+`after/` at `05af50c`, the ASKI-1 implementation commit; each CSV's `gitSHA` column records its
+side. The two sides ran concurrently under the shared machine lock; the census is deterministic and
+gates on no timing column. Every `cells` count is identical before and after (7752 at 76 columns,
+8640 at 80), as section 3.5 predicted. Ratios are `after / before` of the CSV means, four decimals.
+The script that produced the tables reads only the committed CSVs.
+
+### 5.1 Frozen preset — the gating rows (`blocks`, 76 columns, oversample 2, arm `P`)
+
+| corpus | cells | MAE before | MAE after | **R_MAE** | GMSD before | GMSD after | R_GMSD | R_RMSE | R_SSIM | R_HaarPSI |
+|---|---|---|---|---|---|---|---|---|---|---|
+| nasa-steerable-v1 | 7752 | 0.56406 | 0.56405 | **1.0000** | 0.34099 | 0.34099 | 1.0000 | 1.0000 | 1.0011 | 1.0001 |
+| nasa-structure-v1 | 7752 | 0.56202 | 0.56149 | **0.9991** | 0.29741 | 0.29768 | 1.0009 | 0.9992 | 0.9845 | 1.0028 |
+
+Both `R_MAE` values are inside the 1.0100 guard. On `nasa-steerable-v1` the ratio is 0.99998,
+which rounds to the tie value 1.0000 (rule 3.6). On `nasa-structure-v1` MAE falls 0.09% while GMSD
+rises 0.09%: a direction disagreement, recorded under rule 3.3 as a labelled cross-check note and not
+as a demotion. Neither move is close to the guard.
+
+### 5.2 Secondary arms (non-gating), arm `P`
+
+| corpus | charset | columns | oversample | cells | R_MAE | R_GMSD | R_RMSE |
+|---|---|---|---|---|---|---|---|
+| nasa-steerable-v1 | blocks | 80 | 2 | 8640 | 1.0000 | 1.0000 | 1.0000 |
+| nasa-steerable-v1 | blocks | 80 | 4 | 8640 | 1.0000 | 1.0000 | 0.9999 |
+| nasa-steerable-v1 | blocks | 80 | 8 | 8640 | 1.0000 | 1.0000 | 1.0000 |
+| nasa-steerable-v1 | blocks | 80 | 16 | 8640 | 1.0000 | 1.0000 | 1.0000 |
+| nasa-steerable-v1 | blocks | 80 | 32 | 8640 | 1.0000 | 1.0000 | 1.0000 |
+| nasa-steerable-v1 | standard | 80 | 2 | 8640 | 1.0003 | 1.0002 | 1.0006 |
+| nasa-steerable-v1 | standard | 80 | 4 | 8640 | 1.0004 | 1.0001 | 1.0008 |
+| nasa-steerable-v1 | standard | 80 | 8 | 8640 | 1.0002 | 0.9999 | 1.0004 |
+| nasa-steerable-v1 | standard | 80 | 16 | 8640 | 1.0001 | 1.0000 | 1.0003 |
+| nasa-steerable-v1 | standard | 80 | 32 | 8640 | 1.0001 | 0.9999 | 1.0003 |
+| nasa-steerable-v1 | braille | 80 | 2 | 8640 | 1.0001 | 1.0003 | 1.0004 |
+| nasa-structure-v1 | blocks | 80 | 2 | 8640 | 0.9992 | 1.0011 | 0.9994 |
+| nasa-structure-v1 | standard | 80 | 2 | 8640 | 1.0009 | 1.0012 | 1.0014 |
+
+Every production-arm MAE ratio lies within ±0.1% of parity. The ranking-headroom figures barely
+move: on the frozen preset `totalGap%` goes 62.97 → 62.96 on steerable and 61.44 → 61.40 on
+structure; on `standard` at oversample 2 it goes 4.76 → 4.79 and 7.64 → 7.72; on `braille`,
+3.65 → 3.66.
+
+### 5.3 Cross-check notes (non-gating)
+
+- **The gating arm is insensitive.** The frozen preset's production arm picks one to three distinct
+  glyphs across the whole corpus (`glyphsUsed`), with rows of nearly identical glyphs (`runMean` 75
+  of 76 on steerable). This is the known descriptor-support collapse on `blocks`
+  (`docs/Research/2026-08-19-sampling-lattice-support-collapse.md`), not an ASKI-1 effect: the
+  `before/` side shows it too. So the frozen-preset rows can detect only a large change in tone.
+  The arms that do respond to the sampled pixels, `standard` and `braille`, move by at most +0.04%
+  MAE on steerable and +0.09% on structure.
+- **The tone-only floor `F` rises slightly.** `R_MAE` for arm `F` is 1.0004 to 1.0039 on
+  `blocks` and 0.9998 to 1.0021 on `standard` and `braille`. The cell tone from one Lanczos
+  resample sits marginally further from the native block average than the old thumbnail-then-lattice
+  pair, which blurred more. This agrees with the unit-level finding in section 2. The shift is
+  smaller than 0.0012 in mean loss and does not reach the production arm.
+
+## 6. Verdict
+
+**NO HARM.** By rule 3.2, the frozen-preset `R_MAE` is 1.0000 on `nasa-steerable-v1` and 0.9991 on
+`nasa-structure-v1`, both at or below 1.0100. Neither is at or below 0.9700, so no improvement is
+recorded. The ASKI-1 PR may claim no harm on the frozen preset; its speed and memory evidence comes
+from `Benchmarks/AskiBenchmarks/PreparationBenchmarks.swift` and is reported in the PR, not here.
