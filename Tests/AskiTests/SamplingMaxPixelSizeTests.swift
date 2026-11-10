@@ -138,8 +138,10 @@ import Testing
         #expect(samplingMaxPixelSize(width: 10, height: 10, columns: 4, rows: 4, oversample: 0) == nil)
     }
 
-    /// Both converters take their cap from the shared rule. The tile converter
-    /// clamps an oversample below 1 to 1; `ASCIIConverter` clamps when it is set.
+    /// Both converters, and the budget each gives the command-line loader
+    /// (`preparationMaxPixelSize`), take their cap from the shared rule. The
+    /// tile converter clamps an oversample below 1 to 1; `ASCIIConverter`
+    /// clamps when it is set.
     @Test(arguments: [(975, 1_280), (1_280, 975), (1_000, 1_000), (300, 2_400)])
     func bothConvertersUseTheSharedRule(width: Int, height: Int) throws {
         let image = TestImages.horizontalGradient(width: width, height: height)
@@ -155,10 +157,12 @@ import Testing
             )
             let tile = TileGridConverter(samplingShape: shape, oversample: 3)
             #expect(ascii.thumbnailMaxPixelSize(image: image, columns: cols, rows: rows) == shared)
-            #expect(tile.thumbnailMaxPixelSize(image: image, columns: cols, rows: rows) == shared)
+            #expect(ascii.preparationMaxPixelSize(sourceWidth: width, sourceHeight: height, columns: 60) == shared)
+            #expect(tile.thumbnailMaxPixelSize(width: width, height: height, columns: cols, rows: rows) == shared)
+            #expect(tile.preparationMaxPixelSize(sourceWidth: width, sourceHeight: height, columns: 60) == shared)
             #expect(
                 TileGridConverter(samplingShape: shape, oversample: 0)
-                    .thumbnailMaxPixelSize(image: image, columns: cols, rows: rows)
+                    .preparationMaxPixelSize(sourceWidth: width, sourceHeight: height, columns: 60)
                     == samplingMaxPixelSize(width: width, height: height, columns: cols, rows: rows, oversample: 1))
         }
     }

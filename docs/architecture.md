@@ -209,8 +209,16 @@ CLI image tools that start from file paths (`aski`/the `AskiDemo` target,
 `AskiTileMatrix`, and `aski lab motion --image`) use the shared tool-support target
 to decode a conversion-sized thumbnail from the source `CGImageSource` before
 handing the image to the converter, avoiding full-raster materialization for
-oversized inputs. `aski render` and `aski inspect` share one `ToolImageConversion`
-snapshot so metadata describes the exact in-memory grid and text being rendered.
+oversized inputs. The loader takes the size from the converter it will hand the
+image to (`preparationMaxPixelSize`, `package` access on `ASCIIConverter` and
+`TileGridConverter`) rather than keeping its own copy of the rule, and passes the
+source's displayed dimensions, with EXIF orientation applied as ImageIO's
+thumbnail applies it. For a portrait, both converters' cap (`samplingMaxPixelSize`)
+keeps the width at `columns × oversample` (ASKI-105);
+ImageIO can decode that width one pixel short, so the loader retries one pixel
+larger until it reaches the width the cap implies (ASKI-104). `aski render` and
+`aski inspect` share one `ToolImageConversion` snapshot so metadata describes the
+exact in-memory grid and text being rendered.
 Direct library callers pass a `CGImage`, and the converter resamples it to the
 conversion size itself, with no ImageIO round trip (ASKI-1).
 

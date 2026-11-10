@@ -95,6 +95,24 @@ public struct TileGridConverter: Sendable {
         )
     }
 
+    /// The longest side, in pixels, that `convert(_:columns:)` prepares a
+    /// `sourceWidth × sourceHeight` image at, or `nil` where it returns an
+    /// empty grid. `package` for the command-line loader, as
+    /// `ASCIIConverter.preparationMaxPixelSize` is (ASKI-104).
+    package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: sourceWidth,
+                imageHeight: sourceHeight,
+                columns: columns,
+                tileShape: samplingShape
+            )
+        else {
+            return nil
+        }
+        return thumbnailMaxPixelSize(width: sourceWidth, height: sourceHeight, columns: cols, rows: rows)
+    }
+
     /// The grid and sampling lattice `convert(_:columns:mask:)` reads `image`
     /// through, or `nil` where it returns an empty grid. `internal` so tests
     /// can pin the cell pitch.
@@ -119,7 +137,12 @@ public struct TileGridConverter: Sendable {
                 columns: columns,
                 tileShape: samplingShape
             ),
-            let maxPixelSize = thumbnailMaxPixelSize(image: image, columns: cols, rows: rows),
+            let maxPixelSize = thumbnailMaxPixelSize(
+                width: image.width,
+                height: image.height,
+                columns: cols,
+                rows: rows
+            ),
             let lattice = samplingLattice(
                 image: image,
                 maxPixelSize: maxPixelSize,
@@ -133,13 +156,15 @@ public struct TileGridConverter: Sendable {
         return (cols, rows, lattice)
     }
 
-    /// The longest side `image` is prepared at for a `columns × rows` grid:
-    /// the size rule shared with `ASCIIConverter` (`samplingMaxPixelSize`).
-    /// `oversample` is not clamped where it is stored, so clamp it here.
-    internal func thumbnailMaxPixelSize(image: CGImage, columns: Int, rows: Int) -> Int? {
+    /// The longest side a `width × height` source is prepared at for a
+    /// `columns × rows` grid: the size rule shared with `ASCIIConverter`
+    /// (`samplingMaxPixelSize`). `oversample` is not clamped where it is
+    /// stored, so it is clamped here, for both the converter and the
+    /// command-line loader.
+    internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
         samplingMaxPixelSize(
-            width: image.width,
-            height: image.height,
+            width: width,
+            height: height,
             columns: columns,
             rows: rows,
             oversample: max(1, oversample)

@@ -27,8 +27,7 @@ struct ToolImageConversion {
         let image = try DemoImageIO.loadThumbnailForConversion(
             at: inputPath,
             columns: columns,
-            tileShape: converter.tileShape,
-            oversample: converter.oversample
+            converter: converter
         )
         let maskOptions: MaskOptions?
         if let mask, let maskImage = try mask.loadMaskImage(sourceImage: image) {

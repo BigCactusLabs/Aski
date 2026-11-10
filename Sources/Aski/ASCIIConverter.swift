@@ -318,16 +318,39 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         )
     }
 
-    /// The longest side `image` is prepared at for a `columns × rows` grid:
-    /// the size rule shared with `TileGridConverter` (`samplingMaxPixelSize`).
+    /// The longest side, in pixels, that `convert(_:columns:)` prepares a
+    /// `sourceWidth × sourceHeight` image at, or `nil` where it returns an
+    /// empty grid. An image decoded to this size is sampled without a further
+    /// downscale.
+    ///
+    /// `package`, not `public`: the command-line loader decodes files through
+    /// ImageIO's `kCGImageSourceThumbnailMaxPixelSize` and sizes that decode
+    /// from this rule. It used to keep its own copy of the rule, which never
+    /// gained the portrait branch of `samplingMaxPixelSize`, so CLI portraits
+    /// were sampled at about half the intended cell width (ASKI-104).
+    package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: sourceWidth,
+                imageHeight: sourceHeight,
+                columns: columns,
+                tileShape: tileShape
+            )
+        else {
+            return nil
+        }
+        return thumbnailMaxPixelSize(width: sourceWidth, height: sourceHeight, columns: cols, rows: rows)
+    }
+
     internal func thumbnailMaxPixelSize(image: CGImage, columns: Int, rows: Int) -> Int? {
-        samplingMaxPixelSize(
-            width: image.width,
-            height: image.height,
-            columns: columns,
-            rows: rows,
-            oversample: oversample
-        )
+        thumbnailMaxPixelSize(width: image.width, height: image.height, columns: columns, rows: rows)
+    }
+
+    /// The longest side a `width × height` source is prepared at for a
+    /// `columns × rows` grid: the size rule shared with `TileGridConverter`
+    /// (`samplingMaxPixelSize`).
+    internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
+        samplingMaxPixelSize(width: width, height: height, columns: columns, rows: rows, oversample: oversample)
     }
 
     private func makeGrid(

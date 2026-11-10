@@ -89,6 +89,19 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   is stronger and the fallback weaker. Hard-edged masks, unmasked renders, and direct renders
   without a ground do not change. Where both branches are opaque, Core Image paths still mix in
   linear light and Core Graphics paths in encoded values (see the Masking guide).
+- **The CLI samples portraits at the intended cell width (ASKI-104).** `aski render`,
+  `aski inspect`, `aski lab motion --image` and `AskiTileMatrix` decode the input file at the
+  size the converter prepares it at. The loader kept its own copy of that size rule, and the copy
+  capped the longest side at `max(columns, rows) × oversample`, which in a portrait is the
+  height. A 975×1280 photo at 60 columns decoded 91 pixels wide, so each cell was one pixel wide
+  instead of two, and a one-pixel cell has no shape descriptor: the log-polar matcher picked
+  glyphs by tone alone. The loader now asks the converter for the size, so that photo decodes 120
+  wide and is shape-matched. It also sizes from the displayed shape after EXIF orientation, which
+  catches portrait phone photos stored as landscape rasters, and it retries one pixel larger when
+  ImageIO decodes a portrait one pixel narrower than that size implies. CLI portrait output
+  changes. The row count comes from the decoded aspect ratio, which the larger decode keeps
+  closer to the source's, so a portrait can gain or lose one row. Landscape and square inputs
+  decode exactly as before. Library callers that pass a `CGImage` are unaffected.
 - **`TileGridConverter` samples portraits at the intended cell width (ASKI-105).** The tile
   converter capped its sampling lattice's longest side at `max(columns, rows) × oversample`, which
   in a portrait is the height, so the width came out below `columns × oversample`. A 975×1280
@@ -103,9 +116,8 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   portrait branch replaced the base cap even where the base was larger, which halved the cell
   height of `.tall` portraits and returned an empty grid at oversample 1; the shared rule keeps
   the larger cap. All other `ASCIIConverter` output, including the frozen Vesper preset, is
-  unchanged. `AskiTileMatrix` still decodes its input file at the size given by the
-  command-line loader's own copy of the old rule, so its portraits stay at the old cell width
-  until the loader takes its size from the converter (ASKI-104).
+  unchanged. `AskiTileMatrix` takes its decode size from `TileGridConverter` (ASKI-104), so its
+  portraits now decode at this portrait size and are sampled at the intended cell width too.
 
 ## v0.8.0 — 2026-11-10
 

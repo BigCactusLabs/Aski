@@ -4,7 +4,7 @@ title: TileGridConverter samples portrait sources below the intended cell width
 status: In Progress
 assignee: []
 created_date: '2026-11-10T21:04:00Z'
-updated_date: '2026-11-10T21:10:00Z'
+updated_date: '2026-11-10T21:30:00Z'
 labels:
   - correctness
   - tiles
@@ -42,4 +42,6 @@ ImageIO undershoot on the library path: none. Since ASKI-1 a direct CGImage is r
 No golden moved: the tile snapshots use square sources, and the frozen Vesper preset uses .wide, where the shared rule equals the old ASCII rule. No census applies. AskiTileMatrix portraits keep the old decode size until the CLI loader takes its size from TileGridConverter (ASKI-104, PR 24).
 
 Known gap, not fixed here: for a landscape source with the .tall sampling shape, both converters still prepare cells under oversample pixels high (a 4:3 landscape at oversample 2 gets 1-pixel cell rows), because the base cap does not account for rows x oversample x W/H.
+
+2026-11-10, after merging main (PR 24, ASKI-104, merged as c84199d): the earlier note that AskiTileMatrix portraits keep the old decode size no longer holds. The CLI loader now takes its size from TileGridConverter.preparationMaxPixelSize, which goes through samplingMaxPixelSize with max(1, oversample) via the tile converter's width/height thumbnailMaxPixelSize, so tile-matrix portraits decode at the portrait size and are sampled at cellWidth == oversample. ConversionThumbnailLoaderTests.tileLoaderGivesPortraitsTheIntendedCellWidth pins that for 975x1280 at 60 columns, oversample 1 to 3. The landscape .tall gap is filed as ASKI-106.
 <!-- SECTION:NOTES:END -->
