@@ -23,7 +23,7 @@ public struct BackgroundColor: ExpressibleByArgument, Equatable, Sendable {
     public static let clear = BackgroundColor(red: 0, green: 0, blue: 0, alpha: 0)
 
     public var cgColor: CGColor {
-        CGColor(red: red, green: green, blue: blue, alpha: alpha)
+        CGColor(srgbRed: red, green: green, blue: blue, alpha: alpha)
     }
 
     /// Canonical uppercase `#RRGGBBAA` serialization for deterministic records.

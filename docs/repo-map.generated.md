@@ -24,7 +24,7 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 - `GridRowWalk.swift` — enum GridRowWalk
 - `HelmlabMetric.swift` — enum HelmlabMetric, extension HelmlabMetric
 - `ImageIOThumbnail.swift` — enum ImageIOThumbnail
-- `RenderColorSpace.swift` — enum RenderColorSpace
+- `RenderColorSpace.swift` — enum RenderColorSpace, extension RenderColorSpace
 - `RenderingOptions.swift` — struct RenderingOptions, struct ResolvedRenderingOptions, enum ShapeQueryPolarity
 - `ResolvedPalette.swift` — enum PaletteColorSpaceConverters, struct ResolvedPalette, struct ResolvedPaletteColor
 - `ShapeMatching.swift` — enum ShapeMatching

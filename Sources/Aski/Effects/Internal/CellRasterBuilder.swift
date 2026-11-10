@@ -77,12 +77,7 @@ internal enum CellRasterBuilder {
                     }
                 let effectiveAlpha = max(0, min(1, rawAlpha))
                 guard effectiveAlpha > 0 else { continue }
-                let foregroundColor = CGColor(
-                    red: CGFloat(cell.displayColor.x),
-                    green: CGFloat(cell.displayColor.y),
-                    blue: CGFloat(cell.displayColor.z),
-                    alpha: CGFloat(effectiveAlpha)
-                )
+                let foregroundColor = grid.colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
 
                 let codepoint = cell.character.unicodeScalars.first?.value ?? 0
                 if (0x2800...0x28FF).contains(codepoint) {

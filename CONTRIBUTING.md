@@ -37,6 +37,12 @@ macOS 27.0 / Xcode 27.0 / Swift 6.4. Render snapshots are known to differ on mac
 That is a contributor reproduction constraint, not a macOS 27 deployment requirement.
 A supported Swift compiler alone does not guarantee identical raster output.
 
+The checked-in render goldens also reproduce on macOS 27.0.1 (26A434) / Xcode 27.0
+(27A266a) / Swift 6.4 on an Apple M3 Max host. Another host with the same OS and
+Xcode builds measured 16 one-step RGB snapshot differences
+([render-drift evidence](docs/Research/Results/2026-11-05-aski97-render-drift/README.md)),
+so exact raster output depends on the host, not only on the OS and toolchain versions.
+
 Install [just](https://github.com/casey/just) for the canonical task runner. The
 [Makefile](Makefile) forwards to `just`; `make check` is not a way to avoid that dependency.
 Research and task-management tools are needed only for their respective workflows.
@@ -183,6 +189,13 @@ expectations; never describe an earlier commit's checks as verification of a lat
 
 The public release history begins at v0.7.0. Earlier tags, PR numbers, and commit SHAs
 in retained notes refer to private development and are not available in this history.
+
+For a CLI distribution candidate, run `just package-cli /tmp/aski-cli-candidate`
+from a clean checkout after the gates above. The destination must be new. The
+[distribution guide](docs/guides/distribution.md) explains the isolated build,
+resource checks, relocated smoke test, archive metadata, and remaining release
+steps. Packaging is a separate check; it does not run the full acceptance gate or
+publish assets. The same guide covers the Swift Package Index documentation config.
 
 ## Licensing and attribution
 

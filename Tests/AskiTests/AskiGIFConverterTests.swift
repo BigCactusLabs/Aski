@@ -85,7 +85,9 @@ import Testing
     @Test(arguments: [
         (nil as Int?, 1),  // absent Netscape extension reads as play-once
         (0, 0),  // explicit infinite stays infinite
+        (1, 2),  // raw Netscape 1 is two total plays, not play-once
         (3, 4),  // raw Netscape 3 reads as 4 plays; must round-trip as 4
+        (32766, 32767),  // highest supported total play count
     ])
     func loopCountRoundTripPreservesReportedValue(rawLoop: Int?, expectedReported: Int) async throws {
         let source = try write(variableDelayFixture(loop: rawLoop))
@@ -103,6 +105,44 @@ import Testing
 
         let outputInfo = try ASCIIGIFDecoder().containerInfo(ofGIFAt: output)
         #expect(outputInfo.loopCount == expectedReported)  // stable on round-trip
+    }
+
+    @Test(arguments: [0, 1, 2, 4, 32767])
+    func explicitLoopCountOverridesSource(loopCount: Int) async throws {
+        // Raw 65535 reads as 65536 total plays, outside the encoder's domain.
+        // A valid override must still permit conversion of that source.
+        let source = try write(variableDelayFixture(loop: 65535))
+        let output = tempOutput()
+        defer {
+            try? FileManager.default.removeItem(at: source)
+            try? FileManager.default.removeItem(at: output)
+        }
+
+        let report = try await convert(source, to: output, loopCount: loopCount)
+        let header = try ASCIIGIFDecoder().containerHeader(ofGIFAt: output)
+        #expect(header.loopCount == loopCount)
+        #expect(report.loopCount == header.loopCount)
+    }
+
+    @Test func unsupportedSourceLoopRequiresOverrideAndPreservesDestination() async throws {
+        let source = try write(variableDelayFixture(loop: 32767))
+        let output = tempOutput()
+        defer {
+            try? FileManager.default.removeItem(at: source)
+            try? FileManager.default.removeItem(at: output)
+        }
+        let sentinel = Data("existing destination".utf8)
+        try sentinel.write(to: output)
+        let header = try ASCIIGIFDecoder().containerHeader(ofGIFAt: source)
+        #expect(header.loopCount == 32768)
+
+        await #expect {
+            try await convert(source, to: output)
+        } throws: { error in
+            guard case GIFEncodeError.invalidLoopCount(let count) = error else { return false }
+            return count == 32768
+        }
+        #expect(try Data(contentsOf: output) == sentinel)
     }
 
     @Test func convertGIFRejectsSourceOverMaximumFrameCountBeforeRendering() async throws {

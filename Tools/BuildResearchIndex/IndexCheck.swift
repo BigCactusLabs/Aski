@@ -234,7 +234,7 @@ enum IndexCheck {
     static func docsRootFailures(root: URL) -> [String] {
         let dir = root.appending(path: "docs")
         let allowedDirectories: Set<String> = [
-            "Research", "agents", "assets", "release-notes",
+            "Research", "agents", "assets", "guides", "release-notes",
         ]
         let allowedFiles: Set<String> = [
             "README.md", "architecture.md",
