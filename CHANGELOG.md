@@ -42,7 +42,9 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   (222, 24, 0). `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, so overlays and
   lights built with it now render slightly differently; use `CGColor(srgbRed:green:blue:alpha:)`
   to keep the previous result. sRGB-tagged colors, overlay opacity, blend modes and light
-  intensity are unchanged.
+  intensity are unchanged: intensity still scales encoded sRGB components, and intensity above 1
+  still saturates each channel at 1. A Display P3 light outside the sRGB gamut keeps its color
+  instead of being read as sRGB numbers.
 - **MP4 export keeps its colors (ASKI-100).** Frames are drawn in the grid's encoded gamut (sRGB
   or Display P3) instead of an untagged device RGB space, and the H.264 or HEVC track is tagged
   with its color primaries (BT.709 or P3 D65), the sRGB transfer function and the BT.709 Y'CbCr
