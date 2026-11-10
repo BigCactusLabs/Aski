@@ -1,7 +1,25 @@
 import CoreGraphics
 import CoreImage
 
+/// Builds the Core Image mask that `MaskCompositor.blendWithMask` reads.
+///
+/// ASKI-101: coverage is a linear weight, the fraction of the active branch in
+/// the result, so a cell with coverage `c` mixes `c` of the active branch with
+/// `1 - c` of the inactive one. This is the alpha rule the Core Graphics
+/// overlay paths and the cell rasters (`alpha * coverage`) already follow, and
+/// the one CSS Masking Level 1 gives for mask values ("Mask processing": the
+/// mask value multiplies the element's alpha). The coverage bytes are data, not
+/// color, so the image is created without color management. A Device Gray
+/// image that Core Image color-manages is read through the sRGB transfer in a
+/// linear working space, which turned coverage 0.5 into a weight of about 0.216,
+/// and made `renderCIImage` weights depend on the consumer's working space.
 internal enum CoverageImageBuilder {
+    /// The coverage bytes as an image Core Image does not color-manage, so every
+    /// working space reads the stored value as the blend weight.
+    static func coverageImage(_ cgImage: CGImage) -> CIImage {
+        CIImage(cgImage: cgImage, options: [.colorSpace: NSNull()])
+    }
+
     static func makeASCII(grid: ASCIIGrid, extent: CGRect, useHardEdges: Bool) -> CIImage {
         guard grid.columns > 0, grid.rows > 0, extent.width > 0, extent.height > 0 else {
             return CIImage(color: .white).cropped(to: extent)
@@ -48,7 +66,7 @@ internal enum CoverageImageBuilder {
             return CIImage(color: .white).cropped(to: extent)
         }
 
-        let source = CIImage(cgImage: cgImage)
+        let source = coverageImage(cgImage)
         let sampled = useHardEdges ? source.samplingNearest() : source.samplingLinear()
         let scale = CGAffineTransform(
             scaleX: extent.width / CGFloat(grid.columns),
@@ -148,7 +166,7 @@ internal enum CoverageImageBuilder {
         guard let cgImage = context.makeImage() else {
             return CIImage(color: .white).cropped(to: extent)
         }
-        let image = CIImage(cgImage: cgImage).cropped(to: extent)
+        let image = coverageImage(cgImage).cropped(to: extent)
         return useHardEdges ? image.samplingNearest() : image.samplingLinear()
     }
 
