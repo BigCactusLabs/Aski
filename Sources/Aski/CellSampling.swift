@@ -260,6 +260,53 @@ internal func resampleRGBA8(
     return status == kvImageNoError ? pixels : nil
 }
 
+/// The `maxPixelSize` a `width × height` source is prepared at for a
+/// `columns × rows` grid sampled `oversample` pixels per cell, or `nil` when
+/// the size is not representable. `ASCIIConverter` and `TileGridConverter`
+/// both size their sampling lattice with this one rule (ASKI-105).
+///
+/// The base cap is `max(columns, rows) * oversample`. `maxPixelSize` caps the
+/// prepared image's LONGEST side, so for a portrait the base cap falls on the
+/// height and the width lands below `columns * oversample`. Each cell is then
+/// sampled narrower than the oversample, and once `width / columns` truncates
+/// below 2 px the log-polar histogram's radius gate excludes every pixel: a
+/// zero descriptor exactly matches the space glyph and the whole ASCII render
+/// goes blank. For a portrait the cap is therefore raised to the height that
+/// keeps the WIDTH on the `columns * oversample` budget.
+///
+/// That height is derived from `columns`, not `max(columns, rows)`: for tall
+/// sources `rows` already encodes the aspect ratio, and scaling it by
+/// height/width again would inflate the cap quadratically (a long screenshot
+/// could bypass downscaling entirely). The portrait cap never replaces a larger
+/// base cap: a `.tall` sampling shape gives a portrait more rows than its
+/// height/width ratio implies, and the base cap is what keeps those cells
+/// `oversample` pixels high. Square and landscape sources get the base cap
+/// unchanged.
+internal func samplingMaxPixelSize(
+    width: Int,
+    height: Int,
+    columns: Int,
+    rows: Int,
+    oversample: Int
+) -> Int? {
+    let base = max(columns, rows).multipliedReportingOverflow(by: oversample)
+    guard !base.overflow, base.partialValue > 0 else {
+        return nil
+    }
+    guard height > width, width > 0 else {
+        return base.partialValue
+    }
+    let widthBudget = columns.multipliedReportingOverflow(by: oversample)
+    guard !widthBudget.overflow else { return nil }
+    let scaled = (Double(widthBudget.partialValue) * Double(height) / Double(width))
+        .rounded(.up)
+    // `scaled` is a derived prepared dimension. `Double(Int.max)` rounds to the
+    // first unrepresentable 64-bit integer, so stay strictly inside the named
+    // `Int` bound before converting.
+    guard scaled.isFinite, scaled > 0, scaled < Double(Int.max) else { return nil }
+    return max(base.partialValue, Int(scaled))
+}
+
 /// The size a decoded `CGImage` is prepared at before the lattice pitch is
 /// taken: the source's own size when its longest side is within
 /// `maxPixelSize`, otherwise the source scaled so its longest side is exactly

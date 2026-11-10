@@ -132,7 +132,8 @@ format explicitly makes them part of its contract.
 5. Renderers produce plain text, AttributedString, or CGImage (`Sources/Aski/Renderers/`)
 
 **Sampling lattice (step 1).** `prepareConversion` puts the source's longest side on the
-conversion budget (`thumbnailMaxPixelSize`, never upscaling), takes a floored integer cell
+conversion budget (`samplingMaxPixelSize`, `CellSampling.swift`, shared with
+`TileGridConverter`; never upscaling), takes a floored integer cell
 pitch (`prepared.width / cols`, `prepared.height / rows`) — uniform across the grid — and
 prepares a lattice raster of exactly `cols * cellWidth × rows * cellHeight`
 (`samplingLattice`, `CellSampling.swift`). A source larger than the budget is converted to
