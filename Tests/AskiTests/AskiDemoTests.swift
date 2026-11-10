@@ -327,8 +327,7 @@ import UniformTypeIdentifiers
         let image = try DemoImageIO.loadThumbnailForConversion(
             at: input.path,
             columns: 12,
-            tileShape: ASCIIConverter(characterSet: Charset.blocks.characterSet, palette: BuiltInPalette.fullColor).tileShape,
-            oversample: ToolArgumentBounds.defaultOversample
+            converter: ASCIIConverter(characterSet: Charset.blocks.characterSet, palette: BuiltInPalette.fullColor)
         )
         let expectedGrid = ASCIIConverter(characterSet: Charset.blocks.characterSet, palette: BuiltInPalette.fullColor)
             .convert(image, columns: 12)
@@ -355,8 +354,7 @@ import UniformTypeIdentifiers
         let normalizedImage = try DemoImageIO.loadThumbnailForConversion(
             at: input.path,
             columns: 12,
-            tileShape: converter.tileShape,
-            oversample: converter.oversample
+            converter: converter
         )
         let expectedImage = converter.convert(normalizedImage, columns: 12).renderImage(
             font: .system(size: 10),
