@@ -83,8 +83,11 @@ controls how aggressively the input is downsampled before per-cell feature
 extraction. The converter resamples the source so its longest side is roughly
 `max(columns, rows) * oversample` pixels. In a portrait that longest side is the
 height, so it is raised where needed to put the width on `columns * oversample`,
-which keeps every cell at least `oversample` pixels wide. The converter then
-carves the result into cells. ``TileGridConverter`` uses the same rule.
+which keeps every cell at least `oversample` pixels wide when downscaling. For
+landscapes sampled with `.tall`, the cap also rises where needed to put the height
+on `rows * oversample`, so both cell axes reach the requested sample size.
+Small sources are not upscaled. The converter then carves the result into cells.
+``TileGridConverter`` uses the same rule.
 
 The cell pitch is a floored integer quotient, so it stays uniform across the
 grid, and the source is resampled straight into a *sampling lattice* of exactly
@@ -121,10 +124,11 @@ Default stays `2` to preserve bit-identical pre-A1 default output.
 ### Oversampling is not a quality knob
 
 `oversample` also determines how much of the 60-bin log-polar descriptor is
-reachable at all, and the effect is severe. The cell pitch is an integer
-quotient of the prepared size, so the cell ends up exactly `oversample` pixels
-wide — measured across source aspect ratios from 3:1 through 1:3, so this is not
-a landscape-only quirk. At the default `2` the descriptor's radius gate admits
+reachable at all, and the effect is severe. In the recorded default-sampling
+measurements, the integer cell pitch was exactly `oversample` pixels wide across
+source aspect ratios from 3:1 through 1:3. Other sampling shapes and sources that
+are not downscaled can have different footprints; the sizing rule above defines
+the current behavior. At the measured default `2` the descriptor's radius gate admits
 2–3 pixels of 8 and reaches **2–3 of the 60 bins**; at `oversample: 32` it
 reaches 48.
 

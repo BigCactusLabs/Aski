@@ -167,7 +167,8 @@ public struct TileGridConverter: Sendable {
             height: height,
             columns: columns,
             rows: rows,
-            oversample: max(1, oversample)
+            oversample: max(1, oversample),
+            tileShape: samplingShape
         )
     }
 }

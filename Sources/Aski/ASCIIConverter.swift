@@ -350,7 +350,7 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
     /// `columns × rows` grid: the size rule shared with `TileGridConverter`
     /// (`samplingMaxPixelSize`).
     internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
-        samplingMaxPixelSize(width: width, height: height, columns: columns, rows: rows, oversample: oversample)
+        samplingMaxPixelSize(width: width, height: height, columns: columns, rows: rows, oversample: oversample, tileShape: tileShape)
     }
 
     private func makeGrid(

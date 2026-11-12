@@ -998,11 +998,18 @@ public extension ASCIIGrid {
         let pointWidth = CGFloat(geometry.pixelWidth) / scale
         let pointHeight = CGFloat(geometry.pixelHeight) / scale
         let canvas = CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight)
+        let extent = CGRect(x: 0, y: 0, width: geometry.pixelWidth, height: geometry.pixelHeight)
+        let presence = CoverageImageBuilder.makeASCIIPresence(
+            grid: self,
+            cellSize: CGSize(width: geometry.glyphWidth * scale, height: geometry.glyphHeight * scale),
+            extent: extent
+        )
         let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
         let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
 
         activeContext.setFillColor(backgroundColor)
         activeContext.fill(canvas)
+        let canvasImage = presence == nil ? nil : activeContext.makeImage()
         activeContext.setFillColor(groundColor)
         activeContext.fill(canvas)
         drawCells(
@@ -1036,18 +1043,25 @@ public extension ASCIIGrid {
         guard let activeImage = activeContext.makeImage(), let inactiveImage = inactiveContext.makeImage() else {
             return Self.emptyImage()
         }
-        let extent = CGRect(x: 0, y: 0, width: geometry.pixelWidth, height: geometry.pixelHeight)
         let coverage = CoverageImageBuilder.makeASCII(
             grid: self,
             extent: extent,
             useHardEdges: maskUsesHardEdges
         )
-        let blended = MaskCompositor.blendWithMask(
+        var blended = MaskCompositor.blendWithMask(
             source: CIImage(cgImage: activeImage),
             background: CIImage(cgImage: inactiveImage),
             mask: coverage,
             extent: extent
         )
+        if let presence, let canvasImage {
+            blended = MaskCompositor.blendWithMask(
+                source: blended,
+                background: CIImage(cgImage: canvasImage),
+                mask: presence,
+                extent: extent
+            )
+        }
         return EffectsRenderEngine.shared.context.createCGImage(
             blended,
             from: extent,
