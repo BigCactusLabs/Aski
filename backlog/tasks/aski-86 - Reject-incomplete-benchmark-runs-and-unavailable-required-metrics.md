@@ -1,9 +1,10 @@
 ---
 id: ASKI-86
 title: Reject incomplete benchmark runs and unavailable required metrics
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - benchmarks
@@ -14,6 +15,7 @@ references:
   - Package.resolved
   - Benchmarks/AskiBenchmarks/Benchmarks.swift
   - Benchmarks/AskiBenchmarks/VideoPipelineBenchmarks.swift
+  - https://github.com/BigCactusLabs/Aski/pull/7
 priority: high
 type: bug
 ordinal: 87000
@@ -37,3 +39,13 @@ This task owns validity/completeness of benchmark evidence. ASKI-5 owns numeric 
 - [ ] #4 Successful results retain workload identity, units, toolchain/backend identity, and enough information to distinguish a complete run from a partial one.
 - [ ] #5 The solution preserves existing thresholds and the one-build just check ordering; relevant tooling checks, just check, and the validated benchmark subset pass.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Existing work reconciled — 2026-10-27
+
+PR #7 is open at 5493edb992ab57ee2c4a5e16e9ef8106068ab96e: https://github.com/BigCactusLabs/Aski/pull/7 . Its description reports native `just check`, complete six-workload smoke evidence, and required-unavailable-metric rejection. That is the PR's recorded evidence, not a new execution here. Genuine native setup/execution failure and allocator verification remain acceptance work; the complete-row short-write limitation remains documented.
+
+The independent paired reader in `Scripts/research/compare-benchmarks.py` consumes this report contract without altering the capture producer or existing gate. See `docs/agents/paired-benchmarks.md`. Marked In Progress to reflect existing work, not Done.
+<!-- SECTION:NOTES:END -->

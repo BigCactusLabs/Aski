@@ -3,10 +3,10 @@ id: ASKI-84
 title: >-
   Near-white cells get an all-zero shape query and render as the blank, so pure
   white shows as dark ground on the frozen preset
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-27 18:56'
-updated_date: '2026-09-27 20:57'
+created_date: 2026-09-27 18:56
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - research
   - matcher
@@ -28,8 +28,18 @@ Found by ASKI-79/80 phase 1 (docs/Research/Results/2026-09-27-aski-79-80-baselin
 - [ ] #2 The chosen behaviour is pinned by a test on a white-ground fixture
 <!-- AC:END -->
 
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Groundwork 2026-10-27: preserve the recorded KEEP-ground owner decision; add a synthetic white-ground regression and threshold-neighbor diagnostic against the current conversion lattice, plus one sentence in the Vesper documentation. Run native focused tests and just check before declaring the behavior pinned. No matcher, palette, golden, or production change.
+<!-- SECTION:PLAN:END -->
+
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-09-27 owner decision (PR #6 review): keep near-white zero-query cells rendering as the dark ground on the frozen preset; do not switch them to ink. Reason: blocks + logPolar puts nearly every cell on the same glyph, so the image lives in the palette and figure/ground separation is the main structure left. In the ASKI-79/80 render pairs (docs/Research/Results/2026-09-27-aski-79-80-decisive/render-pair/) ground keeps the james-lovell silhouette and the rcs-function diagram legible as a negative; ink merges the backdrop into the figure and reduces the diagram to scattered marks. GMSD agrees (fallback x1.167 worse on frozen-76-occ); the MAE gain (x0.865) is flat-white tone match only. Remaining work: (1) a test pinning ground for all-zero-query cells on the frozen preset, (2) one sentence in the preset docs stating it, (3) inspect occupancy fixtures with gradients running into white for a visible cliff at the luma 0.95 threshold; if found, the follow-up is a softer transition near the threshold, not ink.
+
+### Groundwork delivered — 2026-10-27
+
+Added `Tests/AskiTests/NearWhiteGroundContractTests.swift`: six cases cover canonical opaque near-white input, the exact 242/243 prepared-sample boundary, independent solid-ground rendering reference, and a synthetic gradient into white. `Sources/Aski/Aski.docc/Vesper.md` states the recorded KEEP-ground behavior. No production or golden change. Source review passed, but this Linux host has no Swift/Xcode/CoreGraphics: tests are not compiled or run. Run the focused suite and `just check` on the recorded Mac. The occupancy-fixture visual cliff inspection remains outstanding, so this task stays open.
 <!-- SECTION:NOTES:END -->

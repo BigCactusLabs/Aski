@@ -1,9 +1,10 @@
 ---
 id: ASKI-93
 title: Select lower-rate video frames before ASCII conversion
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - video
@@ -35,3 +36,19 @@ The 2026-09-29 sweep verified the ordering at c49bbd; no lower-rate performance 
 - [ ] #4 Cancellation, error propagation, public transform semantics, and bounded pipeline occupancy remain correct.
 - [ ] #5 Repeated release measurements report wall/CPU time, allocations and peak RSS, with a material rate-reduction gain and no material no-resampling regression; adopted code passes just check and video benchmarks without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Groundwork 2026-10-27: freeze frame identities, CFR output timestamps, pulled-source/drop/duplicate counts for rate reduction, VFR, upsampling, offsets and boundary cases through the existing resampling adapter. Record the exact decode/transform/resample seam and native follow-up. Do not move conversion or change decoder callback semantics in this preparation pass.
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Groundwork delivered — 2026-10-27
+
+Added `Tests/AskiTests/VideoFrameSelectionContractTests.swift` with ten literal cases through the existing production resampling adapter: 60/30-to-12, VFR, upsampling, unchanged rate, origin offsets, half-slot ties, tails, single and empty sources. It checks identities, exact CFR times, source/drop/duplicate counts, and pull requests. At 60-to-12, the selector pulls 59 of 60 supplied frames: one is lookahead and one remains unread. Prefetch may pull farther, so these are not current conversion-call measurements.
+
+`Scripts/research/video-frame-selection.md` maps the private implementation seam, public transform semantics, grid reuse versus output-time patterns, ownership and combined occupancy constraints, and primary references. No production flow changes. Fixture arithmetic was independently cross-checked, but Swift/CoreMedia tests have not been compiled or run on this Linux host. Native rotation/pixels/cancellation/errors and performance evidence remain required.
+<!-- SECTION:NOTES:END -->
