@@ -9,7 +9,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 
@@ -49,7 +48,7 @@ def main():
             data = source.read_bytes()
             target = package / ("Tests/AskiTests" if relative == TEST else "Sources/Aski") / source.name
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, target)
+            target.write_bytes(data)
             report["inputs"][relative] = hashlib.sha256(data).hexdigest()
         version = subprocess.run(["swift", "--version"], check=True, capture_output=True, text=True)
         report["swift"] = version.stdout.strip()

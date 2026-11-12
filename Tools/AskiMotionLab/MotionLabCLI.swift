@@ -38,8 +38,7 @@ public enum MotionLabCLI {
                 image = try DemoImageIO.loadThumbnailForConversion(
                     at: imagePath,
                     columns: arguments.columns,
-                    tileShape: converter.tileShape,
-                    oversample: converter.oversample
+                    converter: converter
                 )
             } catch {
                 standardError("error: \(error)\n")

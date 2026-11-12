@@ -20,22 +20,6 @@ public enum ToolArgumentBounds {
     public static let defaultBloomRadius = 6.0
     public static let defaultScanlineFrequency = 8.0
 
-    public static func thumbnailMaxPixelSize(
-        imageWidth: Int,
-        imageHeight: Int,
-        columns: Int,
-        tileShape: ASCIITileShape,
-        oversample: Int = defaultOversample
-    ) -> Int {
-        guard imageWidth > 0, imageHeight > 0, columns > 0 else {
-            return 1
-        }
-        let rows = gridRows(
-            imageWidth: imageWidth, imageHeight: imageHeight,
-            columns: columns, tileShape: tileShape)
-        return max(columns, rows) * max(1, oversample)
-    }
-
     /// Grid rows the converter resolves for this geometry — a mirror of
     /// `gridDimensions`, kept here so tools can size a fixture without the
     /// `@_spi` surface. Mirrors drift, so every lab that depends on the value

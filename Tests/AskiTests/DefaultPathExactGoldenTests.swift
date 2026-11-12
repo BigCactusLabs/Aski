@@ -6,7 +6,9 @@ import simd
 
 /// Bit-exact freeze of the public default conversion path (ASTSK-29 AC #1).
 /// Captured BEFORE the cellStats split; Tasks 2–4 must keep this grid
-/// bit-identical. No ε — Float.bitPattern equality.
+/// bit-identical. No ε — Float.bitPattern equality. Re-recorded for ASKI-1,
+/// when sources larger than the conversion budget moved from the ImageIO
+/// thumbnail to direct resampling.
 @Suite struct DefaultPathExactGoldenTests {
 
     @Test func defaultPathIsBitIdenticalToPreChangeCapture() {
@@ -49,29 +51,29 @@ import simd
     private static let goldenRows = 3
 
     private static let golden: [GoldenCell] = [
-        GoldenCell(character: ".", color: [1027513486, 1027513484, 1027513484], alpha: 1065353216, brightness: 1042113898, coverage: 1065353216),
-        GoldenCell(character: "-", color: [1043632424, 1043632424, 1043632424], alpha: 1065353216, brightness: 1050153853, coverage: 1065353216),
-        GoldenCell(character: "*", color: [1050457701, 1050457701, 1050457699], alpha: 1065353216, brightness: 1054418207, coverage: 1065353216),
-        GoldenCell(character: "t", color: [1054780962, 1054780961, 1054780960], alpha: 1065353216, brightness: 1057658798, coverage: 1065353216),
-        GoldenCell(character: "z", color: [1058104048, 1058104049, 1058104046], alpha: 1065353216, brightness: 1059582811, coverage: 1065353216),
-        GoldenCell(character: "e", color: [1060271615, 1060271614, 1060271615], alpha: 1065353216, brightness: 1061374067, coverage: 1065353216),
-        GoldenCell(character: "m", color: [1062505964, 1062505965, 1062505964], alpha: 1065353216, brightness: 1063156977, coverage: 1065353216),
-        GoldenCell(character: "#", color: [1064638237, 1064638237, 1064638233], alpha: 1065353216, brightness: 1064808825, coverage: 1065353216),
-        GoldenCell(character: ".", color: [1027513486, 1027513484, 1027513484], alpha: 1065353216, brightness: 1042113898, coverage: 1065353216),
-        GoldenCell(character: "-", color: [1043632424, 1043632424, 1043632424], alpha: 1065353216, brightness: 1050153853, coverage: 1065353216),
-        GoldenCell(character: "*", color: [1050457701, 1050457701, 1050457699], alpha: 1065353216, brightness: 1054418207, coverage: 1065353216),
-        GoldenCell(character: "t", color: [1054780962, 1054780961, 1054780960], alpha: 1065353216, brightness: 1057658798, coverage: 1065353216),
-        GoldenCell(character: "z", color: [1058104048, 1058104049, 1058104046], alpha: 1065353216, brightness: 1059582811, coverage: 1065353216),
-        GoldenCell(character: "e", color: [1060271615, 1060271614, 1060271615], alpha: 1065353216, brightness: 1061374067, coverage: 1065353216),
-        GoldenCell(character: "m", color: [1062505964, 1062505965, 1062505964], alpha: 1065353216, brightness: 1063156977, coverage: 1065353216),
-        GoldenCell(character: "#", color: [1064638237, 1064638237, 1064638233], alpha: 1065353216, brightness: 1064808825, coverage: 1065353216),
-        GoldenCell(character: ".", color: [1027513486, 1027513484, 1027513484], alpha: 1065353216, brightness: 1042113898, coverage: 1065353216),
-        GoldenCell(character: "-", color: [1043632424, 1043632424, 1043632424], alpha: 1065353216, brightness: 1050153853, coverage: 1065353216),
-        GoldenCell(character: "*", color: [1050457701, 1050457701, 1050457699], alpha: 1065353216, brightness: 1054418207, coverage: 1065353216),
-        GoldenCell(character: "t", color: [1054780962, 1054780961, 1054780960], alpha: 1065353216, brightness: 1057658798, coverage: 1065353216),
-        GoldenCell(character: "z", color: [1058104048, 1058104049, 1058104046], alpha: 1065353216, brightness: 1059582811, coverage: 1065353216),
-        GoldenCell(character: "e", color: [1060271615, 1060271614, 1060271615], alpha: 1065353216, brightness: 1061374067, coverage: 1065353216),
-        GoldenCell(character: "m", color: [1062505964, 1062505965, 1062505964], alpha: 1065353216, brightness: 1063156977, coverage: 1065353216),
-        GoldenCell(character: "#", color: [1064638237, 1064638237, 1064638233], alpha: 1065353216, brightness: 1064808825, coverage: 1065353216),
+        GoldenCell(character: ".", color: [1031195550, 1031195536, 1031195538], alpha: 1065353216, brightness: 1043214388, coverage: 1065353216),
+        GoldenCell(character: "-", color: [1044254014, 1044254016, 1044254014], alpha: 1065353216, brightness: 1050471833, coverage: 1065353216),
+        GoldenCell(character: "*", color: [1050645818, 1050645823, 1050645819], alpha: 1065353216, brightness: 1054594702, coverage: 1065353216),
+        GoldenCell(character: "t", color: [1054840493, 1054840493, 1054840488], alpha: 1065353216, brightness: 1057685102, coverage: 1065353216),
+        GoldenCell(character: "z", color: [1058068820, 1058068820, 1058068818], alpha: 1065353216, brightness: 1059553119, coverage: 1065353216),
+        GoldenCell(character: "e", color: [1060171058, 1060171068, 1060171062], alpha: 1065353216, brightness: 1061292417, coverage: 1065353216),
+        GoldenCell(character: "m", color: [1062308790, 1062308779, 1062308786], alpha: 1065353216, brightness: 1063001911, coverage: 1065353216),
+        GoldenCell(character: "#", color: [1064443665, 1064443665, 1064443665], alpha: 1065353216, brightness: 1064659891, coverage: 1065353216),
+        GoldenCell(character: ".", color: [1031195550, 1031195536, 1031195538], alpha: 1065353216, brightness: 1043214388, coverage: 1065353216),
+        GoldenCell(character: "-", color: [1044254014, 1044254016, 1044254014], alpha: 1065353216, brightness: 1050471833, coverage: 1065353216),
+        GoldenCell(character: "*", color: [1050645818, 1050645823, 1050645819], alpha: 1065353216, brightness: 1054594702, coverage: 1065353216),
+        GoldenCell(character: "t", color: [1054840493, 1054840493, 1054840488], alpha: 1065353216, brightness: 1057685102, coverage: 1065353216),
+        GoldenCell(character: "z", color: [1058068820, 1058068820, 1058068818], alpha: 1065353216, brightness: 1059553119, coverage: 1065353216),
+        GoldenCell(character: "e", color: [1060171058, 1060171068, 1060171062], alpha: 1065353216, brightness: 1061292417, coverage: 1065353216),
+        GoldenCell(character: "m", color: [1062308790, 1062308779, 1062308786], alpha: 1065353216, brightness: 1063001911, coverage: 1065353216),
+        GoldenCell(character: "#", color: [1064443665, 1064443665, 1064443665], alpha: 1065353216, brightness: 1064659891, coverage: 1065353216),
+        GoldenCell(character: ".", color: [1031195550, 1031195536, 1031195538], alpha: 1065353216, brightness: 1043214388, coverage: 1065353216),
+        GoldenCell(character: "-", color: [1044254014, 1044254016, 1044254014], alpha: 1065353216, brightness: 1050471833, coverage: 1065353216),
+        GoldenCell(character: "*", color: [1050645818, 1050645823, 1050645819], alpha: 1065353216, brightness: 1054594702, coverage: 1065353216),
+        GoldenCell(character: "t", color: [1054840493, 1054840493, 1054840488], alpha: 1065353216, brightness: 1057685102, coverage: 1065353216),
+        GoldenCell(character: "z", color: [1058068820, 1058068820, 1058068818], alpha: 1065353216, brightness: 1059553119, coverage: 1065353216),
+        GoldenCell(character: "e", color: [1060171058, 1060171068, 1060171062], alpha: 1065353216, brightness: 1061292417, coverage: 1065353216),
+        GoldenCell(character: "m", color: [1062308790, 1062308779, 1062308786], alpha: 1065353216, brightness: 1063001911, coverage: 1065353216),
+        GoldenCell(character: "#", color: [1064443665, 1064443665, 1064443665], alpha: 1065353216, brightness: 1064659891, coverage: 1065353216),
     ]
 }

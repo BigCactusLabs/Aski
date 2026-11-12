@@ -21,6 +21,8 @@ The original `renderImage` entry points remain source-compatible. New compositio
 
 Active-region grounds use the same grouped ordering in synchronous and asynchronous `CGImage` and `CIImage` paths. Per-character bloom, per-character chromatic aberration, and color overlays stay inside the active branch; lighting and whole-image effects always run after mask interpolation. Ground-enabled pixel-art, brick, and mosaic tile renders enter this effects pipeline, while no-ground tile renders keep the direct legacy renderer. See <doc:Masking> for the branch equations, fallback semantics, and a same-source example.
 
+Background, ``ColorOverlay``, and ``PointLight`` colors are interpreted in their `CGColor`'s declared color space and color-matched into the render's working and output spaces, so a Display P3 overlay keeps its P3 meaning in an sRGB render. `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, which is matched like any other; use `CGColor(srgbRed:green:blue:alpha:)` for sRGB component values. ``ColorOverlay/opacity`` replaces the overlay color's own alpha. ``PointLight/intensity`` scales the light's encoded sRGB components, and each scaled component stops at 1, or at the light's own value when a wide-gamut light's component exceeds 1, so an intensity above 1 saturates the light instead of overdriving it.
+
 ## ASCIIGrid quick start
 
 ```swift

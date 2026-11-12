@@ -35,9 +35,9 @@ from the repository root. They use the bundled Carina image, so no extra downloa
 or personal photograph is needed. For the default settings, see
 [README: Try it](../../README.md#try-it).
 
-**Version note:** `--algorithm`, `--coverage`, and `--palette` were added after
-`v0.7.0`. Every recipe below uses at least one of them, so use the source checkout;
-the `v0.7.0` CLI does not accept them.
+**Version note:** `--algorithm`, `--coverage`, and `--palette` are available from
+`v0.8.0`. Every recipe below uses at least one of them; the `v0.7.0` CLI does not
+accept them.
 
 All three recipes use `--algorithm dotMatrix`, which picks each glyph by brightness,
 and `--coverage 1`, which applies full-strength Floyd–Steinberg dithering. The default

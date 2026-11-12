@@ -26,22 +26,36 @@ import Testing
         #expect(thumbnail.height == 100)
     }
 
-    @Test func thumbnailDecodesCGImageWithoutUpscalingSmallInput() throws {
-        let source = TestImages.horizontalGradient(width: 64, height: 32)
+    /// ASKI-1 moved decoded `CGImage` input off ImageIO; source-backed input
+    /// stays on it and keeps applying the source's EXIF orientation. The stored
+    /// 200×100 image is red on the left and blue on the right; orientation 6
+    /// displays it rotated a quarter turn clockwise, so the thumbnail is
+    /// portrait with red at the top.
+    @Test func thumbnailAppliesEXIFOrientationFromData() throws {
+        let data = Self.rotatedSplitJPEG()
 
-        let thumbnail = try ImageIOThumbnail.decode(image: source, maxPixelSize: 200)
+        let thumbnail = try ImageIOThumbnail.decode(data: data, maxPixelSize: 100)
 
-        #expect(thumbnail.width == 64)
-        #expect(thumbnail.height == 32)
+        try Self.expectRotatedSplit(thumbnail)
     }
 
-    @Test func thumbnailDecodesCGImageThroughImageIOWhenDownscaling() throws {
-        let source = TestImages.horizontalGradient(width: 800, height: 400)
+    @Test func thumbnailAppliesEXIFOrientationFromSource() throws {
+        let source = try #require(CGImageSourceCreateWithData(Self.rotatedSplitJPEG() as CFData, nil))
 
-        let thumbnail = try ImageIOThumbnail.decode(image: source, maxPixelSize: 160)
+        let thumbnail = try ImageIOThumbnail.decode(source: source, maxPixelSize: 100)
 
-        #expect(thumbnail.width == 160)
-        #expect(thumbnail.height == 80)
+        try Self.expectRotatedSplit(thumbnail)
+    }
+
+    @Test func demoImageIOAppliesEXIFOrientationFromSourceURL() throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appending(path: "rotated.jpg")
+        try Self.rotatedSplitJPEG().write(to: url)
+
+        let thumbnail = try DemoImageIO.loadThumbnail(at: url.path, maxPixelSize: 100)
+
+        try Self.expectRotatedSplit(thumbnail)
     }
 
     @Test func thumbnailDecodesCGImageSource() throws {
@@ -90,6 +104,40 @@ import Testing
         #expect(ImageIOThumbnail.subsampleFactor(longestSide: 640, maxPixelSize: 320) == 2)
         #expect(ImageIOThumbnail.subsampleFactor(longestSide: 320, maxPixelSize: 320) == 1)
         #expect(ImageIOThumbnail.subsampleFactor(longestSide: 160, maxPixelSize: 320) == 1)
+    }
+
+    /// A 200×100 JPEG, red on the left half and blue on the right, tagged with
+    /// EXIF orientation 6 (display rotated 90° clockwise).
+    private static func rotatedSplitJPEG() -> Data {
+        let context = CGContext(
+            data: nil, width: 200, height: 100, bitsPerComponent: 8, bytesPerRow: 0,
+            space: CGColorSpace(name: CGColorSpace.sRGB)!,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        context.setFillColor(CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1))
+        context.fill(CGRect(x: 0, y: 0, width: 100, height: 100))
+        context.setFillColor(CGColor(srgbRed: 0, green: 0, blue: 1, alpha: 1))
+        context.fill(CGRect(x: 100, y: 0, width: 100, height: 100))
+
+        let data = NSMutableData()
+        let destination = CGImageDestinationCreateWithData(data, "public.jpeg" as CFString, 1, nil)!
+        let properties: [CFString: Any] = [kCGImagePropertyOrientation: 6]
+        CGImageDestinationAddImage(destination, context.makeImage()!, properties as CFDictionary)
+        CGImageDestinationFinalize(destination)
+        return data as Data
+    }
+
+    private static func expectRotatedSplit(_ thumbnail: CGImage) throws {
+        #expect(thumbnail.width == 50)
+        #expect(thumbnail.height == 100)
+        let bytes = TestImages.deviceRGBBytes(thumbnail)
+        func pixel(x: Int, y: Int) -> (red: Int, blue: Int) {
+            let offset = (y * thumbnail.width + x) * 4
+            return (Int(bytes[offset]), Int(bytes[offset + 2]))
+        }
+        let top = pixel(x: thumbnail.width / 2, y: thumbnail.height / 4)
+        let bottom = pixel(x: thumbnail.width / 2, y: thumbnail.height * 3 / 4)
+        #expect(top.red > 200 && top.blue < 60, "top should be red, got \(top)")
+        #expect(bottom.blue > 200 && bottom.red < 60, "bottom should be blue, got \(bottom)")
     }
 
     private func temporaryDirectory() throws -> URL {

@@ -129,7 +129,10 @@ where coverage below 0.5 becomes spaces. Full semantics: <doc:Masking>.
 ## Inspect and record
 
 `inspect` uses the same source-thumbnail and conversion path as `render`, without
-writing render artifacts. Its default is a human-readable report:
+writing render artifacts. Both decode the file, after its EXIF orientation, at the size
+the converter samples it at, which gives each column two source pixels across;
+the report's normalized pixel width and height are that decoded size. Its default is a
+human-readable report:
 
 ```bash
 xcrun swift run aski inspect photo.jpg --columns 80

@@ -5,8 +5,9 @@ import Foundation
 /// Maps a converter grid cell back to the **native** source pixels the converter
 /// actually read for it.
 ///
-/// Since ASKI-65 the converter draws its decoded thumbnail into a sampling
-/// lattice of exactly `columns*cellWidth × rows*cellHeight`, so the sampled
+/// Since ASKI-65 the converter prepares the source as a sampling lattice of
+/// exactly `columns*cellWidth × rows*cellHeight` (since ASKI-1 by resampling a
+/// source larger than the budget straight to it), so the sampled
 /// raster is an exact multiple of the grid, covers the whole source, and
 /// `SamplingGeometry.droppedX`/`droppedY` are zero. Cell `(row, col)` therefore
 /// covers native rows `[row*H/rows, (row+1)*H/rows)` and columns

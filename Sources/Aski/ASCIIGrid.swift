@@ -4,6 +4,7 @@ import CoreGraphics
 /// Renderers (plain text, attributed string, image) are methods on this type.
 public struct ASCIIGrid: Sendable {
     public let cells: [[ASCIICell]]
+    /// The number of cells in the widest row.
     public let columns: Int
     public let rows: Int
     public let colorSpace: RenderColorSpace
@@ -22,7 +23,7 @@ public struct ASCIIGrid: Sendable {
     ) {
         self.cells = cells
         self.rows = cells.count
-        self.columns = cells.first?.count ?? 0
+        self.columns = cells.lazy.map(\.count).max() ?? 0
         self.colorSpace = colorSpace
         self.composition = composition
         self.maskFallback = maskFallback

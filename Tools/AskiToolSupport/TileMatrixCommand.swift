@@ -55,8 +55,7 @@ public struct TileMatrixCommand: ParsableCommand {
             let image = try DemoImageIO.loadThumbnailForConversion(
                 at: inputPath,
                 columns: columns,
-                tileShape: converter.samplingShape,
-                oversample: converter.oversample
+                converter: converter
             )
             let grid = converter.convert(image, columns: columns)
 

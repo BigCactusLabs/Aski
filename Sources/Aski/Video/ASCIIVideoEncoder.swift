@@ -10,6 +10,13 @@ import Foundation
 /// Output dimensions are derived from the **first** frame and normalized to even
 /// (AVAssetWriter requires consistent, even dimensions for 4:2:0 codecs); every
 /// frame is drawn into that fixed canvas.
+///
+/// The output gamut also comes from the first frame's color space: Display P3
+/// (including its linear and extended variants) encodes as P3, and everything
+/// else, including an untagged image, encodes as sRGB. Frames are drawn in that
+/// gamut's encoded (non-linear) space, and the track is tagged to match: color
+/// primaries BT.709 or P3 D65, the IEC 61966-2-1 sRGB transfer function, and the
+/// BT.709 Y'CbCr matrix, at the encoder's default video range.
 public struct ASCIIVideoEncoder: Sendable {
     public init() {}
 
@@ -45,6 +52,7 @@ private actor EncodeSession {
     private var adaptor: AVAssetWriterInputPixelBufferAdaptor?
     private var canvasWidth = 0
     private var canvasHeight = 0
+    private var gamut = VideoOutputGamut.sRGB
 
     init(url: URL, options: VideoExportOptions) {
         self.url = url
@@ -95,6 +103,8 @@ private actor EncodeSession {
         let height = even(frame.image.height)
         canvasWidth = width
         canvasHeight = height
+        gamut = VideoOutputGamut(imageColorSpace: frame.image.colorSpace)
+        let tags = gamut.tags
 
         let writer = try AVAssetWriter(url: url, fileType: .mp4)
         let codec: AVVideoCodecType = options.codec == .hevc ? .hevc : .h264
@@ -102,6 +112,11 @@ private actor EncodeSession {
             AVVideoCodecKey: codec,
             AVVideoWidthKey: width,
             AVVideoHeightKey: height,
+            AVVideoColorPropertiesKey: [
+                AVVideoColorPrimariesKey: tags.primaries as String,
+                AVVideoTransferFunctionKey: tags.transferFunction as String,
+                AVVideoYCbCrMatrixKey: tags.matrix as String,
+            ],
         ]
         if let fps = options.expectedFrameRate {
             // MUST nest under AVVideoCompressionPropertiesKey — the top-level
@@ -153,6 +168,10 @@ private actor EncodeSession {
         else {
             throw VideoEncodeError.noPool
         }
+        let tags = gamut.tags
+        CVBufferSetAttachment(buf, kCVImageBufferColorPrimariesKey, tags.primaries, .shouldPropagate)
+        CVBufferSetAttachment(buf, kCVImageBufferTransferFunctionKey, tags.transferFunction, .shouldPropagate)
+        CVBufferSetAttachment(buf, kCVImageBufferYCbCrMatrixKey, tags.matrix, .shouldPropagate)
         CVPixelBufferLockBaseAddress(buf, [])
         defer { CVPixelBufferUnlockBaseAddress(buf, []) }
         // 32BGRA is a single packed plane.
@@ -163,7 +182,7 @@ private actor EncodeSession {
                 height: canvasHeight,
                 bitsPerComponent: 8,
                 bytesPerRow: CVPixelBufferGetBytesPerRow(buf),
-                space: CGColorSpaceCreateDeviceRGB(),
+                space: gamut.drawColorSpace,
                 bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
                     | CGBitmapInfo.byteOrder32Little.rawValue  // 32BGRA
             )
@@ -184,6 +203,66 @@ private actor EncodeSession {
     private func even(_ value: Int) -> Int {
         value + (value & 1)
     }
+}
+
+/// The encoded gamut an MP4 is drawn and tagged in (ASKI-100). The three tags
+/// describe the drawn bytes exactly, so AVFoundation performs no conversion
+/// between the pixel buffers and the output settings.
+enum VideoOutputGamut: Sendable {
+    case sRGB
+    case displayP3
+
+    struct Tags {
+        let primaries: CFString
+        let transferFunction: CFString
+        let matrix: CFString
+    }
+
+    /// Maps a rendered frame's color space to its encoded gamut by name. The
+    /// renderer tags frames with sRGB or Display P3, or with their linear
+    /// variants under `extendedLinearPerGamut`; any other or missing space
+    /// falls back to sRGB and is color-matched into it when drawn.
+    init(imageColorSpace: CGColorSpace?) {
+        let displayP3Names = [
+            CGColorSpace.displayP3, CGColorSpace.linearDisplayP3,
+            CGColorSpace.extendedDisplayP3, CGColorSpace.extendedLinearDisplayP3,
+        ].map { $0 as String }
+        if let name = imageColorSpace?.name as String?, displayP3Names.contains(name) {
+            self = .displayP3
+        } else {
+            self = .sRGB
+        }
+    }
+
+    /// The per-gamut tag triple written to every pixel buffer and to the
+    /// writer's `AVVideoColorPropertiesKey`.
+    var tags: Tags {
+        switch self {
+        case .sRGB:
+            Tags(
+                primaries: kCVImageBufferColorPrimaries_ITU_R_709_2,
+                transferFunction: kCVImageBufferTransferFunction_sRGB,
+                matrix: kCVImageBufferYCbCrMatrix_ITU_R_709_2
+            )
+        case .displayP3:
+            Tags(
+                primaries: kCVImageBufferColorPrimaries_P3_D65,
+                transferFunction: kCVImageBufferTransferFunction_sRGB,
+                matrix: kCVImageBufferYCbCrMatrix_ITU_R_709_2
+            )
+        }
+    }
+
+    /// The encoded, non-linear space frames are drawn into.
+    var drawColorSpace: CGColorSpace {
+        switch self {
+        case .sRGB: Self.sRGBSpace
+        case .displayP3: Self.displayP3Space
+        }
+    }
+
+    private static let sRGBSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+    private static let displayP3Space = CGColorSpace(name: CGColorSpace.displayP3)!
 }
 
 enum VideoEncodeError: Error {

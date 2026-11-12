@@ -15,9 +15,11 @@ import Testing
         #expect(bitIdentical(render(density: .greatestFiniteMagnitude), atOne))
     }
 
+    /// Re-recorded for ASKI-1, when sources larger than the conversion budget
+    /// moved to direct resampling.
     @Test func validMatchingScalarsMatchThePreChangeGolden() {
         let density = [Float(0), 0.5, 1].map { fingerprint(render(density: $0)) }
-        #expect(density == [3_953_831_385_894_595_474, 6_780_983_386_489_683_440, 15_902_162_367_071_341_054])
+        #expect(density == [1_935_201_673_152_813_934, 4_203_620_674_433_972_845, 2_223_520_104_377_864_946])
     }
 
     private func render(

@@ -30,16 +30,8 @@ import Testing
                     let offset = (y * image.width + x) * 4
                     if column < lengths[row] {
                         #expect(pixels[offset + 3] == 255)
-                    } else if grounded {
-                        // ASKI-43 contract: active = glyphs over (ground over canvas),
-                        // so holes in this short ragged grid show the ground. Ragged
-                        // geometry belongs to open ASKI-7, which may change this pin.
-                        // Soft edges feather the ground in the holes beside populated
-                        // cells below them in memory order; values observed natively.
-                        let feathered = !hardEdges && [[2, 0], [3, 1], [3, 2], [3, 3]].contains([row, column])
-                        let expected: [UInt8] = feathered ? [65, 65, 65, scale == 1 ? 250 : 251] : [66, 66, 66, 255]
-                        #expect(Array(pixels[offset..<offset + 4]) == expected)
                     } else {
+                        // ASKI-7: absent cells keep the canvas, including with ground.
                         #expect(pixels[offset + 3] == 0)
                     }
                 }

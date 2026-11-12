@@ -1,6 +1,6 @@
 # Rendering task groundwork: ASKI-91, ASKI-94, ASKI-95
 
-Prepared 2026-10-27 against PR #11, commit
+Initially prepared 2026-10-27 against PR #11, commit
 `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`. This is an independent sibling of the
 ASKI-93 video candidate, not a stack of unmeasured optimizations. Production
 sources, package/deployment requirements, goldens and existing budgets are unchanged.
@@ -86,7 +86,8 @@ masks, with/without ground, at 1x and 1.25x. Placement has separate fill/fit/str
 rect expectations. These do not substitute for full boundary-pixel parity. Add
 P3, translucent source pixels, partial source alpha, ragged rows longer than the
 first, empty-first-row behavior and exact target-width output before adoption;
-ASKI-7's geometry policy must not be changed incidentally.
+ASKI-7's merged geometry policy keeps absent cells on the canvas, even with mask
+ground; preserve it in any optimization.
 
 ## ASKI-95: prove reachability, then consider render-local reuse
 
@@ -138,12 +139,10 @@ xcrun swift test --skip-build --no-parallel \
 just check
 ```
 
-For complete captures, the ASKI-86 validator currently lives on PR #7, not this
-parent branch. Install the exact
-[`Scripts/validate-benchmarks.py` at 5493edb](https://github.com/BigCactusLabs/Aski/blob/5493edb992ab57ee2c4a5e16e9ef8106068ab96e/Scripts/validate-benchmarks.py)
-in both measurement worktrees and commit it identically. Its blob is
-`4dc8e9c545c5164c287f43664d2a351edba06bb4`. Do not assume main's `just bench`
-already accepts the adapter's `--require-metric` arguments.
+The ASKI-86 validator is merged on `main`. Use the checked-in
+[`Scripts/validate-benchmarks.py`](../../Scripts/validate-benchmarks.py), also
+invoked by `just bench`. Freeze the same validator and instruments in both
+measurement worktrees and record their commits; do not install the older PR draft.
 
 ```bash
 python3 -B Scripts/validate-benchmarks.py --filter '^aski91-.*$' \
@@ -183,9 +182,13 @@ unchanged into an isolated package, recording their SHA-256 values, compiler
 identity and log. Its probe manifest permits Swift 6.2; this does **not** lower
 Aski's Swift 6.3+ requirement. No Apple types are replaced with stand-ins.
 
-Executed here: nine evaluator tests passed in release mode on Linux x86_64 / Swift
+Initial Linux evidence: nine evaluator tests passed in release mode on Linux x86_64 / Swift
 6.2.1, complete strict concurrency and warnings-as-errors. All six changed Swift
 files passed format lint with the repository configuration and frontend parsing.
-The native grid/mask/noise suites and all 51 workloads remain uncompiled/unrun on
-Apple platforms. `just check` could not start (`just` was absent). No native gate,
-render parity, fallback-frequency, allocation reduction or speedup is claimed.
+That environment could not run the Apple gate (`just` and Apple frameworks were
+absent). On 2026-11-12 the portable probe also passed on arm64 macOS with Apple
+Swift 6.4, strict concurrency and warnings-as-errors. Use the native commands
+above to validate a particular checkout; PR validation records identify the
+tested revision. The 51-workload performance experiment, full render parity,
+fallback frequency and memory accounting remain future adoption work. This
+groundwork claims no allocation reduction or speedup.

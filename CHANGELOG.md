@@ -11,6 +11,127 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Changed
+
+- **A decoded `CGImage` is prepared directly at the conversion size (ASKI-1).** A `CGImage` whose
+  longest side exceeds the conversion budget is no longer PNG-encoded and decoded through an
+  ImageIO thumbnail before conversion. The converter, the temporal (video-frame) path and the tile
+  converter convert it to the target color space and resample it once with vImage Lanczos straight
+  to the sampling lattice. On the ASKI-1 benchmarks (median, one Mac), preparing a 4032×3024 photo
+  for the Vesper preset drops from 677 ms to 28 ms and a 1920×1080 frame from 21.9 ms to 4.7 ms,
+  and the 720p video benchmarks run 33–85% faster end to end. Peak resident memory rises by 5–8 MB
+  on the two rotated-video end-to-end benchmarks. The likely cause is the full-size RGBA8 copy the
+  converter now makes of each oriented frame before resampling; ASKI-2, which moves orientation
+  into frame preparation, would remove that full-size frame. Rendered output changes for these
+  inputs: cell colors and some glyph picks move, and grid dimensions stay the same. One change is
+  visible. ImageIO's thumbnail could land a decoded portrait one pixel below the width budget, and
+  the cell pitch is that width divided by the column count and floored, so such a source was
+  sampled at `oversample − 1` working pixels per cell: 1 instead of 2 at the default. A cell one
+  pixel wide is too narrow for the shape descriptor, so those cells were matched on tone alone.
+  The prepared size now rounds to the nearest pixel and meets the budget. This is why the DocC
+  mask-ground figure changes visibly: its 975×1280 source now gets 2-pixel cells, and its picks
+  inside the mask move from varied letters to the shape matcher's runs of one glyph per tone band
+  (ASKI-80). The rounding and resampler changes were not measured separately. On the frozen Vesper
+  preset the change passes the pre-registered no-harm census: production-arm MAE moves by ×1.0000
+  and ×0.9991 on the two naturals corpora. A source already within the budget renders byte for
+  byte as before, and so does anything loaded through
+  `ImageIOThumbnail.decode(data:maxPixelSize:)` or `decode(source:maxPixelSize:)`, including `aski
+  render` and `aski inspect`. Resampler choice and census:
+  `docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`.
+
+### Removed
+
+- **`ImageIOThumbnail.decode(image:maxPixelSize:)` (ASKI-1, source-breaking).** It shrank a
+  decoded image by PNG-encoding it and decoding an ImageIO thumbnail. Pass the `CGImage` to
+  `convert` directly; the converter now resamples it itself. For encoded input, keep using
+  `ImageIOThumbnail.decode(data:maxPixelSize:)` or `decode(source:maxPixelSize:)`, which avoid
+  materializing the full raster and apply EXIF orientation.
+
+### Fixed
+
+- **Landscape `.tall` sampling keeps the requested sample size (ASKI-106).** Both
+  `ASCIIConverter` and `TileGridConverter` now prepare enough source pixels for
+  `oversample` on both cell axes when downscaling landscape images with `.tall`.
+  This changes colors and glyph choices for affected inputs and prevents empty
+  grids at `oversample: 1`. Small sources are not upscaled. `.square`, `.wide`,
+  portrait sampling, and the frozen Vesper preset keep their previous behavior.
+- **Ragged ASCII grids use their widest row (ASKI-7).** Longer later rows are no
+  longer clipped, and an empty first row no longer hides later content. Text keeps
+  the supplied row lengths. Missing cells retain the canvas background during mask
+  composition instead of receiving mask ground or fallback paint; lighting and
+  whole-image effects still apply afterward. Rectangular grids are unchanged.
+- **Mask paint is color-matched on every render path (ASKI-98).** `MaskFallback.solid(_:)` and
+  `MaskOptions.groundColor` colors are interpreted in the color space their `CGColor` declares
+  and color-matched into the grid's render color space on every raster path, including effects,
+  async, `renderCIImage` and `AskiRenderEngine` gamut adaptation. Before, those Core Image paths
+  (and tile renders with a ground or a partly covered mosaic) read Generic RGB and unnamed-RGB
+  components as values in the grid's gamut, while direct ASCII rendering color-matched them.
+  Generic RGB (0.9, 0, 0) now renders as sRGB (237, 34, 0) on those paths instead of
+  (229, 0, 0), and Generic `#080808` as `#060606`. To keep the old numbers, tag the components
+  with the grid's space: `CGColor(srgbRed:green:blue:alpha:)` for sRGB grids, or
+  `CGColor(colorSpace: CGColorSpace(name: CGColorSpace.displayP3)!, components: [r, g, b, a])`
+  for Display P3 grids. The CLI's `--mask-fallback-color` and `--mask-ground` are already sRGB
+  and do not change.
+- **Color overlays and point lights honor their color space (ASKI-99).** `ColorOverlay` and
+  `PointLight` colors are interpreted in their `CGColor`'s declared color space, as
+  `Background.solid` already was. Their components were previously read as sRGB numbers: a
+  Display P3 (0.8, 0.2, 0.1) overlay rendered (204, 51, 25) in sRGB output instead of about
+  (222, 24, 0). `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, so overlays and
+  lights built with it now render slightly differently; use `CGColor(srgbRed:green:blue:alpha:)`
+  to keep the previous result. sRGB-tagged colors, overlay opacity, blend modes and light
+  intensity are unchanged: intensity still scales encoded sRGB components, and intensity above 1
+  still saturates each channel at 1. A Display P3 light outside the sRGB gamut keeps its color
+  instead of being read as sRGB numbers.
+- **MP4 export keeps its colors (ASKI-100).** Frames are drawn in the grid's encoded gamut (sRGB
+  or Display P3) instead of an untagged device RGB space, and the H.264 or HEVC track is tagged
+  with its color primaries (BT.709 or P3 D65), the sRGB transfer function and the BT.709 Y'CbCr
+  matrix, at video range. Untagged files let decoders guess the matrix from the frame size, which
+  shifted colors in small exports, and Display P3 frames were clipped to sRGB before encoding.
+  Exported MP4 bytes change.
+- **Soft mask edges use the same coverage weight on every path (ASKI-101).** Mask coverage is a
+  linear weight: a cell with coverage `c` shows `c` of the active branch (glyphs or tiles, and
+  the ground) and `1 - c` of the fallback. Effects, async, `renderCIImage` and `AskiRenderEngine`
+  renders, renders with a `groundColor`, and partly covered tile mosaics read coverage through the
+  sRGB transfer function in Core Image's linear working space, so at coverage 0.5 they showed
+  the fallback at about 0.78 of its alpha and the ground at about 0.22. Direct ASCII,
+  target-width, and direct pixel-art and brick tile renders already used 0.5, and
+  `renderCIImage` results now carry the same weight whatever working space reads them. Soft-edged
+  masks on those Core Image paths render differently at partly covered cells: the active branch
+  is stronger and the fallback weaker. Hard-edged masks, unmasked renders, and direct renders
+  without a ground do not change. Where both branches are opaque, Core Image paths still mix in
+  linear light and Core Graphics paths in encoded values (see the Masking guide).
+- **The CLI samples portraits at the intended cell width (ASKI-104).** `aski render`,
+  `aski inspect`, `aski lab motion --image` and `AskiTileMatrix` decode the input file at the
+  size the converter prepares it at. The loader kept its own copy of that size rule, and the copy
+  capped the longest side at `max(columns, rows) × oversample`, which in a portrait is the
+  height. A 975×1280 photo at 60 columns decoded 91 pixels wide, so each cell was one pixel wide
+  instead of two, and a one-pixel cell has no shape descriptor: the log-polar matcher picked
+  glyphs by tone alone. The loader now asks the converter for the size, so that photo decodes 120
+  wide and is shape-matched. It also sizes from the displayed shape after EXIF orientation, which
+  catches portrait phone photos stored as landscape rasters, and it retries one pixel larger when
+  ImageIO decodes a portrait one pixel narrower than that size implies. CLI portrait output
+  changes. The row count comes from the decoded aspect ratio, which the larger decode keeps
+  closer to the source's, so a portrait can gain or lose one row. Landscape and square inputs
+  decode exactly as before. Library callers that pass a `CGImage` are unaffected.
+- **`TileGridConverter` samples portraits at the intended cell width (ASKI-105).** The tile
+  converter capped its sampling lattice's longest side at `max(columns, rows) × oversample`, which
+  in a portrait is the height, so the width came out below `columns × oversample`. A 975×1280
+  portrait at 60 columns was sampled 119 pixels wide at the default oversample 2, one source
+  pixel per cell instead of two, and 59 pixels wide at oversample 1, where the cell width floored
+  to zero and `convert` returned an empty grid. `TileGridConverter` now uses `ASCIIConverter`'s
+  size rule, which raises a portrait's cap to the height that puts the width on
+  `columns × oversample`; the two converters share one implementation. Portrait tile output
+  changes: cell colors and the adaptive palette move, and grid dimensions stay the same. Square
+  and landscape tile output is unchanged. Sharing the rule also fixes `ASCIIConverter` with the
+  `.tall` sampling shape, which gives a portrait more rows than columns × height/width. Its
+  portrait branch replaced the base cap even where the base was larger, which halved the cell
+  height of `.tall` portraits and returned an empty grid at oversample 1; the shared rule keeps
+  the larger cap. All other `ASCIIConverter` output, including the frozen Vesper preset, is
+  unchanged. `AskiTileMatrix` takes its decode size from `TileGridConverter` (ASKI-104), so its
+  portraits now decode at this portrait size and are sampled at the intended cell width too.
+
+## v0.8.0 — 2026-11-10
+
 ### Fixed
 
 - **Raster output honors cell color spaces (ASKI-3).** ASCII, tile, and effects
@@ -22,10 +143,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   now builds `--background`, `--mask-fallback-color`, and `--mask-ground` colors in
   sRGB, so `aski render --background "#808080"` writes `#808080` pixels (it wrote
   `#929292` before) and gray or colored values now match the manifest's
-  `#RRGGBBAA` record.
+  `#RRGGBBAA` record. `aski lab hdr --background-hex` also builds its color in sRGB.
 - **GIF loop counts round-trip through ImageIO (ASKI-8).** Encoding accepts `0...32767`
   (`0` means infinite; `1` means once), rejects unsupported values before opening the
-  destination, and reports the loop metadata read from the finalized file.
+  destination, and reports the loop metadata read from the finalized file. Out-of-range
+  values throw the new `GIFEncodeError.invalidLoopCount(_:)` case; an exhaustive `switch`
+  over `GIFEncodeError` needs a branch for it.
 - **CLI text output supports `/dev/null` and `/dev/stdout` (ASKI-83).** Text streams are
   written directly after regular outputs are ready. Other special destinations are
   rejected with an explicit reason; device nodes are never staged or replaced.
@@ -36,15 +159,38 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   `--algorithm logPolar|dotMatrix`, `--coverage 0...1` and `--palette fullColor|monochrome`;
   defaults (`logPolar`, `0`, `fullColor`) keep existing output. `--write-manifest` records all three
   as additive, optional fields in the v1 render manifest schema.
+- **CLI distribution candidates and Swift Package Index docs config.** `just package-cli <new-dir>`
+  (or `make package-cli ASKI_PACKAGE_OUTPUT=<new-dir>`) builds an arm64-only, relocatable `aski`
+  candidate from a clean checkout, checks its bundled resources, smoke-tests a relocated copy, and
+  writes a `.tar.gz` archive (including `release-info.txt`) with `SHA256SUMS`. It does not run the
+  acceptance gates or publish assets.
+  `.spi.yml` declares `Aski` as the documentation target for Swift Package Index. See the
+  [distribution guide](docs/guides/distribution.md).
+- **`just test-infra` (contributors).** Portable regression tests for the doctor, DocC, and Metal
+  restoration scripts, using Python 3's standard library, disposable Git repositories, and fake
+  Apple tools. They do not build Swift or replace `just check`.
 
 ### Changed
 
 - **Glyph cycling works with `dotMatrix` (ASKI-81).** Cycling previously filled every candidate slot
   with the one dotMatrix pick, so animation never changed glyphs. Candidates after the base pick are
   now the other glyphs nearest in ink density. The base frame is unchanged and matches `convert()`.
+- **DocC Markdown export no longer writes to `/tmp/aski-docc-markdown` (contributors).**
+  `./Scripts/validate-docc.sh --emit-markdown` writes to a new directory and prints it as
+  `DocC Markdown output: ...`; pass `--output-dir <new-dir>` for a fixed location. Packaging scripts
+  that read the old shared path need updating. The doctor and DocC scripts now use private
+  temporary space per run, fail explicitly when another run holds the same checkout's lock, and stop
+  an interrupted Metal regeneration before restoring the checked-in library; see
+  [CONTRIBUTING.md](CONTRIBUTING.md#pull-requests-and-releases).
 
 ### Documentation
 
+- **Character-art recipes guide.** [docs/guides/character-art-recipes.md](docs/guides/character-art-recipes.md)
+  shows the Carina source beside rendered output and gives three recipes (color ASCII, monochrome
+  dithered, braille on a transparent ground) with their exact commands and committed output PNGs.
+  The README links to it.
+- **Color examples use sRGB.** README and DocC snippets build example colors with
+  `CGColor(srgbRed:green:blue:alpha:)` instead of the Generic RGB initializer.
 - **README hero regenerated from the current build (ASKI-15).** The previous Carina hero
   could not be reproduced by any converter build: it had about 1.9× the source's
   per-cell chroma and a 17% pure-black floor, while every build since June 2026 matches

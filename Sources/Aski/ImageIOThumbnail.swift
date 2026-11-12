@@ -1,11 +1,14 @@
 import CoreGraphics
 import Foundation
 import ImageIO
-import UniformTypeIdentifiers
 
-/// Wrapper around `CGImageSourceCreateThumbnailAtIndex` for the Aski
-/// downscale path. For JPEG sources this can use decoder-level scaled output
-/// instead of decode-full + resize.
+/// Wrapper around `CGImageSourceCreateThumbnailAtIndex` for source-backed
+/// inputs (encoded `Data` or an open `CGImageSource`). For JPEG sources this can
+/// use decoder-level scaled output instead of decode-full + resize, and the
+/// source's orientation metadata is applied.
+///
+/// An already-decoded `CGImage` does not come through here: pass it straight to
+/// the converter, which resamples it to the conversion size itself (ASKI-1).
 public enum ImageIOThumbnail {
     public enum DecodeError: Error, Equatable {
         case cannotOpenSource
@@ -25,32 +28,6 @@ public enum ImageIOThumbnail {
             throw DecodeError.cannotOpenSource
         }
         return try makeThumbnail(source: source, maxPixelSize: maxPixelSize)
-    }
-
-    /// Decodes from a CGImage input by serializing it through ImageIO, preserving
-    /// the same thumbnail path used by data-backed sources.
-    public static func decode(image: CGImage, maxPixelSize: Int) throws -> CGImage {
-        let longestSide = max(image.width, image.height)
-        if longestSide <= maxPixelSize {
-            return image
-        }
-
-        let data = NSMutableData()
-        guard
-            let destination = CGImageDestinationCreateWithData(
-                data,
-                UTType.png.identifier as CFString,
-                1,
-                nil
-            )
-        else {
-            throw DecodeError.cannotCreateThumbnail
-        }
-        CGImageDestinationAddImage(destination, image, nil)
-        guard CGImageDestinationFinalize(destination) else {
-            throw DecodeError.cannotCreateThumbnail
-        }
-        return try decode(data: data as Data, maxPixelSize: maxPixelSize)
     }
 
     /// Decodes an existing ImageIO source into a thumbnail whose longest side is

@@ -136,11 +136,11 @@ public enum ShapeResidualCommand {
     ///
     /// The residual MUST be sampled from the same pixels the oracle reads
     /// (`fixture.lumaBlock` native blocks). With the default `oversample = 2`,
-    /// `convertWithResidual` thumbnails a 256px fixture to
+    /// `convertWithResidual` resamples a 256px fixture to
     /// `max(cols,rows)·2 = 160px` at `columns=80` — a downscale, which would let
-    /// ImageIO resampling loss masquerade as glyph residual. We instead pick an
-    /// oversample large enough that the thumbnail ≥ the fixture's longest side,
-    /// so `ImageIOThumbnail.decode` returns the **native** image (no resampling)
+    /// resampling loss masquerade as glyph residual. We instead pick an
+    /// oversample large enough that the budget ≥ the fixture's longest side,
+    /// so the converter reads the **native** image (no resampling)
     /// and the residual + oracle are pixel-aligned. Mirrors AskiDecolorLab's
     /// no-downscale invariant. Dynamic (per `columns`) so the whole column sweep
     /// stays no-downscale — e.g. `columns=80 → 4`, `columns=32 → 8`. Raising
@@ -157,9 +157,8 @@ public enum ShapeResidualCommand {
         columns: Int, fixtureSide: Int = StructuredFixture.side, fixtureHeight: Int? = nil
     ) -> Int {
         let height = fixtureHeight ?? fixtureSide
-        let maxGridSide = ToolArgumentBounds.thumbnailMaxPixelSize(
-            imageWidth: fixtureSide, imageHeight: height,
-            columns: columns, tileShape: .wide, oversample: 1
+        let maxGridSide = gridSideBudget(
+            imageWidth: fixtureSide, imageHeight: height, columns: columns, oversample: 1
         )
         let needed = Int((Double(max(fixtureSide, height)) / Double(max(1, maxGridSide))).rounded(.up))
         return max(ToolArgumentBounds.defaultOversample, needed)
@@ -170,10 +169,28 @@ public enum ShapeResidualCommand {
     /// negation on the real grid; a regression test pins the original bug here
     /// (`columns=80, oversample=2 → true`; the fix's `oversample=4 → false`).
     static func wouldDownscale(columns: Int, fixtureSide: Int, oversample: Int) -> Bool {
-        ToolArgumentBounds.thumbnailMaxPixelSize(
-            imageWidth: fixtureSide, imageHeight: fixtureSide,
-            columns: columns, tileShape: .wide, oversample: oversample
+        gridSideBudget(
+            imageWidth: fixtureSide, imageHeight: fixtureSide, columns: columns, oversample: oversample
         ) < fixtureSide
+    }
+
+    /// `max(columns, rows) × oversample` on the `.wide` grid. For square and
+    /// landscape sources this is the converter's thumbnail budget. For a
+    /// portrait it is smaller than the converter's, which raises the cap so the
+    /// width stays on `columns × oversample`, so an oversample sized from it errs
+    /// toward no downscale, the direction this lab needs. It used to live in
+    /// `ToolArgumentBounds` as the CLI loader's budget; the loader now asks the
+    /// converter (ASKI-104), and this lab keeps the formula its recorded
+    /// oversample choices were made with.
+    private static func gridSideBudget(
+        imageWidth: Int, imageHeight: Int, columns: Int, oversample: Int
+    ) -> Int {
+        guard imageWidth > 0, imageHeight > 0, columns > 0 else {
+            return 1
+        }
+        let rows = ToolArgumentBounds.gridRows(
+            imageWidth: imageWidth, imageHeight: imageHeight, columns: columns, tileShape: .wide)
+        return max(columns, rows) * max(1, oversample)
     }
 
     /// Pure predicate: would ANY source-cell block be smaller than `oracleCellSize`

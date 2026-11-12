@@ -92,17 +92,17 @@ enum LatticeSupport {
 
     /// Target longest sides tried, smallest first.
     ///
-    /// `ImageIOThumbnail` returns the source **unscaled** when its longest side is
+    /// The converter keeps the source at its own size when its longest side is
     /// already inside the budget, and then the probe reports a footprint that is
     /// an artifact of the probe's own size rather than a regime conversion
-    /// resolves from a real photo. So grow the probe until the thumbnail actually
+    /// resolves from a real photo. So grow the probe until the budget actually
     /// binds, and take the first size that does. The bind is *detected*, never
     /// predicted, so this cannot drift from `thumbnailMaxPixelSize`.
     ///
     /// Starting small matters: at `columns: 80, oversample: 2` the budget is 160px,
     /// so a 512px probe binds and a 2048px one wastes 16× the pixels on an identical
     /// answer. The high end is still needed — the portrait branch of
-    /// `thumbnailMaxPixelSize` scales the cap by the aspect ratio to protect the
+    /// `samplingMaxPixelSize` scales the cap by the aspect ratio to protect the
     /// width, so a 1:3 source at `oversample: 16` needs a budget near 3840px.
     static let probeTargetSides = [512, 1024, 2048, 4096, 8192]
 

@@ -95,18 +95,13 @@ extension ASCIIConverter {
             return emptyResult()
         }
 
-        let thumbnail: CGImage
-        do {
-            thumbnail = try ImageIOThumbnail.decode(image: image, maxPixelSize: maxPixelSize)
-        } catch {
-            return emptyResult()
-        }
-
         // Same sampling lattice as `prepareConversion` — an exact multiple of
-        // the grid, so no source row or column goes unread (ASKI-65).
+        // the grid, so no source row or column goes unread (ASKI-65), prepared
+        // straight from the source image (ASKI-1).
         guard
             let lattice = samplingLattice(
-                thumbnail: thumbnail,
+                image: image,
+                maxPixelSize: maxPixelSize,
                 columns: cols,
                 rows: rows,
                 colorSpace: colorSpace
