@@ -3,7 +3,8 @@ id: ASKI-89
 title: Reduce per-cell log-polar descriptor allocations
 status: To Do
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:54:00Z'
 labels:
   - performance
   - conversion
@@ -13,7 +14,7 @@ references:
   - Sources/Aski/Algorithms/LogPolarKernel.swift
   - Sources/Aski/Algorithms/ShapeContext.swift
   - Sources/Aski/GridRowWalk.swift
-  - 'https://www.swift.org/blog/swift-6.2-released/'
+  - https://www.swift.org/blog/swift-6.2-released/
 priority: medium
 type: spike
 ordinal: 90000
@@ -35,3 +36,15 @@ Swift's current official guidance describes InlineArray and Span as tools for fi
 - [ ] #4 Any newer standard-library storage is verified against Swift 6.3+ and the package's iOS 18/macOS 15/visionOS 2 deployment minimums.
 - [ ] #5 The task records allocation reduction and a material end-to-end result or a rejection; adopted code passes just check and relevant benchmarks without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Groundwork — 2026-10-27 (base 4c675957)
+
+Deployment check against the minimum supported compiler source: Swift 6.3's `InlineArray` declaration is `@available(SwiftStdlib 6.2, *)`; its availability macros map that to iOS/macOS/visionOS 26, above this package's iOS 18 / macOS 15 / visionOS 2 floors. A newer compiler is not permission to use it unconditionally. By contrast, `Span` uses the back-deployed `SwiftCompatibilitySpan 5.0` availability, but is a non-owning, nonescaping view and does not itself remove the owner array allocation. New Swift 6.4-only storage or temporary-allocation APIs also cannot silently raise the Swift 6.3 consumption minimum.
+
+Start by attributing the four existing temporary families (grayscale, optional Sobel, 60 histogram floats, 15 SIMD lanes). Prefer a bounded experiment that removes an intermediate representation or uses invocation-owned scratch while keeping the escaping research descriptor an owned value. Avoid adding an availability-split production path before evidence warrants that extra maintenance. Native compile probes must cover all three deployment floors, ordinary/ranked/residual/temporal callers, and forced row modes; no storage optimization or speedup is claimed by this note.
+
+Primary sources inspected: https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/stdlib/public/core/InlineArray.swift ; https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/utils/availability-macros.def ; https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/stdlib/public/core/Span/Span.swift ; https://www.swift.org/blog/swift-6.4-released/ .
+<!-- SECTION:NOTES:END -->

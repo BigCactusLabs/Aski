@@ -1,9 +1,10 @@
 ---
 id: ASKI-90
 title: Reuse fixed-palette display colors during conversion
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-10-27T15:59:00Z'
 labels:
   - performance
   - color
@@ -14,6 +15,7 @@ references:
   - Sources/Aski/ResolvedPalette.swift
   - Sources/Aski/ColorPipelinePolicies.swift
   - Benchmarks/AskiBenchmarks/HelmlabBenchmarks.swift
+  - https://github.com/BigCactusLabs/Aski/pull/9
 priority: medium
 type: enhancement
 ordinal: 91000
@@ -35,3 +37,11 @@ This repeated work was source-verified at c49bbd during the 2026-09-29 sweep; sa
 - [ ] #4 Prepared data is scoped to all relevant palette/color-space/policy inputs and remains safe for parallel conversion.
 - [ ] #5 The task records a material end-to-end result or rejection; adopted code passes just check and relevant color/conversion benchmarks without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+### Existing work reconciled — 2026-10-27
+
+PR #9 is open at 44489c76ae73c845bbe6fbc6a90085d1286b7e62: https://github.com/BigCactusLabs/Aski/pull/9 . It reports native parity and `just check`, but the five-pair comparison of all 70 workloads is pending. Its review also identified a missing standalone palette/display preparation timing or profile; include that attribution rather than inferring setup cost from end-to-end totals. Use the new paired reader and `docs/agents/paired-benchmarks.md` after collecting the exact frozen selection. No performance adoption or completion claimed.
+<!-- SECTION:NOTES:END -->
