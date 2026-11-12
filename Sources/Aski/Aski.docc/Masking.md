@@ -31,6 +31,11 @@ The mask image is drawn into the output grid's exact `columns x rows` cell size.
 
 Coverage is a linear weight. A cell with coverage `c` keeps `c` of the active branch and `1 - c` of the inactive branch, so at `c = 0.5` a fallback and a ground each appear at half their alpha. Every raster path applies the same weight: direct and target-width ASCII, tile rendering, effects and async rendering, `renderCIImage`, and ``AskiRenderEngine``. A `renderCIImage` result keeps that weight in whatever working space the consuming `CIContext` uses.
 
+In a manually constructed ragged ``ASCIIGrid``, a missing position is different
+from a supplied cell with zero coverage: it keeps the canvas during mask
+composition instead of selecting the fallback. See <doc:Rendering> for the row
+geometry and the boundary between mask composition and effects.
+
 The weight is the same everywhere, but the colors it mixes are combined in each path's compositing space. Core Graphics paths under the default ``RenderCompositionPolicy/encodedDisplay8Bit`` mix encoded values; Core Image paths (effects, async, `renderCIImage`, the engine, and any render with a ground) mix in linear light. Where both branches are opaque, a soft edge can therefore differ between paths: a white fallback over a black background at `c = 0.5` is `#808080` from direct ASCII rendering and about `#BBBBBB` from the effects path. Over transparent content the alpha is identical.
 
 This follows how [CSS Masking Level 1](https://www.w3.org/TR/css-masking-1/#MaskValues) applies a mask: the mask value multiplies the masked content's alpha, with no transfer function in between. [PNG](https://www.w3.org/TR/png-3/#4Concepts.ColourSpaces) defines alpha the same way, as a linear fraction of full opacity that gamma correction does not touch. Aski derives coverage the way a CSS luminance mask does with its default `color-interpolation: sRGB`: luminance is computed from the mask's sRGB-encoded channel values.

@@ -124,10 +124,11 @@ Default stays `2` to preserve bit-identical pre-A1 default output.
 ### Oversampling is not a quality knob
 
 `oversample` also determines how much of the 60-bin log-polar descriptor is
-reachable at all, and the effect is severe. The cell pitch is an integer
-quotient of the prepared size, so the cell ends up exactly `oversample` pixels
-wide — measured across source aspect ratios from 3:1 through 1:3, so this is not
-a landscape-only quirk. At the default `2` the descriptor's radius gate admits
+reachable at all, and the effect is severe. In the recorded default-sampling
+measurements, the integer cell pitch was exactly `oversample` pixels wide across
+source aspect ratios from 3:1 through 1:3. Other sampling shapes and sources that
+are not downscaled can have different footprints; the sizing rule above defines
+the current behavior. At the measured default `2` the descriptor's radius gate admits
 2–3 pixels of 8 and reaches **2–3 of the 60 bins**; at `oversample: 32` it
 reaches 48.
 

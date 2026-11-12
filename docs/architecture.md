@@ -154,6 +154,17 @@ footprint with a one-pixel axis (reachable at `oversample: 1`) carries no
 log-polar support at all, so `logPolar` detects it from the pitch alone and falls back to a
 tone-only pick instead of collapsing to the space glyph (ASKI-25).
 
+The shared budget protects portrait width and `.tall` landscape height before
+the integer cell pitch is taken. `SamplingMaxPixelSizeTests` covers both converters;
+the [oversampling contract](../Sources/Aski/Aski.docc/Algorithms.md#oversampling)
+defines the shape-specific sizing and small-source limits.
+
+**Grid geometry (step 5).** Converter output is rectangular. A public `ASCIIGrid`
+can also contain ragged rows: `columns` reports the widest row, images allocate
+that rectangular canvas, and text keeps each supplied row length. Missing positions
+retain the canvas during mask composition. The [rendering guide](../Sources/Aski/Aski.docc/Rendering.md)
+defines how this differs from zero coverage and when effects can change those pixels.
+
 **Exact target-width render (step 5).** The public `ASCIIGrid.renderImage(font:backgroundColor:targetPixelWidth:preserveSourceAspect:)`
 renders to an exact output pixel width instead of a font-size-derived scale. It
 draws the grid at 4x the requested width and area-averages back down in linear light
