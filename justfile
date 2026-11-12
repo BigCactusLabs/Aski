@@ -58,8 +58,10 @@ research-check:
 lifecycle-check:
     if [[ -n "${ASKI_SKIP_BUILD:-}" ]]; then xcrun swift run --skip-build BuildResearchIndex --check; else xcrun swift run BuildResearchIndex --check; fi
 
-bench:
-    xcrun swift package --disable-sandbox benchmark --target AskiBenchmarks --no-progress
+# Validate complete evidence, not just the plugin exit code. See docs/benchmark-validation.md.
+[positional-arguments]
+bench *args:
+    python3 -B Scripts/validate-benchmarks.py "$@"
 
 regen-kernels:
     xcrun swift run BuildKernelLibrary

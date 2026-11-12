@@ -237,7 +237,7 @@ enum IndexCheck {
             "Research", "agents", "assets", "guides", "release-notes",
         ]
         let allowedFiles: Set<String> = [
-            "README.md", "architecture.md",
+            "README.md", "architecture.md", "benchmark-validation.md",
             "research-plan.md", "repo-map.generated.md",
         ]
 
