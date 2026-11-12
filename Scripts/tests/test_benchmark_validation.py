@@ -59,7 +59,7 @@ assert option('--time-units') == 'nanoseconds'
 assert '--metric' not in args  # Validation must not override source metrics/thresholds.
 if fixture.get('wait'):
     descendant = subprocess.Popen([sys.executable, '-c',
-        "import pathlib,signal,time,sys; signal.signal(signal.SIGTERM, signal.SIG_IGN); pathlib.Path(sys.argv[1]).write_text('ready'); time.sleep(60)",
+        "import os,pathlib,signal,time,sys; os.setpgrp(); signal.signal(signal.SIGTERM, signal.SIG_IGN); pathlib.Path(sys.argv[1]).write_text('ready'); time.sleep(60)",
         str(root / 'descendant-ready')])
     while not (root / 'descendant-ready').exists():
         time.sleep(0.01)
@@ -227,6 +227,7 @@ class CommandTests(unittest.TestCase):
             self.environment.pop(key, None)
         self.fixture = copy.deepcopy(DEFAULT)
         self.output = Path(self.temporary.name) / "retained evidence"
+        self.addCleanup(self.cleanup_waiting_processes)
 
     def invoke(self, *arguments):
         (self.root / "fixture.json").write_text(json.dumps(self.fixture))
@@ -414,8 +415,32 @@ class CommandTests(unittest.TestCase):
 
     def test_timeout_is_invalid_evidence(self):
         self.fixture["wait"] = True
+        unrelated = self.unrelated_session()
         self.assert_invalid(self.invoke("--timeout", "2"), "timed out")
+        self.assertIsNone(unrelated.poll())
         self.assert_processes_gone(self.waiting_pids())
+
+    def cleanup_waiting_processes(self):
+        # Exact fixture PIDs only, including when the regression fails.
+        ready = self.root / "ready"
+        if ready.exists():
+            pids = json.loads(ready.read_text())
+            for pid in pids:
+                try:
+                    if os.getsid(pid) == pids[0]:
+                        os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+
+    def unrelated_session(self):
+        process = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"],
+                                   start_new_session=True)
+        def cleanup():
+            if process.poll() is None:
+                process.kill()
+            process.wait()
+        self.addCleanup(cleanup)
+        return process
 
     def waiting_pids(self):
         deadline = time.monotonic() + 10
@@ -438,15 +463,32 @@ class CommandTests(unittest.TestCase):
                     self.fail(f"benchmark process {pid} survived process-group cleanup")
 
     def test_sigterm_is_invalid_evidence_and_stops_child(self):
+        self.assert_sigterm_cleanup(repeat=False)
+
+    def test_repeated_sigterm_during_cleanup_stops_child(self):
+        self.assert_sigterm_cleanup(repeat=True)
+
+    def assert_sigterm_cleanup(self, repeat):
         self.fixture["wait"] = True
         (self.root / "fixture.json").write_text(json.dumps(self.fixture))
+        unrelated = self.unrelated_session()
         process = subprocess.Popen([sys.executable, "-B", str(self.root / "Scripts" / SCRIPT.name),
                                     "--output-dir", str(self.output)], cwd=self.temporary.name,
                                    env=self.environment, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
             pids = self.waiting_pids()
+            self.assertNotEqual(os.getpgid(pids[0]), os.getpgid(pids[1]))
+            self.assertEqual(os.getsid(pids[0]), os.getsid(pids[1]))
             process.terminate()
+            if repeat:
+                # The direct child exits on TERM; its separate-group descendant
+                # ignores TERM, keeping cleanup in its three-second grace period.
+                self.assert_processes_gone([pids[0]])
+                time.sleep(0.25)
+                self.assertIsNone(process.poll())
+                process.terminate()
             self.assertEqual(process.wait(timeout=8), 128 + signal.SIGTERM)
+            self.assertIsNone(unrelated.poll())
             self.assertFalse(self.report()["complete"])
             self.assert_processes_gone(pids)
         finally:

@@ -17,6 +17,7 @@ import signal
 import subprocess
 import sys
 import tempfile
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "AskiBenchmarks"
@@ -197,22 +198,52 @@ def validate_exports(directory, selected, required):
     return results, errors
 
 
-def stop_process_group(process):
-    # The plugin launches benchmark children. Stop the whole invocation on an
-    # interrupt/timeout, not just xcrun; separate sessions isolate concurrent runs.
-    try:
-        os.killpg(process.pid, signal.SIGTERM)
-    except ProcessLookupError:
-        return
-    try:
-        process.wait(timeout=3)
-    except subprocess.TimeoutExpired:
-        pass
-    try:
-        os.killpg(process.pid, signal.SIGKILL)
-    except ProcessLookupError:
-        pass
-    process.wait()
+def stop_process_session(process):
+    # Popen(start_new_session=True) makes this PID the owned session ID.
+    # SwiftPM can put compiler children in other process groups in that session.
+    session = process.pid
+    if session == os.getsid(0):
+        raise InvalidEvidence("refusing to stop the validator's own session")
+
+    def members():
+        listing = subprocess.run(["ps", "-axo", "pid=,stat="], check=True,
+                                 capture_output=True, text=True, timeout=3)
+        found = []
+        for line in listing.stdout.splitlines():
+            pid_text, status = line.split()
+            pid = int(pid_text)
+            try:
+                if not status.startswith("Z") and os.getsid(pid) == session:
+                    found.append(pid)
+            except ProcessLookupError:
+                pass
+        return found
+
+    # Rescan during the grace period: a child can fork while TERM is delivered.
+    # Verify each PID again immediately before signaling; never signal a group
+    # whose membership might include work outside the owned session.
+    for signum in (signal.SIGTERM, signal.SIGKILL):
+        deadline = time.monotonic() + 3
+        signaled = set()
+        while True:
+            process.poll()  # Reap the direct child even while descendants remain.
+            pending = members()
+            if not pending:
+                process.wait(timeout=3)
+                return
+            for pid in pending:
+                if pid not in signaled:
+                    try:
+                        if os.getsid(pid) == session:
+                            os.kill(pid, signum)
+                            signaled.add(pid)
+                    except ProcessLookupError:
+                        pass
+            if time.monotonic() >= deadline:
+                break
+            time.sleep(0.05)
+    process.wait(timeout=3)
+    raise InvalidEvidence("owned benchmark session did not stop after SIGKILL")
 
 
 def run_command(command, root, directory, label, report, timeout=None):
@@ -223,8 +254,16 @@ def run_command(command, root, directory, label, report, timeout=None):
         try:
             entry["returncode"] = process.wait(timeout=timeout)
         except BaseException:
-            stop_process_group(process)
-            entry["returncode"] = process.returncode
+            # A repeat interrupt must not abort the bounded TERM/KILL cleanup.
+            previous_handlers = {}
+            try:
+                for signum in (signal.SIGINT, signal.SIGTERM):
+                    previous_handlers[signum] = signal.signal(signum, signal.SIG_IGN)
+                stop_process_session(process)
+                entry["returncode"] = process.returncode
+            finally:
+                for signum, handler in previous_handlers.items():
+                    signal.signal(signum, handler)
             raise
     stdout = (directory / f"{label}.stdout.log").read_text(encoding="utf-8", errors="replace")
     stderr = (directory / f"{label}.stderr.log").read_text(encoding="utf-8", errors="replace")
@@ -344,7 +383,7 @@ def main(argv=None):
     except Interrupted as error:
         exit_code = 128 + error.signum
         report["errors"].append(str(error))
-    except (InvalidEvidence, OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired) as error:
+    except (InvalidEvidence, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
         report["errors"].append(str(error))
     finally:
         for signum, handler in previous_handlers.items():

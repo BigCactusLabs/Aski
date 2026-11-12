@@ -89,7 +89,8 @@ success. Remove captures when no longer needed; raw-sample exports can be large.
 
 `report.json` starts with `complete: false` and `status: running`. A finished capture is
 `valid` only after all checks pass; interruptions/timeouts remain `invalid`. SIGINT and
-SIGTERM stop the invocation's process group. An optional `--timeout SECONDS` applies to
+SIGTERM stop processes in the invocation's isolated session, including child process
+groups created by SwiftPM. Cleanup requires host `ps` access. An optional `--timeout SECONDS` applies to
 each inventory/run subprocess. An uncatchable kill may leave `running`, which is **not**
 a successful result.
 
