@@ -3,6 +3,30 @@ import CoreGraphics
 @testable import Aski
 
 @Suite struct AskiRenderEngineTests {
+    /// Independent reference: Core Graphics color-matches `fallback` from its
+    /// declared space into the output gamut. The fully masked-out center pixel
+    /// must match it within one 8-bit step.
+    private static func expectCenterMatchesCoreGraphicsFill(
+        _ image: CGImage, fallback: CGColor, output: RenderColorSpace
+    ) throws {
+        let space = try #require(
+            CGColorSpace(name: output == .sRGB ? CGColorSpace.sRGB : CGColorSpace.displayP3))
+        let context = try #require(
+            CGContext(
+                data: nil, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4,
+                space: space, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        context.setFillColor(fallback)
+        context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let swatch = try #require(context.makeImage())
+        let expected = TestImages.deviceRGBBytes(swatch)
+        let bytes = TestImages.deviceRGBBytes(image)
+        let offset = ((image.height / 2) * image.width + image.width / 2) * 4
+        let center = Array(bytes[offset..<offset + 4])
+        #expect(
+            zip(center, expected).allSatisfy { abs(Int($0) - Int($1)) <= 1 },
+            "center \(center), Core Graphics reference \(expected)")
+    }
+
     @Test func defaultInitUsesSRGBColorSpace() async {
         let engine = AskiRenderEngine()
         let cap = await engine.deviceCapability
@@ -57,14 +81,13 @@ import CoreGraphics
             coverage: 0
         )
         let cells = Array(repeating: Array(repeating: cell, count: 3), count: 3)
-        let sourceColorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
-        let sourceFallback = CGColor(colorSpace: sourceColorSpace, components: fallback.components!)!
-        let sourceGround = CGColor(colorSpace: sourceColorSpace, components: ground.components!)!
+        // Mask paint is color-matched from its declared space, so rendering the
+        // same Generic RGB paint from a Display P3 grid is the reference.
         let directGrid = ASCIIGrid(
             cells: cells,
             colorSpace: .displayP3,
-            maskFallback: .solid(sourceFallback),
-            maskGroundColor: sourceGround,
+            maskFallback: .solid(fallback),
+            maskGroundColor: ground,
             maskUsesHardEdges: true
         )
         let adaptedGrid = ASCIIGrid(
@@ -91,6 +114,7 @@ import CoreGraphics
         )
 
         #expect(TestImages.deviceRGBBytes(actual) == TestImages.deviceRGBBytes(expected))
+        try Self.expectCenterMatchesCoreGraphicsFill(actual, fallback: fallback, output: .displayP3)
     }
 
     @Test func renderTileGridColorSpaceAdaptationPreservesMaskFallback() async throws {
@@ -103,14 +127,13 @@ import CoreGraphics
             coverage: 0
         )
         let cells = Array(repeating: Array(repeating: cell, count: 3), count: 3)
-        let sourceColorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
-        let sourceFallback = CGColor(colorSpace: sourceColorSpace, components: fallback.components!)!
-        let sourceGround = CGColor(colorSpace: sourceColorSpace, components: ground.components!)!
+        // Mask paint is color-matched from its declared space, so rendering the
+        // same Generic RGB paint from a Display P3 grid is the reference.
         let directGrid = TileGrid(
             cells: cells,
             colorSpace: .displayP3,
-            maskFallback: .solid(sourceFallback),
-            maskGroundColor: sourceGround,
+            maskFallback: .solid(fallback),
+            maskGroundColor: ground,
             maskUsesHardEdges: true
         )
         let adaptedGrid = TileGrid(
@@ -138,6 +161,7 @@ import CoreGraphics
         )
 
         #expect(TestImages.deviceRGBBytes(actual) == TestImages.deviceRGBBytes(expected))
+        try Self.expectCenterMatchesCoreGraphicsFill(actual, fallback: fallback, output: .displayP3)
     }
 
     @Test func flushCachesDoesNotCorruptSubsequentRender() async throws {

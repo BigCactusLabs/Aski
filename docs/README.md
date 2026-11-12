@@ -41,6 +41,7 @@ describe intended assets; do not assume a hosted API site.
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or prepare early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract](../Scripts/research/video-frame-selection.md) |
+| Prepare animation, masked-rendering and fallback-noise work | [Rendering task groundwork](agents/rendering-groundwork.md) |
 | Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |
 | Historical color-theory planning—not the current work queue | [research-plan.md](research-plan.md) |
@@ -73,7 +74,7 @@ harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
 | `BuildStandardVectors` | Audit or regenerate charset shape vectors | `just audit-vectors --output-dir <dir>` · `just regen-vectors` |
 | `BuildResearchIndex` | Validate research/lifecycle records or regenerate their index | `just research-check` · `xcrun swift run BuildResearchIndex` |
 | `BuildRepoMap` | Validate or regenerate the source map | `just repo-map-check` · `just regen-repo-map` |
-| `AskiBenchmarks` | Performance suite; budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` |
+| `AskiBenchmarks` | [Validated benchmark evidence](benchmark-validation.md); budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` · `just bench --smoke` |
 
 Historical `Aski*Lab` executables are compatibility entry points for surviving commands;
 new workflows use `aski lab …`. Removed experiments are not promised as runnable commands

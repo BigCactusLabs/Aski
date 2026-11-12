@@ -5,7 +5,7 @@
 ## Start here
 
 - [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
-- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options were added after v0.7.0.
+- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options require v0.8.0 or later.
 - [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
 - [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
 - [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.
@@ -39,10 +39,12 @@
 - [Distribution guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/distribution.md): Local CLI candidate archives with complete resources, an isolated build and relocated smoke check, release provenance, and Swift Package Index DocC configuration. Native validation, indexing, and publication remain separate steps.
 - [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification (including portable just test-infra), isolated DocC exports and output-path migration, docs standards, and release hygiene. No hosted CI workflow is supplied.
 - [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
+- [Benchmark validation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/benchmark-validation.md): Complete workload/sample checks, required metrics, retained evidence, the six-workload smoke subset, and the ASKI-86–95 work order. A valid run is not a passing performance budget.
 - [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.
 - [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Questions, protocols, evidence, negative results, and retractions. Historical private SHAs are not public replay guarantees.
 - [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm evidence.
 - [Paired benchmark readouts](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/paired-benchmarks.md): Portable comparison of complete captures, repeated-run noise and explicit adoption limits; links the early video frame-selection contract.
+- [Rendering task groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/rendering-groundwork.md): ASKI-91/94/95 contracts, 51 benchmark identities, and measurement/adoption boundaries.
 - [Brightness-pool groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/brightness-pool-groundwork.md): ASKI-88 exact-order contracts, lab-only insertion/heap probes, 42 native workload identities, and measurement/adoption boundaries.
 - [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
 

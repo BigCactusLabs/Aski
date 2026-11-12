@@ -15,7 +15,7 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 - `ASCIIGrid.swift` — struct ASCIIGrid
 - `ASCIIPalette.swift` — protocol ASCIIPalette, struct BuiltInPalette, struct PaletteColor, struct PaletteColorSpace, struct PaletteContent
 - `ASCIITileShape.swift` — enum ASCIITileShape
-- `CellSampling.swift` — struct CellCoord, struct CellSourceStats, struct CellStats, extension ConversionContext, struct ConversionContext, struct SampledCellColor, func gridDimensions, func mapToDisplayColor, func nearestPaletteMatch, func nearestPaletteOKLAB, func readRGBA8, func samplingLattice
+- `CellSampling.swift` — struct CellCoord, struct CellSourceStats, struct CellStats, extension ConversionContext, struct ConversionContext, struct SampledCellColor, func gridDimensions, func mapToDisplayColor, func nearestPaletteMatch, func nearestPaletteOKLAB, func preparedSize, func readRGBA8, func resampleRGBA8, func samplingLattice, func samplingMaxPixelSize
 - `ColorConversion.swift` — enum ColorConversion
 - `ColorPipelinePolicies.swift` — struct ColorSamplingPolicy, struct GamutMappingPolicy, struct PaletteMatchingPolicy, extension RenderCompositionPolicy, struct RenderCompositionPolicy
 - `ConversionEngine.swift` — protocol CellCapturing, protocol CharacterScoring, enum ConversionEngine, struct PlainCellCapture, struct RankedDotMatrixCapture, struct RankedLogPolarCapture, struct ResidualDotMatrixCapture, struct ResidualLogPolarCapture
@@ -137,7 +137,7 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 - `ASCIIGIFTypes.swift` — struct ASCIIGIFFrame, struct GIFContainerInfo, enum GIFDecodeError, enum GIFEncodeError, struct GIFEncodeReport, struct RenderedGIFFrame
 - `ASCIIVideoConverter.swift` — actor RenderPump, func convertVideo
 - `ASCIIVideoDecoder.swift` — struct ASCIIVideoDecoder, actor DecodeSession, enum VideoDecodeError, actor VideoFramePrefetchPump, actor VideoFramePrefetchSource
-- `ASCIIVideoEncoder.swift` — struct ASCIIVideoEncoder, actor EncodeSession, enum VideoEncodeError
+- `ASCIIVideoEncoder.swift` — struct ASCIIVideoEncoder, actor EncodeSession, enum VideoEncodeError, enum VideoOutputGamut
 - `ASCIIVideoFrame.swift` — extension ASCIIVideoFrame, struct ASCIIVideoFrame, struct RenderedVideoFrame
 - `FrameResampler.swift` — func gifAchievedFPS, func gifDelayCentiseconds, func resampledGIFFrames, func resampledVideoFrames
 - `ResampleReport.swift` — enum ResampleError, struct ResampleReport, actor ResampleStats, let maxResampledFrames, let maxTargetFPS

@@ -3,8 +3,8 @@ id: ASKI-2
 title: Fuse video orientation into target-size frame preparation
 status: To Do
 assignee: []
-created_date: '2026-08-18 18:01'
-updated_date: '2026-09-10 04:15'
+created_date: 2026-08-18 18:01
+updated_date: '2026-11-10T20:10:00Z'
 labels:
   - performance
   - video
@@ -47,4 +47,6 @@ Validation to run: use the existing orientation oracle tests plus a conversion/r
 First step: map the preferred-transform coordinate math to the target lattice dimensions and profile the current full-resolution reorientation versus a fused preparation arm, keeping the transform closure and streaming ownership unchanged.
 
 Source map: `Sources/Aski/Video/ASCIIVideoDecoder.swift`, `Tests/AskiTests/AskiVideoLoopTests.swift`, `Tests/AskiTests/VideoPipelineTests.swift`, `Benchmarks/AskiBenchmarks/VideoPipelineBenchmarks.swift`, `docs/architecture.md`.
+
+2026-11-10 from ASKI-1 (PR https://github.com/BigCactusLabs/Aski/pull/23): the ASKI-1 benchmark run is the before baseline here. On the two rotated end-to-end 720p benchmarks, ASKI-1 cut wall time 33% and 49% but raised peak resident memory by 8.3 MB and 5.3 MB, likely because the vImage preparation path converts each full-size CIContext-oriented frame to an RGBA8 buffer before resampling. Removing the full-size oriented frame here should remove that increase; record it in AC4.
 <!-- SECTION:NOTES:END -->

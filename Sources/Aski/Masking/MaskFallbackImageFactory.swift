@@ -60,11 +60,11 @@ internal enum MaskFallbackImageFactory {
         extent: CGRect,
         colorSpace: RenderColorSpace
     ) -> CIImage {
+        // Every caller color, including Generic RGB, is color-matched from its
+        // declared space into the grid's render space.
         let target = EffectsRenderEngine.renderColorSpaceCG(colorSpace)
         let ci: CIColor
-        if let literalRGB = literalRGBColor(color) {
-            ci = literalRGB
-        } else if let converted = color.converted(to: target, intent: .perceptual, options: nil) {
+        if let converted = color.converted(to: target, intent: .perceptual, options: nil) {
             ci = CIColor(cgColor: converted)
         } else if color.colorSpace?.model == .monochrome, let white = color.components?.first {
             ci = CIColor(red: white, green: white, blue: white, alpha: color.alpha)
@@ -96,40 +96,6 @@ internal enum MaskFallbackImageFactory {
                 colorSpace: target
             ) ?? normalized
         return CIImage(color: tagged).cropped(to: extent)
-    }
-
-    private static func literalRGBColor(_ color: CGColor) -> CIColor? {
-        guard color.colorSpace?.model == .rgb,
-            let components = color.components,
-            components.count >= 3,
-            shouldTreatAsLiteralRGB(color.colorSpace)
-        else {
-            return nil
-        }
-        return CIColor(
-            red: CGFloat(components[0]),
-            green: CGFloat(components[1]),
-            blue: CGFloat(components[2]),
-            alpha: color.alpha
-        )
-    }
-
-    private static func shouldTreatAsLiteralRGB(_ colorSpace: CGColorSpace?) -> Bool {
-        guard let colorSpace else { return true }
-        guard let name = colorSpace.name else { return true }
-        return isGenericRGB(name)
-    }
-
-    /// `CGColorSpace.genericRGB` is unavailable in Swift, so read the name from
-    /// the space `CGColor(red:green:blue:alpha:)` produces. Cached as `String`
-    /// because `CFString` is not `Sendable`.
-    private static let genericRGBName: String? = {
-        let space = CGColor(red: 0, green: 0, blue: 0, alpha: 1).colorSpace
-        return space?.name as String?
-    }()
-
-    static func isGenericRGB(_ name: CFString) -> Bool {
-        (name as String) == genericRGBName
     }
 
     private static func makeCharacterFallback(

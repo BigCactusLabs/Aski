@@ -6,6 +6,16 @@ Turn an ``ASCIIGrid`` into plain text, an attributed string, or a `CGImage`.
 
 Conversion and rendering are separate stages: an ``ASCIIConverter`` produces an ``ASCIIGrid``, and the grid renders itself. All three renderers are methods on ``ASCIIGrid``, so one conversion can feed any number of output formats. Each renderer honors the grid's mask state (per-cell `coverage` and the grid's ``MaskFallback``) in a way appropriate to its medium.
 
+Manually constructed grids can have rows of different lengths. ``ASCIIGrid/columns``
+is the widest row, and ``ASCIIGrid/rows`` counts all supplied rows, including empty
+ones. Images allocate that rectangular canvas; plain and attributed text keep the
+supplied row lengths without padding. Missing cells add no glyph, mask ground, or
+fallback paint. Mask composition keeps the canvas background at those positions,
+including clipping any color-overlay or per-character effect spill at the missing
+cell boundary. Lighting and whole-image effects run afterward and can change those
+pixels. A supplied cell with zero coverage still uses its configured fallback.
+Converter-produced grids are rectangular.
+
 ## Plain text
 
 ``ASCIIGrid/renderPlainText()`` emits a newline-separated `String` — no color, glyphs only.
@@ -60,6 +70,13 @@ unchanged. When upgrading, review saved render references and remove any manual
 palette compensation for the old raster output. Use explicitly tagged `CGColor`
 values for backgrounds, mask fallbacks, and ground colors when exact color intent
 matters.
+
+Solid mask fallback and mask ground colors follow the same rule on every raster
+path: the `CGColor` is interpreted in its declared color space and color-matched
+into the grid's gamut, including Generic RGB colors from
+`CGColor(red:green:blue:alpha:)`. Engine gamut adaptation converts them from that
+declared space. For the old literal meaning on effects, async, and engine paths,
+tag the components with the grid's space. See <doc:Masking>.
 
 ### Exact pixel width
 

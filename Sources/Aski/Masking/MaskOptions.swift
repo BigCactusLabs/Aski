@@ -10,8 +10,9 @@ public struct MaskOptions: Sendable {
     public let image: CGImage
     /// Content rendered behind cells where coverage is below 1.
     public let fallback: MaskFallback
-    /// Raster color rendered behind active glyphs or tiles. A nil, zero-alpha,
-    /// or non-finite-alpha value has no raster effect.
+    /// Raster color rendered behind active glyphs or tiles. It is interpreted in
+    /// its declared color space and color-matched into the grid's render color
+    /// space. A nil, zero-alpha, or non-finite-alpha value has no raster effect.
     public let groundColor: CGColor?
     /// When true, grayscale luminance is preserved as continuous coverage.
     /// When false, luminance is thresholded at 0.5 before optional inversion.

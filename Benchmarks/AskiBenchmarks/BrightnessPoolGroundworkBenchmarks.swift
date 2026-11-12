@@ -7,7 +7,7 @@ func addBrightnessPoolGroundworkBenchmarks() {
     for count in [8, 95, 256] {
         for limit in [1, 12, 24, 36, count, count + 1] {
             Benchmark("aski88-pool-n\(count)-k\(limit)-batch64", configuration: brightnessPoolConfiguration()) { benchmark in
-                // Shuffled finite inputs with duplicates; fixture setup excluded.
+                // Shuffled finite inputs, duplicates at n=256; fixture setup excluded.
                 let brightness = (0..<count).map { Float(($0 * 37) % 129) / 128 }
                 let queries = (0..<64).map { Float($0) / 64 }
                 benchmark.startMeasurement()

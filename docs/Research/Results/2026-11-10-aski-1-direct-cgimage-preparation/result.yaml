@@ -1,0 +1,39 @@
+---
+schema_version: "1"
+date: 2026-11-10
+aski_git_sha: 05af50c
+runner: AskiColorLab
+command: "aski lab color selection-ceiling --charset <cs> --columns <76|80> --oversample <2|2,4,8,16,32> --corpus docs/Research/Corpus/<nasa-steerable-v1|nasa-structure-v1>/assets --output <csv>  (five invocations per side, identical flags, run as `xcrun swift run --skip-build -c release aski lab color selection-ceiling ...` after one release build; before/ built at 954a1c5, after/ at 05af50c)"
+provenance:
+  - "Reading rule frozen in docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md section 3, committed at 091eaef before any census number was read"
+  - "before/: worktree detached at 954a1c5 (main d53570d plus the ASKI-1 benchmark file; library code identical to main); release build"
+  - "after/: worktree on branch aski-1-direct-cgimage-preparation at 05af50c, the ASKI-1 implementation commit; release build"
+  - "Instrument diff across the boundary (Tools/AskiColorLab) is comment-only; both sides score against the native block the converter's own SamplingGeometry read"
+  - "Both sides ran concurrently under the shared machine lock; the census is deterministic and records no timing it depends on (selectionWallSeconds is informational)"
+  - "Release build (.build/release), macOS, owner hardware; the gitSHA column of each CSV records the side"
+datasets:
+  - docs/Research/Corpus/nasa-steerable-v1
+  - docs/Research/Corpus/nasa-structure-v1
+outputs:
+  - before/frozen-steer.csv
+  - before/frozen-struct.csv
+  - before/sweep-steer.csv
+  - before/default-struct.csv
+  - before/braille-steer.csv
+  - before/frozen-steer.txt
+  - before/frozen-struct.txt
+  - before/sweep-steer.txt
+  - before/default-struct.txt
+  - before/braille-steer.txt
+  - after/frozen-steer.csv
+  - after/frozen-struct.csv
+  - after/sweep-steer.csv
+  - after/default-struct.csv
+  - after/braille-steer.csv
+  - after/frozen-steer.txt
+  - after/frozen-struct.txt
+  - after/sweep-steer.txt
+  - after/default-struct.txt
+  - after/braille-steer.txt
+summary: "ASKI-1 no-harm census across the direct CGImage preparation change. Production-arm MAE on the frozen preset (blocks, 76 columns, oversample 2) moves by x1.0000 on nasa-steerable-v1 and x0.9991 on nasa-structure-v1, inside the pre-registered 1.01 guard; GMSD x1.0000 and x1.0009 (a labelled direction disagreement on nasa-structure-v1). Every secondary arm stays within 0.1 percent of parity. Verdict: docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md."
+---

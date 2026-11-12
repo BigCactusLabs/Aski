@@ -13,7 +13,7 @@ struct LogPolarKernelTests {
     /// differ for at least one of the cells across the image.
     ///
     /// Tested at the kernel level (not the converter) because the converter's
-    /// thumbnail step shrinks default-call cell sizes to 2×N, below the
+    /// preparation step shrinks default-call cell sizes to 2×N, below the
     /// Sobel guard `w >= 3, h >= 3`.
     @Test func edgeEmphasisChangesPickedGlyph() {
         let cellWidth = 16

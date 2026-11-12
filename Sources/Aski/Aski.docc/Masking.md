@@ -27,6 +27,21 @@ The mask image is drawn into the output grid's exact `columns x rows` cell size.
 
 `softEdges: true` preserves grayscale luminance as coverage. `softEdges: false` thresholds luminance at `0.5`. `invert: true` flips coverage after thresholding, so hard inverted masks remain binary.
 
+### Coverage weight
+
+Coverage is a linear weight. A cell with coverage `c` keeps `c` of the active branch and `1 - c` of the inactive branch, so at `c = 0.5` a fallback and a ground each appear at half their alpha. Every raster path applies the same weight: direct and target-width ASCII, tile rendering, effects and async rendering, `renderCIImage`, and ``AskiRenderEngine``. A `renderCIImage` result keeps that weight in whatever working space the consuming `CIContext` uses.
+
+In a manually constructed ragged ``ASCIIGrid``, a missing position is different
+from a supplied cell with zero coverage: it keeps the canvas during mask
+composition instead of selecting the fallback. See <doc:Rendering> for the row
+geometry and the boundary between mask composition and effects.
+
+The weight is the same everywhere, but the colors it mixes are combined in each path's compositing space. Core Graphics paths under the default ``RenderCompositionPolicy/encodedDisplay8Bit`` mix encoded values; Core Image paths (effects, async, `renderCIImage`, the engine, and any render with a ground) mix in linear light. Where both branches are opaque, a soft edge can therefore differ between paths: a white fallback over a black background at `c = 0.5` is `#808080` from direct ASCII rendering and about `#BBBBBB` from the effects path. Over transparent content the alpha is identical.
+
+This follows how [CSS Masking Level 1](https://www.w3.org/TR/css-masking-1/#MaskValues) applies a mask: the mask value multiplies the masked content's alpha, with no transfer function in between. [PNG](https://www.w3.org/TR/png-3/#4Concepts.ColourSpaces) defines alpha the same way, as a linear fraction of full opacity that gamma correction does not touch. Aski derives coverage the way a CSS luminance mask does with its default `color-interpolation: sRGB`: luminance is computed from the mask's sRGB-encoded channel values.
+
+Earlier releases weighted soft edges differently on the Core Image paths; the ASKI-101 entry in the [changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) lists the old weights.
+
 ## Active-Region Grounds
 
 ``BuiltInPalette/fullColor`` keeps each glyph close to its source cell's color. When those glyphs are composited over the same photograph, they can merge visually with the image. Set ``MaskOptions/groundColor`` to put a caller-selected raster color behind glyphs or tiles only in the active mask branch.
@@ -52,7 +67,7 @@ let mask = MaskOptions(
     image: maskCGImage,
     fallback: .originalImage(sourceImage, sizing: .fill),
     groundColor: CGColor(
-        red: groundComponent,
+        srgbRed: groundComponent,
         green: groundComponent,
         blue: groundComponent,
         alpha: 1
@@ -135,6 +150,12 @@ When `--write-manifest` is present, render-manifest v1 adds a `mask` block only 
 Fallbacks are never painted as a full backing layer. Without an effective ground, the renderer retains the legacy coverage path and an all-white mask renders identically to an unmasked grid. With a positive-alpha ground, the fallback completes the inactive branch and the ground completes the active branch before final coverage interpolation. A ground still applies when the sampled mask is entirely white.
 
 Plain-text and attributed-string renderers threshold coverage at `0.5`: visible cells render normally, masked-out cells render the replacement character when ``MaskFallback/character(_:color:)`` is set, and otherwise render as spaces. These text renderers ignore ``MaskOptions/groundColor`` because it is a raster-only option.
+
+### Mask paint color
+
+A ``MaskFallback/solid(_:)`` color and a ``MaskOptions/groundColor`` are interpreted in the color space the `CGColor` declares, then color-matched into the grid's ``RenderColorSpace``. Every raster path does this: direct and target-width ASCII, tile rendering, effects and async rendering, `renderCIImage`, and ``AskiRenderEngine`` when it converts to another gamut. `CGColor(red:green:blue:alpha:)` declares Generic RGB on macOS, so its components are color-matched like any other tagged color, not read as sRGB or Display P3 values. To keep components exact, tag them with the grid's space: `CGColor(srgbRed:green:blue:alpha:)` for an sRGB grid, or `CGColor(colorSpace: CGColorSpace(name: CGColorSpace.displayP3)!, components: [r, g, b, a])` for a Display P3 grid. Core Graphics has no `displayP3Red:` initializer for `CGColor`. The command line builds `--mask-fallback-color` and `--mask-ground` colors as sRGB.
+
+Before ASKI-98, effects, async, `renderCIImage`, and engine renders, and tile renders with a ground or a partly covered mosaic, read Generic RGB and unnamed-RGB mask paint components as values in the grid's gamut. Direct ASCII renders and the direct tile fallback overlay already color-matched them. To reproduce the old numbers on those paths, tag the color with the grid's space as above.
 
 ## Effects
 

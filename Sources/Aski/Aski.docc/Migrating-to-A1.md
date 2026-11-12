@@ -12,9 +12,44 @@ Aski remains pre-1.0. Source APIs and rendered output can change between minor r
 Use an exact published version when reproducibility matters, and review the repository's
 [changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) before upgrading.
 
+## Moving to v0.8.0
+
+Update the package dependency:
+
+```swift
+.package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.8.0")
+```
+
+### Raster colors
+
+ASCII, tile, and effects rendering now interpret cell colors in the grid's declared
+sRGB or Display P3 space instead of Generic RGB, so raster colors change, including
+mid-gray neutrals. Glyph choices and attributed-string colors do not change. Review saved
+render references and remove any palette compensation for the old output. Build
+background, mask-fallback, and ground colors as explicitly tagged `CGColor` values, for
+example `CGColor(srgbRed:green:blue:alpha:)`. See <doc:Rendering> for the details.
+
+The CLI builds `--background`, `--mask-fallback-color`, and `--mask-ground` in sRGB, so
+`--background "#808080"` now writes `#808080` pixels where it previously wrote
+`#929292`. Regenerate saved CLI renders before comparing them.
+
+### GIF loop counts
+
+``ASCIIGIFEncoder`` accepts `loopCount` in `0...32767` and throws
+``GIFEncodeError/invalidLoopCount(_:)`` for any other value instead of writing it. Add a
+branch for that case to any exhaustive `switch` over ``GIFEncodeError``, and validate or
+override source loop counts outside the range. ``GIFEncodeReport/loopCount`` now reports
+the value read back from the written file. See <doc:Video>.
+
+### CLI output destinations
+
+`aski render --output` writes directly to `/dev/null` and `/dev/stdout`. Other special
+destinations, such as FIFOs, are rejected before any output changes; PNG and manifest
+destinations must be regular files. See <doc:CommandLine>.
+
 ## Moving to v0.7.0
 
-Once the public tag is published, update the package dependency:
+Update the package dependency:
 
 ```swift
 .package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.7.0")

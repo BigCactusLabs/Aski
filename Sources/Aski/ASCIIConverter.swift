@@ -272,22 +272,20 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         let maskGroundColor = sampledCoverage == nil ? nil : mask?.groundColor
         let maskUsesHardEdges = sampledCoverage == nil ? false : !(mask?.softEdges ?? true)
 
-        // Sampling contract (ASKI-25, ASKI-65). The cell pitch is the FLOORED
-        // integer quotient, so it stays uniform across the grid, but the raster
-        // the samplers read is drawn at exactly `cols*cellWidth ×
-        // rows*cellHeight` rather than at the thumbnail's own size. The
-        // origin-anchored walk therefore tiles the raster exactly: there is no
-        // bottom/right remainder, and the ≤ one-pitch anisotropic rescale folds
-        // what used to be the unread edge back into the sampled cells. Pinned by
-        // `SamplingLatticeContractTests`; `SamplingGeometry.droppedX`/`droppedY`
-        // report the (now always zero) remainder to research callers.
+        // Sampling contract (ASKI-25, ASKI-65, ASKI-1). The cell pitch is the
+        // FLOORED integer quotient of the prepared size, so it stays uniform
+        // across the grid, but the raster the samplers read is produced at
+        // exactly `cols*cellWidth × rows*cellHeight`. The origin-anchored walk
+        // therefore tiles the raster exactly: there is no bottom/right
+        // remainder. A source larger than `maxPixelSize` is resampled straight
+        // to that raster, with no intermediate thumbnail or PNG round-trip.
+        // Pinned by `SamplingLatticeContractTests` and
+        // `TargetSizePreparationTests`; `SamplingGeometry.droppedX`/`droppedY`
+        // report the (always zero) remainder to research callers.
         guard
-            let thumbnail = try? ImageIOThumbnail.decode(
-                image: image,
-                maxPixelSize: maxPixelSize
-            ),
             let lattice = samplingLattice(
-                thumbnail: thumbnail,
+                image: image,
+                maxPixelSize: maxPixelSize,
                 columns: cols,
                 rows: rows,
                 colorSpace: colorSpace
@@ -320,36 +318,39 @@ public struct ASCIIConverter<C: ASCIICharacterSet, P: ASCIIPalette>: Sendable {
         )
     }
 
-    internal func thumbnailMaxPixelSize(image: CGImage, columns: Int, rows: Int) -> Int? {
-        let side = max(columns, rows)
-        let result = side.multipliedReportingOverflow(by: oversample)
-        guard !result.overflow, result.partialValue > 0 else {
+    /// The longest side, in pixels, that `convert(_:columns:)` prepares a
+    /// `sourceWidth × sourceHeight` image at, or `nil` where it returns an
+    /// empty grid. An image decoded to this size is sampled without a further
+    /// downscale.
+    ///
+    /// `package`, not `public`: the command-line loader decodes files through
+    /// ImageIO's `kCGImageSourceThumbnailMaxPixelSize` and sizes that decode
+    /// from this rule. It used to keep its own copy of the rule, which never
+    /// gained the portrait branch of `samplingMaxPixelSize`, so CLI portraits
+    /// were sampled at about half the intended cell width (ASKI-104).
+    package func preparationMaxPixelSize(sourceWidth: Int, sourceHeight: Int, columns: Int) -> Int? {
+        guard
+            let (cols, rows) = gridDimensions(
+                imageWidth: sourceWidth,
+                imageHeight: sourceHeight,
+                columns: columns,
+                tileShape: tileShape
+            )
+        else {
             return nil
         }
-        // `maxPixelSize` caps the thumbnail's LONGEST side, so for a portrait
-        // image the width lands below `columns * oversample`, and once
-        // `thumbnail.width / columns` truncates to <2 px the log-polar
-        // histogram's radius gate excludes every pixel — a zero descriptor
-        // exactly matches the space glyph and the whole render goes blank.
-        // Cap the longest side (the height) at exactly what keeps the WIDTH
-        // on the `columns * oversample` budget. Derive it from `columns`, not
-        // `max(columns, rows)`: for tall sources `rows` already encodes the
-        // aspect ratio, and scaling it by height/width again would inflate
-        // the cap quadratically (a long screenshot could bypass thumbnail
-        // downscaling entirely). Square and landscape inputs are untouched
-        // (bit-identical output).
-        guard image.height > image.width, image.width > 0 else {
-            return result.partialValue
-        }
-        let widthBudget = columns.multipliedReportingOverflow(by: oversample)
-        guard !widthBudget.overflow else { return nil }
-        let scaled = (Double(widthBudget.partialValue) * Double(image.height) / Double(image.width))
-            .rounded(.up)
-        // `scaled` is a derived thumbnail dimension. `Double(Int.max)` rounds
-        // to the first unrepresentable 64-bit integer, so stay strictly inside
-        // the named `Int` bound before converting.
-        guard scaled.isFinite, scaled > 0, scaled < Double(Int.max) else { return nil }
-        return Int(scaled)
+        return thumbnailMaxPixelSize(width: sourceWidth, height: sourceHeight, columns: cols, rows: rows)
+    }
+
+    internal func thumbnailMaxPixelSize(image: CGImage, columns: Int, rows: Int) -> Int? {
+        thumbnailMaxPixelSize(width: image.width, height: image.height, columns: columns, rows: rows)
+    }
+
+    /// The longest side a `width × height` source is prepared at for a
+    /// `columns × rows` grid: the size rule shared with `TileGridConverter`
+    /// (`samplingMaxPixelSize`).
+    internal func thumbnailMaxPixelSize(width: Int, height: Int, columns: Int, rows: Int) -> Int? {
+        samplingMaxPixelSize(width: width, height: height, columns: columns, rows: rows, oversample: oversample, tileShape: tileShape)
     }
 
     private func makeGrid(

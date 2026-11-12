@@ -1,6 +1,6 @@
 # ASKI-88: exact brightness-pool selection groundwork
 
-Prepared against PR #11 at `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`.
+Initially prepared against PR #11 at `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`.
 Recovered files are committed at `dd9e8ab96322a765dc3ee21b2a82e3c5a2021a1f`;
 verification below was repeated on 2026-10-27 rather than inferred from the
 interrupted upload. Production source and existing benchmark budgets are unchanged.
@@ -70,7 +70,7 @@ all-equal inputs. Each pass rotates/reverses arm order and warms each arm.
 Every output position contributes to a checked checksum. Wall and process CPU
 include checksum work and call overhead. These are 72 synthetic configurations,
 not 72 independent product workloads or chronological histogram samples.
-Do not interpret this shared Linux host as an Apple performance or allocation test.
+Synthetic probe timings do not establish Aski conversion speed or allocation cost.
 
 ## Native instruments and remaining integration
 
@@ -96,7 +96,11 @@ against a frozen control, including forced serial/parallel conversion, both quer
 polarities, edge emphasis, and representative mixed-tone inputs. Keep the SIMD
 reduction expression and accumulation order unchanged. Pool construction currently
 appears separately in `findBestScored`, `findRanked` and `findRankedScored`; optimizing
-only the research `poolIndices` entry point will not accelerate conversion.
+only `poolIndices` does not optimize those paths. `poolIndices` also serves the
+production tone fallback for degenerate cell footprints in
+`LogPolarKernel.degenerateToneRanking`, with K equal to the result limit (1 for a
+single pick, or the cycling stride). Add explicit degenerate-footprint coverage
+before changing it; this matrix is not evidence for that path.
 `findBestScored` is `@inlinable`, so any shared internal helper must also satisfy
 Swift's inlinable visibility rules without adding a public API just for the probe.
 
@@ -109,9 +113,10 @@ just check
 ```
 
 For a subsequent production candidate, keep a clean control at this groundwork
-revision with identical instruments. Install and commit the same complete-capture
-validator from [PR #7](https://github.com/BigCactusLabs/Aski/pull/7) in both measured
-worktrees; record their final SHAs, lockfile, toolchain and allocator identity.
+revision with identical instruments. The complete-capture validator is merged on
+`main`; freeze the same checked-in
+[`Scripts/validate-benchmarks.py`](../../Scripts/validate-benchmarks.py) in both
+measured worktrees. Record their final SHAs, lockfile, toolchain and allocator identity.
 Run the validator with `--filter '^aski88-.*$'` and require `cpuTotal`,
 `mallocCountTotal`, and `peakMemoryResident` as well as its mandatory wall time.
 Require the complete 42-name inventory; retain failures and missing counters.
@@ -129,7 +134,7 @@ cache requires setup-inclusive evidence before this rule can promote it.
 
 ## Repeated verification and status
 
-Linux x86_64, Swift 6.2.1, Python 3.13.5:
+Initial Linux evidence (x86_64, Swift 6.2.1, Python 3.13.5):
 
 - 12 Swift Testing functions passed in release mode, representing 18 concrete
   executions across two suites, with complete strict concurrency and warnings-as-errors.
@@ -142,9 +147,10 @@ Linux x86_64, Swift 6.2.1, Python 3.13.5:
 - The manifest has 42 unique IDs; removing the single new registration restores
   the base registry byte-for-byte. Python 3.8 grammar parsing passed.
 
-The native ranking tests, 42 benchmarks, Apple build, real allocation/RSS
-measurement, and converted-grid parity remain **unverified**. `just check` was
-attempted and exited 127 because `just` is unavailable; Xcode/Apple frameworks
-are absent too. Only the focused Python suite ran, not all infrastructure tests.
-Backlog files are untouched because the required CLI is unavailable. ASKI-88 is
-not closed, and neither experimental arm is adopted in production.
+That environment could not run the Apple gate (`just` and Apple frameworks were
+absent). On 2026-11-12 the source-pinned portable probe also passed on arm64 macOS
+with Apple Swift 6.4, strict concurrency and warnings-as-errors, without timing.
+Use the native commands above to validate a particular checkout; PR validation
+records identify the tested revision. The 42-workload paired measurements, real
+allocation/RSS evidence and converted-grid parity remain future adoption work.
+ASKI-88 is not closed, and neither experimental arm is adopted in production.

@@ -41,7 +41,7 @@ charcoal ground visible, preserving figure/ground separation.
 
 Golden tests protect intentional recipe changes. A bundled font reduces one source of
 variation; it does **not** guarantee identical Core Text or GPU output on every OS and
-device. The v0.7.0 render goldens were recorded on macOS 27 / Xcode 27. Compare on the
+device. The render goldens were recorded on macOS 27 / Xcode 27. Compare on the
 recorded toolchain before deciding that a snapshot difference is a preset regression.
 
 The current matcher has measured limitations even on this preset. See <doc:Algorithms>

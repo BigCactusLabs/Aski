@@ -39,7 +39,7 @@ relative to the manifest. List pairs chronologically; either arm may start a pai
   "control_revision": "<full 40-character control SHA>",
   "candidate_revision": "<full 40-character candidate SHA>",
   "expected_workloads": ["<every selected workload ID>"],
-  "required_metrics": ["wallClock", "cpuTotal", "mallocCountTotal"],
+  "required_metrics": ["wallClock", "mallocCountTotal"],
   "decision_rule": {
     "reference": "<committed rule path and SHA>",
     "declared_at": "<pre-run ISO-8601 timestamp with timezone>",
@@ -63,10 +63,20 @@ relative to the manifest. List pairs chronologically; either arm may start a pai
 ```
 
 The 5%/3% bars above reflect the existing experiment proposals. They do not modify
-the Swift benchmark thresholds. Add `peakMemoryResident` for experiments requiring
-RSS; requiring it here cannot make a capture that omitted the counter valid.
-Only lower-is-better cost metrics are compared. Throughput and signed-delta metrics
-may be integrity-checked as optional exports, but are not comparison requirements.
+the Swift benchmark thresholds. Every required metric applies to every selected
+workload. Check their configured metrics before capture, and pass each requirement
+as `--require-metric` to the capture command (`wallClock` is already required).
+Split inventories with different available metrics into separate manifests.
+
+The default workloads do not collect `cpuTotal`; require it only for workloads
+configured to export it. Memory counters also differ: `allocatedResidentMemory`
+may be unavailable on the active backend, and selected video/preparation workloads
+collect `peakMemoryResidentDelta`. Neither is a substitute for a task's absolute
+process peak-RSS requirement. If that measurement is needed, establish the same
+measurement setup on both arms before capture; requiring a missing counter here
+cannot collect it. Only lower-is-better cost metrics are compared. Throughput and
+signed-delta metrics may be integrity-checked as optional exports, but are not
+comparison requirements.
 
 ## Run and interpret
 
