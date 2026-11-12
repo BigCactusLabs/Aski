@@ -184,6 +184,10 @@ internal enum EffectsRenderEngine {
         scale: CGFloat,
         extent: CGRect
     ) -> MaskRenderInput? {
+        let cellSize = CGSize(
+            width: font.pointSize * 0.6 * scale,
+            height: font.pointSize * 1.2 * scale
+        )
         if let groundColor = effectiveMaskGroundColor(grid.maskGroundColor) {
             let coverage = CoverageImageBuilder.makeASCII(
                 grid: grid,
@@ -207,7 +211,8 @@ internal enum EffectsRenderEngine {
                     groundColor,
                     extent: extent,
                     colorSpace: grid.colorSpace
-                )
+                ),
+                presence: CoverageImageBuilder.makeASCIIPresence(grid: grid, cellSize: cellSize, extent: extent)
             )
         }
 
@@ -228,7 +233,11 @@ internal enum EffectsRenderEngine {
             colorSpace: grid.colorSpace
         )
         guard let fallbackImage else { return nil }
-        return MaskRenderInput(coverage: coverage, fallback: fallbackImage)
+        return MaskRenderInput(
+            coverage: coverage,
+            fallback: fallbackImage,
+            presence: CoverageImageBuilder.makeASCIIPresence(grid: grid, cellSize: cellSize, extent: extent)
+        )
     }
 
     static func renderASCIIGridSync(
@@ -566,12 +575,23 @@ internal enum EffectsRenderEngine {
             }
         }
 
+        let maskedComposition =
+            if let presence = renderMask?.presence {
+                MaskCompositor.blendWithMask(
+                    source: composited,
+                    background: canvas,
+                    mask: presence,
+                    extent: extent
+                )
+            } else {
+                composited
+            }
         try checkpoint()
         let lit: CIImage
         if let lighting {
-            lit = LightingApplicator().apply(lighting, to: composited, in: context)
+            lit = LightingApplicator().apply(lighting, to: maskedComposition, in: context)
         } else {
-            lit = composited
+            lit = maskedComposition
         }
         return (lit, context)
     }

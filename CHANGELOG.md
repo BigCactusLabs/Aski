@@ -49,6 +49,17 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
+- **Landscape `.tall` sampling keeps the requested sample size (ASKI-106).** Both
+  `ASCIIConverter` and `TileGridConverter` now prepare enough source pixels for
+  `oversample` on both cell axes when downscaling landscape images with `.tall`.
+  This changes colors and glyph choices for affected inputs and prevents empty
+  grids at `oversample: 1`. Small sources are not upscaled. `.square`, `.wide`,
+  portrait sampling, and the frozen Vesper preset keep their previous behavior.
+- **Ragged ASCII grids use their widest row (ASKI-7).** Longer later rows are no
+  longer clipped, and an empty first row no longer hides later content. Text keeps
+  the supplied row lengths. Missing cells retain the canvas background during mask
+  composition instead of receiving mask ground or fallback paint; lighting and
+  whole-image effects still apply afterward. Rectangular grids are unchanged.
 - **Mask paint is color-matched on every render path (ASKI-98).** `MaskFallback.solid(_:)` and
   `MaskOptions.groundColor` colors are interpreted in the color space their `CGColor` declares
   and color-matched into the grid's render color space on every raster path, including effects,

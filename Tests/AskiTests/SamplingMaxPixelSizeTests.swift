@@ -87,7 +87,7 @@ import Testing
                         let (cols, rows) = gridDimensions(
                             imageWidth: width, imageHeight: height, columns: columns, tileShape: shape),
                         let cap = samplingMaxPixelSize(
-                            width: width, height: height, columns: cols, rows: rows, oversample: oversample),
+                            width: width, height: height, columns: cols, rows: rows, oversample: oversample, tileShape: shape),
                         let size = preparedSize(width: width, height: height, maxPixelSize: cap)
                     else {
                         failures.append("\(width)x\(height) c\(columns): no geometry")
@@ -106,13 +106,14 @@ import Testing
         #expect(failures.isEmpty, "\(failures.prefix(10))")
     }
 
-    /// Square and landscape sources keep `max(columns, rows) * oversample`, so
-    /// their output is unchanged.
+    /// Square images and landscape images sampled with `.square` or `.wide`
+    /// keep their previous cap, including panoramas whose row count clamps to 1.
     @Test(arguments: [ASCIITileShape.square, .wide, .tall], [1, 2, 4])
     func squareAndLandscapeKeepTheBaseCap(shape: ASCIITileShape, oversample: Int) {
         var failures: [String] = []
         for width in stride(from: 600, through: 4_200, by: 211) {
-            for height in Array(stride(from: 300, to: width, by: 157)) + [width] {
+            let heights = shape == .tall ? [width] : Array(stride(from: 1, to: width, by: 157)) + [width]
+            for height in heights {
                 for columns in [24, 40, 76, 97, 120] {
                     guard
                         let (cols, rows) = gridDimensions(
@@ -122,7 +123,7 @@ import Testing
                         continue
                     }
                     let cap = samplingMaxPixelSize(
-                        width: width, height: height, columns: cols, rows: rows, oversample: oversample)
+                        width: width, height: height, columns: cols, rows: rows, oversample: oversample, tileShape: shape)
                     if cap != max(cols, rows) * oversample {
                         failures.append("\(width)x\(height) c\(columns): cap \(String(describing: cap))")
                     }
@@ -132,10 +133,43 @@ import Testing
         #expect(failures.isEmpty, "\(failures.prefix(10))")
     }
 
+    @Test(arguments: [1, 2, 4])
+    func tallLandscapeCellsKeepTheOversampleOnBothAxes(oversample: Int) {
+        var failures: [String] = []
+        var checked = 0
+        for width in stride(from: 600, through: 4_200, by: 149) {
+            for height in Array(stride(from: 1, through: 32, by: 3))
+                + Array(stride(from: 33, to: width, by: 113)) + [width - 1]
+            {
+                for columns in [24, 40, 76, 97, 120] {
+                    guard
+                        let (cols, rows) = gridDimensions(
+                            imageWidth: width, imageHeight: height, columns: columns, tileShape: .tall),
+                        let cap = samplingMaxPixelSize(
+                            width: width, height: height, columns: cols, rows: rows, oversample: oversample, tileShape: .tall),
+                        let size = preparedSize(width: width, height: height, maxPixelSize: cap)
+                    else {
+                        failures.append("\(width)x\(height) c\(columns): no geometry")
+                        continue
+                    }
+                    guard width > cap else { continue }
+                    checked += 1
+                    if size.width / cols < oversample || size.height / rows < oversample {
+                        failures.append(
+                            "\(width)x\(height) c\(columns): cell \(size.width / cols)x\(size.height / rows)")
+                    }
+                }
+            }
+        }
+        #expect(checked > 3_000)
+        #expect(failures.isEmpty, "\(failures.prefix(10))")
+    }
+
     @Test func overflowingCapsAreNil() {
-        #expect(samplingMaxPixelSize(width: 10, height: 10, columns: Int.max, rows: 1, oversample: 2) == nil)
-        #expect(samplingMaxPixelSize(width: 1, height: 10, columns: Int.max / 2, rows: 1, oversample: 2) == nil)
-        #expect(samplingMaxPixelSize(width: 10, height: 10, columns: 4, rows: 4, oversample: 0) == nil)
+        #expect(samplingMaxPixelSize(width: 10, height: 10, columns: Int.max, rows: 1, oversample: 2, tileShape: .square) == nil)
+        #expect(samplingMaxPixelSize(width: 1, height: 10, columns: Int.max / 2, rows: 1, oversample: 2, tileShape: .square) == nil)
+        #expect(samplingMaxPixelSize(width: 10, height: 1, columns: 1, rows: Int.max / 2, oversample: 2, tileShape: .tall) == nil)
+        #expect(samplingMaxPixelSize(width: 10, height: 10, columns: 4, rows: 4, oversample: 0, tileShape: .square) == nil)
     }
 
     /// Both converters, and the budget each gives the command-line loader
@@ -148,7 +182,7 @@ import Testing
         for shape in [ASCIITileShape.square, .wide, .tall] {
             let (cols, rows) = try #require(
                 gridDimensions(imageWidth: width, imageHeight: height, columns: 60, tileShape: shape))
-            let shared = samplingMaxPixelSize(width: width, height: height, columns: cols, rows: rows, oversample: 3)
+            let shared = samplingMaxPixelSize(width: width, height: height, columns: cols, rows: rows, oversample: 3, tileShape: shape)
             let ascii = ASCIIConverter(
                 characterSet: StandardCharacterSet.blocks,
                 palette: BuiltInPalette.monochrome,
@@ -163,7 +197,7 @@ import Testing
             #expect(
                 TileGridConverter(samplingShape: shape, oversample: 0)
                     .preparationMaxPixelSize(sourceWidth: width, sourceHeight: height, columns: 60)
-                    == samplingMaxPixelSize(width: width, height: height, columns: cols, rows: rows, oversample: 1))
+                    == samplingMaxPixelSize(width: width, height: height, columns: cols, rows: rows, oversample: 1, tileShape: shape))
         }
     }
 
@@ -188,5 +222,51 @@ import Testing
         #expect(context.cellHeight == oversample)
         #expect(context.cellWidth >= oversample)
         #expect(converter.convert(image, columns: 60).rows == 157)
+    }
+
+    // MARK: - Tall landscapes
+
+    @Test(arguments: [(1_280, 960), (1_601, 16), (1_203, 1_199)], [1, 2, 3])
+    func tallLandscapeLatticesKeepTheOversampleOnBothAxes(
+        dimensions: (width: Int, height: Int), oversample: Int
+    ) throws {
+        let image = TestImages.horizontalGradient(width: dimensions.width, height: dimensions.height)
+        let ascii = ASCIIConverter(characterSet: StandardCharacterSet.blocks, palette: BuiltInPalette.monochrome, tileShape: .tall, oversample: oversample)
+        let tile = TileGridConverter(samplingShape: .tall, oversample: oversample)
+        for columns in [24, 60, 97] {
+            let cap = try #require(
+                ascii.preparationMaxPixelSize(sourceWidth: image.width, sourceHeight: image.height, columns: columns))
+            #expect(cap < image.width)
+            let context = try #require(ascii.prepareConversion(image, columns: columns, mask: nil)).context
+            let prepared = try #require(tile.prepareLattice(image, columns: columns))
+            #expect(context.cellWidth >= oversample)
+            #expect(context.cellHeight >= oversample)
+            #expect(prepared.lattice.cellWidth == context.cellWidth)
+            #expect(prepared.lattice.cellHeight == context.cellHeight)
+        }
+    }
+
+    @Test func tallLandscapeConversionsAtOversampleOneAreNotEmpty() {
+        let image = TestImages.horizontalGradient(width: 1_280, height: 960)
+        let ascii = ASCIIConverter(characterSet: StandardCharacterSet.blocks, palette: BuiltInPalette.monochrome, tileShape: .tall, oversample: 1)
+        let tile = TileGridConverter(samplingShape: .tall, oversample: 1)
+        let asciiGrid = ascii.convert(image, columns: 60)
+        let tileGrid = tile.convert(image, columns: 60)
+        #expect(asciiGrid.columns == 60)
+        #expect(asciiGrid.rows == 90)
+        #expect(tileGrid.columns == 60)
+        #expect(tileGrid.rows == 90)
+    }
+
+    @Test func tallLandscapeLatticesDoNotUpscaleSmallSources() throws {
+        let image = TestImages.horizontalGradient(width: 8, height: 4)
+        let ascii = ASCIIConverter(characterSet: StandardCharacterSet.blocks, palette: BuiltInPalette.monochrome, tileShape: .tall, oversample: 3)
+        let tile = TileGridConverter(samplingShape: .tall, oversample: 3)
+        let context = try #require(ascii.prepareConversion(image, columns: 4, mask: nil)).context
+        let prepared = try #require(tile.prepareLattice(image, columns: 4))
+        #expect(context.pixelWidth == image.width)
+        #expect(context.pixelHeight == image.height)
+        #expect(prepared.lattice.pixelWidth == image.width)
+        #expect(prepared.lattice.pixelHeight == image.height)
     }
 }

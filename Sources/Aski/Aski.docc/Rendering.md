@@ -6,6 +6,16 @@ Turn an ``ASCIIGrid`` into plain text, an attributed string, or a `CGImage`.
 
 Conversion and rendering are separate stages: an ``ASCIIConverter`` produces an ``ASCIIGrid``, and the grid renders itself. All three renderers are methods on ``ASCIIGrid``, so one conversion can feed any number of output formats. Each renderer honors the grid's mask state (per-cell `coverage` and the grid's ``MaskFallback``) in a way appropriate to its medium.
 
+Manually constructed grids can have rows of different lengths. ``ASCIIGrid/columns``
+is the widest row, and ``ASCIIGrid/rows`` counts all supplied rows, including empty
+ones. Images allocate that rectangular canvas; plain and attributed text keep the
+supplied row lengths without padding. Missing cells add no glyph, mask ground, or
+fallback paint. Mask composition keeps the canvas background at those positions,
+including clipping any color-overlay or per-character effect spill at the missing
+cell boundary. Lighting and whole-image effects run afterward and can change those
+pixels. A supplied cell with zero coverage still uses its configured fallback.
+Converter-produced grids are rectangular.
+
 ## Plain text
 
 ``ASCIIGrid/renderPlainText()`` emits a newline-separated `String` — no color, glyphs only.

@@ -280,25 +280,37 @@ internal func resampleRGBA8(
 /// could bypass downscaling entirely). The portrait cap never replaces a larger
 /// base cap: a `.tall` sampling shape gives a portrait more rows than its
 /// height/width ratio implies, and the base cap is what keeps those cells
-/// `oversample` pixels high. Square and landscape sources get the base cap
-/// unchanged.
+/// `oversample` pixels high.
+///
+/// For a landscape sampled with `.tall`, the cap falls on the width. Raise it
+/// to keep the HEIGHT on the `rows * oversample` budget (ASKI-106), including
+/// panoramas where the grid has only one row. Other landscapes and square
+/// sources use the base cap.
 internal func samplingMaxPixelSize(
     width: Int,
     height: Int,
     columns: Int,
     rows: Int,
-    oversample: Int
+    oversample: Int,
+    tileShape: ASCIITileShape
 ) -> Int? {
     let base = max(columns, rows).multipliedReportingOverflow(by: oversample)
     guard !base.overflow, base.partialValue > 0 else {
         return nil
     }
-    guard height > width, width > 0 else {
+    let shortSide: Int
+    let longSide: Int
+    let shortSideCells: Int
+    if height > width, width > 0 {
+        (shortSide, longSide, shortSideCells) = (width, height, columns)
+    } else if tileShape == .tall, width > height, height > 0 {
+        (shortSide, longSide, shortSideCells) = (height, width, rows)
+    } else {
         return base.partialValue
     }
-    let widthBudget = columns.multipliedReportingOverflow(by: oversample)
-    guard !widthBudget.overflow else { return nil }
-    let scaled = (Double(widthBudget.partialValue) * Double(height) / Double(width))
+    let shortSideBudget = shortSideCells.multipliedReportingOverflow(by: oversample)
+    guard !shortSideBudget.overflow else { return nil }
+    let scaled = (Double(shortSideBudget.partialValue) * Double(longSide) / Double(shortSide))
         .rounded(.up)
     // `scaled` is a derived prepared dimension. `Double(Int.max)` rounds to the
     // first unrepresentable 64-bit integer, so stay strictly inside the named
@@ -317,9 +329,8 @@ internal func samplingMaxPixelSize(
 /// `CGImage` (ASKI-1). ImageIO floors through an internal power-of-two
 /// subsample before scaling, so its short side could land a pixel below the
 /// floor of the proportional size; rounding never goes below that floor. For
-/// portrait sources, whose `maxPixelSize` is set so the proportional width is
-/// at least the `columns * oversample` budget, the prepared width therefore
-/// never falls under the budget.
+/// sources whose cap protects the short-side budget, rounding therefore keeps
+/// the prepared short side on that budget when downscaling.
 internal func preparedSize(
     width: Int,
     height: Int,

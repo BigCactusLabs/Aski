@@ -3,17 +3,17 @@ id: ASKI-39
 title: >-
   Video effects E2E frame-count assertion is contention-flaky under wide test
   filters
-status: To Do
+status: Done
 assignee: []
-created_date: '2026-08-20 04:15'
-updated_date: '2026-09-16 17:37'
+created_date: 2026-08-20 04:15
+updated_date: '2026-11-12T21:28:00Z'
 labels:
   - testing
   - video
   - flake
 dependencies: []
 references:
-  - 'Tests/AskiTests/AskiVideoLabEffectsTests.swift:96'
+  - Tests/AskiTests/AskiVideoLabEffectsTests.swift:96
 priority: medium
 type: bug
 ordinal: 41000
@@ -33,10 +33,16 @@ Filed because the observation would otherwise be lost: it was written to the blo
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The failure either reproduces under deliberate concurrent load, or is shown non-reproducible over a stated number of runs and the task is closed as such
-- [ ] #2 If racy, the assertion no longer depends on timing, and the test passes under load without weakening what it checks
-- [ ] #3 just check passes
+- [x] #1 The failure either reproduces under deliberate concurrent load, or is shown non-reproducible over a stated number of runs and the task is closed as such
+- [x] #2 If racy, the assertion no longer depends on timing, and the test passes under load without weakening what it checks
+- [x] #3 just check passes
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Run a fixed repeated concurrent-load protocol against the current decoded frame-count assertion; retain all results and state the non-reproducible limit if no failure occurs; run the serialized media phase and full local gate without weakening assertions.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
@@ -56,4 +62,12 @@ Constraints and dependencies: PR #13 landed the mitigation in `justfile`: the br
 Validation to run: use a stated repeated concurrent-load protocol to satisfy AC #1, then run the current serialized media command and full `just check`. No build, test, or benchmark was run during this extraction. If the failure stays non-reproducible, record the run count, satisfy the full gate in AC #3, and use the non-reproducible disposition in AC #1; if it reproduces, isolate the timing-independent count source and rerun under load without weakening the assertion.
 
 First step: inspect the current `justfile` partition and `TestGateReuseTests.mediaTestsRunInACompleteSerialPartition`, then perform the deliberate-load reruns against the exact `cappedMP4EffectsDimAndPreserveFrameCount` path.
+
+Protocol fixed before execution: xcrun swift test --skip-build --parallel --maximum-repetitions 20 --repeat-until fail --filter AskiVideoLabEffectsE2ETests. The log confirms each of seven test methods ran 20 times (140 executions), including cappedMP4EffectsDimAndPreserveFrameCount on every repetition. Every target start overlapped another selected test lifetime; this establishes concurrent test overlap, not operation-level media-engine tracing. All passed in 6.510 seconds; no retry was used. AC #2’s conditional fix was unnecessary because no failure reproduced; its exact count assertion was preserved. This result does not establish race freedom or universal host behavior. Swift Testing control semantics were checked against Apple’s current parallelization documentation (https://developer.apple.com/documentation/testing/parallelization.md); suite-local serialization does not isolate unrelated tests. Verified on 2026-11-12 with Xcode 27.0 (27A266a), Apple Swift 6.4, macOS 27.0.1. just check-fast passed 903 tests; exact just check passed 1500 core, 163 serialized media and 2 deadlock tests (1665 total), plus drift checks and DocC. The full gate tested base 3f6da15da41e7f91e58174fcc7ce40fc8d2f6668 plus source/test patch SHA-256 0321f22cae94e808d6c1494a417d75ee1e37ba7c1a7000cad6a9f3d800d6d9f2. Only DocC prose and backlog records changed afterward; final just docc passed. Exact goldens were unchanged. Independent Opus source review and lead review completed.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Closed through AC #1’s stated non-reproducible disposition. The existing six-frame decoded-output and brightness assertions passed in 20 parallel repetitions of the current video effects suite. No video implementation, assertion, threshold or gate-order change was made. The historical root cause remains unknown.
+<!-- SECTION:FINAL_SUMMARY:END -->

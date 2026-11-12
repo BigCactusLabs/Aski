@@ -5,13 +5,15 @@ internal struct MaskRenderInput: Sendable {
     let coverage: CIImage
     let fallback: CIImage?
     let activeGround: CIImage?
+    let presence: CIImage?
 
     var usesGroupedComposition: Bool { activeGround != nil }
 
-    init(coverage: CIImage, fallback: CIImage?, activeGround: CIImage? = nil) {
+    init(coverage: CIImage, fallback: CIImage?, activeGround: CIImage? = nil, presence: CIImage? = nil) {
         self.coverage = coverage
         self.fallback = fallback
         self.activeGround = activeGround
+        self.presence = presence
     }
 }
 
