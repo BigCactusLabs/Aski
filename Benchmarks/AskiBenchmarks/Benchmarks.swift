@@ -48,6 +48,8 @@ let benchmarks: @Sendable () -> Void = {
     addEffectChainBenchmarks()
     addMaskBenchmarks()
     addAnimationBenchmarks()
+    addRenderingGroundworkBenchmarks()
+    addBrightnessPoolGroundworkBenchmarks()
     addHelmlabBenchmarks()
     addParallelismCrossoverBenchmarks()
     addVideoPipelineBenchmarks()
