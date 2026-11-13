@@ -2,7 +2,7 @@ import CoreGraphics
 import Foundation
 
 /// One-shot GIF -> ASCII-GIF convenience: decode (streaming) -> convert -> render
-/// -> batch-encode. Generics are confined to this function — the GIF halves never
+/// -> incrementally encode. Generics are confined to this function — the GIF halves never
 /// carry the converter's `<C, P>` parameters.
 ///
 /// `loopCount: nil` PRESERVES the source's reported loop value (1 = once stays
@@ -40,16 +40,22 @@ public func convertGIF<C, P>(
         transform: { converter.convert($0, columns: columns) }
     )
 
-    var rendered: [RenderedGIFFrame] = []
+    let duration = try targetFPS.map { _ in try decoder.containerInfo(ofGIFAt: source).totalDuration } ?? 0
+    let expectedCount =
+        try targetFPS.map {
+            try resamplePreflight(targetFPS: $0, sourceDuration: duration)
+        } ?? header.frameCount
+    let session = try GIFEncodeSession(frameCount: expectedCount, loopCount: resolvedLoop, to: output)
     var resampleReport: ResampleReport?
     if let targetFPS {
-        let info = try decoder.containerInfo(ofGIFAt: source)
         let stats = ResampleStats()
         let resampled = try resampledGIFFrames(
-            stream, targetFPS: targetFPS, sourceDuration: info.totalDuration, into: stats
+            stream, targetFPS: targetFPS, sourceDuration: duration, into: stats
         )
         for try await frame in resampled {
-            rendered.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
+            try autoreleasepool {
+                try session.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
+            }
         }
         resampleReport = ResampleReport(
             requestedFPS: targetFPS,
@@ -61,11 +67,13 @@ public func convertGIF<C, P>(
         )
     } else {
         for try await frame in stream {
-            rendered.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
+            try autoreleasepool {
+                try session.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
+            }
         }
     }
 
-    let base = try ASCIIGIFEncoder().write(rendered, loopCount: resolvedLoop, to: output)
+    let base = try session.finish()
     return GIFEncodeReport(
         framesWritten: base.framesWritten,
         loopCount: base.loopCount,
@@ -80,8 +88,6 @@ public func convertGIF<C, P>(
 /// `async throws` effects overload (preferred in an async context). The
 /// non-`Sendable` `CGColor` stays inside this nonisolated function — no `@Sendable`
 /// closure captures it (the decode `transform` captures only `converter`/`columns`)
-/// — so this is `Sendable`-clean WITHOUT an actor, because export is batch (not the
-/// streaming encoder `convertVideo` feeds, which is why C2a needed `RenderPump`).
 private func renderGIFFrame(
     _ frame: ASCIIGIFFrame,
     font: ASCIIFont,

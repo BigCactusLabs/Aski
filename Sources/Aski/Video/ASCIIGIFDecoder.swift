@@ -45,7 +45,16 @@ public struct ASCIIGIFDecoder: Sendable {
         fromGIFAt url: URL,
         transform: @escaping @Sendable (CGImage) -> ASCIIGrid
     ) -> AsyncThrowingStream<ASCIIGIFFrame, Error> {
-        let session = GIFDecodeSession(url: url, transform: transform)
+        grids(fromGIFAt: url, maximumFrames: nil, transform: transform)
+    }
+
+    /// Package-only cap applied before pulling or transforming the next frame.
+    package func grids(
+        fromGIFAt url: URL,
+        maximumFrames: Int?,
+        transform: @escaping @Sendable (CGImage) -> ASCIIGrid
+    ) -> AsyncThrowingStream<ASCIIGIFFrame, Error> {
+        let session = GIFDecodeSession(url: url, maximumFrames: maximumFrames, transform: transform)
         // MUST be `unfolding:` — the unfolding closure is `@Sendable` and captures
         // only the `session` actor reference (Sendable), so it compiles under strict
         // 6. Pull-based: one decoded frame per `next()`; nil ends the stream.
@@ -87,6 +96,7 @@ private actor GIFDecodeSession {
     private let queue = DispatchSerialQueue(label: "art.aski.gif.decode")
     nonisolated var unownedExecutor: UnownedSerialExecutor { queue.asUnownedSerialExecutor() }
 
+    private let maximumFrames: Int?
     private let url: URL
     private let transform: @Sendable (CGImage) -> ASCIIGrid
     private var source: CGImageSource?
@@ -95,7 +105,8 @@ private actor GIFDecodeSession {
     private var started = false
     private var finished = false
 
-    init(url: URL, transform: @escaping @Sendable (CGImage) -> ASCIIGrid) {
+    init(url: URL, maximumFrames: Int?, transform: @escaping @Sendable (CGImage) -> ASCIIGrid) {
+        self.maximumFrames = maximumFrames
         self.url = url
         self.transform = transform
     }
@@ -135,7 +146,7 @@ private actor GIFDecodeSession {
             throw GIFDecodeError.noFrames
         }
         self.source = source
-        self.count = frameCount
+        self.count = min(frameCount, max(0, maximumFrames ?? frameCount))
     }
 
     /// Reads the UNCLAMPED per-frame delay (raw value). Falls back to the clamped

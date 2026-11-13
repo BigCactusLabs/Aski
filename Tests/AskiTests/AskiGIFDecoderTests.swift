@@ -204,7 +204,7 @@ private final class TransformCounter: @unchecked Sendable {
     /// iterator, so the converter never runs on frame index 2. A break-after-pull
     /// loop would convert a 3rd frame before stopping. `frame_count` alone cannot
     /// catch this (it reads 2 either way), so we count transform invocations.
-    @Test func prefixDecodesExactlyNFramesWithoutOverPulling() async throws {
+    @Test(arguments: [false, true]) func prefixDecodesExactlyNFramesWithoutOverPulling(packageCap: Bool) async throws {
         let fixture = GIF89aFixture(
             canvasWidth: 4, canvasHeight: 4,
             colorTable: GIFFixturePalette.table, backgroundColorIndex: 3, netscapeLoop: nil,
@@ -220,14 +220,18 @@ private final class TransformCounter: @unchecked Sendable {
 
         let counter = TransformCounter()
         let stream = ASCIIGIFDecoder().grids(
-            fromGIFAt: url,
+            fromGIFAt: url, maximumFrames: packageCap ? 2 : nil,
             transform: { _ in
                 counter.increment()
                 return ASCIIGrid(cells: [], colorSpace: .sRGB)
             }
         )
         var collected = 0
-        for try await _ in stream.prefix(2) { collected += 1 }
+        if packageCap {
+            for try await _ in stream { collected += 1 }
+        } else {
+            for try await _ in stream.prefix(2) { collected += 1 }
+        }
 
         #expect(collected == 2)
         #expect(counter.value == 2)  // NOT 3 — the converter never runs on the capped frame

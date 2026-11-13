@@ -13,6 +13,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **GIF conversion appends rendered frames incrementally (ASKI-4).** The one-shot
+  converter and VideoLab no longer collect rendered images; target-FPS lab exports
+  also stop collecting source grids. Public signatures and timing rules remain
+  unchanged. GIF writes finalize and validate a file in a private sibling staging directory before
+  replacing the destination. ImageIO memory use still needs native measurement.
+
 - **Log-polar conversions reuse footprint geometry (ASKI-87).** An immutable
   pixel-to-bin map is prepared once per conversion context, with exact scalar
   descriptor and final-grid parity. Five paired runs of the synthetic gradient

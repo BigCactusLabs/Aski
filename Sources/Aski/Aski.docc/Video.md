@@ -28,6 +28,14 @@ let report = try await convertVideo(
 
 `targetFPS` resamples to a constant frame rate; omit it to preserve the source cadence. For GIFs, `loopCount: nil` preserves the source's reported loop value (once stays once, infinite stays infinite), and `maximumFrameCount` (default 10,000) rejects oversized inputs before any decode work.
 
+GIF conversion renders and appends each output frame directly to ImageIO without
+collecting the rendered images. ImageIO can still retain encoding state; this is
+not a guarantee of constant process memory. Output is written to a sibling
+staging directory, finalized and checked before it replaces the destination. A
+conversion failure or cancellation before replacement preserves an existing file.
+The public array-based GIF encoder remains available and uses the same encoding
+and replacement path.
+
 The GIF encoder accepts `loopCount` in `0...32767`: `0` means infinite playback,
 `1` means play once, and `2...32767` gives the total number of plays. These values
 round-trip through ImageIO for both one-frame and multi-frame GIFs on the recorded

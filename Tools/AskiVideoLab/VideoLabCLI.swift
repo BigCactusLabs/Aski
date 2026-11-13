@@ -115,49 +115,52 @@ public enum VideoLabCLI {
                 let header = try decoder.containerHeader(ofGIFAt: inputURL)
                 try validateGIFFrameBudget(frameCount: header.frameCount, maxFrames: arguments.maxFrames)
                 let stream = decoder.grids(
-                    fromGIFAt: inputURL,
+                    fromGIFAt: inputURL, maximumFrames: arguments.maxFrames,
                     transform: { converter.convert($0, columns: arguments.columns) }
                 )
-                var rendered: [RenderedGIFFrame] = []
-                var delays: [TimeInterval] = []
+                let sourceCount = min(header.frameCount, arguments.maxFrames ?? header.frameCount)
+                let sourceDuration =
+                    try arguments.targetFPS.map { _ in
+                        try decoder.containerInfo(ofGIFAt: inputURL).frameDelays.prefix(sourceCount).reduce(0, +)
+                    } ?? 0
+                let expectedCount =
+                    try arguments.targetFPS.map {
+                        try resamplePreflight(targetFPS: $0, sourceDuration: sourceDuration)
+                    } ?? sourceCount
+                let session = try GIFEncodeSession(frameCount: expectedCount, loopCount: header.loopCount, to: asciiURL)
+                var delayMin = Double.greatestFiniteMagnitude
+                var delayMax = 0.0
+                var firstDelay: TimeInterval?
+                var delayUniform = true
                 // Accumulated OUTPUT presentation time (running sum of emitted-frame
                 // delays, AFTER any --target-fps resample). `ASCIIGIFFrame` carries no
                 // PTS, so this is the global-phase clock for the overlay on the GIF
                 // path — the analogue of `ASCIIVideoFrame.time` on the MP4 paths.
                 var patternTime: TimeInterval = 0
-                func collect(_ frame: ASCIIGIFFrame) {
-                    rendered.append(
-                        GIFRenderHelper.render(
-                            frame, font: font, backgroundColor: background, scale: scale,
-                            pattern: arguments.ongoingPattern, effects: arguments.effects, at: patternTime
-                        ))
-                    delays.append(frame.delay)
+                func collect(_ frame: ASCIIGIFFrame) throws {
+                    try autoreleasepool {
+                        try session.append(
+                            GIFRenderHelper.render(
+                                frame, font: font, backgroundColor: background, scale: scale,
+                                pattern: arguments.ongoingPattern, effects: arguments.effects, at: patternTime
+                            ))
+                    }
+                    delayMin = min(delayMin, frame.delay)
+                    delayMax = max(delayMax, frame.delay)
+                    if let firstDelay {
+                        delayUniform = delayUniform && abs(frame.delay - firstDelay) < 1e-6
+                    } else {
+                        firstDelay = frame.delay
+                    }
                     patternTime += frame.delay
                 }
-                // `.prefix(limit)` stops WITHOUT pulling the (limit+1)th element, so
-                // exactly `limit` frames are decoded+converted — matching the MP4
-                // CappedRenderDriver's "check remaining before next()" contract and
-                // the addendum's literal `grids(...).prefix(N)`. A plain
-                // `for-await ... { if count >= limit { break } }` would pull AND run
-                // the converter on one extra frame before breaking.
+                // The decoder cap stops before pulling or converting an extra frame.
                 if let targetFPS = arguments.targetFPS {
-                    // Collect the (optionally capped) source frames, then resample.
-                    var sourceFrames: [ASCIIGIFFrame] = []
-                    if let limit = arguments.maxFrames {
-                        for try await frame in stream.prefix(limit) { sourceFrames.append(frame) }
-                    } else {
-                        for try await frame in stream { sourceFrames.append(frame) }
-                    }
-                    let sourceDuration = sourceFrames.reduce(0) { $0 + $1.delay }
-                    let reStream = AsyncThrowingStream<ASCIIGIFFrame, Error> { continuation in
-                        for frame in sourceFrames { continuation.yield(frame) }
-                        continuation.finish()
-                    }
                     let stats = ResampleStats()
                     let resampled = try resampledGIFFrames(
-                        reStream, targetFPS: targetFPS, sourceDuration: sourceDuration, into: stats
+                        stream, targetFPS: targetFPS, sourceDuration: sourceDuration, into: stats
                     )
-                    for try await frame in resampled { collect(frame) }
+                    for try await frame in resampled { try collect(frame) }
                     resampleReport = ResampleReport(
                         requestedFPS: targetFPS,
                         achievedFPS: gifAchievedFPS(targetFPS: targetFPS),
@@ -166,20 +169,12 @@ public enum VideoLabCLI {
                         droppedCount: await stats.droppedCount,
                         duplicatedCount: await stats.duplicatedCount
                     )
-                } else if let limit = arguments.maxFrames {
-                    for try await frame in stream.prefix(limit) { collect(frame) }
                 } else {
-                    for try await frame in stream { collect(frame) }
+                    for try await frame in stream { try collect(frame) }
                 }
-                let report = try await writeReplacingMediaOutput(to: asciiURL) { tempURL in
-                    try ASCIIGIFEncoder().write(rendered, loopCount: header.loopCount, to: tempURL)
-                }
+                let report = try session.finish()
                 peakBytes = await memory.finish()
-                frameCount = rendered.count
-                let delayMin = delays.min() ?? 0
-                let delayMax = delays.max() ?? 0
-                let first = delays.first ?? 0
-                let delayUniform = delays.allSatisfy { abs($0 - first) < 1e-6 }
+                frameCount = report.framesWritten
                 media = GIFMediaSummary(
                     loopCount: report.loopCount,
                     delayMin: delayMin,

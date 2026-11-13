@@ -20,7 +20,7 @@ import Foundation
 /// exceed `Int.max`, and `Int(_:)` traps on that — the Double check throws
 /// `resampledFrameCountExceeded` instead. Only a value already known to be within
 /// `0...maxResampledFrames` is ever converted to `Int`.
-func resamplePreflight(targetFPS: Int, sourceDuration: TimeInterval) throws -> Int {
+package func resamplePreflight(targetFPS: Int, sourceDuration: TimeInterval) throws -> Int {
     guard targetFPS >= 1, targetFPS <= maxTargetFPS else {
         throw ResampleError.invalidTargetFPS(targetFPS)
     }

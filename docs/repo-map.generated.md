@@ -133,7 +133,7 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 
 - `ASCIIGIFConverter.swift` — func convertGIF, func renderGIFFrame
 - `ASCIIGIFDecoder.swift` — struct ASCIIGIFDecoder, actor GIFDecodeSession
-- `ASCIIGIFEncoder.swift` — struct ASCIIGIFEncoder
+- `ASCIIGIFEncoder.swift` — struct ASCIIGIFEncoder, class GIFEncodeSession
 - `ASCIIGIFTypes.swift` — struct ASCIIGIFFrame, struct GIFContainerInfo, enum GIFDecodeError, enum GIFEncodeError, struct GIFEncodeReport, struct RenderedGIFFrame
 - `ASCIIVideoConverter.swift` — actor RenderPump, func convertVideo
 - `ASCIIVideoDecoder.swift` — struct ASCIIVideoDecoder, actor DecodeSession, enum VideoDecodeError, actor VideoFramePrefetchPump, actor VideoFramePrefetchSource
