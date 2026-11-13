@@ -15,6 +15,8 @@ SPEC = importlib.util.spec_from_file_location("brightness_pool_probe", SCRIPT)
 PROBE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PROBE)
 
+CONTROL = Path(__file__).resolve().parent / "fixtures" / "brightness-pool" / "ShapeMatching.swift"
+
 
 class BrightnessPoolProbeTests(unittest.TestCase):
     def setUp(self):
@@ -23,7 +25,7 @@ class BrightnessPoolProbeTests(unittest.TestCase):
         self.root = Path(scratch.name)
 
     def test_extraction_keeps_the_exact_method_and_no_simd_substitute(self):
-        source = (PROBE.ROOT / PROBE.SOURCE).read_bytes()
+        source = CONTROL.read_bytes()
         extracted = PROBE.extract_pool(source).decode()
         self.assertNotIn("import simd", extracted)
         self.assertNotIn("findRanked", extracted)
@@ -33,7 +35,7 @@ class BrightnessPoolProbeTests(unittest.TestCase):
         self.assertEqual(extracted.count("public static func"), 1)
 
     def test_pin_rejects_source_drift_instead_of_guessing(self):
-        source = (PROBE.ROOT / PROBE.SOURCE).read_bytes()
+        source = CONTROL.read_bytes()
         with self.assertRaisesRegex(ValueError, "changed"):
             PROBE.extract_pool(source + b"\n")
 
@@ -71,7 +73,14 @@ class BrightnessPoolProbeTests(unittest.TestCase):
             kwargs["stdout"].write(b"synthetic runner test, not Swift evidence\n")
             return subprocess.CompletedProcess(command, 1 if "test" in command else 0)
 
+        source = CONTROL.read_bytes()
+        read_bytes = Path.read_bytes
+
+        def historical_source(path):
+            return source if path == PROBE.ROOT / PROBE.SOURCE else read_bytes(path)
+
         with patch.object(PROBE.shutil, "which", return_value="synthetic-swift"), \
+             patch.object(Path, "read_bytes", historical_source), \
              patch.object(PROBE.subprocess, "run", side_effect=fake_run), \
              contextlib.redirect_stdout(io.StringIO()):
             code = PROBE.main(["--output-dir", str(output), "--timing"])

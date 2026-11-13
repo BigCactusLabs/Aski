@@ -2,7 +2,7 @@
 import Benchmark
 import CoreGraphics
 
-/// ASKI-88 instruments only. No new budgets and no lab arm in production.
+/// ASKI-88 instruments for the paired full-sort and bounded heap experiment.
 func addBrightnessPoolGroundworkBenchmarks() {
     for count in [8, 95, 256] {
         for limit in [1, 12, 24, 36, count, count + 1] {
@@ -43,6 +43,7 @@ func addBrightnessPoolGroundworkBenchmarks() {
 private func brightnessPoolConfiguration() -> Benchmark.Configuration {
     Benchmark.Configuration(
         metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
+        units: [.mallocCountTotal: .count, .peakMemoryResident: .count],
         warmupIterations: 1, scalingFactor: .one, maxDuration: .seconds(3), maxIterations: 5
     )
 }

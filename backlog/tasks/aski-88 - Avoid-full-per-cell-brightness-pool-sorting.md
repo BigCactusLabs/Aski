@@ -1,10 +1,10 @@
 ---
 id: ASKI-88
 title: Avoid full per-cell brightness pool sorting
-status: To Do
+status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-13T07:58:00Z'
 labels:
   - performance
   - matching
@@ -36,6 +36,14 @@ Source mechanism verified during the 2026-09-29 sweep at c49bbd; impact and an a
 - [ ] #5 If adopted, just check and relevant benchmarks pass without relaxed thresholds or a matcher-policy change.
 <!-- AC:END -->
 
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Route all four existing brightness-pool callers through the lab size-K heap, retaining the existing full-sort path for full pools and nonfinite inputs. Preserve exact Float operations and matcher order.
+2. Use existing rank-counting and wrapper contracts plus native full-sort comparisons of conversion cells, winners, residuals and tone fallback.
+3. Freeze the literal 42-workload inventory and five-pair rule before native captures. After host assignment, validate parity, full gate, original budgets and paired measures before any adoption decision.
+<!-- SECTION:PLAN:END -->
+
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
@@ -48,4 +56,6 @@ First bounded candidate: a size-K selection buffer or heap ordered by that exact
 A precomputed brightness index plus two-sided nearest expansion is a separate possible arm, not an assumed win: descending traversal on the left reverses duplicate-brightness indices, and distinct brightness values can have equal rounded Float distances. Either handle those equal-distance runs explicitly with original-index tie order or reject the arm. Do not sort the bank's canonical glyph arrays or alter nonfinite-input behavior in this performance task. Production code and adoption status are unchanged.
 
 Audit 2026-11-12: public PR #14 (c81861c) landed groundwork: BrightnessPoolContractTests, BrightnessRankingContractTests, Scripts/research/brightness-pool/, docs/agents/brightness-pool-groundwork.md and 42 benchmark definitions. No captures have run. The sort is in findBestScored (CharacterMatcher, sort near :130); findBest wraps it.
+
+Source-only candidate routes all brightness-pool call sites through the bounded lab heap with retained full-sort fallback. Exact parity tests and the 42-workload preregistration are ready for native validation. Native verification, paired timing, and all five acceptance criteria remain open.
 <!-- SECTION:NOTES:END -->

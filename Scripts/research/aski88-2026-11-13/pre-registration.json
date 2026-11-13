@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-88",
+  "declared_at": "2026-11-13T07:56:58.049211+00:00",
+  "base_revision": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "minimum_pairs": 5,
+  "pair_order": [
+    "control,candidate",
+    "candidate,control",
+    "control,candidate",
+    "candidate,control",
+    "control,candidate"
+  ],
+  "selections": {
+    "all": {
+      "workloads": [
+        "aski88-convert-blocks-120cols-k12-serial",
+        "aski88-convert-blocks-80cols-k12-serial",
+        "aski88-convert-braille-120cols-k12-parallel",
+        "aski88-convert-braille-120cols-k12-serial",
+        "aski88-convert-braille-120cols-k36-serial",
+        "aski88-convert-braille-80cols-k12-parallel",
+        "aski88-convert-braille-80cols-k12-serial",
+        "aski88-convert-standard-120cols-k12-parallel",
+        "aski88-convert-standard-120cols-k12-serial",
+        "aski88-convert-standard-120cols-k36-serial",
+        "aski88-convert-standard-80cols-k12-parallel",
+        "aski88-convert-standard-80cols-k12-serial",
+        "aski88-pool-n256-k1-batch64",
+        "aski88-pool-n256-k12-batch64",
+        "aski88-pool-n256-k24-batch64",
+        "aski88-pool-n256-k256-batch64",
+        "aski88-pool-n256-k257-batch64",
+        "aski88-pool-n256-k36-batch64",
+        "aski88-pool-n8-k1-batch64",
+        "aski88-pool-n8-k12-batch64",
+        "aski88-pool-n8-k24-batch64",
+        "aski88-pool-n8-k36-batch64",
+        "aski88-pool-n8-k8-batch64",
+        "aski88-pool-n8-k9-batch64",
+        "aski88-pool-n95-k1-batch64",
+        "aski88-pool-n95-k12-batch64",
+        "aski88-pool-n95-k24-batch64",
+        "aski88-pool-n95-k36-batch64",
+        "aski88-pool-n95-k95-batch64",
+        "aski88-pool-n95-k96-batch64",
+        "aski88-ranked-blocks-120cols-k12-serial",
+        "aski88-ranked-blocks-80cols-k12-serial",
+        "aski88-ranked-braille-120cols-k12-parallel",
+        "aski88-ranked-braille-120cols-k12-serial",
+        "aski88-ranked-braille-120cols-k36-serial",
+        "aski88-ranked-braille-80cols-k12-parallel",
+        "aski88-ranked-braille-80cols-k12-serial",
+        "aski88-ranked-standard-120cols-k12-parallel",
+        "aski88-ranked-standard-120cols-k12-serial",
+        "aski88-ranked-standard-120cols-k36-serial",
+        "aski88-ranked-standard-80cols-k12-parallel",
+        "aski88-ranked-standard-80cols-k12-serial"
+      ],
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident"
+      ],
+      "operations_per_workload": {
+        "aski88-pool-n256-k1-batch64": 64,
+        "aski88-pool-n256-k12-batch64": 64,
+        "aski88-pool-n256-k24-batch64": 64,
+        "aski88-pool-n256-k256-batch64": 64,
+        "aski88-pool-n256-k257-batch64": 64,
+        "aski88-pool-n256-k36-batch64": 64,
+        "aski88-pool-n8-k1-batch64": 64,
+        "aski88-pool-n8-k12-batch64": 64,
+        "aski88-pool-n8-k24-batch64": 64,
+        "aski88-pool-n8-k36-batch64": 64,
+        "aski88-pool-n8-k8-batch64": 64,
+        "aski88-pool-n8-k9-batch64": 64,
+        "aski88-pool-n95-k1-batch64": 64,
+        "aski88-pool-n95-k12-batch64": 64,
+        "aski88-pool-n95-k24-batch64": 64,
+        "aski88-pool-n95-k36-batch64": 64,
+        "aski88-pool-n95-k95-batch64": 64,
+        "aski88-pool-n95-k96-batch64": 64
+      },
+      "batch_attribution": "Pool workloads time64 calls per sample; wall/CPU/malloc may be divided by64 for per-call attribution only. Absolute process peakRSS must never be divided by batch count."
+    }
+  },
+  "primary_wall_workloads": [
+    "aski88-convert-braille-120cols-k12-serial",
+    "aski88-convert-braille-80cols-k12-serial",
+    "aski88-convert-standard-120cols-k12-serial",
+    "aski88-convert-standard-80cols-k12-serial",
+    "aski88-ranked-braille-120cols-k12-serial",
+    "aski88-ranked-braille-80cols-k12-serial",
+    "aski88-ranked-standard-120cols-k12-serial",
+    "aski88-ranked-standard-80cols-k12-serial"
+  ],
+  "benefit_rule": {
+    "every_primary_required": true,
+    "median_paired_percent_at_most": -5,
+    "improving_pairs_at_least": 4
+  },
+  "regression_guards": {
+    "aski88-convert-blocks-120cols-k12-serial": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-blocks-80cols-k12-serial": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-braille-120cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-braille-120cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-braille-120cols-k36-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-braille-80cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-braille-80cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-standard-120cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-standard-120cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-standard-120cols-k36-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-standard-80cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-convert-standard-80cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k1-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k12-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k24-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k256-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k257-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n256-k36-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k1-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k12-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k24-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k36-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k8-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n8-k9-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k1-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k12-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k24-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k36-batch64": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k95-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-pool-n95-k96-batch64": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-blocks-120cols-k12-serial": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-blocks-80cols-k12-serial": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-braille-120cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-braille-120cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-braille-120cols-k36-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-braille-80cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-braille-80cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-standard-120cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-standard-120cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-standard-120cols-k36-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-standard-80cols-k12-parallel": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski88-ranked-standard-80cols-k12-serial": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ]
+  },
+  "regression_rule": {
+    "paired_percent_over": 3,
+    "pairs_at_least": 4
+  },
+  "additional_gates": [
+    "Exact native same-host parity with retained full sort, including tone fallback.",
+    "Full just check and original conversion/animation benchmark gates without threshold changes.",
+    "Coherent source review, identical instruments and pins, and stable observed allocator on one physical Mac.",
+    "Incomplete captures, undefined decision ratios or ambiguous measurements cannot establish adoption."
+  ],
+  "notes": [
+    "All brightness scans and selection setup run inside the measured operation. There is no constructor cache or index.",
+    "The 18 isolated pool workloads measure batches of 64 selections and do not establish conversion benefit.",
+    "Wall regression guards cover blocks, N=8 pool, K>=N pool and forced-parallel cases. CPU, total malloc and absolute sampled peak RSS guard every workload.",
+    "Retain failed/noisy evidence. Disclose ordinary desktop/system background activity, power and thermal conditions.",
+    "The retained source-pinned portable diagnostic is historical and separate from this native experiment."
+  ],
+  "zero_control_guard_policy": {
+    "metrics": [
+      "cpuTotal",
+      "mallocCountTotal"
+    ],
+    "reported_percentage": "undefined when control is zero; never zero-fill the ratio",
+    "guard_pair_classification": {
+      "control_zero_candidate_zero": "no observed increase at the exported metric resolution; count as a non-regressing pair",
+      "control_zero_candidate_positive": "count as a regressing pair",
+      "control_positive": "use the unchanged strictly-greater-than3-percent bar"
+    },
+    "primary_zero_control": "inconclusive; cannot establish primary benefit",
+    "other_metrics_zero_control": "inconclusive; positive resident-memory observations are required",
+    "limits": "This classifies observed guard costs only, not a percentage speedup or a bound beneath the counter resolution."
+  },
+  "pre_capture_amendment": {
+    "recorded_at": "2026-11-13T08:10:19.529999+00:00",
+    "original_protocol_sha256": "e451d45f14223a3e83bcc04a5a4501a0ae17fa133c943325dce71e38f0621211",
+    "reason": "Before any native capture, define source-predicted zero CPU/allocation guard behavior and label the existing64-call pool batches. Preserve all raw ratios, workload scopes and positive-control bars.",
+    "native_captures_started": false,
+    "numeric_threshold_changes": false,
+    "decision_rule_amendment": true
+  }
+}
