@@ -4,7 +4,7 @@ title: Reuse log-polar footprint geometry across cells
 status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:59:00Z'
+updated_date: '2026-11-13T02:54:00Z'
 labels:
   - performance
   - conversion
@@ -36,6 +36,12 @@ The 2026-09-29 sweep at c49bbd on Swift 6.4 compiled the current source with -O 
 - [ ] #4 The task records a material end-to-end benefit against a stated decision bar, or a rejection if only the isolated histogram improves.
 - [ ] #5 If adopted, just check and relevant conversion/animation benchmarks pass without loosening thresholds; any output-changing experiment is scoped separately under the research rules.
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+2026-11-12 bounded validation: integrate PR #8 with main 2c3d1bd; commit a scalar control that removes only footprint setup/use, retaining all main fixes and identical instruments. Keep all 52 workloads and wall/CPU/allocation metrics, original warmup/iteration limits, and five adjacent alternating pairs if a full preparation capture projects within 20 minutes. Gate native parity first, cross-model review the instrument, and require the committed 5% primary benefit and 3% reproducible regression rule before adoption. Publish complete evidence and merge only the exact validated head.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
