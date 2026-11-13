@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment": "aski-87-prepared-footprint-current-main",
+  "control_revision": "0c8c1bfeef85f44990e6bd0f5c7590010ca44708",
+  "candidate_revision": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd",
+  "expected_workloads": [
+    "aski87-convert-120cols-os2-parallel",
+    "aski87-convert-120cols-os2-serial",
+    "aski87-convert-120cols-os4-parallel",
+    "aski87-convert-120cols-os4-serial",
+    "aski87-convert-120cols-os8-parallel",
+    "aski87-convert-120cols-os8-serial",
+    "aski87-convert-1cols-os2-parallel",
+    "aski87-convert-1cols-os2-serial",
+    "aski87-convert-1cols-os4-parallel",
+    "aski87-convert-1cols-os4-serial",
+    "aski87-convert-1cols-os8-parallel",
+    "aski87-convert-1cols-os8-serial",
+    "aski87-convert-80cols-os2-parallel",
+    "aski87-convert-80cols-os2-serial",
+    "aski87-convert-80cols-os4-parallel",
+    "aski87-convert-80cols-os4-serial",
+    "aski87-convert-80cols-os8-parallel",
+    "aski87-convert-80cols-os8-serial",
+    "aski87-convert-8cols-os2-parallel",
+    "aski87-convert-8cols-os2-serial",
+    "aski87-convert-8cols-os4-parallel",
+    "aski87-convert-8cols-os4-serial",
+    "aski87-convert-8cols-os8-parallel",
+    "aski87-convert-8cols-os8-serial",
+    "aski87-dotmatrix-control-120cols",
+    "aski87-dotmatrix-control-1cols",
+    "aski87-dotmatrix-control-80cols",
+    "aski87-dotmatrix-control-8cols",
+    "aski87-histogram-prepared-16x24-1cells",
+    "aski87-histogram-prepared-16x24-2400cells",
+    "aski87-histogram-prepared-2x3-1cells",
+    "aski87-histogram-prepared-2x3-2400cells",
+    "aski87-histogram-prepared-3x3-1cells",
+    "aski87-histogram-prepared-3x3-2400cells",
+    "aski87-histogram-prepared-8x12-1cells",
+    "aski87-histogram-prepared-8x12-2400cells",
+    "aski87-histogram-scalar-16x24-1cells",
+    "aski87-histogram-scalar-16x24-2400cells",
+    "aski87-histogram-scalar-2x3-1cells",
+    "aski87-histogram-scalar-2x3-2400cells",
+    "aski87-histogram-scalar-3x3-1cells",
+    "aski87-histogram-scalar-3x3-2400cells",
+    "aski87-histogram-scalar-8x12-1cells",
+    "aski87-histogram-scalar-8x12-2400cells",
+    "aski87-ranked-80cols-parallel",
+    "aski87-ranked-80cols-serial",
+    "aski87-repeated-80cols-os2-parallel",
+    "aski87-repeated-80cols-os2-serial",
+    "aski87-repeated-80cols-os4-parallel",
+    "aski87-repeated-80cols-os4-serial",
+    "aski87-repeated-80cols-os8-parallel",
+    "aski87-repeated-80cols-os8-serial"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal"
+  ],
+  "decision_rule": {
+    "reference": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd:docs/benchmark-validation.md#bounded-replay--registered-2026-11-12",
+    "declared_at": "2026-11-13T02:58:48.520618+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "local-Mac15-10",
+    "same_physical_host": true,
+    "conditions": "AC power, 100% charged; no pmset thermal/performance warnings. 14 logical CPUs,36GiB RAM. All task builds/tests/review finished before captures; desktop remains active, not an idle host. Retain every pair and assess noise."
+  },
+  "pairs": [
+    {
+      "control": "pair-1/control/report.json",
+      "candidate": "pair-1/candidate/report.json"
+    },
+    {
+      "control": "pair-2/control/report.json",
+      "candidate": "pair-2/candidate/report.json"
+    },
+    {
+      "control": "pair-3/control/report.json",
+      "candidate": "pair-3/candidate/report.json"
+    },
+    {
+      "control": "pair-4/control/report.json",
+      "candidate": "pair-4/candidate/report.json"
+    },
+    {
+      "control": "pair-5/control/report.json",
+      "candidate": "pair-5/candidate/report.json"
+    }
+  ]
+}

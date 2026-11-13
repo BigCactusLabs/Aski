@@ -1,0 +1,123 @@
+{
+  "plan": {
+    "purpose": "One bounded replication of the sole primary below the frozen 5% benefit bar; no source changes or threshold changes.",
+    "workload": "aski87-convert-120cols-os4-parallel",
+    "candidate_revision": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd",
+    "control_revision": "0c8c1bfeef85f44990e6bd0f5c7590010ca44708",
+    "pairs": 5,
+    "wall_limit_seconds": 180,
+    "rule": "Retain the original five pairs and all five repeat pairs. Report both sets and the combined ten-pair median/direction with the unchanged 5% bar and 80% directional requirement. A repeat pass alone cannot erase the initial shortfall; no further retry or scope reduction. The original full-matrix result remains recorded.",
+    "stopping_rule": "Stop after this one replication even if inconclusive. No repeated attempts to obtain a pass.",
+    "declared_at": "2026-11-13T03:15:29.169405+00:00"
+  },
+  "progress": {
+    "started_at": "2026-11-13T03:15:29.218839+00:00",
+    "complete": false,
+    "captures": [
+      {
+        "pair": 1,
+        "role": "control",
+        "exit": 0,
+        "status": "valid",
+        "seconds": 65.221,
+        "report": "pair-1/control/report.json"
+      },
+      {
+        "pair": 1,
+        "role": "candidate",
+        "exit": 0,
+        "status": "valid",
+        "seconds": 59.374,
+        "report": "pair-1/candidate/report.json"
+      },
+      {
+        "pair": 2,
+        "role": "candidate",
+        "exit": 1,
+        "status": "invalid",
+        "seconds": 18.137,
+        "report": "pair-2/candidate/report.json"
+      }
+    ],
+    "errors": [
+      "RuntimeError: pair 2 candidate capture invalid: [\"Command '['xcrun', 'swift', 'package', '--disable-sandbox', 'benchmark', 'list', '--target', 'AskiBenchmarks', '--no-progress']' timed out after 17.649281812482513 seconds\"]"
+    ],
+    "finished_at": "2026-11-13T03:17:52.096947+00:00",
+    "elapsed_seconds": 142.876
+  },
+  "use": "Incomplete diagnostic only; excluded from the full-matrix adoption result. No extended or further retry.",
+  "completed_capture_exports": {
+    "control": {
+      "revision": "0c8c1bfeef85f44990e6bd0f5c7590010ca44708",
+      "report_sha256": "2d84ca800aed3eaf9a1934b219ac05c25d2397127dfa02c38485c57eecf7662d",
+      "exports": {
+        "aski87-convert-120cols-os4-parallel/cpuTotal": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.cpuTotal.histogram.samples.tsv",
+            "header": "Time (total CPU) (ns)",
+            "sample_count": 10,
+            "sha256": "76ed7a0b477c4da1fdd31c0158c47527baf982f83c2d80c3a4a73a18be0b74df",
+            "unit": "ns"
+          },
+          "raw": "Time (total CPU) (ns)\n19841023\n21381119\n21594111\n21921791\n22282239\n22757375\n22937599\n23347199\n23379967\n23773183\n"
+        },
+        "aski87-convert-120cols-os4-parallel/mallocCountTotal": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.mallocCountTotal.histogram.samples.tsv",
+            "header": "Malloc (total) ",
+            "sample_count": 10,
+            "sha256": "ad55b42e4d04151baaa14a6bc39f226c3686a629ce5ee6888d44fe2249fcec8c",
+            "unit": "#"
+          },
+          "raw": "Malloc (total) \n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n"
+        },
+        "aski87-convert-120cols-os4-parallel/wallClock": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.wallClock.histogram.samples.tsv",
+            "header": "Time (wall clock) (ns)",
+            "sample_count": 10,
+            "sha256": "f1f6eef8d936c93ca8d91b964e8cb42321b67e595c6d0c8fb9f5b3335a236b92",
+            "unit": "ns"
+          },
+          "raw": "Time (wall clock) (ns)\n2160639\n2162687\n2185215\n2189311\n2238463\n2275327\n2318335\n2361343\n2467839\n2850815\n"
+        }
+      }
+    },
+    "candidate": {
+      "revision": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd",
+      "report_sha256": "14b9d7d599fa2326a844115b58a40e68f939944fc45d7faeee55b59cf7d48f32",
+      "exports": {
+        "aski87-convert-120cols-os4-parallel/cpuTotal": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.cpuTotal.histogram.samples.tsv",
+            "header": "Time (total CPU) (ns)",
+            "sample_count": 10,
+            "sha256": "55b5e501a5051762c05ecb1e03ef2b2b164b561a22c6659d15566acb741b4cd3",
+            "unit": "ns"
+          },
+          "raw": "Time (total CPU) (ns)\n17809407\n17907711\n19415039\n19906559\n20299775\n20545535\n20643839\n21135359\n21774335\n22855679\n"
+        },
+        "aski87-convert-120cols-os4-parallel/mallocCountTotal": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.mallocCountTotal.histogram.samples.tsv",
+            "header": "Malloc (total) ",
+            "sample_count": 10,
+            "sha256": "ad55b42e4d04151baaa14a6bc39f226c3686a629ce5ee6888d44fe2249fcec8c",
+            "unit": "#"
+          },
+          "raw": "Malloc (total) \n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n33599\n"
+        },
+        "aski87-convert-120cols-os4-parallel/wallClock": {
+          "metadata": {
+            "file": "samples/Current_run.AskiBenchmarks.aski87-convert-120cols-os4-parallel.wallClock.histogram.samples.tsv",
+            "header": "Time (wall clock) (ns)",
+            "sample_count": 10,
+            "sha256": "0a14f7149c80a83c027f319207217153ed47108da4bd55e77ed00c20153b543a",
+            "unit": "ns"
+          },
+          "raw": "Time (wall clock) (ns)\n2002943\n2058239\n2066431\n2078719\n2119679\n2162687\n2246655\n2258943\n2416639\n2514943\n"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3669 @@
+{
+  "numeric_rule_outcome": "not_supported",
+  "adoption_verdict": "requires_native_gate_independent_review_and_lead_ruling",
+  "primary_results": {
+    "aski87-convert-120cols-os4-parallel": "not_established",
+    "aski87-convert-120cols-os4-serial": "pass",
+    "aski87-convert-120cols-os8-parallel": "pass",
+    "aski87-convert-120cols-os8-serial": "pass",
+    "aski87-convert-80cols-os4-parallel": "pass",
+    "aski87-convert-80cols-os4-serial": "pass",
+    "aski87-convert-80cols-os8-parallel": "pass",
+    "aski87-convert-80cols-os8-serial": "pass"
+  },
+  "guard_results": {
+    "aski87-convert-120cols-os2-parallel/wallClock": "pass",
+    "aski87-convert-120cols-os2-parallel/cpuTotal": "pass",
+    "aski87-convert-120cols-os2-parallel/mallocCountTotal": "pass",
+    "aski87-convert-120cols-os2-serial/wallClock": "pass",
+    "aski87-convert-120cols-os2-serial/cpuTotal": "pass",
+    "aski87-convert-120cols-os2-serial/mallocCountTotal": "pass",
+    "aski87-convert-120cols-os4-parallel/wallClock": "pass",
+    "aski87-convert-120cols-os4-parallel/cpuTotal": "pass",
+    "aski87-convert-120cols-os4-parallel/mallocCountTotal": "pass",
+    "aski87-convert-120cols-os4-serial/wallClock": "pass",
+    "aski87-convert-120cols-os4-serial/cpuTotal": "pass",
+    "aski87-convert-120cols-os4-serial/mallocCountTotal": "pass",
+    "aski87-convert-120cols-os8-parallel/wallClock": "pass",
+    "aski87-convert-120cols-os8-parallel/cpuTotal": "pass",
+    "aski87-convert-120cols-os8-parallel/mallocCountTotal": "pass",
+    "aski87-convert-120cols-os8-serial/wallClock": "pass",
+    "aski87-convert-120cols-os8-serial/cpuTotal": "pass",
+    "aski87-convert-120cols-os8-serial/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os2-parallel/wallClock": "pass",
+    "aski87-convert-1cols-os2-parallel/cpuTotal": "pass",
+    "aski87-convert-1cols-os2-parallel/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os2-serial/wallClock": "pass",
+    "aski87-convert-1cols-os2-serial/cpuTotal": "pass",
+    "aski87-convert-1cols-os2-serial/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os4-parallel/wallClock": "pass",
+    "aski87-convert-1cols-os4-parallel/cpuTotal": "pass",
+    "aski87-convert-1cols-os4-parallel/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os4-serial/wallClock": "pass",
+    "aski87-convert-1cols-os4-serial/cpuTotal": "pass",
+    "aski87-convert-1cols-os4-serial/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os8-parallel/wallClock": "pass",
+    "aski87-convert-1cols-os8-parallel/cpuTotal": "pass",
+    "aski87-convert-1cols-os8-parallel/mallocCountTotal": "pass",
+    "aski87-convert-1cols-os8-serial/wallClock": "pass",
+    "aski87-convert-1cols-os8-serial/cpuTotal": "pass",
+    "aski87-convert-1cols-os8-serial/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os2-parallel/wallClock": "pass",
+    "aski87-convert-80cols-os2-parallel/cpuTotal": "pass",
+    "aski87-convert-80cols-os2-parallel/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os2-serial/wallClock": "pass",
+    "aski87-convert-80cols-os2-serial/cpuTotal": "pass",
+    "aski87-convert-80cols-os2-serial/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os4-parallel/wallClock": "pass",
+    "aski87-convert-80cols-os4-parallel/cpuTotal": "pass",
+    "aski87-convert-80cols-os4-parallel/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os4-serial/wallClock": "pass",
+    "aski87-convert-80cols-os4-serial/cpuTotal": "pass",
+    "aski87-convert-80cols-os4-serial/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os8-parallel/wallClock": "pass",
+    "aski87-convert-80cols-os8-parallel/cpuTotal": "pass",
+    "aski87-convert-80cols-os8-parallel/mallocCountTotal": "pass",
+    "aski87-convert-80cols-os8-serial/wallClock": "pass",
+    "aski87-convert-80cols-os8-serial/cpuTotal": "pass",
+    "aski87-convert-80cols-os8-serial/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os2-parallel/wallClock": "pass",
+    "aski87-convert-8cols-os2-parallel/cpuTotal": "pass",
+    "aski87-convert-8cols-os2-parallel/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os2-serial/wallClock": "pass",
+    "aski87-convert-8cols-os2-serial/cpuTotal": "pass",
+    "aski87-convert-8cols-os2-serial/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os4-parallel/wallClock": "pass",
+    "aski87-convert-8cols-os4-parallel/cpuTotal": "pass",
+    "aski87-convert-8cols-os4-parallel/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os4-serial/wallClock": "pass",
+    "aski87-convert-8cols-os4-serial/cpuTotal": "pass",
+    "aski87-convert-8cols-os4-serial/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os8-parallel/wallClock": "pass",
+    "aski87-convert-8cols-os8-parallel/cpuTotal": "pass",
+    "aski87-convert-8cols-os8-parallel/mallocCountTotal": "pass",
+    "aski87-convert-8cols-os8-serial/wallClock": "pass",
+    "aski87-convert-8cols-os8-serial/cpuTotal": "pass",
+    "aski87-convert-8cols-os8-serial/mallocCountTotal": "pass",
+    "aski87-dotmatrix-control-120cols/wallClock": "pass",
+    "aski87-dotmatrix-control-120cols/cpuTotal": "pass",
+    "aski87-dotmatrix-control-120cols/mallocCountTotal": "pass",
+    "aski87-dotmatrix-control-1cols/wallClock": "pass",
+    "aski87-dotmatrix-control-1cols/cpuTotal": "pass",
+    "aski87-dotmatrix-control-1cols/mallocCountTotal": "pass",
+    "aski87-dotmatrix-control-80cols/wallClock": "pass",
+    "aski87-dotmatrix-control-80cols/cpuTotal": "pass",
+    "aski87-dotmatrix-control-80cols/mallocCountTotal": "pass",
+    "aski87-dotmatrix-control-8cols/wallClock": "pass",
+    "aski87-dotmatrix-control-8cols/cpuTotal": "pass",
+    "aski87-dotmatrix-control-8cols/mallocCountTotal": "pass",
+    "aski87-ranked-80cols-parallel/wallClock": "pass",
+    "aski87-ranked-80cols-parallel/cpuTotal": "pass",
+    "aski87-ranked-80cols-parallel/mallocCountTotal": "pass",
+    "aski87-ranked-80cols-serial/wallClock": "pass",
+    "aski87-ranked-80cols-serial/cpuTotal": "pass",
+    "aski87-ranked-80cols-serial/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os2-parallel/wallClock": "pass",
+    "aski87-repeated-80cols-os2-parallel/cpuTotal": "pass",
+    "aski87-repeated-80cols-os2-parallel/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os2-serial/wallClock": "pass",
+    "aski87-repeated-80cols-os2-serial/cpuTotal": "pass",
+    "aski87-repeated-80cols-os2-serial/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os4-parallel/wallClock": "pass",
+    "aski87-repeated-80cols-os4-parallel/cpuTotal": "pass",
+    "aski87-repeated-80cols-os4-parallel/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os4-serial/wallClock": "pass",
+    "aski87-repeated-80cols-os4-serial/cpuTotal": "pass",
+    "aski87-repeated-80cols-os4-serial/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os8-parallel/wallClock": "pass",
+    "aski87-repeated-80cols-os8-parallel/cpuTotal": "pass",
+    "aski87-repeated-80cols-os8-parallel/mallocCountTotal": "pass",
+    "aski87-repeated-80cols-os8-serial/wallClock": "pass",
+    "aski87-repeated-80cols-os8-serial/cpuTotal": "pass",
+    "aski87-repeated-80cols-os8-serial/mallocCountTotal": "pass"
+  },
+  "limitations": [
+    "Synthetic gradient on one Mac; not a general product speedup.",
+    "Export bounds do not cover HDR three-significant-digit quantization or host noise.",
+    "HDR exports are distributions, not chronological independent iterations; the pair is the repetition unit.",
+    "Per-arm sample counts can differ under the original duration limit.",
+    "Logical map bytes are not a process RSS bound. Tile and temporal paths have no paired workload here."
+  ],
+  "workloads": {
+    "aski87-convert-120cols-os2-parallel": {
+      "wallClock": {
+        "median_percent": -7.928884066819242,
+        "median_export_lower_percent": -7.928884066819242,
+        "median_export_upper_percent": -7.928884066819242,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -14.058578123905862,
+        "median_export_lower_percent": -14.058578123905862,
+        "median_export_upper_percent": -14.058578123905862,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-120cols-os2-serial": {
+      "wallClock": {
+        "median_percent": -3.857678608101922,
+        "median_export_lower_percent": -3.857678608101922,
+        "median_export_upper_percent": -3.857678608101922,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -3.8562343253189524,
+        "median_export_lower_percent": -3.8562343253189524,
+        "median_export_upper_percent": -3.8562343253189524,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-120cols-os4-parallel": {
+      "wallClock": {
+        "median_percent": -2.0967302474633076,
+        "median_export_lower_percent": -2.0967302474633076,
+        "median_export_upper_percent": -2.0967302474633076,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -6.449376230826342,
+        "median_export_lower_percent": -6.449376230826342,
+        "median_export_upper_percent": -6.449376230826342,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-120cols-os4-serial": {
+      "wallClock": {
+        "median_percent": -9.190841064951261,
+        "median_export_lower_percent": -9.190841064951261,
+        "median_export_upper_percent": -9.190841064951261,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -8.996329373543134,
+        "median_export_lower_percent": -8.996329373543134,
+        "median_export_upper_percent": -8.996329373543134,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-120cols-os8-parallel": {
+      "wallClock": {
+        "median_percent": -7.630771523669333,
+        "median_export_lower_percent": -7.630771523669333,
+        "median_export_upper_percent": -7.630771523669333,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -9.895444812524289,
+        "median_export_lower_percent": -9.895444812524289,
+        "median_export_upper_percent": -9.895444812524289,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-120cols-os8-serial": {
+      "wallClock": {
+        "median_percent": -12.802769518026015,
+        "median_export_lower_percent": -12.802769518026015,
+        "median_export_upper_percent": -12.802769518026015,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -12.683984024534977,
+        "median_export_lower_percent": -12.683984024534977,
+        "median_export_upper_percent": -12.683984024534977,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os2-parallel": {
+      "wallClock": {
+        "median_percent": -0.9342585809325787,
+        "median_export_lower_percent": -0.9342585809325787,
+        "median_export_upper_percent": -0.9342585809325787,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.8626662317391065,
+        "median_export_lower_percent": -0.8626662317391065,
+        "median_export_upper_percent": -0.8626662317391065,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os2-serial": {
+      "wallClock": {
+        "median_percent": -2.242932202521686,
+        "median_export_lower_percent": -2.242932202521686,
+        "median_export_upper_percent": -2.242932202521686,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -2.1686805310900725,
+        "median_export_lower_percent": -2.1686805310900725,
+        "median_export_upper_percent": -2.1686805310900725,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os4-parallel": {
+      "wallClock": {
+        "median_percent": -0.1778836020502883,
+        "median_export_lower_percent": -0.1778836020502883,
+        "median_export_upper_percent": -0.1778836020502883,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.23640716516872828,
+        "median_export_lower_percent": -0.23640716516872828,
+        "median_export_upper_percent": -0.23640716516872828,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os4-serial": {
+      "wallClock": {
+        "median_percent": -1.518312551895451,
+        "median_export_lower_percent": -1.518312551895451,
+        "median_export_upper_percent": -1.518312551895451,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.4553048320668283,
+        "median_export_lower_percent": -1.4553048320668283,
+        "median_export_upper_percent": -1.4553048320668283,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os8-parallel": {
+      "wallClock": {
+        "median_percent": -0.18409452103064217,
+        "median_export_lower_percent": -0.18409452103064217,
+        "median_export_upper_percent": -0.18409452103064217,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.44004463473573674,
+        "median_export_lower_percent": -0.44004463473573674,
+        "median_export_upper_percent": -0.44004463473573674,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-1cols-os8-serial": {
+      "wallClock": {
+        "median_percent": 0.26070801429820545,
+        "median_export_lower_percent": 0.26070801429820545,
+        "median_export_upper_percent": 0.26070801429820545,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 0.26032019965629427,
+        "median_export_lower_percent": 0.26032019965629427,
+        "median_export_upper_percent": 0.26032019965629427,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.7857142857142794,
+        "median_export_lower_percent": 1.7857142857142794,
+        "median_export_upper_percent": 1.7857142857142794,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os2-parallel": {
+      "wallClock": {
+        "median_percent": 1.0234407391573663,
+        "median_export_lower_percent": 1.0234407391573663,
+        "median_export_upper_percent": 1.0234407391573663,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -3.438755441536101,
+        "median_export_lower_percent": -3.438755441536101,
+        "median_export_upper_percent": -3.438755441536101,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os2-serial": {
+      "wallClock": {
+        "median_percent": -1.577785276366661,
+        "median_export_lower_percent": -1.577785276366661,
+        "median_export_upper_percent": -1.577785276366661,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.5767901418587638,
+        "median_export_lower_percent": -1.5767901418587638,
+        "median_export_upper_percent": -1.5767901418587638,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os4-parallel": {
+      "wallClock": {
+        "median_percent": -7.245001978262389,
+        "median_export_lower_percent": -7.245001978262389,
+        "median_export_upper_percent": -7.245001978262389,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -6.987952720772772,
+        "median_export_lower_percent": -6.987952720772772,
+        "median_export_upper_percent": -6.987952720772772,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os4-serial": {
+      "wallClock": {
+        "median_percent": -6.847135887470113,
+        "median_export_lower_percent": -6.847135887470113,
+        "median_export_upper_percent": -6.847135887470113,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -6.874604300916854,
+        "median_export_lower_percent": -6.874604300916854,
+        "median_export_upper_percent": -6.874604300916854,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.052829690285949304,
+        "median_export_lower_percent": 0.052829690285949304,
+        "median_export_upper_percent": 0.052829690285949304,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os8-parallel": {
+      "wallClock": {
+        "median_percent": -8.884622058760561,
+        "median_export_lower_percent": -8.884622058760561,
+        "median_export_upper_percent": -8.884622058760561,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -15.353757749261854,
+        "median_export_lower_percent": -15.353757749261854,
+        "median_export_upper_percent": -15.353757749261854,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-80cols-os8-serial": {
+      "wallClock": {
+        "median_percent": -15.711845947755354,
+        "median_export_lower_percent": -15.711845947755354,
+        "median_export_upper_percent": -15.711845947755354,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -15.647715964295127,
+        "median_export_lower_percent": -15.647715964295127,
+        "median_export_upper_percent": -15.647715964295127,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.052829690285949304,
+        "median_export_lower_percent": 0.052829690285949304,
+        "median_export_upper_percent": 0.052829690285949304,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os2-parallel": {
+      "wallClock": {
+        "median_percent": 1.704703508110561,
+        "median_export_lower_percent": 1.704703508110561,
+        "median_export_upper_percent": 1.704703508110561,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.4343722876905884,
+        "median_export_lower_percent": 1.4343722876905884,
+        "median_export_upper_percent": 1.4343722876905884,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6024096385542244,
+        "median_export_lower_percent": 0.6024096385542244,
+        "median_export_upper_percent": 0.6024096385542244,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os2-serial": {
+      "wallClock": {
+        "median_percent": 1.302011063113695,
+        "median_export_lower_percent": 1.302011063113695,
+        "median_export_upper_percent": 1.302011063113695,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.0149433224196036,
+        "median_export_lower_percent": 1.0149433224196036,
+        "median_export_upper_percent": 1.0149433224196036,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6172839506172867,
+        "median_export_lower_percent": 0.6172839506172867,
+        "median_export_upper_percent": 0.6172839506172867,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os4-parallel": {
+      "wallClock": {
+        "median_percent": -1.715311495247196,
+        "median_export_lower_percent": -1.715311495247196,
+        "median_export_upper_percent": -1.715311495247196,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.9124326800302405,
+        "median_export_lower_percent": -1.9124326800302405,
+        "median_export_upper_percent": -1.9124326800302405,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6024096385542244,
+        "median_export_lower_percent": 0.6024096385542244,
+        "median_export_upper_percent": 0.6024096385542244,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os4-serial": {
+      "wallClock": {
+        "median_percent": -1.6120794005079708,
+        "median_export_lower_percent": -1.6120794005079708,
+        "median_export_upper_percent": -1.6120794005079708,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.5573158241677154,
+        "median_export_lower_percent": -1.5573158241677154,
+        "median_export_upper_percent": -1.5573158241677154,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6172839506172867,
+        "median_export_lower_percent": 0.6172839506172867,
+        "median_export_upper_percent": 0.6172839506172867,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os8-parallel": {
+      "wallClock": {
+        "median_percent": -2.0758606122066925,
+        "median_export_lower_percent": -2.0758606122066925,
+        "median_export_upper_percent": -2.0758606122066925,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 2,
+        "possible_pairs_over_3_percent": 2,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -2.2144833665901142,
+        "median_export_lower_percent": -2.2144833665901142,
+        "median_export_upper_percent": -2.2144833665901142,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 2,
+        "possible_pairs_over_3_percent": 2,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6024096385542244,
+        "median_export_lower_percent": 0.6024096385542244,
+        "median_export_upper_percent": 0.6024096385542244,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-convert-8cols-os8-serial": {
+      "wallClock": {
+        "median_percent": -1.3034424117757903,
+        "median_export_lower_percent": -1.3034424117757903,
+        "median_export_upper_percent": -1.3034424117757903,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.3277805744969728,
+        "median_export_lower_percent": -1.3277805744969728,
+        "median_export_upper_percent": -1.3277805744969728,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.6172839506172867,
+        "median_export_lower_percent": 0.6172839506172867,
+        "median_export_upper_percent": 0.6172839506172867,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-dotmatrix-control-120cols": {
+      "wallClock": {
+        "median_percent": -1.2374332625142426,
+        "median_export_lower_percent": -1.2374332625142426,
+        "median_export_upper_percent": -1.2374332625142426,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.3503096594612463,
+        "median_export_lower_percent": -1.3503096594612463,
+        "median_export_upper_percent": -1.3503096594612463,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.0869565217391353,
+        "median_export_lower_percent": 1.0869565217391353,
+        "median_export_upper_percent": 1.0869565217391353,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-dotmatrix-control-1cols": {
+      "wallClock": {
+        "median_percent": 1.3864240424592333,
+        "median_export_lower_percent": 1.3864240424592333,
+        "median_export_upper_percent": 1.3864240424592333,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 0.8843321219825562,
+        "median_export_lower_percent": 0.8843321219825562,
+        "median_export_upper_percent": 0.8843321219825562,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.9607843137254832,
+        "median_export_lower_percent": 1.9607843137254832,
+        "median_export_upper_percent": 1.9607843137254832,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-dotmatrix-control-80cols": {
+      "wallClock": {
+        "median_percent": -0.9867179989311525,
+        "median_export_lower_percent": -0.9867179989311525,
+        "median_export_upper_percent": -0.9867179989311525,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.210746259833062,
+        "median_export_lower_percent": -1.210746259833062,
+        "median_export_upper_percent": -1.210746259833062,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.2820512820512775,
+        "median_export_lower_percent": 1.2820512820512775,
+        "median_export_upper_percent": 1.2820512820512775,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-dotmatrix-control-8cols": {
+      "wallClock": {
+        "median_percent": -0.662824953648411,
+        "median_export_lower_percent": -0.662824953648411,
+        "median_export_upper_percent": -0.662824953648411,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.633276474880895,
+        "median_export_lower_percent": -0.633276474880895,
+        "median_export_upper_percent": -0.633276474880895,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 1.9230769230769162,
+        "median_export_lower_percent": 1.9230769230769162,
+        "median_export_upper_percent": 1.9230769230769162,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-16x24-1cells": {
+      "wallClock": {
+        "median_percent": 1.014349332013853,
+        "median_export_lower_percent": 1.014349332013853,
+        "median_export_upper_percent": 1.014349332013853,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.5613099771515593,
+        "median_export_lower_percent": 1.5613099771515593,
+        "median_export_upper_percent": 1.5613099771515593,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-16x24-2400cells": {
+      "wallClock": {
+        "median_percent": -0.9431500351532174,
+        "median_export_lower_percent": -0.9431500351532174,
+        "median_export_upper_percent": -0.9431500351532174,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.9426561095183139,
+        "median_export_lower_percent": -0.9426561095183139,
+        "median_export_upper_percent": -0.9426561095183139,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-2x3-1cells": {
+      "wallClock": {
+        "median_percent": 6.296851574212892,
+        "median_export_lower_percent": 6.296851574212892,
+        "median_export_upper_percent": 6.296851574212892,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 4,
+        "possible_pairs_over_3_percent": 4,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 2.1909233176838905,
+        "median_export_lower_percent": 2.1909233176838905,
+        "median_export_upper_percent": 2.1909233176838905,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 2,
+        "possible_pairs_over_3_percent": 2,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-2x3-2400cells": {
+      "wallClock": {
+        "median_percent": -1.0175799953023645,
+        "median_export_lower_percent": -1.0175799953023645,
+        "median_export_upper_percent": -1.0175799953023645,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.9233643646279321,
+        "median_export_lower_percent": -0.9233643646279321,
+        "median_export_upper_percent": -0.9233643646279321,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-3x3-1cells": {
+      "wallClock": {
+        "median_percent": 5.782792665726366,
+        "median_export_lower_percent": 5.782792665726366,
+        "median_export_upper_percent": 5.782792665726366,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 4,
+        "possible_pairs_over_3_percent": 4,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 8.848614072494666,
+        "median_export_lower_percent": 8.848614072494666,
+        "median_export_upper_percent": 8.848614072494666,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 4,
+        "possible_pairs_over_3_percent": 4,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-3x3-2400cells": {
+      "wallClock": {
+        "median_percent": -1.7600804773639345,
+        "median_export_lower_percent": -1.7600804773639345,
+        "median_export_upper_percent": -1.7600804773639345,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.8022246210165682,
+        "median_export_lower_percent": -1.8022246210165682,
+        "median_export_upper_percent": -1.8022246210165682,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-8x12-1cells": {
+      "wallClock": {
+        "median_percent": -0.06485084306095956,
+        "median_export_lower_percent": -0.06485084306095956,
+        "median_export_upper_percent": -0.06485084306095956,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 2,
+        "possible_pairs_over_3_percent": 2,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.4820042342978068,
+        "median_export_lower_percent": 1.4820042342978068,
+        "median_export_upper_percent": 1.4820042342978068,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-prepared-8x12-2400cells": {
+      "wallClock": {
+        "median_percent": -0.15847899781843422,
+        "median_export_lower_percent": -0.15847899781843422,
+        "median_export_upper_percent": -0.15847899781843422,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.22137942110269648,
+        "median_export_lower_percent": -0.22137942110269648,
+        "median_export_upper_percent": -0.22137942110269648,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-16x24-1cells": {
+      "wallClock": {
+        "median_percent": 2.6523523839595775,
+        "median_export_lower_percent": 2.6523523839595775,
+        "median_export_upper_percent": 2.6523523839595775,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.856043458578549,
+        "median_export_lower_percent": 1.856043458578549,
+        "median_export_upper_percent": 1.856043458578549,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-16x24-2400cells": {
+      "wallClock": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 0.03088327058660134,
+        "median_export_lower_percent": 0.03088327058660134,
+        "median_export_upper_percent": 0.03088327058660134,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-2x3-1cells": {
+      "wallClock": {
+        "median_percent": 16.799999999999994,
+        "median_export_lower_percent": 16.799999999999994,
+        "median_export_upper_percent": 16.799999999999994,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 5,
+        "possible_pairs_over_3_percent": 5,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 7.374100719424459,
+        "median_export_lower_percent": 7.374100719424459,
+        "median_export_upper_percent": 7.374100719424459,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 4,
+        "possible_pairs_over_3_percent": 4,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-2x3-2400cells": {
+      "wallClock": {
+        "median_percent": -0.750538192844763,
+        "median_export_lower_percent": -0.750538192844763,
+        "median_export_upper_percent": -0.750538192844763,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.7848755375812089,
+        "median_export_lower_percent": -0.7848755375812089,
+        "median_export_upper_percent": -0.7848755375812089,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-3x3-1cells": {
+      "wallClock": {
+        "median_percent": 14.212328767123283,
+        "median_export_lower_percent": 14.212328767123283,
+        "median_export_upper_percent": 14.212328767123283,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 5,
+        "possible_pairs_over_3_percent": 5,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 4.580152671755733,
+        "median_export_lower_percent": 4.580152671755733,
+        "median_export_upper_percent": 4.580152671755733,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 3,
+        "possible_pairs_over_3_percent": 3,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-3x3-2400cells": {
+      "wallClock": {
+        "median_percent": -2.307963496715404,
+        "median_export_lower_percent": -2.307963496715404,
+        "median_export_upper_percent": -2.307963496715404,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -2.3383831735276916,
+        "median_export_lower_percent": -2.3383831735276916,
+        "median_export_upper_percent": -2.3383831735276916,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-8x12-1cells": {
+      "wallClock": {
+        "median_percent": 7.204116638078895,
+        "median_export_lower_percent": 7.204116638078895,
+        "median_export_upper_percent": 7.204116638078895,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 3,
+        "possible_pairs_over_3_percent": 3,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 3.4947368421052616,
+        "median_export_lower_percent": 3.4947368421052616,
+        "median_export_upper_percent": 3.4947368421052616,
+        "improving_pairs_at_upper_bound": 1,
+        "certain_pairs_over_3_percent": 3,
+        "possible_pairs_over_3_percent": 3,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-histogram-scalar-8x12-2400cells": {
+      "wallClock": {
+        "median_percent": -0.6433356955815928,
+        "median_export_lower_percent": -0.6433356955815928,
+        "median_export_upper_percent": -0.6433356955815928,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.6940881005865429,
+        "median_export_lower_percent": -0.6940881005865429,
+        "median_export_upper_percent": -0.6940881005865429,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-ranked-80cols-parallel": {
+      "wallClock": {
+        "median_percent": -2.109112519505174,
+        "median_export_lower_percent": -2.109112519505174,
+        "median_export_upper_percent": -2.109112519505174,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": 1.4977975179177205,
+        "median_export_lower_percent": 1.4977975179177205,
+        "median_export_upper_percent": 1.4977975179177205,
+        "improving_pairs_at_upper_bound": 2,
+        "certain_pairs_over_3_percent": 2,
+        "possible_pairs_over_3_percent": 2,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0821734887781922,
+        "median_export_lower_percent": 0.0821734887781922,
+        "median_export_upper_percent": 0.0821734887781922,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-ranked-80cols-serial": {
+      "wallClock": {
+        "median_percent": -3.1154389547763173,
+        "median_export_lower_percent": -3.1154389547763173,
+        "median_export_upper_percent": -3.1154389547763173,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -3.0867639083475784,
+        "median_export_lower_percent": -3.0867639083475784,
+        "median_export_upper_percent": -3.0867639083475784,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os2-parallel": {
+      "wallClock": {
+        "median_percent": -1.7928821080319346,
+        "median_export_lower_percent": -1.7928821080319346,
+        "median_export_upper_percent": -1.7928821080319346,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -0.9083045102591947,
+        "median_export_lower_percent": -0.9083045102591947,
+        "median_export_upper_percent": -0.9083045102591947,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os2-serial": {
+      "wallClock": {
+        "median_percent": -1.2407603356547003,
+        "median_export_lower_percent": -1.2407603356547003,
+        "median_export_upper_percent": -1.2407603356547003,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -1.2407603356547003,
+        "median_export_lower_percent": -1.2407603356547003,
+        "median_export_upper_percent": -1.2407603356547003,
+        "improving_pairs_at_upper_bound": 4,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.08453141200477354,
+        "median_export_lower_percent": 0.08453141200477354,
+        "median_export_upper_percent": 0.08453141200477354,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os4-parallel": {
+      "wallClock": {
+        "median_percent": -2.8927461977022118,
+        "median_export_lower_percent": -2.8927461977022118,
+        "median_export_upper_percent": -2.8927461977022118,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -3.663323206190905,
+        "median_export_lower_percent": -3.663323206190905,
+        "median_export_upper_percent": -3.663323206190905,
+        "improving_pairs_at_upper_bound": 3,
+        "certain_pairs_over_3_percent": 1,
+        "possible_pairs_over_3_percent": 1,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os4-serial": {
+      "wallClock": {
+        "median_percent": -5.809011252226637,
+        "median_export_lower_percent": -5.809011252226637,
+        "median_export_upper_percent": -5.809011252226637,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -5.809011252226637,
+        "median_export_lower_percent": -5.809011252226637,
+        "median_export_upper_percent": -5.809011252226637,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os8-parallel": {
+      "wallClock": {
+        "median_percent": -6.916427053660201,
+        "median_export_lower_percent": -6.916427053660201,
+        "median_export_upper_percent": -6.916427053660201,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -9.477885031340904,
+        "median_export_lower_percent": -9.477885031340904,
+        "median_export_upper_percent": -9.477885031340904,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    },
+    "aski87-repeated-80cols-os8-serial": {
+      "wallClock": {
+        "median_percent": -13.457409026977473,
+        "median_export_lower_percent": -13.457409026977473,
+        "median_export_upper_percent": -13.457409026977473,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "cpuTotal": {
+        "median_percent": -13.457409026977473,
+        "median_export_lower_percent": -13.457409026977473,
+        "median_export_upper_percent": -13.457409026977473,
+        "improving_pairs_at_upper_bound": 5,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "mallocCountTotal": {
+        "median_percent": 0.0,
+        "median_export_lower_percent": 0.0,
+        "median_export_upper_percent": 0.0,
+        "improving_pairs_at_upper_bound": 0,
+        "certain_pairs_over_3_percent": 0,
+        "possible_pairs_over_3_percent": 0,
+        "control_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "candidate_sample_counts": [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      }
+    }
+  }
+}

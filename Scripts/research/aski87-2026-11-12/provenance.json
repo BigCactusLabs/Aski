@@ -1,0 +1,110 @@
+{
+  "measured_candidate": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd",
+  "measured_control": "0c8c1bfeef85f44990e6bd0f5c7590010ca44708",
+  "control_production_base": "2c3d1bd1aee067a976e5db7cbf2aff3841e5a37b",
+  "instrument_hashes": {
+    "Benchmarks/AskiBenchmarks/ASTSK55Benchmarks.swift": "bc93bdadafbfbfb480041ddfa1f07fc4e2f98dafe72f3487e8d0ed894b26fd61",
+    "Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift": "8e57ada1d8e9fe96bb9744679ef6c11535d0814bbbbb4c5c71800c9df17ce490",
+    "Benchmarks/AskiBenchmarks/Benchmarks.swift": "ac4552e049ee4408e4e44e61585f260886366b0adadaf933356336e31f6b3962",
+    "Benchmarks/AskiBenchmarks/BrightnessPoolGroundworkBenchmarks.swift": "00cf36db10a85ac859d262d41bc8f0ff83da8324297050c84c51d87c9c83525e",
+    "Benchmarks/AskiBenchmarks/EffectChainBenchmarks.swift": "81329a0c27d9a39f94b3cef991dd0e0c00110670253ef0e69c1fe8e36d565c38",
+    "Benchmarks/AskiBenchmarks/GIFMetadataBenchmarks.swift": "a742d7597f70dad117c1db5c3b9a8558827f9ce90a6821070f382b737fd2a9d2",
+    "Benchmarks/AskiBenchmarks/HelmlabBenchmarks.swift": "76bf94d790901e2218e85645c15be1b7015fe541dc6f4b6b6876142c7b3eadce",
+    "Benchmarks/AskiBenchmarks/MaskBenchmarks.swift": "933d17ca18354f6ec6768a1f78dbb72eedf2d4ad81d5b7f60ff1013cb7768a3f",
+    "Benchmarks/AskiBenchmarks/ParallelismCrossoverBenchmarks.swift": "242d2e7194c5c35e32618e032620cf961ab12acd82afa74b45df607ce58d862b",
+    "Benchmarks/AskiBenchmarks/PreparationBenchmarks.swift": "c88c462219613c0f8041c0d9d89f143f87fc055ef90ecc322b2a721ef232f73d",
+    "Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift": "3ab18a50784172551bb7332db32137b9d5bea77252f071941040331c05b16205",
+    "Benchmarks/AskiBenchmarks/ShapeContextFootprintBenchmarks.swift": "1858724d3cea7fbf7e7f518e88255e41bba68a2aa4a494bcdbe83356ce1feddf",
+    "Benchmarks/AskiBenchmarks/TileGridBenchmarks.swift": "0acc6d091355b4a78c922db27bc230563dfe92ef7dd9f8949d94ffb173511437",
+    "Benchmarks/AskiBenchmarks/VideoPipelineBenchmarks.swift": "2cfd1b23ccf07fa4abb56660b791c24ec06297594c93548059b6bd892d95184f",
+    "Benchmarks/AskiBenchmarks/VideoSelectionBenchmarks.swift": "32eebbe426fa2a21053599d047cce301010d8fa37f635c14ebce4c246fbe323a",
+    "Package.swift": "40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513",
+    "Package.resolved": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "Scripts/validate-benchmarks.py": "680c34f0d244d931ca0cbab94b9b59b91daff52bdf02a6d122b7c15e579ebf89"
+  },
+  "full_series_seconds": 641.749,
+  "full_pairs": 5,
+  "full_workloads": 52,
+  "metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal"
+  ],
+  "native_gate": {
+    "commit": "2890a8b50c2facaa39bc05fdf7a88e61d28667b6",
+    "core": 1537,
+    "media": 177,
+    "sentinels": 2,
+    "status": "passed",
+    "later_executable_change": "Benchmark allocation output explicitly set to unscaled count in both arms; release instruments rebuilt and all captures verified."
+  },
+  "compatibility": {
+    "workloads": 6,
+    "status": "valid_complete",
+    "thresholds": "unchanged",
+    "absolute_animation_budgets": {
+      "workloads": 4,
+      "status": "passed",
+      "exit": 0,
+      "command": "xcrun swift package --disable-sandbox benchmark baseline check --check-absolute --filter ^animation-.*$ --target AskiBenchmarks --no-progress",
+      "thresholds": "unchanged"
+    }
+  },
+  "review": {
+    "model": "claude-opus-5-5",
+    "requested_effort": "medium",
+    "observed_effort": "not exposed",
+    "snapshot_tree": "397b2dd6633673eb1fd9b7740b351948e60e2065",
+    "source": "no production correctness finding",
+    "instrument_correction": "Apply allocation rounding treatment to matching units too; force unscaled counts before captures; retain per-arm sample counts."
+  },
+  "host": {
+    "model": "Mac15,10",
+    "logical_cpus": 14,
+    "memory_bytes": 38654705664,
+    "power": "AC 100% charged",
+    "thermal": "pmset no warning recorded",
+    "background": "Desktop remains active; builds/tests finish before any captures. No other task benchmark run launched."
+  },
+  "scope": "Synthetic gradient on one Mac. Eager setup also affects tile/temporal contexts; these have no paired workload. Logical map bytes are not a process RSS bound.",
+  "export_precision": "Explicit count/ns units use divisor1 and preserve integral histogram values. Initial +/-0.5 readout bounds were overly broad for these exports. HDR three-significant-digit quantization remains; small counts51to57 have single-unit HDR resolution.",
+  "artifact_scope": "Original comparison and pair manifest copied byte-for-byte. All1560 full-series raw TSV strings retained in histogram-samples.json. Original capture report hashes identify private logs containing host paths. Focused attempt retains all completed exports and its timeout; it cannot substitute for five complete pairs.",
+  "artifact_verification": {
+    "status": "passed",
+    "reproduction": "byte-identical summary and CSV",
+    "independent_delta_checks": 780,
+    "raw_export_hashes": 1560,
+    "negative_checks": [
+      "modified raw bytes rejected",
+      "unexpected unit rejected"
+    ],
+    "hdr_sensitivity": "All 108 guard outcomes remain pass when each candidate median rises 0.1% and each control median falls 0.1%; this is not a host-noise bound."
+  },
+  "final_native_gate": {
+    "status": "passed",
+    "exit": 0,
+    "seconds": 156.719,
+    "tested_commit": "51b736924fbcd4f4868ef5adf99fac9dfa51b3cd",
+    "working_tree": "Evidence bundle, documentation and ASKI-87 backlog updates uncommitted; unrelated ASKI-107 file excluded from the patch.",
+    "changed_input_hashes": {
+      "Scripts/research/aski87-2026-11-12/comparison.json": "7c5e85a8f95432e2f47f878aa1d615108d30d259b815b577c758bb4558d1d930",
+      "Scripts/research/aski87-2026-11-12/focused-attempt.json": "11388acf5122fffbbd334e6da7e5b4b8217123a5dd369731909ee021c2cd7d8c",
+      "Scripts/research/aski87-2026-11-12/histogram-samples.json": "a743d60c15a2a858caa4bcdb250b45e710640632603200ef8b199b9f9d391951",
+      "Scripts/research/aski87-2026-11-12/paired-medians.csv": "eaa2c637ae830956cf83b7f9ce27bf09abe88dd8426090757100e3a62143cc14",
+      "Scripts/research/aski87-2026-11-12/pairs.json": "c0687c677bb36219f4fbb32bb5ef697023cdef0f71f51277d81e5a207b399bc5",
+      "Scripts/research/aski87-2026-11-12/provenance.json": "5887695343501f74a857387847dd6afc5cf5069bcac23d3c5481b449ca4bec70",
+      "Scripts/research/aski87-2026-11-12/reproduce.py": "88c4a090ac6f2939fedb42c44c1ce7b5e0bd367d8e2664ce7e92e1d5cfed1a1d",
+      "Scripts/research/aski87-2026-11-12/summary.json": "84fdf827b027eddc4af8cf3934dd1431225992b9791b34e009dad8d57da13ca9",
+      "backlog/tasks/aski-87 - Reuse-log-polar-footprint-geometry-across-cells.md": "deb8c3bc48a27188a38883fa49eb67b354c939ee82342d88ce7f51fa8537838c",
+      "docs/README.md": "5da50558bb1f49d0d70ad8128b871ea6714ce6740cb840db71a977c1e0df210c",
+      "docs/agents/paired-benchmarks.md": "600f71f5ce130b5b9372f6de13143679912d7e1c75974c7ebb5ad529ec9b89d8",
+      "docs/benchmark-validation.md": "a44f290b8274c9e16b991e85c0b83d772db0b0f07d27fe155729a3b9821d52e4",
+      "llms.txt": "12c5f31ad6f5dc81f50ed5758273cb1fe6058f2ab8d3e20054a4fbd1d7bb6f97"
+    },
+    "core": 1537,
+    "media": 177,
+    "sentinels": 2,
+    "docc": "passed",
+    "carry_forward": "Only gate-result metadata and backlog completion notes changed after this check; source, instruments, raw exports, readout code and decision rule are unchanged."
+  }
+}

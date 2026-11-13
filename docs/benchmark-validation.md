@@ -163,8 +163,11 @@ histogram/cache microbenchmark is not an adoption verdict. No production optimiz
 
 ## ASKI-87: prepared-footprint candidate
 
-**State: candidate awaiting the bounded native replay below.** The 2026-11-12
-replay starts from current `main` at `2c3d1bd1aee067a976e5db7cbf2aff3841e5a37b`.
+**State: measured; the full replay rule is not met.** Seven of eight primary
+cases exceed the 5% benefit bar; the 120-column, oversample-4 parallel case improves
+by 2.10%. All control/resource guards pass. The result below is not an adoption
+verdict. The 2026-11-12 replay starts from `main` at
+`2c3d1bd1aee067a976e5db7cbf2aff3841e5a37b`.
 Its scalar control removes only the footprint setup and use from the integrated
 candidate; it does not restore older versions of whole files. `ShapeContext.Footprint` prepares the
 pixel-to-bin map once per `ConversionContext`; the shared log-polar extractor uses
@@ -218,7 +221,7 @@ geometry for under-threshold pixels. At 32 zero-field cells, the 16 × 24 candid
 regressed 23.7%. These losses are why the native setup and small-grid controls matter;
 the table is not a product speedup or an adoption verdict.
 
-### Native acceptance still required
+### Native acceptance protocol
 
 `ShapeContextFootprintBenchmarks.swift` registers 52 measurement-only workloads under
 `aski87-`: scalar/prepared histograms, 1/8/80/120-column conversions, oversample 2/4/8,
@@ -253,8 +256,8 @@ runs or compare a dirty control labeled with the candidate SHA.
 
 Use the decision bar above: material end-to-end benefit, no reproducible small-grid
 or dotMatrix regression above 3%, exact native parity, and allocation evidence.
-The current evidence does not satisfy that bar; ASKI-87 remains open pending the Mac
-run and an explicit adopt/reject decision.
+The initial evidence did not satisfy that bar. The completed native replay below
+records the remaining acceptance shortfall; ASKI-87 remains open pending a decision.
 
 ### Bounded replay — registered 2026-11-12
 
@@ -311,6 +314,89 @@ work, sample limits or thresholds. Raw values still have HDR histogram quantizat
 unscaled export does not turn them into exact chronological counts.
 An independent cross-model review must accept the instrument and readout method
 before the numbers support a verdict.
+
+### Native replay result — 2026-11-12
+
+Measured candidate: `51b736924fbcd4f4868ef5adf99fac9dfa51b3cd`.
+Measured scalar control: `0c8c1bfeef85f44990e6bd0f5c7590010ca44708`.
+Their difference is exactly the footprint property/initialization and its use in
+the extractor. All benchmark, validator and dependency-lock hashes match.
+
+All **52 workloads × three metrics × five adjacent alternating pairs** completed
+in **641.749 seconds (10m42s)**. Every capture was valid, with ten exported samples
+per workload/metric/arm; no capture or workload was removed. The preparation run,
+excluded from those pairs, took 68.33 seconds. The host was Mac15,10, 14 logical
+CPUs, 36 GiB RAM, macOS 27.0.1, Xcode 27.0 and Swift 6.4, on AC power with no
+recorded thermal/performance warning. Builds and tests finished before captures;
+the desktop remained active. This was not an idle-host measurement.
+
+Median paired wall-time change below uses `100 × (candidate − control) / control`.
+Negative means lower cost. Each pair compares exported-sample medians; samples
+are not pooled across captures.
+
+| Columns | Oversample | Row mode | Median wall change | Improving pairs |
+| ---: | ---: | --- | ---: | ---: |
+| 80 | 4 | serial | −6.85% | 5/5 |
+| 80 | 4 | parallel | −7.25% | 4/5 |
+| 80 | 8 | serial | −15.71% | 5/5 |
+| 80 | 8 | parallel | −8.88% | 5/5 |
+| 120 | 4 | serial | −9.19% | 5/5 |
+| 120 | 4 | parallel | **−2.10%** | 5/5 |
+| 120 | 8 | serial | −12.80% | 5/5 |
+| 120 | 8 | parallel | −7.63% | 5/5 |
+
+All **108 end-to-end guard cells** (36 workloads × wall/CPU/allocations) pass the
+registered four-of-five >3% regression test. Small controls add one allocation:
+56→57 for one-column conversions, 51→52 and 52→53 for the smallest dotMatrix cases,
+all below 2%. Unscaled integer export adds no rounding error at these magnitudes;
+the HDR histogram also has single-unit resolution for these small counts. The
+initial readout's ±half-base-unit interval was unnecessarily broad and is corrected
+in the reproducer. Larger HDR values remain quantized; this is not exact allocation
+tracing or a process-RSS measurement. All 108 guard outcomes remain unchanged in a
+separate sensitivity calculation that raises each candidate median by 0.1% and
+lowers its control by 0.1%; this does not bound host noise.
+
+The sole below-bar primary improves in every original pair, but its changes range
+from −0.44% to −8.08%, and its median does not reach 5%. One separately registered,
+three-minute-capped repeat selected only that workload. It produced one complete
+pair: individual captures still took 59–65 seconds. A remaining-time inventory
+timeout stopped the next capture after 142.876 seconds total. The incomplete repeat
+is retained and cannot replace the original result. No cap extension or further
+repeat was made.
+
+Native `just check` on integration `2890a8b` passed **1,537 core tests, 177 media
+tests, both deadlock sentinels, formatting/build/drift checks and DocC**, including
+both footprint parity suites. The later executable difference is solely the
+benchmark's explicit allocation output unit; both release instruments were rebuilt.
+All six existing conversion/animation workloads produced complete captures, and the
+four animation workloads passed their unchanged inline absolute budgets via
+`benchmark baseline check --check-absolute`. No public API, golden, timed workload,
+iteration limit or budget threshold changed. Independent Opus review found no
+production correctness defect; its allocation-unit concern was fixed before capture.
+
+The final publication `just check` also passed in **156.719 seconds**, with the same
+1,537 core / 177 media / two sentinel counts and DocC. It checked source `51b7369`
+plus the uncommitted evidence, documentation and backlog updates. Only result
+metadata and backlog completion notes changed afterward; the tested source,
+instruments, raw exports, readout code and decision rule are unchanged.
+
+The synthetic gradient exercises much more admitted weight than an all-zero field;
+the earlier diagnostic losses remain relevant. These results establish this matrix
+on one Mac, not a general product speedup. Eager setup also affects tile and temporal
+contexts, which have no paired workloads here. Logical map payload is not an RSS bound.
+
+Evidence: [original comparison](../Scripts/research/aski87-2026-11-12/comparison.json),
+[780 paired rows](../Scripts/research/aski87-2026-11-12/paired-medians.csv),
+[all 1,560 raw exports](../Scripts/research/aski87-2026-11-12/histogram-samples.json),
+[summary](../Scripts/research/aski87-2026-11-12/summary.json),
+[incomplete focused attempt](../Scripts/research/aski87-2026-11-12/focused-attempt.json),
+and [provenance](../Scripts/research/aski87-2026-11-12/provenance.json).
+The [portable reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) verifies
+every export hash, unit, count and median before evaluating the unchanged rule:
+
+```bash
+python3 -B Scripts/research/aski87-2026-11-12/reproduce.py --output-dir /tmp/aski87-readout
+```
 
 ## Source audit
 
