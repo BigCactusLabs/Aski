@@ -45,6 +45,11 @@ if args == ['xcodebuild', '-version']:
     sys.exit(fixture.get('xcode_status', 0))
 assert args[:4] == ['swift', 'package', '--disable-sandbox', 'benchmark'], args
 verb = args[4]
+if not fixture.get('omit_allocator_observation') and verb != fixture.get('omit_allocator_phase'):
+    print('ASKI_ALLOCATOR_OBSERVATION ' + json.dumps(fixture.get('allocator_observation', {
+        'schema_version': 1, 'pid': 123, 'backend': 'malloc-interposer',
+        'image': '/synthetic/libMallocInterposerSwift.dylib', 'allocated': True,
+        'malloc_delta': 1, 'free_delta': 1})), file=sys.stderr)
 def option(name):
     return args[args.index(name) + 1]
 assert option('--target') == 'AskiBenchmarks'
@@ -262,6 +267,53 @@ class CommandTests(unittest.TestCase):
         self.assertIn("OPTIONAL NOT EXPORTED", completed.stderr)
         self.assertEqual(report["results"]["video-one-shot"]["metrics"]["wallClock"]["sample_count"], 3)
         self.assertEqual(len([call for call in self.calls() if "benchmark" in call]), 2)
+
+    def test_missing_runtime_observation_is_not_configured_identity(self):
+        self.fixture["omit_allocator_observation"] = True
+        self.assert_invalid(self.invoke(), "native allocator observation missing")
+
+    def test_loaded_but_inactive_interposer_is_rejected(self):
+        self.fixture["allocator_observation"] = {
+            "schema_version": 1, "pid": 123, "backend": "malloc-interposer",
+            "image": "/synthetic/lib.dylib", "allocated": True, "malloc_delta": 0, "free_delta": 0}
+        self.assert_invalid(self.invoke(), "did not observe")
+
+    def test_missing_run_probe_preserves_execution_and_export_failures(self):
+        self.fixture["omit_allocator_phase"] = "run"
+        self.fixture["run_status"] = 9
+        self.fixture["stderr"] = "Error: video-one-shot failed during execution"
+        del self.fixture["exports"]["video-one-shot"]
+        self.assert_invalid(self.invoke(), "native allocator observation missing")
+        errors = "\n".join(self.report()["errors"])
+        self.assertIn("benchmark process exited 9", errors)
+        self.assertIn("video-one-shot failed during execution", errors)
+        self.assertIn("video-one-shot: selected workload absent", errors)
+
+    def test_malformed_allocator_observation_is_rejected(self):
+        self.fixture["allocator_observation"] = ["not", "an", "object"]
+        self.assert_invalid(self.invoke(), "unsupported allocator observation")
+
+    def test_complete_run_retains_runtime_observations(self):
+        self.assertEqual(self.invoke().returncode, 0)
+        observations = self.report()["allocator_observations"]
+        for phase in ("inventory", "run"):
+            self.assertEqual(observations[phase][0]["malloc_delta"], 1)
+            self.assertEqual(observations[phase][0]["backend"], "malloc-interposer")
+
+    def test_mixed_runtime_backends_or_images_rejected(self):
+        first = {"schema_version": 1, "pid": 1, "backend": "malloc-interposer",
+                 "image": "/control/libMallocInterposerSwift.dylib", "allocated": True,
+                 "malloc_delta": 1, "free_delta": 1}
+        for second in [dict(first, image="/candidate/different.dylib"),
+                       {"schema_version": 1, "pid": 2, "backend": "unavailable"}]:
+            for same_phase in [False, True]:
+                with self.subTest(second=second, same_phase=same_phase):
+                    report = {"identity": {"malloc_backend": {}}}
+                    lines = ["ASKI_ALLOCATOR_OBSERVATION " + json.dumps(item) for item in [first, second]]
+                    if not same_phase:
+                        validator.capture_allocator_observations(lines[0], report, "inventory")
+                    with self.assertRaisesRegex(validator.InvalidEvidence, "incoherent"):
+                        validator.capture_allocator_observations("\n".join(lines) if same_phase else lines[1], report, "run")
 
     def test_setup_failure_with_exit_zero_and_partial_results(self):
         del self.fixture["exports"]["video-one-shot"]

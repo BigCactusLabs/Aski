@@ -134,6 +134,37 @@ Status checked on 2026-10-27. Existing PR descriptions contain the detailed rule
 None of those performance tasks is completed by this readout tool. ASKI-5's
 representative budget selection and gate placement remain separate work.
 
+### ASKI-92 packed tile samples
+
+Use the current-base scalar implementation for the control. Apply the inverse
+of the candidate's production diff against its immediate integration base.
+Keep the end-to-end instrument and its registration identical in both arms.
+Omit the candidate-only phase file, its registration, and tests that reference
+candidate-only types from the scalar worktree. Confirm that both arms retain
+intervening input-preparation and sampling changes.
+
+Capture all 66 `aski92-(convert|fixed|transparent)-.*` workloads in each arm of
+five alternating pairs. Require `wallClock`, `cpuTotal`, `mallocCountTotal`, and
+`peakMemoryResident`. The instrument requests unscaled exports for allocation
+count and RSS bytes. HDR histogram quantization still applies. Report adaptive
+wall results against the 5% median benefit bar and the small/fixed wall,
+peak-RSS and allocation results against the 3% reproducible regression guard.
+Report the remaining workload and metric cells, including transparent controls.
+Exact native palette and tile parity is required.
+
+Capture all 120 `aski92-(prepare|wu-accumulate|wu-split|kmeans)-.*` phase probes
+separately on the candidate. The Wu accumulation probe includes moment-table
+construction and integration. Phase fixtures establish attribution, while
+paired end-to-end workloads include preparation and support the adoption
+decision. Peak RSS samples process residency during measurement. The prepared
+sample buffer remains live through Wu accumulation and subdivision, then k-means.
+Its overlap with the Wu tables can be missed by periodic RSS sampling on a short
+workload. Retain separate allocation lifetime profiles on both 160×160 and
+512×512 adaptive cases in both arms; the intermediate lattice can increase live
+payload even when the larger lattice reduces it. Packed stride describes sample
+payload, not process residency. Transparent-input improvements also include the
+new early return and are not a neutral timing control.
+
 ## Verification and sources
 
 ```bash
@@ -149,3 +180,8 @@ The reader follows the producer's pinned package-benchmark 1.35.0 contract:
 [metric normalization](https://github.com/ordo-one/benchmark/blob/4b9ef5663e9c270419351a20392bf77b007f37f6/Sources/Benchmark/BenchmarkResult.swift),
 and [metric identities](https://github.com/ordo-one/benchmark/blob/4b9ef5663e9c270419351a20392bf77b007f37f6/Sources/Benchmark/BenchmarkMetric.swift).
 Review those contracts again before accepting a dependency or export-schema change.
+
+## November 13 replay rule
+
+The exact workload inventory, primary cases, regression guards, pair order and required
+metrics for this candidate are frozen in [the pre-registration](../../Scripts/research/aski92-2026-11-13/pre-registration.json). Commit that rule before reading timed results.
