@@ -23,7 +23,10 @@ internal struct LightingApplicator: Sendable {
         }
 
         let ambientField = constantField(intensity: lighting.ambient, extent: context.outputExtent)
+        // Addition also sums alpha. Keep the field's premultiplied RGB, but make
+        // it opaque so excess alpha cannot brighten color or increase input alpha.
         let combined = additive(lightField, with: ambientField, extent: context.outputExtent)
+            .settingAlphaOne(in: context.outputExtent)
         return multiply(image, with: combined, extent: context.outputExtent)
     }
 
