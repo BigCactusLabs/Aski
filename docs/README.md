@@ -41,7 +41,7 @@ describe intended assets; do not assume a hosted API site.
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or inspect early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract and measured result](../Scripts/research/video-frame-selection.md), [ASKI-93 reproducer](../Scripts/research/aski93-2026-11-12/reproduce.py) |
-| Inspect prepared footprint performance and its acceptance shortfall | [ASKI-87 native replay](benchmark-validation.md#native-replay-result--2026-11-12), [ASKI-87 reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) |
+| Inspect prepared footprint adoption and its measured limits | [ASKI-87 native replay](benchmark-validation.md#native-replay-result--2026-11-12), [ASKI-87 reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) |
 | Prepare animation, masked-rendering and fallback-noise work | [Rendering task groundwork](agents/rendering-groundwork.md) |
 | Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |

@@ -106,5 +106,14 @@
     "sentinels": 2,
     "docc": "passed",
     "carry_forward": "Only gate-result metadata and backlog completion notes changed after this check; source, instruments, raw exports, readout code and decision rule are unchanged."
+  },
+  "adoption_decision": {
+    "date": "2026-11-12",
+    "status": "adopted_by_explicit_maintainer_exception",
+    "exception": "120-column oversample-4 parallel wall median improved 2.10% instead of the registered 5%; all five paired directions improved.",
+    "basis": "Seven other primary cases improve 6.85-15.71%; native parity, final gate and all 108 regression guards pass.",
+    "numeric_rule_outcome": "not_supported; unchanged",
+    "changes_after_final_gate": "Adoption documentation, changelog and backlog metadata only; executable validation carries forward.",
+    "further_benchmarks": "none"
   }
 }

@@ -163,10 +163,11 @@ histogram/cache microbenchmark is not an adoption verdict. No production optimiz
 
 ## ASKI-87: prepared-footprint candidate
 
-**State: measured; the full replay rule is not met.** Seven of eight primary
+**State: adopted by explicit maintainer exception on 2026-11-12; the full replay
+rule remains unmet.** Seven of eight primary
 cases exceed the 5% benefit bar; the 120-column, oversample-4 parallel case improves
-by 2.10%. All control/resource guards pass. The result below is not an adoption
-verdict. The 2026-11-12 replay starts from `main` at
+by 2.10%. All control/resource guards pass. The adoption decision below preserves
+the failed per-case benefit rule and every measured result. The 2026-11-12 replay starts from `main` at
 `2c3d1bd1aee067a976e5db7cbf2aff3841e5a37b`.
 Its scalar control removes only the footprint setup and use from the integrated
 candidate; it does not restore older versions of whole files. `ShapeContext.Footprint` prepares the
@@ -257,7 +258,7 @@ runs or compare a dirty control labeled with the candidate SHA.
 Use the decision bar above: material end-to-end benefit, no reproducible small-grid
 or dotMatrix regression above 3%, exact native parity, and allocation evidence.
 The initial evidence did not satisfy that bar. The completed native replay below
-records the remaining acceptance shortfall; ASKI-87 remains open pending a decision.
+records the remaining acceptance shortfall and the explicit adoption exception.
 
 ### Bounded replay — registered 2026-11-12
 
@@ -384,6 +385,20 @@ The synthetic gradient exercises much more admitted weight than an all-zero fiel
 the earlier diagnostic losses remain relevant. These results establish this matrix
 on one Mac, not a general product speedup. Eager setup also affects tile and temporal
 contexts, which have no paired workloads here. Logical map payload is not an RSS bound.
+
+### Adoption decision — 2026-11-12
+
+The maintainer explicitly approved merging PR #8 with the recorded exception for
+the 120-column, oversample-4 parallel case: 2.10% improvement instead of the
+registered 5%. The decision accepts the material benefit in the other seven
+primary cases, exact native parity, and all 108 passing regression guards.
+The stricter per-case rule was introduced for this replay; the original task asked
+for material end-to-end benefit. This is a product adoption decision with a known
+shortfall, not a passing verdict under the registered rule. The rule, raw exports,
+incomplete focused attempt, and reproducer's `not_supported` result remain unchanged.
+No additional performance run or budget-threshold change accompanies this decision.
+Only adoption documentation, changelog and backlog metadata changed after the
+passing final native gate; its executable validation carries forward unchanged.
 
 Evidence: [original comparison](../Scripts/research/aski87-2026-11-12/comparison.json),
 [780 paired rows](../Scripts/research/aski87-2026-11-12/paired-medians.csv),

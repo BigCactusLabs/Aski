@@ -13,6 +13,14 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Log-polar conversions reuse footprint geometry (ASKI-87).** An immutable
+  pixel-to-bin map is prepared once per conversion context, with exact scalar
+  descriptor and final-grid parity. Five paired runs of the synthetic gradient
+  on one Mac measured 6.85–15.71% lower wall time in seven primary cases and 2.10%
+  in the eighth; all 108 regression guards passed. Adoption was explicitly approved
+  with that eighth case below the registered 5% bar. Evidence and limits:
+  `docs/benchmark-validation.md#native-replay-result--2026-11-12`.
+
 - **Lower-rate video exports convert only selected frames (ASKI-93).**
   `convertVideo(targetFPS:)` selects decoded frames before ASCII conversion and
   reuses a converted grid for duplicate output slots. Exact rendered-pixel,
