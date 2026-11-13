@@ -57,7 +57,7 @@ IDENTITY_FIELDS = ("lock_sha256", "benchmark_pin", "malloc_pin", "swift", "xcode
 LIMITATIONS = [
     "No native benchmark, parity test, allocation profile, or budget gate is run by this reader.",
     "Recorded Git revisions do not prove clean worktrees or identical benchmark instrumentation; verify both separately.",
-    "Allocator identity is configured provenance from ASKI-86, not independent runtime introspection.",
+    "Allocator identity includes configured provenance and, in newer ASKI-86 captures, a normalized native observation; raw process observations are not compared.",
     "Histogram exports are quantized distributions, not chronological independent repetitions; the pair is the repetition unit.",
     "package-benchmark 1.35.0 can silently short-write at a complete-row boundary; matching hashes/counts cannot detect rows never captured.",
     "A declared rule timestamp and host attestation are operator statements, not independently verified facts.",

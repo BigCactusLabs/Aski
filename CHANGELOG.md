@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Benchmark captures record the active allocator (ASKI-86).** A native probe
+  verifies the loaded malloc interposer and live counters. Process-specific probe
+  details stay separate from stable comparison identity. Real setup/execution
+  failures and missing required metrics were verified to fail the canonical command.
+
 - **Log-polar conversions reuse footprint geometry (ASKI-87).** An immutable
   pixel-to-bin map is prepared once per conversion context, with exact scalar
   descriptor and final-grid parity. Five paired runs of the synthetic gradient

@@ -300,10 +300,43 @@ def capture_identity(root, directory, report):
     identity["malloc_backend"] = {
         "configured": "disabled" if disabled else "malloc-interposer",
         "disabled_by": disabled,
-        "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+        "basis": "configured provenance: reviewed package pin, Swift 6.3+, default traits, and environment",
     }
     report["identity"] = identity
     return lock_bytes
+
+
+def capture_allocator_observations(diagnostic, report, phase):
+    """Observe the instrumented native executable, not the parent shell environment."""
+    prefix = "ASKI_ALLOCATOR_OBSERVATION "
+    observations = []
+    for line in diagnostic.splitlines():
+        if not line.startswith(prefix):
+            continue
+        try:
+            item = json.loads(line[len(prefix):])
+        except ValueError as error:
+            raise InvalidEvidence("malformed allocator observation") from error
+        if not isinstance(item, dict) or item.get("schema_version") != 1 or type(item.get("pid")) is not int:
+            raise InvalidEvidence("unsupported allocator observation")
+        if item.get("backend") == "malloc-interposer":
+            if not (isinstance(item.get("image"), str) and item["image"] and item.get("allocated") is True
+                    and type(item.get("malloc_delta")) is int and item["malloc_delta"] > 0
+                    and type(item.get("free_delta")) is int and item["free_delta"] > 0):
+                raise InvalidEvidence("malloc-interposer did not observe the native allocation/free probe")
+        elif item.get("backend") != "unavailable":
+            raise InvalidEvidence("unreviewed observed allocator backend")
+        observations.append(item)
+    if not observations:
+        raise InvalidEvidence(f"{phase}: native allocator observation missing")
+    report.setdefault("allocator_observations", {})[phase] = observations
+    backend_identity = report["identity"]["malloc_backend"]
+    for item in observations:
+        observed = {"backend": item["backend"],
+                    "image_basename": Path(item["image"]).name if item["backend"] == "malloc-interposer" else None}
+        if "observed" in backend_identity and backend_identity["observed"] != observed:
+            raise InvalidEvidence("incoherent observed allocator backend/image across capture")
+        backend_identity["observed"] = observed
 
 
 def main(argv=None):
@@ -359,6 +392,7 @@ def main(argv=None):
         diagnostic = ANSI.sub("", stdout + "\n" + stderr)
         if status or FAILURE.search(diagnostic):
             raise InvalidEvidence(f"benchmark inventory failed (exit {status}); see inventory logs")
+        capture_allocator_observations(diagnostic, report, "inventory")
         inventory = parse_inventory(stdout)
         selected = select_workloads(inventory, args.filter, args.skip, args.expect)
         report["inventory"] = inventory
@@ -379,6 +413,7 @@ def main(argv=None):
         report["errors"].extend(errors)
         if (ROOT / "Package.resolved").read_bytes() != lock_bytes:
             report["errors"].append("Package.resolved changed during validation; tool/backend identity is not stable")
+        capture_allocator_observations(diagnostic, report, "run")
         exit_code = int(bool(report["errors"]))
     except Interrupted as error:
         exit_code = 128 + error.signum

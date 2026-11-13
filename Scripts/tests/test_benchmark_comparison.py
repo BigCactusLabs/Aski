@@ -21,6 +21,9 @@ SCRIPT = Path(__file__).resolve().parents[1] / "research" / "compare-benchmarks.
 SPEC = importlib.util.spec_from_file_location("benchmark_comparison", SCRIPT)
 COMPARISON = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(COMPARISON)
+VALIDATOR_SPEC = importlib.util.spec_from_file_location("benchmark_validation", SCRIPT.parent.parent / "validate-benchmarks.py")
+VALIDATOR = importlib.util.module_from_spec(VALIDATOR_SPEC)
+VALIDATOR_SPEC.loader.exec_module(VALIDATOR)
 
 
 class BenchmarkComparisonTests(unittest.TestCase):
@@ -196,6 +199,31 @@ class BenchmarkComparisonTests(unittest.TestCase):
         first = json.loads((self.root / self.plan["pairs"][0]["control"]).read_text())
         self.change_report(lambda report, _: report.update(started_at=first["started_at"], finished_at=first["finished_at"], extra="different bytes"), pair=1, role="control")
         self.assert_invalid("capture identity reused")
+
+    def test_runtime_observations_vary_but_normalized_backend_compares(self):
+        def add_observations(report, directory):
+            seed = int(directory.name.split("-")[0]) * 100 + (10 if directory.name.endswith("candidate") else 0)
+            for phase_index, phase in enumerate(("inventory", "run")):
+                # Different process counts, PIDs, image paths and deltas are normal.
+                items = [{"schema_version": 1, "pid": seed + phase_index + i,
+                          "backend": "malloc-interposer", "image": str(directory / "libMallocInterposerSwift.dylib"),
+                          "allocated": True, "malloc_delta": seed + 1 + phase_index + i,
+                          "free_delta": seed + 2 + phase_index + i} for i in range(phase_index + 1)]
+                VALIDATOR.capture_allocator_observations("\n".join(
+                    "ASKI_ALLOCATOR_OBSERVATION " + json.dumps(item) for item in items), report, phase)
+        for index in range(len(self.plan["pairs"])):
+            for role in ("control", "candidate"):
+                self.change_report(add_observations, index, role)
+        output, code = self.compare()
+        self.assertEqual(code, 0, output["errors"])
+        self.assertTrue(output["decision_ready"])
+        backend = output["compatible_identity"]["malloc_backend"]
+        self.assertEqual(backend["observed"], {"backend": "malloc-interposer", "image_basename": "libMallocInterposerSwift.dylib"})
+        self.assertNotIn("observations", backend)
+        # The comparator must still reject a genuinely different observed backend.
+        self.change_report(lambda report, _: report["identity"]["malloc_backend"].update(
+            observed={"backend": "unavailable", "image_basename": None}))
+        self.assert_invalid("differs between captures")
 
     def test_toolchain_backend_and_pin_mismatch_rejected(self):
         for field, value in (("swift", "different Swift"), ("xcode", "different Xcode"), ("os", "different OS"), ("malloc_backend", {"configured": "disabled"}), ("lock_sha256", "d" * 64)):
