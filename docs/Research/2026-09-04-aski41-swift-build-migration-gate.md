@@ -4,9 +4,9 @@ slug: 2026-09-04-aski41-swift-build-migration-gate
 date: 2026-09-04
 status: complete
 subsystem: [meta]
-summary: "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 carries the remaining collision validation."
+summary: "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 now passes the unchanged clean graph, full tests, reuse, resource-copy parity, DocC, and plugin checks, but remains open for HDR artifact parity: decoded cross-backend variation exceeded the one same-native repeat in some measures. Fresh kernel/vector generation also exposes identical baseline drift on both backends; no resources were replaced."
 related_specs: [docs/architecture.md, docs/Research/2026-09-03-future-direction-and-architecture.md, justfile, Package.swift]
-next_action: "Use ASKI-74 to validate the unchanged one-package graph on the installed Xcode 27 / Swift 6.4 toolchain under Swift Build: fresh-checkout build, skip-build reuse, product behavior, resources, DocC and the benchmark plugin. Do not change swift-tools-version unless a manifest feature requires 6.4."
+next_action: "Adjudicate ASKI-74 HDR artifact parity from the retained same-tree and cross-backend evidence. Preserve all unchanged passing graph/tool checks and the separate kernel/vector baseline-drift results. Do not rename products, change resources, or mark the task complete on this partial result."
 ---
 
 # ASKI-41 Swift Build migration gate
@@ -215,3 +215,79 @@ All ten gates must pass. Four fail now and six cannot be evaluated; promotion is
 - Run the Swift 6.4/Xcode 27 lane only when a genuine side-by-side final toolchain exists. Re-run Metal,
   snapshots, numerical goldens, media counts and sentinels, DocC plus Markdown, plugin behavior, dependency
   compilation, and native-versus-Swift-Build timing before any promotion.
+
+
+## ASKI-74 unchanged-graph replay — 2026-11-13 (partial)
+
+[Compact command and comparison evidence](../../Scripts/research/aski74-2026-11-13/README.md).
+
+The historical HOLD above remains the Swift 6.3.2 result. This replay starts from
+`e9ac79bd48ab0d387d85cedf15f5bab244fc0aad` in two fresh worktrees on macOS 27.0.1
+(26A434), Xcode 27.0 (27A266a), and Apple Swift 6.4
+(`swiftlang-6.4.0.34.1`). All `Sources`, package manifests/lock, product names,
+Swift tools version, and the one-package graph remain unchanged. No goldens,
+thresholds, or checked-in resource bytes were changed.
+
+| Check | Observed result |
+| --- | --- |
+| Clean `swift build --build-system swiftbuild --build-tests` | PASS; 37.88 seconds reported build time, 58.97 seconds process time. No prior case-only product/module collision diagnostics. |
+| Explicit Swift Build filtered `--skip-build` tests | PASS; 30 tests. |
+| Explicit Swift Build full split phases | PASS; 1,537 core, 177 serialized media, and two isolated deadlock sentinels. |
+| Fresh explicit native control build | PASS; 63.30 seconds process time. |
+| Explicit-backend `run --skip-build` reuse | PASS for all ten command products and both generated-index tools. |
+| Command surface parity | PASS; 112 exact stdout/stderr comparisons cover help, version, bare exit, and seven unified lab namespaces. Native SwiftPM deprecation diagnostics are retained separately from product output. |
+| Resource-copy parity | PASS; all 15 source resource files match both built bundles byte-for-byte. Bundle container layouts differ between backends. |
+| Index drift rejection | PASS; both tools reject a one-byte generated-file change, then pass after exact SHA-256 restoration. |
+| Supported SwiftPM symbol graph | PASS; explicit Swift Build `dump-symbol-graph` returns zero. |
+| DocC and Markdown | PASS; the unmodified validator consumes the explicit Swift Build graph through its exact public cache-key calculation. Graph hashes are retained. |
+| Explicit Swift Build benchmark plugin | PASS; all six validation-smoke workloads export nonempty wall-clock and malloc-count samples, including the video one-shot workload. No budget verdict is inferred. |
+| Final canonical `just check` in control worktree | PASS in 206.05 seconds, including 1,537 core / 177 media / two sentinels and DocC. Its actual default backend is **Swift Build**, not native: the build-system marker changed from native to swiftbuild. The recipe was not changed. |
+| `aski`, `AskiDemo`, and `AskiTileMatrix` generated output | PASS; corresponding text, PNG and matrix artifacts match exactly across backends; `aski` and `AskiDemo` render outputs match each other. |
+
+All seven labs also ran through both legacy and unified routes on both backends
+(28 successful commands). Six labs' deterministic artifacts match after normalizing
+only output paths and the video lab's explicit throughput/RSS telemetry. The first
+8-column decolor probe correctly rejected its own no-downscale precondition; the
+qualified matrix uses the documented 80-column decolor/HDR settings. This was an
+invalid probe input, not a backend defect or a relaxed oracle.
+
+### HDR artifact boundary remains open
+
+All HDR runs report PASS under their unchanged G1–G4 rules. All nine rendered
+TIFFs match; corresponding routes preserve content headroom, float-integrity fields,
+and display-query behavior. Legacy runs report display EDR headroom 16.00 while
+unified runs report unavailable on both backends, matching the best-effort
+main-thread query. That route difference is not a backend difference.
+
+Compressed HEIC bytes and round-trip errors vary even in one repeat of the same
+native executable. A read-only decoder compared all 36 HEICs as SDR bases and
+expanded HDR in extended-linear sRGB, retaining exact Float pixel differences and
+ImageIO properties for 108 file pairs. All corresponding metadata dictionaries match.
+The same-native repeat's largest per-file mean absolute pixel difference is
+0.00001980895 (SDR) / 0.00005300455 (expanded HDR). Replay cross-backend maxima are
+0.00001159806 / 0.00004036760. Canonical cross-backend maxima are
+0.00001350340 / 0.00005839134; its SDR maximum single-channel difference is
+0.05103713 versus 0.04402679 in the same-native repeat.
+
+Thus some decoded cross-backend measures exceed this single-repeat envelope,
+even though every existing gate outcome is unchanged. Three replay fixtures and
+ten canonical fixtures exceed their corresponding same-file repeat MAE. This does
+not establish a compiler defect or a statistical variability bound, but it does not
+satisfy the requested artifact comparison either. **ASKI-74 remains open** for owner
+adjudication; no tolerance or production behavior was changed to force acceptance.
+
+### Additional generator observations
+
+Both built `BuildKernelLibrary` tools run successfully in isolated copies of the
+kernel inputs. Native, its one repeat, and Swift Build produce the same SHA-256
+`bb663922b4e69c7507f1795cf91f2faa5fda0418693a0fa1195696821377ad38`, which differs
+from checked-in `3df93d552f64cd8583182a3cd85a1ea24768674bf4f648b2906481e68e8f1b12`.
+This fresh-regeneration observation is separate from the passing resource-copy check.
+
+Read-only `BuildStandardVectors --audit` returns **1** on native, its one repeat,
+and Swift Build: 10 sets, maximum delta 0.0451757461, changed sort permutation,
+trigger fired. Both audit CSVs match byte-for-byte across all three runs. These are
+consistent baseline-drift diagnostics, not passing freshness checks and not evidence
+of a Swift Build regression. All generated files remain outside the source tree;
+checked-in kernels and vectors were preserved. The local results qualify only this
+checkout and host, not every package affected by the upstream issue.

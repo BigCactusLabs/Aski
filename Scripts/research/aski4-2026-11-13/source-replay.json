@@ -1,0 +1,10 @@
+{
+  "base": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "candidate": "0e897a39f1ee44b6d4b7235e694492006e7372f3",
+  "scope": "Source/test/benchmark replay only; no task, changelog or generated-doc state. Local candidate SHA is provenance, not assumed available on the public remote.",
+  "source_patch_sha256": "27b3c9b5c9639a64635c615c62ea7ea135016def9c54f54cd10be8248fa33049",
+  "provider_report_sha256": "f2adba18a9cf61b3b9203bc65cda5dcdb2af37df4965d4486d3058ad747466f1",
+  "provider_fixture": "Tests/AskiTests/AskiGIFProviderLifetimeTests.swift",
+  "provider_failure": "Every original provider remains live before finalize for 24, 240 and 1200 distinct frames in both modes. Incremental application appends do not satisfy bounded provider lifetime on this host.",
+  "rss_evidence": "Complete 30-capture primary matrix; frozen growth requirement fails. See primary-summary.json and portable reproduce.py."
+}

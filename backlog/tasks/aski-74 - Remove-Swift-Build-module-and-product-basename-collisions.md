@@ -1,10 +1,10 @@
 ---
 id: ASKI-74
 title: Validate Swift 6.4 fix for case-only product collisions
-status: To Do
+status: In Progress
 assignee: []
 created_date: 2026-09-04 08:24
-updated_date: '2026-11-13T05:21:00Z'
+updated_date: '2026-11-13T06:29:00Z'
 labels:
   - toolchain
   - ci
@@ -34,12 +34,12 @@ Do not implement a Swift 6.3 repo workaround. On a genuine side-by-side Xcode 27
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 From a fresh current-main checkout, swift build --build-tests --build-system swiftbuild succeeds with the unchanged one-package graph; neither the Aski/aski case-only corruption nor the earlier demo/lab collision diagnostics occur.
-- [ ] #2 Filtered and full Swift Build tests run from the built graph, and build-once then test/run --skip-build reuse succeeds with an explicit backend on every SwiftPM command.
+- [x] #1 From a fresh current-main checkout, swift build --build-tests --build-system swiftbuild succeeds with the unchanged one-package graph; neither the Aski/aski case-only corruption nor the earlier demo/lab collision diagnostics occur.
+- [x] #2 Filtered and full Swift Build tests run from the built graph, and build-once then test/run --skip-build reuse succeeds with an explicit backend on every SwiftPM command.
 - [ ] #3 The aski command, AskiDemo, and all seven lab products preserve help, version, bare-exit, unified-routing, and generated-artifact behavior against the native backend.
-- [ ] #4 Resources remain byte-identical; research-index and repo-map checks detect reversible drift; DocC plus Markdown export and the benchmark plugin succeed under Swift Build.
+- [x] #4 Resources remain byte-identical; research-index and repo-map checks detect reversible drift; DocC plus Markdown export and the benchmark plugin succeed under Swift Build.
 - [ ] #5 Sources, Package.swift, Package.resolved, public and executable product names, swift-tools-version, and the one-package architecture remain unchanged; a final native just check passes before any completion commit.
-- [ ] #6 The validation runs on the installed final Xcode 27 / Apple Swift 6.4 toolchain (now the selected default); record xcodebuild -version and xcrun swift --version with the results.
+- [x] #6 The validation runs on the installed final Xcode 27 / Apple Swift 6.4 toolchain (now the selected default); record xcodebuild -version and xcrun swift --version with the results.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -50,6 +50,8 @@ Do not implement a Swift 6.3 repo workaround. On a genuine side-by-side Xcode 27
 3. Run a clean Swift Build build-tests command first. Inspect the generated graph and logs for the prior AskiDemo shadow, seven lab basename collisions, and Aski/aski file-list corruption. If the upstream 6.4 fix does not hold, keep the task open and report the upstream failure; do not rename required names or add package/wrapper ceremony.
 4. If the clean graph passes, run filtered and full skip-build tests, all package tools with drift falsification, resource parity, DocC plus Markdown, the benchmark plugin, and native-versus-Swift-Build command/replay parity. Keep runs serial.
 5. Record the compatibility result in the ASKI-41 verdict note and generated research index. Mark ASKI-74 Done only when every acceptance criterion passes, then let ASKI-41 repeat its frozen performance and promotion lane.
+
+2026-11-13 execution: validate the unchanged current-main graph on selected final Xcode 27 / Swift 6.4 with an explicit swiftbuild backend; capture the first clean build and stop the dependent validation matrix if it fails. Current upstream sources were checked again; preserve the package and product names.
 <!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
@@ -74,4 +76,8 @@ Source map: `Tests/AskiTests/UnifiedLabCommandTests.swift`, `Tests/AskiTests/Com
 Audit 2026-11-12: Swift 6.4 / Xcode 27 is now the installed default, so the wait condition is met; the side-by-side premise of AC#1 no longer applies. The title and filename differ.
 
 2026-11-13: owner ruling: AC#1 re-scoped. The original criterion (a final toolchain side-by-side via DEVELOPER_DIR without a global Xcode change) no longer applies because Xcode 27 / Swift 6.4 is the installed default. The replacement criterion is now the last in the list. The task is unblocked.
+
+2026-11-13 explicit-backend replay: unchanged clean Swift Build graph passed; filtered 30 tests and full 1537 core / 177 media / 2 sentinels passed with skip-build. Native control build, 112 command-surface comparisons, 15 resource-copy byte checks, reversible index drift rejection/restoration, explicit Swift Build symbol graph, DocC/Markdown, six-workload benchmark exports and final unmodified just check passed. Final canonical gate used default Swift Build (206.05s), not explicit native. All 28 seven-lab artifact commands succeeded; HDR metadata and existing gates agree, but some decoded cross-backend measures exceed the one same-native repeat envelope. Keep task open pending owner review. Extra generator checks show identical kernel regeneration and vector-audit drift on both backends; source/resources preserved. Research note records exact bounds and limitations.
+
+Lead review: AC1, AC2, AC4 and AC6 are established by the unchanged-graph explicit-backend captures. AC3 stays open for HDR artifact parity; a single same-backend repeat is not a noise bound. AC5 stays open because the unmodified canonical just check passed using the installed Swift Build default, not an explicit legacy-native backend. Compact evidence is in Scripts/research/aski74-2026-11-13/readout.json. The vector drift repeats the existing ASKI-78 finding. No production bytes or acceptance thresholds changed.
 <!-- SECTION:NOTES:END -->

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "candidate_revision": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891",
+  "control_revision": "7c60b3a24637dc42c68453298e7d318d4446bbad",
+  "full_gates": {
+    "candidate": {
+      "core_tests": 1544,
+      "media_tests": 177,
+      "deadlock_sentinels": 2,
+      "format_build_drift_docc": "pass"
+    },
+    "control": {
+      "core_tests": 1537,
+      "media_tests": 177,
+      "deadlock_sentinels": 2,
+      "format_build_drift_docc": "pass"
+    }
+  },
+  "gate_evidence_sha256": {
+    "aski90-check-1.json": "5e18cddbc1efe67143a96cdb5e95b98ff4840260bd7ef4524ad856942010969a",
+    "aski90-check-1.log": "d30ba8afb5f147aa210d39a405117b66e21b9a8a38f4447a571ff8f291179574",
+    "aski90-check-1.before.json": "163f7af1531353028bdec2c246cbe1cceabe5981ec8f3a37002c5020008ec013",
+    "aski90-check-1.after.json": "163f7af1531353028bdec2c246cbe1cceabe5981ec8f3a37002c5020008ec013",
+    "aski90-control-check-1.json": "0c84ac7824181d9882940aefca1cfbee239e3e9bb0879e7943076af59535e5ec",
+    "aski90-control-check-1.log": "1935cba55fcc9ce10fdfebde66025b13f84aed9cf76731504fedb2a34f8c20e5",
+    "aski90-control-check-1.before.json": "9663b53bdc84b8e5de019dd607552dfe8347c412601d88931a5b49ae0eb95fbf",
+    "aski90-control-check-1.after.json": "9663b53bdc84b8e5de019dd607552dfe8347c412601d88931a5b49ae0eb95fbf"
+  },
+  "existing_checks": [
+    {
+      "task": 90,
+      "label": "90-capture-1",
+      "argv": [
+        "python3",
+        "-B",
+        "Scripts/validate-benchmarks.py",
+        "--filter",
+        "^(convert-gradient.*|helmlab-compressed-convert-80cols|animation-.*|tile-quantize-.*)$",
+        "--require-metric",
+        "mallocCountTotal",
+        "--timeout",
+        "600",
+        "--expect",
+        "animation-build-gradient-80cols-k6",
+        "--expect",
+        "animation-grid-at-80cols",
+        "--expect",
+        "animation-materialize-80cols-5s-60fps",
+        "--expect",
+        "animation-regression-static-convert-80cols",
+        "--expect",
+        "convert-gradient-2400x1800-120cols",
+        "--expect",
+        "convert-gradient-800x600-80cols",
+        "--expect",
+        "helmlab-compressed-convert-80cols",
+        "--expect",
+        "tile-quantize-rich-512x512-256cols-adaptive16",
+        "--expect",
+        "tile-quantize-rich-512x512-256cols-adaptive16-masked",
+        "--expect",
+        "tile-quantize-rich-512x512-256cols-adaptive64",
+        "--expect",
+        "tile-quantize-rich-512x512-256cols-adaptive8",
+        "--output-dir",
+        "$EXISTING_CHECKS/90-capture-1"
+      ],
+      "cwd": "$CANDIDATE",
+      "started_at": "2026-11-13T08:15:07.996102+00:00",
+      "exit": 0,
+      "seconds": 65.27539683296345,
+      "finished_at": "2026-11-13T08:16:13.273020+00:00"
+    },
+    {
+      "task": 90,
+      "label": "90-budget-1",
+      "argv": [
+        "xcrun",
+        "swift",
+        "package",
+        "--disable-sandbox",
+        "benchmark",
+        "baseline",
+        "check",
+        "--check-absolute",
+        "--filter",
+        "^(helmlab-compressed-convert-80cols|animation-.*)$",
+        "--target",
+        "AskiBenchmarks",
+        "--no-progress"
+      ],
+      "cwd": "$CANDIDATE",
+      "started_at": "2026-11-13T08:16:13.322758+00:00",
+      "exit": 0,
+      "seconds": 29.722544125048444,
+      "finished_at": "2026-11-13T08:16:43.046038+00:00"
+    }
+  ],
+  "capture": {
+    "status": "valid",
+    "complete": true,
+    "required_metrics": [
+      "mallocCountTotal",
+      "wallClock"
+    ],
+    "selected": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "convert-gradient-2400x1800-120cols",
+      "convert-gradient-800x600-80cols",
+      "helmlab-compressed-convert-80cols",
+      "tile-quantize-rich-512x512-256cols-adaptive16",
+      "tile-quantize-rich-512x512-256cols-adaptive16-masked",
+      "tile-quantize-rich-512x512-256cols-adaptive64",
+      "tile-quantize-rich-512x512-256cols-adaptive8"
+    ],
+    "report_sha256": "436e293c4e95b66b93d82636ebe68e3bc29cf8bf654632539f3f43e041aed1ae"
+  },
+  "absolute_budget": {
+    "status": "pass",
+    "existing_thresholds_changed": false,
+    "workloads": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "helmlab-compressed-convert-80cols"
+    ],
+    "log_sha256": "79066ed323409f4bdc7c60d1acebc3d7f67acf3dd393bcd0cdc4d4f8e88131ee"
+  },
+  "check_attempts": 1,
+  "limit": "Native gate source inventories are bound by their before/after hashes; evidence/backlog publication followed. These are separate from the paired numerical result."
+}

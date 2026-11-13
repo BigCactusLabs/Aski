@@ -13,6 +13,13 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Pulse math is reused once per frame (ASKI-91).** Pulse overlays and animated
+  frames preserve the existing arithmetic and exact cell values. Five paired
+  runs of synthetic overlays at 80/192/288 columns on one Mac measured 34.56%,
+  43.65% and 47.77% lower median wall time; all 93 regression guards passed.
+  Animated pulse has exact parity coverage, not a direct timing result in this
+  matrix. Evidence and limits: `Scripts/research/aski91-2026-11-13/README.md`.
+
 - **Benchmark captures record the active allocator (ASKI-86).** A native probe
   verifies the loaded malloc interposer and live counters. Process-specific probe
   details stay separate from stable comparison identity. Real setup/execution

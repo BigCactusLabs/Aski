@@ -2,20 +2,28 @@
 
 Initially prepared 2026-10-27 against PR #11, commit
 `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`. This is an independent sibling of the
-ASKI-93 video candidate, not a stack of unmeasured optimizations. Production
-sources, package/deployment requirements, goldens and existing budgets are unchanged.
+ASKI-93 video candidate, not a stack of unmeasured optimizations. The original
+groundwork left production sources, package requirements, goldens and budgets unchanged.
+
+Status 2026-11-13: ASKI-91's pulse-only reuse is adopted. All three overlay
+primaries and 93 regression guards pass the frozen five-pair rule, with exact
+native parity and unchanged existing budgets. The [complete study](../../Scripts/research/aski91-2026-11-13/README.md)
+records the source, release-oracle repair, measurements and limits. ASKI-94 and
+ASKI-95 remain at groundwork; other pattern optimizations were not combined with
+the pulse arm.
 
 ## Delivered and still required
 
 | Task | Executable preparation | Still required before adoption |
 | --- | --- | --- |
-| ASKI-91 | Nine Foundation-only evaluator contracts; native grid/metadata contracts; 24 frame/overlay workloads | Native public-boundary checks, an isolated implementation, allocation attribution and paired measurements |
+| ASKI-91 | Exact native/debug/release parity; 24 frame/overlay workloads; adopted local pulse reuse | Complete for the pulse arm; animated-pulse speed is not directly measured by this matrix |
 | ASKI-94 | Native ragged-coverage and placement contracts; 27 original-image/control workloads | Measured draw census; full control/candidate pixel comparisons including fractional boundaries, P3, source alpha and target-width rendering |
 | ASKI-95 | Forced reduced-route versus stock pixel checks, seed/extent interleaving, concurrency and CI cache-toggle checks | Product fallback frequency; 512-square/1080p construction/render timing, retained-memory accounting and normal-Metal controls |
 
-No task is complete. Backlog files were deliberately not edited: the required
-Backlog CLI was unavailable. This page and the PR carry the preparation handoff,
-not a competing task tracker. The test names below all contain `Groundwork` or
+The original groundwork completed no task. Its Backlog files were not edited
+because the CLI was unavailable then; current task records include the later
+ASKI-91 result. This page records preparation and evidence, not a competing task
+tracker. The test names below all contain `Groundwork` or
 `PatternFrameWork`, so native checks can select this batch without guessing files.
 
 ## ASKI-91: prepare one frame, not a global cache
@@ -23,8 +31,10 @@ not a competing task tracker. The test names below all contain `Groundwork` or
 Start at `PatternEvaluator.ongoingAlpha`, `entranceAlpha`, `radialDistance`,
 `ASCIIGrid.applyingOngoingPattern`, and `AnimatedASCIIGrid.grid(at:)`.
 
-The smallest candidate is an invocation-owned pulse multiplier, computed with the
-same scalar arithmetic once per frame. Completed reveal can be considered
+The adopted candidate is an invocation-owned pulse multiplier, computed with the
+same scalar arithmetic once per frame. Animated frames keep the multiplier in
+Double through the entrance product; overlays reuse the clamped Float value.
+Completed reveal can be considered
 separately from anchor preparation. Keep directional-wave subtraction and sine
 operation order: replacing it with a trigonometric identity need not preserve bits.
 Do not combine all three ideas into the first measured change.
@@ -154,7 +164,9 @@ python3 -B Scripts/validate-benchmarks.py --filter '^aski94-.*$' \
 Freeze the exact identities from
 [`rendering-groundwork-workloads.json`](../../Scripts/research/rendering-groundwork-workloads.json)
 into each pair manifest's `expected_workloads` (24 and 27 respectively). Native
-inventory must match; these counts were derived from registration source, not run.
+inventory must match. These counts initially came from registration source;
+the 24 ASKI-91 identities now have complete native captures, while the 27
+ASKI-94 identities remain prepared instruments.
 Start both arms from the same groundwork commit, then alter only the intended
 production code in the candidate. Keep fixtures and instruments byte-identical.
 Use the [paired readout](paired-benchmarks.md) for at least five adjacent,
@@ -189,6 +201,7 @@ That environment could not run the Apple gate (`just` and Apple frameworks were
 absent). On 2026-11-12 the portable probe also passed on arm64 macOS with Apple
 Swift 6.4, strict concurrency and warnings-as-errors. Use the native commands
 above to validate a particular checkout; PR validation records identify the
-tested revision. The 51-workload performance experiment, full render parity,
-fallback frequency and memory accounting remain future adoption work. This
-groundwork claims no allocation reduction or speedup.
+tested revision. The 24 ASKI-91 workloads were subsequently measured in the linked
+native study. The 27 ASKI-94 workloads, full render parity, fallback frequency and
+ASKI-95 memory accounting remain future adoption work. The original portable
+groundwork alone establishes no allocation reduction or speedup.

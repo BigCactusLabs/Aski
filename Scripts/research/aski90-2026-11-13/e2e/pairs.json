@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "experiment": "aski-90-2026-11-13-e2e",
+  "control_revision": "7c60b3a24637dc42c68453298e7d318d4446bbad",
+  "candidate_revision": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891",
+  "expected_workloads": [
+    "aski90-convert-ansi16-p3-parallel-1cols",
+    "aski90-convert-ansi16-p3-parallel-512cols",
+    "aski90-convert-ansi16-p3-parallel-80cols",
+    "aski90-convert-ansi16-p3-parallel-8cols",
+    "aski90-convert-ansi16-p3-serial-1cols",
+    "aski90-convert-ansi16-p3-serial-512cols",
+    "aski90-convert-ansi16-p3-serial-80cols",
+    "aski90-convert-ansi16-p3-serial-8cols",
+    "aski90-convert-ansi16-srgb-parallel-1cols",
+    "aski90-convert-ansi16-srgb-parallel-512cols",
+    "aski90-convert-ansi16-srgb-parallel-80cols",
+    "aski90-convert-ansi16-srgb-parallel-8cols",
+    "aski90-convert-ansi16-srgb-serial-1cols",
+    "aski90-convert-ansi16-srgb-serial-512cols",
+    "aski90-convert-ansi16-srgb-serial-80cols",
+    "aski90-convert-ansi16-srgb-serial-8cols",
+    "aski90-convert-mono-p3-parallel-1cols",
+    "aski90-convert-mono-p3-parallel-512cols",
+    "aski90-convert-mono-p3-parallel-80cols",
+    "aski90-convert-mono-p3-parallel-8cols",
+    "aski90-convert-mono-p3-serial-1cols",
+    "aski90-convert-mono-p3-serial-512cols",
+    "aski90-convert-mono-p3-serial-80cols",
+    "aski90-convert-mono-p3-serial-8cols",
+    "aski90-convert-mono-srgb-parallel-1cols",
+    "aski90-convert-mono-srgb-parallel-512cols",
+    "aski90-convert-mono-srgb-parallel-80cols",
+    "aski90-convert-mono-srgb-parallel-8cols",
+    "aski90-convert-mono-srgb-serial-1cols",
+    "aski90-convert-mono-srgb-serial-512cols",
+    "aski90-convert-mono-srgb-serial-80cols",
+    "aski90-convert-mono-srgb-serial-8cols",
+    "aski90-convert-passthrough-p3-parallel-1cols",
+    "aski90-convert-passthrough-p3-parallel-512cols",
+    "aski90-convert-passthrough-p3-parallel-80cols",
+    "aski90-convert-passthrough-p3-parallel-8cols",
+    "aski90-convert-passthrough-p3-serial-1cols",
+    "aski90-convert-passthrough-p3-serial-512cols",
+    "aski90-convert-passthrough-p3-serial-80cols",
+    "aski90-convert-passthrough-p3-serial-8cols",
+    "aski90-convert-passthrough-srgb-parallel-1cols",
+    "aski90-convert-passthrough-srgb-parallel-512cols",
+    "aski90-convert-passthrough-srgb-parallel-80cols",
+    "aski90-convert-passthrough-srgb-parallel-8cols",
+    "aski90-convert-passthrough-srgb-serial-1cols",
+    "aski90-convert-passthrough-srgb-serial-512cols",
+    "aski90-convert-passthrough-srgb-serial-80cols",
+    "aski90-convert-passthrough-srgb-serial-8cols",
+    "aski90-policy-adaptive-p3-80cols",
+    "aski90-policy-adaptive-srgb-80cols",
+    "aski90-policy-clip-p3-80cols",
+    "aski90-policy-clip-srgb-80cols",
+    "aski90-policy-helmlab-compressed-p3-80cols",
+    "aski90-policy-helmlab-compressed-srgb-80cols",
+    "aski90-policy-helmlab-p3-80cols",
+    "aski90-policy-helmlab-srgb-80cols",
+    "aski90-policy-hyab-p3-80cols",
+    "aski90-policy-hyab-srgb-80cols",
+    "aski90-ranked-ansi16-p3-80cols",
+    "aski90-ranked-ansi16-srgb-80cols",
+    "aski90-ranked-mono-p3-80cols",
+    "aski90-ranked-mono-srgb-80cols",
+    "aski90-ranked-passthrough-p3-80cols",
+    "aski90-ranked-passthrough-srgb-80cols",
+    "aski90-repeated-ansi16-p3-80cols",
+    "aski90-repeated-ansi16-srgb-80cols",
+    "aski90-repeated-mono-p3-80cols",
+    "aski90-repeated-mono-srgb-80cols",
+    "aski90-repeated-passthrough-p3-80cols",
+    "aski90-repeated-passthrough-srgb-80cols"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal"
+  ],
+  "decision_rule": {
+    "reference": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891:Scripts/research/aski90-2026-11-13/pre-registration.json",
+    "declared_at": "2026-11-13T05:58:51.584581+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "local-aski-overnight-2026-11-13",
+    "same_physical_host": true,
+    "conditions": "Same physical M3 Max 14-core/36 GiB host; macOS 27.0.1 26A434, Xcode 27.0 27A266a, Swift 6.4; AC 100%; no recorded thermal/performance warning at preflight; MallocNanoZone=0. No competing batch builds/tests/benchmarks/profiles. Desktop/system background load present: duetexpertd 66-92% CPU and intermittent Chrome/mediaanalysisd 66-92% CPU; host not idle or quiet. Lead r1/g1 authorized this disclosed deviation from ideal quiet-host conditions. Lightweight lead documentation/status permitted; user/system processes unchanged."
+  },
+  "pairs": [
+    {
+      "control": "pair-1/control/report.json",
+      "candidate": "pair-1/candidate/report.json"
+    },
+    {
+      "control": "pair-2/control/report.json",
+      "candidate": "pair-2/candidate/report.json"
+    },
+    {
+      "control": "pair-3/control/report.json",
+      "candidate": "pair-3/candidate/report.json"
+    },
+    {
+      "control": "pair-4/control/report.json",
+      "candidate": "pair-4/candidate/report.json"
+    },
+    {
+      "control": "pair-5/control/report.json",
+      "candidate": "pair-5/candidate/report.json"
+    }
+  ]
+}

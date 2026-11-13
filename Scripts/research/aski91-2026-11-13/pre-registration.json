@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-91",
+  "experiment": "invocation-owned-pulse-alpha",
+  "declared_at": "2026-11-13T07:58:31.934911+00:00",
+  "base_revision": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "minimum_pairs": 5,
+  "pair_order": [
+    "control,candidate",
+    "candidate,control",
+    "control,candidate",
+    "candidate,control",
+    "control,candidate"
+  ],
+  "host": "Run serially on the same physical host, toolchain and allocator backend. Disclose ordinary desktop/system activity and record thermal, power and contention conditions.",
+  "peak_rss_basis": "Absolute peak resident bytes for the benchmark process, including setup and warmup, with existing HDR histogram precision.",
+  "control": {
+    "production_source_revision": "bb399f9136e8c50fb2a256551bacad029115024d",
+    "restore_production_files": [
+      "Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift",
+      "Sources/Aski/Animation/AnimatedASCIIGrid.swift",
+      "Sources/Aski/Animation/PatternEvaluator.swift"
+    ],
+    "shared_tests": "Tests/AskiTests/PatternGridGroundworkTests.swift",
+    "candidate_specific_tests": []
+  },
+  "selections": {
+    "all": {
+      "workloads": [
+        "aski91-frame-no-pattern-192cols",
+        "aski91-frame-no-pattern-288cols",
+        "aski91-frame-no-pattern-80cols",
+        "aski91-frame-radial-active-192cols",
+        "aski91-frame-radial-active-288cols",
+        "aski91-frame-radial-active-80cols",
+        "aski91-frame-radial-complete-192cols",
+        "aski91-frame-radial-complete-288cols",
+        "aski91-frame-radial-complete-80cols",
+        "aski91-overlay-neutral-pulse-192cols",
+        "aski91-overlay-neutral-pulse-288cols",
+        "aski91-overlay-neutral-pulse-80cols",
+        "aski91-overlay-neutral-wave-192cols",
+        "aski91-overlay-neutral-wave-288cols",
+        "aski91-overlay-neutral-wave-80cols",
+        "aski91-overlay-pulse-192cols",
+        "aski91-overlay-pulse-288cols",
+        "aski91-overlay-pulse-80cols",
+        "aski91-overlay-wave-diagonal-192cols",
+        "aski91-overlay-wave-diagonal-288cols",
+        "aski91-overlay-wave-diagonal-80cols",
+        "aski91-overlay-wave-horizontal-192cols",
+        "aski91-overlay-wave-horizontal-288cols",
+        "aski91-overlay-wave-horizontal-80cols"
+      ],
+      "filter": "^aski91-.*$",
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident"
+      ],
+      "registered_source": "Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift",
+      "inventory_source": "Scripts/research/rendering-groundwork-workloads.json",
+      "unscaled_metrics": {
+        "mallocCountTotal": "count",
+        "peakMemoryResident": "bytes"
+      }
+    }
+  },
+  "primary_wall_workloads": [
+    "aski91-overlay-pulse-192cols",
+    "aski91-overlay-pulse-288cols",
+    "aski91-overlay-pulse-80cols"
+  ],
+  "benefit_rule": {
+    "every_primary_required": true,
+    "median_paired_percent_at_most": -5,
+    "improving_pairs_at_least": 4
+  },
+  "regression_guards": {
+    "aski91-frame-no-pattern-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-no-pattern-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-no-pattern-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-active-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-active-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-active-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-complete-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-complete-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-frame-radial-complete-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-pulse-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-pulse-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-pulse-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-wave-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-wave-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-neutral-wave-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-pulse-192cols": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-pulse-288cols": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-pulse-80cols": [
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-diagonal-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-diagonal-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-diagonal-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-horizontal-192cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-horizontal-288cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski91-overlay-wave-horizontal-80cols": [
+      "wallClock",
+      "cpuTotal",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ]
+  },
+  "regression_rule": {
+    "paired_percent_over": 3,
+    "pairs_at_least": 4
+  },
+  "additional_gates": [
+    "Exact scalar native parity for both public grid callers, including the Double entrance product",
+    "Existing ASKI-18 public invalid-parameter exit tests, including empty grids",
+    "Full just check on both exact arms",
+    "Unchanged animation/media benchmark checks and applicable inline absolute budgets",
+    "Clean committed revisions with identical benchmark, validator, fixture, and dependency inputs"
+  ],
+  "pair_delta": "100 * (candidate run median - control run median) / control run median; a zero control is undefined",
+  "inconclusive": "Missing/incompatible evidence, undefined primary/other-metric ratios, or unresolved host noise cannot pass. CPU/allocation zero-control guards follow the explicit observed-cost policy; all percentages remain undefined.",
+  "zero_control_guard_policy": {
+    "metrics": [
+      "cpuTotal",
+      "mallocCountTotal"
+    ],
+    "reported_percentage": "undefined when control is zero; never zero-fill the ratio",
+    "guard_pair_classification": {
+      "control_zero_candidate_zero": "no observed increase at the exported metric resolution; count as a non-regressing pair",
+      "control_zero_candidate_positive": "count as a regressing pair",
+      "control_positive": "use the unchanged strictly-greater-than3-percent bar"
+    },
+    "primary_zero_control": "inconclusive; cannot establish primary benefit",
+    "other_metrics_zero_control": "inconclusive; positive resident-memory observations are required",
+    "limits": "This classifies observed guard costs only, not a percentage speedup or a bound beneath the counter resolution."
+  },
+  "pre_capture_amendment": {
+    "recorded_at": "2026-11-13T08:10:19.531171+00:00",
+    "original_protocol_sha256": "f4ed10ead4870ee66a9eb7b54e8cc97eeffa4b611c73888a2038a872d2e717cc",
+    "reason": "Source-level no-pattern/neutral controls can have zero CPU or allocation costs. Define guard classification before native capture; keep ratio undefined and do not claim sub-resolution improvement. Canonicalize91 field layout without changing inventory, positive-control bars or pair order.",
+    "native_captures_started": false,
+    "numeric_threshold_changes": false,
+    "decision_rule_amendment": true
+  }
+}

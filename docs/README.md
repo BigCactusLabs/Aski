@@ -42,6 +42,14 @@ describe intended assets; do not assume a hosted API site.
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or inspect early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract and measured result](../Scripts/research/video-frame-selection.md), [ASKI-93 reproducer](../Scripts/research/aski93-2026-11-12/reproduce.py) |
 | Inspect prepared footprint adoption and its measured limits | [ASKI-87 native replay](benchmark-validation.md#native-replay-result--2026-11-12), [ASKI-87 reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) |
+| Inspect native benchmark failure/allocator proof | [ASKI-86 native validity evidence](../Scripts/research/aski86-2026-11-13/README.md) |
+| Inspect the rejected fixed-palette cache and reproduce every paired result | [ASKI-90 complete study](../Scripts/research/aski90-2026-11-13/README.md) |
+| Inspect exact heap selection and its rejected native performance result | [ASKI-88 complete study](../Scripts/research/aski88-2026-11-13/README.md) |
+| Inspect adopted pulse reuse, exact parity and measured overlay gains | [ASKI-91 complete study](../Scripts/research/aski91-2026-11-13/README.md) |
+| Inspect the incomplete tile-buffer study and separate phase measurements | [ASKI-92 inconclusive study](../Scripts/research/aski92-2026-11-13/README.md) |
+| Inspect provider lifetimes and failed RSS limits in the ImageIO append approach | [ASKI-4 memory study](../Scripts/research/aski4-2026-11-13/README.md) |
+| Inspect the rejected orientation-preparation arm | [ASKI-2 exact-raster experiment](../Scripts/research/aski2-2026-11-13/README.md) |
+| Inspect Swift 6.4 product-collision validation and open HDR parity | [ASKI-74 native replay](../Scripts/research/aski74-2026-11-13/README.md) |
 | Prepare animation, masked-rendering and fallback-noise work | [Rendering task groundwork](agents/rendering-groundwork.md) |
 | Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |

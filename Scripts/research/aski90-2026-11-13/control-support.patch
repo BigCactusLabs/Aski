@@ -1,0 +1,299 @@
+diff --git a/Benchmarks/AskiBenchmarks/Benchmarks.swift b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+index 6c9e4ac..e589bd1 100644
+--- a/Benchmarks/AskiBenchmarks/Benchmarks.swift
++++ b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+@@ -52,6 +52,7 @@ let benchmarks: @Sendable () -> Void = {
+     }
+ 
+     addTileGridBenchmarks()
++    addTileColorSampleBenchmarks()
+     addEffectChainBenchmarks()
+     addMaskBenchmarks()
+     addAnimationBenchmarks()
+@@ -65,6 +66,8 @@ let benchmarks: @Sendable () -> Void = {
+     addASTSK55Benchmarks()
+     addPreparationBenchmarks()
+     addShapeContextFootprintBenchmarks()
++    addFixedPaletteDisplayBenchmarks()
++    addFixedPaletteSetupBenchmarks()
+ }
+ 
+ internal func makeGradient(width: Int, height: Int) -> CGImage {
+diff --git a/Benchmarks/AskiBenchmarks/FixedPaletteDisplayBenchmarks.swift b/Benchmarks/AskiBenchmarks/FixedPaletteDisplayBenchmarks.swift
+new file mode 100644
+index 0000000..e990d6d
+--- /dev/null
++++ b/Benchmarks/AskiBenchmarks/FixedPaletteDisplayBenchmarks.swift
+@@ -0,0 +1,105 @@
++import Aski
++import Benchmark
++import CoreGraphics
++
++/// ASKI-90 instruments, not budgets. `convert` includes palette resolution and
++/// display-table preparation. Fixtures and converter construction are outside
++/// measurement, following the existing conversion suite's convention.
++///
++/// Compare against the scalar path on the same base with identical instruments.
++/// Require wall/CPU/malloc samples for every identity over five alternating
++/// complete pairs. The setup instruments are separate from this selection.
++func addFixedPaletteDisplayBenchmarks() {
++    let configuration = Benchmark.Configuration(
++        metrics: [.wallClock, .cpuTotal, .mallocCountTotal],
++        units: [.mallocCountTotal: .count],
++        warmupIterations: 1, scalingFactor: .one,
++        maxDuration: .seconds(2), maxIterations: 10)
++    let palettes: [(String, BuiltInPalette)] = [
++        ("ansi16", .ansi16), ("mono", .monochrome), ("passthrough", .fullColor),
++    ]
++    let spaces: [(String, RenderColorSpace)] = [("srgb", .sRGB), ("p3", .displayP3)]
++    let modes: [(String, GridRowWalk.Mode)] = [("serial", .forcedSerial), ("parallel", .forcedParallel)]
++
++    // 48 small/representative/large conversion cases, including pass-through controls.
++    for (paletteName, palette) in palettes {
++        for (spaceName, space) in spaces {
++            for (modeName, mode) in modes {
++                for columns in [1, 8, 80, 512] {
++                    Benchmark("aski90-convert-\(paletteName)-\(spaceName)-\(modeName)-\(columns)cols", configuration: configuration) { benchmark in
++                        let image = makeFixedPaletteDisplayFixture()
++                        var converter = DefaultConverter(characterSet: .standard, palette: palette, colorSpace: space)
++                        converter.rowWalkMode = mode
++                        benchmark.startMeasurement()
++                        for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                        benchmark.stopMeasurement()
++                    }
++                }
++            }
++
++            // Six ranked construction and six repeated-frame cases. Preparation
++            // happens once per conversion, not once per benchmark or forever.
++            Benchmark("aski90-ranked-\(paletteName)-\(spaceName)-80cols", configuration: configuration) { benchmark in
++                let image = makeFixedPaletteDisplayFixture()
++                let converter = DefaultConverter(characterSet: .standard, palette: palette, colorSpace: space)
++                let options = AnimationOptions(duration: 5, seed: 1, cycling: CyclingOptions(k: 6, speed: 1, intensity: 0.6, randomness: 0.5))
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations { blackHole(converter.animate(image, columns: 80, options: options)) }
++                benchmark.stopMeasurement()
++            }
++            Benchmark("aski90-repeated-\(paletteName)-\(spaceName)-80cols", configuration: configuration) { benchmark in
++                let image = makeFixedPaletteDisplayFixture()
++                let converter = DefaultConverter(characterSet: .standard, palette: palette, colorSpace: space)
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations {
++                    for _ in 0..<10 { blackHole(converter.convert(image, columns: 80)) }
++                }
++                benchmark.stopMeasurement()
++            }
++        }
++    }
++
++    // Ten policy controls: vary one policy at a time rather than burying this
++    // focused experiment in a full Cartesian suite. Unit parity covers all pairs.
++    let policies: [(String, PaletteMatchingPolicy, GamutMappingPolicy)] = [
++        ("hyab", .oklabHyAB, .rayTrace),
++        ("helmlab", .helmlabEuclidean, .rayTrace),
++        ("helmlab-compressed", .helmlabCompressed, .rayTrace),
++        ("clip", .oklabEuclidean, .clip),
++        ("adaptive", .oklabEuclidean, .adaptiveL0),
++    ]
++    for (name, matching, gamut) in policies {
++        for (spaceName, space) in spaces {
++            Benchmark("aski90-policy-\(name)-\(spaceName)-80cols", configuration: configuration) { benchmark in
++                let image = makeFixedPaletteDisplayFixture()
++                let converter = DefaultConverter(
++                    characterSet: .standard, palette: .ansi16, colorSpace: space,
++                    paletteMatching: matching, gamutMapping: gamut)
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: 80)) }
++                benchmark.stopMeasurement()
++            }
++        }
++    }
++}
++
++/// Redistributable synthetic color/alpha input; unlike a gray gradient this
++/// exercises ANSI chroma choices. Large enough for the 512-column lattice.
++private func makeFixedPaletteDisplayFixture() -> CGImage {
++    let context = CGContext(
++        data: nil, width: 1024, height: 768, bitsPerComponent: 8, bytesPerRow: 4096,
++        space: CGColorSpace(name: CGColorSpace.displayP3)!,
++        bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
++    for row in 0..<24 {
++        for column in 0..<32 {
++            let index = row * 32 + column
++            context.setFillColor(
++                red: CGFloat((index * 37) % 256) / 255,
++                green: CGFloat((index * 73) % 256) / 255,
++                blue: CGFloat((index * 19) % 256) / 255,
++                alpha: [CGFloat(0), 0.25, 0.5, 1][index % 4])
++            context.fill(CGRect(x: column * 32, y: row * 32, width: 32, height: 32))
++        }
++    }
++    return context.makeImage()!
++}
+diff --git a/Benchmarks/AskiBenchmarks/FixedPaletteSetupBenchmarks.swift b/Benchmarks/AskiBenchmarks/FixedPaletteSetupBenchmarks.swift
+new file mode 100644
+index 0000000..6e539f0
+--- /dev/null
++++ b/Benchmarks/AskiBenchmarks/FixedPaletteSetupBenchmarks.swift
+@@ -0,0 +1,42 @@
++import Aski
++import Benchmark
++
++/// Isolate matching-coordinate and display-table preparation from image and
++/// glyph work. Each operation resolves a fresh palette from the same content
++/// as conversion. The scalar control prepares matching coordinates only.
++func addFixedPaletteSetupBenchmarks() {
++    let configuration = Benchmark.Configuration(
++        metrics: [.wallClock, .cpuTotal, .mallocCountTotal],
++        units: [.mallocCountTotal: .count],
++        warmupIterations: 1, scalingFactor: .kilo,
++        maxDuration: .seconds(2), maxIterations: 10)
++    let palettes: [(String, BuiltInPalette)] = [
++        ("ansi16", .ansi16), ("mono", .monochrome), ("passthrough", .fullColor),
++    ]
++    let spaces: [(String, RenderColorSpace)] = [("srgb", .sRGB), ("p3", .displayP3)]
++    let policies: [(String, PaletteMatchingPolicy, GamutMappingPolicy)] = [
++        ("default", .oklabEuclidean, .rayTrace),
++        ("hyab", .oklabHyAB, .rayTrace),
++        ("helmlab", .helmlabEuclidean, .rayTrace),
++        ("helmlab-compressed", .helmlabCompressed, .rayTrace),
++        ("clip", .oklabEuclidean, .clip),
++        ("adaptive", .oklabEuclidean, .adaptiveL0),
++    ]
++
++    for (paletteName, palette) in palettes {
++        let content = palette.content
++        for (spaceName, space) in spaces {
++            for (policyName, matching, gamut) in policies {
++                Benchmark("aski90-setup-\(paletteName)-\(spaceName)-\(policyName)", configuration: configuration) { benchmark in
++                    benchmark.startMeasurement()
++                    for _ in benchmark.scaledIterations {
++                        let palette = ResolvedPalette(content: content, matching: matching)
++                        let displayColors = palette.prepareDisplayColors(colorSpace: space, policy: gamut)
++                        blackHole((palette, displayColors))
++                    }
++                    benchmark.stopMeasurement()
++                }
++            }
++        }
++    }
++}
+diff --git a/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift b/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift
+new file mode 100644
+index 0000000..81fb53c
+--- /dev/null
++++ b/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift
+@@ -0,0 +1,84 @@
++import Aski
++import Benchmark
++import CoreGraphics
++import Foundation
++
++/// ASKI-92 instruments, not budgets. Resolve/convert timing includes sample
++/// preparation. Stage timing excludes upstream stages; RSS still describes the
++/// child process during measurement, including fixture memory still resident.
++func addTileColorSampleBenchmarks() {
++    let spaces: [(String, RenderColorSpace)] = [("srgb", .sRGB), ("p3", .displayP3)]
++    for (spaceName, space) in spaces {
++        for alphaMode in ["opaque", "mixed"] {
++            for columns in [8, 80, 256] {
++                let side = columns * 2
++                let key = "\(side)x\(side)-\(spaceName)-\(alphaMode)"
++
++                for count in [8, 16, 64, 256] {
++                    Benchmark("aski92-convert-\(key)-\(columns)cols-k\(count)", configuration: tileSampleConfiguration()) { benchmark in
++                        let image = tileSampleImage(side: side, alphaMode: alphaMode, space: space)
++                        let converter = TileGridConverter(palette: .adaptive(maxColors: count), colorSpace: space)
++                        benchmark.startMeasurement()
++                        for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                        benchmark.stopMeasurement()
++                    }
++                }
++                Benchmark("aski92-fixed-\(key)-\(columns)cols", configuration: tileSampleConfiguration()) { benchmark in
++                    let image = tileSampleImage(side: side, alphaMode: alphaMode, space: space)
++                    let converter = TileGridConverter(palette: .brick, colorSpace: space)
++                    benchmark.startMeasurement()
++                    for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                    benchmark.stopMeasurement()
++                }
++            }
++        }
++        for columns in [8, 80, 256] {
++            let side = columns * 2
++            Benchmark("aski92-transparent-\(side)x\(side)-\(spaceName)-\(columns)cols", configuration: tileSampleConfiguration()) { benchmark in
++                let image = tileSampleImage(side: side, alphaMode: "transparent", space: space)
++                let converter = TileGridConverter(palette: .adaptive(maxColors: 16), colorSpace: space)
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                benchmark.stopMeasurement()
++            }
++        }
++    }
++}
++
++func tileSampleConfiguration() -> Benchmark.Configuration {
++    .init(
++        metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
++        units: [.mallocCountTotal: .count, .peakMemoryResident: .count],
++        warmupIterations: 1,
++        scalingFactor: .one,
++        maxDuration: .seconds(3),
++        maxIterations: 6
++    )
++}
++
++func tileSamplePixels(side: Int, alphaMode: String) -> [UInt8] {
++    var pixels = [UInt8](repeating: 0, count: side * side * 4)
++    for y in 0..<side {
++        for x in 0..<side {
++            let index = y * side + x
++            let offset = index * 4
++            let alpha = alphaMode == "transparent" ? 0 : (alphaMode == "opaque" ? 255 : (index * 37) & 255)
++            pixels[offset] = UInt8(((x * 13 + y * 7) & 255) * alpha / 255)
++            pixels[offset + 1] = UInt8(((x * 3 + y * 19) & 255) * alpha / 255)
++            pixels[offset + 2] = UInt8((((x ^ y) * 11) & 255) * alpha / 255)
++            pixels[offset + 3] = UInt8(alpha)
++        }
++    }
++    return pixels
++}
++
++private func tileSampleImage(side: Int, alphaMode: String, space: RenderColorSpace) -> CGImage {
++    let pixels = tileSamplePixels(side: side, alphaMode: alphaMode)
++    let cgSpace = CGColorSpace(name: space == .sRGB ? CGColorSpace.sRGB : CGColorSpace.displayP3)!
++    let provider = CGDataProvider(data: Data(pixels) as CFData)!
++    return CGImage(
++        width: side, height: side, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: side * 4,
++        space: cgSpace, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue),
++        provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent
++    )!
++}
+diff --git a/Sources/Aski/ResolvedPalette.swift b/Sources/Aski/ResolvedPalette.swift
+index e9bd2a8..37cc3fc 100644
+--- a/Sources/Aski/ResolvedPalette.swift
++++ b/Sources/Aski/ResolvedPalette.swift
+@@ -1,6 +1,6 @@
+ import simd
+ 
+-internal struct ResolvedPalette: Sendable {
++package struct ResolvedPalette: Sendable {
+     let colors: [ResolvedPaletteColor]
+     let isPassThrough: Bool
+ 
+@@ -26,6 +26,16 @@ internal struct ResolvedPalette: Sendable {
+         self.isPassThrough = false
+     }
+ 
++    // The setup benchmark uses the same matching-coordinate and display-table
++    // builders as conversion, with no raster or glyph work in the timed phase.
++    package init(content: PaletteContent, matching: PaletteMatchingPolicy) {
++        self.init(content: content, needsHelmlab: matching.needsHelmlab)
++    }
++
++    package func prepareDisplayColors(colorSpace: RenderColorSpace, policy: GamutMappingPolicy) -> [SIMD3<Float>] {
++        []
++    }
++
+     init(oklabColors: [SIMD3<Float>]) {
+         precondition(!oklabColors.isEmpty, "ResolvedPalette(oklabColors:) requires at least one color")
+         // TileGrid-only path: cannot reach a Helmlab policy under the current

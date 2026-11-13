@@ -1,0 +1,5306 @@
+{
+  "summary": {
+    "complete": true,
+    "rows": 128,
+    "negative_controls": 16,
+    "negative_controls_detected_difference": 16,
+    "passed": 40,
+    "mismatched": 88,
+    "geometry_exact": 128,
+    "byte_lengths_equal": 128,
+    "max_differing_pixels": 40947,
+    "max_differing_bytes": 128174,
+    "signed_min": [
+      -107,
+      -46,
+      -39,
+      -9
+    ],
+    "signed_max": [
+      23,
+      9,
+      9,
+      13
+    ],
+    "by_orientation": {
+      "identity": {
+        "passed": 16,
+        "mismatched": 0
+      },
+      "mirrorHorizontal": {
+        "passed": 8,
+        "mismatched": 8
+      },
+      "mirrorVertical": {
+        "passed": 8,
+        "mismatched": 8
+      },
+      "rotate180": {
+        "passed": 8,
+        "mismatched": 8
+      },
+      "rotate270": {
+        "passed": 0,
+        "mismatched": 16
+      },
+      "rotate90": {
+        "passed": 0,
+        "mismatched": 16
+      },
+      "transpose": {
+        "passed": 0,
+        "mismatched": 16
+      },
+      "transverse": {
+        "passed": 0,
+        "mismatched": 16
+      }
+    },
+    "by_input": {
+      "1280x720": {
+        "passed": 20,
+        "mismatched": 44
+      },
+      "64x46": {
+        "passed": 20,
+        "mismatched": 44
+      }
+    }
+  },
+  "rows": [
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 27431,
+      "differingBytes": 34460,
+      "channelCounts": [
+        20213,
+        14241,
+        6,
+        0
+      ],
+      "signedMin": [
+        -5,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        7,
+        4,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 26183,
+      "differingBytes": 34815,
+      "channelCounts": [
+        19229,
+        9286,
+        6300,
+        0
+      ],
+      "signedMin": [
+        -2,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        4,
+        3,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 27431,
+      "differingBytes": 34460,
+      "channelCounts": [
+        20213,
+        14241,
+        6,
+        0
+      ],
+      "signedMin": [
+        -5,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        7,
+        4,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 26183,
+      "differingBytes": 34815,
+      "channelCounts": [
+        19229,
+        9286,
+        6300,
+        0
+      ],
+      "signedMin": [
+        -2,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        4,
+        3,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 27431,
+      "differingBytes": 34460,
+      "channelCounts": [
+        20213,
+        14241,
+        6,
+        0
+      ],
+      "signedMin": [
+        -5,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        7,
+        4,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 26183,
+      "differingBytes": 34815,
+      "channelCounts": [
+        19229,
+        9286,
+        6300,
+        0
+      ],
+      "signedMin": [
+        -2,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        4,
+        3,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 27431,
+      "differingBytes": 34460,
+      "channelCounts": [
+        20213,
+        14241,
+        6,
+        0
+      ],
+      "signedMin": [
+        -5,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        7,
+        4,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 26183,
+      "differingBytes": 34815,
+      "channelCounts": [
+        19229,
+        9286,
+        6300,
+        0
+      ],
+      "signedMin": [
+        -2,
+        -4,
+        -1,
+        0
+      ],
+      "signedMax": [
+        4,
+        3,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35198,
+      "differingBytes": 83183,
+      "channelCounts": [
+        24366,
+        20486,
+        14470,
+        23861
+      ],
+      "signedMin": [
+        -7,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        9,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 36196,
+      "differingBytes": 84346,
+      "channelCounts": [
+        23751,
+        19754,
+        16980,
+        23861
+      ],
+      "signedMin": [
+        -4,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        6,
+        5,
+        3,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35198,
+      "differingBytes": 83183,
+      "channelCounts": [
+        24366,
+        20486,
+        14470,
+        23861
+      ],
+      "signedMin": [
+        -7,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        9,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 36196,
+      "differingBytes": 84346,
+      "channelCounts": [
+        23751,
+        19754,
+        16980,
+        23861
+      ],
+      "signedMin": [
+        -4,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        6,
+        5,
+        3,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35198,
+      "differingBytes": 83183,
+      "channelCounts": [
+        24366,
+        20486,
+        14470,
+        23861
+      ],
+      "signedMin": [
+        -7,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        9,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 36196,
+      "differingBytes": 84346,
+      "channelCounts": [
+        23751,
+        19754,
+        16980,
+        23861
+      ],
+      "signedMin": [
+        -4,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        6,
+        5,
+        3,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35198,
+      "differingBytes": 83183,
+      "channelCounts": [
+        24366,
+        20486,
+        14470,
+        23861
+      ],
+      "signedMin": [
+        -7,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        9,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 36196,
+      "differingBytes": 84346,
+      "channelCounts": [
+        23751,
+        19754,
+        16980,
+        23861
+      ],
+      "signedMin": [
+        -4,
+        -8,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        6,
+        5,
+        3,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 29167,
+      "differingBytes": 41855,
+      "channelCounts": [
+        21145,
+        14302,
+        6408,
+        0
+      ],
+      "signedMin": [
+        -11,
+        -5,
+        -1,
+        0
+      ],
+      "signedMax": [
+        23,
+        6,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40947,
+      "differingBytes": 107824,
+      "channelCounts": [
+        38786,
+        28934,
+        40104,
+        0
+      ],
+      "signedMin": [
+        -90,
+        -18,
+        -27,
+        0
+      ],
+      "signedMax": [
+        23,
+        8,
+        4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 1050,
+      "differingBytes": 1091,
+      "channelCounts": [
+        221,
+        397,
+        473,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12800,
+      "differingBytes": 34345,
+      "channelCounts": [
+        12567,
+        8978,
+        12800,
+        0
+      ],
+      "signedMin": [
+        -63,
+        -8,
+        -27,
+        0
+      ],
+      "signedMax": [
+        18,
+        3,
+        -4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 29167,
+      "differingBytes": 41855,
+      "channelCounts": [
+        21145,
+        14302,
+        6408,
+        0
+      ],
+      "signedMin": [
+        -11,
+        -5,
+        -1,
+        0
+      ],
+      "signedMax": [
+        23,
+        6,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40947,
+      "differingBytes": 107824,
+      "channelCounts": [
+        38786,
+        28934,
+        40104,
+        0
+      ],
+      "signedMin": [
+        -90,
+        -18,
+        -27,
+        0
+      ],
+      "signedMax": [
+        23,
+        8,
+        4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 1050,
+      "differingBytes": 1091,
+      "channelCounts": [
+        221,
+        397,
+        473,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12800,
+      "differingBytes": 34345,
+      "channelCounts": [
+        12567,
+        8978,
+        12800,
+        0
+      ],
+      "signedMin": [
+        -63,
+        -8,
+        -27,
+        0
+      ],
+      "signedMax": [
+        18,
+        3,
+        -4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 1050,
+      "differingBytes": 1091,
+      "channelCounts": [
+        221,
+        397,
+        473,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12800,
+      "differingBytes": 34345,
+      "channelCounts": [
+        12567,
+        8978,
+        12800,
+        0
+      ],
+      "signedMin": [
+        -63,
+        -8,
+        -27,
+        0
+      ],
+      "signedMax": [
+        18,
+        3,
+        -4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 29167,
+      "differingBytes": 41855,
+      "channelCounts": [
+        21145,
+        14302,
+        6408,
+        0
+      ],
+      "signedMin": [
+        -11,
+        -5,
+        -1,
+        0
+      ],
+      "signedMax": [
+        23,
+        6,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40947,
+      "differingBytes": 107824,
+      "channelCounts": [
+        38786,
+        28934,
+        40104,
+        0
+      ],
+      "signedMin": [
+        -90,
+        -18,
+        -27,
+        0
+      ],
+      "signedMax": [
+        23,
+        8,
+        4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 29167,
+      "differingBytes": 41855,
+      "channelCounts": [
+        21145,
+        14302,
+        6408,
+        0
+      ],
+      "signedMin": [
+        -11,
+        -5,
+        -1,
+        0
+      ],
+      "signedMax": [
+        23,
+        6,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40947,
+      "differingBytes": 107824,
+      "channelCounts": [
+        38786,
+        28934,
+        40104,
+        0
+      ],
+      "signedMin": [
+        -90,
+        -18,
+        -27,
+        0
+      ],
+      "signedMax": [
+        23,
+        8,
+        4,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35917,
+      "differingBytes": 84386,
+      "channelCounts": [
+        25060,
+        21129,
+        14336,
+        23861
+      ],
+      "signedMin": [
+        -8,
+        -10,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        16,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40838,
+      "differingBytes": 128174,
+      "channelCounts": [
+        35743,
+        29895,
+        38675,
+        23861
+      ],
+      "signedMin": [
+        -74,
+        -17,
+        -27,
+        -3
+      ],
+      "signedMax": [
+        22,
+        7,
+        4,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 2576,
+      "differingBytes": 2758,
+      "channelCounts": [
+        664,
+        1187,
+        907,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12784,
+      "differingBytes": 32283,
+      "channelCounts": [
+        12033,
+        7539,
+        12711,
+        0
+      ],
+      "signedMin": [
+        -48,
+        -7,
+        -24,
+        0
+      ],
+      "signedMax": [
+        15,
+        2,
+        0,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35917,
+      "differingBytes": 84386,
+      "channelCounts": [
+        25060,
+        21129,
+        14336,
+        23861
+      ],
+      "signedMin": [
+        -8,
+        -10,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        16,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40838,
+      "differingBytes": 128174,
+      "channelCounts": [
+        35743,
+        29895,
+        38675,
+        23861
+      ],
+      "signedMin": [
+        -74,
+        -17,
+        -27,
+        -3
+      ],
+      "signedMax": [
+        22,
+        7,
+        4,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 2576,
+      "differingBytes": 2758,
+      "channelCounts": [
+        664,
+        1187,
+        907,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12784,
+      "differingBytes": 32283,
+      "channelCounts": [
+        12033,
+        7539,
+        12711,
+        0
+      ],
+      "signedMin": [
+        -48,
+        -7,
+        -24,
+        0
+      ],
+      "signedMax": [
+        15,
+        2,
+        0,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 2576,
+      "differingBytes": 2758,
+      "channelCounts": [
+        664,
+        1187,
+        907,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "1280x720",
+      "grid": "80x20",
+      "pitch": "2x4",
+      "lattice": "160x80",
+      "controlDisplay": "1280x720",
+      "controlGrid": "80x20",
+      "controlPitch": "2x4",
+      "controlLattice": "160x80",
+      "geometryExact": true,
+      "controlBytes": 51200,
+      "candidateBytes": 51200,
+      "differingPixels": 12784,
+      "differingBytes": 32283,
+      "channelCounts": [
+        12033,
+        7539,
+        12711,
+        0
+      ],
+      "signedMin": [
+        -48,
+        -7,
+        -24,
+        0
+      ],
+      "signedMax": [
+        15,
+        2,
+        0,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35917,
+      "differingBytes": 84386,
+      "channelCounts": [
+        25060,
+        21129,
+        14336,
+        23861
+      ],
+      "signedMin": [
+        -8,
+        -10,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        16,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40838,
+      "differingBytes": 128174,
+      "channelCounts": [
+        35743,
+        29895,
+        38675,
+        23861
+      ],
+      "signedMin": [
+        -74,
+        -17,
+        -27,
+        -3
+      ],
+      "signedMax": [
+        22,
+        7,
+        4,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 35917,
+      "differingBytes": 84386,
+      "channelCounts": [
+        25060,
+        21129,
+        14336,
+        23861
+      ],
+      "signedMin": [
+        -8,
+        -10,
+        -2,
+        -3
+      ],
+      "signedMax": [
+        16,
+        6,
+        2,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 80,
+      "display": "720x1280",
+      "grid": "80x64",
+      "pitch": "2x4",
+      "lattice": "160x256",
+      "controlDisplay": "720x1280",
+      "controlGrid": "80x64",
+      "controlPitch": "2x4",
+      "controlLattice": "160x256",
+      "geometryExact": true,
+      "controlBytes": 163840,
+      "candidateBytes": 163840,
+      "differingPixels": 40838,
+      "differingBytes": 128174,
+      "channelCounts": [
+        35743,
+        29895,
+        38675,
+        23861
+      ],
+      "signedMin": [
+        -74,
+        -17,
+        -27,
+        -3
+      ],
+      "signedMax": [
+        22,
+        7,
+        4,
+        5
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 138,
+      "differingBytes": 141,
+      "channelCounts": [
+        59,
+        52,
+        30,
+        0
+      ],
+      "signedMin": [
+        -8,
+        -7,
+        -1,
+        0
+      ],
+      "signedMax": [
+        8,
+        8,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 543,
+      "differingBytes": 596,
+      "channelCounts": [
+        96,
+        84,
+        416,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        7,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 138,
+      "differingBytes": 141,
+      "channelCounts": [
+        59,
+        52,
+        30,
+        0
+      ],
+      "signedMin": [
+        -8,
+        -7,
+        -1,
+        0
+      ],
+      "signedMax": [
+        8,
+        8,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 543,
+      "differingBytes": 596,
+      "channelCounts": [
+        96,
+        84,
+        416,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        7,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 138,
+      "differingBytes": 141,
+      "channelCounts": [
+        59,
+        52,
+        30,
+        0
+      ],
+      "signedMin": [
+        -8,
+        -7,
+        -1,
+        0
+      ],
+      "signedMax": [
+        8,
+        8,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 543,
+      "differingBytes": 596,
+      "channelCounts": [
+        96,
+        84,
+        416,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        7,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 138,
+      "differingBytes": 141,
+      "channelCounts": [
+        59,
+        52,
+        30,
+        0
+      ],
+      "signedMin": [
+        -8,
+        -7,
+        -1,
+        0
+      ],
+      "signedMax": [
+        8,
+        8,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 543,
+      "differingBytes": 596,
+      "channelCounts": [
+        96,
+        84,
+        416,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        7,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 650,
+      "differingBytes": 875,
+      "channelCounts": [
+        127,
+        204,
+        437,
+        107
+      ],
+      "signedMin": [
+        -9,
+        -4,
+        -6,
+        -9
+      ],
+      "signedMax": [
+        8,
+        4,
+        7,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 668,
+      "differingBytes": 908,
+      "channelCounts": [
+        187,
+        211,
+        410,
+        100
+      ],
+      "signedMin": [
+        -8,
+        -4,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        8,
+        5,
+        9,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 650,
+      "differingBytes": 875,
+      "channelCounts": [
+        127,
+        204,
+        437,
+        107
+      ],
+      "signedMin": [
+        -9,
+        -4,
+        -6,
+        -9
+      ],
+      "signedMax": [
+        8,
+        4,
+        7,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 668,
+      "differingBytes": 908,
+      "channelCounts": [
+        187,
+        211,
+        410,
+        100
+      ],
+      "signedMin": [
+        -8,
+        -4,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        8,
+        5,
+        9,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 650,
+      "differingBytes": 875,
+      "channelCounts": [
+        127,
+        204,
+        437,
+        107
+      ],
+      "signedMin": [
+        -9,
+        -4,
+        -6,
+        -9
+      ],
+      "signedMax": [
+        8,
+        4,
+        7,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 668,
+      "differingBytes": 908,
+      "channelCounts": [
+        187,
+        211,
+        410,
+        100
+      ],
+      "signedMin": [
+        -8,
+        -4,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        8,
+        5,
+        9,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 650,
+      "differingBytes": 875,
+      "channelCounts": [
+        127,
+        204,
+        437,
+        107
+      ],
+      "signedMin": [
+        -9,
+        -4,
+        -6,
+        -9
+      ],
+      "signedMax": [
+        8,
+        4,
+        7,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 668,
+      "differingBytes": 908,
+      "channelCounts": [
+        187,
+        211,
+        410,
+        100
+      ],
+      "signedMin": [
+        -8,
+        -4,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        8,
+        5,
+        9,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 576,
+      "differingBytes": 674,
+      "channelCounts": [
+        167,
+        156,
+        351,
+        0
+      ],
+      "signedMin": [
+        -9,
+        -13,
+        -1,
+        0
+      ],
+      "signedMax": [
+        13,
+        9,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1547,
+      "differingBytes": 3440,
+      "channelCounts": [
+        1041,
+        901,
+        1498,
+        0
+      ],
+      "signedMin": [
+        -107,
+        -46,
+        -37,
+        0
+      ],
+      "signedMax": [
+        22,
+        6,
+        3,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 117,
+      "differingBytes": 120,
+      "channelCounts": [
+        31,
+        53,
+        36,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1558,
+      "differingBytes": 3409,
+      "channelCounts": [
+        1032,
+        862,
+        1515,
+        0
+      ],
+      "signedMin": [
+        -100,
+        -40,
+        -39,
+        0
+      ],
+      "signedMax": [
+        23,
+        5,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 576,
+      "differingBytes": 674,
+      "channelCounts": [
+        167,
+        156,
+        351,
+        0
+      ],
+      "signedMin": [
+        -9,
+        -13,
+        -1,
+        0
+      ],
+      "signedMax": [
+        13,
+        9,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1547,
+      "differingBytes": 3440,
+      "channelCounts": [
+        1041,
+        901,
+        1498,
+        0
+      ],
+      "signedMin": [
+        -107,
+        -46,
+        -37,
+        0
+      ],
+      "signedMax": [
+        22,
+        6,
+        3,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 117,
+      "differingBytes": 120,
+      "channelCounts": [
+        31,
+        53,
+        36,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1558,
+      "differingBytes": 3409,
+      "channelCounts": [
+        1032,
+        862,
+        1515,
+        0
+      ],
+      "signedMin": [
+        -100,
+        -40,
+        -39,
+        0
+      ],
+      "signedMax": [
+        23,
+        5,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 117,
+      "differingBytes": 120,
+      "channelCounts": [
+        31,
+        53,
+        36,
+        0
+      ],
+      "signedMin": [
+        -1,
+        -1,
+        -1,
+        0
+      ],
+      "signedMax": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1558,
+      "differingBytes": 3409,
+      "channelCounts": [
+        1032,
+        862,
+        1515,
+        0
+      ],
+      "signedMin": [
+        -100,
+        -40,
+        -39,
+        0
+      ],
+      "signedMax": [
+        23,
+        5,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 576,
+      "differingBytes": 674,
+      "channelCounts": [
+        167,
+        156,
+        351,
+        0
+      ],
+      "signedMin": [
+        -9,
+        -13,
+        -1,
+        0
+      ],
+      "signedMax": [
+        13,
+        9,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1547,
+      "differingBytes": 3440,
+      "channelCounts": [
+        1041,
+        901,
+        1498,
+        0
+      ],
+      "signedMin": [
+        -107,
+        -46,
+        -37,
+        0
+      ],
+      "signedMax": [
+        22,
+        6,
+        3,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 576,
+      "differingBytes": 674,
+      "channelCounts": [
+        167,
+        156,
+        351,
+        0
+      ],
+      "signedMin": [
+        -9,
+        -13,
+        -1,
+        0
+      ],
+      "signedMax": [
+        13,
+        9,
+        1,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1547,
+      "differingBytes": 3440,
+      "channelCounts": [
+        1041,
+        901,
+        1498,
+        0
+      ],
+      "signedMin": [
+        -107,
+        -46,
+        -37,
+        0
+      ],
+      "signedMax": [
+        22,
+        6,
+        3,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "identity",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 0,
+      "differingBytes": 0,
+      "channelCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMin": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "signedMax": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 824,
+      "differingBytes": 1200,
+      "channelCounts": [
+        268,
+        346,
+        469,
+        117
+      ],
+      "signedMin": [
+        -9,
+        -11,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        10,
+        5,
+        6,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate90",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1526,
+      "differingBytes": 3414,
+      "channelCounts": [
+        1056,
+        769,
+        1444,
+        145
+      ],
+      "signedMin": [
+        -81,
+        -40,
+        -29,
+        -9
+      ],
+      "signedMax": [
+        21,
+        4,
+        6,
+        12
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 482,
+      "differingBytes": 565,
+      "channelCounts": [
+        140,
+        230,
+        194,
+        1
+      ],
+      "signedMin": [
+        -1,
+        -2,
+        -1,
+        -1
+      ],
+      "signedMax": [
+        2,
+        1,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate180",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1517,
+      "differingBytes": 3214,
+      "channelCounts": [
+        992,
+        703,
+        1454,
+        65
+      ],
+      "signedMin": [
+        -79,
+        -38,
+        -29,
+        -1
+      ],
+      "signedMax": [
+        21,
+        5,
+        2,
+        13
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 824,
+      "differingBytes": 1200,
+      "channelCounts": [
+        268,
+        346,
+        469,
+        117
+      ],
+      "signedMin": [
+        -9,
+        -11,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        10,
+        5,
+        6,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "rotate270",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1526,
+      "differingBytes": 3414,
+      "channelCounts": [
+        1056,
+        769,
+        1444,
+        145
+      ],
+      "signedMin": [
+        -81,
+        -40,
+        -29,
+        -9
+      ],
+      "signedMax": [
+        21,
+        4,
+        6,
+        12
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 482,
+      "differingBytes": 565,
+      "channelCounts": [
+        140,
+        230,
+        194,
+        1
+      ],
+      "signedMin": [
+        -1,
+        -2,
+        -1,
+        -1
+      ],
+      "signedMax": [
+        2,
+        1,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorHorizontal",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1517,
+      "differingBytes": 3214,
+      "channelCounts": [
+        992,
+        703,
+        1454,
+        65
+      ],
+      "signedMin": [
+        -79,
+        -38,
+        -29,
+        -1
+      ],
+      "signedMax": [
+        21,
+        5,
+        2,
+        13
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 482,
+      "differingBytes": 565,
+      "channelCounts": [
+        140,
+        230,
+        194,
+        1
+      ],
+      "signedMin": [
+        -1,
+        -2,
+        -1,
+        -1
+      ],
+      "signedMax": [
+        2,
+        1,
+        2,
+        0
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "mirrorVertical",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "64x46",
+      "grid": "36x11",
+      "pitch": "1x4",
+      "lattice": "36x44",
+      "controlDisplay": "64x46",
+      "controlGrid": "36x11",
+      "controlPitch": "1x4",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1517,
+      "differingBytes": 3214,
+      "channelCounts": [
+        992,
+        703,
+        1454,
+        65
+      ],
+      "signedMin": [
+        -79,
+        -38,
+        -29,
+        -1
+      ],
+      "signedMax": [
+        21,
+        5,
+        2,
+        13
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 824,
+      "differingBytes": 1200,
+      "channelCounts": [
+        268,
+        346,
+        469,
+        117
+      ],
+      "signedMin": [
+        -9,
+        -11,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        10,
+        5,
+        6,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transpose",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1526,
+      "differingBytes": 3414,
+      "channelCounts": [
+        1056,
+        769,
+        1444,
+        145
+      ],
+      "signedMin": [
+        -81,
+        -40,
+        -29,
+        -9
+      ],
+      "signedMax": [
+        21,
+        4,
+        6,
+        12
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "sRGB",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 824,
+      "differingBytes": 1200,
+      "channelCounts": [
+        268,
+        346,
+        469,
+        117
+      ],
+      "signedMin": [
+        -9,
+        -11,
+        -7,
+        -9
+      ],
+      "signedMax": [
+        10,
+        5,
+        6,
+        8
+      ],
+      "passed": false
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "orientation": "transverse",
+      "target": "displayP3",
+      "columns": 36,
+      "display": "46x64",
+      "grid": "36x22",
+      "pitch": "1x2",
+      "lattice": "36x44",
+      "controlDisplay": "46x64",
+      "controlGrid": "36x22",
+      "controlPitch": "1x2",
+      "controlLattice": "36x44",
+      "geometryExact": true,
+      "controlBytes": 6336,
+      "candidateBytes": 6336,
+      "differingPixels": 1526,
+      "differingBytes": 3414,
+      "channelCounts": [
+        1056,
+        769,
+        1444,
+        145
+      ],
+      "signedMin": [
+        -81,
+        -40,
+        -29,
+        -9
+      ],
+      "signedMax": [
+        21,
+        4,
+        6,
+        12
+      ],
+      "passed": false
+    }
+  ],
+  "negative_controls": [
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "target": "sRGB",
+      "differingPixels": 12796
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "target": "displayP3",
+      "differingPixels": 12800
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "target": "sRGB",
+      "differingPixels": 12800
+    },
+    {
+      "input": "1280x720",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "target": "displayP3",
+      "differingPixels": 12800
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "target": "sRGB",
+      "differingPixels": 12784
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "target": "displayP3",
+      "differingPixels": 12800
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "target": "sRGB",
+      "differingPixels": 12800
+    },
+    {
+      "input": "1280x720",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "target": "displayP3",
+      "differingPixels": 12800
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "target": "sRGB",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": false,
+      "target": "displayP3",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "target": "sRGB",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "sRGB",
+      "mixedAlpha": true,
+      "target": "displayP3",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "target": "sRGB",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": false,
+      "target": "displayP3",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "target": "sRGB",
+      "differingPixels": 1584
+    },
+    {
+      "input": "64x46",
+      "source": "displayP3",
+      "mixedAlpha": true,
+      "target": "displayP3",
+      "differingPixels": 1584
+    }
+  ]
+}

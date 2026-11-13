@@ -1203,7 +1203,7 @@
 
       ],
       "date" : "2026-09-04",
-      "next_action" : "Use ASKI-74 to validate the unchanged one-package graph on the installed Xcode 27 / Swift 6.4 toolchain under Swift Build: fresh-checkout build, skip-build reuse, product behavior, resources, DocC and the benchmark plugin. Do not change swift-tools-version unless a manifest feature requires 6.4.",
+      "next_action" : "Adjudicate ASKI-74 HDR artifact parity from the retained same-tree and cross-backend evidence. Preserve all unchanged passing graph/tool checks and the separate kernel/vector baseline-drift results. Do not rename products, change resources, or mark the task complete on this partial result.",
       "path" : "docs/Research/2026-09-04-aski41-swift-build-migration-gate.md",
       "related_specs" : [
         "docs/architecture.md",
@@ -1222,7 +1222,7 @@
       "subsystem" : [
         "meta"
       ],
-      "summary" : "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 carries the remaining collision validation.",
+      "summary" : "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 now passes the unchanged clean graph, full tests, reuse, resource-copy parity, DocC, and plugin checks, but remains open for HDR artifact parity: decoded cross-backend variation exceeded the one same-native repeat in some measures. Fresh kernel/vector generation also exposes identical baseline drift on both backends; no resources were replaced.",
       "title" : "ASKI-41 Swift Build migration gate - HOLD"
     },
     {

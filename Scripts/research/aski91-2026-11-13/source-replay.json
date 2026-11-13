@@ -1,0 +1,25 @@
+{
+  "base": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "patches": {
+    "control-support.patch": {
+      "from": "bb399f9136e8c50fb2a256551bacad029115024d",
+      "to": "420579c7c7c49093172e2107dbdcd9e2bcd75ab6",
+      "sha256": "eeba4a6b1ae68abd08001e4972168b77fb546e692dec3e249f3ddfca373a0ecd",
+      "scope": "Sources, Benchmarks, Tests and portable Script tests only; no task, ledger or research-note changes"
+    },
+    "candidate-treatment.patch": {
+      "from": "420579c7c7c49093172e2107dbdcd9e2bcd75ab6",
+      "to": "6a10696bbf190a6a840d570aedbae79df3114eb6",
+      "sha256": "7e178f3453d42f1e261e3e29770a5adc6f490ea53474bdf54051edfbb70e5ddb",
+      "scope": "Sources, Benchmarks, Tests and portable Script tests only; no task, ledger or research-note changes"
+    }
+  },
+  "original_commits": "Retained in local experiment branches; do not assume these unpublished commits are remotely available.",
+  "replay": "Apply control-support.patch to base for the scalar instrument and repaired common parity tests, then candidate-treatment.patch for the candidate. Place the unchanged pre-registration.json at its recorded repository path before native recapture. Native toolchain/gates remain required; numerical reproduction uses retained exports only.",
+  "historical_release_failure": {
+    "patch": "original-test-oracle.patch",
+    "sha256": "c20fad1a717b18511860ce50508f40a4177acd107420b33a75c31589d0a8e92c",
+    "scope": "Only the original common test oracle; no production change",
+    "use": "Optional diagnostic after constructing either measured arm. It restores the oracle that failed both initial release checks. It is not part of either measured source snapshot."
+  }
+}
