@@ -13,6 +13,16 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Lower-rate video exports convert only selected frames (ASKI-93).**
+  `convertVideo(targetFPS:)` selects decoded frames before ASCII conversion and
+  reuses a converted grid for duplicate output slots. Exact rendered-pixel,
+  timestamp and report parity passed against the old ordering. Five paired runs
+  on one Mac measured median wall-time reductions of 30%, 56% and 73% for the
+  synthetic 720p/80-column 30/60/120-to-12 fps cases, with no reproducible control
+  or resource regression under the predeclared rule. Codec decoding still occurs;
+  no-resampling exports and public decoder callbacks keep their existing paths.
+  Evidence and limits: `Scripts/research/video-frame-selection.md`.
+
 - **A decoded `CGImage` is prepared directly at the conversion size (ASKI-1).** A `CGImage` whose
   longest side exceeds the conversion budget is no longer PNG-encoded and decoded through an
   ImageIO thumbnail before conversion. The converter, the temporal (video-frame) path and the tile

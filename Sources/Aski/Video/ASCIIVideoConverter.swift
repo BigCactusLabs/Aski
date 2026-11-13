@@ -23,10 +23,6 @@ public func convertVideo<C, P>(
     // rejected here rather than part-way through an export (ASKI-18).
     pattern?.validate()
     let decoder = ASCIIVideoDecoder()
-    let decodeStream = decoder.pipelinedGrids(
-        fromVideoAt: source,
-        transform: { converter.convert($0, columns: columns) }
-    )
 
     let framesToRender: AsyncThrowingStream<ASCIIVideoFrame, Error>
     let stats: ResampleStats?
@@ -34,13 +30,20 @@ public func convertVideo<C, P>(
     if let targetFPS {
         let sourceDuration = try await decoder.sourceDuration(ofVideoAt: source)
         let resampleStats = ResampleStats()
-        framesToRender = try resampledVideoFrames(
-            decodeStream, targetFPS: targetFPS, sourceDuration: sourceDuration, into: resampleStats
+        framesToRender = try decoder.selectedGrids(
+            fromVideoAt: source,
+            targetFPS: targetFPS,
+            sourceDuration: sourceDuration,
+            into: resampleStats,
+            transform: { converter.convert($0, columns: columns) }
         )
         stats = resampleStats
         exportOptions.expectedFrameRate = targetFPS  // CFR rate-control hint (Task 5b)
     } else {
-        framesToRender = decodeStream
+        framesToRender = decoder.pipelinedGrids(
+            fromVideoAt: source,
+            transform: { converter.convert($0, columns: columns) }
+        )
         stats = nil
     }
 

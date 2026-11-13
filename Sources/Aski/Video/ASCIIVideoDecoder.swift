@@ -73,6 +73,37 @@ public struct ASCIIVideoDecoder: Sendable {
         })
     }
 
+    /// Internal one-shot export path. Decode and orientation stay identical to
+    /// the public streams, but only selected source identities are converted.
+    /// Prefetch follows selection/conversion, so it holds one grid rather than
+    /// adding another queue of full-size decoded images.
+    func selectedGrids(
+        fromVideoAt url: URL,
+        targetFPS: Int,
+        sourceDuration: TimeInterval,
+        into stats: ResampleStats,
+        transform: @escaping @Sendable (CGImage) -> ASCIIGrid
+    ) throws -> AsyncThrowingStream<ASCIIVideoFrame, Error> {
+        let session = DecodeSession(url: url, transform: transform)
+        let source = AsyncThrowingStream(unfolding: {
+            try await session.nextDecodedFrame()
+        })
+        let selection = try VideoFrameSelectionPump(
+            source: source,
+            targetFPS: targetFPS,
+            sourceDuration: sourceDuration,
+            stats: stats,
+            transform: transform
+        )
+        let selected = AsyncThrowingStream(unfolding: {
+            try await selection.next()
+        })
+        let pump = VideoFramePrefetchPump(stream: selected)
+        return AsyncThrowingStream(unfolding: {
+            try await pump.next()
+        })
+    }
+
     /// The track's exact time-range duration in seconds (VFR-correct — the real
     /// span, not a frame-count estimate). Loads the track via the same
     /// `loadTracks` the decoder uses. Throws `.noVideoTrack` on a trackless source.
@@ -174,8 +205,10 @@ private actor VideoFramePrefetchSource {
 }
 
 /// Confines the non-Sendable `AVAssetReader` / `CVPixelBuffer` to a serial
-/// executor. Conversion `CVPixelBuffer → CGImage → ASCIIGrid` happens INSIDE
-/// this isolation, so only the `Sendable` `ASCIIVideoFrame` ever escapes.
+/// executor. Pixel-buffer to CGImage conversion and orientation happen inside
+/// this isolation. Public streams also run their transform here; the internal
+/// selection path yields only the immutable, Sendable DecodedVideoFrame. Its
+/// CGImage may retain the source pixel buffer; no code mutates that backing.
 private actor DecodeSession {
     private let queue = DispatchSerialQueue(label: "art.aski.video.decode")
     nonisolated var unownedExecutor: UnownedSerialExecutor { queue.asUnownedSerialExecutor() }
@@ -186,6 +219,7 @@ private actor DecodeSession {
     private var output: AVAssetReaderTrackOutput?
     private var started = false
     private var finished = false
+    private var nextSourceID = 0
 
     /// The track's `preferredTransform`, applied per frame to decode upright.
     /// `.identity` (the common already-upright case) skips reorientation entirely,
@@ -201,6 +235,12 @@ private actor DecodeSession {
     }
 
     func next() async throws -> ASCIIVideoFrame? {
+        guard let frame = try await nextDecodedFrame() else { return nil }
+        let grid = transform(frame.image)  // public transforms remain actor-local
+        return ASCIIVideoFrame(grid: grid, time: frame.time)
+    }
+
+    func nextDecodedFrame() async throws -> DecodedVideoFrame? {
         if finished { return nil }
         if Task.isCancelled {
             teardown()
@@ -240,8 +280,9 @@ private actor DecodeSession {
                 throw VideoDecodeError.conversionFailed
             }
             let oriented = try reorient(image)
-            let grid = transform(oriented)  // converter runs inside isolation
-            return ASCIIVideoFrame(grid: grid, time: time)
+            let frame = DecodedVideoFrame(sourceID: nextSourceID, image: oriented, time: time)
+            nextSourceID += 1
+            return frame
         }
     }
 

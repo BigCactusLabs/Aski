@@ -1,0 +1,74 @@
+{
+  "measured_revisions": {
+    "candidate": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+    "control": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993"
+  },
+  "production_control_base": "c81861cb3960de91c2bd4ad90087eec51027b3f1",
+  "candidate_tree": "2e642efd4072ba50472c09a5b24bea9b3393f2bc",
+  "measured_instrument_hashes": {
+    "Benchmarks/AskiBenchmarks/ASTSK55Benchmarks.swift": "bc93bdadafbfbfb480041ddfa1f07fc4e2f98dafe72f3487e8d0ed894b26fd61",
+    "Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift": "8e57ada1d8e9fe96bb9744679ef6c11535d0814bbbbb4c5c71800c9df17ce490",
+    "Benchmarks/AskiBenchmarks/Benchmarks.swift": "3bc96dd2772fcaa84dcbfa2a8c77030eba43776d2ad90ac7c9a1c6ab429439ad",
+    "Benchmarks/AskiBenchmarks/BrightnessPoolGroundworkBenchmarks.swift": "00cf36db10a85ac859d262d41bc8f0ff83da8324297050c84c51d87c9c83525e",
+    "Benchmarks/AskiBenchmarks/EffectChainBenchmarks.swift": "81329a0c27d9a39f94b3cef991dd0e0c00110670253ef0e69c1fe8e36d565c38",
+    "Benchmarks/AskiBenchmarks/GIFMetadataBenchmarks.swift": "a742d7597f70dad117c1db5c3b9a8558827f9ce90a6821070f382b737fd2a9d2",
+    "Benchmarks/AskiBenchmarks/HelmlabBenchmarks.swift": "76bf94d790901e2218e85645c15be1b7015fe541dc6f4b6b6876142c7b3eadce",
+    "Benchmarks/AskiBenchmarks/MaskBenchmarks.swift": "933d17ca18354f6ec6768a1f78dbb72eedf2d4ad81d5b7f60ff1013cb7768a3f",
+    "Benchmarks/AskiBenchmarks/ParallelismCrossoverBenchmarks.swift": "242d2e7194c5c35e32618e032620cf961ab12acd82afa74b45df607ce58d862b",
+    "Benchmarks/AskiBenchmarks/PreparationBenchmarks.swift": "c88c462219613c0f8041c0d9d89f143f87fc055ef90ecc322b2a721ef232f73d",
+    "Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift": "3ab18a50784172551bb7332db32137b9d5bea77252f071941040331c05b16205",
+    "Benchmarks/AskiBenchmarks/TileGridBenchmarks.swift": "0acc6d091355b4a78c922db27bc230563dfe92ef7dd9f8949d94ffb173511437",
+    "Benchmarks/AskiBenchmarks/VideoPipelineBenchmarks.swift": "2cfd1b23ccf07fa4abb56660b791c24ec06297594c93548059b6bd892d95184f",
+    "Benchmarks/AskiBenchmarks/VideoSelectionBenchmarks.swift": "25d502ad19becda34d5db2187d804279fcc5c56f79e5e034adc4bf88d96257d3",
+    "Package.swift": "40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513",
+    "Package.resolved": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "Scripts/validate-benchmarks.py": "680c34f0d244d931ca0cbab94b9b59b91daff52bdf02a6d122b7c15e579ebf89"
+  },
+  "fixture_diagnostics_in_every_recorded_capture": [
+    "ASKI93 source source-v1-120fps-1s-identity.mp4 sha256=74c9c7a704b3e98ebb084e5cf517319c0db187cd7eb44190c9ad37146b2e7692 duration=1.0 frames=120 created=false",
+    "ASKI93 source source-v1-12fps-1s-identity.mp4 sha256=6bc6a6a0c1fe867b783264f48551c4a2332ba9f93b6f28b8d4f4621362f2c601 duration=1.0 frames=12 created=false",
+    "ASKI93 source source-v1-12fps-1s-identity.mp4 sha256=6bc6a6a0c1fe867b783264f48551c4a2332ba9f93b6f28b8d4f4621362f2c601 duration=1.0 frames=12 created=false",
+    "ASKI93 source source-v1-30fps-1s-identity.mp4 sha256=1e590fa6d3d7cb997271e9b510571702f41f6a8aff9a54c175ef3f4632b6b905 duration=1.0 frames=30 created=false",
+    "ASKI93 source source-v1-60fps-10s-identity.mp4 sha256=9991f71b42f1c575e2e928cc5ccc3039e533f94016738cfb10e8100de1bcdac0 duration=10.0 frames=600 created=false",
+    "ASKI93 source source-v1-60fps-1s-identity.mp4 sha256=e286cb45ba0286b049eb355f7a250255aca9b8ba9bd94f6b3ae58988a93f3392 duration=1.0 frames=60 created=false",
+    "ASKI93 source source-v1-60fps-1s-rotated.mp4 sha256=6c8c98dd509c40d1e2ceeb5426cc3d3a86ef0b9e5baa98d1ada98ffe3d492355 duration=1.0 frames=60 created=false",
+    "ASKI93 source source-v1-30fps-1s-identity.mp4 sha256=1e590fa6d3d7cb997271e9b510571702f41f6a8aff9a54c175ef3f4632b6b905 duration=1.0 frames=30 created=false",
+    "ASKI93 source source-v1-vfr-1s-identity.mp4 sha256=791be6e8f41b51253f06bc63ebf30f4c3486b335c8bd5b0cc715814ad54acaf4 duration=1.0 frames=6 created=false"
+  ],
+  "captures": 10,
+  "pairs": 5,
+  "workloads_per_capture": 9,
+  "metrics_per_workload": 4,
+  "paired_elapsed_seconds": 763.344,
+  "preparation_elapsed_seconds": 88.335658,
+  "host": {
+    "model": "Mac15,10",
+    "logical_cpus": 14,
+    "memory_bytes": 38654705664,
+    "power": "AC, 100% charged",
+    "thermal": "pmset reports no thermal or performance warning recorded",
+    "background": "No benchmark measurement overlaps build/test work launched by this task. Desktop otherwise remains in use; residual noise must be assessed."
+  },
+  "native_gate": {
+    "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+    "core_tests": 1529,
+    "media_tests": 177,
+    "sentinels": 2,
+    "full_gate": "passed"
+  },
+  "existing_video_benchmarks": {
+    "workloads": 9,
+    "status": "valid_complete",
+    "elapsed_seconds": 70.445485,
+    "thresholds": "unchanged"
+  },
+  "independent_review": {
+    "model": "claude-opus-5-5",
+    "requested_effort": "medium",
+    "applied_effort": "not exposed",
+    "snapshot_tree": "2e642efd4072ba50472c09a5b24bea9b3393f2bc",
+    "outcome": "No production defect; unit-aware method accepted. RSS wording, stale status and unit-assertion/provenance fixes closed by lead."
+  },
+  "artifact_scope": "comparison.json and pairs.json are original byte copies. histogram-samples.json contains exact UTF-8 strings of all 360 exported TSV files. Original report hashes identify private full captures; host-path-bearing command logs are not published.",
+  "post_capture_changes": "Documentation, evidence, tracker and ledger only, plus a two-line RSS comment correction in VideoSelectionBenchmarks.swift; no executable production, benchmark configuration, dependency or threshold change."
+}
