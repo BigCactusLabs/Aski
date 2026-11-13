@@ -1,6 +1,6 @@
 import simd
 
-internal enum KMeansRefinement {
+package enum KMeansRefinement {
 
     static let maxIterations = 5
     static let convergenceThreshold: Float = 0.001
@@ -18,13 +18,17 @@ internal enum KMeansRefinement {
     ) -> [SIMD3<Float>] {
         guard !palette.isEmpty else { return [] }
 
-        var centers = palette
-        let samples = makeSamples(
-            pixels: pixels,
-            width: width,
-            height: height,
-            colorSpace: colorSpace
+        return refine(
+            palette: palette,
+            samples: TilePalette.makeColorSamples(pixels: pixels, width: width, height: height, colorSpace: colorSpace)
         )
+    }
+
+    /// Shared-sample entry point. The samples are not mutated or retained;
+    /// cluster order, strict-distance ties, and accumulation order are unchanged.
+    package static func refine(palette: [SIMD3<Float>], samples: [TilePalette.ColorSample]) -> [SIMD3<Float>] {
+        guard !palette.isEmpty else { return [] }
+        var centers = palette
 
         for _ in 0..<maxIterations {
             var sums = [SIMD3<Float>](repeating: .zero, count: centers.count)
@@ -67,39 +71,4 @@ internal enum KMeansRefinement {
         return centers
     }
 
-    private static func makeSamples(
-        pixels: [UInt8],
-        width: Int,
-        height: Int,
-        colorSpace: RenderColorSpace
-    ) -> [Sample] {
-        var samples: [Sample] = []
-        samples.reserveCapacity(width * height)
-        for i in 0..<(width * height) {
-            let offset = i * 4
-            let alpha = Float(pixels[offset + 3]) / 255
-            if alpha == 0 { continue }
-
-            let red = min(Float(pixels[offset + 0]) / 255 / alpha, 1)
-            let green = min(Float(pixels[offset + 1]) / 255 / alpha, 1)
-            let blue = min(Float(pixels[offset + 2]) / 255 / alpha, 1)
-            let linear = SIMD3<Float>(
-                ColorConversion.sRGBDecode(red),
-                ColorConversion.sRGBDecode(green),
-                ColorConversion.sRGBDecode(blue)
-            )
-            let oklab: SIMD3<Float>
-            switch colorSpace {
-            case .sRGB: oklab = ColorConversion.linearSRGBToOKLAB(linear)
-            case .displayP3: oklab = ColorConversion.linearP3ToOKLAB(linear)
-            }
-            samples.append(Sample(oklab: oklab, alpha: alpha))
-        }
-        return samples
-    }
-
-    private struct Sample {
-        let oklab: SIMD3<Float>
-        let alpha: Float
-    }
 }

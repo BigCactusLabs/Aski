@@ -26,7 +26,7 @@ import simd
 /// `TilePalette.adaptive` clamp so direct test callers get the same
 /// behavior as production. Pass-through callers (e.g. `TilePalette.resolved`)
 /// are already clamped at the public layer.
-internal struct WuQuantizer {
+package struct WuQuantizer: Sendable {
 
     static let bins: Int = 32  // logical histogram bins per axis
     static let padded: Int = 33  // 33³ padded SAT (index 0 = zero plane)
@@ -42,6 +42,12 @@ internal struct WuQuantizer {
     /// Build moment tables from premultiplied RGBA pixels. `colorSpace`
     /// determines which OKLAB conversion path is used.
     init(pixels: [UInt8], width: Int, height: Int, colorSpace: RenderColorSpace) {
+        self.init(samples: TilePalette.makeColorSamples(pixels: pixels, width: width, height: height, colorSpace: colorSpace))
+    }
+
+    /// Consume the same immutable, row-ordered samples as k-means. Package
+    /// access lets the benchmark target measure accumulation without decoding.
+    package init(samples: [TilePalette.ColorSample]) {
         var weightSum = [Float](repeating: 0, count: Self.padded * Self.padded * Self.padded)
         var sumL = weightSum
         var sumA = weightSum
@@ -50,27 +56,9 @@ internal struct WuQuantizer {
         var sumAA = weightSum
         var sumBB = weightSum
 
-        let pixelCount = width * height
-        for i in 0..<pixelCount {
-            let offset = i * 4
-            let alpha = Float(pixels[offset + 3]) / 255
-            if alpha == 0 { continue }
-            let r = Float(pixels[offset]) / 255
-            let g = Float(pixels[offset + 1]) / 255
-            let b = Float(pixels[offset + 2]) / 255
-            let rUn = min(r / alpha, 1)
-            let gUn = min(g / alpha, 1)
-            let bUn = min(b / alpha, 1)
-            let linear = SIMD3<Float>(
-                ColorConversion.sRGBDecode(rUn),
-                ColorConversion.sRGBDecode(gUn),
-                ColorConversion.sRGBDecode(bUn)
-            )
-            let oklab: SIMD3<Float>
-            switch colorSpace {
-            case .sRGB: oklab = ColorConversion.linearSRGBToOKLAB(linear)
-            case .displayP3: oklab = ColorConversion.linearP3ToOKLAB(linear)
-            }
+        for sample in samples {
+            let alpha = sample.alpha
+            let oklab = sample.oklab
 
             // Bin indices in [1...32] (index 0 reserved for the zero-padded plane).
             let li = Self.binIndex(oklab.x, axisLo: 0, axisHi: 1)
@@ -111,7 +99,7 @@ internal struct WuQuantizer {
     /// clamp so test callers and production callers see identical behavior.
     /// Output count is at most `clamp(maxColors, 2, 256)`; fewer if the source
     /// has fewer distinct colors than the target.
-    func palette(maxColors: Int) -> [SIMD3<Float>] {
+    package func palette(maxColors: Int) -> [SIMD3<Float>] {
         let target = max(2, min(256, maxColors))
         // The cache only recoups its bookkeeping cost once a palette is large
         // enough to drive enough subdivisions. The default 16-colour path
