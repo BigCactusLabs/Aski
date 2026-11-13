@@ -149,3 +149,8 @@ The reader follows the producer's pinned package-benchmark 1.35.0 contract:
 [metric normalization](https://github.com/ordo-one/benchmark/blob/4b9ef5663e9c270419351a20392bf77b007f37f6/Sources/Benchmark/BenchmarkResult.swift),
 and [metric identities](https://github.com/ordo-one/benchmark/blob/4b9ef5663e9c270419351a20392bf77b007f37f6/Sources/Benchmark/BenchmarkMetric.swift).
 Review those contracts again before accepting a dependency or export-schema change.
+
+## November 13 replay rule
+
+The exact workload inventory, primary cases, regression guards, pair order and required
+metrics for this candidate are frozen in [the pre-registration](../../Scripts/research/aski90-2026-11-13/pre-registration.json). Commit that rule before reading timed results.
