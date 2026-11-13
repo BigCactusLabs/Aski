@@ -9,8 +9,8 @@ import Foundation
 
 /// ASKI-93 instruments, not regression budgets. Both worktrees run these same
 /// public calls on the same cached MP4 bytes. Source creation, verification and
-/// output inspection are outside wall/CPU/allocation measurement. Peak RSS still
-/// describes the whole benchmark process, including setup and warmup.
+/// output inspection are outside wall/CPU/allocation measurement. Peak RSS samples
+/// process residency during the measured loop, including output inspection.
 func addVideoSelectionBenchmarks() {
     let cases: [VideoSelectionCase] = [
         .init(name: "source-30fps", sourceFPS: 30, targetFPS: nil, counts: nil),

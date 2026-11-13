@@ -1,15 +1,16 @@
 # ASKI-93: select frames before paying for conversion
 
-Candidate initially prepared on 2026-10-27, stacked on the contracts in
-[PR #11](https://github.com/BigCactusLabs/Aski/pull/11),
-`bbe65fa7ac7942449ce3b40f5df26c06143b32ca`. The control production code matches
-`main` at `4c675957547cb0dffdcce886a073bd2f340a5d26`.
+**ADOPT — 2026-11-12:** `convertVideo(targetFPS: ...)` selects decoded frames
+before ASCII conversion and reuses the grid for duplicate output slots. The
+complete nine-workload, five-pair replay supports the frozen rule below. This is
+evidence for the synthetic 720p/80-column matrix on one Mac, not a universal gain.
 
-The candidate implements early selection for `convertVideo(targetFPS: ...)`.
-Native verification was reported at `b83d74f265444bf2b659002eea84caf7c2e183bf`
-on 2026-11-10, including real-MP4 parity and lifetime tests. That evidence does not
-establish performance or acceptance on a later integration. The bounded replay
-below was registered on 2026-11-12 before reading native benchmark results.
+The measured candidate is `d16896e5746f69a4d3ef86f29098cb2b134d8e0a`.
+The measured control is `46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993`: production
+`main` at `c81861cb3960de91c2bd4ad90087eec51027b3f1`, plus identical benchmark
+instruments and this protocol. Both retain the previously merged preparation and
+orientation changes. The original candidate followed the contracts in
+[PR #11](https://github.com/BigCactusLabs/Aski/pull/11).
 
 ## The boundary to preserve
 
@@ -107,7 +108,7 @@ suspended output prefetch through the existing pump ownership chain.
   report counts, source pulls, output-time patterns, invalid preflight, propagated
   lookahead failure, cancellation and one-output-ahead prefetch. The 60 → 12 case
   requires 12 conversions for 59 selector pulls; 2 → 4 requires 3 for 6 outputs.
-  These candidate conversion counts are assertions awaiting native execution.
+  These candidate conversion counts passed native execution at the measured SHA.
 - [`VideoEarlySelectionIntegrationTests`](../../Tests/AskiTests/VideoEarlySelectionIntegrationTests.swift)
   compares the retained convert-then-select pipeline with the candidate over real
   MP4s: lower/equal/higher rates, VFR, 90°/270° transforms and mirroring. It checks
@@ -141,8 +142,13 @@ These are instruments, not new regression thresholds. They request wall time,
 CPU, total malloc count and absolute peak resident memory. Source preparation and
 verification are outside timed work; each timed iteration includes converter
 construction, decode, selection, conversion, rendering and encoding. Output
-inspection is outside timing. Peak RSS covers the whole process, including setup,
-warmup and output inspection; it is not an isolated-stage allocation measurement.
+inspection is outside timing. Peak RSS samples absolute process residency about
+every 5 ms during the measured loop, including output inspection. The sampler
+starts after warmup and resets its maximum; short-lived setup/warmup peaks are not
+included unless their memory remains resident. Within each workload process its
+samples are cumulative maxima, not independent repetitions. An output-inspection
+peak can hide a smaller conversion-phase increase; this is not a stage-specific
+allocation measurement.
 
 Source generation draws and appends one pixel buffer at a time. A shared
 `ASKI93_FIXTURE_ROOT` retains MP4s and SHA-256 files, verifies duration, dimensions,
@@ -220,7 +226,7 @@ For numerical evidence, require at least five complete pairs and:
 
 These experiment rules do not loosen existing benchmark budgets. A result that
 fails a prerequisite or resource guard does not promote this candidate. Keep
-ASKI-1/2 preparation/orientation changes out of this comparison. ASKI-93 stays open.
+ASKI-1/2 preparation/orientation changes out of this comparison.
 
 ## Research constraints
 
@@ -235,7 +241,7 @@ ASKI-1/2 preparation/orientation changes out of this comparison. ASKI-93 stays o
   background for the existing policy, not a substitute oracle: ASKI's declared
   duration uses a ceiling and a one-slot floor, which these fixtures preserve.
 
-## Verification status
+## Verification history
 
 Executed with the official **Swift 6.3.3 Ubuntu 24.04 x86_64** toolchain, under
 Swift 6 strict concurrency and warnings-as-errors: the actual `ResampleSession.swift`
@@ -269,8 +275,94 @@ xcrun swift test --skip-build --no-parallel \
   --filter 'VideoFrameSelection|VideoEarlySelection|VideoSelectionLifetime|VideoFramePrefetch|PipelinedVideo|AskiResampleVideo'
 ```
 
-Then run `just check` and the existing video benchmarks before accepting the
-candidate. `just check` was attempted here but could not start because `just` is
-absent; a Linux Swift installation is not the complete native gate. Native parity,
-real converter-call/lifetime assertions, nine-workload capture validity and all
-performance/resource verdicts remain pending.
+The initial Linux environment could not run `just check` because `just` and Apple
+frameworks were absent. The native evidence below supersedes that pending status.
+
+## Native result — 2026-11-12
+
+The measured candidate passed the full local `just check`: 1,529 core tests,
+177 media tests, both deadlock sentinels, formatting, build, drift checks and DocC.
+The media phase explicitly ran `VideoEarlySelectionIntegrationTests`,
+`VideoEarlySelectionTests`, `VideoFrameSelectionCoreTests` and
+`VideoSelectionLifetimeTests`. Exact identity/CFR/report/grid/rendered-pixel parity,
+duplicate reuse, output-time patterns, cancellation/error cleanup and public
+callback checks passed. All nine existing `video-` benchmark workloads also passed
+with their original configurations. No threshold, golden or public API changed.
+
+The release replay used Mac15,10, 14 logical CPUs, 36 GiB RAM, macOS 27.0.1
+(26A434), Xcode 27.0 (27A266a), Swift 6.4 and package-benchmark 1.35.0. The host was
+on AC power with no recorded thermal/performance warning. Builds and tests had
+finished; desktop and security software remained active. This was not an idle
+desktop. The five adjacent pairs alternated first arm and took **763.344 seconds
+(12m43s)**. All ten captures were complete and valid, each with nine workloads and
+all four metrics. All sources reported `created=false` and matched the seven
+preparation hashes. No capture was excluded.
+
+Median paired change is `100 × (candidate − control) / control`; negative is lower
+cost. Each pair compares medians of exported samples; samples are not pooled.
+
+| Workload | Wall | CPU | Allocations | Peak RSS |
+| --- | ---: | ---: | ---: | ---: |
+| 30 → 12 | −29.98% | −41.86% | −28.01% | −3.67% |
+| 60 → 12 | −55.87% | −65.90% | −50.51% | −16.38% |
+| 120 → 12 | −73.01% | −80.09% | −68.70% | −17.60% |
+| No resampling, 30 fps | −0.37% | −2.45% | 0.00% | +0.92% |
+| 12 → 12 | −0.25% | +0.12% | 0.00% | +1.92% |
+| 12 → 30 | −1.40% | −0.88% | 0.00% | +0.95% |
+| Variable rate → 12 | −7.85% | −14.54% | −5.22% | −10.87% |
+| Rotated 60 → 12 | −39.77% | −57.72% | −52.41% | −1.08% |
+| Ten-second 60 → 12 | −62.89% | −67.86% | ≈−52.20% | −2.43% |
+
+All three primary wall-time cases improved in **5/5 pairs**, with medians well
+beyond 5%. The rule's explicit four-of-five definition governs reproducible
+regression: no guarded workload/metric reached it, including worst-case export
+rounding. The controls do not establish a speedup or strict noninferiority in
+every pair. Equal-rate wall time ranged from −3.6% to +5.5%; two pairs exceeded
++3%. Peak RSS had at most one possibly-above-3% pair per workload, including a
+ten-second pair at +11.8%. These retained outliers do not meet the declared
+reproducibility bar. Mixed primary benefit would have been inconclusive; all
+primary directions agree. No threshold or sample requirement changed.
+
+### Units, evidence and limits
+
+The generic comparator stopped with `invalid` at the ten-second allocation unit
+mismatch. That outcome is preserved in
+[`comparison.json`](aski93-2026-11-12/comparison.json); it is not a passing generic
+comparison. Its first-error exit does not prove later units match. The separate
+[`reproduce.py`](aski93-2026-11-12/reproduce.py) checks every cell's units and
+reproduces the [180 paired rows](aski93-2026-11-12/paired-medians.csv) and
+[summary](aski93-2026-11-12/summary.json) from the parsed captures. The
+[raw histogram strings](aski93-2026-11-12/histogram-samples.json) retain all 360
+export files byte for byte; the reproducer checks their hashes, counts and medians.
+[Provenance](aski93-2026-11-12/provenance.json) records fixture and instrument hashes.
+Original report hashes refer to the private captures; the public bundle contains
+their parsed measurements, not their host-path-bearing command logs.
+
+```bash
+python3 -B Scripts/research/aski93-2026-11-12/reproduce.py --output-dir /tmp/aski93-readout
+```
+
+The pinned package's `BenchmarkResult.swift` uses decimal count units and rounds
+each normalized histogram value to the nearest-even integer;
+`BenchmarkTool+Export.swift` uses that normalization for `histogramSamples`.
+The ten-second control exports `10 M`, while the candidate exports `4780 K`.
+Multiplying by the unit factor cannot recover lost precision. The supplement
+therefore carries ±half an exported unit through each ratio. Even its conservative
+upper bound leaves ten-second allocations at least 49.7% lower. The other 35
+workload/metric cells have matching units across every capture.
+
+These intervals cover export rounding, not host noise or HDR histogram
+quantization. The histogram uses three significant digits (about 0.1% value
+resolution); a ±0.25 percentage-point sensitivity around the export bounds does
+not change any aggregate rule outcome. The pair is the repetition unit. RSS is a
+sampled process high-water mark in the loop, not a whole-clip storage proof.
+Allocator identity is configured provenance, not runtime introspection. Other
+codecs, dimensions and hardware remain outside this experiment.
+
+An independent Claude Opus review inspected the production change, tests,
+instrument and unit-aware method before the adoption verdict. It found no
+production defect and accepted the method. The final integration corrects the RSS
+comment in the benchmark file; this is a comment-only change from the measured
+instrument hash. Production, benchmark calls/configuration and dependency pins
+remain identical to the measured candidate. The measured commits above identify
+the performance evidence; later documentation is not presented as a new capture.

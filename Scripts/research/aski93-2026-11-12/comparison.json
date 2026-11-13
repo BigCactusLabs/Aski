@@ -1,0 +1,3815 @@
+{
+  "adoption_verdict": "not_evaluated",
+  "budget_verdict": "not_evaluated",
+  "capture_order": [
+    "1:control",
+    "1:candidate",
+    "2:candidate",
+    "2:control",
+    "3:control",
+    "3:candidate",
+    "4:candidate",
+    "4:control",
+    "5:control",
+    "5:candidate"
+  ],
+  "change_convention": "100 * (candidate - control) / control; positive means increased cost",
+  "decision_ready": false,
+  "decision_rule": {
+    "declared_at": "2026-11-13T01:45:25.396662+00:00",
+    "improvement_percent": 5,
+    "minimum_pairs": 5,
+    "reference": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a:Scripts/research/video-frame-selection.md",
+    "regression_percent": 3
+  },
+  "errors": [
+    "aski93-video-60to12-10s-720p-80cols/mallocCountTotal: units differ between captures"
+  ],
+  "experiment": "aski-93-early-selection-current-main",
+  "host_compatibility": {
+    "basis": "operator_attestation_not_machine_verified",
+    "conditions": "AC power, no pmset thermal/performance warning; 14 logical cores and 36GiB RAM. Builds and tests finished before captures. Desktop and security software remained active (observed individual processes below 20% CPU, apart from SwiftPM/shell); this was not an idle desktop. Retain every capture and assess paired noise.",
+    "label": "local-Mac15-10",
+    "same_physical_host": true
+  },
+  "limitations": [
+    "No native benchmark, parity test, allocation profile, or budget gate is run by this reader.",
+    "Recorded Git revisions do not prove clean worktrees or identical benchmark instrumentation; verify both separately.",
+    "Allocator identity is configured provenance from ASKI-86, not independent runtime introspection.",
+    "Histogram exports are quantized distributions, not chronological independent repetitions; the pair is the repetition unit.",
+    "package-benchmark 1.35.0 can silently short-write at a complete-row boundary; matching hashes/counts cannot detect rows never captured.",
+    "A declared rule timestamp and host attestation are operator statements, not independently verified facts."
+  ],
+  "manifest_sha256": "a996834a6961313eba57c61c76d0aec75b91df21d692ae0eadddac6c49963ea0",
+  "pairs": [
+    {
+      "candidate": {
+        "errors": [],
+        "finished_at": "2026-11-13T01:55:09.204171+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 228327423.0,
+              "maximum": 237240319,
+              "minimum": 223739903,
+              "sample_count": 5,
+              "sha256": "838e0b443723d019ec5215bbe4f63bb823ba43c90bbfc2c42c124fd784cc1ce1",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 548.0,
+              "maximum": 548,
+              "minimum": 548,
+              "sample_count": 5,
+              "sha256": "a0734f6279fd81c4f9acbf73af9f0afa15112c9bafe63c6259576f82ccd2eadb",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 102.0,
+              "maximum": 107,
+              "minimum": 96,
+              "sample_count": 5,
+              "sha256": "2dfb461baa3a5153d41d6708cc9122d34bdc5eaaa86b6b08acdd2f18fbe55650",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 113573887.0,
+              "maximum": 115474431,
+              "minimum": 109576191,
+              "sample_count": 5,
+              "sha256": "fa76b2d0cd8ee563ad839f1c6c1463840b2459fe3fea518a5e5bdf192e1973bc",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 208928767.0,
+              "maximum": 211156991,
+              "minimum": 204996607,
+              "sample_count": 5,
+              "sha256": "721d3fc3c976554e2366f5cb02b3796424d1441ff78f17dca7bf8fee789395a6",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 106.0,
+              "maximum": 106,
+              "minimum": 97,
+              "sample_count": 5,
+              "sha256": "a6c59698533ec307714fc501d18e3ac872c8b6be25094f0f3aeff79eb32c563b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 106692607.0,
+              "maximum": 107216895,
+              "minimum": 104005631,
+              "sample_count": 5,
+              "sha256": "6e4a9eeb95e70c2f7e3c82e25cae8769807fc889608689927b57d2694f75d16f",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 320602111.0,
+              "maximum": 324272127,
+              "minimum": 320077823,
+              "sample_count": 5,
+              "sha256": "8bd11a302f3080f2acb5efc585ae79e8a331af9aab5bdd24003111ae147819ab",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 106,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "0bbfd655072a654e768953c5a5f645eaceafb26f31a2efbb8e45d36e6d5c5b93",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 211943423.0,
+              "maximum": 213385215,
+              "minimum": 210370559,
+              "sample_count": 5,
+              "sha256": "25c228e97d90e6523fbe9fcd03990b74a65449919220df9fd366c306fa09bbc0",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 212860927.0,
+              "maximum": 217186303,
+              "minimum": 209584127,
+              "sample_count": 5,
+              "sha256": "0ae9b3a022e996a0ade1776b25179063bbe9efc7a36c9ab687a21966d4cab81e",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 532.0,
+              "maximum": 533,
+              "minimum": 532,
+              "sample_count": 5,
+              "sha256": "dd4e8dc2010ea307a7ddaf1a6d0ea3e4749b59b78b6fbec4967483a7371d4ee4",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 106,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "fa8c8c8811230fed4dbc2456e7f2198f08a9549aafffd1309efce25be859151a",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 104988671.0,
+              "maximum": 106102783,
+              "minimum": 103350271,
+              "sample_count": 5,
+              "sha256": "e05c65c30e3cfa2c3715a96292e7c676f963fc3fe09c5bcebd8df3266e080520",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1973944319.0,
+              "maximum": 2001731583,
+              "minimum": 1931476991,
+              "sample_count": 4,
+              "sha256": "d7da523c892ccfec41955c3a284469ffe3c3e8a6029f1ab9dc8a13568f1238e5",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 4780.0,
+              "maximum": 4780,
+              "minimum": 4780,
+              "sample_count": 4,
+              "sha256": "edab46e350e8b09541e8123a3eb16d8823dc22789428d54b0f10336523d37955",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 120.5,
+              "maximum": 123,
+              "minimum": 119,
+              "sample_count": 4,
+              "sha256": "1075b5c76fc17577edf53d71fc22914e44ba79203486ddea2a2c557d07d61575",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 821821439.0,
+              "maximum": 834666495,
+              "minimum": 810549247,
+              "sample_count": 4,
+              "sha256": "306e763595be1e41db1a7f65e41777b5b62d69e0ed3b9e77b2e901715ba35dd3",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 215613439.0,
+              "maximum": 220594175,
+              "minimum": 210239487,
+              "sample_count": 5,
+              "sha256": "7b3c1e5329cbca4d48ada282a98ce7e9c5e1b247a07ef09e1bc87ca159871206",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 538.0,
+              "maximum": 538,
+              "minimum": 538,
+              "sample_count": 5,
+              "sha256": "ad7388a634a3b649ab8d6ed671a1676b7565d76a65289292b42606051884db98",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 97.0,
+              "maximum": 98,
+              "minimum": 88,
+              "sample_count": 5,
+              "sha256": "4f7e72556b7712eb64b02c749ba61ac5e937a9f59a371d23fb113245fb1ea277",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 109445119.0,
+              "maximum": 109838335,
+              "minimum": 107020287,
+              "sample_count": 5,
+              "sha256": "aecf85f4e83b2a324e1c6c1f81d4ec7f93c6519c174155bebdf3509c29b61249",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 533725183.0,
+              "maximum": 551550975,
+              "minimum": 516161535,
+              "sample_count": 5,
+              "sha256": "f426dd5e9b86df30d437d2eb886138b689c804608f1cb7163b1ce51323e9203f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1570.0,
+              "maximum": 1570,
+              "minimum": 1569,
+              "sample_count": 5,
+              "sha256": "7a4484cced6eb41f3e422ed4a52db4f30c97bd5bfa8dc0022e011391ef03517e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 186.0,
+              "maximum": 188,
+              "minimum": 165,
+              "sample_count": 5,
+              "sha256": "0fc1993b4ede4db7dce4ca5c54e3065e9a2d6d9dfabc27c123d457b277eecd90",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 265158655.0,
+              "maximum": 268304383,
+              "minimum": 262012927,
+              "sample_count": 5,
+              "sha256": "25a79ca39b764ecdf14d68a0801c7125a7c2a92cbbc9a4ea843f4cddc90c8283",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 482869247.0,
+              "maximum": 499384319,
+              "minimum": 479199231,
+              "sample_count": 5,
+              "sha256": "cb1aeeafe1509dcf64de21340f979e84017536413e88b3a4b407dda69cfc07c0",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 110.0,
+              "maximum": 111,
+              "minimum": 109,
+              "sample_count": 5,
+              "sha256": "ff7b70d5fadfd89890ed94de32621b8f58cce8f6ec8837406516bc06b5de0340",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 215482367.0,
+              "maximum": 227934207,
+              "minimum": 209584127,
+              "sample_count": 5,
+              "sha256": "4537abfc2d1266b7efaeefce23b7316cafd3c0612bf7a12aef975a35c942158f",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 130416639.0,
+              "maximum": 131727359,
+              "minimum": 129171455,
+              "sample_count": 5,
+              "sha256": "e13ea93addaac17dcb892be477c1b0a5c2076f1c5c76733b2d343989eda36eb2",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 436.0,
+              "maximum": 437,
+              "minimum": 436,
+              "sample_count": 5,
+              "sha256": "bff008e9bbb690a1b83f9061be9381907160863a1ccdc7cd76791456f0040392",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 82.0,
+              "maximum": 82,
+              "minimum": 75,
+              "sample_count": 5,
+              "sha256": "cd1a4205badf7e094b9200d13f9f82230f7e95cf1acd38adc84966efc9ba0fcc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 103219199.0,
+              "maximum": 103284735,
+              "minimum": 97976319,
+              "sample_count": 5,
+              "sha256": "705c848f173a20f6e3e889dee08e649caea92d6f28161c363bf754a08308573a",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-1/candidate/report.json",
+        "report_sha256": "e3c77e0b58aa565911dffef8e6e35bc388b047492ab7d90a3fa9a1dd8247f07f",
+        "started_at": "2026-11-13T01:53:56.251697+00:00",
+        "status": "valid"
+      },
+      "control": {
+        "errors": [],
+        "finished_at": "2026-11-13T01:53:56.131542+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1130364927.0,
+              "maximum": 1148190719,
+              "minimum": 1124073471,
+              "sample_count": 5,
+              "sha256": "0d0a59f0427e27066f87d0b29270ab744b097fac1b2ec86844487184521f4d54",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1751.0,
+              "maximum": 1751,
+              "minimum": 1751,
+              "sample_count": 5,
+              "sha256": "8532601ce946b60664bdafa2b73eed0c961fe36a49831f0fb328cf21eefbb3e0",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 125.0,
+              "maximum": 126,
+              "minimum": 119,
+              "sample_count": 5,
+              "sha256": "639ded5923ff3d814837c2391c2db2578d81262c253116ee22eeef79c46a957b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 408158207.0,
+              "maximum": 417071103,
+              "minimum": 407896063,
+              "sample_count": 5,
+              "sha256": "16a47d72ca07ad1d8b7197b3f1b2b4c24ea1df2317e65f6a01e5b884d10b923f",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 206045183.0,
+              "maximum": 209977343,
+              "minimum": 204210175,
+              "sample_count": 5,
+              "sha256": "2339708dc26177e455bf9b8be56a1614a01bb1bd8a4823f9228036ee2938ab68",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 104,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "28175fdad5137445d04664f3e81c2ef0cc3c3a00081334e8cde7315cda3abce2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 101122047.0,
+              "maximum": 103940095,
+              "minimum": 100925439,
+              "sample_count": 5,
+              "sha256": "19c72ab943b1a125a3e25e154105cf37013027b7086027274f972a0bd2e3e3d8",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 324796415.0,
+              "maximum": 328204287,
+              "minimum": 314834943,
+              "sample_count": 5,
+              "sha256": "03def96fadf800b3b1f1e1579129c7d33bbbddce3da841ddebfee489ed95ba89",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 102,
+              "sample_count": 5,
+              "sha256": "b9bb231a14b93799557b69df87de8a4df82fea5037a6c3f47ddf63735cef8419",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 214958079.0,
+              "maximum": 216399871,
+              "minimum": 207093759,
+              "sample_count": 5,
+              "sha256": "a964a4c818061c7673c2a41a710cfad7756e4a156907c88ecdef70b379e5ac49",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 388235263.0,
+              "maximum": 395575295,
+              "minimum": 368312319,
+              "sample_count": 5,
+              "sha256": "d63252a0024dd0edec23b23b4644ab5adbafd6a9ae31db7d118866ff97b2d39f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 739.0,
+              "maximum": 739,
+              "minimum": 739,
+              "sample_count": 5,
+              "sha256": "d0384c2aa070c00d09850d7a635045ad2948dec56325898ce2a6c92fb9a9c18f",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 112.0,
+              "maximum": 112,
+              "minimum": 102,
+              "sample_count": 5,
+              "sha256": "24128a1a641fb7aedc9a598736b6d29249687283242a820d11e4948643cfa62c",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 160432127.0,
+              "maximum": 163577855,
+              "minimum": 153878527,
+              "sample_count": 5,
+              "sha256": "72549883257b9c21d2b2cfa1df8b5c5ee3b398305157b596118d16bfc02e995d",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 6035603455.0,
+              "maximum": 6073352191,
+              "minimum": 5997854719,
+              "sample_count": 2,
+              "sha256": "e7b32cc76ac67bf0073307d48de86a22ed82bdfbb5deb35fde2a3e02aa1065fb",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 10.0,
+              "maximum": 10,
+              "minimum": 10,
+              "sample_count": 2,
+              "sha256": "fd88eb291a952df29e0757c2b0aec35c4fd5864cb2a38b0f2aa97aa766a56de0",
+              "unit": "M"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 123.5,
+              "maximum": 125,
+              "minimum": 122,
+              "sample_count": 2,
+              "sha256": "342419eaad5f1aaeb231d3e5392b446157f4527506f1775da64808469b9e1bcc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 2164260863.0,
+              "maximum": 2172649471,
+              "minimum": 2155872255,
+              "sample_count": 2,
+              "sha256": "fecbe39b935241dc5cfccfb724abffe3cda8a24825dccfdb48fd75e138f51110",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 619708415.0,
+              "maximum": 627048447,
+              "minimum": 605552639,
+              "sample_count": 5,
+              "sha256": "3de096cdefbaf10d672c718695c226878afe174103bf080f548d6352c3cacecb",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1087.0,
+              "maximum": 1087,
+              "minimum": 1087,
+              "sample_count": 5,
+              "sha256": "b5ef84e7d0c9789933edb25e2927bcde3cbb60f9a6335485756f831180166e53",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 116.0,
+              "maximum": 116,
+              "minimum": 107,
+              "sample_count": 5,
+              "sha256": "b1b42211478e94a96f7a72e125222e0d4ee1dae46c23e290a4d0963f3236b6d7",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 236584959.0,
+              "maximum": 239730687,
+              "minimum": 232128511,
+              "sample_count": 5,
+              "sha256": "446929c7164187ed3ba21fb34b4ee9ebbe7f091972e6610b196a21a2be1f02f8",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1288699903.0,
+              "maximum": 1309671423,
+              "minimum": 1254096895,
+              "sample_count": 5,
+              "sha256": "43f618ceb67856d7e95a5f09c4ea6f4d1c23024a6363d3cdb9e1029387d88e46",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 3297.0,
+              "maximum": 3297,
+              "minimum": 3297,
+              "sample_count": 5,
+              "sha256": "52ec0a75f1da5e444937e8579980a6c86c6f34de0e79665a2d6293c431dae7c8",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 189.0,
+              "maximum": 191,
+              "minimum": 167,
+              "sample_count": 5,
+              "sha256": "2b2e51f282162593b8b732bc21df29ecbb079a5d1646c75b15a8e33281b15325",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 452722687.0,
+              "maximum": 457965567,
+              "minimum": 440139775,
+              "sample_count": 5,
+              "sha256": "f59fa0fb39188c5db25c93a4360516a5d070261bfc958846d005361519670f5e",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 485490687.0,
+              "maximum": 493617151,
+              "minimum": 472383487,
+              "sample_count": 5,
+              "sha256": "5ef692423cf07388b9c41eb6157d48b95e00b876573be3c5a8d1aa584f89b6af",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 114,
+              "minimum": 108,
+              "sample_count": 5,
+              "sha256": "8629ef54b0d9f0de9dcc02e98e25fab25958ce5099f784a9c416562432c9d960",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 210632703.0,
+              "maximum": 220200959,
+              "minimum": 210501631,
+              "sample_count": 5,
+              "sha256": "6242051013ba2bdaa695beb07d771396aebe1f59a4259cfa1744ec4d2bf10552",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 148111359.0,
+              "maximum": 152305663,
+              "minimum": 144179199,
+              "sample_count": 5,
+              "sha256": "c8d33f7b4351298a9bc829be12e3c340addf883ee4928f00511b4c874cee103c",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 460.0,
+              "maximum": 460,
+              "minimum": 459,
+              "sample_count": 5,
+              "sha256": "3a88de7b2433d3a14b3271f91f3b76c3df0d0efb031c3dabe8b4344fae3fae4a",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 92.0,
+              "maximum": 92,
+              "minimum": 79,
+              "sample_count": 5,
+              "sha256": "8b0f9101c461ca255cc3c5fc3ead00355e71aa9bba0b032bce50878be2ffd063",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 107020287.0,
+              "maximum": 109772799,
+              "minimum": 104333311,
+              "sample_count": 5,
+              "sha256": "1b25d8f27656d00a27fcee2f225a86e0c2fb3a92608f80c11e448622230afb74",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-1/control/report.json",
+        "report_sha256": "b8df40badb5b51324f6cdc1e2198aef944e34ab6deaf26d07e4cf8d0d4a53ed6",
+        "started_at": "2026-11-13T01:52:30.087404+00:00",
+        "status": "valid"
+      },
+      "pair": 1
+    },
+    {
+      "candidate": {
+        "errors": [],
+        "finished_at": "2026-11-13T01:56:20.315298+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 226492415.0,
+              "maximum": 227278847,
+              "minimum": 223608831,
+              "sample_count": 5,
+              "sha256": "8fb83a263a46aec217b90d2290e76bf38e1118e84e666e5750ff92144d265c53",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 548.0,
+              "maximum": 548,
+              "minimum": 548,
+              "sample_count": 5,
+              "sha256": "a0734f6279fd81c4f9acbf73af9f0afa15112c9bafe63c6259576f82ccd2eadb",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 106,
+              "minimum": 95,
+              "sample_count": 5,
+              "sha256": "5830aa0fa21c70daccedab5614d4ef6ed87edf9ddf4564eb23260366fbc3fd9b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 109182975.0,
+              "maximum": 109903871,
+              "minimum": 106758143,
+              "sample_count": 5,
+              "sha256": "c23b4029684cffb4befabe3c484396fd54655f8f32c4a7538cb9e0a512e0ec33",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 212205567.0,
+              "maximum": 214433791,
+              "minimum": 203292671,
+              "sample_count": 5,
+              "sha256": "ec8af8dca54176e75ba4ea3a5fd556743574d47f2c549a60b6ff5fc0b8c430cf",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 530,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "c247cba244684f8dcfd43a9230493335b97a92871c338c7d8ed8ade7910ace63",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "2ddf7b5fa486375dffdfe0425b02d6bc36684154d445361d84bf9b65ead2584f",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 106233855.0,
+              "maximum": 140509183,
+              "minimum": 102301695,
+              "sample_count": 5,
+              "sha256": "ceca112fd4365d0b00a438e2d01dd64fad6196e7fb70a84fc798444686a79cc7",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 326631423.0,
+              "maximum": 332136447,
+              "minimum": 313786367,
+              "sample_count": 5,
+              "sha256": "7a7b1e27a2d159d3cf2d83ffe3b042da5b802facf2bb7a5d34fa4a6ae99ffe4f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 109,
+              "minimum": 108,
+              "sample_count": 5,
+              "sha256": "1cc20a80ca7ff81c496270fc4e0c5f74220235bbed2cb2533ac821494c626c65",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 214040575.0,
+              "maximum": 220725247,
+              "minimum": 207486975,
+              "sample_count": 5,
+              "sha256": "56ae0e583865c6c9aa2c89a57ad4240e4bc811bb7fe75b2fea25ac36e5d2cab2",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 212991999.0,
+              "maximum": 215220223,
+              "minimum": 212074495,
+              "sample_count": 5,
+              "sha256": "84020e4a7a8b87e52ddf9b9c9d3af787347e2b4756471d92110b5a6c8b66afde",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 532.0,
+              "maximum": 533,
+              "minimum": 532,
+              "sample_count": 5,
+              "sha256": "cc995d10828830c18b1b7c848594e35811ee1e567febc6d05734197ca0241dfc",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 105,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "777a18fc41520e91dcaf2a2d57838ae23ee56a78e5ff7e3abd69e6d271c4a8dc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 107085823.0,
+              "maximum": 108527615,
+              "minimum": 105971711,
+              "sample_count": 5,
+              "sha256": "92226b7859e0aad85dd4b81ca2877a89963857df9d2e0472806643b6bec8bca1",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1920466943.0,
+              "maximum": 1949302783,
+              "minimum": 1910505471,
+              "sample_count": 4,
+              "sha256": "c419501dd8a4d0e298a95d5d1e459964078da552d1e8a54d7c30c59feb2a9987",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 4780.0,
+              "maximum": 4780,
+              "minimum": 4780,
+              "sample_count": 4,
+              "sha256": "edab46e350e8b09541e8123a3eb16d8823dc22789428d54b0f10336523d37955",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 123.0,
+              "maximum": 126,
+              "minimum": 119,
+              "sample_count": 4,
+              "sha256": "8559655b21e79f31742dabdcf8fd998854b0b7405def4e76147b74787066121a",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 805044223.0,
+              "maximum": 806879231,
+              "minimum": 796917759,
+              "sample_count": 4,
+              "sha256": "d35cd05331d236d08a60f0da9fa823e754e13c9d964e2b086ebff3145424e870",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 216006655.0,
+              "maximum": 225443839,
+              "minimum": 213254143,
+              "sample_count": 5,
+              "sha256": "a915c8653bd03d17beaa47fa320ae73d9ecf4dd98d8baa94f1b4db68e667836b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 538.0,
+              "maximum": 538,
+              "minimum": 538,
+              "sample_count": 5,
+              "sha256": "ad7388a634a3b649ab8d6ed671a1676b7565d76a65289292b42606051884db98",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 98.0,
+              "maximum": 99,
+              "minimum": 87,
+              "sample_count": 5,
+              "sha256": "36fb3f6fe70da9a379c313917d0de5f2a5665eab26fbb8a8a3d5d3b58ec19d14",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 107872255.0,
+              "maximum": 113442815,
+              "minimum": 105709567,
+              "sample_count": 5,
+              "sha256": "ebc17eaf5f912acf9706e3c6d147e3b8dcc98f2259ae7ef5eddde78ec8bfa873",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 537395199.0,
+              "maximum": 546832383,
+              "minimum": 535560191,
+              "sample_count": 5,
+              "sha256": "527d8db9ba5b27bbe9648e25837ba620763084aed6885f615b868d835f6a53fc",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1569.0,
+              "maximum": 1570,
+              "minimum": 1569,
+              "sample_count": 5,
+              "sha256": "8cc342d7fe5c4178b7282970742d365aa2fd75a207c9d214050b4ee713e9bfcd",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 187.0,
+              "maximum": 191,
+              "minimum": 165,
+              "sample_count": 5,
+              "sha256": "12ec31cddec47cca0ff3bc527c4d4dc086d3857d4d49daed8bcf51cc99107678",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 262799359.0,
+              "maximum": 268435455,
+              "minimum": 262012927,
+              "sample_count": 5,
+              "sha256": "04b4f652504be35c3458766996bdb53afaa932270b35f5f0381cc8d4adb39bca",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 482869247.0,
+              "maximum": 492830719,
+              "minimum": 480772095,
+              "sample_count": 5,
+              "sha256": "f3a7e941180a88160cd77b3ebdad3e0f9776db71b9ef0fab402af1f8723dc2c6",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 109,
+              "minimum": 108,
+              "sample_count": 5,
+              "sha256": "f89e274716d1b745055d273524f2bd1bb5e54291c984234fc7e89e085ac4cc72",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 214827007.0,
+              "maximum": 220725247,
+              "minimum": 208535551,
+              "sample_count": 5,
+              "sha256": "6e87382a2c6fee6929a3f243c3e4304eb0d12526e7557f2d9194e7f13170ed09",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 132841471.0,
+              "maximum": 136052735,
+              "minimum": 131465215,
+              "sample_count": 5,
+              "sha256": "07e6f1570c07a7aec768e23501a96502d69625d1f6b68677197a1d442b997844",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 436.0,
+              "maximum": 436,
+              "minimum": 436,
+              "sample_count": 5,
+              "sha256": "69397484e8564135280ca9d0ca852da0a7ea04b4eb88eaacc6557e5955cd9d80",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 85.0,
+              "maximum": 85,
+              "minimum": 74,
+              "sample_count": 5,
+              "sha256": "e40a7ffe8cfe7fb496d21669a6d98ad14ba0e0d85aa82817eb7588b8e8b9ecce",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 103809023.0,
+              "maximum": 105840639,
+              "minimum": 102367231,
+              "sample_count": 5,
+              "sha256": "f4910d2c0e177d8d64f5a1a3e2120cad4d924f9a353a8248add827cb82923c7e",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-2/candidate/report.json",
+        "report_sha256": "007edd9adbaa484e373a61371294fe45bda5de5b28cd5f0c937d8d0fce96cff0",
+        "started_at": "2026-11-13T01:55:09.308973+00:00",
+        "status": "valid"
+      },
+      "control": {
+        "errors": [],
+        "finished_at": "2026-11-13T01:57:39.497158+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1176502271.0,
+              "maximum": 1192230911,
+              "minimum": 1160773631,
+              "sample_count": 5,
+              "sha256": "2af95270a1b2553e03e3f8ff482a7795f8d90264859871533ebb7836e4458760",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1751.0,
+              "maximum": 1752,
+              "minimum": 1751,
+              "sample_count": 5,
+              "sha256": "278bc155a2dc24f9c3dfa0b4089684c1b6023ce1b26f00f72daf1d2fb7c59570",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 117.0,
+              "maximum": 119,
+              "minimum": 115,
+              "sample_count": 5,
+              "sha256": "ded8d911510eca8b63b8cb318accc3ec7e1274f8698d21e6bf04de162fd60564",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 404488191.0,
+              "maximum": 407109631,
+              "minimum": 397934591,
+              "sample_count": 5,
+              "sha256": "7877044de33ba0223cdc8c0884fd52ee317190a9a2d4a0e9c93374be0a7a2dd4",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 211943423.0,
+              "maximum": 213516287,
+              "minimum": 211025919,
+              "sample_count": 5,
+              "sha256": "36c352b239498bc66b7b8ee33517cd967d1b8938e7c23584dad183540258f756",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 530,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "c247cba244684f8dcfd43a9230493335b97a92871c338c7d8ed8ade7910ace63",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 100.0,
+              "maximum": 104,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "872b1e77c77d182fe729f81537d0e0ca4bf7f3ee5a26f6925b936f1e5e10b9d5",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 106495999.0,
+              "maximum": 108068863,
+              "minimum": 105316351,
+              "sample_count": 5,
+              "sha256": "434d8cadbe1287fbfed91602040caf486fcd1216aa63194f5c8ee726e1471be6",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 329515007.0,
+              "maximum": 333185023,
+              "minimum": 321912831,
+              "sample_count": 5,
+              "sha256": "618e4fe84f6ef0187d41bfc20e88f484cbbcd521de82b01ca71d28d1c4110354",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1017,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "33d348c71a57aa6c317e09fa4420f633087e582122d865a63ebf00697cf6eb24",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 103.0,
+              "maximum": 105,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "7ef7774fc258dc75ad826870c6f7b9f2cd7029cfee145c59e3665f2b2695304a",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 220463103.0,
+              "maximum": 222429183,
+              "minimum": 213909503,
+              "sample_count": 5,
+              "sha256": "87b92d58833fb70cdcd728692ead130956e9bccb09f6b403af9191b1448a66ed",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 375652351.0,
+              "maximum": 378535935,
+              "minimum": 371195903,
+              "sample_count": 5,
+              "sha256": "1d6f02b6e4e501f0a397edb0af3f12c1868b88cd2fd05ba023b2326acbfe4e89",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 739.0,
+              "maximum": 740,
+              "minimum": 739,
+              "sample_count": 5,
+              "sha256": "281993944d850e6805b1fa4f1f4d7f24b8620fc8b287f310708eb96e2ee23171",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "53d032624809ae48315abffcdb099180195d19dfcdc586e11e3589cdbc01ca4c",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 156368895.0,
+              "maximum": 156499967,
+              "minimum": 154664959,
+              "sample_count": 5,
+              "sha256": "edf16622d31edde4efd8d28619b64dfb206e9e44f8140be4006461d56d53d5a3",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 6220152831.0,
+              "maximum": 6266290175,
+              "minimum": 6174015487,
+              "sample_count": 2,
+              "sha256": "b78fe324a3fe493f462fe80cc132ea6ad5035f07e55dbd996d7e94b3641c2a03",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 10.0,
+              "maximum": 10,
+              "minimum": 10,
+              "sample_count": 2,
+              "sha256": "fd88eb291a952df29e0757c2b0aec35c4fd5864cb2a38b0f2aa97aa766a56de0",
+              "unit": "M"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 110.0,
+              "maximum": 110,
+              "minimum": 110,
+              "sample_count": 2,
+              "sha256": "d171ad1af8cc624fc280d692dd214840dee8dea1a2d5db86440b12b6e85edfa2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 2169503743.0,
+              "maximum": 2189426687,
+              "minimum": 2149580799,
+              "sample_count": 2,
+              "sha256": "9ba38b50dac3f49509ab3e7fa86ff7348f58d5c889904f7a8fa0fdcabd3baac0",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 640155647.0,
+              "maximum": 646971391,
+              "minimum": 629145599,
+              "sample_count": 5,
+              "sha256": "2872fedbad96bfeb3cb713094376fab6d39e86826e4ff54e013c55c1f86f3e8b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1087.0,
+              "maximum": 1089,
+              "minimum": 1087,
+              "sample_count": 5,
+              "sha256": "c20f7433d12cd4546c6e40d2dbe9056fae323b5a5d63ec0619aae8c1748a31c4",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 109,
+              "minimum": 106,
+              "sample_count": 5,
+              "sha256": "3f905792dc1ebaa5176a3e9725abfaa9145b956cc113c7897dec2988b26158b4",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 242483199.0,
+              "maximum": 253755391,
+              "minimum": 235798527,
+              "sample_count": 5,
+              "sha256": "ce596e0c31cc8e9df655864e9b9a3ff80ad868f5c8b097016d685d714c18faf8",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1291845631.0,
+              "maximum": 1312817151,
+              "minimum": 1271922687,
+              "sample_count": 5,
+              "sha256": "1667f39aef52169201fbf91aa79f38d69f47b802c247d05ca69499057797723c",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 3297.0,
+              "maximum": 3297,
+              "minimum": 3297,
+              "sample_count": 5,
+              "sha256": "52ec0a75f1da5e444937e8579980a6c86c6f34de0e79665a2d6293c431dae7c8",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 185.0,
+              "maximum": 187,
+              "minimum": 160,
+              "sample_count": 5,
+              "sha256": "de01ece7275cb551d04a97c43a4f73e0ab4f185fcdd2867b53c91143c939dd99",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 444334079.0,
+              "maximum": 452198399,
+              "minimum": 441974783,
+              "sample_count": 5,
+              "sha256": "d66b0b5af06ea61f6d776ea7a057178bd439e5d754e760232db1d4d13745bfd0",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 500695039.0,
+              "maximum": 508035071,
+              "minimum": 487587839,
+              "sample_count": 5,
+              "sha256": "d5ccb3b23481441c219c030459d4a5517d3c3a80bba5fc95e0f2cb55b3b18b96",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1226,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "a12802e2a61f1dacf1739d462d356604c0155126cf5decbe88929af3a1174f2d",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 111,
+              "minimum": 107,
+              "sample_count": 5,
+              "sha256": "e34f0f3214b2f5e1c714c25e993b2b3a01fdf54607c9c071d780d5e5a9a9b017",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 213254143.0,
+              "maximum": 216399871,
+              "minimum": 207880191,
+              "sample_count": 5,
+              "sha256": "fecfccbea5e0e838a032c0586b4c2ff6b2b9b3b7973f6e8e26b290e0e932996e",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 159514623.0,
+              "maximum": 161349631,
+              "minimum": 155189247,
+              "sample_count": 5,
+              "sha256": "a0c91a89cf5df79cf44cc08157cde16142912bc69801b63d95178da9031d96ac",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 460.0,
+              "maximum": 460,
+              "minimum": 459,
+              "sample_count": 5,
+              "sha256": "3a88de7b2433d3a14b3271f91f3b76c3df0d0efb031c3dabe8b4344fae3fae4a",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 85.0,
+              "maximum": 86,
+              "minimum": 84,
+              "sample_count": 5,
+              "sha256": "86b06583388d8fe5ff418cbc8633514626a49eec0892361b155bb13665fef9f2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 113246207.0,
+              "maximum": 116981759,
+              "minimum": 111149055,
+              "sample_count": 5,
+              "sha256": "0ce0f5d4e07fa5816a348987d30e37d4df95376b3b91397dda0a928be55a9470",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-2/control/report.json",
+        "report_sha256": "c344327005c3574eb4a12eb6cfda62047d462668140a5a1024ad12b9c0211602",
+        "started_at": "2026-11-13T01:56:20.420143+00:00",
+        "status": "valid"
+      },
+      "pair": 2
+    },
+    {
+      "candidate": {
+        "errors": [],
+        "finished_at": "2026-11-13T02:00:11.141134+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 233046015.0,
+              "maximum": 238551039,
+              "minimum": 226099199,
+              "sample_count": 5,
+              "sha256": "38a4659c74f037631b421b725ea9add5b1dd4e43c0b1f89dcf2f0cf7c2414992",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 548.0,
+              "maximum": 548,
+              "minimum": 548,
+              "sample_count": 5,
+              "sha256": "a0734f6279fd81c4f9acbf73af9f0afa15112c9bafe63c6259576f82ccd2eadb",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 102.0,
+              "maximum": 107,
+              "minimum": 96,
+              "sample_count": 5,
+              "sha256": "f492198e5f9289654b2646ec2fdfa1e5971e41dd2f520aa98aea18e8fb42bbbd",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 110821375.0,
+              "maximum": 112066559,
+              "minimum": 109510655,
+              "sample_count": 5,
+              "sha256": "4fd63634e4cdd42834302e05272e59514f391bf8c18424ee9a1f85f27cb4b566",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 200933375.0,
+              "maximum": 215220223,
+              "minimum": 199229439,
+              "sample_count": 5,
+              "sha256": "e093c962a073f6a58ca81da75783e5747e984f607066da1e87bc4829506501f1",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 97,
+              "sample_count": 5,
+              "sha256": "0507796e22a6e95de7cd92cc2ac78e5468583a75225d9c1ce4b8150cb65e28cd",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 103088127.0,
+              "maximum": 106299391,
+              "minimum": 100794367,
+              "sample_count": 5,
+              "sha256": "e90d081f41c70de912e251f9b4c9ddde7e2f686dddc38a4b011c0e65ec7f2f25",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 319815679.0,
+              "maximum": 329252863,
+              "minimum": 316407807,
+              "sample_count": 5,
+              "sha256": "e2a9bbde1e50c42ffac082aed00463fd1d114bfed5a3e99441ca64fb9a1430b5",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 108,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "63745c71fce560e36c8baf63848f4f592ce955ec29a1ba4122e569d23bd5f674",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 212860927.0,
+              "maximum": 222167039,
+              "minimum": 210501631,
+              "sample_count": 5,
+              "sha256": "946d9d6855632ae702ab6476bb17b412f896bb4d6844fc8182447d53016704dd",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 214695935.0,
+              "maximum": 219152383,
+              "minimum": 211156991,
+              "sample_count": 5,
+              "sha256": "57c6abc80ff2b3a8bb00a1cecf090082954caac3b97909839227c66ac0b7d18e",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 532.0,
+              "maximum": 533,
+              "minimum": 532,
+              "sample_count": 5,
+              "sha256": "dd4e8dc2010ea307a7ddaf1a6d0ea3e4749b59b78b6fbec4967483a7371d4ee4",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 107,
+              "minimum": 99,
+              "sample_count": 5,
+              "sha256": "fe3f5e15758325d161ff589f1edd93cd99161d1c8c08af04252f55e3e229195b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 110100479.0,
+              "maximum": 112918527,
+              "minimum": 109772799,
+              "sample_count": 5,
+              "sha256": "a0f565af5ea99ec9b16fa67550fe5e7f12a50e1ccdedbea35631afaee7e1bb19",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1950351359.0,
+              "maximum": 1956642815,
+              "minimum": 1928331263,
+              "sample_count": 4,
+              "sha256": "4e4444ac936f99c5819d22bc9d60ca6140b05f6cbc9aa5ce5a6693333cead898",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 4780.0,
+              "maximum": 4780,
+              "minimum": 4780,
+              "sample_count": 4,
+              "sha256": "edab46e350e8b09541e8123a3eb16d8823dc22789428d54b0f10336523d37955",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 121.5,
+              "maximum": 124,
+              "minimum": 120,
+              "sample_count": 4,
+              "sha256": "37d01641b5a62da1cd0c88ef1bac57fd8bbc43ff22bc7d5644b1f4b039c2ae8e",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 810549247.0,
+              "maximum": 819986431,
+              "minimum": 795344895,
+              "sample_count": 4,
+              "sha256": "7d4844f7442b9654092b1eae9ec955674314a459284166d17253999363513b02",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 216530943.0,
+              "maximum": 217317375,
+              "minimum": 214171647,
+              "sample_count": 5,
+              "sha256": "b41e4e6e882741258813e50b829e31a8e06cf21946d5fa86734ae4bdcc986a6a",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 538.0,
+              "maximum": 538,
+              "minimum": 538,
+              "sample_count": 5,
+              "sha256": "ad7388a634a3b649ab8d6ed671a1676b7565d76a65289292b42606051884db98",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 97.0,
+              "maximum": 99,
+              "minimum": 87,
+              "sample_count": 5,
+              "sha256": "a4cef7c52c80e6c2454dea10347839ef029301bb10d1eed001ea74d1be7527cf",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 106168319.0,
+              "maximum": 107347967,
+              "minimum": 105316351,
+              "sample_count": 5,
+              "sha256": "517f9f3856be16dc67fb877132a6d4ae01eb5bdbd8739c185132a97f2b3c63c4",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 548405247.0,
+              "maximum": 552599551,
+              "minimum": 537395199,
+              "sample_count": 5,
+              "sha256": "c0672439a41a3cf49f7e9311dbebdc7dd8990f11732fbf391f5a86118a65b990",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1569.0,
+              "maximum": 1570,
+              "minimum": 1569,
+              "sample_count": 5,
+              "sha256": "00682d48e865e49ba0b9b249cc6d237fbd54b9161581a3905a87f811d674a9ad",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 186.0,
+              "maximum": 187,
+              "minimum": 165,
+              "sample_count": 5,
+              "sha256": "b36a9f04da9f79537dcd223b1c76b878363a60502a9e31a3a46090a44a29f7f8",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 270270463.0,
+              "maximum": 296484863,
+              "minimum": 267255807,
+              "sample_count": 5,
+              "sha256": "3628afac35b33350f53e03ab6a0f57afb7c6af793e93d34adbcac182c40b3fd9",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 480247807.0,
+              "maximum": 486277119,
+              "minimum": 476577791,
+              "sample_count": 5,
+              "sha256": "06e4bffff697634518371f8d28672b43e62117d698d185b0c41e91fad9297725",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 108,
+              "minimum": 108,
+              "sample_count": 5,
+              "sha256": "5b14406c8514953fd987963e478c54d9a0af96073f57cb3d56edd264abd9ce12",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 211681279.0,
+              "maximum": 213385215,
+              "minimum": 210370559,
+              "sample_count": 5,
+              "sha256": "ca29cbaaf44881b793fdcc6bde9dd45f994caa218006f9309ad6ce47dfd4daf6",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 132841471.0,
+              "maximum": 137494527,
+              "minimum": 131268607,
+              "sample_count": 5,
+              "sha256": "98c37e6a13483cbc6ec1050d8a40fe55f9156f83d051dd45b3962c904ce01963",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 436.0,
+              "maximum": 437,
+              "minimum": 436,
+              "sample_count": 5,
+              "sha256": "bff008e9bbb690a1b83f9061be9381907160863a1ccdc7cd76791456f0040392",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 81.0,
+              "maximum": 81,
+              "minimum": 73,
+              "sample_count": 5,
+              "sha256": "8df3283322d8c99e67dc465d9e3a1f575f8a2deb1c03835854cddb3da5fa823c",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 102891519.0,
+              "maximum": 103088127,
+              "minimum": 101908479,
+              "sample_count": 5,
+              "sha256": "f62503706ac750a85a6d78de5f1b62c45797002a02c891d7fddcd75e3d22f040",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-3/candidate/report.json",
+        "report_sha256": "a2ecdc85cffbc8f0214cc02ff24e56d66cebc4ebf535811be36a7323a5bacaf8",
+        "started_at": "2026-11-13T01:59:00.300137+00:00",
+        "status": "valid"
+      },
+      "control": {
+        "errors": [],
+        "finished_at": "2026-11-13T01:59:00.191877+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1170210815.0,
+              "maximum": 1178599423,
+              "minimum": 1143996415,
+              "sample_count": 5,
+              "sha256": "2233f02795070e2517d748917520c3961531d0ff6042110013ac0c9e4764a59b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1751.0,
+              "maximum": 1751,
+              "minimum": 1751,
+              "sample_count": 5,
+              "sha256": "8532601ce946b60664bdafa2b73eed0c961fe36a49831f0fb328cf21eefbb3e0",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 126.0,
+              "maximum": 127,
+              "minimum": 120,
+              "sample_count": 5,
+              "sha256": "78816a8d77069f077e40bd7ef2ed3018bd2c0a5daf075ae5e0ec7d3ce75624f6",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 422576127.0,
+              "maximum": 425459711,
+              "minimum": 409731071,
+              "sample_count": 5,
+              "sha256": "3bd38cce22c1ccbb9348b8396017cca6055e01966a3686003fddfa17ed6a0510",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 209584127.0,
+              "maximum": 212074495,
+              "minimum": 206176255,
+              "sample_count": 5,
+              "sha256": "eee20d9fbc2338bce9a1a497c94768142d7483ecd4dbeb2a0c1161a542127ac7",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 104,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "149591a27bd9b13e61d36e453ed64877ce124484d782567846ec11f604156719",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 106168319.0,
+              "maximum": 109969407,
+              "minimum": 104988671,
+              "sample_count": 5,
+              "sha256": "4d3e095abec5f4ddb9948b9095e6964daa8a77e91dd88db5efcd389d9b289142",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 336330751.0,
+              "maximum": 339214335,
+              "minimum": 328728575,
+              "sample_count": 5,
+              "sha256": "006ad13bf2e6f939794a53e48a6c5b386de2a0d3912db9027acd917817c73322",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 106.0,
+              "maximum": 107,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "ac8cc8fc7bc63afdab5c07227d6b8220b514e6fee5c821ef965808d552687b30",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 220463103.0,
+              "maximum": 221773823,
+              "minimum": 218628095,
+              "sample_count": 5,
+              "sha256": "38fb30208ad5781c6530cc2f6b8adb5a943b0f240a9fd88d90529ec1a33d87e9",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 367525887.0,
+              "maximum": 378273791,
+              "minimum": 351010815,
+              "sample_count": 5,
+              "sha256": "64961768770974f525f32ea7de08a64ce323661dad852a2038b2642b8ef073a2",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 739.0,
+              "maximum": 739,
+              "minimum": 739,
+              "sample_count": 5,
+              "sha256": "d0384c2aa070c00d09850d7a635045ad2948dec56325898ce2a6c92fb9a9c18f",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 110,
+              "minimum": 102,
+              "sample_count": 5,
+              "sha256": "d8efcc2410d46a51acf66a288ad3f624cc83142fcb73c598856a7cbea48eacfe",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 155451391.0,
+              "maximum": 165543935,
+              "minimum": 150732799,
+              "sample_count": 5,
+              "sha256": "df659622fed0d735307d5295c62d5bf479f1876bd2b707e2326500a46313ccb9",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 6069157887.0,
+              "maximum": 6081740799,
+              "minimum": 6056574975,
+              "sample_count": 2,
+              "sha256": "590d5c9a904b1bb42d0c92794ded971934f20bac48ba0f6983ddb0992ecd32de",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 10.0,
+              "maximum": 10,
+              "minimum": 10,
+              "sample_count": 2,
+              "sha256": "fd88eb291a952df29e0757c2b0aec35c4fd5864cb2a38b0f2aa97aa766a56de0",
+              "unit": "M"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 125.0,
+              "maximum": 125,
+              "minimum": 125,
+              "sample_count": 2,
+              "sha256": "7666524eb30f656feb4ab1fa87abcba2183c89de68cbadc1c27eef9d8b504b28",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 2183135231.0,
+              "maximum": 2206203903,
+              "minimum": 2160066559,
+              "sample_count": 2,
+              "sha256": "da605e96350cdb29e0112178001152d03a36abc64446dad35c9f5de979c83212",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 634912767.0,
+              "maximum": 634912767,
+              "minimum": 606076927,
+              "sample_count": 5,
+              "sha256": "b4485d4350545f7553be0315121a01e3cfdc60b9a259f8a38f5d950f4fe3f741",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1087.0,
+              "maximum": 1087,
+              "minimum": 1087,
+              "sample_count": 5,
+              "sha256": "b5ef84e7d0c9789933edb25e2927bcde3cbb60f9a6335485756f831180166e53",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 116.0,
+              "maximum": 117,
+              "minimum": 107,
+              "sample_count": 5,
+              "sha256": "7d5a82ad5f4fe46b59dcdd6cce3ea9da9ca5257211426481595bc38ad50adf9d",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 248381439.0,
+              "maximum": 250740735,
+              "minimum": 240910335,
+              "sample_count": 5,
+              "sha256": "47ec47b87f8c10e9e0e24874fa7577c3937bcf198b6a4579ba3f5c488ff8b795",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1232076799.0,
+              "maximum": 1297088511,
+              "minimum": 1203765247,
+              "sample_count": 5,
+              "sha256": "b1507eac983198bf585eca233b781b0ea65dab21b7bf66a1ab930c90ee658fcd",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 3297.0,
+              "maximum": 3297,
+              "minimum": 3297,
+              "sample_count": 5,
+              "sha256": "52ec0a75f1da5e444937e8579980a6c86c6f34de0e79665a2d6293c431dae7c8",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 191.0,
+              "maximum": 193,
+              "minimum": 165,
+              "sample_count": 5,
+              "sha256": "341d4730a250360e20fa998889ee143667b9cfe1b802799c0a3cf2dce416cc3a",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 436731903.0,
+              "maximum": 442236927,
+              "minimum": 433324031,
+              "sample_count": 5,
+              "sha256": "b9ac0d8fcd61a604f892b96591f72f2ada2a31a470eee439db9664f2cf657bf5",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 492306431.0,
+              "maximum": 510132223,
+              "minimum": 479985663,
+              "sample_count": 5,
+              "sha256": "12bcd4da605e2394900b91a5ed8a5ab2e1f5f861fca38d9434c2a2dabe9999c8",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 111.0,
+              "maximum": 113,
+              "minimum": 108,
+              "sample_count": 5,
+              "sha256": "f8bf01b049f68ba47330068362b8fed18e9018b8e8efa8070d300a1604c86870",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 213909503.0,
+              "maximum": 216137727,
+              "minimum": 210632703,
+              "sample_count": 5,
+              "sha256": "f1521421a73eddf3609353da89c9d7732c3b035a8c33493e6593beafd93ba7fa",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 155451391.0,
+              "maximum": 159121407,
+              "minimum": 154271743,
+              "sample_count": 5,
+              "sha256": "ad3154656a84545b79eca483cc60fc626eac84115f349ce0f1b43fabe1f67dd3",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 460.0,
+              "maximum": 460,
+              "minimum": 459,
+              "sample_count": 5,
+              "sha256": "3a88de7b2433d3a14b3271f91f3b76c3df0d0efb031c3dabe8b4344fae3fae4a",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 91.0,
+              "maximum": 93,
+              "minimum": 80,
+              "sample_count": 5,
+              "sha256": "04f2531de982ed3e9ca5fcd52756e975be672dc3b0dc6e784be9eeafa1af4f0b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 112394239.0,
+              "maximum": 118030335,
+              "minimum": 111607807,
+              "sample_count": 5,
+              "sha256": "857ed4eda0b96cea13d141cfbb367bd354d9ad4215482c5890a9af509d348dc2",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-3/control/report.json",
+        "report_sha256": "3055792812509e9d568bd800f848ce7b44ab275ef08dfbd8a1d8d0650106f691",
+        "started_at": "2026-11-13T01:57:39.622456+00:00",
+        "status": "valid"
+      },
+      "pair": 3
+    },
+    {
+      "candidate": {
+        "errors": [],
+        "finished_at": "2026-11-13T02:01:21.399773+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 230686719.0,
+              "maximum": 233701375,
+              "minimum": 224264191,
+              "sample_count": 5,
+              "sha256": "12b28d6bc7dd6f78c45e5181865191af48dc4274949a4eec827f03824beed431",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 548.0,
+              "maximum": 548,
+              "minimum": 547,
+              "sample_count": 5,
+              "sha256": "d2aa969e224f3c003f4b5db849c1b6c78cc7baefa0405cf26148ef772d089a2d",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 103.0,
+              "maximum": 108,
+              "minimum": 95,
+              "sample_count": 5,
+              "sha256": "d206dd14045725ead0bbb494bb6b022a6a17a6b80e641566fd5e5d6f63ded9f6",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 110559231.0,
+              "maximum": 123338751,
+              "minimum": 109445119,
+              "sample_count": 5,
+              "sha256": "e18a7584f42e0a3b05e45964da0c251a3fdc7001a790f27167c5f4dde1ab4c80",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 205783039.0,
+              "maximum": 209190911,
+              "minimum": 203816959,
+              "sample_count": 5,
+              "sha256": "7862a99943b2128bb65e814eadf9682ca5f4c73bd2673da1bb9270c108cb81e4",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 105,
+              "minimum": 99,
+              "sample_count": 5,
+              "sha256": "4c9ed57d68effc108d0241bc12eeaa5610bca151c1354226738e755c4124f515",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 104202239.0,
+              "maximum": 105250815,
+              "minimum": 103809023,
+              "sample_count": 5,
+              "sha256": "bc4fc419ac6a397aef658668254b9c83d74e90ab26618010edd6c0b2c9ec5247",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 328990719.0,
+              "maximum": 334757887,
+              "minimum": 325058559,
+              "sample_count": 5,
+              "sha256": "75eabb685e78851696cf715d4903097c43176cfcd80e177d54186d0acf8da024",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 106.0,
+              "maximum": 106,
+              "minimum": 104,
+              "sample_count": 5,
+              "sha256": "c6615cad6cce5e493b47d159aa2fe4821ef981270ebbe109728d73cdf9c4d2a2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 215875583.0,
+              "maximum": 223084543,
+              "minimum": 211025919,
+              "sample_count": 5,
+              "sha256": "59667611c2dca907ecde619cd4846420744d0e2e3789353fa75ab0e55b29442d",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 219152383.0,
+              "maximum": 222429183,
+              "minimum": 216924159,
+              "sample_count": 5,
+              "sha256": "45e4a8cf0edd1c3485c9fb7d83e1f905cf8116a5f8e433648a2feaa09560c9b7",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 532.0,
+              "maximum": 532,
+              "minimum": 532,
+              "sample_count": 5,
+              "sha256": "592a0f1311aac00d9288cc0789ff95eb045b1363cdfa3a3ff9debbb92cfe37f9",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 108,
+              "minimum": 99,
+              "sample_count": 5,
+              "sha256": "54168c44085d43a0837ed6f8990948f6ed3fdcf97cd5b365efe1267627fb4240",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 110034943.0,
+              "maximum": 111411199,
+              "minimum": 109314047,
+              "sample_count": 5,
+              "sha256": "25aa4e39377c486ad7468d68b57b48bc6fdd9c232dabe16cede1f03755b18753",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1940914175.0,
+              "maximum": 1981808639,
+              "minimum": 1916796927,
+              "sample_count": 4,
+              "sha256": "9f3cbb5e6b22cd0c5253a06454788695a6b748d59500091b91da33e3dbf3215f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 4780.0,
+              "maximum": 4780,
+              "minimum": 4780,
+              "sample_count": 4,
+              "sha256": "edab46e350e8b09541e8123a3eb16d8823dc22789428d54b0f10336523d37955",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 120.5,
+              "maximum": 122,
+              "minimum": 118,
+              "sample_count": 4,
+              "sha256": "2d5e1a098d95e1516cdcc6a37dbc4ff7900e8e19f77be2fe106ae5a830d52887",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 800849919.0,
+              "maximum": 817364991,
+              "minimum": 788004863,
+              "sample_count": 4,
+              "sha256": "e93f0ec5bc038ba3d01bdd6756cd0625c6faf48a1fe11b199a6402cc3374375d",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 213909503.0,
+              "maximum": 218759167,
+              "minimum": 212336639,
+              "sample_count": 5,
+              "sha256": "eb20e949dc9448cac3d71776c49ffe3b8d28a2259367d9fcc24b1f454357b7a5",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 538.0,
+              "maximum": 538,
+              "minimum": 538,
+              "sample_count": 5,
+              "sha256": "ad7388a634a3b649ab8d6ed671a1676b7565d76a65289292b42606051884db98",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 98.0,
+              "maximum": 98,
+              "minimum": 92,
+              "sample_count": 5,
+              "sha256": "a233fb3ee790812fb9c6a7519e56a88157f61e1987545899b563af25e98d4297",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 105906175.0,
+              "maximum": 106758143,
+              "minimum": 103088127,
+              "sample_count": 5,
+              "sha256": "3f3335bca9ed341c4f7d346708bcaecf82a599ee6258b4e9ca769aaa8ffb56ac",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 548405247.0,
+              "maximum": 557318143,
+              "minimum": 541065215,
+              "sample_count": 5,
+              "sha256": "ede17af19a1f5a84cc031799141bb713a5f48967ea1258014a824ee97ad6e159",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1569.0,
+              "maximum": 1570,
+              "minimum": 1569,
+              "sample_count": 5,
+              "sha256": "8cc342d7fe5c4178b7282970742d365aa2fd75a207c9d214050b4ee713e9bfcd",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 184.0,
+              "maximum": 187,
+              "minimum": 165,
+              "sample_count": 5,
+              "sha256": "bd35f2a1e5b7195d1eb309a8a225eea7763d36457c6046c983132e4420829d41",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 266338303.0,
+              "maximum": 270270463,
+              "minimum": 265420799,
+              "sample_count": 5,
+              "sha256": "9be30667e5cde83b9db0b0c60c8fb3b96801f58392c484b2e1cd7f700223afe2",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 493879295.0,
+              "maximum": 511442943,
+              "minimum": 492568575,
+              "sample_count": 5,
+              "sha256": "a61efe8158c23672542589eddb726c82e6aa3e4ac0ebf1535825360e1c4b5fc9",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 108,
+              "minimum": 107,
+              "sample_count": 5,
+              "sha256": "863f0dbd3ae94e5c2f75bf338d53923b6f282e13c3909065a9b5e1a3f707e3a2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 213778431.0,
+              "maximum": 222429183,
+              "minimum": 211288063,
+              "sample_count": 5,
+              "sha256": "d6918c1b939428ad8ddd477dff1bcde566a054539de5d48f6aeb3014de89c523",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 130547711.0,
+              "maximum": 132644863,
+              "minimum": 129564671,
+              "sample_count": 5,
+              "sha256": "36e314633e3a7a2a36e79795576d4496092557e6442c3843a64710128edcf19c",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 436.0,
+              "maximum": 437,
+              "minimum": 436,
+              "sample_count": 5,
+              "sha256": "bff008e9bbb690a1b83f9061be9381907160863a1ccdc7cd76791456f0040392",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 81.0,
+              "maximum": 81,
+              "minimum": 74,
+              "sample_count": 5,
+              "sha256": "b7b564d81229962c5f49b2b6e1ca0342310328f8119b8c746b1079100bd3401f",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 101711871.0,
+              "maximum": 104988671,
+              "minimum": 100925439,
+              "sample_count": 5,
+              "sha256": "82e0c3741cd7b3d12d4cf4f95f9cb7d5d01baf4eaa12b83d2cf1337d929231ef",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-4/candidate/report.json",
+        "report_sha256": "75843149fa63d83caf590220043eee546f64efecdfbdfd8240eaba28577b848f",
+        "started_at": "2026-11-13T02:00:11.239355+00:00",
+        "status": "valid"
+      },
+      "control": {
+        "errors": [],
+        "finished_at": "2026-11-13T02:02:42.474947+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1073217535.0,
+              "maximum": 1090519039,
+              "minimum": 1057488895,
+              "sample_count": 5,
+              "sha256": "4364e252791cb9c8e42a137a8a547a2f53f45cf72f4220769bf38dcb8703b478",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1751.0,
+              "maximum": 1751,
+              "minimum": 1751,
+              "sample_count": 5,
+              "sha256": "8532601ce946b60664bdafa2b73eed0c961fe36a49831f0fb328cf21eefbb3e0",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 125.0,
+              "maximum": 126,
+              "minimum": 120,
+              "sample_count": 5,
+              "sha256": "d159717323bdffe1f568a5304a1a999f2aa9dfb817b9e83678c50a635b9dd59f",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 392167423.0,
+              "maximum": 407371775,
+              "minimum": 387710975,
+              "sample_count": 5,
+              "sha256": "65fcf156d43d8f4e2a0f8f53ae70b7ad9f743272968cff7c2ad0f7c7cbb55234",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 215220223.0,
+              "maximum": 218497023,
+              "minimum": 212205567,
+              "sample_count": 5,
+              "sha256": "6f757b6e00dcf74beb21513797f4f3da1dc7522b3a3cb2120b939b0856f37ba2",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 105,
+              "minimum": 94,
+              "sample_count": 5,
+              "sha256": "67bfbabe3c223814572071a41bcd317643da6c5a863595a98c0ce0aa8c281f09",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 108068863.0,
+              "maximum": 111017983,
+              "minimum": 106889215,
+              "sample_count": 5,
+              "sha256": "e74b89abcc6f68c28211d87267d72cf29aa58690f89c5f128168441f53897d6c",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 328990719.0,
+              "maximum": 331087871,
+              "minimum": 324272127,
+              "sample_count": 5,
+              "sha256": "55234b6b5158b223b2978879ea9b2224b63455f9b0dea0881ea82410f32c73b9",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 105,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "b4dcbef5331dccdf92db905b9e232ee4144b3f97b9a31e6a508d9f02715b1488",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 215875583.0,
+              "maximum": 217710591,
+              "minimum": 212467711,
+              "sample_count": 5,
+              "sha256": "1e58865b77c216738b66b07c04a065177d822bec75ecf1680282ed9a48572e05",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 376963071.0,
+              "maximum": 380633087,
+              "minimum": 374079487,
+              "sample_count": 5,
+              "sha256": "9a121537e4c9f1e9ba895bfe9bc22659070b13c2464db62007d9049d30a62da8",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 739.0,
+              "maximum": 739,
+              "minimum": 739,
+              "sample_count": 5,
+              "sha256": "d0384c2aa070c00d09850d7a635045ad2948dec56325898ce2a6c92fb9a9c18f",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 109,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "2226eea90f2d525a44ff814b696d34f4682e07fbb98dafae3e5c5c8253a84cd0",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 157155327.0,
+              "maximum": 158466047,
+              "minimum": 156762111,
+              "sample_count": 5,
+              "sha256": "13cce77eb17d088131924ac763b8b8e6facb9d2f5fcc17467123607af388ea32",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 6079643647.0,
+              "maximum": 6119489535,
+              "minimum": 6039797759,
+              "sample_count": 2,
+              "sha256": "0ab8481c95d11e53fa6210bcf10fe397fc0e23d579ff3e80950583ddccdb9d6c",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 10.0,
+              "maximum": 10,
+              "minimum": 10,
+              "sample_count": 2,
+              "sha256": "fd88eb291a952df29e0757c2b0aec35c4fd5864cb2a38b0f2aa97aa766a56de0",
+              "unit": "M"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 123.5,
+              "maximum": 125,
+              "minimum": 122,
+              "sample_count": 2,
+              "sha256": "342419eaad5f1aaeb231d3e5392b446157f4527506f1775da64808469b9e1bcc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 2184183807.0,
+              "maximum": 2204106751,
+              "minimum": 2164260863,
+              "sample_count": 2,
+              "sha256": "6cf610311b54db818f813f1838675fdbc2604c66bb50efaae6d646f36a1c1edd",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 629669887.0,
+              "maximum": 640679935,
+              "minimum": 582483967,
+              "sample_count": 5,
+              "sha256": "d4275eec59698623f7e61e2068125d65c09f3e67a7ff5ce036b7f9be1f780146",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1087.0,
+              "maximum": 1087,
+              "minimum": 1087,
+              "sample_count": 5,
+              "sha256": "b5ef84e7d0c9789933edb25e2927bcde3cbb60f9a6335485756f831180166e53",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 117.0,
+              "maximum": 117,
+              "minimum": 111,
+              "sample_count": 5,
+              "sha256": "7eb19f5715c38dae0361ee3f62b03ae04754f46172e769b4651b56aeda9c8acc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 239992831.0,
+              "maximum": 254017535,
+              "minimum": 235929599,
+              "sample_count": 5,
+              "sha256": "6fa194a73d522a5aa3c51f03b82f56fcd923dff0e87a4f23f9d5cf30b9a9d250",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1297088511.0,
+              "maximum": 1305477119,
+              "minimum": 1277165567,
+              "sample_count": 5,
+              "sha256": "fafd0f4a4d8a2ae5742b7fb37bb5372618e433d5f0d961c158e403e7d3ad0b87",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 3297.0,
+              "maximum": 3297,
+              "minimum": 3297,
+              "sample_count": 5,
+              "sha256": "52ec0a75f1da5e444937e8579980a6c86c6f34de0e79665a2d6293c431dae7c8",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 186.0,
+              "maximum": 186,
+              "minimum": 163,
+              "sample_count": 5,
+              "sha256": "abe8a11a120df40451ffede6f82ad9545d8670970c6ec77447c93cf3966e02d3",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 442236927.0,
+              "maximum": 444596223,
+              "minimum": 435945471,
+              "sample_count": 5,
+              "sha256": "c76a4ff364a0f781b187e247a9f1959f4f40bac5cba3e97d3043d1a0e5c80a6d",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 491519999.0,
+              "maximum": 497549311,
+              "minimum": 484966399,
+              "sample_count": 5,
+              "sha256": "3a15b4cfee26cc2dbe370fe0423ad7ee9b5e650824c453bbb1eafe23bfff3ed6",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 109.0,
+              "maximum": 110,
+              "minimum": 109,
+              "sample_count": 5,
+              "sha256": "f06f7c46874f7f303a198d8838d041e090e9506115826482dc0504d83731192d",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 214564863.0,
+              "maximum": 217841663,
+              "minimum": 211550207,
+              "sample_count": 5,
+              "sha256": "145e0f8788d17b823f49795716c1a68f738edb4d56f106ed60e060264440a858",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 153092095.0,
+              "maximum": 153878527,
+              "minimum": 150994943,
+              "sample_count": 5,
+              "sha256": "1dff0861b5fb2b8f9c56da96e7545b86d0aff16c7672c76c976de1694e8d13ec",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 459.0,
+              "maximum": 460,
+              "minimum": 459,
+              "sample_count": 5,
+              "sha256": "50e49867f6953feaae6951fe07835b542536c4434dd58fbb91212f8d68ff409d",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 91.0,
+              "maximum": 93,
+              "minimum": 79,
+              "sample_count": 5,
+              "sha256": "142941c51b66c189996b01d0d7dacd53ddf3a9906271bdc845bd6e6dc646cff1",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 107872255.0,
+              "maximum": 108920831,
+              "minimum": 106954751,
+              "sample_count": 5,
+              "sha256": "743e566246cd0554c8bc9d4eb7e376ff5ed1fd268ea44fd94778f713a5bcd9c1",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-4/control/report.json",
+        "report_sha256": "dda2c7b2e2ff0a72bac7f3ce7e5e7ee948ef468f9b97e33c4e65fcca7be62351",
+        "started_at": "2026-11-13T02:01:21.505287+00:00",
+        "status": "valid"
+      },
+      "pair": 4
+    },
+    {
+      "candidate": {
+        "errors": [],
+        "finished_at": "2026-11-13T02:05:13.332399+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 227147775.0,
+              "maximum": 232521727,
+              "minimum": 223870975,
+              "sample_count": 5,
+              "sha256": "e9c7f9ddad0dd8cd6fca41474a14e43e14174ae98a91d6f59d1b167b7b9bc224",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 548.0,
+              "maximum": 548,
+              "minimum": 548,
+              "sample_count": 5,
+              "sha256": "a0734f6279fd81c4f9acbf73af9f0afa15112c9bafe63c6259576f82ccd2eadb",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 107.0,
+              "maximum": 107,
+              "minimum": 97,
+              "sample_count": 5,
+              "sha256": "05995c2f7b11db966cee724a946c78ba110a63b799815ef65424983d6ca72bef",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 109641727.0,
+              "maximum": 116129791,
+              "minimum": 108855295,
+              "sample_count": 5,
+              "sha256": "de8ff3aa2345ee0721ccfcffae36573475b19b91414ec67bc69472f8ed8dba8f",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 207093759.0,
+              "maximum": 210108415,
+              "minimum": 204734463,
+              "sample_count": 5,
+              "sha256": "f33fdde84b95674070fb5064060b877af91ab1df296e9aab72c828bafe9e54a1",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "f07f7058c1ae47dedc6a35605ac7705309f70c813e1ec2811221ffc501b6d838",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 108265471.0,
+              "maximum": 109445119,
+              "minimum": 105906175,
+              "sample_count": 5,
+              "sha256": "f0d3c68458ec92af65ae14ceb8e41b57200cadf4d3fd30c3b25838c34d3222ec",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 333971455.0,
+              "maximum": 336592895,
+              "minimum": 333447167,
+              "sample_count": 5,
+              "sha256": "2c6a7969e9ef2ef97ee0a653e8f1fc2b05f72f7337d4c8f566cadf30a5cb1c0f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 104,
+              "minimum": 104,
+              "sample_count": 5,
+              "sha256": "a7927f9e3cfd5963da814008aba078f1e78aa277424e01486527233f98a79dd7",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 220987391.0,
+              "maximum": 222035967,
+              "minimum": 216793087,
+              "sample_count": 5,
+              "sha256": "6a064b39dd33062f927a637c65ed39165d4466abf47cc320053c805c73f90d50",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 223608831.0,
+              "maximum": 225181695,
+              "minimum": 218628095,
+              "sample_count": 5,
+              "sha256": "589dfc90213f90684c10a9e26c5da622dfd5f2406a0735eb6daba982d2b4443b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 532.0,
+              "maximum": 533,
+              "minimum": 532,
+              "sample_count": 5,
+              "sha256": "dd4e8dc2010ea307a7ddaf1a6d0ea3e4749b59b78b6fbec4967483a7371d4ee4",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 105.0,
+              "maximum": 105,
+              "minimum": 98,
+              "sample_count": 5,
+              "sha256": "777a18fc41520e91dcaf2a2d57838ae23ee56a78e5ff7e3abd69e6d271c4a8dc",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 110034943.0,
+              "maximum": 110886911,
+              "minimum": 108789759,
+              "sample_count": 5,
+              "sha256": "1f1df0bbd6529a28779417d2e353565cd82794f8943bd55274561effdd42cecd",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1930952703.0,
+              "maximum": 1935671295,
+              "minimum": 1914699775,
+              "sample_count": 4,
+              "sha256": "1a0684c255f8e198671702bef2d92a19aee4cd1689a7ad214d66622e6e872678",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 4780.0,
+              "maximum": 4780,
+              "minimum": 4780,
+              "sample_count": 4,
+              "sha256": "edab46e350e8b09541e8123a3eb16d8823dc22789428d54b0f10336523d37955",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 124.5,
+              "maximum": 126,
+              "minimum": 119,
+              "sample_count": 4,
+              "sha256": "b57b8e3631368a0077c8d1be5e578250d310087e466e5b869b50dbb9a0dc2208",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 804782079.0,
+              "maximum": 816840703,
+              "minimum": 799539199,
+              "sample_count": 4,
+              "sha256": "59433a8c420b1756c72c230d877f224ef92e9eb0e6e4f1c59d1711d70fed3dbb",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 214827007.0,
+              "maximum": 221118463,
+              "minimum": 214171647,
+              "sample_count": 5,
+              "sha256": "b0ee76549ed6dcd47bc9b8b75b26214f9e425405c4a2ba0e041d5ea43031342b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 538.0,
+              "maximum": 538,
+              "minimum": 538,
+              "sample_count": 5,
+              "sha256": "ad7388a634a3b649ab8d6ed671a1676b7565d76a65289292b42606051884db98",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 97.0,
+              "maximum": 98,
+              "minimum": 88,
+              "sample_count": 5,
+              "sha256": "4f7e72556b7712eb64b02c749ba61ac5e937a9f59a371d23fb113245fb1ea277",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 105906175.0,
+              "maximum": 106889215,
+              "minimum": 105644031,
+              "sample_count": 5,
+              "sha256": "be38277dc2170600b48814975ad56db8fa2b5e29639ae742ce152f63f677fd3b",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 564133887.0,
+              "maximum": 570949631,
+              "minimum": 558366719,
+              "sample_count": 5,
+              "sha256": "41764d11776d01653eef8d60251bcef6fba6e8409ec59b8feb7558a0fa873c3b",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1569.0,
+              "maximum": 1570,
+              "minimum": 1569,
+              "sample_count": 5,
+              "sha256": "8cc342d7fe5c4178b7282970742d365aa2fd75a207c9d214050b4ee713e9bfcd",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 185.0,
+              "maximum": 189,
+              "minimum": 164,
+              "sample_count": 5,
+              "sha256": "41d46d5d269f1381fe814c1ef0e9e92ed639e988f79eea15438107b0bdfbba8c",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 275513343.0,
+              "maximum": 278659071,
+              "minimum": 271843327,
+              "sample_count": 5,
+              "sha256": "9193eda76c87eb94e7349424cb509b97f76d4c81f1548ee9ea478b74efd73232",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 478937087.0,
+              "maximum": 487587839,
+              "minimum": 467664895,
+              "sample_count": 5,
+              "sha256": "55bac6a2a43556cc8a5f893d44c23e8e3ccaa2946779c4dc6166cf7b19c9420f",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 111.0,
+              "maximum": 111,
+              "minimum": 111,
+              "sample_count": 5,
+              "sha256": "92ae8b1197ee53aed411b20d58baa3f2fd1049e9c0b65bd0b8e705404956786b",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 209715199.0,
+              "maximum": 212598783,
+              "minimum": 209584127,
+              "sample_count": 5,
+              "sha256": "f172d1f99d88a10727aed97f196edc587f8eb644daaa920fac03ed962e5c3ff1",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 132120575.0,
+              "maximum": 132513791,
+              "minimum": 130744319,
+              "sample_count": 5,
+              "sha256": "3583d30270a391b0a9d5a4eed1be686b6d890a1a0d07402b879809cbc42bad8d",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 436.0,
+              "maximum": 437,
+              "minimum": 436,
+              "sample_count": 5,
+              "sha256": "b3e5e6b1e72fb9f4d22340486796e587722b207bc4849e3363042d93a07dac3b",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 85.0,
+              "maximum": 85,
+              "minimum": 74,
+              "sample_count": 5,
+              "sha256": "e8ddf358b9743fe54270764eb10a051ab5a7b8f2847241f4a9c68f5ee852a805",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 103022591.0,
+              "maximum": 103088127,
+              "minimum": 102301695,
+              "sample_count": 5,
+              "sha256": "d61bf11ebd8dc50540498379bd2977877c70068fbea57edc260d2c4de3c39848",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-5/candidate/report.json",
+        "report_sha256": "eacdafc759af27d2a61c8def11f49c0b6601ec67d337e770a69049148e4fa937",
+        "started_at": "2026-11-13T02:04:02.499791+00:00",
+        "status": "valid"
+      },
+      "control": {
+        "errors": [],
+        "finished_at": "2026-11-13T02:04:02.397446+00:00",
+        "identity": {
+          "benchmark_pin": {
+            "identity": "package-benchmark",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/package-benchmark",
+            "state": {
+              "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+              "version": "1.35.0"
+            }
+          },
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "malloc_backend": {
+            "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+            "configured": "malloc-interposer",
+            "disabled_by": []
+          },
+          "malloc_pin": {
+            "identity": "malloc-interposer",
+            "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {
+              "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+              "version": "1.4.0"
+            }
+          },
+          "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+          "revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+          "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+          "xcode": "Xcode 27.0\nBuild version 27A266a"
+        },
+        "measurements": {
+          "aski93-video-120to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1161822207.0,
+              "maximum": 1170210815,
+              "minimum": 1148190719,
+              "sample_count": 5,
+              "sha256": "e574117e2c08b4c69f368b07f65ef272fa0bb8c6cf564bbceb44b9726cf56451",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1751.0,
+              "maximum": 1751,
+              "minimum": 1751,
+              "sample_count": 5,
+              "sha256": "8532601ce946b60664bdafa2b73eed0c961fe36a49831f0fb328cf21eefbb3e0",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 126.0,
+              "maximum": 127,
+              "minimum": 120,
+              "sample_count": 5,
+              "sha256": "0411b4609138b2ca73bac2c5d9618be8807a76d0f83be29abada43fc5040a2fa",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 426246143.0,
+              "maximum": 427294719,
+              "minimum": 416284671,
+              "sample_count": 5,
+              "sha256": "4c86f5a177454d836df12005098a0e0d9a0703d313c5d34810626a2335a77c62",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 206307327.0,
+              "maximum": 209846271,
+              "minimum": 199884799,
+              "sample_count": 5,
+              "sha256": "150ff60f056c7c70a847b91d93b092780a986be2a9db534e9a00003292a65170",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 529.0,
+              "maximum": 529,
+              "minimum": 529,
+              "sample_count": 5,
+              "sha256": "118b704d89d48f23f8e736b981040567263df23fb40fcd64caecff55cecab8aa",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 102.0,
+              "maximum": 106,
+              "minimum": 93,
+              "sample_count": 5,
+              "sha256": "5db517762de563c792c3a094b008f3145735e473fb0a05acc6d71bf0c532bc40",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 104398847.0,
+              "maximum": 106364927,
+              "minimum": 104267775,
+              "sample_count": 5,
+              "sha256": "13598fd6a8539fb2958c9d4e34c9568eeebcbc53cf13e68703849f3bf299254f",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-12to30-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 321912831.0,
+              "maximum": 326631423,
+              "minimum": 315359231,
+              "sample_count": 5,
+              "sha256": "74a83b976bf5bdd11cb4c08fefe3f0e5e3239868de5cb5deefddc1053aa4fc58",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1016.0,
+              "maximum": 1016,
+              "minimum": 1016,
+              "sample_count": 5,
+              "sha256": "61b82fa40f970a6816527e10519bd5a9973cb26711488302a8417e16de9bbd2e",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 104.0,
+              "maximum": 105,
+              "minimum": 104,
+              "sample_count": 5,
+              "sha256": "6fda4903e52b5f3cd76c7c9cadc39b77e01e82cd3c12813212f6fbc17e7b9d07",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 212598783.0,
+              "maximum": 218234879,
+              "minimum": 210108415,
+              "sample_count": 5,
+              "sha256": "572da13d9d62a571148edf54b129fb0bf6e10d612cf3f11855c29c69d32cc54a",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-30to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 360710143.0,
+              "maximum": 369098751,
+              "minimum": 357826559,
+              "sample_count": 5,
+              "sha256": "775a199928b0f1e0d1ebc27d41b71e35b5ce6ebb9a7be3b80ae924c7156b1b91",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 739.0,
+              "maximum": 739,
+              "minimum": 739,
+              "sample_count": 5,
+              "sha256": "d0384c2aa070c00d09850d7a635045ad2948dec56325898ce2a6c92fb9a9c18f",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 111.0,
+              "maximum": 111,
+              "minimum": 103,
+              "sample_count": 5,
+              "sha256": "f320bb80f1876606c425e5635988ac8d3feadecc27bc75e32bd3dd7fd58c0764",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 150732799.0,
+              "maximum": 156237823,
+              "minimum": 149028863,
+              "sample_count": 5,
+              "sha256": "f80f261ac88e3f120f77382b2ed611356b64b8d20cc7e03fe3c555ae51ce999d",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-10s-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 5949620223.0,
+              "maximum": 5997854719,
+              "minimum": 5901385727,
+              "sample_count": 2,
+              "sha256": "e6d7201e0a3cf5666ce0eb555fd654dc7bcb514d224b83fea91aa7f13bf78e3d",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 10.0,
+              "maximum": 10,
+              "minimum": 10,
+              "sample_count": 2,
+              "sha256": "fd88eb291a952df29e0757c2b0aec35c4fd5864cb2a38b0f2aa97aa766a56de0",
+              "unit": "M"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 124.0,
+              "maximum": 126,
+              "minimum": 122,
+              "sample_count": 2,
+              "sha256": "4d689bff8545b0ea903a9dfdfe4ed62a4612cb29966f81184386ad84b15d230c",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 2173698047.0,
+              "maximum": 2174746623,
+              "minimum": 2172649471,
+              "sample_count": 2,
+              "sha256": "bd0a359e751dce213960c97cbac9128c1deff617f47abd22a6ce320ba9886d22",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 620756991.0,
+              "maximum": 635437055,
+              "minimum": 597688319,
+              "sample_count": 5,
+              "sha256": "995f290b22970e4b904b202ba18bb7e3e79f5ecab2632e25f2d2ee438a3808ca",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1087.0,
+              "maximum": 1087,
+              "minimum": 1087,
+              "sample_count": 5,
+              "sha256": "b5ef84e7d0c9789933edb25e2927bcde3cbb60f9a6335485756f831180166e53",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 117.0,
+              "maximum": 118,
+              "minimum": 111,
+              "sample_count": 5,
+              "sha256": "00d17ca9d40c5d2c15b240687e2d60417439e78b28739b0e29c2b58491130c15",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 243924991.0,
+              "maximum": 248119295,
+              "minimum": 238288895,
+              "sample_count": 5,
+              "sha256": "57196e56a4a134de71d5e06b9e4359b5415572e161b84e59f1d6bd061eee0307",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-60to12-rotated-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 1221591039.0,
+              "maximum": 1238368255,
+              "minimum": 1202716671,
+              "sample_count": 5,
+              "sha256": "e2705070c3f8de04e210435b7d58a6a9636696e385c357f4ad1f52f6b5cb87b0",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 3297.0,
+              "maximum": 3297,
+              "minimum": 3295,
+              "sample_count": 5,
+              "sha256": "5115aee7a539af7ad07e74933d1557c6a0f6a53c1ee6bbd7b93cccc3f864c2fc",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 184.0,
+              "maximum": 186,
+              "minimum": 162,
+              "sample_count": 5,
+              "sha256": "0d037fe20b398bb0ca0d7b569c8a28c0800960d7872662dc43505ed38dbdc52e",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 437256191.0,
+              "maximum": 443547647,
+              "minimum": 430440447,
+              "sample_count": 5,
+              "sha256": "ef1d97d693f1f2679552f575bb80bfc3450ec7747d8ad15ccb22123f015e44c5",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-source-30fps-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 495714303.0,
+              "maximum": 498597887,
+              "minimum": 491782143,
+              "sample_count": 5,
+              "sha256": "15fcfa9a4e49af1d6ea1dc0278bcf1616c6cb2ea95a6849e780eb6e319bcff3e",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 1225.0,
+              "maximum": 1225,
+              "minimum": 1225,
+              "sample_count": 5,
+              "sha256": "986623d7f37ae3cc97a920d40a82b742958613b51909c323544983ebe222bbc3",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 108.0,
+              "maximum": 109,
+              "minimum": 107,
+              "sample_count": 5,
+              "sha256": "5b0b886fd234b73d3a156aac9252f6c617e1b9b701c536557c997251ebf796c2",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 212467711.0,
+              "maximum": 217055231,
+              "minimum": 208404479,
+              "sample_count": 5,
+              "sha256": "ba6889e581703fd5d2d1f9ace19f870ec3a80a9bc6a50f35872c72bb1efd8813",
+              "unit": "ns"
+            }
+          },
+          "aski93-video-vfrto12-720p-80cols": {
+            "cpuTotal": {
+              "exported_sample_median": 152436735.0,
+              "maximum": 156499967,
+              "minimum": 149815295,
+              "sample_count": 5,
+              "sha256": "c73d5960bb6e272278ba1d43b06a78d2096359fbe7c0cebb4ffcc3a985ea35f7",
+              "unit": "ns"
+            },
+            "mallocCountTotal": {
+              "exported_sample_median": 460.0,
+              "maximum": 460,
+              "minimum": 459,
+              "sample_count": 5,
+              "sha256": "3a88de7b2433d3a14b3271f91f3b76c3df0d0efb031c3dabe8b4344fae3fae4a",
+              "unit": "K"
+            },
+            "peakMemoryResident": {
+              "exported_sample_median": 93.0,
+              "maximum": 93,
+              "minimum": 80,
+              "sample_count": 5,
+              "sha256": "656ac0eac0d4c3ae3dc6744ee826a325889c19ce70c14340d0df921e34a2b6e3",
+              "unit": "M"
+            },
+            "wallClock": {
+              "exported_sample_median": 111804415.0,
+              "maximum": 112328703,
+              "minimum": 108462079,
+              "sample_count": 5,
+              "sha256": "f3eb9581648ef6f41ad25741f6619fe80097262e7de3282d5f85e83efda653d6",
+              "unit": "ns"
+            }
+          }
+        },
+        "optional_not_exported": {
+          "aski93-video-120to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-12to30-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-30to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-10s-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-60to12-rotated-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-source-30fps-720p-80cols": [
+            "allocatedResidentMemory"
+          ],
+          "aski93-video-vfrto12-720p-80cols": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "report": "pair-5/control/report.json",
+        "report_sha256": "ed35047891918dbcd50730e21de9e35f8a74045ae49edc22385b927ebcd1e26a",
+        "started_at": "2026-11-13T02:02:42.582985+00:00",
+        "status": "valid"
+      },
+      "pair": 5
+    }
+  ],
+  "schema_version": 1,
+  "statistic": "ordinary median of exported histogram values; not an exact reproduction of upstream HDR p50",
+  "status": "invalid",
+  "workloads": {}
+}

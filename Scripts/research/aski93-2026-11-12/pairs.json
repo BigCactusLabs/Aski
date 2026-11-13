@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment": "aski-93-early-selection-current-main",
+  "control_revision": "46024d6e28eb8f1ac019b2965d1a3cf5c6dc7993",
+  "candidate_revision": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a",
+  "expected_workloads": [
+    "aski93-video-120to12-720p-80cols",
+    "aski93-video-12to12-720p-80cols",
+    "aski93-video-12to30-720p-80cols",
+    "aski93-video-30to12-720p-80cols",
+    "aski93-video-60to12-10s-720p-80cols",
+    "aski93-video-60to12-720p-80cols",
+    "aski93-video-60to12-rotated-720p-80cols",
+    "aski93-video-source-30fps-720p-80cols",
+    "aski93-video-vfrto12-720p-80cols"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident"
+  ],
+  "decision_rule": {
+    "reference": "d16896e5746f69a4d3ef86f29098cb2b134d8e0a:Scripts/research/video-frame-selection.md",
+    "declared_at": "2026-11-13T01:45:25.396662+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "local-Mac15-10",
+    "same_physical_host": true,
+    "conditions": "AC power, no pmset thermal/performance warning; 14 logical cores and 36GiB RAM. Builds and tests finished before captures. Desktop and security software remained active (observed individual processes below 20% CPU, apart from SwiftPM/shell); this was not an idle desktop. Retain every capture and assess paired noise."
+  },
+  "pairs": [
+    {
+      "control": "pair-1/control/report.json",
+      "candidate": "pair-1/candidate/report.json"
+    },
+    {
+      "control": "pair-2/control/report.json",
+      "candidate": "pair-2/candidate/report.json"
+    },
+    {
+      "control": "pair-3/control/report.json",
+      "candidate": "pair-3/candidate/report.json"
+    },
+    {
+      "control": "pair-4/control/report.json",
+      "candidate": "pair-4/candidate/report.json"
+    },
+    {
+      "control": "pair-5/control/report.json",
+      "candidate": "pair-5/candidate/report.json"
+    }
+  ]
+}
