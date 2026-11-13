@@ -303,6 +303,12 @@ If that diagnostic cannot fit the remaining bounded session, leave the result
 inconclusive. Disclose three-significant-digit histogram quantization and host noise.
 Report sample counts per arm for every primary and guard cell, including counts
 below ten when the original duration limit ends an arm early.
+Before the first capture, both instruments explicitly set
+`units: [.mallocCountTotal: .count]`. The pinned executor uses this per-metric
+setting before its automatic units, so the counter exports unscaled values instead
+of rounding to whole thousands. This output-unit change does not alter the timed
+work, sample limits or thresholds. Raw values still have HDR histogram quantization;
+unscaled export does not turn them into exact chronological counts.
 An independent cross-model review must accept the instrument and readout method
 before the numbers support a verdict.
 

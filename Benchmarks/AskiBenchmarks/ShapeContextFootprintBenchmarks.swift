@@ -6,6 +6,7 @@ import Benchmark
 func addShapeContextFootprintBenchmarks() {
     let configuration = Benchmark.Configuration(
         metrics: [.wallClock, .cpuTotal, .mallocCountTotal],
+        units: [.mallocCountTotal: .count],
         warmupIterations: 1, scalingFactor: .one, maxDuration: .seconds(3), maxIterations: 10
     )
     for (width, height) in [(2, 3), (3, 3), (8, 12), (16, 24)] {
