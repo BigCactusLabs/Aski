@@ -291,11 +291,18 @@ To make the existing 5% benefit / 3% regression bars explicit before this replay
   animation workloads with their original configurations. No golden or threshold
   changes are permitted for acceptance.
 
-Read all required cells, not only a generic comparator's first error. If automatic
-count units differ, retain its invalid result and use the pinned exporter contract
-to convert decimal units with ±half an exported unit propagated through each paired
-ratio. Scaling cannot recover lost precision; bounds must not change the rule's
-outcome. Disclose three-significant-digit histogram quantization and host noise.
+Read all required cells, not only a generic comparator's first error. For every
+allocation cell, including matching units, use the pinned exporter contract to
+convert decimal units with ±half an exported unit propagated through each paired
+ratio. Retain the generic comparator's result, including any invalid unit-mismatch
+result. Scaling cannot recover lost precision. If the bounds change the four-of-five
+regression outcome, that cell is undetermined and blocks adoption. Resolve only
+affected workloads with a separate paired diagnostic that forces unscaled allocation
+counts identically in both arms; keep the original benchmark instrument and captures.
+If that diagnostic cannot fit the remaining bounded session, leave the result
+inconclusive. Disclose three-significant-digit histogram quantization and host noise.
+Report sample counts per arm for every primary and guard cell, including counts
+below ten when the original duration limit ends an arm early.
 An independent cross-model review must accept the instrument and readout method
 before the numbers support a verdict.
 
