@@ -225,6 +225,42 @@ class BenchmarkComparisonTests(unittest.TestCase):
             observed={"backend": "unavailable", "image_basename": None}))
         self.assert_invalid("differs between captures")
 
+    def test_vendored_allocator_fingerprints_participate_in_pair_compatibility(self):
+        source = VALIDATOR.reviewed_malloc_source(SCRIPT.parents[2])
+        for index in range(len(self.plan["pairs"])):
+            for role in ("control", "candidate"):
+                def mark_vendored(report, _):
+                    report["identity"]["malloc_backend"]["vendored_source"] = source
+                self.change_report(mark_vendored, index, role)
+        output, code = self.compare()
+        self.assertEqual(code, 0, output["errors"])
+        self.assertEqual(output["compatible_identity"]["malloc_backend"]["vendored_source"], source)
+
+        def change_hash(report, _):
+            hashes = report["identity"]["malloc_backend"]["vendored_source"]["sha256_by_file"]
+            hashes["Package.swift"] = "f" * 64
+        self.change_report(change_hash)
+        self.assert_invalid("differs between captures: malloc_backend")
+
+    def test_effective_lock_compatibility_and_historical_absence(self):
+        def add_effective_hash(report, _):
+            report["identity"]["effective_lock_sha256"] = "e" * 64
+
+        self.change_report(add_effective_hash)
+        self.assert_invalid("differs between captures: effective_lock_sha256")
+
+        for index in range(len(self.plan["pairs"])):
+            for role in ("control", "candidate"):
+                self.change_report(add_effective_hash, index, role)
+        output, code = self.compare()
+        self.assertEqual(code, 0, output["errors"])
+        self.assertEqual(output["compatible_identity"]["effective_lock_sha256"], "e" * 64)
+
+        self.change_report(lambda report, _: report["identity"].update(effective_lock_sha256="f" * 64))
+        self.assert_invalid("differs between captures: effective_lock_sha256")
+        self.change_report(lambda report, _: report["identity"].update(effective_lock_sha256=None))
+        self.assert_invalid("invalid effective lock identity")
+
     def test_toolchain_backend_and_pin_mismatch_rejected(self):
         for field, value in (("swift", "different Swift"), ("xcode", "different Xcode"), ("os", "different OS"), ("malloc_backend", {"configured": "disabled"}), ("lock_sha256", "d" * 64)):
             with self.subTest(field=field):
