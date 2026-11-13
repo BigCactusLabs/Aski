@@ -79,7 +79,7 @@ for workload in comparison['pairs'][0]['control']['measurements']:
             'pairs_possibly_over_3_at_upper_bound': sum(r['export_rounding_upper_percent'] > 3 for r in current),
         }
 with (root / 'paired-medians.csv').open('w') as stream:
-    writer = csv.DictWriter(stream, fieldnames=rows[0].keys()); writer.writeheader(); writer.writerows(rows)
+    writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator='\n'); writer.writeheader(); writer.writerows(rows)
 result = {'status':'descriptive_only', 'adoption_verdict':'see_video_frame_selection_note_for_human_adoption_verdict',
           'official_comparison_status':'invalid_mismatched_allocation_units',
           'normalization_source':'package-benchmark 1.35.0, BenchmarkResult.swift BenchmarkUnits and normalize, BenchmarkTool+Export.swift histogramSamples',
