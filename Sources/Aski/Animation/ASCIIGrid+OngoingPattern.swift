@@ -20,6 +20,13 @@ public extension ASCIIGrid {
         pattern.validate()
         guard rows > 0, columns > 0 else { return self }
         let resolvedTime = time.isFinite ? max(0, time) : 0
+        let pulseMultiplier: Float?
+        if case .pulse(let period, let depth) = pattern {
+            let multiplier = PatternEvaluator.pulseAlpha(period: period, depth: depth, time: resolvedTime)
+            pulseMultiplier = Float(PatternEvaluator.clampUnit(multiplier, fallback: 1))
+        } else {
+            pulseMultiplier = nil
+        }
 
         let modulated = cells.enumerated().map { row, line in
             line.enumerated().map { column, cell -> ASCIICell in
@@ -29,8 +36,12 @@ public extension ASCIIGrid {
                     columns: columns,
                     rows: rows
                 )
-                let multiplier = PatternEvaluator.ongoingAlpha(pattern, coord: coord, time: resolvedTime)
-                let alpha = cell.alpha * Float(PatternEvaluator.clampUnit(multiplier, fallback: 1))
+                let multiplier =
+                    pulseMultiplier
+                    ?? Float(
+                        PatternEvaluator.clampUnit(
+                            PatternEvaluator.ongoingAlpha(pattern, coord: coord, time: resolvedTime), fallback: 1))
+                let alpha = cell.alpha * multiplier
                 return ASCIICell(
                     character: cell.character,
                     displayColor: cell.displayColor,

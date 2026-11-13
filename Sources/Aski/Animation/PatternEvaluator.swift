@@ -79,12 +79,16 @@ internal enum PatternEvaluator {
             return clampUnit(value, fallback: 1)
 
         case .pulse(let period, let depth):
-            precondition(period.isFinite && period > 0, "pulse period must be finite and positive")
-            let resolvedDepth = sanitizedClamped(depth, min: 0, max: 1, defaultValue: 1)
-            guard resolvedDepth > 0 else { return 1 }
-            let value = 1 - resolvedDepth / 2 + (resolvedDepth / 2) * sin(2 * Double.pi * time / period + Double.pi / 2)
-            return clampUnit(value, fallback: 1)
+            return pulseAlpha(period: period, depth: depth, time: time)
         }
+    }
+
+    static func pulseAlpha(period: TimeInterval, depth: Double, time: TimeInterval) -> Double {
+        precondition(period.isFinite && period > 0, "pulse period must be finite and positive")
+        let resolvedDepth = sanitizedClamped(depth, min: 0, max: 1, defaultValue: 1)
+        guard resolvedDepth > 0 else { return 1 }
+        let value = 1 - resolvedDepth / 2 + (resolvedDepth / 2) * sin(2 * Double.pi * time / period + Double.pi / 2)
+        return clampUnit(value, fallback: 1)
     }
 
     static func clampUnit(_ value: Double, fallback: Double) -> Double {

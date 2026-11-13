@@ -1,10 +1,10 @@
 ---
 id: ASKI-91
 title: Remove repeated frame-wide animation pattern work
-status: To Do
+status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-13T07:55:00Z'
 labels:
   - performance
   - animation
@@ -36,8 +36,18 @@ The 2026-09-29 sweep verified these paths at c49bbd. Existing animation grid ben
 - [ ] #5 The task records adopt/reject against a stated end-to-end bar; adopted code passes just check and animation/media benchmarks without relaxed thresholds.
 <!-- AC:END -->
 
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Extract the unchanged scalar pulse evaluation and call it once per overlay/frame invocation. Preserve the Float conversion point in overlay and the Double entrance product in animation.
+2. Extend existing native grid parity with a frozen scalar pulse oracle, invocation concurrency, exact metadata and existing ASKI-18 exits.
+3. Freeze all 24 workloads, paired thresholds and the scalar-control reconstruction. Run source checks only and hand off native gates.
+<!-- SECTION:PLAN:END -->
+
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
 Audit 2026-11-12: public PR #13 (f59926b) landed groundwork: PatternFrameWorkContractTests, PatternGridGroundworkTests, 24 aski91-* workloads and docs/agents/rendering-groundwork.md. No captures have run.
+
+2026-11-13: Source-only pulse arm. Native setup, parity, full gate, budget checks, paired captures and adoption remain pending the native owner.
 <!-- SECTION:NOTES:END -->

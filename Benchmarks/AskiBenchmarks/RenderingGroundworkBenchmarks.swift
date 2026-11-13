@@ -9,6 +9,8 @@ func addRenderingGroundworkBenchmarks() {
         metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
         warmupIterations: 1, scalingFactor: .one, maxDuration: .seconds(3), maxIterations: 6
     )
+    var patternConfiguration = configuration
+    patternConfiguration.units = [.mallocCountTotal: .count, .peakMemoryResident: .count]
     let overlays: [(String, OngoingPattern)] = [
         ("pulse", .pulse(period: 1, depth: 0.8)),
         ("wave-horizontal", .wave(amplitude: 0.4, frequency: 1, direction: .horizontal)),
@@ -19,7 +21,7 @@ func addRenderingGroundworkBenchmarks() {
     // 15 overlay + 9 animation-frame workloads = 24 ASKI-91 identities.
     for columns in [80, 192, 288] {
         for (name, pattern) in overlays {
-            Benchmark("aski91-overlay-\(name)-\(columns)cols", configuration: configuration) { benchmark in
+            Benchmark("aski91-overlay-\(name)-\(columns)cols", configuration: patternConfiguration) { benchmark in
                 let grid = groundworkGrid(columns: columns)
                 benchmark.startMeasurement()
                 for _ in benchmark.scaledIterations {
@@ -29,7 +31,7 @@ func addRenderingGroundworkBenchmarks() {
             }
         }
         for name in ["radial-active", "radial-complete", "no-pattern"] {
-            Benchmark("aski91-frame-\(name)-\(columns)cols", configuration: configuration) { benchmark in
+            Benchmark("aski91-frame-\(name)-\(columns)cols", configuration: patternConfiguration) { benchmark in
                 let image = makeGradient(width: 800, height: 600)
                 let entrance: EntrancePattern? = name == "no-pattern" ? nil : .reveal(origin: .init(x: -0.25, y: 0.5))
                 let animated = DefaultConverter().animate(
