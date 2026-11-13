@@ -10,7 +10,7 @@ import Testing
         let base = try Self.grid(ragged: true)
         for pattern in [OngoingPattern.pulse(period: 1, depth: 0), .wave(amplitude: 0, frequency: 1)] {
             let actual = base.applyingOngoingPattern(pattern, at: .infinity)
-            Self.expectGrid(actual, matches: base) { _, _, original in original.alpha * Float(1) }
+            Self.expectGrid(actual, matches: base) { _, _, original in Self.scalarMultiply(original.alpha, 1) }
         }
     }
 
@@ -74,6 +74,13 @@ import Testing
                 #expect(grid.applyingOngoingPattern(pattern, at: time).cells == expected.cells)
             }
         }
+    }
+
+    // Keep this oracle's multiplication in release builds. Folding alpha * 1
+    // to identity preserves a signaling NaN instead of quieting it.
+    @_optimize(none)
+    private static func scalarMultiply(_ alpha: Float, _ multiplier: Float) -> Float {
+        alpha * multiplier
     }
 
     private static func scalarPulse(period: Double, depth: Double, time: Double) -> Double {
