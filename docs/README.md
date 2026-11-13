@@ -43,6 +43,7 @@ describe intended assets; do not assume a hosted API site.
 | Compare repeated performance candidates or inspect early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract and measured result](../Scripts/research/video-frame-selection.md), [ASKI-93 reproducer](../Scripts/research/aski93-2026-11-12/reproduce.py) |
 | Inspect prepared footprint adoption and its measured limits | [ASKI-87 native replay](benchmark-validation.md#native-replay-result--2026-11-12), [ASKI-87 reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) |
 | Inspect native benchmark failure/allocator proof | [ASKI-86 native validity evidence](../Scripts/research/aski86-2026-11-13/README.md) |
+| Inspect the reproduced allocator cleanup defect and exact count regressions | [ASKI-109 lifecycle evidence](../Scripts/research/aski109-2026-11-13/README.md) |
 | Inspect the rejected fixed-palette cache and reproduce every paired result | [ASKI-90 complete study](../Scripts/research/aski90-2026-11-13/README.md) |
 | Inspect exact heap selection and its rejected native performance result | [ASKI-88 complete study](../Scripts/research/aski88-2026-11-13/README.md) |
 | Inspect adopted pulse reuse, exact parity and measured overlay gains | [ASKI-91 complete study](../Scripts/research/aski91-2026-11-13/README.md) |

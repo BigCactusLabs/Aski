@@ -1,0 +1,490 @@
+[
+  {
+    "label": "compile-library-pristine-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-dynamiclib",
+      "$UPSTREAM/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-pristine-O1.dylib"
+    ],
+    "exit": 0,
+    "seconds": 0.7011540830135345,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-test-pristine-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$EVIDENCE/count-regression.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-pristine-O1.dylib",
+      "-o",
+      "$EVIDENCE/count-pristine-O1"
+    ],
+    "exit": 0,
+    "seconds": 0.2852239169878885,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes0-allocations17",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "seconds": 0.15887429099529982,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes1-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "1",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.041821875027380884,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes1-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "1",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.040901291999034584,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes2-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "2",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.04478645802009851,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes2-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "2",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.04140987491700798,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes4-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "4",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.04604983306489885,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O1-passes4-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O1",
+      "4",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.04402737505733967,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-library-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-dynamiclib",
+      "$EVIDENCE/corrected-interposer.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-corrected-O1.dylib"
+    ],
+    "exit": 0,
+    "seconds": 0.4463633749401197,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-test-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$EVIDENCE/count-regression.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O1.dylib",
+      "-o",
+      "$EVIDENCE/count-corrected-O1"
+    ],
+    "exit": 0,
+    "seconds": 0.29860520793590695,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes0-allocations17",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "seconds": 0.09820391703397036,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes1-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.015551249962300062,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes1-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.016307457932271063,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes2-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.01611304096877575,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes2-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.020108083030208945,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes4-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.02014862501528114,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O1-passes4-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O1",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.020146874943748116,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "compile-library-pristine-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-dynamiclib",
+      "$UPSTREAM/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-pristine-O3.dylib"
+    ],
+    "exit": 0,
+    "seconds": 0.3163852500729263,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-test-pristine-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$EVIDENCE/count-regression.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-pristine-O3.dylib",
+      "-o",
+      "$EVIDENCE/count-pristine-O3"
+    ],
+    "exit": 0,
+    "seconds": 0.39859150000847876,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes0-allocations17",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "seconds": 0.11141220794524997,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes1-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "1",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.05218037508893758,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes1-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "1",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.04892241698689759,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes2-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "2",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.04791108297649771,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes2-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "2",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.046507750055752695,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes4-allocations1",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "4",
+      "1"
+    ],
+    "exit": -11,
+    "seconds": 0.06691429205238819,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "pristine-O3-passes4-allocations41",
+    "argv": [
+      "$EVIDENCE/count-pristine-O3",
+      "4",
+      "41"
+    ],
+    "exit": -11,
+    "seconds": 0.051502957940101624,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-library-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-dynamiclib",
+      "$EVIDENCE/corrected-interposer.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-corrected-O3.dylib"
+    ],
+    "exit": 0,
+    "seconds": 0.38697712507564574,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "compile-test-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$EVIDENCE/count-regression.c",
+      "-I",
+      "$UPSTREAM/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O3.dylib",
+      "-o",
+      "$EVIDENCE/count-corrected-O3"
+    ],
+    "exit": 0,
+    "seconds": 0.412085417076014,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes0-allocations17",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "seconds": 0.22124808293301612,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes1-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.02762770908884704,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes1-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.01963941694702953,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes2-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.021985583007335663,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes2-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.023364500026218593,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes4-allocations1",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 0.02411116601433605,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "corrected-O3-passes4-allocations41",
+    "argv": [
+      "$EVIDENCE/count-corrected-O3",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "seconds": 0.02171837503556162,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  }
+]

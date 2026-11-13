@@ -13,6 +13,14 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Benchmark instrumentation corrects a reproduced allocator cleanup defect (ASKI-109).**
+  Canonical captures use a reviewed local edit of malloc-interposer 1.4.0 that
+  clears a stale thread-local counter pointer during teardown. Source and routing
+  checks preserve allocator observations and reject invalid samples. Setup records
+  SwiftPM's effective lock and restores the original lock from verified bytes.
+  The native regression does not establish the cause of earlier ASKI-92 reset
+  crashes. Evidence: `Scripts/research/aski109-2026-11-13/README.md`.
+
 - **Pulse math is reused once per frame (ASKI-91).** Pulse overlays and animated
   frames preserve the existing arithmetic and exact cell values. Five paired
   runs of synthetic overlays at 80/192/288 columns on one Mac measured 34.56%,

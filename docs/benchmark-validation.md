@@ -83,16 +83,16 @@ can still be slow.
 Each invocation creates a private, fresh directory beneath `.build/benchmark-validation/`.
 Its location is printed before work begins. `--output-dir PATH` chooses another **new**
 directory with an existing parent; existing output is refused, never reused or deleted.
-Concurrent captures use separate directories, though concurrent performance measurements
-are not comparable evidence. Raw logs and sample files are retained on failure as well as
+A checkout admits one active benchmark capture. Use separate checkouts for concurrent
+captures, though concurrent performance measurements are not comparable evidence. Raw logs and sample files are retained on failure as well as
 success. Remove captures when no longer needed; raw-sample exports can be large.
 
 `report.json` starts with `complete: false` and `status: running`. A finished capture is
 `valid` only after all checks pass; interruptions/timeouts remain `invalid`. SIGINT and
 SIGTERM stop processes in the invocation's isolated session, including child process
 groups created by SwiftPM. Cleanup requires host `ps` access. An optional `--timeout SECONDS` applies to
-each inventory/run subprocess. An uncatchable kill may leave `running`, which is **not**
-a successful result.
+each SwiftPM setup, inventory, or run subprocess. An uncatchable kill may leave the
+report `running` and the edited lock in place. Treat that capture as invalid.
 
 The report retains selected and discovered identities, required metrics, per-metric
 sample counts/headers/units, file hashes, plugin diagnostics, exact commands, timestamps,
@@ -112,9 +112,32 @@ while a changed observed backend or image basename still invalidates paired comp
 Missing or inactive interposer observations fail validation. A build without the interposer
 records `unavailable`; required metric exports are still checked independently. These are
 process-local observations, not an attribution of every allocation in every workload or a
-resident-memory measurement. The malloc-interposer pin is retained. Local `MALLOC_INTERPOSER_LOCAL_PATH` overrides are
-rejected because their provenance is not established. Inspect logs before posting them:
-compiler/AVFoundation diagnostics can contain local paths. No environment dump is saved.
+resident-memory measurement.
+
+The allocator is a reviewed edit of the pinned malloc-interposer 1.4.0 package.
+The adapter checks the original lock pin, the vendored file set and hashes, and the
+SwiftPM edit's base and exact path. It rejects other local edits and
+`MALLOC_INTERPOSER_LOCAL_PATH` overrides. Before inventory, the adapter uses SwiftPM's
+supported edit mode and runs `show-dependencies` to settle the edited graph. In this
+step SwiftPM normalizes the lock's `originHash` to the manifest SHA-256 and removes
+the edited allocator's pin. Every other lock entry must match. The adapter then
+requires byte-for-byte stability of the effective lock throughout inventory and
+execution, and checks the manifest, vendor bytes, and edit routing at each phase.
+
+The report records both `identity.lock_sha256` for the original lock and
+`identity.effective_lock_sha256` for the edited graph, with setup and restoration
+outcomes under `lock_transaction`. The original pin and `malloc_backend.vendored_source`
+describe the configured base and source bytes. Runtime probes separately report
+the observed loaded image and active counters. The adapter does not verify that
+image's file bytes. Paired comparisons require matching effective hashes when
+either capture provides one. Historical pairs can omit the field on both captures.
+
+On exit, including handled interrupts, the adapter restores the original lock
+only from the exact verified SwiftPM forms. Unexpected lock edits are preserved
+and invalidate the capture. The reviewed SwiftPM edit remains active in local
+workspace state. Avoid other SwiftPM operations in the same checkout during
+capture. Inspect logs before posting them because compiler and AVFoundation
+diagnostics can contain local paths. No environment dump is saved.
 
 The data files are the upstream `histogramSamples` export, with nanosecond units forced
 for capture. They contain normalized HDR-histogram samples, not chronological observations.

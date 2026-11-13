@@ -77,7 +77,7 @@ import Testing
         #expect(text.contains("swift run BuildRepoMap"))
         #expect(text.contains("python3 -B Scripts/validate-benchmarks.py \"$@\""))
         let validator = try String(contentsOf: root.appending(path: "Scripts/validate-benchmarks.py"), encoding: .utf8)
-        #expect(validator.contains("[\"xcrun\", \"swift\", \"package\", \"--disable-sandbox\", \"benchmark\"]"))
+        // The benchmark argv is exercised by Scripts/tests/test_benchmark_validation.py.
         #expect(validator.contains("\"run\", \"--target\", TARGET"))
         #expect(validator.contains("TARGET = \"AskiBenchmarks\""))
         #expect(text.contains("./Scripts/swift-format-check.sh"))
