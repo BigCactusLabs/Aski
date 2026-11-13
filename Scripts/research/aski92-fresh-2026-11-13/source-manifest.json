@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "experiment": "aski92-fresh-2026-11-13",
+  "status": "Prepared source. Exact final rule/arm commits and executable identities belong to the external pre-capture manifest; null fields below are not asserted identities.",
+  "base_revision": "e287ae2b88c026cd738df9237e989011a7ee41a7",
+  "rule_commit": null,
+  "commit_identity_record": "Record both final arm SHAs and the committed rule SHA in the external pre-capture evidence manifest after commit, avoiding a self-reference.",
+  "prior_replay": {
+    "scope": "Replay benchmark and production/test source only, not task metadata or an exact commit reconstruction. Local study SHAs are provenance and are not assumed published.",
+    "public_base": "bb399f9136e8c50fb2a256551bacad029115024d",
+    "patches": {
+      "control-support.patch": {
+        "base": "bb399f9136e8c50fb2a256551bacad029115024d",
+        "result": "4010636b9c467b5470a8c145caabbc5755192634",
+        "sha256": "059d63408db358477e1f20e8f39b4e13ff0201aac2ba180456d8c397d516f740"
+      },
+      "candidate-treatment.patch": {
+        "base": "4010636b9c467b5470a8c145caabbc5755192634",
+        "result": "260ff2deda5652b3c5bd97a4bc87065ae28bc808",
+        "sha256": "4f22f93d6825a63c9e96eacfe0f9b47c011d9d0ecc4424420fe16bebf994fc96"
+      }
+    }
+  },
+  "reviewed_aski109_patch_sha256": "f8263e0bca03d3acdfab02d93ed2c4b91104c9c8e330f064a5bf8a995035d30b",
+  "expected_effective_lock_sha256": "d7b13f03855f4a20728e5e1b4e847937990ccce7c253b0dd64eda41ee515338f",
+  "common_producer_sha256": {
+    "Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift": "a51f7948d67413b1cd52d16c322d6ae742f3d3a80be3b2134a870cdc151fcb1a",
+    ".gitignore": "c4327044fa301eab1f8a0672e2ced9257c799027dfd5004bf3b0bcddee67d156",
+    "Scripts/research/compare-benchmarks.py": "999b8096030fe6345d00a4276d31d8025d41e452055d160a87afec1cfd3c4bae",
+    "Scripts/tests/test_benchmark_comparison.py": "9f7883eecb35caad85ba032cee1fa2a88b5ed20064c90359c749e3771789deac",
+    "Scripts/tests/test_benchmark_validation.py": "ea3367f56dace395f1282915258b73c7d293350987876c917c675444368ed1f1",
+    "Scripts/validate-benchmarks.py": "3ca933bfc6be9fc0ff7029976ba9b8108ddbe9e085e1559a39436b699b64e9af",
+    "Tests/AskiTests/CommandSurfaceTests.swift": "7b9cf8fbb493ea3ca3b4ee28de169186395f3af102a69a19e0af5a4ab23bc09d",
+    "docs/benchmark-validation.md": "0b0bc7fe2ddebe84dd1a3d9f1b5ae6e287dbce38212de7eb7d4028d445e370f9",
+    "Vendor/malloc-interposer/ASKI-PATCHES.md": "4b6cbb4345cc54982f6f95b85f3e8c19657adb5df3219e49b2754f26aaf2cfa0",
+    "Vendor/malloc-interposer/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "Vendor/malloc-interposer/NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+    "Vendor/malloc-interposer/Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+    "Vendor/malloc-interposer/README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+    "Vendor/malloc-interposer/Sources/MallocInterposerC/include/interposer.h": "e8ed97ce37d1aae6de5be64c262e8db1137d5214ed4cb3cea9fd7706424c90b6",
+    "Vendor/malloc-interposer/Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+    "Vendor/malloc-interposer/Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+    "Vendor/malloc-interposer/Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+    "Vendor/malloc-interposer/Tests/InterposerCrashProbe/main.c": "4c7d3a9d4e485cec4dfc9c92829fdecc490e2849f6142340157e96949e638951",
+    "Vendor/malloc-interposer/Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "9cb9b0d36d081e8c87cdb48ff3265af8494d17b53cbf94fd5a8627fda21d984a",
+    "Package.swift": "40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513",
+    "Package.resolved": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "registrations_excluding_candidate_phase_call_sha256": "29c65fdaab3c26a0986245d561fce6311322b56ce7818b7f96674b8bb6232b92"
+  },
+  "arms": {
+    "control": {
+      "revision": null,
+      "prepared_file_sha256": {
+        "Benchmarks/AskiBenchmarks/Benchmarks.swift": "29c65fdaab3c26a0986245d561fce6311322b56ce7818b7f96674b8bb6232b92",
+        "Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift": "a51f7948d67413b1cd52d16c322d6ae742f3d3a80be3b2134a870cdc151fcb1a",
+        "Sources/Aski/Tiles/KMeansRefinement.swift": "a47de560ea96cc8d0682bf43b3dfa2bff26e8c3e83f02c1343e9170dd17d3351",
+        "Sources/Aski/Tiles/TilePalette+Resolved.swift": "893ed3a6871525bc07b5083cbc712887050c6f8ce48b77ae7a9cb6705731facb",
+        "Sources/Aski/Tiles/WuQuantizer.swift": "6384d2ab375d2b109b9bf16e32d9bb2b67f2ccccc103ece909f0d8347a097c3c"
+      },
+      "release_executable_sha256": null
+    },
+    "candidate": {
+      "revision": null,
+      "prepared_file_sha256": {
+        "Benchmarks/AskiBenchmarks/Benchmarks.swift": "86f3b75b4d35f13cb879054512d134f8b5266606e1f03518604126a78c2088a4",
+        "Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift": "a51f7948d67413b1cd52d16c322d6ae742f3d3a80be3b2134a870cdc151fcb1a",
+        "Sources/Aski/Tiles/KMeansRefinement.swift": "321390a6f798d502c9ae86cf3b55dcb8315db21076ebbe1480ced79fa00d84b0",
+        "Sources/Aski/Tiles/TilePalette+Resolved.swift": "ec074eafd253c49f1cde6de0a7eb9341518691b58374a00b6ba05244fd086b12",
+        "Sources/Aski/Tiles/WuQuantizer.swift": "ea02a937f4b8e7babad1a11b966097c462fd2c642dcc2e52329f22c2a654d86b",
+        "Benchmarks/AskiBenchmarks/TileColorSamplePhaseBenchmarks.swift": "d2cfe8d1e12cf3b09e65d6a20c23c0aa9789610794718ffe017bdc8af599cee5",
+        "Tests/AskiTests/TileColorSampleControl.swift": "d53f80928d9df536312fe0473474162e608846e0ee290779ee3e0e2228f6f2eb",
+        "Tests/AskiTests/TileColorSampleStorageTests.swift": "a3f690add5cfeb4e96a8695a65a753ecf384514af66583c769443bc13e59e1bd",
+        "Tests/AskiTests/TileColorSampleTests.swift": "4756be26e2ac5d93a63256b93f97befbd712dfc818be961d26f712752df7d90f"
+      },
+      "release_executable_sha256": null
+    }
+  }
+}
