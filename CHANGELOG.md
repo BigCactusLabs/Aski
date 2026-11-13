@@ -67,6 +67,17 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
+- **Point lights no longer over-brighten (ASKI-102).** The light field summed opaque layers
+  with `CIAdditionCompositing`, which adds alpha along with color, so the field reached
+  alpha 3 with one light and one more per added light. Converting the lit image to the output
+  color space then divided its color by that alpha, encoded it and multiplied the alpha back
+  in, which brightened every lit pixel and made semi-transparent pixels opaque. The field is
+  now opaque before it multiplies the image. Over white, an sRGB (0.8, 0.2, 0.1) light at
+  intensity 1 with ambient 0 renders (204, 51, 25) at its center, the light's own color,
+  instead of (255, 81, 33); with ambient 0.5 it renders (233, 136, 130) instead of
+  (255, 243, 232). Lit renders are darker than before; raise `ambient` or the light's
+  `intensity` to brighten them. Lighting now keeps the image's alpha. Intensity scaling,
+  lighting with no lights, and renders without lighting are unchanged.
 - **Landscape `.tall` sampling keeps the requested sample size (ASKI-106).** Both
   `ASCIIConverter` and `TileGridConverter` now prepare enough source pixels for
   `oversample` on both cell axes when downscaling landscape images with `.tall`.
