@@ -3,7 +3,7 @@ title: "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
 slug: "2026-09-04-aski51-core-text-drift-policy"
 date: "2026-09-04"
 status: "complete"
-summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire."
+summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up."
 subsystem: ["shape-context", "meta"]
 related_specs: ["Tools/BuildStandardVectors/BuildStandardVectors.swift", "Tools/BuildStandardVectors/VectorDriftAudit.swift", "docs/agents/research-methodology.md"]
 datasets: []
@@ -73,3 +73,12 @@ component delta was zero. The brightness sort permutation was unchanged.
 
 Disposition: **NO_TRIGGER**. No resource regeneration or deterministic-rasterizer follow-up is
 required. The on-demand audit and regeneration policy remain in force for the next toolchain change.
+
+## Status update — 2026-11-13
+
+The disposition above is the result on macOS 26.6.2 and stays as recorded. The policy then did
+what it was written to do on the next toolchain change: during ASKI-77 on macOS 27, the audit found
+drift in 9 of the 10 built-in sets, a largest component delta of `0.0452`, and a changed
+brightness order for the standard set. Conditions 1 and 2 of the escalation trigger were met.
+ASKI-78 owns the decision on how ShapeData survives Core Text drift; the shipping resources were
+not regenerated.

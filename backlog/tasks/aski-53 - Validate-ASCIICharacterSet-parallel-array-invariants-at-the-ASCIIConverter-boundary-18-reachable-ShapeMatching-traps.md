@@ -5,8 +5,8 @@ title: >-
   boundary (18 reachable ShapeMatching traps)
 status: Done
 assignee: []
-created_date: '2026-08-24 03:45'
-updated_date: '2026-08-27 12:32'
+created_date: 2026-08-24 03:45
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - robustness
@@ -35,4 +35,6 @@ The ASKI-36 trap audit (docs/Research/2026-08-23-aski36-trap-audit.md, class-C t
 Board audit 2026-08-24 (deep pass): All 18 cited preconditions verified live; boundary still unguarded. Scoping caveat for AC#2: sites at ShapeMatching.swift:633-639 are on the default-off shapeStructureAssist path — reachable only with it enabled.
 
 Shipped in the four-task mask batch, PR #31 (merge f761952, 2026-08-27). One boundary validation (validateParallelArrayInvariant) covers all 18 audited ShapeMatching traps; exit tests cover empty-brightness, lane-mismatch, signature-mismatch, and structure-channel shapes through convert and rankedCandidateIndices. Codex review added two hardenings in b6b7b66: the validator also runs in didSet on the public mutable characterSet (init-only was bypassable), and an all-empty conformance is rejected via characterCount > 0. Built-in and rasterized sets byte-identical at the boundary; just check green.
+
+Audit 2026-11-12: validateParallelArrayInvariant and the steerableSignatures / ShapeStructureChannels arrays named above no longer exist. The invariant is now enforced in the GlyphBank initializer (Sources/Aski/CharacterSets/GlyphBank.swift), reached through the characterSet setter (ASKI-71); the removed knobs went with ASKI-68.
 <!-- SECTION:NOTES:END -->

@@ -1,10 +1,10 @@
 ---
 id: ASKI-5
 title: Enforce representative conversion and media performance budgets
-status: In Progress
+status: To Do
 assignee: []
 created_date: 2026-08-18 18:01
-updated_date: '2026-10-27T15:59:00Z'
+updated_date: '2026-11-13T05:20:00Z'
 labels:
   - performance
   - benchmarks
@@ -13,6 +13,7 @@ dependencies:
   - ASKI-1
   - ASKI-2
   - ASKI-4
+  - ASKI-86
 priority: medium
 type: task
 ordinal: 5000
@@ -60,4 +61,8 @@ Source map: `Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift`, `Benchmarks/A
 ### Groundwork delivered — 2026-10-27
 
 Added `Scripts/research/compare-benchmarks.py`, portable regression coverage, and `docs/agents/paired-benchmarks.md`. The reader validates complete ASKI-86 reports and sample hashes, rejects incompatible/missing/reused evidence, and reports per-workload paired changes and run-to-run spread. At least five complete pairs are required for a reviewable numeric series. Budget/adoption verdicts remain explicitly unevaluated; synthetic fixtures do not set thresholds. Existing media/preparation dependencies and every acceptance criterion remain open.
+
+Audit 2026-11-12: the claim above that ImageIOThumbnail.swift still serializes oversized direct CGImage input through PNG is stale; ASKI-1 (public PR #23, ba98fc5) removed that path, and its benchmark run is the baseline. The repo ships no .github/workflows. Paired-benchmark groundwork landed in public PR #11 (compare-benchmarks.py, docs/agents/paired-benchmarks.md); new suites since this note: PreparationBenchmarks, VideoSelectionBenchmarks, RenderingGroundworkBenchmarks. The plan relies on ASKI-86 evidence, which is not yet a listed dependency.
+
+2026-11-13: moved back to To Do: no branch or worktree names this task, all six criteria are open, and ASKI-2 and ASKI-4 are To Do. Added ASKI-86 as a dependency because the plan relies on complete benchmark-run evidence.
 <!-- SECTION:NOTES:END -->

@@ -3,7 +3,8 @@ id: ASKI-95
 title: Measure bounded reuse of fallback effect noise rasters
 status: To Do
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - effects
@@ -35,3 +36,9 @@ Source mechanism verified at c49bbd during the 2026-09-29 sweep; no fallback pro
 - [ ] #4 Retained raster memory has an explicit measured bound/lifetime; changing-seed workloads and normal Metal rendering have no material regression.
 - [ ] #5 If adopted, just check and relevant effects/media benchmarks pass without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: public PR #13 (f59926b) landed FallbackNoiseGroundworkTests. seededNoise call sites moved to about :221 and :253, definition about :265.
+<!-- SECTION:NOTES:END -->

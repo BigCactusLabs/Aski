@@ -2,10 +2,9 @@
 id: ASKI-97
 title: Restore exact render snapshot baselines on macOS 27.0.1
 status: To Do
-assignee:
-  - '@codex'
+assignee: []
 created_date: '2026-11-05T18:37:00Z'
-updated_date: '2026-11-06T17:30:00Z'
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - gate
 dependencies: []
@@ -43,6 +42,10 @@ Untouched origin/main 06adfdb reproduces 16 exact image mismatches against the m
 Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds. The unchanged origin control reproduced all 16 candidates byte-for-byte in a parallel 1434-test run. Candidate selected snapshots plus VesperPresetTests passed 10 tests. Independent evidence review accepted the narrow rebaseline conditionally on the full gate and extra parallel-core pass; both conditions are now met. Exact old-OS causality remains unproved, and the earlier single mask-before pass did not reproduce. The triggered vector audit remains owned by ASKI-78; no ShapeData regeneration. Two tooling footguns encountered in evidence preparation were recorded in blotter.
 
 2026-11-06: re-baseline WITHDRAWN (owner ruling). An Apple M3 Max host with the same macOS 27.0.1 (26A434), Xcode 27.0 (27A266a) and Swift 6.4 did not reproduce the drift: in detached checkouts the composition, effect-kernel and mask snapshot suites pass 11/11 at 06adfdb and fail exactly the 16 replaced PNGs (one 8-bit step each) at 14c8697. Identical OS and Xcode builds disagree, so the drift is host-dependent (hardware, GPU or other host state), not an OS patch-version change. Commit 25460c3 restores the 16 PNGs to their 06adfdb bytes, rewrites the CONTRIBUTING paragraph, and marks the drift result withdrawn while keeping its measurements. On the M3 Max host the restored goldens pass the three snapshot suites (11 tests) and full just check (1441 core, 156 media, 2 sentinels, DocC). AC3 is unchecked because the replacement was not a supported baseline change. Host-dependent exact rasters remain unresolved and belong with ASKI-78's platform raster policy.
+
+Audit 2026-11-12: ASKI-8 and ASKI-83 are both Done; the sentence that these mismatches block them is stale. 14c8697 was reverted by 25460c3. The remaining item duplicates ASKI-78 AC#4; closing as withdrawn or adding an ASKI-78 dependency is an owner call.
+
+2026-11-13: closed as withdrawn and archived (same placement as ASKI-14: Backlog has no won't-do status). 14c8697 was reverted by 25460c3, so no baseline change was adopted and AC#3 stays unchecked. The remaining Core Text drift policy is owned by ASKI-78 AC#4. The assignee was cleared.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

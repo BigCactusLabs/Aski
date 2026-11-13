@@ -6,8 +6,8 @@ title: >-
 status: Done
 assignee:
   - '@codex'
-created_date: '2026-08-19 05:58'
-updated_date: '2026-09-04 07:01'
+created_date: 2026-08-19 05:58
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 references:
@@ -60,6 +60,8 @@ Board audit 2026-08-24 (deep pass): AC#2 done (ef825f2); AC#1 and AC#3 untouched
 ASKI-66 lattice audit (2026-09-04): ASTSK-31 and ASTSK-35 used the non-exact 2048-square five-column grids but a full 48/60-bin descriptor regime; ASTSK-42 used non-exact 3072-square grids and 48/60 bins at C80. Their KILLs are candidate false negatives under the old truncating lattice, not reversed verdicts. The audit makes an exact-lattice, explicitly supported regeneration mandatory for AC1 and confirms that this remains separate from the shipping 2-3/60 support question.
 
 Executed 2026-09-04 from pre-registered rule commit bcc67b2 and clean runner commit 7f2f73c. The current exact C80 shipping arm resolved to 2x4 cells, 3/60 bins, and zero dropped pixels; the separate historical-support comparator resolved to 38x85, 48/60, and zero dropped pixels. The archived KILL HELD under every registered loss in both regimes. Shipping aggregate deltas: MAE -0.1783%, GMSD -0.3805%, 1-HaarPSI -0.1116%, CSSIM -0.1709%, MILO -1.2606%. The 3072-square C4...80 census found parity transitions at 5, 6, 8, 9, 10, 12, 13, 14, 15, and 16, with none above 16. Full evidence: docs/Research/2026-09-04-aski29-50-steerable-metric-replay.md and docs/Research/Results/2026-09-04-aski29-50-steerable-metric-replay/.
+
+Audit 2026-11-12: the replay tool and test listed in modifiedFiles (SteerableMetricReplay.swift, AskiColorLabSteerableMetricReplayTests.swift) exist only in private history, so the run cannot be replayed from this checkout. The result note is public.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

@@ -3,8 +3,8 @@ id: ASKI-49
 title: 'Versioned machine-readable CLI discovery: aski metadata'
 status: To Do
 assignee: []
-created_date: '2026-08-21 02:15'
-updated_date: '2026-09-10 04:38'
+created_date: 2026-08-21 02:15
+updated_date: '2026-11-13T04:22:00Z'
 labels: []
 dependencies:
   - ASKI-48
@@ -42,4 +42,6 @@ Migrated from GitHub issue #24 (harvested from closed PR #21). A deterministic v
 **First step:** Freeze the metadata field vocabulary and replay/alias policy from the current `AskiCommand` configurations, then implement the producer and sync test in the existing tool-support/CLI boundary. No metadata schema or producer exists yet.
 
 Source map: `Tools/AskiColorLab/AskiColorLabCommand.swift`, `Tools/AskiToolSupport/StableJSON.swift`, `docs/assets/schemas/aski-inspect-v1.schema.json`, `Tests/AskiTests/AskiInspectCommandTests.swift`.
+
+Audit 2026-11-12: PR #20, closed PR #21 and issue #24 cited here are private-history numbers; public #20 is the v0.8.0 release and #21 is ASKI-98..100.
 <!-- SECTION:NOTES:END -->

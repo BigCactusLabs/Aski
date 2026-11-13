@@ -3,8 +3,8 @@ id: ASKI-59
 title: 'Explore ASCII-grid photo animation: fixed glyph grid, moving sample field'
 status: To Do
 assignee: []
-created_date: '2026-08-27 05:15'
-updated_date: '2026-09-16 18:16'
+created_date: 2026-08-27 05:15
+updated_date: '2026-11-13T04:22:00Z'
 labels: []
 dependencies: []
 references:
@@ -46,6 +46,8 @@ Validation to run: after ASKI-73 authorizes the motion arm, compare still, cente
 First step: wait for the ASKI-73 motion decision, then register a bounded same-source frame-sequence experiment around the existing AnimatedASCIIGrid/GIF path without changing the public surface.
 
 Source map: `Sources/Aski/ASCIIAlgorithm.swift`.
+
+Audit 2026-11-12: ASKI-73 is not in the public backlog, so the motion decision this task waits on cannot be found here; the owner should point it at a public gate or park it.
 <!-- SECTION:NOTES:END -->
 
 ## Comments

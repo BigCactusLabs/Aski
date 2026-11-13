@@ -5,8 +5,8 @@ title: >-
   and candidate rasters
 status: Done
 assignee: []
-created_date: '2026-08-28 17:13'
-updated_date: '2026-09-01 21:44'
+created_date: 2026-08-28 17:13
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 ordinal: 61000
@@ -64,4 +64,6 @@ BLAST RADIUS IF PROMOTED
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-09-01 measured, verdict KILL for a global flip (docs/Research/2026-09-01-aski60-shape-query-polarity.md; results under docs/Research/Results/2026-09-01-aski60-polarity-gate/). AC#1: real-converter census, 27 fixtures x 3 charsets x 2 corpora: blocks direct beats inverted +47.0%/+39.8% MAE, standard inert, braille -3.26% MAE on occupancy (GMSD -17.5%) -> pre-registered regression veto fires. AC#2: GMSD negation-invariant guard + mandatory negative control (max dGMSD 2.9e-7 over 453,120 pairs); arbiter v1 cannot host a polarity arm (single production convert, frozen arm inventory) -> protocol v2 is an owner decision, recorded as a blocked prerequisite on ASKI-61. AC#3: DELIBERATE at origin (archive 4f613488, 2026-05-04, 'ink = high value matches RasterizedCharacterSet'), UNINTENDED as an asymmetry; tone filter and renderer were light-on-dark from the same commit. AC#4: 11 failures under forced .direct (2 knob guards, 7 log-polar goldens, 2 lab analyses); all 10 ShapeData .bin SHA-256 identical; frozen digests pass. AC#5: ASKI-30/28 battery re-run at both polarities reproduces the archive exactly at inverted; no verdict changes sign; shape-free floor still beats the fixed matcher (0.264 vs 0.325 MAE); standard-only verdicts get comparability statements; ASTSK-27/31/35 not reproducible. AC#6: default stays .inverted; knob is @_spi shapeQueryPolarity. Follow-up: ASKI-61 per-charset polarity (measure-first). Task file had CLI-duplicated SECTION:DESCRIPTION markers (from the 2026-08-28 edits); deduped by hand so the CLI could parse the ACs again.
+
+Audit 2026-11-12: baseInvertedLuma is now baseInkField in LogPolarKernel.swift. The protocol-v2 prerequisite noted above was filed as ASKI-62, not ASKI-61.
 <!-- SECTION:NOTES:END -->

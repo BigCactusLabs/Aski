@@ -3,7 +3,8 @@ id: ASKI-91
 title: Remove repeated frame-wide animation pattern work
 status: To Do
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - animation
@@ -34,3 +35,9 @@ The 2026-09-29 sweep verified these paths at c49bbd. Existing animation grid ben
 - [ ] #4 Frame-wide work no longer scales with cell count where equivalence is proven, with bounded storage and a measured benefit rather than an assumed cache win.
 - [ ] #5 The task records adopt/reject against a stated end-to-end bar; adopted code passes just check and animation/media benchmarks without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: public PR #13 (f59926b) landed groundwork: PatternFrameWorkContractTests, PatternGridGroundworkTests, 24 aski91-* workloads and docs/agents/rendering-groundwork.md. No captures have run.
+<!-- SECTION:NOTES:END -->

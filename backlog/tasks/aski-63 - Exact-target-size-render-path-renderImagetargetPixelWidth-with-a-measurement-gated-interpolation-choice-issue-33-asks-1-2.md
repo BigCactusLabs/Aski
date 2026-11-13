@@ -5,8 +5,8 @@ title: >-
   measurement-gated interpolation choice (issue #33, asks 1-2)
 status: Done
 assignee: []
-created_date: '2026-09-01 22:16'
-updated_date: '2026-09-02 02:40'
+created_date: 2026-09-01 22:16
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - rendering
   - research
@@ -39,4 +39,6 @@ From GitHub issue #33 and the research note docs/Research/2026-09-01-issue33-tar
 AC#6 done: bcl-web branch aski-63-target-width commit 72ad894; old path byte-identical to shipped stills, new path sharper, heights 775/1550 vs 777/1555 recorded as a finding in verdict note section 5.
 
 Merged to main via PR #35 (c45be5c) on 2026-09-01. Codex review round: two P2s (linear-composition reducer branch; 4x width bound end to end) fixed in fe9686b before merge. Post-merge cleanup: worktrees and aski-63-cli branch removed; bcl-web branch aski-63-target-width left unmerged pending the owner's asset-regeneration decision.
+
+Audit 2026-11-12: the run bundles cited in AC#3 stayed in private history; the verdict note states they are not published. The verdict note is the public record.
 <!-- SECTION:NOTES:END -->

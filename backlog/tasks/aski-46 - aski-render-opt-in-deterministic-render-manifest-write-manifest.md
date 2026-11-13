@@ -3,8 +3,8 @@ id: ASKI-46
 title: 'aski render: opt-in deterministic render manifest (--write-manifest)'
 status: Done
 assignee: []
-created_date: '2026-08-21 02:14'
-updated_date: '2026-08-21 03:25'
+created_date: 2026-08-21 02:14
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 references:
@@ -22,10 +22,16 @@ Migrated from GitHub issue #18 (full manifest v1 field list and provenance-bound
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Manifest byte-deterministic for same checkout/invocation/input
-- [ ] #2 Schema committed with a sync test against the report type (mirror the inspect schema drift guard)
-- [ ] #3 Manifest write failure returns failure exit code with clear stderr
+- [x] #1 Manifest byte-deterministic for same checkout/invocation/input
+- [x] #2 Schema committed with a sync test against the report type (mirror the inspect schema drift guard)
+- [x] #3 Manifest write failure returns failure exit code with clear stderr
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: PR numbers up to #26 cited in this record are private-history PRs; the public PRs with the same numbers are unrelated.
+<!-- SECTION:NOTES:END -->
 
 ## Comments
 
@@ -40,3 +46,9 @@ created: 2026-08-21 03:25
 Merged to main via PR #25 (a8b76b7). Codex review round: path-collision rejection added (bcfa5ad, usage error 64 + guard test); cwd-SHA finding declined as settled pre-existing behavior (SharedOptions.swift). Full just check green on the merged content.
 ---
 <!-- COMMENTS:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Shipped the opt-in --write-manifest render manifest. Evidence in Tests/AskiTests/AskiRenderManifestTests.swift: equivalentRendersWriteByteIdenticalManifests (AC#1), committedSchemaIsDraft202012AndVersionOne plus schema checks against docs/assets/schemas/aski-render-manifest-v1.schema.json (AC#2), manifestWriteFailurePreservesOutputsAndSuppressesStdout (AC#3). Merged in private history before the public cutover. Criteria checked in the 2026-11-12 audit.
+<!-- SECTION:FINAL_SUMMARY:END -->

@@ -5,8 +5,8 @@ title: >-
   analysis re-computation
 status: Done
 assignee: []
-created_date: '2026-08-20 20:33'
-updated_date: '2026-08-20 22:43'
+created_date: 2026-08-20 20:33
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - performance
   - tests
@@ -100,4 +100,8 @@ AC#2 re-measurement (same per-phase script, 5 warm samples, medians):
 
 AC#3: 1260 core + 149 media + 2 sentinels, all passing across 5 consecutive full-gate samples; no test skipped, filtered, or loosened.
 AC#6: no build-system changes (ASKI-41 untouched). AC#7: phase structure unchanged; docs left alone.
+
+Audit 2026-11-12: PR #11 and PR #13 cited here are private-history PRs, not the public PRs with those numbers. IsoluminantRescueCommand was later removed by ASKI-68.
+
+2026-11-13: owner confirmed acceptance of the AC#2 shortfall: median just check fell by 72.5s against the 90s target. AC#2 stays unchecked as an accepted shortfall, not met.
 <!-- SECTION:NOTES:END -->

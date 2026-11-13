@@ -5,8 +5,8 @@ title: >-
   zero-support cell
 status: Done
 assignee: []
-created_date: '2026-08-19 05:56'
-updated_date: '2026-08-19 16:17'
+created_date: 2026-08-19 05:56
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 ordinal: 27000
@@ -45,4 +45,6 @@ AC#3 - regression tests. Tests/AskiTests/SamplingLatticeContractTests.swift, 5 t
 Phase B2 (fractional lattice) ABORTED, deliberately and with evidence, before any code was written. The specified mechanism - remainder distribution, per-cell height floor or floor+1 - collides with this note's own cell-height parity finding (section 3, consequence 2). Verified against the shipped code: a 2x4 cell reaches bins {51, 54, 56}, all radial bin 4; a 2x5 cell reaches bins {3, 8}, all radial bin 0. The two supports are DISJOINT. At the shipping arm (thumbnail 160, rows 36) remainder distribution yields 16 rows of height 5 and 20 rows of height 4, so 16 of 36 grid rows would be scored on a disjoint set of descriptor coordinates from the other 20, interleaved down a single image, at the frozen preset. Today the parity discontinuity 'never fires on any realistic render' because every row is 2x4; B2 would make it fire on every render. That is strictly worse than the uniform truncation it removes, so it was not landed - this is an abort on the merits, not on golden churn or benchmark budget.
 
 The truncation-free fix that preserves uniform pitch is to make thumbnailHeight an exact multiple of rows, which means changing thumbnailMaxPixelSize - explicitly out of scope for this task. A cheaper partial option is to centre the lattice (origin offset droppedY/2) so the loss is split top and bottom instead of being systematically bottom-only; it keeps uniform pitch and costs nothing at runtime, but it still drops the same fraction and it churns every golden, so it is a product decision rather than a bug fix. Both are follow-up material.
+
+Audit 2026-11-12: the origin-anchored truncation contract in AC#1 was superseded by ASKI-65 (exact lattice): ASCIIConverter+Research.swift and SamplingLatticeContractTests now assert droppedX/droppedY == 0. This task merged in private history.
 <!-- SECTION:NOTES:END -->

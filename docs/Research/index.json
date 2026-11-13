@@ -1203,7 +1203,7 @@
 
       ],
       "date" : "2026-09-04",
-      "next_action" : "When a genuine side-by-side Xcode 27 / Swift 6.4 toolchain is available, use ASKI-74 to validate upstream PR #10067 against the unchanged one-package Aski graph, then repeat ASKI-41's full correctness and performance lane. Preserve the public Aski module, the aski product, and every lab product. Do not change the required toolchain or swift-tools-version before all ten promotion gates pass.",
+      "next_action" : "Use ASKI-74 to validate the unchanged one-package graph on the installed Xcode 27 / Swift 6.4 toolchain under Swift Build: fresh-checkout build, skip-build reuse, product behavior, resources, DocC and the benchmark plugin. Do not change swift-tools-version unless a manifest feature requires 6.4.",
       "path" : "docs/Research/2026-09-04-aski41-swift-build-migration-gate.md",
       "related_specs" : [
         "docs/architecture.md",
@@ -1222,7 +1222,7 @@
       "subsystem" : [
         "meta"
       ],
-      "summary" : "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. No Xcode 27 or Swift 6.4 toolchain is installed, so the fix and final-toolchain lane remain unevaluable.",
+      "summary" : "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 carries the remaining collision validation.",
       "title" : "ASKI-41 Swift Build migration gate - HOLD"
     },
     {
@@ -1248,7 +1248,7 @@
         "shape-context",
         "meta"
       ],
-      "summary" : "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire.",
+      "summary" : "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up.",
       "title" : "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
     },
     {

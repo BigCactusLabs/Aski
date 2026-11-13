@@ -4,7 +4,7 @@ title: Reuse fixed-palette display colors during conversion
 status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:59:00Z'
+updated_date: '2026-11-13T05:22:00Z'
 labels:
   - performance
   - color
@@ -44,4 +44,8 @@ This repeated work was source-verified at c49bbd during the 2026-09-29 sweep; sa
 ### Existing work reconciled — 2026-10-27
 
 PR #9 is open at 44489c76ae73c845bbe6fbc6a90085d1286b7e62: https://github.com/BigCactusLabs/Aski/pull/9 . It reports native parity and `just check`, but the five-pair comparison of all 70 workloads is pending. Its review also identified a missing standalone palette/display preparation timing or profile; include that attribution rather than inferring setup cost from end-to-end totals. Use the new paired reader and `docs/agents/paired-benchmarks.md` after collecting the exact frozen selection. No performance adoption or completion claimed.
+
+Audit 2026-11-12: the CellSampling anchor moved to finalizeColor (about :668). PR #9 targets work/aski-86-benchmark-validity, which merged as public PR #7; retarget it to main before that branch is deleted. Its head is about 128 commits behind main, and main changed CellSampling.swift since, so expect a rebase conflict.
+
+2026-11-13: PR #9 retargeted to main; GitHub reports it CONFLICTING, so a rebase onto main is needed before the A/B.
 <!-- SECTION:NOTES:END -->

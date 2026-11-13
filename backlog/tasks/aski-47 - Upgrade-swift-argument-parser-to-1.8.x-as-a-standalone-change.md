@@ -3,8 +3,8 @@ id: ASKI-47
 title: Upgrade swift-argument-parser to 1.8.x as a standalone change
 status: Done
 assignee: []
-created_date: '2026-08-21 02:15'
-updated_date: '2026-08-21 23:15'
+created_date: 2026-08-21 02:15
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 references:
@@ -33,4 +33,6 @@ Migrated from GitHub issue #22 (harvested from closed PR #21). Standalone PR, gr
 Implemented on branch aski-47-sap-upgrade; PR #26 open for review 2026-08-21. SAP resolves 1.8.2; package-benchmark held at 1.35.0; ASTSK-61 golden regenerated (serialization-only diff, command set identical); just check green 182.8s.
 
 Merged to main via PR #26 (8d422fa) 2026-08-21; CHANGELOG Unreleased entry added; worktree and branch removed.
+
+Audit 2026-11-12: PR numbers up to #26 cited in this record are private-history PRs; the public PRs with the same numbers are unrelated.
 <!-- SECTION:NOTES:END -->

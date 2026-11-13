@@ -65,7 +65,7 @@ xcrun swift run aski lab accessibility audit --output-dir <dir> --columns 80    
 xcrun swift run aski lab decolor check --output-dir <dir> --columns 80                  # composited-cell perceptual oracle — FAIL-FAST (nonzero exit == KILL)
 xcrun swift run aski lab hdr check --output-dir <dir> --columns 80                      # HDR/EDR emissive-spike gates — FAIL-FAST (nonzero exit == KILL)
 xcrun swift run aski lab preset ab --input <portrait> --output-dir <dir>                # ASTSK-47 charset×columns A/B → candidate PNGs + contact sheet + manifest (feed it REAL faces)
-xcrun swift run -c release aski lab preset probe-stimuli --source-manifest <private.json> --output-dir <public-dir> --key-output <private-key.json>  # ASKI-73 blinded three-arm stills + center reveal
+xcrun swift run -c release aski lab preset probe-stimuli --source-manifest <private.json> --output-dir <public-dir> --key-output <private-key.json>  # ASKI-73 (private-tracker task, not in the public backlog) blinded three-arm stills + center reveal
 xcrun swift run aski lab preset probe-score --stimuli-manifest <manifest.json> --key <private-key.json> --session-one <private.csv> --repeat-log <private.csv> --output-dir <aggregate-dir>  # validates and scores frozen product gates
 ```
 

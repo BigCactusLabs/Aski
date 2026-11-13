@@ -5,8 +5,8 @@ title: >-
   WebPAnimEncoder, behind an owner dependency decision (issue #33, ask 3)
 status: To Do
 assignee: []
-created_date: '2026-09-01 22:16'
-updated_date: '2026-09-10 04:15'
+created_date: 2026-09-01 22:16
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - video
   - animation
@@ -49,4 +49,6 @@ Validation to run: After the owner decision and dependency refresh, mirror the G
 First step: lead records AC#1, then refresh the dependency/API/platform matrix and freeze the 17-frame corpus reference before choosing a target layout. Keep the core target's dependency boundary and the ASKI-63 render provenance visible in the implementation and verdict artifacts.
 
 Source map: `docs/architecture.md`, `Sources/Aski/Video/ASCIIGIFEncoder.swift`.
+
+Audit 2026-11-12: issue #33 is a private-tracker issue. The ImageIO no-WebP-writer finding was dated on macOS 26.6.2; the host is now macOS 27. The current commands are aski lab motion / aski lab video.
 <!-- SECTION:NOTES:END -->

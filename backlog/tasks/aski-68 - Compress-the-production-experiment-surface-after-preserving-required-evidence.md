@@ -3,8 +3,8 @@ id: ASKI-68
 title: Compress the production experiment surface after preserving required evidence
 status: Done
 assignee: []
-created_date: '2026-09-04 03:44'
-updated_date: '2026-09-04 13:01'
+created_date: 2026-09-04 03:44
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - architecture
   - research-debt
@@ -55,6 +55,8 @@ Do not delete evidence that ASKI-29, ASKI-50, or ASKI-66 still needs. First inve
 
 <!-- SECTION:NOTES:BEGIN -->
 Reconciled cleanly to main 8fbb9bb before validation. Re-recorded the command surface, indexed 53 research notes and 106 source files, and corrected one historical local link to identify the retired arm as Git-history-only. Vector audit: 10/10 byte-identical, maximum delta 0, no sort permutation; just regen-vectors produced no ShapeData diff. Focused production/API/temporal/CLI validation passed 215 tests in 36 suites; artifact contracts passed 43 tests in eight suites. Authoritative just check passed 1,394 core tests, 152 serial media tests, two isolated deadlock sentinels, and DocC. No frozen research result artifacts were changed.
+
+Audit 2026-11-12: ASKI-73, cited in the architectural-review comment, is not in the public backlog (private-history record).
 <!-- SECTION:NOTES:END -->
 
 ## Comments

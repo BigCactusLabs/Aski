@@ -3,8 +3,8 @@ id: ASKI-75
 title: Measure unified aski CLI build and binary tax after ASKI-48
 status: To Do
 assignee: []
-created_date: '2026-09-04 12:59'
-updated_date: '2026-09-04 12:59'
+created_date: 2026-09-04 12:59
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - cli
   - build
@@ -48,3 +48,9 @@ Measure the cost rather than inferring it from the manifest. Isolate the exact A
 4. Compare the exact ASKI-48 delta first; use current main only to detect subsequent drift. Apply the frozen 20%-or-15-second investigation threshold without revising it after seeing results.
 5. Write a short result note. If ACCEPT, close the task and leave ASKI-48/70 architecture unchanged. If INVESTIGATE, create one narrowly scoped implementation task that preserves the unified command UX and first tests dead stripping/link topology before considering any package-boundary change.
 <!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: baca440 and d7b2a52 are private-history commits, absent from this checkout; the measurement needs the private archive or a re-based public commit pair.
+<!-- SECTION:NOTES:END -->

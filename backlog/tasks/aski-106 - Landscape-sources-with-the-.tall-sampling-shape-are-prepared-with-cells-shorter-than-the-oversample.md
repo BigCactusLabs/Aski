@@ -6,7 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: '2026-11-10T21:30:00Z'
-updated_date: '2026-11-12T21:28:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - sampling
@@ -41,6 +41,8 @@ Extend the shared sampling cap to protect both axes for landscape tall input; ad
 
 <!-- SECTION:NOTES:BEGIN -->
 The new regressions failed with 23 issues on unchanged production code, including both empty oversample-one conversions. After the fix, 41 focused tests passed, including the frozen Vesper golden. The sweep checks more than 3000 downscaled geometries at each of oversamples 1, 2 and 4. Verified on 2026-11-12 with Xcode 27.0 (27A266a), Apple Swift 6.4, macOS 27.0.1. just check-fast passed 903 tests; exact just check passed 1500 core, 163 serialized media and 2 deadlock tests (1665 total), plus drift checks and DocC. The full gate tested base 3f6da15da41e7f91e58174fcc7ce40fc8d2f6668 plus source/test patch SHA-256 0321f22cae94e808d6c1494a417d75ee1e37ba7c1a7000cad6a9f3d800d6d9f2. Only DocC prose and backlog records changed afterward; final just docc passed. Exact goldens were unchanged. Independent Opus source review and lead review completed.
+
+Audit 2026-11-12: merged as public PR #26 (d3f9439) on 2026-11-12.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

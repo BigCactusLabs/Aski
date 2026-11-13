@@ -4,7 +4,7 @@ title: Select lower-rate video frames before ASCII conversion
 status: Done
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T02:28:00Z'
+updated_date: '2026-11-13T05:22:00Z'
 labels:
   - performance
   - video
@@ -81,6 +81,10 @@ All nine ASKI-93 workloads and four metrics ran in five adjacent alternating rel
 The generic comparator remains invalid at the long-clip allocation M/K mismatch. An independent Opus review accepted the decimal-unit, export-rounding-aware supplement; all 180 paired rows and 360 raw exports are committed under Scripts/research/aski93-2026-11-12/. The portable reproducer checks every unit, hash, sample count and median. Original rule outcomes survive +/-0.25 percentage-point sensitivity for histogram quantization. RSS is the sampled process maximum during the measured loop, including output inspection, not setup/warmup peaks or an isolated conversion-stage bound.
 
 ADOPT under the unchanged frozen rule. Scope is the synthetic 720p/80-column matrix on one Mac; the desktop was not idle. Scripts/research/video-frame-selection.md records outliers, units, source/instrument hashes and all limits. No executable source or benchmark-setting change followed the measured candidate; only documentation/evidence and the benchmark RSS comment were corrected. No public API, golden or threshold changed.
+
+Audit 2026-11-12: merged as public PR #12 (2c3d1bd); groundwork in public PR #11 (00e5b1b). The paired control commit 46024d6 is reachable only from cdx/pr12-short-control-20261112; keep that branch or tag the commit before any cleanup.
+
+2026-11-13: control commit 46024d6 is preserved by the annotated tag evidence/aski93-control (pushed), so the cdx/pr12-short-control branch can be cleaned up safely.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

@@ -5,12 +5,14 @@ title: >-
   tone ramp of the same charset?
 status: To Do
 assignee: []
-created_date: '2026-09-27 21:12'
+created_date: 2026-09-27 21:12
+updated_date: '2026-11-13T05:20:00Z'
 labels:
   - research
   - arbiter
   - matcher
-dependencies: []
+dependencies:
+  - ASKI-62
 priority: low
 ordinal: 86000
 ---
@@ -28,3 +30,11 @@ ASKI-79/80 found that per-cell oracles cannot judge blank collapse. On the five 
 - [ ] #3 The verdict states whether the blank grid loses to the tone ramp, and whether that justifies re-registering an ASKI-79 fix gated on the arbiter instead of per-cell MAE (Discoveries 2026-09-27 'Revisit if')
 - [ ] #4 The outcome is recorded as a research note whatever the sign
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: AC#2's 'converter-level arms per ASKI-62' does not fit: the ASKI-79 arm is a selection-ceiling arm and the dotMatrix reference is an algorithm arm, while v2's ConverterArm holds only productionInverted and productionDirect. This needs a protocol revision after ASKI-62 validates.
+
+2026-11-13: added ASKI-62 as a dependency: the protocol revision this sitting needs follows v2's validation.
+<!-- SECTION:NOTES:END -->

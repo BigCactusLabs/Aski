@@ -3,8 +3,8 @@ id: ASKI-58
 title: Investigate bcl-web ASCII shader spike settings as atlas/ramp defaults
 status: To Do
 assignee: []
-created_date: '2026-08-27 05:03'
-updated_date: '2026-09-16 17:37'
+created_date: 2026-08-27 05:03
+updated_date: '2026-11-13T04:22:00Z'
 labels: []
 dependencies:
   - ASKI-15
@@ -42,4 +42,6 @@ Validation to run: after the corpus and metric or human rule are frozen, generat
 First step: define the lab artifact schema and ordering contract from the existing raster and charset data, then verify the named bcl-web reference photo and consumer contract before implementing the comparison.
 
 Source map: `Tests/AskiTests/StandardCharacterSetScalarValidationTests.swift`.
+
+Audit 2026-11-12: edgeMap no longer exists in Aski (removed by ASKI-16), so directional-edge settings from the bcl-web spike cannot fold back onto it. The task has no acceptance criteria yet.
 <!-- SECTION:NOTES:END -->

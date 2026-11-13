@@ -4,7 +4,7 @@ title: Reduce per-cell log-polar descriptor allocations
 status: To Do
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:54:00Z'
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - conversion
@@ -47,4 +47,6 @@ Deployment check against the minimum supported compiler source: Swift 6.3's `Inl
 Start by attributing the four existing temporary families (grayscale, optional Sobel, 60 histogram floats, 15 SIMD lanes). Prefer a bounded experiment that removes an intermediate representation or uses invocation-owned scratch while keeping the escaping research descriptor an owned value. Avoid adding an availability-split production path before evidence warrants that extra maintenance. Native compile probes must cover all three deployment floors, ordinary/ranked/residual/temporal callers, and forced row modes; no storage optimization or speedup is claimed by this note.
 
 Primary sources inspected: https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/stdlib/public/core/InlineArray.swift ; https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/utils/availability-macros.def ; https://github.com/swiftlang/swift/blob/swift-6.3-RELEASE/stdlib/public/core/Span/Span.swift ; https://www.swift.org/blog/swift-6.4-released/ .
+
+Audit 2026-11-12: since ASKI-87 (public PR #8) the production histogram comes from ShapeContext.Footprint.histogram60, called from LogPolarKernel, not the static function. ASKI-87 recorded a benefit shortfall (2.10% vs 5%) worth reading before planning this.
 <!-- SECTION:NOTES:END -->

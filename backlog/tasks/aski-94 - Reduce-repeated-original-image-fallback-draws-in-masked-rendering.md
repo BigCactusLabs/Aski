@@ -3,7 +3,8 @@ id: ASKI-94
 title: Reduce repeated original-image fallback draws in masked rendering
 status: To Do
 assignee: []
-created_date: '2026-09-30 00:20'
+created_date: 2026-09-30 00:20
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - rendering
@@ -34,3 +35,9 @@ Verified at c49bbd during the 2026-09-29 sweep. Current mask benchmarks cover tr
 - [ ] #4 Transparent/solid/character fallback paths have no material regression; variable-coverage image composition is changed only if measured evidence supports it.
 - [ ] #5 The task records a material end-to-end result or rejection; adopted code passes just check and mask/render benchmarks, with the required no-harm census if frozen-preset goldens move.
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: ASKI-7 is Done (public PR #26); preserve the shipped ragged-grid semantics rather than treating ASKI-7 as open. Public PR #13 (f59926b) landed groundwork: MaskFallbackGroundworkTests and 27 aski94-* benchmark workloads. Line anchors have moved (drawMaskFallbackOverlay is now near ASCIIRenderer :1098).
+<!-- SECTION:NOTES:END -->

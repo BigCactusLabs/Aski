@@ -4,7 +4,7 @@ title: Define and preserve ragged ASCIIGrid rendering geometry
 status: Done
 assignee: []
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-12T21:28:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - rendering
   - correctness
@@ -53,6 +53,8 @@ First step: use the tile ragged tests as a fixture shape and record each ASCII r
 Source map: `Sources/Aski/ASCIIGrid.swift`, `Sources/Aski/Tiles/TileGrid.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `Sources/Aski/Effects/Internal/CellRasterBuilder.swift`, `Sources/Aski/Masking/CoverageImageBuilder.swift`, `Sources/Aski/Renderers/PlainTextRenderer.swift`, `Tests/AskiTests/TileGridRenderingTests.swift`, `Tests/AskiTests/ASCIIGridTests.swift`.
 
 All 51 focused native tests passed, including two exact rectangular goldens. New cases cover [1,2], [0,2], all-empty rows, plain/attributed text, later-cell ink, fractional scale, ground/no-ground, hard/soft coverage and solid/original-image fallback. Presence is applied after masked composition, so color-overlay and per-character spill are clipped at missing cells; lighting/global effects run afterward. Existing soft coverage interpolation inside supplied cells and direct per-cell edge antialiasing remain. Verified on 2026-11-12 with Xcode 27.0 (27A266a), Apple Swift 6.4, macOS 27.0.1. just check-fast passed 903 tests; exact just check passed 1500 core, 163 serialized media and 2 deadlock tests (1665 total), plus drift checks and DocC. The full gate tested base 3f6da15da41e7f91e58174fcc7ce40fc8d2f6668 plus source/test patch SHA-256 0321f22cae94e808d6c1494a417d75ee1e37ba7c1a7000cad6a9f3d800d6d9f2. Only DocC prose and backlog records changed afterward; final just docc passed. Exact goldens were unchanged. Independent Opus source review and lead review completed.
+
+Audit 2026-11-12: merged as public PR #26 (d3f9439) on 2026-11-12.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

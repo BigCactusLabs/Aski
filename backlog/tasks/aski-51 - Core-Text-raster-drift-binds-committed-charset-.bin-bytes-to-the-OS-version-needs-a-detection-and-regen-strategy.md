@@ -6,8 +6,8 @@ title: >-
 status: Done
 assignee:
   - '@codex'
-created_date: '2026-08-24 02:35'
-updated_date: '2026-09-04 06:14'
+created_date: 2026-08-24 02:35
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - research
 dependencies: []
@@ -60,6 +60,8 @@ Touches: Tools/BuildStandardVectors/, Sources/Aski/Resources/ShapeData/*.bin, So
 
 <!-- SECTION:NOTES:BEGIN -->
 Result: docs/Research/Results/2026-09-04-aski51-core-text-drift-audit. The audit changed no files under Sources/Aski/Resources/ShapeData.
+
+Audit 2026-11-12: the escalation trigger did not fire on macOS 26.6.2, but it fired on macOS 27 during ASKI-77 (9 of 10 sets drift, max delta 0.0452). ASKI-78 owns the follow-up; the closure here still stands.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

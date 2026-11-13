@@ -4,7 +4,7 @@ title: Reuse log-polar footprint geometry across cells
 status: Done
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T03:55:00Z'
+updated_date: '2026-11-13T05:22:00Z'
 labels:
   - performance
   - conversion
@@ -65,6 +65,12 @@ Native just check at 2890a8b passed 1,537 core tests, 177 media tests, both sent
 ### Explicit adoption decision — 2026-11-12
 
 The maintainer approved merging PR #8 with the recorded exception: the 120-column, oversample-4 parallel primary improves 2.10% rather than 5%. The other seven primary cases improve 6.85–15.71%, all 108 regression guards pass, and exact native parity plus the full local gate pass. AC4 is accepted with this specific exception. The pre-run rule, complete evidence, incomplete focused attempt and numeric not_supported result are preserved; no threshold is changed or extra benchmark run made. Only decision/changelog/backlog metadata follows the passing final gate, so executable validation carries forward. Claims remain limited to the measured synthetic gradient on one Mac.
+
+Audit 2026-11-12: the paired control commit 0c8c1bf is reachable only from cdx/pr8-short-control-20261112; keep that branch or tag the commit before any cleanup.
+
+2026-11-13: owner confirmed the adoption exception (2.10% measured benefit against the pre-registered 5% bar), as recorded in 2f09985 and f1c54e2. The original rule and its not_supported result stand unchanged.
+
+2026-11-13: control commit 0c8c1bf is preserved by the annotated tag evidence/aski87-control (pushed), so the cdx/pr8-short-control branch can be cleaned up safely.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

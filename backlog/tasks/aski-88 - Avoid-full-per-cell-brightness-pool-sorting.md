@@ -4,7 +4,7 @@ title: Avoid full per-cell brightness pool sorting
 status: To Do
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:54:00Z'
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - matching
@@ -46,4 +46,6 @@ A sorted-brightness assumption is not an existing public contract: `GlyphBank.in
 First bounded candidate: a size-K selection buffer or heap ordered by that exact pair, followed by sorting the selected K. It avoids a new persistent representation and supports arbitrary input order. Compare against the unchanged full-sort control for N=8/95/256, K=1/12/24/36/N/>N, shuffled arrays, duplicate brightness, rounded midpoint ties, signed zero, and duplicate/zero/orthogonal descriptors. Keep N<=K as a control case and report setup plus small-bank costs.
 
 A precomputed brightness index plus two-sided nearest expansion is a separate possible arm, not an assumed win: descending traversal on the left reverses duplicate-brightness indices, and distinct brightness values can have equal rounded Float distances. Either handle those equal-distance runs explicitly with original-index tie order or reject the arm. Do not sort the bank's canonical glyph arrays or alter nonfinite-input behavior in this performance task. Production code and adoption status are unchanged.
+
+Audit 2026-11-12: public PR #14 (c81861c) landed groundwork: BrightnessPoolContractTests, BrightnessRankingContractTests, Scripts/research/brightness-pool/, docs/agents/brightness-pool-groundwork.md and 42 benchmark definitions. No captures have run. The sort is in findBestScored (CharacterMatcher, sort near :130); findBest wraps it.
 <!-- SECTION:NOTES:END -->

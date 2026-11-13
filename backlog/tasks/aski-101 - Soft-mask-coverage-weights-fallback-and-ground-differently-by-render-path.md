@@ -4,7 +4,7 @@ title: Soft mask coverage weights fallback and ground differently by render path
 status: Done
 assignee: []
 created_date: '2026-11-10T02:41:00Z'
-updated_date: '2026-11-10T19:09:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - rendering
@@ -43,3 +43,9 @@ AC 3: softCoverageWeightCurrentlyDependsOnPath is replaced by that contract test
 
 Out of scope, filed as ASKI-103: with opaque branches on both sides of a soft edge, Core Graphics paths mix encoded values and Core Image paths mix linear light (white fallback over black at c = 0.5: 128 direct versus 187 effects).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Merged as public PR #22 (810c908). Soft mask coverage is a linear weight on every render path; softCoverageIsALinearWeightOnEveryPath in Tests/AskiTests/MaskColorContractTests.swift replaces the path-dependence characterization. Summary added in the 2026-11-12 audit.
+<!-- SECTION:FINAL_SUMMARY:END -->

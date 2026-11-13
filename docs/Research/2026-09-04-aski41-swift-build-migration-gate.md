@@ -4,9 +4,9 @@ slug: 2026-09-04-aski41-swift-build-migration-gate
 date: 2026-09-04
 status: complete
 subsystem: [meta]
-summary: "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. No Xcode 27 or Swift 6.4 toolchain is installed, so the fix and final-toolchain lane remain unevaluable."
+summary: "HOLD Swift Build and Swift 6.4 adoption. At commit d7b2a52, the native Swift 6.3.2 backend passed three repeated clean, incremental, branch-switch, check-fast, and full-check samples. Swift Build could build the Aski target, copy its resources byte-for-byte, run the benchmark plugin, and reuse the two generated-index tools, but it could not build the full test graph. A later ASKI-74 feasibility run removed the observed AskiDemo and lab basename diagnostics, then exposed Swift 6.3's documented inability to support the required case-insensitive Aski library and aski executable-product overlap. Upstream fixed that class for Swift 6.4 in swift-package-manager#9184 / PR #10067. At the time no Xcode 27 or Swift 6.4 toolchain was installed. Status 2026-11-13: Xcode 27 / Apple Swift 6.4 is now the installed default, SwiftPM on it defaults to Swift Build, and the local gate builds the full graph on that backend; ASKI-41 closed without the side-by-side lane, and ASKI-74 carries the remaining collision validation."
 related_specs: [docs/architecture.md, docs/Research/2026-09-03-future-direction-and-architecture.md, justfile, Package.swift]
-next_action: "When a genuine side-by-side Xcode 27 / Swift 6.4 toolchain is available, use ASKI-74 to validate upstream PR #10067 against the unchanged one-package Aski graph, then repeat ASKI-41's full correctness and performance lane. Preserve the public Aski module, the aski product, and every lab product. Do not change the required toolchain or swift-tools-version before all ten promotion gates pass."
+next_action: "Use ASKI-74 to validate the unchanged one-package graph on the installed Xcode 27 / Swift 6.4 toolchain under Swift Build: fresh-checkout build, skip-build reuse, product behavior, resources, DocC and the benchmark plugin. Do not change swift-tools-version unless a manifest feature requires 6.4."
 ---
 
 # ASKI-41 Swift Build migration gate
@@ -16,6 +16,17 @@ next_action: "When a genuine side-by-side Xcode 27 / Swift 6.4 toolchain is avai
 The current backend has useful target-scoped capability, but it cannot build Aski's complete package graph.
 The final Swift 6.4/Xcode 27 lane is also not available on this machine. These are release blockers, not a
 reason to install a beta toolchain, weaken the gate, or change the package during the measurement.
+
+## Status update — 2026-11-13
+
+The HOLD verdict below is the 2026-09-04 result and stays as recorded. Its premise has since
+changed: Xcode 27 (27A266a) with Apple Swift 6.4 is now the installed, selected toolchain, and
+SwiftPM's default backend on it is Swift Build (`.build/.buildSystem_debug` reads `swiftbuild`;
+`d75b83f` moved `package-cli` to the default build system because Swift 6.4 deprecates
+`--build-system native`). Every local `just check` since has built the full test graph on that
+backend, so adoption happened through the toolchain default rather than through this gate. The
+owner closed ASKI-41 on 2026-11-13 with its side-by-side qualification criterion superseded, not
+met. ASKI-74 carries the remaining validation of the collision fix on the installed toolchain.
 
 ## Frozen rule and baseline
 

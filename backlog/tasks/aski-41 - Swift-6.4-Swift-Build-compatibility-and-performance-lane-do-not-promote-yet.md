@@ -3,17 +3,16 @@ id: ASKI-41
 title: >-
   Swift 6.4 / Swift Build compatibility and performance lane (do not promote
   yet)
-status: In Progress
+status: Done
 assignee: []
-created_date: '2026-08-20 20:08'
-updated_date: '2026-09-10 04:38'
+created_date: 2026-08-20 20:08
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - ci
   - benchmarks
   - toolchain
   - performance
-dependencies:
-  - ASKI-74
+dependencies: []
 references:
   - justfile
   - Scripts/repo-doctor.sh
@@ -22,19 +21,19 @@ references:
   - .github/workflows/release.yml
   - Package.swift
   - docs/Research/2026-09-03-future-direction-and-architecture.md
-  - 'https://www.swift.org/install/macos/'
+  - https://www.swift.org/install/macos/
   - >-
     https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/SwiftBuildPreview.md
   - docs/Research/2026-09-04-aski41-swift-build-migration-gate.md
-  - 'https://github.com/swiftlang/swift-package-manager/issues/9184'
-  - 'https://github.com/swiftlang/swift-package-manager/pull/10067'
+  - https://github.com/swiftlang/swift-package-manager/issues/9184
+  - https://github.com/swiftlang/swift-package-manager/pull/10067
 documentation:
-  - 'https://developer.apple.com/xcode/system-requirements'
+  - https://developer.apple.com/xcode/system-requirements
   - >-
     https://developer.apple.com/documentation/xcode-release-notes/xcode-27-release-notes
   - >-
     https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/Documentation.md
-  - 'https://www.swift.org/blog/swift-package-manager-manifest-api-redesign/'
+  - https://www.swift.org/blog/swift-package-manager-manifest-api-redesign/
 modified_files:
   - >-
     backlog/tasks/aski-41 -
@@ -169,6 +168,10 @@ Modified files: backlog/tasks/aski-41 - Swift-6.4-Swift-Build-compatibility-and-
 **Validation to run:** In ASKI-74, run fresh-main `swift build --build-tests --build-system swiftbuild`, filtered/full tests, build-once and `--skip-build` tests/runs, command/replay help/version/bare behavior, resources and reversible drift falsification, DocC plus Markdown export, and the benchmark plugin. Then repeat ASKI-41's clean, incremental, branch-switch, warm `just check-fast`, and warm `just check` samples, with snapshots/goldens, metallib, GIF/MP4 counts, media serial phase, deadlock sentinels, and dependency compilation covered. Native `just check` remains the final gate.
 
 **First step:** Re-discover the installed side-by-side toolchain at execution time, then run ASKI-74 against the unchanged one-package graph. Promotion remains unresolved until all ten gates pass.
+
+Audit 2026-11-12: Xcode 27 and Apple Swift 6.4 are now installed and selected (xcrun swift --version reports 6.4), and the gate already builds with the swiftbuild backend (.build/.buildSystem_* reads swiftbuild; d75b83f). The HOLD premise is stale. .github/workflows does not exist. PR #11/#12/#13 cited here are private-history PRs, not the public PRs with those numbers. Re-running Phase 4 versus recording adoption is an owner call.
+
+2026-11-13: owner ruling: close without running the side-by-side qualification. Xcode 27 / Apple Swift 6.4 is now the installed, selected toolchain, and SwiftPM's default backend on it is swiftbuild (.build/.buildSystem_* reads swiftbuild; d75b83f switched package-cli to the default build system). Every just check since has run on that backend, so adoption happened through the toolchain default rather than a promotion here. AC#4 stays unchecked as superseded, not met. The case-collision validation moves to ASKI-74 (re-scoped, now unblocked), so the ASKI-74 dependency was removed. The HOLD note under docs/Research/ carries a matching status update.
 <!-- SECTION:NOTES:END -->
 
 ## Comments
@@ -189,3 +192,9 @@ created: 2026-09-04 09:05
 2026-09-04 ASKI-74 feasibility correction: a throwaway d12f158 worktree removed the previously observed AskiDemo and seven lab diagnostics, then clean Swift Build failed twice because the required public Aski library and aski executable product collide case-insensitively in Swift 6.3 output paths. SwiftPM documents this exact unsupported class in the Swift Build preview under issue #9184. PR #10067 merged an exact case-variant product regression fixture to release/6.4.x. No permissible Swift 6.3 manifest-only fix preserves both names and the one-package architecture. ASKI-74 now validates the upstream fix on a genuine side-by-side final Xcode 27 / Swift 6.4 toolchain; ASKI-41 remains HOLD and In Progress.
 ---
 <!-- COMMENTS:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Phases 1-3 measured Swift Build under Swift 6.3 and landed a HOLD verdict (docs/Research/2026-09-04-aski41-swift-build-migration-gate.md). On 2026-11-13 the owner closed the task: Swift 6.4 / Xcode 27 became the installed default with swiftbuild as SwiftPM's default backend, so the gate already runs on it. AC#4 (side-by-side beta qualification) is superseded rather than met; the remaining collision validation lives in ASKI-74.
+<!-- SECTION:FINAL_SUMMARY:END -->

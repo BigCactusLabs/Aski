@@ -1,10 +1,10 @@
 ---
 id: ASKI-86
 title: Reject incomplete benchmark runs and unavailable required metrics
-status: In Progress
+status: To Do
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:59:00Z'
+updated_date: '2026-11-13T05:22:00Z'
 labels:
   - performance
   - benchmarks
@@ -35,9 +35,9 @@ This task owns validity/completeness of benchmark evidence. ASKI-5 owns numeric 
 <!-- AC:BEGIN -->
 - [ ] #1 The canonical validation command exits nonzero when any selected workload fails setup/execution, returns no samples, or is unexpectedly absent; diagnostics identify the workload and cause.
 - [ ] #2 An explicitly required unavailable metric fails validation or uses a documented, verified alternative; optional metric omissions are recorded and cannot satisfy a required budget.
-- [ ] #3 Validation covers intentional setup failure, execution failure, empty selection, missing samples, unavailable required metrics, and a successful complete run.
-- [ ] #4 Successful results retain workload identity, units, toolchain/backend identity, and enough information to distinguish a complete run from a partial one.
-- [ ] #5 The solution preserves existing thresholds and the one-build just check ordering; relevant tooling checks, just check, and the validated benchmark subset pass.
+- [x] #3 Validation covers intentional setup failure, execution failure, empty selection, missing samples, unavailable required metrics, and a successful complete run.
+- [x] #4 Successful results retain workload identity, units, toolchain/backend identity, and enough information to distinguish a complete run from a partial one.
+- [x] #5 The solution preserves existing thresholds and the one-build just check ordering; relevant tooling checks, just check, and the validated benchmark subset pass.
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -48,4 +48,10 @@ This task owns validity/completeness of benchmark evidence. ASKI-5 owns numeric 
 PR #7 is open at 5493edb992ab57ee2c4a5e16e9ef8106068ab96e: https://github.com/BigCactusLabs/Aski/pull/7 . Its description reports native `just check`, complete six-workload smoke evidence, and required-unavailable-metric rejection. That is the PR's recorded evidence, not a new execution here. Genuine native setup/execution failure and allocator verification remain acceptance work; the complete-row short-write limitation remains documented.
 
 The independent paired reader in `Scripts/research/compare-benchmarks.py` consumes this report contract without altering the capture producer or existing gate. See `docs/agents/paired-benchmarks.md`. Marked In Progress to reflect existing work, not Done.
+
+Audit 2026-11-12: PR #7 is no longer open: it merged as 969ba20 on 2026-11-12 and describes itself as validation groundwork, not completion of this task. Its recorded evidence covers AC#3-5; AC#1 and AC#2 have synthetic coverage only. Closing is an owner call. PRs #9 and #10 use this task's branch as their base.
+
+2026-11-13: owner ruling: AC#3-5 are met by public PR #7 (969ba20; synthetic setup/execution/empty/missing/required-metric coverage, inventory with units and provenance, just check passed with thresholds unchanged). AC#1 and AC#2 stay open: a genuine native setup/execution failure and a probed (not configured) allocator identity remain. Moved to To Do because no work is active.
+
+2026-11-13: PRs #9 and #10 now target main, so deleting work/aski-86-benchmark-validity no longer closes them.
 <!-- SECTION:NOTES:END -->

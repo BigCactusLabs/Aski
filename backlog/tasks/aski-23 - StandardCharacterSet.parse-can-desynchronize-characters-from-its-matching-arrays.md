@@ -5,8 +5,8 @@ title: >-
   arrays
 status: Done
 assignee: []
-created_date: '2026-08-19 05:24'
-updated_date: '2026-08-20 04:14'
+created_date: 2026-08-19 05:24
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - character-sets
@@ -63,4 +63,6 @@ Reviewer-visible consequence: ASCIICharacterSet is public, so an EXTERNAL confor
 loadOrFatal wraps load, so a caller-supplied set surfaces LoadError.invalidScalar as a thrown error while the bundled-resource path keeps its fatalError. That bundled fatalError is in scope for ASKI-36, not here.
 
 Coverage: StandardCharacterSetScalarValidationTests feeds a hand-built .bin containing a surrogate scalar and asserts the thrown error; a companion test anchors the shipped built-in sets to their exact loaded bytes, so 'the built-ins still load' is proven positively rather than inferred.
+
+Audit 2026-11-12: AlgorithmKernel.swift and EdgeMapKernel.swift were removed by ASKI-16; the invariant is still stated at Sources/Aski/ASCIICharacterSet.swift and DotMatrixKernel.swift.
 <!-- SECTION:NOTES:END -->

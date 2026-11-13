@@ -5,8 +5,8 @@ title: >-
   mask
 status: To Do
 assignee: []
-created_date: '2026-08-18 18:02'
-updated_date: '2026-09-10 04:38'
+created_date: 2026-08-18 18:02
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - research
   - algorithms
@@ -24,7 +24,7 @@ Frontier research (2026-07-29 sweep) surfaced saliency-budgeted abstraction as c
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [ ] #1 Pre-registered A/B on real portraits at a FIXED total cell budget: adaptive vs uniform grid
-- [ ] #2 KILL if face-region GMSD and HaarPSI (agreeing oracles, per the shape-residual instrument lesson in docs/Research/) fail to beat the uniform-grid baseline
+- [ ] #2 KILL if face-region MAE (the house oracle per ASKI-27) fails to beat the uniform-grid baseline, or if face-region GMSD disagrees in direction (the agreeing-oracle guard from the shape-residual instrument lesson in docs/Research/)
 - [ ] #3 KILL if non-salient-region degradation is subjectively fatal on an AskiPresetLab-style contact sheet
 - [ ] #4 Lab-only first (Tools/), Sources/ untouched until the decisive run passes
 <!-- AC:END -->
@@ -46,4 +46,6 @@ Validation to run: after the lab is implemented and the oracle is resolved, run 
 First step: record the oracle decision and fixed-budget corpus, then design the lab artifact around the existing uniform MaskOptions/MaskSampler input and the current contact-sheet writer.
 
 Source map: `Sources/Aski/Masking/MaskOptions.swift`, `Sources/Aski/Masking/MaskSampler.swift`, `Sources/Aski/ASCIIConverter.swift`, `Sources/Aski/ASCIIGrid.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `Tests/AskiTests/MaskSamplerTests.swift`, `docs/agents/research-methodology.md`.
+
+2026-11-13: AC#2 reworded with owner authorization to apply the ASKI-27 ruling: MAE is the deciding oracle and GMSD is the agreeing-direction guard. HaarPSI is dropped as a deciding oracle because ASKI-27 disqualified GMSD/HaarPSI from defining optima. The rule must still be frozen before any decisive run.
 <!-- SECTION:NOTES:END -->

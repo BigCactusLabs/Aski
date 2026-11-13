@@ -5,8 +5,8 @@ title: >-
   can be scored
 status: In Progress
 assignee: []
-created_date: '2026-09-01 21:42'
-updated_date: '2026-09-10 04:22'
+created_date: 2026-09-01 21:42
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - research
   - arbiter
@@ -82,6 +82,8 @@ Validation to run: The current unified command is `swift run -c release aski lab
 First step: complete the blinded 51-sheet owner sitting, preserve the unopened key and raw VLM decisions, then score both v2 validation gates. A failed human gate stops downstream interpretation; v1 evidence remains untouched.
 
 Source map: `Tools/AskiColorLab/Arbiter/ArbiterSubcommands.swift`.
+
+Audit 2026-11-12: docs/Research/Results/2026-09-04-aski62-arbiter-v2/ is not in the public repository; key.json, manifest.json and result.yaml exist only in the private archive. The /private/tmp stimulus bundle is gone, so the 51 sheets must be regenerated from dbf8e2a (private) and byte-checked against the private manifest before the sitting.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

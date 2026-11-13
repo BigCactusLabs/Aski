@@ -4,7 +4,7 @@ title: Investigate full-color desaturation vs June-era converter output
 status: Done
 assignee: []
 created_date: 2026-08-19 03:49
-updated_date: '2026-11-07T22:48:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies:
   - ASKI-3
@@ -44,6 +44,8 @@ Board audit 2026-08-24 (deep pass): Repro-command drift: swift run AskiDemo stil
 Source map: `CHANGELOG.md`, `Sources/Aski/ASCIIConverter.swift`, `Tests/AskiTests/AskiColorLabSamplingPoliciesTests.swift`, `Tests/AskiTests/AskiDemoTests.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `README.md`.
 
 Closed 2026-11-07 (docs/Research/2026-11-07-aski15-hero-provenance.md). AC#1: nineteen builds from 2026-06-08 through the ASKI-3 fix were rendered with the documented command. Per-cell chroma is flat (same-glyph ratio 1.000-1.010 vs a 2026-06-29 anchor; black floor 0.74-0.77%) and matches the source's own per-cell chroma; the only glyph change is the ASKI-65 lattice fix (55.7% of cells re-registered). The previous README hero is not reproducible from any build: 1.93x chroma at the same hue and a 17% black floor, consistent with an outside saturation/black-point adjustment. AC#2: bisect class thresholds were fixed before any row was computed; no build is hero-like, so there is nothing to revert and no knob recovers the look. Verdict: keep. AC#3 (amended): vibrancy was not restored because nothing was lost; the hero was regenerated from the current build instead, with the command in the README caption and the 134-row size corrected (the 133 figure was a wc -l artifact; the geometry needs aspect preserved, not --no-preserve-aspect). A vibrancy option would be a new pre-registered research arm.
+
+Audit 2026-11-12: closed via public PR #19 (4b27275). The 'PR #19 (aski executable product)' in the 2026-08-21 comment is a private-history PR, not public PR #19.
 <!-- SECTION:NOTES:END -->
 
 ## Comments

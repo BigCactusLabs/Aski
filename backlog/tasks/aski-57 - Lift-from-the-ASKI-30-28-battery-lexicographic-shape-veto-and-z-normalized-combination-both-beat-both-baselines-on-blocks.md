@@ -5,11 +5,12 @@ title: >-
   combination both beat both baselines on blocks
 status: To Do
 assignee: []
-created_date: '2026-08-24 17:54'
-updated_date: '2026-09-10 04:29'
+created_date: 2026-08-24 17:54
+updated_date: '2026-11-13T05:20:00Z'
 labels:
   - research
-dependencies: []
+dependencies:
+  - ASKI-62
 ordinal: 58000
 ---
 
@@ -42,4 +43,6 @@ Both pre-registered exploratory arms cleared the frozen rule's PASS-equivalent M
 **First step.** Close the mean-rank instrumentation gap and write the SSIM decision into a new preregistration. Then rerun calibration and held-out measurement; treat any improvement as exploratory until the frozen rule and arbiter accept it.
 
 Source map: `Tools/AskiColorLab/SamplingLattice/SelectionCeiling.swift`, `Tests/AskiTests/AskiColorLabSelectionCeilingArmsTests.swift`, `Tests/AskiTests/AskiColorLabSelectionCeilingCSVTests.swift`, `docs/Research/2026-08-24-aski-30-28-battery-verdict.md`.
+
+2026-11-13: added ASKI-62 as a dependency: AC#2 hinges on the perceptual discriminator, and its v2 validation is still open.
 <!-- SECTION:NOTES:END -->

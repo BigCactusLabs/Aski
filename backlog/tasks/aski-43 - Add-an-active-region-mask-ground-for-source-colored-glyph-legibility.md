@@ -3,8 +3,8 @@ id: ASKI-43
 title: Add an active-region mask ground for source-colored glyph legibility
 status: Done
 assignee: []
-created_date: '2026-08-20 23:58'
-updated_date: '2026-08-27 12:32'
+created_date: 2026-08-20 23:58
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - masking
   - rendering
@@ -15,7 +15,7 @@ references:
   - 'Source tracker issue #7 (not migrated)'
   - >-
     https://developer.apple.com/documentation/coreimage/ciblendwithmask/maskimage
-  - 'https://www.w3.org/TR/css-masking-1/'
+  - https://www.w3.org/TR/css-masking-1/
 documentation:
   - Sources/Aski/Aski.docc/Masking.md
   - Sources/Aski/Aski.docc/Effects.md
@@ -95,9 +95,9 @@ Automatic contrast choice, blur/fog, gradients, halos, per-cell polarity changes
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Focused mask/render/animation tests pass with no snapshot loosening.
-- [ ] #2 `just check` passes on the final implementation tree.
-- [ ] #3 DocC, changelog, generated assets, and the issue/PR linkage are committed.
+- [x] #1 Focused mask/render/animation tests pass with no snapshot loosening.
+- [x] #2 `just check` passes on the final implementation tree.
+- [x] #3 DocC, changelog, generated assets, and the issue/PR linkage are committed.
 <!-- DOD:END -->
 
 ## Implementation Plan

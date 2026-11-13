@@ -5,8 +5,8 @@ title: >-
   real matcher on the shipped preset
 status: Done
 assignee: []
-created_date: '2026-08-19 06:07'
-updated_date: '2026-09-27 18:56'
+created_date: 2026-08-19 06:07
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies:
   - ASKI-32
@@ -37,6 +37,8 @@ Board audit 2026-08-24 (deep pass): Dependency ASKI-32 is Done (PR #27) — read
 ASKI-56 arbiter update 2026-08-27: the required perceptual discriminator now exists and is validated. Its D family put T(w*=2) vs F in front of the blinded owner on all 6 sources: 1/4 decided trials for T, 2 ties, VLM order-inconsistency 0.50 — the 0.09% SSIM objection behaves like a genuine perceptual near-tie leaning toward F. Non-gating (decided n=4 < 30): verdict stays INCONCLUSIVE. Re-opening path: a dedicated D-focused arbiter run to decided n ≥ 30 (docs/Research/2026-08-27-aski56-arbiter-verdict.md).
 
 2026-09-27 (ASKI-79/80 phase 1, baseline docs/Research/Results/2026-09-27-aski-79-80-baseline/): the census texture readouts show the shipped blocks pick is effectively constant. At 80 columns on nasa-steerable-v1, blocks, lines and mixed each render one glyph for every cell (█, ├, │; glyphsUsed 1). The frozen preset (blocks, 76) uses 1 glyph on steerable, 2 on structure and 4 on occupancy. The canonical preset golden is all █, so the palette carries the whole image and the glyph pick contributes nothing. Arm 1 of the ASKI-79/80 rule (orthogonality → tone fallback) cannot reach these sets (0% orthogonal picks on the PNG corpora). Hypothesis, not tested: the ≤12-glyph pool is the whole set, so tone never enters and the 3-bin query moves too little to shift the argmin.
+
+Audit 2026-11-12: AC#4 is conditional on the tone-weighted arm failing to beat the shape-free floor. The final summary says it beat both baselines on MAE and failed only by a -0.09% SSIM inversion, so the condition did not arise; AC#4 is left unchecked as not triggered. No open task currently owns the perceptual reopen run named in the final summary (ASKI-57 covers only the exploratory lift); that is an owner decision.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

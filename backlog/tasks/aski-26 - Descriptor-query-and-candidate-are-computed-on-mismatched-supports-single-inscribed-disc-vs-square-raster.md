@@ -5,8 +5,8 @@ title: >-
   inscribed disc vs square raster)
 status: Done
 assignee: []
-created_date: '2026-08-19 05:57'
-updated_date: '2026-08-28 18:13'
+created_date: 2026-08-19 05:57
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies: []
 ordinal: 28000
@@ -20,8 +20,8 @@ ShapeContext.histogram60 inscribes its sampling disc in the SHORTER cell axis (m
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Either the query and candidate supports are made to match, or the parity claim in ASCIICharacterSet.swift:8 is corrected to state the divergence
-- [ ] #2 If a tiled-window descriptor is built, both sides use the identical sampling pattern and identical pre-blur, and the change is gated on pick quality rather than descriptor-space metrics
+- [x] #1 Either the query and candidate supports are made to match, or the parity claim in ASCIICharacterSet.swift:8 is corrected to state the divergence
+- [x] #2 If a tiled-window descriptor is built, both sides use the identical sampling pattern and identical pre-blur, and the change is gated on pick quality rather than descriptor-space metrics
 - [ ] #3 Decision is recorded against the shipping regime, not only the no-downscale lab regime
 <!-- AC:END -->
 
@@ -31,4 +31,6 @@ ShapeContext.histogram60 inscribes its sampling disc in the SHORTER cell axis (m
 Board audit 2026-08-24 (deep pass): AC#1 citation drifted: ASCIICharacterSet.swift:8 is now :7. Caution: selection-optimality-gap §3c measured pick quality flat across 3-48 reachable bins, weakly contradicting this task's closing orientation-degeneracy conjecture. OVERLAP: same defect as ASKI-52 from the opposite end (query support vs candidate vocabulary); both regen the .bin vectors and move each other's baseline — sequence together.
 
 SHIPPED as measurement in PR #32 (merged 2026-08-28, a12daa2/8d5eb1b) as one unit with ASKI-52. Five-arm ladder: tiled arms non-degenerate (72 windows, 4320-D); paper's construction best on text but under the +3.0% bar, better with its pre-blur removed. No promotion. Note: docs/Research/2026-08-28-aski52-26-candidate-convention.md.
+
+Audit 2026-11-12: AC#1 met (the parity claim at Sources/Aski/ASCIICharacterSet.swift:8-19 now states N=1 against the paper's tiled construction); AC#2 met (tiled arms built and gated on the +3.0% pick-quality bar, no promotion). AC#3 left unchecked: the record does not show the decision was measured at the shipping regime.
 <!-- SECTION:NOTES:END -->

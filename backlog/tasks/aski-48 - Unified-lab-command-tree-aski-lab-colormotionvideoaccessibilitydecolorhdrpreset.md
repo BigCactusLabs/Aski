@@ -6,8 +6,8 @@ title: >-
 status: Done
 assignee:
   - '@codex'
-created_date: '2026-08-21 02:15'
-updated_date: '2026-09-04 07:35'
+created_date: 2026-08-21 02:15
+updated_date: '2026-11-13T04:21:00Z'
 labels: []
 dependencies:
   - ASKI-47
@@ -48,6 +48,8 @@ Migrated from GitHub issue #23 (harvested from closed PR #21; full requirements 
 
 <!-- SECTION:NOTES:BEGIN -->
 Implemented the root-package command tree without changing the ASKI-70 package boundary. Historical Aski*Lab products now contain byte-thin replay entry points; canonical `aski lab` commands reuse the importable lab modules; the root and video paths use explicit async runners. Added built-binary launch, replay parity, canonical/replay golden, manifest-structure, and Bash/Zsh/Fish completion tests. Validation: focused ASKI-48 selection passed 15 tests in 4 suites; full `just check` passed format, one build, registry and repo-map drift checks, 1,562 core tests in 230 suites, 152 media tests in 36 suites, 2 deadlock sentinels in 2 suites, and DocC.
+
+Audit 2026-11-12: PR numbers up to #26 cited in this record are private-history PRs; the public PRs with the same numbers are unrelated.
 <!-- SECTION:NOTES:END -->
 
 ## Comments

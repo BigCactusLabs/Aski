@@ -3,8 +3,8 @@ id: ASKI-45
 title: Research automatic legibility treatments for glyphs over image backgrounds
 status: To Do
 assignee: []
-created_date: '2026-08-20 23:59'
-updated_date: '2026-09-10 04:31'
+created_date: 2026-08-20 23:59
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - research
   - masking
@@ -15,10 +15,10 @@ dependencies:
   - ASKI-43
 references:
   - 'Source tracker issue #15 (not migrated)'
-  - 'https://www.w3.org/WAI/WCAG22/Techniques/failures/F83'
-  - 'https://pubmed.ncbi.nlm.nih.gov/12678636/'
-  - 'https://pubmed.ncbi.nlm.nih.gov/12238520/'
-  - 'https://doi.org/10.1177/1541931218621294'
+  - https://www.w3.org/WAI/WCAG22/Techniques/failures/F83
+  - https://pubmed.ncbi.nlm.nih.gov/12678636/
+  - https://pubmed.ncbi.nlm.nih.gov/12238520/
+  - https://doi.org/10.1177/1541931218621294
   - >-
     https://openaccess.thecvf.com/content/CVPR2026/html/Guo_Seeing_is_Improving_Visual_Feedback_for_Iterative_Text_Layout_Refinement_CVPR_2026_paper.html
 documentation:
@@ -90,4 +90,8 @@ Validation to run: current `swift run aski lab accessibility audit --output-dir 
 First step: implement and freeze 45.1, then hand its immutable hashes and consumption marker to 45.2; do not fold held-out observations back into protocol design.
 
 Source map: `Tools/AskiAccessLab/AccessLabCLI.swift`, `docs/Research/2026-06-04-access-lab.md`.
+
+Audit 2026-11-12: 'issue #15' above is a private-tracker issue, not public PR #15. The 2026-08-24 cost flag has no recorded owner response yet.
+
+2026-11-13: owner ruling: PARKED. The protocol needs 24 licensed fixtures and three human reviewers per pair, which is not funded at Low priority. It stays To Do and is not ready to schedule. Revive it only if a product need for automatic glyph-over-image legibility appears beyond ASKI-43's mask ground, and then record the fixture and reviewer budget first.
 <!-- SECTION:NOTES:END -->

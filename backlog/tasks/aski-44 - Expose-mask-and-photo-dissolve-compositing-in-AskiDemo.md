@@ -3,8 +3,8 @@ id: ASKI-44
 title: Expose mask and photo-dissolve compositing on the aski CLI
 status: Done
 assignee: []
-created_date: '2026-08-20 23:59'
-updated_date: '2026-08-27 12:32'
+created_date: 2026-08-20 23:59
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - cli
   - masking
@@ -83,9 +83,9 @@ Manifest interaction: `aski render` now emits an opt-in deterministic manifest (
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Parser, transaction, integration, and command-surface tests pass.
-- [ ] #2 `just check` passes on the final implementation tree.
-- [ ] #3 CLI help, Masking DocC, tool inventory, agent example, changelog, and issue/PR linkage are committed.
+- [x] #1 Parser, transaction, integration, and command-surface tests pass.
+- [x] #2 `just check` passes on the final implementation tree.
+- [x] #3 CLI help, Masking DocC, tool inventory, agent example, changelog, and issue/PR linkage are committed.
 <!-- DOD:END -->
 
 ## Implementation Plan

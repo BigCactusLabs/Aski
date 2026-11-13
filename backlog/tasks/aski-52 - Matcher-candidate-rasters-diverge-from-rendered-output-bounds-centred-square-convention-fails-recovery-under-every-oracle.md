@@ -5,8 +5,8 @@ title: >-
   convention fails recovery under every oracle
 status: Done
 assignee: []
-created_date: '2026-08-24 03:37'
-updated_date: '2026-08-28 18:13'
+created_date: 2026-08-24 03:37
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - research
   - algorithms
@@ -24,10 +24,10 @@ The ASKI-32 calibrated screen (docs/Research/2026-08-23-aski32-calibrated-recove
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A lab arm scores production picks with typographic-convention candidates against the same photographic corpus the ceiling uses, isolating the convention delta on real sources rather than glyph pictures
-- [ ] #2 The interaction with the bundled .bin ShapeData vectors is stated: which artifacts would need regeneration, and whether archived verdicts stay comparable
+- [x] #1 A lab arm scores production picks with typographic-convention candidates against the same photographic corpus the ceiling uses, isolating the convention delta on real sources rather than glyph pictures
+- [x] #2 The interaction with the bundled .bin ShapeData vectors is stated: which artifacts would need regeneration, and whether archived verdicts stay comparable
 - [ ] #3 ASKI-16's edgeMap-local matcher design consumes or explicitly declines the typographic convention, with the choice recorded on that task
-- [ ] #4 Any default change is gated behind the standing no-reconstruction-metric-default-change rule; this task alone changes no defaults
+- [x] #4 Any default change is gated behind the standing no-reconstruction-metric-default-change rule; this task alone changes no defaults
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -36,4 +36,6 @@ The ASKI-32 calibrated screen (docs/Research/2026-08-23-aski32-calibrated-recove
 Board audit 2026-08-24 (deep pass): OVERLAP: same defect as ASKI-26 from the opposite end; both regenerate ShapeData .bin vectors and break archived comparability — whichever lands first moves the other's baseline. Sequence together.
 
 SHIPPED as measurement in PR #32 (merged 2026-08-28, a12daa2/8d5eb1b). Verdict: no promotion — convention delta small and charset-dependent; note at docs/Research/2026-08-28-aski52-26-candidate-convention.md. Promotion cost (AC#2) recorded in note §6; consume/decline on ASKI-16 recorded (deferred). Polarity finding split to ASKI-60.
+
+Audit 2026-11-12: AC#1 met (docs/Research/Results/2026-08-28-aski52-26-convention-ablation/); AC#2 met (section 6 of docs/Research/2026-08-28-aski52-26-candidate-convention.md states the .bin churn and comparability cost); AC#4 met (no default changed). AC#3 left unchecked: ASKI-16 recorded the consume/decline choice as DEFERRED, then ASKI-16 removed edgeMap, so the criterion is superseded rather than met.
 <!-- SECTION:NOTES:END -->

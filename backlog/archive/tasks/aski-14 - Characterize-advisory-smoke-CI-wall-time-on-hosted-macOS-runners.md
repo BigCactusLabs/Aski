@@ -3,8 +3,8 @@ id: ASKI-14
 title: Characterize advisory smoke-CI wall time on hosted macOS runners
 status: To Do
 assignee: []
-created_date: '2026-08-18 18:02'
-updated_date: '2026-08-24 15:47'
+created_date: 2026-08-18 18:02
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - ci
   - enhancement
@@ -35,4 +35,6 @@ Board audit 2026-08-24 (deep pass): OBSOLETE-CANDIDATE: ci.yml is workflow_dispa
 
 Closed 2026-08-24 as wont-do by owner decision after the board audit: CI is workflow_dispatch-only on a private repo with Actions off, the hosted benchmarks job is removed, and the ACs can only be fed by hand-fired runs nobody produces. Premises revive only if the repo goes public or CI moves to a self-hosted runner — refile then.
 Historical context (2026-09-23): this describes the pre-publication private repository's CI; re-evaluate before applying it to the public tree.
+
+2026-11-13: the repo went public on 2026-09-23 but ships no hosted workflow (.github/workflows does not exist; AGENTS.md says gates run locally), so the revival condition above is not met and the task stays archived as won't-do.
 <!-- SECTION:NOTES:END -->

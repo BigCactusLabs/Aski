@@ -3,8 +3,8 @@ id: ASKI-45.1
 title: Build and freeze the glyph-over-image legibility protocol
 status: To Do
 assignee: []
-created_date: '2026-08-21 00:42'
-updated_date: '2026-09-10 04:31'
+created_date: 2026-08-21 00:42
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - research
   - accessibility
@@ -155,4 +155,6 @@ Validation to run: future focused parser/metric/selection/result tests should co
 First step: add corpus/protocol decoding and refusal tests before treatment code or corpus assets, then add only development fixtures and run the development split to set performance reference/budgets. The completed freeze must include all 24 manifest fixtures and exact hashes, while development inspection/rendering remains restricted to its 12-fixture split. Commit the frozen protocol before handing off to 45.2.
 
 Source map: `Tools/AskiAccessLab/AskiAccessLabCommand.swift`, `Tests/AskiTests/AskiAccessLabArgumentsTests.swift`, `docs/Research/Corpus/README.md`, `docs/agents/research-methodology.md`.
+
+2026-11-13: owner ruling: PARKED. The protocol needs 24 licensed fixtures and three human reviewers per pair, which is not funded at Low priority. It stays To Do and is not ready to schedule. Revive it only if a product need for automatic glyph-over-image legibility appears beyond ASKI-43's mask ground, and then record the fixture and reviewer budget first.
 <!-- SECTION:NOTES:END -->

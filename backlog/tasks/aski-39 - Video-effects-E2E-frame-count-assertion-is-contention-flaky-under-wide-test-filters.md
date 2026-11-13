@@ -6,7 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: 2026-08-20 04:15
-updated_date: '2026-11-12T21:28:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - testing
   - video
@@ -64,6 +64,8 @@ Validation to run: use a stated repeated concurrent-load protocol to satisfy AC 
 First step: inspect the current `justfile` partition and `TestGateReuseTests.mediaTestsRunInACompleteSerialPartition`, then perform the deliberate-load reruns against the exact `cappedMP4EffectsDimAndPreserveFrameCount` path.
 
 Protocol fixed before execution: xcrun swift test --skip-build --parallel --maximum-repetitions 20 --repeat-until fail --filter AskiVideoLabEffectsE2ETests. The log confirms each of seven test methods ran 20 times (140 executions), including cappedMP4EffectsDimAndPreserveFrameCount on every repetition. Every target start overlapped another selected test lifetime; this establishes concurrent test overlap, not operation-level media-engine tracing. All passed in 6.510 seconds; no retry was used. AC #2’s conditional fix was unnecessary because no failure reproduced; its exact count assertion was preserved. This result does not establish race freedom or universal host behavior. Swift Testing control semantics were checked against Apple’s current parallelization documentation (https://developer.apple.com/documentation/testing/parallelization.md); suite-local serialization does not isolate unrelated tests. Verified on 2026-11-12 with Xcode 27.0 (27A266a), Apple Swift 6.4, macOS 27.0.1. just check-fast passed 903 tests; exact just check passed 1500 core, 163 serialized media and 2 deadlock tests (1665 total), plus drift checks and DocC. The full gate tested base 3f6da15da41e7f91e58174fcc7ce40fc8d2f6668 plus source/test patch SHA-256 0321f22cae94e808d6c1494a417d75ee1e37ba7c1a7000cad6a9f3d800d6d9f2. Only DocC prose and backlog records changed afterward; final just docc passed. Exact goldens were unchanged. Independent Opus source review and lead review completed.
+
+Audit 2026-11-12: merged as public PR #26 (d3f9439) on 2026-11-12. The 'ASKI-58' in the description refers to the private tracker's ASTSK-58 (wall-clock budget split), not today's ASKI-58. PR #13 cited above is a private-history PR, not public PR #13.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

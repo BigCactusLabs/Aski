@@ -3,8 +3,8 @@ id: ASKI-16.1
 title: edgeMap template match collapses to the zero-descriptor blank glyph
 status: Done
 assignee: []
-created_date: '2026-08-19 05:16'
-updated_date: '2026-08-20 20:01'
+created_date: 2026-08-19 05:16
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - algorithms
@@ -43,3 +43,9 @@ Note the match loop scans 0..<characters.count with no blank-glyph exclusion, un
 - [ ] #3 Regression asserts the winning glyph per bucket for .lines, .cross, .diagonal and .mixed, including a case where the correct glyph currently loses to SPACE by less than 5 percent
 - [ ] #4 The intentional below-threshold blank path and the .blank bucket keep returning resolveBlankGlyphIndex
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: closure rationale lives on parent ASKI-16. The fix landed in private history; ASKI-16 then removed edgeMap entirely (private 8bb6859; see Sources/Aski/Aski.docc/Migrating-to-A1.md). The referenced files no longer exist. Criteria stay unchecked as superseded by the removal, not verified.
+<!-- SECTION:NOTES:END -->

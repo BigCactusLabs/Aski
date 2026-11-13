@@ -4,7 +4,7 @@ title: Prepare adaptive tile palette color samples once
 status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-10-27T15:59:00Z'
+updated_date: '2026-11-13T05:22:00Z'
 labels:
   - performance
   - tiles
@@ -44,4 +44,8 @@ Source mechanism verified at c49bbd in the 2026-09-29 sweep. The existing tile-q
 ### Existing work reconciled — 2026-10-27
 
 Draft PR #10 is open at e53d62f01e220c041e3b98394e9a305b1a9295e3: https://github.com/BigCactusLabs/Aski/pull/10 . Native palette/tile parity and full gate remain unverified; the reported packed-stride probe is not a process-memory result. Follow its control recipe and compare all 66 end-to-end workloads. Run its 120 candidate phase probes separately; candidate-only helpers do not belong in the restored scalar control. The prepared sample buffer overlaps the Wu tables, so require allocation/RSS evidence as well as time. The new paired reader prepares the readout, not the adoption verdict. Task stays open.
+
+Audit 2026-11-12: draft PR #10 targets work/aski-86-benchmark-validity, which merged as public PR #7; retarget it to main before that branch is deleted.
+
+2026-11-13: draft PR #10 retargeted to main; GitHub reports it CONFLICTING, so a rebase onto main is needed before the A/B.
 <!-- SECTION:NOTES:END -->

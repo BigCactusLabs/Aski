@@ -3,8 +3,8 @@ id: ASKI-13
 title: Measure and reduce per-cell Core Text rendering allocation
 status: To Do
 assignee: []
-created_date: '2026-08-18 18:02'
-updated_date: '2026-09-10 04:15'
+created_date: 2026-08-18 18:02
+updated_date: '2026-11-13T04:22:00Z'
 labels:
   - performance
   - rendering
@@ -48,4 +48,6 @@ Validation to run: add repeatable 80-column and larger render benchmarks over bu
 First step: establish a baseline for `render-image-gradient-80cols` and a larger/custom-grid fixture, then measure whether color creation, attributed strings, CTLine creation, or drawing dominates before selecting a guarded cache or batching strategy.
 
 Source map: `Sources/Aski/Renderers/ImageRenderer.swift`, `Sources/Aski/Renderers/AttributedStringRenderer.swift`, `Sources/Aski/CharacterSets/RasterizedCharacterSet.swift`, `Tests/AskiTests/ImageRendererGoldenTests.swift`, `Tests/AskiTests/ImageRendererTests.swift`, `Benchmarks/AskiBenchmarks/Benchmarks.swift`.
+
+Audit 2026-11-12: ASKI-3 is Done (public PR #18); its color-semantics changes are part of the baseline.
 <!-- SECTION:NOTES:END -->

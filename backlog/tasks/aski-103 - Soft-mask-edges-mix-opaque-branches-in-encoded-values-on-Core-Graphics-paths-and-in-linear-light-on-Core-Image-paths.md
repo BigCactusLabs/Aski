@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-10T19:09:00Z'
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - correctness
   - rendering
@@ -28,3 +29,9 @@ Found while fixing ASKI-101. After ASKI-101 every render path applies the same c
 - [ ] #2 Decide whether Core Image paths should follow the grid's RenderCompositionPolicy, with a pre-registered rule and the frozen-preset no-harm census if any frozen-preset golden would move
 - [ ] #3 Document the outcome in the Masking and Rendering guides
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-13: related: ASKI-107 measures linear-light cell averages, which this task's composition policy affects.
+<!-- SECTION:NOTES:END -->

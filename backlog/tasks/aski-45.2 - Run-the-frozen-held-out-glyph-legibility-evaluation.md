@@ -3,8 +3,8 @@ id: ASKI-45.2
 title: Run the frozen held-out glyph-legibility evaluation
 status: To Do
 assignee: []
-created_date: '2026-08-21 00:42'
-updated_date: '2026-09-10 04:31'
+created_date: 2026-08-21 00:42
+updated_date: '2026-11-13T05:21:00Z'
 labels:
   - research
   - accessibility
@@ -102,4 +102,6 @@ Validation to run: the task's future command `swift run aski lab accessibility l
 First step: wait for 45.1's frozen/unconsumed evidence, run the non-rendering hash gate, then perform exactly one complete held-out pass into a new directory. Keep the human sitting blind until all three reviews per pair are present. On KILL record ASKI-43 as the product answer and file no issue; on all-gates KEEP file one separate evidence-linked product issue only after the note and index are complete.
 
 Source map: `Tools/AskiAccessLab/AccessLabCLI.swift`, `Tests/AskiTests/AskiAccessLabRunTests.swift`, `docs/agents/research-methodology.md`, `Sources/Aski/Aski.docc/Masking.md`.
+
+2026-11-13: owner ruling: PARKED. The protocol needs 24 licensed fixtures and three human reviewers per pair, which is not funded at Low priority. It stays To Do and is not ready to schedule. Revive it only if a product need for automatic glyph-over-image legibility appears beyond ASKI-43's mask ground, and then record the fixture and reviewer budget first.
 <!-- SECTION:NOTES:END -->

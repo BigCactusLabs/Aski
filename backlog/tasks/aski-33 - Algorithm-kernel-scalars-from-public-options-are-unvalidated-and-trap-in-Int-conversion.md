@@ -5,8 +5,8 @@ title: >-
   conversion
 status: Done
 assignee: []
-created_date: '2026-08-20 03:14'
-updated_date: '2026-08-24 15:36'
+created_date: 2026-08-20 03:14
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - algorithms
@@ -55,4 +55,6 @@ Note the batch settled a per-subsystem convention that this task should follow r
 
 <!-- SECTION:NOTES:BEGIN -->
 Board audit 2026-08-24: implemented and merged to main in PR #28 (batch-validation wave, merge b835160); all ACs were already checked — status flip only.
+
+Audit 2026-11-12: SteerableEnergy.swift, EdgeMap.swift and the occupancyMatching knob named here were removed by ASKI-16 and ASKI-68. The record is historical.
 <!-- SECTION:NOTES:END -->

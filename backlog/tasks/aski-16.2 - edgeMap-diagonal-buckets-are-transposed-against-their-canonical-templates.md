@@ -3,8 +3,8 @@ id: ASKI-16.2
 title: edgeMap diagonal buckets are transposed against their canonical templates
 status: Done
 assignee: []
-created_date: '2026-08-19 05:18'
-updated_date: '2026-08-20 20:01'
+created_date: 2026-08-19 05:18
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - algorithms
@@ -44,3 +44,9 @@ Independent of the blank-glyph defect in the sibling subtask: fixing only that o
 - [ ] #3 The classifyBucket comment states the real convention (folded edge-tangent orientation), and EdgeMap.edgeAngle documents the same
 - [ ] #4 With the sibling blank-glyph subtask fixed, a diagonal fixture on the .diagonal character set emits the matching diagonal glyph rather than its mirror
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Audit 2026-11-12: closure rationale lives on parent ASKI-16. The fix landed in private history, but ASKI-16 records that .diagonal still emitted X for every bucket afterwards, so AC#4 was not met. ASKI-16 then removed edgeMap entirely; the criteria are superseded by the removal, not verified.
+<!-- SECTION:NOTES:END -->

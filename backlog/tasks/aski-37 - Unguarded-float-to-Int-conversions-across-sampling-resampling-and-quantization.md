@@ -5,8 +5,8 @@ title: >-
   quantization
 status: Done
 assignee: []
-created_date: '2026-08-20 03:15'
-updated_date: '2026-08-24 14:41'
+created_date: 2026-08-20 03:15
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - correctness
   - robustness
@@ -57,4 +57,6 @@ Deferred from the Batch A work to avoid widening that batch mid-flight.
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-08-24 implemented on aski-37 (commit 2f23214, merged to batch-validation ca19f1f). Triage: 6 sites structurally bounded (CellSampling.gridDimensions, LumaResample.resample1D, WuQuantizer.binIndex, ShapeContext.histogram60 angle bin, ShapeStructureChannels.radialProfile, EdgeMapKernel angle bucket) — each got a comment naming the bound, no guard. 2 sites reachable and fixed: ASCIIConverter.thumbnailMaxPixelSize (old guard used <= Double(Int.max), which rounds one past Int.max; now strict < with isFinite/positive checks) and RasterizedCharacterSet CTFont metrics (shared boundedCellMetric guard; invalid external metrics degrade to a 1px cell). ResampleSession.slot(of:) already guarded by ASKI-33/35, kept. Regressions: portraitThumbnailSizeRejectsTheDoubleIntMaxBoundary, outOfDomainCoreTextMetricsDegradeWithoutTrapping. Full just check green (1,308 core + 152 media + 2 sentinels).
+
+Audit 2026-11-12: ShapeStructureChannels and EdgeMapKernel were removed by ASKI-68 and ASKI-16; LumaResample.swift moved to Tools/AskiColorLab/ShapeResidual/. The record is historical.
 <!-- SECTION:NOTES:END -->

@@ -7,7 +7,7 @@ status: Done
 assignee:
   - '@codex'
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-06T17:30:00Z'
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - video
   - gif
@@ -63,6 +63,8 @@ Full gate ran on the combined batch. Format, build, research registry and repo m
 Full just check passed on macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4: core 1441 tests, serial media 156, two deadlock sentinels, format/build/drift checks and DocC. An additional parallel-core run passed all 1441 tests. ASKI-97 resolved the independent baseline blocker without changing production rendering, ShapeData, frozen Vesper output or exact-comparison thresholds.
 
 2026-11-06 correction: the ASKI-97 re-baseline cited above was withdrawn (host-dependent drift; original goldens restored in 25460c3). This task's closure does not depend on it: with the original goldens, full just check passed on an Apple M3 Max host with macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4 (1441 core, 156 media, 2 sentinels, DocC). The snapshot mismatches seen earlier were host-dependent raster drift unrelated to this change; ASKI-78 owns that policy.
+
+Audit 2026-11-12: merged as public PR #15 (dc6d4d6) on 2026-11-07.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

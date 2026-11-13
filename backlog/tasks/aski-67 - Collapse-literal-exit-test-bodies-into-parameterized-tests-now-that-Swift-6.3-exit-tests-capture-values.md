@@ -5,8 +5,8 @@ title: >-
   exit tests capture values
 status: Done
 assignee: []
-created_date: '2026-09-03 03:32'
-updated_date: '2026-09-26 19:49'
+created_date: 2026-09-03 03:32
+updated_date: '2026-11-13T04:21:00Z'
 labels:
   - testing
   - cleanup
@@ -23,8 +23,8 @@ Swift 6.3 (swift-testing PR 1165) lets #expect(processExitsWith:) bodies capture
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Each family of literal-valued exit tests that varies only in the argument is expressed as one @Test(arguments:) with a capture list; the set of covered trap cases is byte-identical (enumerate before and after in the PR)
-- [ ] #2 just check green; no test renamed in a way that breaks the deadlock-sentinel or media-phase filters in justfile
+- [x] #1 Each family of literal-valued exit tests that varies only in the argument is expressed as one @Test(arguments:) with a capture list; the set of covered trap cases is byte-identical (enumerate before and after in the PR)
+- [x] #2 just check green; no test renamed in a way that breaks the deadlock-sentinel or media-phase filters in justfile
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -46,3 +46,9 @@ Source map: `Tests/AskiTests/ASCIICharacterSetBoundaryTests.swift`, `Tests/AskiT
 
 Landed via PR #4 (merge 77a107a, 2026-09-26). The seven suites held 43 trap cases, not ~59; all 43 are kept. 31 cases were parameterized into nine families and 12 stay standalone, reducing 43 exit-test sites to 21. Non-finite Doubles are captured as UInt64 bit patterns. just check passed on the PR head against base 2ced51c.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Merged as public PR #4 (77a107a). 43 trap cases before and after: 31 parameterized into nine families, 12 kept as standalone tests; exit-test macro sites reduced from 43 to 21. Full just check passed on the PR head (1,396 core, 152 media, 2 deadlock sentinels, DocC). One intermittent MaskSnapshotTests.sameSourceCorpusGroundComparison failure passed on rerun. Criteria checked in the 2026-11-12 audit.
+<!-- SECTION:FINAL_SUMMARY:END -->
