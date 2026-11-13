@@ -16,68 +16,18 @@ public enum ShapeMatching {
         precondition(count > 0, "candidate set must not be empty")
         precondition(topK > 0, "topK must be positive")
 
-        let pairs = brightnessPool(queryBrightness: queryBrightness, candidateBrightness: candidateBrightness, limit: topK)
+        var pairs: [(index: Int, brightnessDelta: Float)] = []
+        pairs.reserveCapacity(count)
+        for index in 0..<count {
+            pairs.append((index, abs(candidateBrightness[index] - queryBrightness)))
+        }
+        pairs.sort {
+            if $0.brightnessDelta == $1.brightnessDelta {
+                return $0.index < $1.index
+            }
+            return $0.brightnessDelta < $1.brightnessDelta
+        }
         return pairs.prefix(min(topK, count)).map(\.index)
-    }
-
-    /// Retain the K best brightness pairs, with the worst retained pair at
-    /// the heap root. Callers consume the selected prefix in the old order.
-    @usableFromInline
-    internal static func brightnessPool(
-        queryBrightness: Float,
-        candidateBrightness: [Float],
-        limit: Int
-    ) -> [(index: Int, brightnessDelta: Float)] {
-        func precedes(_ lhs: (index: Int, brightnessDelta: Float), _ rhs: (index: Int, brightnessDelta: Float)) -> Bool {
-            if lhs.brightnessDelta == rhs.brightnessDelta {
-                return lhs.index < rhs.index
-            }
-            return lhs.brightnessDelta < rhs.brightnessDelta
-        }
-
-        let count = candidateBrightness.count
-        // Preserve the existing sort for full pools and unordered inputs.
-        if limit >= count || !queryBrightness.isFinite
-            || candidateBrightness.contains(where: { !$0.isFinite })
-        {
-            var pairs: [(index: Int, brightnessDelta: Float)] = []
-            pairs.reserveCapacity(count)
-            for index in 0..<count {
-                pairs.append((index, abs(candidateBrightness[index] - queryBrightness)))
-            }
-            pairs.sort(by: precedes)
-            return pairs
-        }
-
-        var selected: [(index: Int, brightnessDelta: Float)] = []
-        selected.reserveCapacity(limit)
-        for index in candidateBrightness.indices {
-            let entry = (index: index, brightnessDelta: abs(candidateBrightness[index] - queryBrightness))
-            if selected.count < limit {
-                selected.append(entry)
-                var child = selected.count - 1
-                while child > 0 {
-                    let parent = (child - 1) / 2
-                    guard precedes(selected[parent], selected[child]) else { break }
-                    selected.swapAt(parent, child)
-                    child = parent
-                }
-            } else if precedes(entry, selected[0]) {
-                selected[0] = entry
-                var parent = 0
-                while parent * 2 + 1 < selected.count {
-                    var child = parent * 2 + 1
-                    if child + 1 < selected.count && precedes(selected[child], selected[child + 1]) {
-                        child += 1
-                    }
-                    guard precedes(selected[parent], selected[child]) else { break }
-                    selected.swapAt(parent, child)
-                    parent = child
-                }
-            }
-        }
-        selected.sort(by: precedes)
-        return selected
     }
 
     /// Finds ranked character indices.
@@ -109,8 +59,17 @@ public enum ShapeMatching {
             "candidate lanes must be count * \(lanesPerCharacter)"
         )
 
-        let brightnessPairs = brightnessPool(
-            queryBrightness: queryBrightness, candidateBrightness: candidateBrightness, limit: brightnessLimit)
+        var brightnessPairs: [(index: Int, brightnessDelta: Float)] = []
+        brightnessPairs.reserveCapacity(count)
+        for index in 0..<count {
+            brightnessPairs.append((index, abs(candidateBrightness[index] - queryBrightness)))
+        }
+        brightnessPairs.sort {
+            if $0.brightnessDelta == $1.brightnessDelta {
+                return $0.index < $1.index
+            }
+            return $0.brightnessDelta < $1.brightnessDelta
+        }
 
         var scored: [(index: Int, distance: Float, brightnessDelta: Float)] = []
         scored.reserveCapacity(min(brightnessLimit, count))
@@ -163,7 +122,17 @@ public enum ShapeMatching {
             "candidate lanes must be count * \(lanesPerCharacter)"
         )
 
-        let pairs = brightnessPool(queryBrightness: queryBrightness, candidateBrightness: candidateBrightness, limit: topK)
+        var pairs: [(index: Int, brightnessDelta: Float)] = []
+        pairs.reserveCapacity(count)
+        for index in 0..<count {
+            pairs.append((index, abs(candidateBrightness[index] - queryBrightness)))
+        }
+        pairs.sort {
+            if $0.brightnessDelta == $1.brightnessDelta {
+                return $0.index < $1.index
+            }
+            return $0.brightnessDelta < $1.brightnessDelta
+        }
 
         var bestIndex = pairs[0].index
         var bestDistance = Float.infinity
@@ -210,8 +179,17 @@ public enum ShapeMatching {
             "candidate lanes must be count * \(lanesPerCharacter)"
         )
 
-        let brightnessPairs = brightnessPool(
-            queryBrightness: queryBrightness, candidateBrightness: candidateBrightness, limit: brightnessLimit)
+        var brightnessPairs: [(index: Int, brightnessDelta: Float)] = []
+        brightnessPairs.reserveCapacity(count)
+        for index in 0..<count {
+            brightnessPairs.append((index, abs(candidateBrightness[index] - queryBrightness)))
+        }
+        brightnessPairs.sort {
+            if $0.brightnessDelta == $1.brightnessDelta {
+                return $0.index < $1.index
+            }
+            return $0.brightnessDelta < $1.brightnessDelta
+        }
 
         var scored: [(index: Int, distance: Float, brightnessDelta: Float)] = []
         scored.reserveCapacity(min(brightnessLimit, count))
