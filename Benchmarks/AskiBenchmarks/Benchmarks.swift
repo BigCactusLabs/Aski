@@ -66,7 +66,6 @@ let benchmarks: @Sendable () -> Void = {
     addPreparationBenchmarks()
     addShapeContextFootprintBenchmarks()
     addTileColorSampleBenchmarks()
-    addTileColorSamplePhaseBenchmarks()
 }
 
 internal func makeGradient(width: Int, height: Int) -> CGImage {
