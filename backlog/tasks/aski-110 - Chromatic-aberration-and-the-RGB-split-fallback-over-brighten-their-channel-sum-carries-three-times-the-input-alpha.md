@@ -3,9 +3,10 @@ id: ASKI-110
 title: >-
   Chromatic aberration and the RGB-split fallback over-brighten: their channel
   sum carries three times the input alpha
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-11-13T22:09:00Z'
+updated_date: '2026-11-14T20:39:00Z'
 labels:
   - correctness
   - rendering
@@ -24,7 +25,19 @@ Found while fixing ASKI-102. StockCIEffectKernel.applyChromaticAberration (the .
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Confirm the brightening end to end through renderImage with chromaticAberration and through the rgbSplit fallback, away from the shifted edges
-- [ ] #2 Away from shifted edges, an opaque uniform image keeps its color within 1/255 in sRGB and Display P3 output, and a semi-transparent input keeps its alpha
-- [ ] #3 Moved snapshots are re-recorded with a before/after note, and the CHANGELOG explains the brightness change
+- [x] #1 Confirm the brightening end to end through renderImage with chromaticAberration and through the rgbSplit fallback, away from the shifted edges
+- [x] #2 Away from shifted edges, an opaque uniform image keeps its color within 1/255 in sRGB and Display P3 output, and a semi-transparent input keeps its alpha
+- [x] #3 Moved snapshots are re-recorded with a before/after note, and the CHANGELOG explains the brightness change
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Confirm the real chromatic aberration, per-character aberration and reduced-quality RGB-split render paths on opaque/translucent sRGB and Display P3 inputs. Preserve the failing pixels, apply a narrow alpha-correct recomposition, run targeted regressions, re-record only affected non-frozen snapshots with a before/after note, then run the combined full gate and record the brightness change.
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-14: Confirmed native brightening/alpha loss and corrected the shared stock channel split. Opaque and half-alpha assertions pass within one RGBA8 count in sRGB/P3, including per-character glyph interiors. Signed shifts preserve local coverage. Exactly three effect snapshots re-recorded with retained before/after PNGs; CHANGELOG updated. Full just check passed at base 4f4e6b1 plus source/test hashes in docs/Research/Results/2026-11-14-aski110-channel-alpha/validation.json. No frozen-preset change.
+<!-- SECTION:NOTES:END -->

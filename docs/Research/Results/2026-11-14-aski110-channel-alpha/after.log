@@ -1,0 +1,61 @@
+warning: 'aski': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    $REPO/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md
+    $REPO/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 1]
+[1 / 76] MallocInterposerSwift
+[2 / 37] Aski
+[4 / 39] Aski
+[22 / 29] Aski-product
+[22 / 29] BuildStandardVectors-product
+[23 / 31] AskiAccessLab-product
+[25 / 30] AskiTests-product
+[27 / 39]
+[30 / 39]
+[32 / 39]
+[34 / 39] AskiTests-product
+[39 / 41] AskiTests-product
+[40 / 44] AskiTests-product
+[42 / 44] AskiTests-product
+[45 / 46] AskiColorLab-product
+[49 / 50] AskiVideoLab-product
+[54 / 54] AskiDecolorLab-product
+[59 / 60] AskiTileMatrix-product
+[64 / 64] AskiBenchmarks-product
+Build complete! (12.95 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite EffectChannelAlphaTests started.
+◇ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 1.0 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 0.5 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 1.0 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 0.5 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+✔ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) with 4 test cases passed after 0.130 seconds.
+◇ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 1.0 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 0.5 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 1.0 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 0.5 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+✔ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) with 4 test cases passed after 0.031 seconds.
+◇ Test perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+◇ Test case passing 1 argument gamut → .sRGB to perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+◇ Test case passing 1 argument gamut → .displayP3 to perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+✔ Test perCharacterAberrationPreservesGlyphInterior(gamut:) with 2 test cases passed after 0.005 seconds.
+◇ Test zeroIntensityKeepsTheInput() started.
+✔ Test zeroIntensityKeepsTheInput() passed after 0.008 seconds.
+◇ Test shiftedChannelsKeepLocalCoverage(intensity:) started.
+◇ Test case passing 1 argument intensity → 1.0 to shiftedChannelsKeepLocalCoverage(intensity:) started.
+◇ Test case passing 1 argument intensity → -1.0 to shiftedChannelsKeepLocalCoverage(intensity:) started.
+✔ Test shiftedChannelsKeepLocalCoverage(intensity:) with 2 test cases passed after 0.013 seconds.
+✔ Suite EffectChannelAlphaTests passed after 0.189 seconds.
+◇ Suite StockCIEffectKernelTests started.
+◇ Test aberrationShiftsRedAndBlueRelativeToGreen() started.
+✔ Test aberrationShiftsRedAndBlueRelativeToGreen() passed after 0.001 seconds.
+◇ Test aberrationProducesDifferentPixelsAtEdgesThanInput() started.
+✔ Test aberrationProducesDifferentPixelsAtEdgesThanInput() passed after 0.008 seconds.
+✔ Suite StockCIEffectKernelTests passed after 0.008 seconds.
+✔ Test run with 7 tests in 2 suites passed after 0.198 seconds.

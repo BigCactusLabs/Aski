@@ -1,0 +1,27 @@
+source_commit=bc0e31feb3e45e6ff03c26619ee0b9bdafc4e359
+source_snapshot=git_archive
+source_dirty=false
+wrapper_argv= Scripts/research/aski108-2026-11-14/capture.sh $REPO/docs/Research/Results/2026-11-14-aski108-near-white
+build_argv= xcrun swift build --package-path $CAPTURE/Inspection --scratch-path $CAPTURE/build -c release --product Inspect
+run_argv= $CAPTURE/build/release/Inspect $CAPTURE/Aski/docs/Research/Corpus/nasa-occupancy-v1/assets $REPO/docs/Research/Results/2026-11-14-aski108-near-white
+capture_started=2026-11-14T20:41:28Z
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+arm64
+DEVELOPER_DIR=
+$DEVELOPER_DIR
+Xcode 27.0
+Build version 27A266a
+Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)
+Target: arm64-apple-macosx27.0.0
+40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513  Package.swift
+fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46  Package.resolved
+4766de000784a0e11446e553ee288d49ae9a40a27136f8e74e0b20ebeea332de  Scripts/research/aski108-2026-11-14/Inspect.swift
+cf38ab0dc51cc5b67880b97df4b1ca5db68f904873e9d501b7f5887d8126e03a  Scripts/research/aski108-2026-11-14/capture.sh
+14189692177d80a02080a102a178ef439a3b6f70bbf7027df5025b3617b3f68f  Scripts/research/aski108-2026-11-14/PROTOCOL.md
+a87384ab1aa6fbc5bed9ceffe0d131d7c6f3d7c0f658e1af04ccb41c8ddb0598  rcs-function-diagram.jpg
+b0af9c215ac3997e2c4ae8ed3850396aa35fbd061bcb1a4290966dcc3a296680  spacecraft-attitude-diagram.jpg
+61ccc841522ec29af64226979de3da1fbe96b995aa102e43491e2c283404d428  james-lovell-portrait.jpg
+temporary_manifest_sha256=2060be1d9ce2554c22594d87c969eaea5e0ff286b8e7a579e5d1c17687d0bd09
+35ae6edd41631cef2e10f2335c87825509ed0985fec9f18279ef2ecf6eeb0bfb  Package.resolved

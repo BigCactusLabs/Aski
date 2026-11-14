@@ -1592,6 +1592,30 @@
       ],
       "summary" : "ASKI-1 closes NO HARM. ASKI-1 replaces the PNG encode and CGImageSource thumbnail that a decoded CGImage went through before conversion with one vImage Lanczos resample straight to the sampling lattice. A probe against the exact area average of each lattice pixel's source footprint chose Lanczos over CoreGraphics high and medium draws. Because the change moves the frozen-preset golden, this note pre-registered the ASKI-31 selection-ceiling reading rule before any census number was read (MAE-gated at a 1.01 no-harm guard on the frozen preset on both naturals corpora, GMSD reported and non-gating), then ran the census at 954a1c5 and at the implementation commit 05af50c. Frozen-preset production-arm MAE moves by x1.0000 on nasa-steerable-v1 and x0.9991 on nasa-structure-v1; every secondary arm stays within 0.1 percent of parity. GMSD rises 0.09 percent on nasa-structure-v1, a labelled direction disagreement. The frozen preset's production arm uses one to three glyphs, so the dense charsets are the sensitive cross-check, and they move by at most +0.09 percent MAE.",
       "title" : "ASKI-1 — direct CGImage preparation: resampler choice and selection-ceiling no-harm census"
+    },
+    {
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-14",
+      "next_action" : "If pursued, evaluate the frozen lab arm below before proposing any shipping change. Keep near-white regions as ground.",
+      "path" : "docs/Research/2026-11-14-aski108-near-white-inspection.md",
+      "related_specs" : [
+
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-14-aski108-near-white-inspection",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "A visible cutoff is supported in the Lovell portrait sky under the frozen Vesper preset. The two line diagrams do not establish a gradient cliff. Native render pairs, exact zero-query boundaries and a passing diagnostic are retained. Shipping behavior is unchanged; a separate lab-only opacity-taper arm is specified for future evaluation.",
+      "title" : "ASKI-108 — near-white boundary inspection"
     }
   ],
   "results" : [
@@ -2182,6 +2206,84 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "ASKI-1 no-harm census across the direct CGImage preparation change. Production-arm MAE on the frozen preset (blocks, 76 columns, oversample 2) moves by x1.0000 on nasa-steerable-v1 and x0.9991 on nasa-structure-v1, inside the pre-registered 1.01 guard; GMSD x1.0000 and x1.0009 (a labelled direction disagreement on nasa-structure-v1). Every secondary arm stays within 0.1 percent of parity. Verdict: docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md."
+    },
+    {
+      "aski_git_sha" : "bc0e31feb3e45e6ff03c26619ee0b9bdafc4e359",
+      "command" : "bash Scripts/research/aski108-2026-11-14/capture.sh <new-absolute-output-directory>",
+      "datasets" : [
+        "docs/Research/Corpus/nasa-occupancy-v1"
+      ],
+      "date" : "2026-11-14",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "README.md",
+        "SHA256SUMS",
+        "build.log",
+        "diagnostic-ramp-canonical.png",
+        "diagnostic-ramp-edges.csv",
+        "diagnostic-ramp-mask.png",
+        "diagnostic-ramp-source.png",
+        "inspection.txt",
+        "james-lovell-portrait-canonical.png",
+        "james-lovell-portrait-edges.csv",
+        "james-lovell-portrait-mask.png",
+        "james-lovell-portrait-source.jpg",
+        "normalization.json",
+        "provenance.txt",
+        "rcs-function-diagram-canonical.png",
+        "rcs-function-diagram-edges.csv",
+        "rcs-function-diagram-mask.png",
+        "rcs-function-diagram-source.jpg",
+        "spacecraft-attitude-diagram-canonical.png",
+        "spacecraft-attitude-diagram-edges.csv",
+        "spacecraft-attitude-diagram-mask.png",
+        "spacecraft-attitude-diagram-source.jpg"
+      ],
+      "path" : "docs/Research/Results/2026-11-14-aski108-near-white",
+      "provenance" : [
+        "Protocol and instrument frozen at aski_git_sha before capture; release build from git archive",
+        "Native macOS 27.0.1, Xcode 27.0, Swift 6.4 arm64; capture exit 0",
+        "All four canonical PNGs and pixel layouts/provider bytes match independent SPI grid renders",
+        "Raw capture archived before path normalization; image and CSV bytes unchanged"
+      ],
+      "schema_version" : "1",
+      "summary" : "Visible portrait-sky cutoff supported by scoped visual inspection and exact query boundaries; no supported gradient cliff in the two hard-line diagrams. Future lab arm proposed, not implemented."
+    },
+    {
+      "aski_git_sha" : "4f4e6b1e0fc2a1e17b2730228347d44d4853ef96",
+      "command" : "Native Swift Testing regression and effect/composition snapshots; commands in the batch validation record",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-14",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "validation.json",
+        "README.md",
+        "after.log",
+        "after/compositionSnapshot-name.perCharacter-aberration-on.png",
+        "after/effectSnapshot-name-effect.chromaticAberration-default.png",
+        "after/effectSnapshot-name-effect.chromaticAberration-extreme.png",
+        "before-render.log",
+        "before/compositionSnapshot-name.perCharacter-aberration-on.png",
+        "before/effectSnapshot-name-effect.chromaticAberration-default.png",
+        "before/effectSnapshot-name-effect.chromaticAberration-extreme.png",
+        "provenance.json",
+        "snapshot-native.log",
+        "snapshot-record.log"
+      ],
+      "path" : "docs/Research/Results/2026-11-14-aski110-channel-alpha",
+      "provenance" : [
+        "Original source at aski_git_sha; corrected uncommitted source and tests identified by provenance.json SHA-256",
+        "Native macOS developer hardware; sRGB and Display P3 uniform and glyph-interior assertions",
+        "Logs normalize host paths; raw hashes and exact snapshot hashes are retained in provenance.json"
+      ],
+      "schema_version" : "1",
+      "summary" : "Reproduced and corrected channel-sum brightening and alpha loss; exactly three effect snapshots updated. No frozen-preset change."
     }
   ]
 }

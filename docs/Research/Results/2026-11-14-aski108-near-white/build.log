@@ -1,0 +1,74 @@
+Fetching https://github.com/apple/swift-argument-parser.git from cache
+Fetching https://github.com/pointfreeco/xctest-dynamic-overlay from cache
+Fetching https://github.com/apple/swift-atomics.git from cache
+Fetching https://github.com/HdrHistogram/hdrhistogram-swift.git from cache
+Fetching https://github.com/apple/swift-numerics from cache
+Fetching https://github.com/ordo-one/package-benchmark from cache
+Fetching https://github.com/swiftlang/swift-syntax from cache
+Fetching https://github.com/apple/swift-system.git from cache
+Fetching https://github.com/x-sheep/swift-property-based.git from cache
+Fetching https://github.com/pointfreeco/swift-custom-dump from cache
+Fetched https://github.com/apple/swift-atomics.git from cache (0.49s)
+Fetched https://github.com/ordo-one/package-benchmark from cache (0.49s)
+Fetched https://github.com/apple/swift-system.git from cache (0.52s)
+Fetching https://github.com/ordo-one/TextTable.git from cache
+Fetching https://github.com/ordo-one/malloc-interposer.git from cache
+Fetching https://github.com/pointfreeco/swift-snapshot-testing from cache
+Fetched https://github.com/HdrHistogram/hdrhistogram-swift.git from cache (1.17s)
+Fetched https://github.com/pointfreeco/xctest-dynamic-overlay from cache (1.17s)
+Fetched https://github.com/pointfreeco/swift-custom-dump from cache (1.18s)
+Fetched https://github.com/x-sheep/swift-property-based.git from cache (1.18s)
+Fetched https://github.com/apple/swift-numerics from cache (1.23s)
+warning: 'swift-syntax': skipping cache due to an error: The file “maintenance.lock” doesn’t exist.
+Fetched https://github.com/apple/swift-argument-parser.git from cache (1.28s)
+Computing version for https://github.com/apple/swift-argument-parser
+Fetched https://github.com/ordo-one/TextTable.git from cache (0.72s)
+Fetched https://github.com/ordo-one/malloc-interposer.git from cache (0.73s)
+Fetched https://github.com/pointfreeco/swift-snapshot-testing from cache (0.76s)
+Computed https://github.com/apple/swift-argument-parser at 1.8.2 (1.72s)
+[1/82158] Fetching swift-syntax
+Creating working copy for https://github.com/apple/swift-argument-parser.git
+Working copy of https://github.com/apple/swift-argument-parser.git resolved at 1.8.2
+Building for production...
+[Planning deferred tasks]
+[34 / 46] Aski_Aski
+Fetched https://github.com/swiftlang/swift-syntax (5.44s)
+[34 / 46]
+[35 / 47] Aski
+[46 / 121]
+[47 / 121]
+[49 / 121]
+[57 / 121]
+[58 / 121]
+[60 / 121]
+[61 / 121]
+[65 / 121]
+[67 / 121]
+[68 / 121]
+[71 / 121]
+[77 / 121]
+[80 / 121]
+[82 / 121]
+[83 / 121]
+[94 / 121]
+[97 / 121]
+[98 / 121]
+[103 / 121]
+[108 / 121]
+[109 / 121]
+$CAPTURE/Aski/Sources/Aski/Effects/Internal/MetalSupport.swift:36:33: warning: 'withValue(_:operation:isolation:file:line:)' is deprecated: Prefer the 'nonisolated(nonsending)' overload with stricter execution on caller context semantics: withValue(_:operation:file:line:) [#DeprecatedDeclaration]
+34 | 
+35 |     static func withTestOverride<T>(_ value: Bool?, _ body: () async throws -> T) async rethrows -> T {
+36 |         try await $testOverride.withValue(value, operation: body)
+   |                                 `- warning: 'withValue(_:operation:isolation:file:line:)' is deprecated: Prefer the 'nonisolated(nonsending)' overload with stricter execution on caller context semantics: withValue(_:operation:file:line:) [#DeprecatedDeclaration]
+37 |     }
+38 | 
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[110 / 121] Aski
+[117 / 122] Inspect-product
+[119 / 124]
+[120 / 124] Inspect-product
+[122 / 124] Inspect-product
+[123 / 124] Inspect-product
+Build complete! (23.29 sec)

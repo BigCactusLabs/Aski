@@ -1,0 +1,77 @@
+{
+  "base": "4f4e6b1e0fc2a1e17b2730228347d44d4853ef96",
+  "source_sha256": {
+    "Sources/Aski/Effects/Internal/StockCIEffectKernel.swift": "5b97f6d4eb210bce60997f29da6db8ca4365cba867dff732921957ec0abe97f8",
+    "Tests/AskiTests/EffectChannelAlphaTests.swift": "921a3fcf7ac559188086082d8161b583c8c39e9cf5bb6e603ddc7ee43e106b98"
+  },
+  "snapshots": {
+    "Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-extreme.png": {
+      "before": {
+        "sha256": "d566ff541344ae8b52282080fbdae10610e53a7affa0373e2573b4aa8d92695d",
+        "bytes": 3877
+      },
+      "after": {
+        "sha256": "12a7a980c06c759268a8b4b09d68923c0825367be5923ffe9cee3e0eb427fbb8",
+        "bytes": 3819
+      }
+    },
+    "Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-default.png": {
+      "before": {
+        "sha256": "77c73a2c8beb14a07fa50a3db43b11ec499303c70c4c007ccebc4d1b2c1fbd60",
+        "bytes": 3431
+      },
+      "after": {
+        "sha256": "465bd601008f0fd96eb43529842112c098b9a7485070d353e903d83bb0b9b83b",
+        "bytes": 3513
+      }
+    },
+    "Tests/AskiTests/__Snapshots__/CompositionTests/compositionSnapshot-name.perCharacter-aberration-on.png": {
+      "before": {
+        "sha256": "8ddcfc798b3cadc5c48face3efdff95cbb9c9d27f9c07c29d974c77291a4e5f0",
+        "bytes": 64661
+      },
+      "after": {
+        "sha256": "b0fc667b10c1cfe52306710fc87561eb9298ad8c005c1149f1ac0dce8380667c",
+        "bytes": 60176
+      }
+    }
+  },
+  "logs": {
+    "before-render": {
+      "native_sha256": "6d669698693e43fed2884d1b3b9719d9767d2da66ef52a4dcf921cd61433821e",
+      "public_sha256": "3f60f50a4f92dded36d191cc5af9bbe19912c8952cb46d235cc8faa9f8a309f9"
+    },
+    "after": {
+      "native_sha256": "d5a7a7c3cc01a9c24baa3e74e75b644cfb72ae0ba279daeb206e6aa53aeee57d",
+      "public_sha256": "1dfc47e82a459030c1f69c7b54327d4c6abd28cda13a72e305beb1feeb631133"
+    },
+    "snapshot-native": {
+      "native_sha256": "b0d3d0d5094f81da568b1550691218122d980f58df372e46f44253f2cafbf6f2",
+      "public_sha256": "8e0c0590fc4c9b7f5c68790ea1b26bc2f7a135933c4eacaae7fb5e1247f8e5d3"
+    },
+    "snapshot-record": {
+      "native_sha256": "3ba9ceca3822b0f1c8ca0fa4d91fa2f035406c3e55ed9e8696cccdec08500ed6",
+      "public_sha256": "8fe1d88e4e2aca7593c55b5e0f9dba53b86cabce42fcba938072b1aa089b81d8"
+    }
+  },
+  "original_failure_exit": 1,
+  "scoped_success_exit": 0,
+  "scoped_tests": 7,
+  "snapshot_comparison": {
+    "exit": 1,
+    "expected_changes": 3,
+    "existing_metal_smoke": "passed"
+  },
+  "recording": {
+    "exit": 1,
+    "reason": "SnapshotTesting record=failed intentionally records and reports the three mismatches."
+  },
+  "limits": [
+    "Half-alpha and opaque uniform inputs tested in sRGB and Display P3; shifted-edge behavior tested in the stock fallback.",
+    "Corrected pixel assertions pass within one 8-bit count; logs do not print exact corrected bytes.",
+    "Metal implementation unchanged; no cross-backend pixel parity claim.",
+    "Earlier sandbox attempts failed before trustworthy rendering and are excluded from pixel evidence.",
+    "Full combined native gate recorded separately after final integration."
+  ],
+  "validation": "validation.json"
+}

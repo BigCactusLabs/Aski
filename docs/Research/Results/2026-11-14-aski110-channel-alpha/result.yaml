@@ -1,0 +1,25 @@
+---
+schema_version: "1"
+date: 2026-11-14
+aski_git_sha: 4f4e6b1e0fc2a1e17b2730228347d44d4853ef96
+command: "Native Swift Testing regression and effect/composition snapshots; commands in the batch validation record"
+provenance:
+  - "Original source at aski_git_sha; corrected uncommitted source and tests identified by provenance.json SHA-256"
+  - "Native macOS developer hardware; sRGB and Display P3 uniform and glyph-interior assertions"
+  - "Logs normalize host paths; raw hashes and exact snapshot hashes are retained in provenance.json"
+outputs:
+  - validation.json
+  - README.md
+  - after.log
+  - after/compositionSnapshot-name.perCharacter-aberration-on.png
+  - after/effectSnapshot-name-effect.chromaticAberration-default.png
+  - after/effectSnapshot-name-effect.chromaticAberration-extreme.png
+  - before-render.log
+  - before/compositionSnapshot-name.perCharacter-aberration-on.png
+  - before/effectSnapshot-name-effect.chromaticAberration-default.png
+  - before/effectSnapshot-name-effect.chromaticAberration-extreme.png
+  - provenance.json
+  - snapshot-native.log
+  - snapshot-record.log
+summary: "Reproduced and corrected channel-sum brightening and alpha loss; exactly three effect snapshots updated. No frozen-preset change."
+---
