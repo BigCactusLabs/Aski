@@ -2182,6 +2182,40 @@
       "runner" : "AskiColorLab",
       "schema_version" : "1",
       "summary" : "ASKI-1 no-harm census across the direct CGImage preparation change. Production-arm MAE on the frozen preset (blocks, 76 columns, oversample 2) moves by x1.0000 on nasa-steerable-v1 and x0.9991 on nasa-structure-v1, inside the pre-registered 1.01 guard; GMSD x1.0000 and x1.0009 (a labelled direction disagreement on nasa-structure-v1). Every secondary arm stays within 0.1 percent of parity. Verdict: docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md."
+    },
+    {
+      "aski_git_sha" : "4f4e6b1e0fc2a1e17b2730228347d44d4853ef96",
+      "command" : "Native Swift Testing regression and effect/composition snapshots; commands in the batch validation record",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-14",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "validation.json",
+        "README.md",
+        "after.log",
+        "after/compositionSnapshot-name.perCharacter-aberration-on.png",
+        "after/effectSnapshot-name-effect.chromaticAberration-default.png",
+        "after/effectSnapshot-name-effect.chromaticAberration-extreme.png",
+        "before-render.log",
+        "before/compositionSnapshot-name.perCharacter-aberration-on.png",
+        "before/effectSnapshot-name-effect.chromaticAberration-default.png",
+        "before/effectSnapshot-name-effect.chromaticAberration-extreme.png",
+        "provenance.json",
+        "snapshot-native.log",
+        "snapshot-record.log"
+      ],
+      "path" : "docs/Research/Results/2026-11-14-aski110-channel-alpha",
+      "provenance" : [
+        "Original source at aski_git_sha; corrected uncommitted source and tests identified by provenance.json SHA-256",
+        "Native macOS developer hardware; sRGB and Display P3 uniform and glyph-interior assertions",
+        "Logs normalize host paths; raw hashes and exact snapshot hashes are retained in provenance.json"
+      ],
+      "schema_version" : "1",
+      "summary" : "Reproduced and corrected channel-sum brightening and alpha loss; exactly three effect snapshots updated. No frozen-preset change."
     }
   ]
 }

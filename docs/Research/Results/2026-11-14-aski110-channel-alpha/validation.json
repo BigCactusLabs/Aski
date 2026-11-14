@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "just",
+    "check"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-14T20:34:26.049342+00:00",
+  "finished_at": "2026-11-14T20:39:20.080417+00:00",
+  "log_sha256": "fcfa254c14a76220b91ef29e56c6a7bf14e7c739b5164350cc91de5cef5c7b88",
+  "tested_base": "4f4e6b1e0fc2a1e17b2730228347d44d4853ef96",
+  "source_sha256": {
+    "Sources/Aski/Effects/Internal/StockCIEffectKernel.swift": "5b97f6d4eb210bce60997f29da6db8ca4365cba867dff732921957ec0abe97f8",
+    "Tests/AskiTests/EffectChannelAlphaTests.swift": "921a3fcf7ac559188086082d8161b583c8c39e9cf5bb6e603ddc7ee43e106b98"
+  },
+  "snapshot_sha256": {
+    "Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-extreme.png": "12a7a980c06c759268a8b4b09d68923c0825367be5923ffe9cee3e0eb427fbb8",
+    "Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-default.png": "465bd601008f0fd96eb43529842112c098b9a7485070d353e903d83bb0b9b83b",
+    "Tests/AskiTests/__Snapshots__/CompositionTests/compositionSnapshot-name.perCharacter-aberration-on.png": "b0fc667b10c1cfe52306710fc87561eb9298ad8c005c1149f1ac0dce8380667c"
+  },
+  "test_phases": [
+    [
+      "1554 tests in 238 suites",
+      "159.257"
+    ],
+    [
+      "178 tests in 43 suites",
+      "13.208"
+    ],
+    [
+      "2 tests in 2 suites",
+      "1.713"
+    ]
+  ]
+}

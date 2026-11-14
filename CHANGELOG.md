@@ -19,6 +19,13 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Chromatic aberration and the stock RGB-split fallback preserve source alpha (ASKI-110).**
+  The shifted channels no longer add three copies of alpha. Uniform colors keep
+  their brightness, translucent glyphs stay translucent, and color fringes stay
+  inside source coverage. Existing renders can appear less bright. No API changes
+  are required. Before/after evidence:
+  `docs/Research/Results/2026-11-14-aski110-channel-alpha/README.md`.
+
 - **Benchmark allocation profiling rejects unreadable foreign pointers (ASKI-92).**
   The Darwin allocator classifier checks native header ownership before reading
   its prefix. Native pointer, count and lifecycle regressions pass, and the

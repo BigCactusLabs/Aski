@@ -1,0 +1,105 @@
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CompositionSnapshotTests started.
+◇ Test compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-transparent" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-solid-red" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-original-fill" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-blurred-fill" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-sizing-fill" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-sizing-fit" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "background-sizing-stretch" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-normal" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-overlay" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-screen" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-multiply" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-plusLighter" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "blend-xor" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "overlay-multiply" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "overlay-color" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "overlay-hue" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "overlay-plusDarker" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "overlay-copy" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "perCharacter-bloom-off" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "perCharacter-bloom-on" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "perCharacter-aberration-off" to compositionSnapshot(name:) started.
+◇ Test case passing 1 argument name → "perCharacter-aberration-on" to compositionSnapshot(name:) started.
+✘ Test compositionSnapshot(name:) recorded an issue with 1 argument name → "perCharacter-aberration-on" at CompositionTests.swift:478:23: Issue recorded
+↳ Snapshot "perCharacter-aberration-on" does not match reference. A new snapshot was automatically recorded.
+  
+  @−
+  "file://$REPO/Tests/AskiTests/__Snapshots__/CompositionTests/compositionSnapshot-name.perCharacter-aberration-on.png"
+  @+
+  "file://$TMPDIR/CompositionTests/compositionSnapshot-name.perCharacter-aberration-on.png"
+  
+  To configure output for a custom diff tool, use 'withSnapshotTesting'. For example:
+  
+      withSnapshotTesting(diffTool: .ksdiff) {
+        // ...
+      }
+  
+  Newly-taken snapshot does not match reference.
+✘ Test compositionSnapshot(name:) with 22 test cases failed after 0.328 seconds with 1 issue.
+✘ Suite CompositionSnapshotTests failed after 0.328 seconds with 1 issue.
+◇ Suite EffectKernelSnapshotTests started.
+◇ Test effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "vignette-default", effect → .vignette(intensity: 0.5) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "vignette-extreme", effect → .vignette(intensity: 1.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "bloom-default", effect → .bloom(intensity: 0.4, radius: 6.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "bloom-extreme", effect → .bloom(intensity: 1.0, radius: 14.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "chromaticAberration-default", effect → .chromaticAberration(intensity: 0.5) to effectSnapshot(name:effect:) started.
+✘ Test effectSnapshot(name:effect:) recorded an issue with 2 arguments name → "chromaticAberration-default", effect → .chromaticAberration(intensity: 0.5) at EffectKernelTests.swift:635:23: Issue recorded
+↳ Snapshot "chromaticAberration-default" does not match reference. A new snapshot was automatically recorded.
+  
+  @−
+  "file://$REPO/Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-default.png"
+  @+
+  "file://$TMPDIR/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-default.png"
+  
+  To configure output for a custom diff tool, use 'withSnapshotTesting'. For example:
+  
+      withSnapshotTesting(diffTool: .ksdiff) {
+        // ...
+      }
+  
+  Newly-taken snapshot does not match reference.
+◇ Test case passing 2 arguments name → "chromaticAberration-extreme", effect → .chromaticAberration(intensity: 1.0) to effectSnapshot(name:effect:) started.
+✘ Test effectSnapshot(name:effect:) recorded an issue with 2 arguments name → "chromaticAberration-extreme", effect → .chromaticAberration(intensity: 1.0) at EffectKernelTests.swift:635:23: Issue recorded
+↳ Snapshot "chromaticAberration-extreme" does not match reference. A new snapshot was automatically recorded.
+  
+  @−
+  "file://$REPO/Tests/AskiTests/__Snapshots__/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-extreme.png"
+  @+
+  "file://$TMPDIR/EffectKernelTests/effectSnapshot-name-effect.chromaticAberration-extreme.png"
+  
+  To configure output for a custom diff tool, use 'withSnapshotTesting'. For example:
+  
+      withSnapshotTesting(diffTool: .ksdiff) {
+        // ...
+      }
+  
+  Newly-taken snapshot does not match reference.
+◇ Test case passing 2 arguments name → "blur-default", effect → .blur(radius: 2.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "blur-extreme", effect → .blur(radius: 8.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "pixelate-default", effect → .pixelate(scale: 4.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "pixelate-extreme", effect → .pixelate(scale: 10.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "scanLines-default", effect → .scanLines(intensity: 0.5, frequency: 4.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "scanLines-extreme", effect → .scanLines(intensity: 1.0, frequency: 8.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "crtCurvature-default", effect → .crtCurvature(intensity: 0.5) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "crtCurvature-extreme", effect → .crtCurvature(intensity: 1.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "halftone-default", effect → .halftone(scale: 6.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "halftone-extreme", effect → .halftone(scale: 12.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "filmDust-default", effect → .filmDust(intensity: 0.5, seed: 42) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "filmDust-extreme", effect → .filmDust(intensity: 1.0, seed: 42) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "glitch-default", effect → .glitch(intensity: 0.5, seed: 42) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "glitch-extreme", effect → .glitch(intensity: 1.0, seed: 42) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "rgbSplit-default", effect → .rgbSplit(intensity: 0.5) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "rgbSplit-extreme", effect → .rgbSplit(intensity: 1.0) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "filmGrain-default", effect → .filmGrain(intensity: 0.4, seed: 42) to effectSnapshot(name:effect:) started.
+◇ Test case passing 2 arguments name → "filmGrain-extreme", effect → .filmGrain(intensity: 1.0, seed: 42) to effectSnapshot(name:effect:) started.
+✘ Test effectSnapshot(name:effect:) with 24 test cases failed after 0.172 seconds with 2 issues.
+✘ Suite EffectKernelSnapshotTests failed after 0.172 seconds with 2 issues.
+✘ Test run with 2 tests in 2 suites failed after 0.501 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - AskiTests (Swift Testing)

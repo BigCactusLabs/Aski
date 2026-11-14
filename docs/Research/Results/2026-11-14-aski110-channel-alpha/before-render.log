@@ -1,0 +1,116 @@
+warning: 'aski': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    $REPO/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md
+    $REPO/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 1559]
+[Planning deferred tasks]
+[1 / 3]
+[4 / 5] ArgumentParser
+[8 / 9] Aski
+[9 / 10] Aski
+[14 / 16] SystemPackage
+[17 / 18] BenchmarkBoilerplateGenerator-product
+[22 / 24] MallocInterposerSwift
+[24 / 26] MallocInterposerSwift
+[29 / 31] RealModule
+[35 / 37] Histogram
+[37 / 39] Benchmark
+[41 / 43] Benchmark
+[53 / 54] AskiBenchmarks-product
+[56 / 57] AskiBenchmarks-product
+[58 / 60] AskiBenchmarks-product
+[69 / 121] BuildKernelLibrary-product
+[79 / 122] BuildResearchIndex-product
+[81 / 120] PropertyBased
+[88 / 122] SnapshotTesting
+[91 / 126]
+[93 / 126] AskiToolSupport
+[105 / 153]
+[106 / 153] PropertyBased
+[108 / 152] AskiDemo-product
+[114 / 149] AskiDecolorLab
+[117 / 151] AskiHDRLab
+[131 / 161] AskiHDRLab
+[134 / 164] AskiDecolorLab-product
+[139 / 166] AskiAccessLab-product
+[147 / 162] AskiMotionLab-product
+[149 / 161] AskiColorLab
+[154 / 166] AskiColorLab-product
+[158 / 166] AskiCLI
+[164 / 172] aski-product
+[166 / 171] AskiTests-product
+[169 / 179] AskiTests-product
+[170 / 179]
+[174 / 179]
+[175 / 179] AskiTests-product
+Build complete! (35.43 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite EffectChannelAlphaTests started.
+◇ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 1.0 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+✘ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .sRGB, alpha → 1.0 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [255, 178, 81, 255], expected [153, 102, 51, 255]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 0.5 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+✘ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .sRGB, alpha → 0.5 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [137, 89, 41, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 1.0 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+✘ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .displayP3, alpha → 1.0 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [255, 178, 81, 255], expected [153, 102, 51, 255]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 0.5 to chromaticAberrationPreservesUniformColor(gamut:alpha:) started.
+✘ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .displayP3, alpha → 0.5 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [137, 89, 41, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test chromaticAberrationPreservesUniformColor(gamut:alpha:) with 4 test cases failed after 0.122 seconds with 4 issues.
+◇ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 1.0 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+✘ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .sRGB, alpha → 1.0 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [255, 178, 81, 255], expected [153, 102, 51, 255]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .sRGB, alpha → 0.5 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+✘ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .sRGB, alpha → 0.5 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [137, 89, 41, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 1.0 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+✘ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .displayP3, alpha → 1.0 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [255, 178, 81, 255], expected [153, 102, 51, 255]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 2 arguments gamut → .displayP3, alpha → 0.5 to rgbSplitFallbackPreservesUniformColor(gamut:alpha:) started.
+✘ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) recorded an issue with 2 arguments gamut → .displayP3, alpha → 0.5 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [137, 89, 41, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test rgbSplitFallbackPreservesUniformColor(gamut:alpha:) with 4 test cases failed after 0.029 seconds with 4 issues.
+◇ Test perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+◇ Test case passing 1 argument gamut → .sRGB to perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+✘ Test perCharacterAberrationPreservesGlyphInterior(gamut:) recorded an issue with 1 argument gamut → .sRGB at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [112, 73, 35, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+◇ Test case passing 1 argument gamut → .displayP3 to perCharacterAberrationPreservesGlyphInterior(gamut:) started.
+✘ Test perCharacterAberrationPreservesGlyphInterior(gamut:) recorded an issue with 1 argument gamut → .displayP3 at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [112, 73, 35, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test perCharacterAberrationPreservesGlyphInterior(gamut:) with 2 test cases failed after 0.004 seconds with 2 issues.
+◇ Test zeroIntensityKeepsTheInput() started.
+✘ Test zeroIntensityKeepsTheInput() recorded an issue at EffectChannelAlphaTests.swift:56:9: Expectation failed: try pixel(aberration, at: sample) == pixel(control, at: sample)
+↳ try pixel(aberration, at: sample) == pixel(control, at: sample) → <not evaluated>
+✘ Test zeroIntensityKeepsTheInput() recorded an issue at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [137, 89, 41, 255], expected [77, 51, 26, 128]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test zeroIntensityKeepsTheInput() failed after 0.008 seconds with 2 issues.
+◇ Test shiftedChannelsKeepLocalCoverage() started.
+✘ Test shiftedChannelsKeepLocalCoverage() recorded an issue at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [255, 0, 0, 255], expected [0, 0, 0, 0]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test shiftedChannelsKeepLocalCoverage() recorded an issue at EffectChannelAlphaTests.swift:118:9: Expectation failed: zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 }
+↳ actual [0, 0, 255, 255], expected [0, 0, 0, 0]
+↳ zip(actual, expected).allSatisfy { abs($0 - $1) <= 1 } → <not evaluated>
+✘ Test shiftedChannelsKeepLocalCoverage() failed after 0.006 seconds with 2 issues.
+✘ Suite EffectChannelAlphaTests failed after 0.171 seconds with 14 issues.
+✘ Test run with 5 tests in 1 suite failed after 0.171 seconds with 14 issues.
+Note: Some test targets reported failures:
+  - AskiTests (Swift Testing)

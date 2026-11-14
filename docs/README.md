@@ -38,6 +38,7 @@ describe intended assets; do not assume a hosted API site.
 | Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
 | Research findings, decisions, and retractions | [Research index](Research/README.md) |
 | Color-interpretation correction and its frozen-selection guard | [ASKI-3 protocol](Research/2026-11-05-aski3-color-semantics.md) |
+| Inspect the channel-split alpha and brightness correction | [ASKI-110 native render evidence](Research/Results/2026-11-14-aski110-channel-alpha/README.md) |
 | Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
 | Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
 | Compare repeated performance candidates or inspect early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract and measured result](../Scripts/research/video-frame-selection.md), [ASKI-93 reproducer](../Scripts/research/aski93-2026-11-12/reproduce.py) |

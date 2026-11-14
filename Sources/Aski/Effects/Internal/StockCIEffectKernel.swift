@@ -64,7 +64,8 @@ internal struct StockCIEffectKernel: EffectKernel {
         case .bloom(let intensity, let radius):
             return applyBloom(to: image, intensity: intensity, radius: radius, in: context)
         case .chromaticAberration(let intensity):
-            return applyChromaticAberration(to: image, intensity: intensity, in: context)
+            guard intensity > 0 else { return image }
+            return applyChannelSplit(to: image, intensity: intensity, in: context)
         case .blur(let radius):
             return applyBlur(to: image, radius: radius, in: context)
         case .pixelate(let scale):
@@ -87,7 +88,7 @@ internal struct StockCIEffectKernel: EffectKernel {
         case .glitchApprox(let intensity, let seed):
             return applyGlitchApprox(to: image, intensity: intensity, seed: seed, in: context)
         case .rgbSplitApprox(let intensity):
-            return applyRGBSplitApprox(to: image, intensity: intensity, in: context)
+            return applyChannelSplit(to: image, intensity: intensity, in: context)
         case .filmGrainApprox(let intensity, let seed):
             return applyFilmGrainApprox(to: image, intensity: intensity, seed: seed, in: context)
         }
@@ -118,19 +119,28 @@ internal struct StockCIEffectKernel: EffectKernel {
         return (filter.outputImage ?? image).cropped(to: context.outputExtent)
     }
 
-    private func applyChromaticAberration(to image: CIImage, intensity: Double, in context: EffectContext) -> CIImage {
-        guard intensity > 0 else { return image }
-        let extent = context.outputExtent
+    private func applyChannelSplit(to image: CIImage, intensity: Double, in context: EffectContext) -> CIImage {
         let shift = CGFloat(intensity) * 4
+        guard shift.isFinite, shift != 0 else { return image }
+        let extent = context.outputExtent
 
-        let red = redOnly(image)
+        let red = opaqueChannel(image, r: CIVector(x: 1, y: 0, z: 0, w: 0), g: .zero4, b: .zero4)
             .transformed(by: .init(translationX: -shift, y: 0))
-        let green = greenOnly(image)
-        let blue = blueOnly(image)
+        let green = opaqueChannel(image, r: .zero4, g: CIVector(x: 0, y: 1, z: 0, w: 0), b: .zero4)
+        let blue = opaqueChannel(image, r: .zero4, g: .zero4, b: CIVector(x: 0, y: 0, z: 1, w: 0))
             .transformed(by: .init(translationX: shift, y: 0))
 
+        // Discard the summed alpha without changing RGB, then premultiply once
+        // with the unshifted input's alpha. Color shifts stay inside its coverage.
         let redGreen = additive(red, with: green, extent: extent)
-        return additive(redGreen, with: blue, extent: extent)
+        let combined = additive(redGreen, with: blue, extent: extent).settingAlphaOne(in: extent)
+        return combined.applyingFilter(
+            "CIBlendWithAlphaMask",
+            parameters: [
+                kCIInputBackgroundImageKey: CIImage(color: .clear).cropped(to: extent),
+                kCIInputMaskImageKey: image,
+            ]
+        ).cropped(to: extent)
     }
 
     private func applyBlur(to image: CIImage, radius: Double, in context: EffectContext) -> CIImage {
@@ -236,18 +246,6 @@ internal struct StockCIEffectKernel: EffectKernel {
         return shifted.cropped(to: context.outputExtent)
     }
 
-    private func applyRGBSplitApprox(to image: CIImage, intensity: Double, in context: EffectContext) -> CIImage {
-        let shift = CGFloat(intensity) * 4.0
-        let extent = context.outputExtent
-        let red = channelMatrix(image, r: CIVector(x: 1, y: 0, z: 0, w: 0), g: .zero4, b: .zero4)
-            .transformed(by: .init(translationX: -shift, y: 0))
-        let green = channelMatrix(image, r: .zero4, g: CIVector(x: 0, y: 1, z: 0, w: 0), b: .zero4)
-        let blue = channelMatrix(image, r: .zero4, g: .zero4, b: CIVector(x: 0, y: 0, z: 1, w: 0))
-            .transformed(by: .init(translationX: shift, y: 0))
-        let redGreen = additive(red, with: green, extent: extent)
-        return additive(redGreen, with: blue, extent: extent)
-    }
-
     private func applyFilmGrainApprox(to image: CIImage, intensity: Double, seed: UInt64, in context: EffectContext) -> CIImage {
         let extent = context.outputExtent
         let noise = seededNoise(extent: extent, seed: seed)
@@ -316,26 +314,19 @@ internal struct StockCIEffectKernel: EffectKernel {
         return UInt8(truncatingIfNeeded: value >> 56)
     }
 
-    private func redOnly(_ image: CIImage) -> CIImage {
-        channelMatrix(image, r: CIVector(x: 1, y: 0, z: 0, w: 0), g: .zero4, b: .zero4)
-    }
-
-    private func greenOnly(_ image: CIImage) -> CIImage {
-        channelMatrix(image, r: .zero4, g: CIVector(x: 0, y: 1, z: 0, w: 0), b: .zero4)
-    }
-
-    private func blueOnly(_ image: CIImage) -> CIImage {
-        channelMatrix(image, r: .zero4, g: .zero4, b: CIVector(x: 0, y: 0, z: 1, w: 0))
-    }
-
-    private func channelMatrix(_ image: CIImage, r: CIVector, g: CIVector, b: CIVector) -> CIImage {
-        let filter = CIFilter(name: "CIColorMatrix")!
-        filter.setValue(image, forKey: kCIInputImageKey)
-        filter.setValue(r, forKey: "inputRVector")
-        filter.setValue(g, forKey: "inputGVector")
-        filter.setValue(b, forKey: "inputBVector")
-        filter.setValue(CIVector(x: 0, y: 0, z: 0, w: 1), forKey: "inputAVector")
-        return filter.outputImage ?? image
+    private func opaqueChannel(_ image: CIImage, r: CIVector, g: CIVector, b: CIVector) -> CIImage {
+        // CIColorMatrix reads straight RGB. Setting alpha to one makes the
+        // selected channel independent of the shifted pixel's alpha.
+        return image.applyingFilter(
+            "CIColorMatrix",
+            parameters: [
+                "inputRVector": r,
+                "inputGVector": g,
+                "inputBVector": b,
+                "inputAVector": CIVector.zero4,
+                "inputBiasVector": CIVector(x: 0, y: 0, z: 0, w: 1),
+            ]
+        )
     }
 
     private func additive(_ first: CIImage, with second: CIImage, extent: CGRect) -> CIImage {
