@@ -1,6 +1,10 @@
-# ASKI-92: paired study remains inconclusive
+# ASKI-92: retained failed attempts and instrumentation recovery
 
-The shared tile-color sample buffer is **not adopted**. The original five-pair
+The [later complete study](../aski92-2026-11-14/README.md) **rejects adoption**.
+The sections below preserve each earlier attempt and its status at that time;
+statements that the task remained open describe those historical checkpoints.
+
+The shared tile-color sample buffer was **not adopted** in these attempts. The original five-pair
 study and its one fresh, unchanged recovery both stopped before a complete valid
 pair. No speed, allocation or RSS comparison can be made from these attempts.
 The task stays open.

@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "experiment": "aski92-corrected-instrument-2026-11-14",
+  "control_revision": "ee05dda4083fd2460f1bd3d0c81c4b902da7a4d7",
+  "candidate_revision": "6d0922700a096a75991dc025ca7a1fc5155fac60",
+  "expected_workloads": [
+    "aski92-convert-160x160-p3-mixed-80cols-k16",
+    "aski92-convert-160x160-p3-mixed-80cols-k256",
+    "aski92-convert-160x160-p3-mixed-80cols-k64",
+    "aski92-convert-160x160-p3-mixed-80cols-k8",
+    "aski92-convert-160x160-p3-opaque-80cols-k16",
+    "aski92-convert-160x160-p3-opaque-80cols-k256",
+    "aski92-convert-160x160-p3-opaque-80cols-k64",
+    "aski92-convert-160x160-p3-opaque-80cols-k8",
+    "aski92-convert-160x160-srgb-mixed-80cols-k16",
+    "aski92-convert-160x160-srgb-mixed-80cols-k256",
+    "aski92-convert-160x160-srgb-mixed-80cols-k64",
+    "aski92-convert-160x160-srgb-mixed-80cols-k8",
+    "aski92-convert-160x160-srgb-opaque-80cols-k16",
+    "aski92-convert-160x160-srgb-opaque-80cols-k256",
+    "aski92-convert-160x160-srgb-opaque-80cols-k64",
+    "aski92-convert-160x160-srgb-opaque-80cols-k8",
+    "aski92-convert-16x16-p3-mixed-8cols-k16",
+    "aski92-convert-16x16-p3-mixed-8cols-k256",
+    "aski92-convert-16x16-p3-mixed-8cols-k64",
+    "aski92-convert-16x16-p3-mixed-8cols-k8",
+    "aski92-convert-16x16-p3-opaque-8cols-k16",
+    "aski92-convert-16x16-p3-opaque-8cols-k256",
+    "aski92-convert-16x16-p3-opaque-8cols-k64",
+    "aski92-convert-16x16-p3-opaque-8cols-k8",
+    "aski92-convert-16x16-srgb-mixed-8cols-k16",
+    "aski92-convert-16x16-srgb-mixed-8cols-k256",
+    "aski92-convert-16x16-srgb-mixed-8cols-k64",
+    "aski92-convert-16x16-srgb-mixed-8cols-k8",
+    "aski92-convert-16x16-srgb-opaque-8cols-k16",
+    "aski92-convert-16x16-srgb-opaque-8cols-k256",
+    "aski92-convert-16x16-srgb-opaque-8cols-k64",
+    "aski92-convert-16x16-srgb-opaque-8cols-k8",
+    "aski92-convert-512x512-p3-mixed-256cols-k16",
+    "aski92-convert-512x512-p3-mixed-256cols-k256",
+    "aski92-convert-512x512-p3-mixed-256cols-k64",
+    "aski92-convert-512x512-p3-mixed-256cols-k8",
+    "aski92-convert-512x512-p3-opaque-256cols-k16",
+    "aski92-convert-512x512-p3-opaque-256cols-k256",
+    "aski92-convert-512x512-p3-opaque-256cols-k64",
+    "aski92-convert-512x512-p3-opaque-256cols-k8",
+    "aski92-convert-512x512-srgb-mixed-256cols-k16",
+    "aski92-convert-512x512-srgb-mixed-256cols-k256",
+    "aski92-convert-512x512-srgb-mixed-256cols-k64",
+    "aski92-convert-512x512-srgb-mixed-256cols-k8",
+    "aski92-convert-512x512-srgb-opaque-256cols-k16",
+    "aski92-convert-512x512-srgb-opaque-256cols-k256",
+    "aski92-convert-512x512-srgb-opaque-256cols-k64",
+    "aski92-convert-512x512-srgb-opaque-256cols-k8",
+    "aski92-fixed-160x160-p3-mixed-80cols",
+    "aski92-fixed-160x160-p3-opaque-80cols",
+    "aski92-fixed-160x160-srgb-mixed-80cols",
+    "aski92-fixed-160x160-srgb-opaque-80cols",
+    "aski92-fixed-16x16-p3-mixed-8cols",
+    "aski92-fixed-16x16-p3-opaque-8cols",
+    "aski92-fixed-16x16-srgb-mixed-8cols",
+    "aski92-fixed-16x16-srgb-opaque-8cols",
+    "aski92-fixed-512x512-p3-mixed-256cols",
+    "aski92-fixed-512x512-p3-opaque-256cols",
+    "aski92-fixed-512x512-srgb-mixed-256cols",
+    "aski92-fixed-512x512-srgb-opaque-256cols",
+    "aski92-transparent-160x160-p3-80cols",
+    "aski92-transparent-160x160-srgb-80cols",
+    "aski92-transparent-16x16-p3-8cols",
+    "aski92-transparent-16x16-srgb-8cols",
+    "aski92-transparent-512x512-p3-256cols",
+    "aski92-transparent-512x512-srgb-256cols"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident"
+  ],
+  "decision_rule": {
+    "reference": "pre-registration.json",
+    "declared_at": "2026-11-14T18:41:27.403011+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "pairs": [
+    {
+      "control": "pair-1-control/report.json",
+      "candidate": "pair-1-candidate/report.json"
+    },
+    {
+      "control": "pair-2-control/report.json",
+      "candidate": "pair-2-candidate/report.json"
+    },
+    {
+      "control": "pair-3-control/report.json",
+      "candidate": "pair-3-candidate/report.json"
+    },
+    {
+      "control": "pair-4-control/report.json",
+      "candidate": "pair-4-candidate/report.json"
+    },
+    {
+      "control": "pair-5-control/report.json",
+      "candidate": "pair-5-candidate/report.json"
+    }
+  ],
+  "host_attestation": {
+    "label": "same M3 Max development host",
+    "same_physical_host": true,
+    "conditions": "One physical host, identical toolchain and MallocNanoZone=0. Native jobs serialized. Desktop/system activity continues; this is not a quiet-host claim. Lifetime logging and debugger use occur outside all timed pairs."
+  }
+}

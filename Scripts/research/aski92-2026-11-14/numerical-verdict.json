@@ -1,0 +1,1329 @@
+{
+  "numerical_verdict": "not_supported",
+  "valid_complete_pairs": 5,
+  "primary_passed": 19,
+  "primary_total": 32,
+  "guards_passed": 154,
+  "guards_total": 160,
+  "primary": [
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k16",
+      "median_paired_change_percent": -7.155447125086594,
+      "improving_pairs": 4,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k256",
+      "median_paired_change_percent": -1.181102393739619,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k64",
+      "median_paired_change_percent": -7.1616054549826895,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k8",
+      "median_paired_change_percent": -13.841247211177299,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k16",
+      "median_paired_change_percent": -16.29870388258166,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k256",
+      "median_paired_change_percent": -1.882662046807606,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k64",
+      "median_paired_change_percent": -8.122014694198363,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k8",
+      "median_paired_change_percent": -19.04231970972816,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k16",
+      "median_paired_change_percent": -11.915182032298882,
+      "improving_pairs": 4,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k256",
+      "median_paired_change_percent": -1.0921800203850494,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k64",
+      "median_paired_change_percent": -4.823395813743589,
+      "improving_pairs": 4,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k8",
+      "median_paired_change_percent": -21.309040686056164,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k16",
+      "median_paired_change_percent": -14.436738371056709,
+      "improving_pairs": 3,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k256",
+      "median_paired_change_percent": -2.009611237508491,
+      "improving_pairs": 5,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k64",
+      "median_paired_change_percent": -8.270677381821034,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k8",
+      "median_paired_change_percent": -20.67290096979063,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k16",
+      "median_paired_change_percent": -21.52030590541313,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k256",
+      "median_paired_change_percent": -3.375977265727314,
+      "improving_pairs": 4,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k64",
+      "median_paired_change_percent": -12.668010882593082,
+      "improving_pairs": 4,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k8",
+      "median_paired_change_percent": -26.956522420412238,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k16",
+      "median_paired_change_percent": -24.677138396569983,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k256",
+      "median_paired_change_percent": -2.916073976617311,
+      "improving_pairs": 4,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k64",
+      "median_paired_change_percent": -9.93831401757823,
+      "improving_pairs": 4,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k8",
+      "median_paired_change_percent": -24.219084928633134,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k16",
+      "median_paired_change_percent": -28.0891295457206,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k256",
+      "median_paired_change_percent": -4.563141151331449,
+      "improving_pairs": 4,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k64",
+      "median_paired_change_percent": -13.057961491837895,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k8",
+      "median_paired_change_percent": -31.093260931732775,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k16",
+      "median_paired_change_percent": -27.64144570112473,
+      "improving_pairs": 5,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k256",
+      "median_paired_change_percent": -4.460177003195912,
+      "improving_pairs": 4,
+      "passed": false
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k64",
+      "median_paired_change_percent": -11.68270838251841,
+      "improving_pairs": 4,
+      "passed": true
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k8",
+      "median_paired_change_percent": -32.80829888684581,
+      "improving_pairs": 5,
+      "passed": true
+    }
+  ],
+  "guards": [
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k8",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k16",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k64",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-opaque-8cols-k256",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-opaque-8cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-opaque-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-opaque-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k8",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k16",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k64",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-srgb-mixed-8cols-k256",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-mixed-8cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-mixed-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-srgb-mixed-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-16x16-srgb-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-16x16-srgb-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k8",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k16",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k64",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-opaque-8cols-k256",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-opaque-8cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-opaque-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-opaque-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k8",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 4,
+      "passed": false,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k16",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k64",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-16x16-p3-mixed-8cols-k256",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-mixed-8cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-mixed-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-16x16-p3-mixed-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-16x16-p3-8cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-16x16-p3-8cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-opaque-80cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-opaque-80cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-opaque-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-opaque-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-srgb-mixed-80cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-mixed-80cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-mixed-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-srgb-mixed-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-160x160-srgb-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-160x160-srgb-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 3,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-opaque-80cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-opaque-80cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-opaque-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-opaque-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-160x160-p3-mixed-80cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-mixed-80cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-mixed-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-160x160-p3-mixed-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-160x160-p3-80cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-160x160-p3-80cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-opaque-256cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-opaque-256cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-opaque-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-opaque-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-srgb-mixed-256cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-mixed-256cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-mixed-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-srgb-mixed-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-512x512-srgb-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-512x512-srgb-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-opaque-256cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-opaque-256cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-opaque-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-opaque-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k8",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k8",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k16",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k16",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k64",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k64",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k256",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-convert-512x512-p3-mixed-256cols-k256",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-mixed-256cols",
+      "metric": "wallClock",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-mixed-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-fixed-512x512-p3-mixed-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 2,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-512x512-p3-256cols",
+      "metric": "mallocCountTotal",
+      "pairs_over_regression_bar": 0,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    },
+    {
+      "workload": "aski92-transparent-512x512-p3-256cols",
+      "metric": "peakMemoryResident",
+      "pairs_over_regression_bar": 1,
+      "passed": true,
+      "undefined_percentage_pairs": []
+    }
+  ],
+  "adoption_verdict": "requires completed profile/phase/support gates and lead review",
+  "notes": [
+    "Medians and threshold comparisons recomputed from exact rational representations of exported run medians. Histograms remain quantized.",
+    "Zero-baseline regression checks use the equivalent candidate > control * 1.03 relation; no percentage is assigned to a zero baseline."
+  ]
+}

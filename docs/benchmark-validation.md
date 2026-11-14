@@ -118,8 +118,8 @@ The allocator is a reviewed edit of the pinned malloc-interposer 1.4.0 package.
 It contains the ASKI-109 thread-cleanup correction and the ASKI-92 Darwin
 header-ownership check. See the attributed changes in
 [`Vendor/malloc-interposer/ASKI-PATCHES.md`](../Vendor/malloc-interposer/ASKI-PATCHES.md).
-Use identical instrument bytes in both arms of a new comparison; the ownership
-lookup changes the measurement path.
+Use identical reviewed instrument source and build settings in both arms of a
+new comparison; the ownership lookup changes the measurement path.
 Run standalone vendor tests with an external build directory, for example
 `xcrun swift test --package-path Vendor/malloc-interposer --scratch-path /tmp/aski-interposer-tests`.
 The default vendor-local `.build` directory adds files to the strictly checked

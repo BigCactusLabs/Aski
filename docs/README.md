@@ -47,7 +47,7 @@ describe intended assets; do not assume a hosted API site.
 | Inspect the rejected fixed-palette cache and reproduce every paired result | [ASKI-90 complete study](../Scripts/research/aski90-2026-11-13/README.md) |
 | Inspect exact heap selection and its rejected native performance result | [ASKI-88 complete study](../Scripts/research/aski88-2026-11-13/README.md) |
 | Inspect adopted pulse reuse, exact parity and measured overlay gains | [ASKI-91 complete study](../Scripts/research/aski91-2026-11-13/README.md) |
-| Inspect the incomplete tile-buffer study and separate phase measurements | [ASKI-92 inconclusive study](../Scripts/research/aski92-2026-11-13/README.md) |
+| Review the rejected tile-buffer optimization, paired data and allocation lifetimes | [ASKI-92 completed study](../Scripts/research/aski92-2026-11-14/README.md) |
 | Inspect provider lifetimes and failed RSS limits in the ImageIO append approach | [ASKI-4 memory study](../Scripts/research/aski4-2026-11-13/README.md) |
 | Inspect the rejected orientation-preparation arm | [ASKI-2 exact-raster experiment](../Scripts/research/aski2-2026-11-13/README.md) |
 | Inspect Swift 6.4 collision qualification and scoped HDR boundary evidence | [ASKI-74 native replay](../Scripts/research/aski74-2026-11-13/README.md) |

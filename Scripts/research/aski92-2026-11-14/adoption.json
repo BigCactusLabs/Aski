@@ -1,0 +1,25 @@
+{
+  "task": "ASKI-92",
+  "adoption_verdict": "rejected",
+  "numerical_verdict": "not_supported",
+  "primary_passed": 19,
+  "primary_total": 32,
+  "guards_passed": 154,
+  "guards_total": 160,
+  "reason": "Six small-input wall-time guards fail and thirteen primary cases fail the frozen benefit/consistency bar. All malloc-count/RSS guards pass. No adoption exception.",
+  "ac3": "unmet; leave unchecked",
+  "ac4": "satisfied through recorded rejection",
+  "production_candidate_integrated": false,
+  "support": {
+    "phase_workloads": 120,
+    "existing_tile_color_workloads": 27,
+    "helmlab_absolute_budget": "EQUAL",
+    "all_four_lifetime_profiles": "complete"
+  },
+  "peak_live_requested_bytes": {
+    "profile-control-160": 1008748,
+    "profile-control-512": 8389984,
+    "profile-candidate-160": 1418396,
+    "profile-candidate-512": 5203100
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "capture_reports": {
+    "pair-1-control": {
+      "native_report_sha256": "41828221831694023fec7140d85c4c0976b61c825179713643b7201df336428c",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-1-candidate": {
+      "native_report_sha256": "afa1792f7dcf21b16d5a827aedcc5ebdcb26e3bfd38894965dbeab86e57304e0",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-2-control": {
+      "native_report_sha256": "bef6cb94f63d69514f53ec322519f79869c76602430772bce164e0a52eeb4a08",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-2-candidate": {
+      "native_report_sha256": "e81d8d55f7b938c0b29fa9cefdb951b4e517a4f7846eb90abeb2295b0d207a7c",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-3-control": {
+      "native_report_sha256": "b6c02e25e75377d2d1a2d6e11e43d02afe29d7584c6afa9724fc9e23676f1275",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-3-candidate": {
+      "native_report_sha256": "87d52fd32e713a2a50e03a4f8d10f02eb68513ab4dc8f4a12a552dac19ffe768",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-4-control": {
+      "native_report_sha256": "3560fc5845dddb2553582cf8668b11bce1f3e7a7e9fb2276a9029bb3676e9c48",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-4-candidate": {
+      "native_report_sha256": "90b513d7dc126eaaeb4e54225dadd51f63cec530e4355f5365464dd336900019",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-5-control": {
+      "native_report_sha256": "55b85885cf9259939521d61ca8a3c0cab7b3fb753edfc6ca31ef72a7867ecc07",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "pair-5-candidate": {
+      "native_report_sha256": "1075d1282a47a54f4b832cec9bb0332260053d75c4265c2f9327f2b8e21c7e7c",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "phase-candidate": {
+      "native_report_sha256": "0b47808d2acae715f5092c6470b0f001fd7121af40cadaa3c2707075831f64b9",
+      "status": "valid",
+      "workloads": 120,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "existing-tiles": {
+      "native_report_sha256": "edaea68b2bb65b7214483ef73dbb1bf9b921597e692ed02872843cf79bbb68cb",
+      "status": "valid",
+      "workloads": 27,
+      "required_metrics": [
+        "mallocCountTotal",
+        "wallClock"
+      ]
+    },
+    "prepare-control": {
+      "native_report_sha256": "91c2081aa7d81c6efabf83854d9fd041eab016b3b5641bb82d834877b4d5b71a",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    },
+    "prepare-candidate": {
+      "native_report_sha256": "9b4cbedace8c192392ab033acbed178923cfda186e849f5a1c85d063bdcd5171",
+      "status": "valid",
+      "workloads": 66,
+      "required_metrics": [
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident",
+        "wallClock"
+      ]
+    }
+  },
+  "original_comparison_sha256": "be21c22b23274a4a635e26f356913ed928ed9b6a17361a848d3d7ca107cb71c1",
+  "original_paired_csv_sha256": "00dc347f3aec66f806bbe5d3cec0cb7169486099208e67b03e05520c97d84c19",
+  "logs": {
+    "control-check.log": {
+      "sha256": "69610f8b2a235ffd1c2033f9a131b88067fd2a2393357e80dd72a2107e140d81",
+      "bytes": 436417
+    },
+    "candidate-check.log": {
+      "sha256": "17c638b5f4e6b51a38e8ede541784532951802ad583a8747647138a19d1db3de",
+      "bytes": 437596
+    },
+    "existing-budget.log": {
+      "sha256": "cb38137e19c5c01092a16649a906888b117c3bc7b1a643dfa930608e716f180a",
+      "bytes": 3207
+    },
+    "existing-tiles.log": {
+      "sha256": "887951f3835a56008b595e07578c67c4448086352f4db16f91df5a3892966849",
+      "bytes": 2770
+    },
+    "pairs-driver.log": {
+      "sha256": "cb12af2202524f3a05a5fc10c91d11bf65f649fe37d3339413bfdcd72a7d24aa",
+      "bytes": 250
+    },
+    "profiles-driver.log": {
+      "sha256": "40c1f5312bb0c63f0230b928f7cee81b2dffead52a7778996ff2f9b7abce84c0",
+      "bytes": 208
+    }
+  },
+  "endpoint_identity_after_all_runs": {
+    "control": {
+      "checked_at": "2026-11-14T19:30:08.129902+00:00",
+      "source_clean": true,
+      "commit": "ee05dda4083fd2460f1bd3d0c81c4b902da7a4d7",
+      "executable_sha256": "e745014e2fa2ccfa4b059bb1581ea0305aae85bf44667c29178202e50904d51a",
+      "allocator_sha256": "b3cd1613b4eae226cc24e25151ad1caccfb3558673780ff37cbc74ce25d3aa3d",
+      "matches_prior_profile": true
+    },
+    "candidate": {
+      "checked_at": "2026-11-14T19:30:08.881503+00:00",
+      "source_clean": true,
+      "commit": "6d0922700a096a75991dc025ca7a1fc5155fac60",
+      "executable_sha256": "5fc661e2f265dc21908bf19bc7d0388f429532a0bf5444a4bc3dbc4138d0edc7",
+      "allocator_sha256": "f2fffa57847e7a7db80d8cf90b8a45e597a6a2bb577832b9407567405649b437",
+      "matches_prior_profile": true
+    }
+  },
+  "native_gates": {
+    "control": {
+      "core": 1539,
+      "media": 178,
+      "sentinels": 2,
+      "docc": "passed"
+    },
+    "candidate": {
+      "core": 1549,
+      "media": 178,
+      "sentinels": 2,
+      "docc": "passed"
+    }
+  },
+  "packaging": "Reports are path-normalized for public use. Original report and raw history hashes refer to local unmodified artifacts. Histogram strings retain their exact bytes. Comparison report hashes refer to original native reports; reproduction compares all workload statistics and decision fields, not normalized report hashes.",
+  "independent_cross_family_review": "unavailable; lead source/evidence review performed"
+}

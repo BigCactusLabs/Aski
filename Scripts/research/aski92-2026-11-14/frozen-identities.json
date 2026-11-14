@@ -1,0 +1,29 @@
+{
+  "declared_at": "2026-11-14T18:53:06.442700+00:00",
+  "rule_sha256": "88c2be239a9ce505854885a4411ca151ecb4971b380b6b0e2fb3f8edc61f7785",
+  "common_fix_commit": "4530b1a0afea94a20a8cffd6596a5b42b67f5229",
+  "control": {
+    "commit": "ee05dda4083fd2460f1bd3d0c81c4b902da7a4d7",
+    "tree": "e878f331857e02a6aac462e6e600fa478b643731",
+    "common_file_hashes": {
+      "Scripts/research/aski92-fresh-2026-11-13/pre-registration.json": "88c2be239a9ce505854885a4411ca151ecb4971b380b6b0e2fb3f8edc61f7785",
+      "Scripts/validate-benchmarks.py": "ba789e7c47041b4f7dd7fb0a5e8cce19d9c9a00f42b460314af2ec50eec2fe22",
+      "Vendor/malloc-interposer/ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+      "Vendor/malloc-interposer/Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+      "Vendor/malloc-interposer/Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+      "Vendor/malloc-interposer/Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+    }
+  },
+  "candidate": {
+    "commit": "6d0922700a096a75991dc025ca7a1fc5155fac60",
+    "tree": "5d5ffe5ad2d09b8c27e99095cbab5e1c7ee1bf6c",
+    "common_file_hashes": {
+      "Scripts/research/aski92-fresh-2026-11-13/pre-registration.json": "88c2be239a9ce505854885a4411ca151ecb4971b380b6b0e2fb3f8edc61f7785",
+      "Scripts/validate-benchmarks.py": "ba789e7c47041b4f7dd7fb0a5e8cce19d9c9a00f42b460314af2ec50eec2fe22",
+      "Vendor/malloc-interposer/ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+      "Vendor/malloc-interposer/Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+      "Vendor/malloc-interposer/Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+      "Vendor/malloc-interposer/Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+    }
+  }
+}

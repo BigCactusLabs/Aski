@@ -1,10 +1,10 @@
 ---
 id: ASKI-92
 title: Prepare adaptive tile palette color samples once
-status: In Progress
+status: Done
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-14T18:45:00Z'
+updated_date: '2026-11-14T19:30:00Z'
 labels:
   - performance
   - tiles
@@ -18,6 +18,7 @@ references:
   - https://github.com/BigCactusLabs/Aski/pull/10
 documentation:
   - Scripts/research/aski92-2026-11-13/README.md
+  - Scripts/research/aski92-2026-11-14/README.md
 priority: medium
 type: enhancement
 ordinal: 93000
@@ -36,7 +37,7 @@ Source mechanism verified at c49bbd in the 2026-09-29 sweep. The existing tile-q
 - [x] #1 Release profiling separates sample preparation, Wu accumulation and k-means clustering for multiple lattice sizes, 8/16/64/256-color requests, sRGB/P3, and opaque/mixed-alpha inputs.
 - [x] #2 Any adopted shared preparation preserves exact palette values/order and final tiles, including all-transparent input, empty clusters, and deterministic sample/arithmetic order.
 - [ ] #3 Sample preparation is not repeated between Wu and k-means, without a material peak-memory or small-input regression.
-- [ ] #4 Repeated end-to-end tile benchmarks show a material benefit against a stated bar, or the task records rejection.
+- [x] #4 Repeated end-to-end tile benchmarks show a material benefit against a stated bar, or the task records rejection.
 - [x] #5 If adopted, just check and tile/color benchmarks pass without relaxed thresholds or a quantization-policy change.
 <!-- AC:END -->
 
@@ -64,4 +65,12 @@ Fresh study after ASKI-109: control 75470ee273596d24d71f1682e90668140760db09 and
 2026-11-14 allocation pilot: one registered 160-control Instruments Allocations capture failed (xctrace 54, target SIGBUS) in malloc_interposer_is_ours -> replacement_malloc_size -> liboainject -> benchmark cleanup. The non-page-aligned pointer caused a header probe into unreadable reserved memory. Matching crash UUIDs and 1,302 unchanged file hashes preserve frozen-control identity. This new stack does not establish the cause of the prior CoreGraphics/reset failures. CLI track-detail export retained 4,186 rows with Wu/k-means stacks, all marked live and without free timestamps; lifetime/overlap acceptance remains unproved. No second profile, new pair, source correction or standalone regression execution followed. Portable receipt: Scripts/research/aski92-2026-11-13/allocation-pilot-2026-11-14.json. AC3/4 remain open and PR #10 remains draft.
 
 2026-11-14 lead recovery: confirmed and corrected the Darwin classifier read fault by checking native header ownership before reading tag/magic. Standalone O1/O3 pointer regressions pass, as do all 52 count/lifecycle processes. Integrated native vendor suite passes 12 tests, portable validator suites pass 122 tests with one expected failure, full local gate passes 1549 core/178 media/two sentinels/DocC, all 237 benchmark workloads validate required malloc counts, and all 11 unchanged absolute budgets pass. The unchanged frozen executable completes under Allocations with the corrected scratch allocator. A separate malloc_history capability capture supplies ordered allocation/free events with source stacks but no clock timestamps; fresh profiling will use event order for overlap/peak-live calculations and report that limit. Earlier failures remain invalid and their other crash causes unproved. Fresh isolated study arms are being gated with identical correction and unchanged numerical rules; AC3/4 remain open pending their comparison. Evidence: Scripts/research/aski92-2026-11-13/classifier-correction/qualification.json.
+
+2026-11-14 completed fresh study: five valid alternating pairs with the same corrected allocator and unchanged rule. Numeric verdict not_supported: 19/32 primary cases and 154/160 guards pass. Six 16x16 wall-time guards fail; all malloc-count and RSS guards pass. All four native allocation/free profiles complete: tracked peak-live requested array bytes rise 40.61% at 160 (1008748 to 1418396) and fall 37.98% at 512 (8389984 to 5203100). Candidate samples overlap all seven Wu tables; control samples do not. These are ordered native allocation events, not clock durations or process RSS. Both full gates, ten candidate parity/storage tests, 120 phase workloads, 27 existing workloads and unchanged Helmlab budget pass. Reject adoption with no exception. AC4 is satisfied through rejection; AC3 remains unmet and unchecked. No candidate production change integrated. Earlier failed studies remain invalid, and the old reset/CoreGraphics causes remain unproved. Portable raw histograms, profiles, source replay, rules and verification: Scripts/research/aski92-2026-11-14/README.md. Remote PR closure is a separate pending approval.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Closed as rejected. Five complete pairs fail the frozen benefit/regression rule (19/32 primary; 154/160 guards). AC3 remains unchecked because small-input regressions are real under the rule; AC4 explicitly permits rejection. The shared-buffer candidate is not adopted. The independently qualified allocator classifier correction is retained. Evidence and replay: Scripts/research/aski92-2026-11-14/README.md.
+<!-- SECTION:FINAL_SUMMARY:END -->
