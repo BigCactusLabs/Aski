@@ -1,0 +1,21 @@
+diagnostic-ramp: source=152x152 canonical=1277x1257
+  grid=76x34 cell=2x4 lattice=152x136 candidate_edges=34
+  png_equal=true pixel_layout_and_provider_bytes_equal=true
+  canonical_png_sha256=SHA256 digest: 387fffef1679971d3b6889a5ba6d8ad2bfb3e1077a5ed1604c6ee23fd5a0d779
+  grid_rerender_png_sha256=SHA256 digest: 387fffef1679971d3b6889a5ba6d8ad2bfb3e1077a5ed1604c6ee23fd5a0d779
+  center_row_last_nonzero_ink=45 center_row_first_zero_blank=47
+rcs-function-diagram: source=1280x1024 canonical=1277x998
+  grid=76x27 cell=2x4 lattice=152x108 candidate_edges=472
+  png_equal=true pixel_layout_and_provider_bytes_equal=true
+  canonical_png_sha256=SHA256 digest: f3386b11da58467c9a97d066a8da964ca5b1561fdbb01ca17a2653d5e147840d
+  grid_rerender_png_sha256=SHA256 digest: f3386b11da58467c9a97d066a8da964ca5b1561fdbb01ca17a2653d5e147840d
+spacecraft-attitude-diagram: source=1280x1024 canonical=1277x998
+  grid=76x27 cell=2x4 lattice=152x108 candidate_edges=718
+  png_equal=true pixel_layout_and_provider_bytes_equal=true
+  canonical_png_sha256=SHA256 digest: 0961fd0d0768112769bb8b385db4f263ee0abe284c863d768a6641a43c6d2162
+  grid_rerender_png_sha256=SHA256 digest: 0961fd0d0768112769bb8b385db4f263ee0abe284c863d768a6641a43c6d2162
+james-lovell-portrait: source=975x1280 canonical=1277x1664
+  grid=76x45 cell=2x4 lattice=152x180 candidate_edges=245
+  png_equal=true pixel_layout_and_provider_bytes_equal=true
+  canonical_png_sha256=SHA256 digest: 72c74b9dbb2f51f0bd2763a1e659ecf292ae358b6618f2ca609e839dfede11b4
+  grid_rerender_png_sha256=SHA256 digest: 72c74b9dbb2f51f0bd2763a1e659ecf292ae358b6618f2ca609e839dfede11b4

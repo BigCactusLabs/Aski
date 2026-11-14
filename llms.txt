@@ -64,6 +64,8 @@
 
 - [Channel-split alpha correction](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/Results/2026-11-14-aski110-channel-alpha/README.md): ASKI-110 native color/alpha regressions and three corrected effect snapshots; frozen Vesper output unchanged.
 
+- [Near-white cutoff inspection](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-14-aski108-near-white-inspection.md): ASKI-108 portrait-sky cliff and retained native pairs; future opacity-taper arm specified, shipping near-white ground unchanged.
+
 ## Interpretation notes
 
 The default color path is linear-light averaging, OKLab Euclidean palette matching, and Ray Trace gamut mapping. The 60D log-polar matcher has measured sparse-support limitations; do not infer reliable orientation preservation from its descriptor size. Lab commands and experimental policies are not blanket production-readiness claims. Build the CLI on a Mac from a checkout or consume a published package tag; v0.7.0 begins the public release history. The CLI's --version reports a Git SHA (or unknown), not a semantic version.
