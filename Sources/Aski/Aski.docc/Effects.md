@@ -111,6 +111,9 @@ The sync overloads absorb effect failures and return fallback output. The async 
 - Late: geometric effects such as `crtCurvature`, `pixelate`, and `halftone`.
 - Last: `filmGrain` and `filmDust`, so film texture sits on top.
 
+Chromatic aberration and the Core Image fallback for `rgbSplit` preserve the alpha
+of their input. Shifted color stays inside the input’s coverage.
+
 ## Determinism and seeds
 
 `filmGrain`, `glitch`, and `filmDust` take a `seed: UInt64`. With the same machine, OS, render path, and Apple GPU family, seeded stochastic effects are intended to produce byte-identical output.

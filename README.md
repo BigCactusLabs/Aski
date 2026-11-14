@@ -56,7 +56,7 @@ xcrun swift run aski inspect photo.jpg --format json --output inspection.json
 `render` is the default command. Plain text has **no color**; PNG and attributed-string
 output preserve per-cell color. The CLI uses source-faithful aspect by default.
 
-Masks, exact-width exports, manifests, reusable builds, and troubleshooting:
+CLI discovery, masks, exact-width exports, manifests, reusable builds, and troubleshooting:
 [Command-line guide](Sources/Aski/Aski.docc/CommandLine.md).
 
 ## Use in Swift
