@@ -32,6 +32,9 @@
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
+#if __APPLE__
+#include <sys/mman.h>
+#endif
 
 #include <interposer.h>
 
@@ -39,6 +42,24 @@ int main(int argc, char **argv) {
     size_t pageSize = (size_t)getpagesize();
     int freePath = (argc > 1 && strcmp(argv[1], "free") == 0);
     int taggedPath = (argc > 1 && strcmp(argv[1], "tagged") == 0);
+
+#if __APPLE__
+    if (argc > 1 && strcmp(argv[1], "small_address") == 0) {
+        return replacement_malloc_size((const void *)(uintptr_t)1) ? 1 : 0;
+    }
+    if (argc > 1 && (strcmp(argv[1], "protected_page") == 0
+                    || strcmp(argv[1], "protected_offset") == 0)) {
+        void *page = mmap(NULL, pageSize, PROT_NONE, MAP_PRIVATE | MAP_ANON, -1, 0);
+        if (page == MAP_FAILED) return 3;
+        // The Allocations pilot supplied a non-page-aligned unreadable pointer.
+        // Neither this address nor the bytes before it belong to malloc.
+        const void *pointer = (const char *)page
+            + (strcmp(argv[1], "protected_offset") == 0 ? 256 : 0);
+        int result = replacement_malloc_size(pointer) ? 1 : 0;
+        if (munmap(page, pageSize) != 0) return 3;
+        return result;
+    }
+#endif
 
     if (taggedPath) {
 #if __APPLE__

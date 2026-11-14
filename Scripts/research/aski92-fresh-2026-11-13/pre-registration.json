@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task": "ASKI-92",
-  "declared_at": "2026-11-13T16:32:48.030967+00:00",
+  "declared_at": "2026-11-14T18:41:27.403011+00:00",
   "base_revision": "e287ae2b88c026cd738df9237e989011a7ee41a7",
   "minimum_pairs": 5,
   "pair_order": [
@@ -780,9 +780,9 @@
     "If both palette candidates pass individually, verify their combined behavior and repeat the affected tile guard subset on the combined build before integration."
   ],
   "status": "Frozen decision rule. Commit before measurement; exact rule and arm commit identities are recorded in the external pre-capture manifest.",
-  "experiment": "aski92-fresh-2026-11-13",
+  "experiment": "aski92-corrected-instrument-2026-11-14",
   "freshness": {
-    "prerequisite": "Accept the common ASKI-109 instrument natively and freeze the exact source and executable identities for both arms.",
+    "prerequisite": "Accept and freeze identical ASKI-109/92 allocator correction and source hashes in both clean study arms; same physical host and toolchain.",
     "preparation": "Keep preparation captures outside the five pairs.",
     "pooling": "Use only the five new adjacent pairs for end-to-end decisions. Historical failures and historical/replayed candidate-only diagnostics stay separate.",
     "invalid_capture": "Retain failed captures and stop the affected series. Replacing one capture with a later run does not complete it."
@@ -803,9 +803,12 @@
       "control",
       "candidate"
     ],
-    "pilot": "160 control first, outside all timed captures; confirm native allocation/free events and attributable stacks before collecting the other three profiles.",
-    "acceptance": "Complete conversion, allocation generations paired with frees and timestamps/bytes, source sample storage and Wu/K-means storage attributed, overlap and peak live attributed bytes calculated. RSS or stride alone cannot establish overlap.",
-    "failure": "Retain incomplete traces; profile gate stays unresolved. No live production instrumentation added without separate lead review."
+    "pilot": "160 control first, outside all timed captures; confirm complete ordered native allocation/free events and attributable stacks before collecting the other three profiles.",
+    "acceptance": "Complete conversion and normal exit, allocation generations paired with free event ordinals and bytes, source sample storage and Wu/K-means storage attributed, overlap and peak live attributed bytes calculated. Every selected buffer must have an allocation and free; address reuse is matched in event order. Preserve all stacks and source lines. RSS or stride alone cannot establish overlap.",
+    "failure": "Retain incomplete traces; profile gate stays unresolved. No live production instrumentation added without separate lead review.",
+    "method": "MallocStackLoggingNoCompact=1 with MallocNanoZone=0, unchanged prepared release executable and allocator. LLDB stops at the normal exit function after the complete benchmark, then malloc_history -allEvents -fullStacks -noContent exports the full ordered event stream. Disable breakpoint and continue to exit zero. Profiling environment is excluded from timed captures.",
+    "method_change": "The earlier Instruments pilot exposed a confirmed classifier defect. Corrected Allocations capture succeeds, but CLI list is a persistent-only view and both UI tools cannot access the window. A separate capability probe verified full malloc_history records with source stacks and matching frees. Native event order supports overlap and peak calculations; no clock timestamps or lifetime durations are claimed. Historical profiles and capability runs remain excluded from this fresh comparison.",
+    "fresh_capture_count": 4
   },
   "preparation_captures": {
     "count": 2,
@@ -814,5 +817,10 @@
       "candidate"
     ],
     "scope": "same66E2E selection, excluded from all five pairs"
-  }
+  },
+  "prior_frozen_sources": {
+    "control": "75470ee273596d24d71f1682e90668140760db09",
+    "candidate": "3217dfe8ab1688898a8caffa787133c5a84a111c"
+  },
+  "numerical_rules": "Unchanged 5% benefit and 3% regression rules, workload matrix, metrics, pair order and minimum pair count. No previous observation is pooled."
 }

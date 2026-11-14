@@ -37,10 +37,10 @@
 //
 // Each allocation we hand back to the caller is preceded by a 16-byte header
 // that records the requested size and a magic word. On free/realloc we read
-// the header instead of calling malloc_size/malloc_usable_size, eliminating
-// a libc round-trip per call. Pointers that didn't go through the interposer
-// (e.g., aligned-alloc slow path, allocations that pre-date hooking) are
-// detected by a failing magic check and fall back to libc bookkeeping.
+// the header instead of calling malloc_size/malloc_usable_size. Darwin first
+// checks that the header is a native allocation start before reading it.
+// Pointers that didn't go through the interposer (e.g., aligned-alloc slow
+// path, allocations that pre-date hooking) fall back to libc bookkeeping.
 //
 // The header is exactly 16 bytes so user_ptr inherits the 16-byte alignment
 // of the underlying libc allocation.
@@ -98,18 +98,14 @@ static inline bool malloc_interposer_is_ours(const void *user_ptr) {
     if (((uintptr_t)user_ptr & ((uintptr_t)1 << 63)) != 0) return false;
 #  endif
 
-    // The probe below reads the 8 bytes *before* user_ptr. For our own pointers
-    // those bytes are our header, always mapped. For a page-aligned pointer,
-    // though, they fall in the *previous* page — and libc valloc / large
-    // posix_memalign hand back page-aligned pointers backed by a fresh mmap
-    // whose preceding page is unmapped, so the probe would fault.
-    //
-    // Such allocations are libc allocation *starts*, which malloc_zone_from_ptr
-    // resolves to a zone; our pointers are interior (raw + header) and resolve
-    // to NULL, so they still fall through to the probe (their preceding page
-    // holds our header and is mapped). Gate on 4096 — the smallest page size —
-    // to keep the zone lookup off the hot path for the common case.
-    if (((uintptr_t)user_ptr & 0xFFFU) == 0 && malloc_zone_from_ptr(user_ptr) != NULL) {
+    // Check ownership of the complete header allocation before reading its
+    // tag. Size queries may receive non-owned or unreadable addresses, not
+    // only page-aligned pointers. Our raw allocation starts one header before
+    // user_ptr; native zone lookup rejects foreign addresses without probing
+    // those bytes. Retain tag + magic below to distinguish adjacent blocks.
+    uintptr_t address = (uintptr_t)user_ptr;
+    if (address < sizeof(malloc_header_t)
+        || malloc_zone_from_ptr((const void *)(address - sizeof(malloc_header_t))) == NULL) {
         return false;
     }
 #endif

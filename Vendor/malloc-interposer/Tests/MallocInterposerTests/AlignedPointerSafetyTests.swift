@@ -66,6 +66,11 @@ struct AlignedPointerSafetyTests {
             try assertCrashProbeSucceeds(mode: "tagged")
         }
 
+        @Test(arguments: ["protected_page", "protected_offset", "small_address"])
+        func sizeQueryRejectsUnreadableForeignPointers(mode: String) throws {
+            try assertCrashProbeSucceeds(mode: mode)
+        }
+
         private func assertCrashProbeSucceeds(mode: String) throws {
             let process = Process()
             process.executableURL = try crashProbeURL()
