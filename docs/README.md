@@ -71,7 +71,7 @@ harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
 
 | Tool | Purpose | Canonical run |
 | --- | --- | --- |
-| `aski` | Image rendering, human/JSON inspection, and lab discovery | `xcrun swift run aski render <image>` · `xcrun swift run aski inspect <image> --format json` · `xcrun swift run aski lab --help` |
+| `aski` | Image rendering, inspection, and machine-readable CLI discovery | `xcrun swift run aski render <image>` · `xcrun swift run aski inspect <image> --format json` · `xcrun swift run aski metadata` · `xcrun swift run aski lab --help` |
 | `AskiTileMatrix` | Tile-grid render matrix | `xcrun swift run AskiTileMatrix <image> <out> --columns 64` |
 | `aski lab color` | Color/matcher research, including the fixed ASKI-69 challenge and human-arbitrated [arbiter v2](Research/2026-09-04-aski62-arbiter-v2-protocol.md) | `xcrun swift run aski lab color <subcommand> --output-dir <dir>` · `xcrun swift run -c release aski lab color render-matcher-challenge --output-dir <dir>` |
 | `aski lab motion` | Animation frames, motion presets, GIF export, and temporal-coherence gates | `xcrun swift run aski lab motion --help` |

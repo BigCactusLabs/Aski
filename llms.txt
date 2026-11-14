@@ -7,7 +7,7 @@
 - [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
 - [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options require v0.8.0 or later.
 - [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
-- [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
+- [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, CLI discovery, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
 - [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.
 - [API catalog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Aski.md): DocC entry point and public symbol/article navigation. Source uses DocC symbol-link syntax.
 
@@ -31,6 +31,7 @@
 - [Package manifest](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Package.swift): Authoritative toolchain minimums, platforms, products, targets, and dependencies.
 - [Architecture](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/architecture.md): Shared engine, CLI/library boundary, pipeline, and deterministic JSON compatibility policy.
 - [Inspection schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-inspect-v1.schema.json): Versioned inspect JSON; readers must tolerate additive fields.
+- [CLI metadata schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-metadata-v1.schema.json): Versioned command discovery JSON from `aski metadata`.
 - [Render manifest schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-render-manifest-v1.schema.json): Unsigned render record, including paths and optional mask state; not an authenticity proof.
 - [Source map](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/repo-map.generated.md): Generated symbol-to-file navigation.
 

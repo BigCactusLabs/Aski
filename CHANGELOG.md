@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Added
+
+- `aski metadata` emits deterministic, versioned JSON for CLI discovery (ASKI-49).
+  It reports command paths, aliases, visible arguments, parser defaults, research
+  classification, replay product mappings, and the current checkout revision.
+
 ### Changed
 
 - **Benchmark instrumentation corrects a reproduced allocator cleanup defect (ASKI-109).**

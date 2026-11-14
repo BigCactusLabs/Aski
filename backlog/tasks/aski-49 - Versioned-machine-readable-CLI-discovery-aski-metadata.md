@@ -1,10 +1,10 @@
 ---
 id: ASKI-49
 title: 'Versioned machine-readable CLI discovery: aski metadata'
-status: To Do
+status: Done
 assignee: []
 created_date: 2026-08-21 02:15
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-14T17:10:00Z'
 labels: []
 dependencies:
   - ASKI-48
@@ -23,8 +23,17 @@ Migrated from GitHub issue #24 (harvested from closed PR #21). A deterministic v
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Deterministic v1 output with committed schema and sync test against the live command tree
+- [x] #1 Deterministic v1 output with committed schema and sync test against the live command tree
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Freeze a small additive-v1 projection of the live ArgumentParser tree: paths, aliases, visible arguments and help defaults, stability, default edges, replay prefix mappings and current checkout revision.
+2. Add aski metadata, schema and independent live-tree/output sync tests; preserve render as the default command and avoid public Aski SDK additions.
+3. Document the contract and record the intentional command-surface change through the existing native recorder.
+4. Run targeted artifact tests and the full unchanged local gate, then integrate only the verified source.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
@@ -44,4 +53,12 @@ Migrated from GitHub issue #24 (harvested from closed PR #21). A deterministic v
 Source map: `Tools/AskiColorLab/AskiColorLabCommand.swift`, `Tools/AskiToolSupport/StableJSON.swift`, `docs/assets/schemas/aski-inspect-v1.schema.json`, `Tests/AskiTests/AskiInspectCommandTests.swift`.
 
 Audit 2026-11-12: PR #20, closed PR #21 and issue #24 cited here are private-history numbers; public #20 is the v0.8.0 release and #21 is ASKI-98..100.
+
+2026-11-14: Implemented deterministic additive-v1 aski metadata with the live visible command tree, help defaults, default subcommands, stability and seven replay mappings; render remains the default. Independent CLI/tree/replay tests and the Draft 2020-12 schema validate 47 commands. Six invalid schema variants were rejected. Native check-fast passed 942 tests; metadata/unified 10 and artifact selection 45 passed. Full unchanged just check passed on base 186e36d plus the final eleven metadata files: 1543 core, 178 media, two sentinels and DocC. Only the intentional 52-line metadata command golden changed; production render goldens and dependency pins are unchanged. Lead verified integrated files byte-for-byte against the tested snapshot. Prior cross-family source review remained unavailable; lead review and local gates passed.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Added versioned machine-readable CLI discovery with deterministic output, schema, live-tree synchronization tests and current public documentation. Full local gate and actual schema validation pass.
+<!-- SECTION:FINAL_SUMMARY:END -->
