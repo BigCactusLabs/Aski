@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-92",
+  "declared_at": "2026-11-13T05:58:51.584581+00:00",
+  "base_revision": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "minimum_pairs": 5,
+  "pair_order": [
+    "control,candidate",
+    "candidate,control",
+    "control,candidate",
+    "candidate,control",
+    "control,candidate"
+  ],
+  "selections": {
+    "e2e": {
+      "workloads": [
+        "aski92-convert-160x160-p3-mixed-80cols-k16",
+        "aski92-convert-160x160-p3-mixed-80cols-k256",
+        "aski92-convert-160x160-p3-mixed-80cols-k64",
+        "aski92-convert-160x160-p3-mixed-80cols-k8",
+        "aski92-convert-160x160-p3-opaque-80cols-k16",
+        "aski92-convert-160x160-p3-opaque-80cols-k256",
+        "aski92-convert-160x160-p3-opaque-80cols-k64",
+        "aski92-convert-160x160-p3-opaque-80cols-k8",
+        "aski92-convert-160x160-srgb-mixed-80cols-k16",
+        "aski92-convert-160x160-srgb-mixed-80cols-k256",
+        "aski92-convert-160x160-srgb-mixed-80cols-k64",
+        "aski92-convert-160x160-srgb-mixed-80cols-k8",
+        "aski92-convert-160x160-srgb-opaque-80cols-k16",
+        "aski92-convert-160x160-srgb-opaque-80cols-k256",
+        "aski92-convert-160x160-srgb-opaque-80cols-k64",
+        "aski92-convert-160x160-srgb-opaque-80cols-k8",
+        "aski92-convert-16x16-p3-mixed-8cols-k16",
+        "aski92-convert-16x16-p3-mixed-8cols-k256",
+        "aski92-convert-16x16-p3-mixed-8cols-k64",
+        "aski92-convert-16x16-p3-mixed-8cols-k8",
+        "aski92-convert-16x16-p3-opaque-8cols-k16",
+        "aski92-convert-16x16-p3-opaque-8cols-k256",
+        "aski92-convert-16x16-p3-opaque-8cols-k64",
+        "aski92-convert-16x16-p3-opaque-8cols-k8",
+        "aski92-convert-16x16-srgb-mixed-8cols-k16",
+        "aski92-convert-16x16-srgb-mixed-8cols-k256",
+        "aski92-convert-16x16-srgb-mixed-8cols-k64",
+        "aski92-convert-16x16-srgb-mixed-8cols-k8",
+        "aski92-convert-16x16-srgb-opaque-8cols-k16",
+        "aski92-convert-16x16-srgb-opaque-8cols-k256",
+        "aski92-convert-16x16-srgb-opaque-8cols-k64",
+        "aski92-convert-16x16-srgb-opaque-8cols-k8",
+        "aski92-convert-512x512-p3-mixed-256cols-k16",
+        "aski92-convert-512x512-p3-mixed-256cols-k256",
+        "aski92-convert-512x512-p3-mixed-256cols-k64",
+        "aski92-convert-512x512-p3-mixed-256cols-k8",
+        "aski92-convert-512x512-p3-opaque-256cols-k16",
+        "aski92-convert-512x512-p3-opaque-256cols-k256",
+        "aski92-convert-512x512-p3-opaque-256cols-k64",
+        "aski92-convert-512x512-p3-opaque-256cols-k8",
+        "aski92-convert-512x512-srgb-mixed-256cols-k16",
+        "aski92-convert-512x512-srgb-mixed-256cols-k256",
+        "aski92-convert-512x512-srgb-mixed-256cols-k64",
+        "aski92-convert-512x512-srgb-mixed-256cols-k8",
+        "aski92-convert-512x512-srgb-opaque-256cols-k16",
+        "aski92-convert-512x512-srgb-opaque-256cols-k256",
+        "aski92-convert-512x512-srgb-opaque-256cols-k64",
+        "aski92-convert-512x512-srgb-opaque-256cols-k8",
+        "aski92-fixed-160x160-p3-mixed-80cols",
+        "aski92-fixed-160x160-p3-opaque-80cols",
+        "aski92-fixed-160x160-srgb-mixed-80cols",
+        "aski92-fixed-160x160-srgb-opaque-80cols",
+        "aski92-fixed-16x16-p3-mixed-8cols",
+        "aski92-fixed-16x16-p3-opaque-8cols",
+        "aski92-fixed-16x16-srgb-mixed-8cols",
+        "aski92-fixed-16x16-srgb-opaque-8cols",
+        "aski92-fixed-512x512-p3-mixed-256cols",
+        "aski92-fixed-512x512-p3-opaque-256cols",
+        "aski92-fixed-512x512-srgb-mixed-256cols",
+        "aski92-fixed-512x512-srgb-opaque-256cols",
+        "aski92-transparent-160x160-p3-80cols",
+        "aski92-transparent-160x160-srgb-80cols",
+        "aski92-transparent-16x16-p3-8cols",
+        "aski92-transparent-16x16-srgb-8cols",
+        "aski92-transparent-512x512-p3-256cols",
+        "aski92-transparent-512x512-srgb-256cols"
+      ],
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident"
+      ]
+    },
+    "phase": {
+      "filter": "^aski92-(prepare|wu-accumulate|wu-split|kmeans)-.*$",
+      "expected_count": 120,
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident"
+      ],
+      "role": "candidate-only phase attribution, no control or end-to-end verdict"
+    }
+  },
+  "primary_wall_workloads": [
+    "aski92-convert-160x160-p3-mixed-80cols-k16",
+    "aski92-convert-160x160-p3-mixed-80cols-k256",
+    "aski92-convert-160x160-p3-mixed-80cols-k64",
+    "aski92-convert-160x160-p3-mixed-80cols-k8",
+    "aski92-convert-160x160-p3-opaque-80cols-k16",
+    "aski92-convert-160x160-p3-opaque-80cols-k256",
+    "aski92-convert-160x160-p3-opaque-80cols-k64",
+    "aski92-convert-160x160-p3-opaque-80cols-k8",
+    "aski92-convert-160x160-srgb-mixed-80cols-k16",
+    "aski92-convert-160x160-srgb-mixed-80cols-k256",
+    "aski92-convert-160x160-srgb-mixed-80cols-k64",
+    "aski92-convert-160x160-srgb-mixed-80cols-k8",
+    "aski92-convert-160x160-srgb-opaque-80cols-k16",
+    "aski92-convert-160x160-srgb-opaque-80cols-k256",
+    "aski92-convert-160x160-srgb-opaque-80cols-k64",
+    "aski92-convert-160x160-srgb-opaque-80cols-k8",
+    "aski92-convert-512x512-p3-mixed-256cols-k16",
+    "aski92-convert-512x512-p3-mixed-256cols-k256",
+    "aski92-convert-512x512-p3-mixed-256cols-k64",
+    "aski92-convert-512x512-p3-mixed-256cols-k8",
+    "aski92-convert-512x512-p3-opaque-256cols-k16",
+    "aski92-convert-512x512-p3-opaque-256cols-k256",
+    "aski92-convert-512x512-p3-opaque-256cols-k64",
+    "aski92-convert-512x512-p3-opaque-256cols-k8",
+    "aski92-convert-512x512-srgb-mixed-256cols-k16",
+    "aski92-convert-512x512-srgb-mixed-256cols-k256",
+    "aski92-convert-512x512-srgb-mixed-256cols-k64",
+    "aski92-convert-512x512-srgb-mixed-256cols-k8",
+    "aski92-convert-512x512-srgb-opaque-256cols-k16",
+    "aski92-convert-512x512-srgb-opaque-256cols-k256",
+    "aski92-convert-512x512-srgb-opaque-256cols-k64",
+    "aski92-convert-512x512-srgb-opaque-256cols-k8"
+  ],
+  "benefit_rule": {
+    "every_primary_required": true,
+    "median_paired_percent_at_most": -5,
+    "improving_pairs_at_least": 4
+  },
+  "regression_guards": {
+    "aski92-convert-16x16-srgb-opaque-8cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-opaque-8cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-opaque-8cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-opaque-8cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-fixed-16x16-srgb-opaque-8cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-16x16-srgb-mixed-8cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-mixed-8cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-mixed-8cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-mixed-8cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-fixed-16x16-srgb-mixed-8cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-16x16-srgb-8cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-16x16-p3-opaque-8cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-opaque-8cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-opaque-8cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-opaque-8cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-fixed-16x16-p3-opaque-8cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-16x16-p3-mixed-8cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-mixed-8cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-mixed-8cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-mixed-8cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident",
+      "wallClock"
+    ],
+    "aski92-fixed-16x16-p3-mixed-8cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-16x16-p3-8cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-opaque-80cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-opaque-80cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-opaque-80cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-opaque-80cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-160x160-srgb-opaque-80cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-mixed-80cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-mixed-80cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-mixed-80cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-srgb-mixed-80cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-160x160-srgb-mixed-80cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-160x160-srgb-80cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-opaque-80cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-opaque-80cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-opaque-80cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-opaque-80cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-160x160-p3-opaque-80cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-mixed-80cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-mixed-80cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-mixed-80cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-160x160-p3-mixed-80cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-160x160-p3-mixed-80cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-160x160-p3-80cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-opaque-256cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-opaque-256cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-opaque-256cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-opaque-256cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-512x512-srgb-opaque-256cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-mixed-256cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-mixed-256cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-mixed-256cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-srgb-mixed-256cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-512x512-srgb-mixed-256cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-512x512-srgb-256cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-opaque-256cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-opaque-256cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-opaque-256cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-opaque-256cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-512x512-p3-opaque-256cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-mixed-256cols-k8": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-mixed-256cols-k16": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-mixed-256cols-k64": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-convert-512x512-p3-mixed-256cols-k256": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-fixed-512x512-p3-mixed-256cols": [
+      "wallClock",
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ],
+    "aski92-transparent-512x512-p3-256cols": [
+      "mallocCountTotal",
+      "peakMemoryResident"
+    ]
+  },
+  "regression_rule": {
+    "paired_percent_over": 3,
+    "pairs_at_least": 4
+  },
+  "additional_gates": [
+    "Exact native parity",
+    "Full just check",
+    "Relevant existing benchmark thresholds unchanged and passing",
+    "Every required capture and metric complete; missing/unresolved evidence is inconclusive",
+    "Stable normalized observed allocator identity; identical pins, toolchain, host and harness across arms"
+  ],
+  "notes": [
+    "Only shared packed tile samples differ between arms; ASKI-90 production treatment is absent.",
+    "Profile allocation lifetimes on 160x160 and 512x512 adaptive inputs in both arms outside timed pairs; sampled RSS can miss transient peaks.",
+    "Transparent-input cases include an early-return optimization and are not neutral controls.",
+    "If both palette candidates pass individually, verify their combined behavior and repeat the affected tile guard subset on the combined build before integration."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "experiment": "aski-90-2026-11-13-tile-guards",
+  "control_revision": "7c60b3a24637dc42c68453298e7d318d4446bbad",
+  "candidate_revision": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891",
+  "expected_workloads": [
+    "aski92-convert-16x16-p3-mixed-8cols-k256",
+    "aski92-convert-16x16-p3-opaque-8cols-k256",
+    "aski92-convert-16x16-srgb-mixed-8cols-k256",
+    "aski92-convert-16x16-srgb-opaque-8cols-k256",
+    "aski92-convert-512x512-p3-mixed-256cols-k256",
+    "aski92-convert-512x512-p3-opaque-256cols-k256",
+    "aski92-convert-512x512-srgb-mixed-256cols-k256",
+    "aski92-convert-512x512-srgb-opaque-256cols-k256"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident"
+  ],
+  "decision_rule": {
+    "reference": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891:Scripts/research/aski90-2026-11-13/pre-registration.json",
+    "declared_at": "2026-11-13T05:58:51.584581+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "local-aski-overnight-2026-11-13",
+    "same_physical_host": true,
+    "conditions": "Same physical M3 Max 14-core/36 GiB host; macOS 27.0.1 26A434, Xcode 27.0 27A266a, Swift 6.4; AC 100%; no recorded thermal/performance warning at preflight; MallocNanoZone=0. No competing batch builds/tests/benchmarks/profiles. Desktop/system background load present: duetexpertd 66-92% CPU and intermittent Chrome/mediaanalysisd 66-92% CPU; host not idle or quiet. Lead r1/g1 authorized this disclosed deviation from ideal quiet-host conditions. Lightweight lead documentation/status permitted; user/system processes unchanged."
+  },
+  "pairs": [
+    {
+      "control": "pair-1/control/report.json",
+      "candidate": "pair-1/candidate/report.json"
+    },
+    {
+      "control": "pair-2/control/report.json",
+      "candidate": "pair-2/candidate/report.json"
+    },
+    {
+      "control": "pair-3/control/report.json",
+      "candidate": "pair-3/candidate/report.json"
+    },
+    {
+      "control": "pair-4/control/report.json",
+      "candidate": "pair-4/candidate/report.json"
+    },
+    {
+      "control": "pair-5/control/report.json",
+      "candidate": "pair-5/candidate/report.json"
+    }
+  ]
+}

@@ -1,0 +1,3632 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-74",
+  "base_revision": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "toolchain": {
+    "xcode": "27.0 (27A266a)",
+    "swift": "Apple Swift 6.4 (swiftlang-6.4.0.34.1)",
+    "os": "macOS 27.0.1 (26A434)"
+  },
+  "status": "partial",
+  "rule": "Unchanged package, explicit backend, source/resource parity and tool behavior; no thresholds modified.",
+  "limitations": [
+    "HDR parity remains unresolved; one native repeat does not establish a statistical noise bound.",
+    "The final canonical just check used the installed Swift Build default, not the legacy native backend.",
+    "Kernel/vector regeneration exposed shared baseline drift; no source resources were replaced.",
+    "Compact readout retains parsed results and hashes; full local raw logs and generated media are not bundled.",
+    "Evidence metadata overwritten by two early wrappers is described in README; no invented per-command durations."
+  ],
+  "captures": {
+    "core-swiftbuild.json": {
+      "label": "core-swiftbuild",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--skip-build",
+        "--skip",
+        "encoderCompletesWithSpacedAppendsAtScale|convertVideoChainCompletesAtScaleWithoutDeadlock|everyNoteHasValidFrontMatter|generatedArtifactsAreInSync|everyCorpusAndResultHasValidManifest|generatedMapIsInSync|GIF|Video|MotionLab"
+      ],
+      "exit": 0,
+      "seconds": 113.22085809707642
+    },
+    "media-swiftbuild.json": {
+      "label": "media-swiftbuild",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "GIF|Video|MotionLab",
+        "--skip",
+        "encoderCompletesWithSpacedAppendsAtScale|convertVideoChainCompletesAtScaleWithoutDeadlock"
+      ],
+      "exit": 0,
+      "seconds": 13.883462190628052
+    },
+    "sentinels-swiftbuild.json": {
+      "label": "sentinels-swiftbuild",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "encoderCompletesWithSpacedAppendsAtScale|convertVideoChainCompletesAtScaleWithoutDeadlock"
+      ],
+      "exit": 0,
+      "seconds": 5.609099864959717
+    },
+    "clean-native-control.json": {
+      "label": "clean-native-control",
+      "cwd": "<native>",
+      "argv": [
+        "xcrun",
+        "swift",
+        "build",
+        "--build-system",
+        "native",
+        "--build-tests"
+      ],
+      "exit": 0,
+      "seconds": 63.2993426322937
+    },
+    "surfaces-native/commands.json": [
+      {
+        "label": "bin-path",
+        "argv": [
+          "xcrun",
+          "swift",
+          "build",
+          "--build-system",
+          "native",
+          "--show-bin-path"
+        ],
+        "exit": 0,
+        "seconds": 0.973273754119873,
+        "stdout_sha256": "817bab5607ba7b04ba9b4fb91a699ade2bfb8bf8733a027a4a1bf1b58095939d",
+        "stderr_sha256": "8d13865527b64b7506e0c65bc7df4ac68841c6d2c6329546be9de001355584bb"
+      },
+      {
+        "label": "aski-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "aski",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 2.7969982624053955,
+        "stdout_sha256": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.04088878631591797,
+        "stdout_sha256": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.03819704055786133,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski"
+        ],
+        "exit": 64,
+        "seconds": 0.07757091522216797,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "9cc373eb255b1de1e24c7196a4b401f64d28df0f4c8e433f4a1fdd2128c824b4"
+      },
+      {
+        "label": "AskiDemo-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiDemo",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3243088722229004,
+        "stdout_sha256": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDemo",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.12946200370788574,
+        "stdout_sha256": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDemo",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.10621905326843262,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDemo"
+        ],
+        "exit": 64,
+        "seconds": 0.1519792079925537,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "b66ca7c968f68dfc4894b7de096ac2398f21a76f6a5d9d1f3691f3e9c8522253"
+      },
+      {
+        "label": "AskiTileMatrix-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiTileMatrix",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3785059452056885,
+        "stdout_sha256": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiTileMatrix",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.09213805198669434,
+        "stdout_sha256": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiTileMatrix",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.09182596206665039,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiTileMatrix"
+        ],
+        "exit": 64,
+        "seconds": 0.0930631160736084,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "2c2016ca0dc553eb1b77fd642150de6d942d1a4121734d8b2df3d7db06dd9b9b"
+      },
+      {
+        "label": "AskiColorLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiColorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.5467848777770996,
+        "stdout_sha256": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiColorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08487606048583984,
+        "stdout_sha256": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiColorLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.0832982063293457,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiColorLab"
+        ],
+        "exit": 64,
+        "seconds": 0.08557486534118652,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d2e8841da62c86c2fde515250130b75916499f1af2224937a15037db81990a93"
+      },
+      {
+        "label": "AskiMotionLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiMotionLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3347270488739014,
+        "stdout_sha256": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiMotionLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.09079217910766602,
+        "stdout_sha256": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiMotionLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.09057307243347168,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiMotionLab"
+        ],
+        "exit": 64,
+        "seconds": 0.0930640697479248,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "7c843778ec58ec9608ac91e9f4734a40cfd1739c1dc3dc3510a922fd81d02ad1"
+      },
+      {
+        "label": "AskiVideoLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiVideoLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3714301586151123,
+        "stdout_sha256": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiVideoLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.03978705406188965,
+        "stdout_sha256": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiVideoLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.032330989837646484,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiVideoLab"
+        ],
+        "exit": 64,
+        "seconds": 0.036331892013549805,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "7ebccb88b20f280e103ded0ad4d1366a5fb25816b436a630fa35810b426d5be1"
+      },
+      {
+        "label": "AskiAccessLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiAccessLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3694567680358887,
+        "stdout_sha256": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiAccessLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08702206611633301,
+        "stdout_sha256": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiAccessLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08610200881958008,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiAccessLab"
+        ],
+        "exit": 64,
+        "seconds": 0.08715224266052246,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "8512ef780ce66f72c8886296b8b9477faa8c22548beb66f22c65965efe741746"
+      },
+      {
+        "label": "AskiDecolorLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiDecolorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.314863920211792,
+        "stdout_sha256": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDecolorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08099818229675293,
+        "stdout_sha256": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDecolorLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.09073209762573242,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiDecolorLab"
+        ],
+        "exit": 64,
+        "seconds": 0.09134912490844727,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "60357f7d730347526909c59d6197cc7bab43c379ea698637463c70265d5456b8"
+      },
+      {
+        "label": "AskiHDRLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiHDRLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.317586898803711,
+        "stdout_sha256": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiHDRLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08236002922058105,
+        "stdout_sha256": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiHDRLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08811807632446289,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiHDRLab"
+        ],
+        "exit": 64,
+        "seconds": 0.09183001518249512,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "b13197282e4b854aca190f4f1774a7ba9850f33854b3def1cd2e779ab6b6183f"
+      },
+      {
+        "label": "AskiPresetLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "AskiPresetLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.5591261386871338,
+        "stdout_sha256": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiPresetLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08489012718200684,
+        "stdout_sha256": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiPresetLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08859682083129883,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/AskiPresetLab"
+        ],
+        "exit": 64,
+        "seconds": 0.08306503295898438,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "14b77992611a7ef9cbfb324e322a07f30433c80ec8e860609d393d1e169ec13c"
+      },
+      {
+        "label": "canonical-color-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "color",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.06294608116149902,
+        "stdout_sha256": "f9982de8fd95d7b37ed32fce6869d583f0ca1f5d124e7283080af23a5cafef7f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-color-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "color",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04859590530395508,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-color-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "color"
+        ],
+        "exit": 64,
+        "seconds": 0.04456496238708496,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "f1a0289e7d743f02d575641458a7e7a09b3da27f00eef0d67409a524bff2e7ea"
+      },
+      {
+        "label": "canonical-motion-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "motion",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.044097185134887695,
+        "stdout_sha256": "01dc91ab51a0d38f06bbaa4d31431477606cbf940890f56320555df5b5034f1c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-motion-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "motion",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.041610002517700195,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-motion-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "motion"
+        ],
+        "exit": 64,
+        "seconds": 0.04967498779296875,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "0cec8624fab12a59d475437e855cbcb1a4e81595efca800d5196d78d44d0d2a8"
+      },
+      {
+        "label": "canonical-video-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "video",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.0732882022857666,
+        "stdout_sha256": "9b0333577da7c0ba997de7e4d7959772d9258efe2561247b52e36fabfefa79c1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-video-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "video",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.06324219703674316,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-video-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "video"
+        ],
+        "exit": 64,
+        "seconds": 0.08252191543579102,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "f05da7d174860b43fb480d125b9b57333168e68405b1f59deb3a84b1e327ca48"
+      },
+      {
+        "label": "canonical-accessibility-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "accessibility",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.042299747467041016,
+        "stdout_sha256": "695d44b672d802447893698d571eb75c80bedfd73bac41d3c1718660f9927aad",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-accessibility-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "accessibility",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.03968405723571777,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-accessibility-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "accessibility"
+        ],
+        "exit": 64,
+        "seconds": 0.038915157318115234,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "2ad55f40e57604ec96fd87959017223ec81f623947e444dadea9973149418858"
+      },
+      {
+        "label": "canonical-decolor-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "decolor",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.03978991508483887,
+        "stdout_sha256": "dd989326c0967ee8a29b8919f297ead11e9ac1ccd1cd918ec5d0b2119c0eef24",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-decolor-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "decolor",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04172706604003906,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-decolor-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "decolor"
+        ],
+        "exit": 64,
+        "seconds": 0.04080390930175781,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46"
+      },
+      {
+        "label": "canonical-hdr-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "hdr",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.04117083549499512,
+        "stdout_sha256": "23f4d3054f6f57c0d7d23d7bf4c0f8c82bbd84cb8ee281449624d1956dd98509",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-hdr-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "hdr",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.038810014724731445,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-hdr-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "hdr"
+        ],
+        "exit": 64,
+        "seconds": 0.042095184326171875,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46"
+      },
+      {
+        "label": "canonical-preset-help",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "preset",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.039093017578125,
+        "stdout_sha256": "cea85137c18f89cb58c4e77bee8aa38ca475f908d7b94a645c0a1ec78adbfcac",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-preset-version",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "preset",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.03969597816467285,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-preset-bare",
+        "argv": [
+          "<native>/.build/arm64-apple-macosx/debug/aski",
+          "lab",
+          "preset"
+        ],
+        "exit": 64,
+        "seconds": 0.03942728042602539,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d6704606394a5d09e217199fbb70adf86875a08d86bf5c8bbb48130f3514fe39"
+      }
+    ],
+    "surfaces-swiftbuild/commands.json": [
+      {
+        "label": "bin-path",
+        "argv": [
+          "xcrun",
+          "swift",
+          "build",
+          "--build-system",
+          "swiftbuild",
+          "--show-bin-path"
+        ],
+        "exit": 0,
+        "seconds": 0.7478330135345459,
+        "stdout_sha256": "9d8ed6d225a25f7378434a92bf6b0d2a75f7f6a30ed27ff986bd7f60bdee0e75",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "aski",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 3.3877627849578857,
+        "stdout_sha256": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.02849102020263672,
+        "stdout_sha256": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.026552677154541016,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "aski-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski"
+        ],
+        "exit": 64,
+        "seconds": 0.06934499740600586,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "9cc373eb255b1de1e24c7196a4b401f64d28df0f4c8e433f4a1fdd2128c824b4"
+      },
+      {
+        "label": "AskiDemo-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiDemo",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.5985798835754395,
+        "stdout_sha256": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDemo",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.12003588676452637,
+        "stdout_sha256": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDemo",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.09879207611083984,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDemo-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDemo"
+        ],
+        "exit": 64,
+        "seconds": 0.1504220962524414,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "b66ca7c968f68dfc4894b7de096ac2398f21a76f6a5d9d1f3691f3e9c8522253"
+      },
+      {
+        "label": "AskiTileMatrix-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiTileMatrix",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.5403869152069092,
+        "stdout_sha256": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiTileMatrix",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.09413290023803711,
+        "stdout_sha256": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiTileMatrix",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08588504791259766,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiTileMatrix-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiTileMatrix"
+        ],
+        "exit": 64,
+        "seconds": 0.08935022354125977,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "2c2016ca0dc553eb1b77fd642150de6d942d1a4121734d8b2df3d7db06dd9b9b"
+      },
+      {
+        "label": "AskiColorLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiColorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.381119966506958,
+        "stdout_sha256": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiColorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08692193031311035,
+        "stdout_sha256": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiColorLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08320999145507812,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiColorLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiColorLab"
+        ],
+        "exit": 64,
+        "seconds": 0.08510112762451172,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d2e8841da62c86c2fde515250130b75916499f1af2224937a15037db81990a93"
+      },
+      {
+        "label": "AskiMotionLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiMotionLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.540436029434204,
+        "stdout_sha256": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiMotionLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08931922912597656,
+        "stdout_sha256": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiMotionLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.09209394454956055,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiMotionLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiMotionLab"
+        ],
+        "exit": 64,
+        "seconds": 0.10724401473999023,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "7c843778ec58ec9608ac91e9f4734a40cfd1739c1dc3dc3510a922fd81d02ad1"
+      },
+      {
+        "label": "AskiVideoLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiVideoLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3105731010437012,
+        "stdout_sha256": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiVideoLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.02865290641784668,
+        "stdout_sha256": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiVideoLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.021298885345458984,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiVideoLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiVideoLab"
+        ],
+        "exit": 64,
+        "seconds": 0.02958226203918457,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "7ebccb88b20f280e103ded0ad4d1366a5fb25816b436a630fa35810b426d5be1"
+      },
+      {
+        "label": "AskiAccessLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiAccessLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.5711021423339844,
+        "stdout_sha256": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiAccessLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.08624815940856934,
+        "stdout_sha256": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiAccessLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08285880088806152,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiAccessLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiAccessLab"
+        ],
+        "exit": 64,
+        "seconds": 0.08447384834289551,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "8512ef780ce66f72c8886296b8b9477faa8c22548beb66f22c65965efe741746"
+      },
+      {
+        "label": "AskiDecolorLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiDecolorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.431183099746704,
+        "stdout_sha256": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDecolorLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.07782316207885742,
+        "stdout_sha256": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDecolorLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.08450627326965332,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiDecolorLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiDecolorLab"
+        ],
+        "exit": 64,
+        "seconds": 0.09853982925415039,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "60357f7d730347526909c59d6197cc7bab43c379ea698637463c70265d5456b8"
+      },
+      {
+        "label": "AskiHDRLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiHDRLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.3202807903289795,
+        "stdout_sha256": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiHDRLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.0843038558959961,
+        "stdout_sha256": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiHDRLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.07953405380249023,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiHDRLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiHDRLab"
+        ],
+        "exit": 64,
+        "seconds": 0.0832512378692627,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "b13197282e4b854aca190f4f1774a7ba9850f33854b3def1cd2e779ab6b6183f"
+      },
+      {
+        "label": "AskiPresetLab-reuse-help",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "AskiPresetLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 1.61735200881958,
+        "stdout_sha256": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiPresetLab",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.07848095893859863,
+        "stdout_sha256": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiPresetLab",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.0866401195526123,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "AskiPresetLab-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/AskiPresetLab"
+        ],
+        "exit": 64,
+        "seconds": 0.0901639461517334,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "14b77992611a7ef9cbfb324e322a07f30433c80ec8e860609d393d1e169ec13c"
+      },
+      {
+        "label": "canonical-color-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "color",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.06309103965759277,
+        "stdout_sha256": "f9982de8fd95d7b37ed32fce6869d583f0ca1f5d124e7283080af23a5cafef7f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-color-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "color",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.0529940128326416,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-color-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "color"
+        ],
+        "exit": 64,
+        "seconds": 0.04888105392456055,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "f1a0289e7d743f02d575641458a7e7a09b3da27f00eef0d67409a524bff2e7ea"
+      },
+      {
+        "label": "canonical-motion-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "motion",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.04672837257385254,
+        "stdout_sha256": "01dc91ab51a0d38f06bbaa4d31431477606cbf940890f56320555df5b5034f1c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-motion-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "motion",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04454779624938965,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-motion-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "motion"
+        ],
+        "exit": 64,
+        "seconds": 0.04889225959777832,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "0cec8624fab12a59d475437e855cbcb1a4e81595efca800d5196d78d44d0d2a8"
+      },
+      {
+        "label": "canonical-video-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "video",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.07690978050231934,
+        "stdout_sha256": "9b0333577da7c0ba997de7e4d7959772d9258efe2561247b52e36fabfefa79c1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-video-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "video",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.0699777603149414,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-video-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "video"
+        ],
+        "exit": 64,
+        "seconds": 0.08141303062438965,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "f05da7d174860b43fb480d125b9b57333168e68405b1f59deb3a84b1e327ca48"
+      },
+      {
+        "label": "canonical-accessibility-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "accessibility",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.044740915298461914,
+        "stdout_sha256": "695d44b672d802447893698d571eb75c80bedfd73bac41d3c1718660f9927aad",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-accessibility-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "accessibility",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04340720176696777,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-accessibility-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "accessibility"
+        ],
+        "exit": 64,
+        "seconds": 0.048139095306396484,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "2ad55f40e57604ec96fd87959017223ec81f623947e444dadea9973149418858"
+      },
+      {
+        "label": "canonical-decolor-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "decolor",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.04679393768310547,
+        "stdout_sha256": "dd989326c0967ee8a29b8919f297ead11e9ac1ccd1cd918ec5d0b2119c0eef24",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-decolor-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "decolor",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.044877052307128906,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-decolor-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "decolor"
+        ],
+        "exit": 64,
+        "seconds": 0.04368185997009277,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46"
+      },
+      {
+        "label": "canonical-hdr-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "hdr",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.04351210594177246,
+        "stdout_sha256": "23f4d3054f6f57c0d7d23d7bf4c0f8c82bbd84cb8ee281449624d1956dd98509",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-hdr-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "hdr",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04462575912475586,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-hdr-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "hdr"
+        ],
+        "exit": 64,
+        "seconds": 0.04364800453186035,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46"
+      },
+      {
+        "label": "canonical-preset-help",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "preset",
+          "--help"
+        ],
+        "exit": 0,
+        "seconds": 0.041821956634521484,
+        "stdout_sha256": "cea85137c18f89cb58c4e77bee8aa38ca475f908d7b94a645c0a1ec78adbfcac",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-preset-version",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "preset",
+          "--version"
+        ],
+        "exit": 0,
+        "seconds": 0.04520392417907715,
+        "stdout_sha256": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "canonical-preset-bare",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/aski",
+          "lab",
+          "preset"
+        ],
+        "exit": 64,
+        "seconds": 0.048313140869140625,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d6704606394a5d09e217199fbb70adf86875a08d86bf5c8bbb48130f3514fe39"
+      }
+    ],
+    "surface-parity.json": [
+      {
+        "file": "AskiTileMatrix-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "aski-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "aski-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "aski-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "aski-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "aski-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiVideoLab-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-accessibility-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiColorLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-video-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-reuse-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDemo-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-hdr-bare.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "aski-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "aski-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-color-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-motion-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-decolor-help.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiPresetLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiHDRLab-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiMotionLab-bare.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiAccessLab-version.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "AskiDecolorLab-help.stdout.log",
+        "equal": true
+      },
+      {
+        "file": "canonical-preset-version.stderr.log",
+        "equal": true
+      },
+      {
+        "file": "AskiTileMatrix-reuse-help.stdout.log",
+        "equal": true
+      }
+    ],
+    "resources.json": {
+      "bundle_paths": {
+        "swiftbuild": "<swiftbuild>/.build/out/Products/Debug/Aski_Aski.bundle/Contents/Resources",
+        "native": "<native>/.build/arm64-apple-macosx/debug/Aski_Aski.bundle"
+      },
+      "files": [
+        {
+          "resource": "PrivacyInfo.xcprivacy",
+          "source": "528ab3fca910d2ac2f3ef256d5ea4c2327303a7a4a5efb9236987f3018e311f3",
+          "swiftbuild": "528ab3fca910d2ac2f3ef256d5ea4c2327303a7a4a5efb9236987f3018e311f3",
+          "native": "528ab3fca910d2ac2f3ef256d5ea4c2327303a7a4a5efb9236987f3018e311f3"
+        },
+        {
+          "resource": "Kernels/default.metallib",
+          "source": "3df93d552f64cd8583182a3cd85a1ea24768674bf4f648b2906481e68e8f1b12",
+          "swiftbuild": "3df93d552f64cd8583182a3cd85a1ea24768674bf4f648b2906481e68e8f1b12",
+          "native": "3df93d552f64cd8583182a3cd85a1ea24768674bf4f648b2906481e68e8f1b12"
+        },
+        {
+          "resource": "Kernels/.gitkeep",
+          "source": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "swiftbuild": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "native": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "resource": "Fonts/OFL.txt",
+          "source": "9a755af092b494944c99f471be6fddd19b006a448fefdc4717e4ee0aa09a97b0",
+          "swiftbuild": "9a755af092b494944c99f471be6fddd19b006a448fefdc4717e4ee0aa09a97b0",
+          "native": "9a755af092b494944c99f471be6fddd19b006a448fefdc4717e4ee0aa09a97b0"
+        },
+        {
+          "resource": "Fonts/CourierPrime-Regular.ttf",
+          "source": "72f793376f8e2841656bf21d77a5de010f2929bd6956a22ee848ad0c7eb978af",
+          "swiftbuild": "72f793376f8e2841656bf21d77a5de010f2929bd6956a22ee848ad0c7eb978af",
+          "native": "72f793376f8e2841656bf21d77a5de010f2929bd6956a22ee848ad0c7eb978af"
+        },
+        {
+          "resource": "ShapeData/dots.bin",
+          "source": "b18df001907799aa245d75cec679a5107aff5c9180c5b8ef9487c114c0bfcb91",
+          "swiftbuild": "b18df001907799aa245d75cec679a5107aff5c9180c5b8ef9487c114c0bfcb91",
+          "native": "b18df001907799aa245d75cec679a5107aff5c9180c5b8ef9487c114c0bfcb91"
+        },
+        {
+          "resource": "ShapeData/blocks.bin",
+          "source": "ecc95e431eeeb2f6f5e010a11ddc0ef76607ddbb21a7042c762bc97ce76f3c25",
+          "swiftbuild": "ecc95e431eeeb2f6f5e010a11ddc0ef76607ddbb21a7042c762bc97ce76f3c25",
+          "native": "ecc95e431eeeb2f6f5e010a11ddc0ef76607ddbb21a7042c762bc97ce76f3c25"
+        },
+        {
+          "resource": "ShapeData/lines.bin",
+          "source": "fbe6d59714484c8f72455b2241cc75c0f49b8f1080851395c4436fab7987f115",
+          "swiftbuild": "fbe6d59714484c8f72455b2241cc75c0f49b8f1080851395c4436fab7987f115",
+          "native": "fbe6d59714484c8f72455b2241cc75c0f49b8f1080851395c4436fab7987f115"
+        },
+        {
+          "resource": "ShapeData/standard.bin",
+          "source": "b1876b5539573484f7b2ea0a608390ff9d2ba86909a82020adce8e30cb26297d",
+          "swiftbuild": "b1876b5539573484f7b2ea0a608390ff9d2ba86909a82020adce8e30cb26297d",
+          "native": "b1876b5539573484f7b2ea0a608390ff9d2ba86909a82020adce8e30cb26297d"
+        },
+        {
+          "resource": "ShapeData/minimal.bin",
+          "source": "61ca265738a2c77e7cf37c34d6ea65212d86a8024aa75c0f2e1fc307abb34ce2",
+          "swiftbuild": "61ca265738a2c77e7cf37c34d6ea65212d86a8024aa75c0f2e1fc307abb34ce2",
+          "native": "61ca265738a2c77e7cf37c34d6ea65212d86a8024aa75c0f2e1fc307abb34ce2"
+        },
+        {
+          "resource": "ShapeData/mixed.bin",
+          "source": "4a7de7c1b0ab73592d8d311451f35f4baa00211573503730b735ace8faf8fd14",
+          "swiftbuild": "4a7de7c1b0ab73592d8d311451f35f4baa00211573503730b735ace8faf8fd14",
+          "native": "4a7de7c1b0ab73592d8d311451f35f4baa00211573503730b735ace8faf8fd14"
+        },
+        {
+          "resource": "ShapeData/braille.bin",
+          "source": "0aeb9c9935746684cfbf68b5913a5dfeabdd5bedea4f65bfb54d5bc63ac029ea",
+          "swiftbuild": "0aeb9c9935746684cfbf68b5913a5dfeabdd5bedea4f65bfb54d5bc63ac029ea",
+          "native": "0aeb9c9935746684cfbf68b5913a5dfeabdd5bedea4f65bfb54d5bc63ac029ea"
+        },
+        {
+          "resource": "ShapeData/cross.bin",
+          "source": "4be2a598f64d155d25247fe42c221338608e2da82f7035fc371650544a585b94",
+          "swiftbuild": "4be2a598f64d155d25247fe42c221338608e2da82f7035fc371650544a585b94",
+          "native": "4be2a598f64d155d25247fe42c221338608e2da82f7035fc371650544a585b94"
+        },
+        {
+          "resource": "ShapeData/diamond.bin",
+          "source": "77dbd747b79e4ed3fada41f6508535f62bc7298db1cf6be0b8e5e439ad336c48",
+          "swiftbuild": "77dbd747b79e4ed3fada41f6508535f62bc7298db1cf6be0b8e5e439ad336c48",
+          "native": "77dbd747b79e4ed3fada41f6508535f62bc7298db1cf6be0b8e5e439ad336c48"
+        },
+        {
+          "resource": "ShapeData/diagonal.bin",
+          "source": "6b273874790eb3b4bcdc6a1d7e504564d4aed5dee8e9c954e263cf45ca178ea4",
+          "swiftbuild": "6b273874790eb3b4bcdc6a1d7e504564d4aed5dee8e9c954e263cf45ca178ea4",
+          "native": "6b273874790eb3b4bcdc6a1d7e504564d4aed5dee8e9c954e263cf45ca178ea4"
+        }
+      ]
+    },
+    "drift.json": [
+      {
+        "tool": "BuildResearchIndex",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "BuildResearchIndex",
+          "--check"
+        ],
+        "exit": 1,
+        "before_sha256": "0c92382689359bb996747c0c763ba59b252c5b00b53fd0887ae0f1e49f347867",
+        "restored_sha256": "0c92382689359bb996747c0c763ba59b252c5b00b53fd0887ae0f1e49f347867",
+        "restored_exit": 0
+      },
+      {
+        "tool": "BuildRepoMap",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "BuildRepoMap",
+          "--check"
+        ],
+        "exit": 1,
+        "before_sha256": "2679c393caf9fb69189aff3f8a30ea2e90e386620d313099a172dec253b4964a",
+        "restored_sha256": "2679c393caf9fb69189aff3f8a30ea2e90e386620d313099a172dec253b4964a",
+        "restored_exit": 0
+      }
+    ],
+    "symbolgraph-swiftbuild.json": {
+      "label": "symbolgraph-swiftbuild",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "xcrun",
+        "swift",
+        "package",
+        "--build-system",
+        "swiftbuild",
+        "dump-symbol-graph",
+        "--minimum-access-level",
+        "public"
+      ],
+      "exit": 0,
+      "seconds": 18.489439010620117
+    },
+    "docc-cache-provenance.json": {
+      "label": "docc-cache-provenance",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "bash",
+        "<evidence>/publish-symbol-cache.sh"
+      ],
+      "exit": 0,
+      "seconds": 1.9362289905548096
+    },
+    "docc-markdown-swiftbuild.json": {
+      "label": "docc-markdown-swiftbuild",
+      "cwd": "<swiftbuild>",
+      "argv": [
+        "./Scripts/validate-docc.sh",
+        "--emit-markdown",
+        "--output-dir",
+        "<evidence>/markdown-swiftbuild"
+      ],
+      "exit": 0,
+      "seconds": 2.5819079875946045
+    },
+    "benchmark-smoke-results.json": {
+      "replayed_from_retained_exports": true,
+      "command": {
+        "label": "benchmark-smoke-swiftbuild",
+        "cwd": "<swiftbuild>",
+        "argv": [
+          "xcrun",
+          "swift",
+          "package",
+          "--build-system",
+          "swiftbuild",
+          "--disable-sandbox",
+          "benchmark",
+          "run",
+          "--target",
+          "AskiBenchmarks",
+          "--no-progress",
+          "--filter",
+          "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|tile[-]quantize[-]rich[-]512x512[-]256cols[-]adaptive16|masked[-]ascii[-]convert[-]render[-]80cols|video[-]e2e[-]one[-]shot[-]720p[-]80cols[-]12frames|render[-]image[-]gradient[-]80cols)$",
+          "--format",
+          "histogramSamples",
+          "--time-units",
+          "nanoseconds",
+          "--path",
+          "<evidence>/benchmark-smoke-samples"
+        ],
+        "exit": 0,
+        "seconds": 57.2399799823761
+      },
+      "results": {
+        "animation-build-gradient-80cols-k6": {
+          "metrics": {
+            "cpuTotal": {
+              "sample_count": 6,
+              "unit": "ns",
+              "header": "Time (total CPU) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.animation-build-gradient-80cols-k6.cpuTotal.histogram.samples.tsv",
+              "sha256": "8842e800be422f8b07b12e82b4810c8602d42baa28b14c70bf59aa18c7b85128"
+            },
+            "mallocCountTotal": {
+              "sample_count": 6,
+              "unit": "K",
+              "header": "Malloc (total) (K)",
+              "file": "samples/Current_run.AskiBenchmarks.animation-build-gradient-80cols-k6.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "f420d70f2dd923db99243a187c852d006dc7c0b72c436e93a2fb162860e213eb"
+            },
+            "wallClock": {
+              "sample_count": 6,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.animation-build-gradient-80cols-k6.wallClock.histogram.samples.tsv",
+              "sha256": "c30b772a995c8f39da7d576310a68d3fee04246436824660909d7a6ee7cc6126"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "animation-grid-at-80cols": {
+          "metrics": {
+            "cpuTotal": {
+              "sample_count": 6,
+              "unit": "ns",
+              "header": "Time (total CPU) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.animation-grid-at-80cols.cpuTotal.histogram.samples.tsv",
+              "sha256": "64213586534a01df8caaa5d5c6d24f44dc2619b6ccff93a51db02bfe75ffc0ea"
+            },
+            "mallocCountTotal": {
+              "sample_count": 6,
+              "unit": "#",
+              "header": "Malloc (total) ",
+              "file": "samples/Current_run.AskiBenchmarks.animation-grid-at-80cols.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "6226523fa1cbf51316a64151d5f1a51c2a512f560a8735c9b7f25e19295e575f"
+            },
+            "wallClock": {
+              "sample_count": 6,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.animation-grid-at-80cols.wallClock.histogram.samples.tsv",
+              "sha256": "a9a75a25471a5e849460b50233e8539cb92d746f66ff629e79069e429f32d3e3"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "tile-quantize-rich-512x512-256cols-adaptive16": {
+          "metrics": {
+            "mallocCountTotal": {
+              "sample_count": 22,
+              "unit": "#",
+              "header": "Malloc (total) ",
+              "file": "samples/Current_run.AskiBenchmarks.tile-quantize-rich-512x512-256cols-adaptive16.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "c9800d2ff4cd3bafc5761b8f412e80d1b787105a516605aff6107b4041a3374a"
+            },
+            "wallClock": {
+              "sample_count": 22,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.tile-quantize-rich-512x512-256cols-adaptive16.wallClock.histogram.samples.tsv",
+              "sha256": "a45f2a464e3df1a5413cb0c1b4d648d0139f15104b26c081f0aecbe79b56e372"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "masked-ascii-convert-render-80cols": {
+          "metrics": {
+            "mallocCountTotal": {
+              "sample_count": 8,
+              "unit": "K",
+              "header": "Malloc (total) (K)",
+              "file": "samples/Current_run.AskiBenchmarks.masked-ascii-convert-render-80cols.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "cea47bd747c499c4a87c2865106dd8463a5ae9fb2031044da6e347b2fb347ddb"
+            },
+            "wallClock": {
+              "sample_count": 8,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.masked-ascii-convert-render-80cols.wallClock.histogram.samples.tsv",
+              "sha256": "fef361eac8d58cc002d9bda1f0e36c91235baf0fe50c0d2b37cb1ee01922ce2b"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "video-e2e-one-shot-720p-80cols-12frames": {
+          "metrics": {
+            "cpuTotal": {
+              "sample_count": 5,
+              "unit": "ns",
+              "header": "Time (total CPU) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.video-e2e-one-shot-720p-80cols-12frames.cpuTotal.histogram.samples.tsv",
+              "sha256": "3f5c380e534b6cca316adf391cb3fcb4d2ab769c9b94ae4424032e6e0e1e0175"
+            },
+            "mallocCountTotal": {
+              "sample_count": 5,
+              "unit": "K",
+              "header": "Malloc (total) (K)",
+              "file": "samples/Current_run.AskiBenchmarks.video-e2e-one-shot-720p-80cols-12frames.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "405eb7dcfc5c5bc39371e45f210d83a99285f5ea817e2ae9d0509121b95893a1"
+            },
+            "peakMemoryResidentDelta": {
+              "sample_count": 5,
+              "unit": "M",
+              "header": "Memory \u0394 (resident peak) (M)",
+              "file": "samples/Current_run.AskiBenchmarks.video-e2e-one-shot-720p-80cols-12frames.peakMemoryResidentDelta.histogram.samples.tsv",
+              "sha256": "c64cf3ea5a04dfe2fb07c7d73c715603c77f29e53f66ea59b75d2ae49c4d508c"
+            },
+            "throughput": {
+              "sample_count": 5,
+              "unit": "#",
+              "header": "Throughput (# / s) (#)",
+              "file": "samples/Current_run.AskiBenchmarks.video-e2e-one-shot-720p-80cols-12frames.throughput.histogram.samples.tsv",
+              "sha256": "44bd489ba200bcc235a710fc7f116f8b7ea95721d261678788e4de092b65af58"
+            },
+            "wallClock": {
+              "sample_count": 5,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.video-e2e-one-shot-720p-80cols-12frames.wallClock.histogram.samples.tsv",
+              "sha256": "1b0df260760c5fc9a88d0869bdc124660370089571f1a9cc6187eb7b84f4f5d8"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        },
+        "render-image-gradient-80cols": {
+          "metrics": {
+            "mallocCountTotal": {
+              "sample_count": 88,
+              "unit": "K",
+              "header": "Malloc (total) (K)",
+              "file": "samples/Current_run.AskiBenchmarks.render-image-gradient-80cols.mallocCountTotal.histogram.samples.tsv",
+              "sha256": "85ab1c2247de2c9e842393ec49f2cc5ecdf11ac4945e650ea0ed02fb74327b32"
+            },
+            "wallClock": {
+              "sample_count": 88,
+              "unit": "ns",
+              "header": "Time (wall clock) (ns)",
+              "file": "samples/Current_run.AskiBenchmarks.render-image-gradient-80cols.wallClock.histogram.samples.tsv",
+              "sha256": "faa838777840714ee77f97b2809c4d23633199dc8afb8900e6e2c3b23d00e749"
+            }
+          },
+          "optional_not_exported": [
+            "allocatedResidentMemory"
+          ]
+        }
+      },
+      "errors": [],
+      "complete": true
+    },
+    "final-canonical-check.json": {
+      "label": "final-canonical-check",
+      "cwd": "<native>",
+      "argv": [
+        "just",
+        "check"
+      ],
+      "exit": 0,
+      "seconds": 206.05066227912903
+    },
+    "render-parity.json": {
+      "native-aski": {
+        "art.txt": "e1510c03c4dde1dc02c9e4869d6a8e3db62bc91eac3f1f8ae5d5aa47daf2eeb7",
+        "art.png": "1dc8e6d866bd05e21d51671be45c283a674baf9ac2ec0c5a4eb187d5cc18e062"
+      },
+      "native-AskiDemo": {
+        "art.txt": "e1510c03c4dde1dc02c9e4869d6a8e3db62bc91eac3f1f8ae5d5aa47daf2eeb7",
+        "art.png": "1dc8e6d866bd05e21d51671be45c283a674baf9ac2ec0c5a4eb187d5cc18e062"
+      },
+      "native-AskiTileMatrix": {
+        "brick-circle.png": "eb32f256b22b283e5b653e39bf3cbe401c0ae6d46c77cf366f10696a98d41816",
+        "brick-hex.png": "7ea22afbb269a1aaa9f363c7674f0d36a146417e406d2504c4d4f05bddbc3f2a",
+        "pixelArt-diamond.png": "076ace2ea9f0668e35422a7ee982567dae0f91181312b62a6e207e38a09ebc3a",
+        "pixelArt-hex.png": "c68fa5f420f323bb6d41f2e4630725ac5a08d3acd3ea421394afeec88fd0f38d",
+        "pixelArt-square.png": "65bf452ab65188b933f821e5b562268acb3cb47808fe1050f6d58104fb318acb",
+        "mosaic-square.png": "a5e2ee977c6966e09b74d54e2a0471360a456ca9ddefe5b2cdd1cbb86a7daa7b",
+        "mosaic-diamond.png": "72e84f2ad83dcbae2468f760c622db9c2b19a5a4f10265fc68c1e11d77a33cd1",
+        "mosaic-hex.png": "afc04091431cbae52f72bc806b4474ec412a2e43d204515593165a8a23e28e2c",
+        "pixelArt-triangle.png": "be4b66fcd834fd2f4763190f6f9771ccf0ee101a80a6498a45dcab5e5745bd1b",
+        "brick-square.png": "0e5e024be2ac6209010587097b75827370a2568ba6acf86e486e047f7d5b4625",
+        "brick-triangle.png": "09d98708fee5f929692569ea60619e59f2793239e74879b2f1a63275f94ae574",
+        "mosaic-triangle.png": "49def08a592dc48cea779f61bc155593a8a311873270f0b97e8a1cdab03dcba8",
+        "brick-diamond.png": "faf92a2c1cfc1d3b5e05e4b1263c6e7d0f512d130e65554e2267feee837543a6",
+        "pixelArt-circle.png": "7d14dd26f4229bfabbcb07fa1f8b50a1cb68002ba53d3f6b0fe98b682cd6f7ba",
+        "mosaic-circle.png": "8249caf870dccaf1a495e1fc43e927b94fee3e7a9daa2e941a75a75c10ae8cde"
+      },
+      "swiftbuild-aski": {
+        "art.txt": "e1510c03c4dde1dc02c9e4869d6a8e3db62bc91eac3f1f8ae5d5aa47daf2eeb7",
+        "art.png": "1dc8e6d866bd05e21d51671be45c283a674baf9ac2ec0c5a4eb187d5cc18e062"
+      },
+      "swiftbuild-AskiDemo": {
+        "art.txt": "e1510c03c4dde1dc02c9e4869d6a8e3db62bc91eac3f1f8ae5d5aa47daf2eeb7",
+        "art.png": "1dc8e6d866bd05e21d51671be45c283a674baf9ac2ec0c5a4eb187d5cc18e062"
+      },
+      "swiftbuild-AskiTileMatrix": {
+        "brick-circle.png": "eb32f256b22b283e5b653e39bf3cbe401c0ae6d46c77cf366f10696a98d41816",
+        "brick-hex.png": "7ea22afbb269a1aaa9f363c7674f0d36a146417e406d2504c4d4f05bddbc3f2a",
+        "pixelArt-diamond.png": "076ace2ea9f0668e35422a7ee982567dae0f91181312b62a6e207e38a09ebc3a",
+        "pixelArt-hex.png": "c68fa5f420f323bb6d41f2e4630725ac5a08d3acd3ea421394afeec88fd0f38d",
+        "pixelArt-square.png": "65bf452ab65188b933f821e5b562268acb3cb47808fe1050f6d58104fb318acb",
+        "mosaic-square.png": "a5e2ee977c6966e09b74d54e2a0471360a456ca9ddefe5b2cdd1cbb86a7daa7b",
+        "mosaic-diamond.png": "72e84f2ad83dcbae2468f760c622db9c2b19a5a4f10265fc68c1e11d77a33cd1",
+        "mosaic-hex.png": "afc04091431cbae52f72bc806b4474ec412a2e43d204515593165a8a23e28e2c",
+        "pixelArt-triangle.png": "be4b66fcd834fd2f4763190f6f9771ccf0ee101a80a6498a45dcab5e5745bd1b",
+        "brick-square.png": "0e5e024be2ac6209010587097b75827370a2568ba6acf86e486e047f7d5b4625",
+        "brick-triangle.png": "09d98708fee5f929692569ea60619e59f2793239e74879b2f1a63275f94ae574",
+        "mosaic-triangle.png": "49def08a592dc48cea779f61bc155593a8a311873270f0b97e8a1cdab03dcba8",
+        "brick-diamond.png": "faf92a2c1cfc1d3b5e05e4b1263c6e7d0f512d130e65554e2267feee837543a6",
+        "pixelArt-circle.png": "7d14dd26f4229bfabbcb07fa1f8b50a1cb68002ba53d3f6b0fe98b682cd6f7ba",
+        "mosaic-circle.png": "8249caf870dccaf1a495e1fc43e927b94fee3e7a9daa2e941a75a75c10ae8cde"
+      }
+    },
+    "artifact-parity-summary.json": {
+      "files_per_lane": 64,
+      "comparisons": 192,
+      "differences": [
+        {
+          "lane": "native-canonical",
+          "file": "hdr/result.yaml",
+          "reference_sha256": "09458895dd285ac056c5dd03e7f41e1e2035465b160c5364f8642fff2ec7358b",
+          "sha256": "292a0aed3e075f7d37c725904f0841be2557809a5daff59f124008e59e380bde",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/hdr.csv",
+          "reference_sha256": "96b7916f5bf497aed7bc1f9a0164ee5ead0b618be6fdd5c5e35988c119573627",
+          "sha256": "dbba4b0bf09f21408b82359c61db36fe4389112b6903f7736b40f8018e9e1c44",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k4.heic",
+          "reference_sha256": "9cb6a4af499dc9167a275c175168771a77871fb94c0e2e6424dbc273757f853a",
+          "sha256": "338292cb7d7fefa7983a7dd740d9e9a5ce6293089565a7e890e7777294e8ddcf",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/gradient-srgb-k2.heic",
+          "reference_sha256": "af869b9fc9dd03235d94315a58dcbb3014c33b7c57def4c49e796598827a6992",
+          "sha256": "995a8e8db7b5460a2dca2ea02eada63a3142de2c938c0a5bcb26abbcad48d3fe",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/dark-srgb-k1.heic",
+          "reference_sha256": "7d647987ac7d3b12cb5c0603bda620b764891f6cd4be5448e7bd4e8f710278e1",
+          "sha256": "d47f02c6c07b5f204979c9a411217d524b70629734d10918e2861a65591c479d",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/edge-srgb-k4.heic",
+          "reference_sha256": "11aec5cf1cebc9f4b25296ebc46f2f008278c8ed7c65233a94f5f3c66869793b",
+          "sha256": "ccee99b783fdfb4d38ccd83db0865404089912bb38d3a645697697b34c38a010",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-srgb-k4.heic",
+          "reference_sha256": "e7fa4acd276e48ca5314f73e561feac7a9ccc0e1320f46e741c6e6c92c082784",
+          "sha256": "4e293dfddc40a5bd866ea3def163b8a0337bfc7067b4361010961b0797d5b5ed",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/dark-srgb-k0.heic",
+          "reference_sha256": "46efdf63daa5bfc1f32ebca282e561d427edb1339632e50c0ad3757d98c9a718",
+          "sha256": "c1813e2e811158d8a9f4b8a050f1075d336685bf95e8fac1cbdbda0b4d4bb5bd",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/gradient-srgb-k4.heic",
+          "reference_sha256": "9980390bd19d0f11be2010260ced2e7b6e666a07c0d623cb92c30b3dee31f0ea",
+          "sha256": "3b2b5086e4c323f9b1f23c8b0cf0d458d81d55fa734327d1ece723ebcde13aec",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/edge-srgb-k2.heic",
+          "reference_sha256": "116bdc2918d7663560f2cc09aa6781bbab6a5dbd9a05fc8503f49b8692454064",
+          "sha256": "3d234a322dbada1f617aad267f362366e8867d3af05ac4164abd984727a3f022",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-srgb-k2.heic",
+          "reference_sha256": "f4c592f2c282d55872aacd1ab40b6bc4c3f499b636426427af5f7049526ae4b2",
+          "sha256": "7bff347d59219f3ca0ad13fd032961a0d5a9c0b87ac38a5106c9e45e7ed11a64",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-p3-k1.heic",
+          "reference_sha256": "dfc8dc0f00d2bb850951668294222fe708bb632fe7bde9d689f6ff10146e9b87",
+          "sha256": "d93f242ae559dfa99f2317ddcf9afae88c2da2fce04682413677459de00c0ae5",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k2.heic",
+          "reference_sha256": "98fe12d120c1073dbe7aa3c7f3293493793d5a172862deb05da63bf5480a1e7c",
+          "sha256": "4548c9ca3a09f56877f1187d8acef79864a0838fc8b0e396380bdf61a570d9f7",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-p3-k0.heic",
+          "reference_sha256": "cbbd2d7ff612235138b399605510b81eba63e0856cbd0dbb02e724fe0a2524e0",
+          "sha256": "a877fbb9990f894c4cc83328cc24ab97403c6b38a4c3b8508e07c878cf51a4ab",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/edge-srgb-k0.heic",
+          "reference_sha256": "da3d62ebcce70f6b02a58b52cb3b55a9df6352835cbac4ded356c25a9ac0dc8e",
+          "sha256": "9e74356854fb34d22667cdb1f84c8c07cdcba90db5dd2b440446dbc02ca89c0c",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k0.heic",
+          "reference_sha256": "e632717364e2e6e0dbfe926e41cc72fb5f377209dbbf021dcf31c890129ccda5",
+          "sha256": "ec497d8a41c92d38c4ca9f2bf5decb8fd6ad811918900698b0f0d934dde8ae56",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k1.heic",
+          "reference_sha256": "70442ab7ff78587dcada6e117c01afeb99612809966959d5d47eb4e2b0917b31",
+          "sha256": "2fd0eae98a9684be3260fd63d680b721d864e1091750010afc3eac4f7355cddd",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/dark-srgb-k4.heic",
+          "reference_sha256": "cc118d1b487b1d3ba7526e2fee97772b44b4088d7a1f8be180c347d7282d6f99",
+          "sha256": "40300287094156e79ed52882240a22026d4154e4ed864468e1f3dc9b55f31bd4",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/edge-srgb-k1.heic",
+          "reference_sha256": "51e81cf1e208e2abd70ba8770a7ff500533848cc08108e45fcadd10d69014d19",
+          "sha256": "311e2a2fa3638bfcfb80e51ef4adff2a395038df773c1d19998223f9e8ea056b",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-p3-k2.heic",
+          "reference_sha256": "074147047a779527d17cd1617cf8e115b2b043f2cccac4bdb28207358b2e2339",
+          "sha256": "56602f7e6e1127ac61ff48e729436de6b4bd9442cba94853d9bca0969d61d645",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/gradient-srgb-k0.heic",
+          "reference_sha256": "9f9f560a76240cc9c66e17aa22118427fd9913e232d2099f36696dda6f4105a0",
+          "sha256": "fa56d7b0c1b0018e53e32c65705c77d706d274a0d381524f4463108fececaaf1",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/gradient-srgb-k1.heic",
+          "reference_sha256": "b8787589f1ecd7e2556ee656b21f4cdded9a428c83c0e8ebd3faac071e774a28",
+          "sha256": "5a38dd8b025aa515058aad60fb6950c5e103ae4f1c9c50b002b3da6a09c3cdf8",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/dark-srgb-k2.heic",
+          "reference_sha256": "01fa9d3ad102ab323074dcd95b8fed9fde879d50bc57bf4b32de9e2227b42504",
+          "sha256": "e2514c7ec39cd06ec3bd1e69396c529ac696922719cf256b3ad58ef8ec123b20",
+          "equal": false
+        },
+        {
+          "lane": "native-canonical",
+          "file": "hdr/heic/bright-p3-k4.heic",
+          "reference_sha256": "ce28a1fcf4855c8b18fa91f7358fe51647e431ab5981d2afd2344543efd24d42",
+          "sha256": "d0f06e13b5c3c57cd288dc8606975e4bdc666d7375d5f6b78dd9543592155f33",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/result.yaml",
+          "reference_sha256": "09458895dd285ac056c5dd03e7f41e1e2035465b160c5364f8642fff2ec7358b",
+          "sha256": "292a0aed3e075f7d37c725904f0841be2557809a5daff59f124008e59e380bde",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/hdr.csv",
+          "reference_sha256": "96b7916f5bf497aed7bc1f9a0164ee5ead0b618be6fdd5c5e35988c119573627",
+          "sha256": "43e10454382efa3cbb4770d35078663d4be31b69355cbe883b640d4bf02d2ebd",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k4.heic",
+          "reference_sha256": "9cb6a4af499dc9167a275c175168771a77871fb94c0e2e6424dbc273757f853a",
+          "sha256": "a118f9a89ed9482ea682dd4620d1d7d123e6dc299bc92dd82b23f9dd34206770",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/gradient-srgb-k2.heic",
+          "reference_sha256": "af869b9fc9dd03235d94315a58dcbb3014c33b7c57def4c49e796598827a6992",
+          "sha256": "ddcdcabababf53f125dd87a64a56114ce81b4b7eed216560966b98ae414fd996",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/dark-srgb-k1.heic",
+          "reference_sha256": "7d647987ac7d3b12cb5c0603bda620b764891f6cd4be5448e7bd4e8f710278e1",
+          "sha256": "d47f02c6c07b5f204979c9a411217d524b70629734d10918e2861a65591c479d",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/edge-srgb-k4.heic",
+          "reference_sha256": "11aec5cf1cebc9f4b25296ebc46f2f008278c8ed7c65233a94f5f3c66869793b",
+          "sha256": "180cbdc40789f62c0e77608b724fbb2082317f43b53eec6c97530469c7ba2fd9",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-srgb-k4.heic",
+          "reference_sha256": "e7fa4acd276e48ca5314f73e561feac7a9ccc0e1320f46e741c6e6c92c082784",
+          "sha256": "4e293dfddc40a5bd866ea3def163b8a0337bfc7067b4361010961b0797d5b5ed",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/dark-srgb-k0.heic",
+          "reference_sha256": "46efdf63daa5bfc1f32ebca282e561d427edb1339632e50c0ad3757d98c9a718",
+          "sha256": "c1813e2e811158d8a9f4b8a050f1075d336685bf95e8fac1cbdbda0b4d4bb5bd",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/gradient-srgb-k4.heic",
+          "reference_sha256": "9980390bd19d0f11be2010260ced2e7b6e666a07c0d623cb92c30b3dee31f0ea",
+          "sha256": "e9e8361141ea68575a95fc73bf839b08afa5c5990a87d34745dd60c2007dc714",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/edge-srgb-k2.heic",
+          "reference_sha256": "116bdc2918d7663560f2cc09aa6781bbab6a5dbd9a05fc8503f49b8692454064",
+          "sha256": "76d703793309b9d1510800ffba17e3b83488eceeee11564ce3636d67c8913b7d",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-srgb-k2.heic",
+          "reference_sha256": "f4c592f2c282d55872aacd1ab40b6bc4c3f499b636426427af5f7049526ae4b2",
+          "sha256": "7bff347d59219f3ca0ad13fd032961a0d5a9c0b87ac38a5106c9e45e7ed11a64",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-p3-k1.heic",
+          "reference_sha256": "dfc8dc0f00d2bb850951668294222fe708bb632fe7bde9d689f6ff10146e9b87",
+          "sha256": "d93f242ae559dfa99f2317ddcf9afae88c2da2fce04682413677459de00c0ae5",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k2.heic",
+          "reference_sha256": "98fe12d120c1073dbe7aa3c7f3293493793d5a172862deb05da63bf5480a1e7c",
+          "sha256": "91ebf666c1eede96197785363ff88c103fc2c655ad95884e605d715df8746909",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-p3-k0.heic",
+          "reference_sha256": "cbbd2d7ff612235138b399605510b81eba63e0856cbd0dbb02e724fe0a2524e0",
+          "sha256": "a877fbb9990f894c4cc83328cc24ab97403c6b38a4c3b8508e07c878cf51a4ab",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/edge-srgb-k0.heic",
+          "reference_sha256": "da3d62ebcce70f6b02a58b52cb3b55a9df6352835cbac4ded356c25a9ac0dc8e",
+          "sha256": "a0df3c259e84f09d75b75e9c959538e17323ef5278c977197cb2a101345cf1db",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k0.heic",
+          "reference_sha256": "e632717364e2e6e0dbfe926e41cc72fb5f377209dbbf021dcf31c890129ccda5",
+          "sha256": "259ed9ada02d34b72993f69143878e5e4471d218b960498e00e8237079d1bb9e",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/mono-bright-srgb-k1.heic",
+          "reference_sha256": "70442ab7ff78587dcada6e117c01afeb99612809966959d5d47eb4e2b0917b31",
+          "sha256": "70fde898fb6eebae70d817afafb32acb338efe4142d74850edbd6539adb15250",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/dark-srgb-k4.heic",
+          "reference_sha256": "cc118d1b487b1d3ba7526e2fee97772b44b4088d7a1f8be180c347d7282d6f99",
+          "sha256": "40300287094156e79ed52882240a22026d4154e4ed864468e1f3dc9b55f31bd4",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/edge-srgb-k1.heic",
+          "reference_sha256": "51e81cf1e208e2abd70ba8770a7ff500533848cc08108e45fcadd10d69014d19",
+          "sha256": "f137ed99637c9d20249294fde307d9d011989f7b64166b569b03cbebaa7c367e",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-p3-k2.heic",
+          "reference_sha256": "074147047a779527d17cd1617cf8e115b2b043f2cccac4bdb28207358b2e2339",
+          "sha256": "56602f7e6e1127ac61ff48e729436de6b4bd9442cba94853d9bca0969d61d645",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/gradient-srgb-k0.heic",
+          "reference_sha256": "9f9f560a76240cc9c66e17aa22118427fd9913e232d2099f36696dda6f4105a0",
+          "sha256": "479fe146ed65fbbc5af272b176cee131dc7dd8b697a68a78ae128a8931b9f2a8",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/gradient-srgb-k1.heic",
+          "reference_sha256": "b8787589f1ecd7e2556ee656b21f4cdded9a428c83c0e8ebd3faac071e774a28",
+          "sha256": "6a8d1ab2b4af7f2d79f769f56036c6932935c80a03e54d92135e2a2818da2967",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/dark-srgb-k2.heic",
+          "reference_sha256": "01fa9d3ad102ab323074dcd95b8fed9fde879d50bc57bf4b32de9e2227b42504",
+          "sha256": "e2514c7ec39cd06ec3bd1e69396c529ac696922719cf256b3ad58ef8ec123b20",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-canonical",
+          "file": "hdr/heic/bright-p3-k4.heic",
+          "reference_sha256": "ce28a1fcf4855c8b18fa91f7358fe51647e431ab5981d2afd2344543efd24d42",
+          "sha256": "d0f06e13b5c3c57cd288dc8606975e4bdc666d7375d5f6b78dd9543592155f33",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/hdr.csv",
+          "reference_sha256": "96b7916f5bf497aed7bc1f9a0164ee5ead0b618be6fdd5c5e35988c119573627",
+          "sha256": "80184efd1248f6919954d83320e30886fb72b08cb739b145ae20ae4c9f3acaf7",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/gradient-srgb-k2.heic",
+          "reference_sha256": "af869b9fc9dd03235d94315a58dcbb3014c33b7c57def4c49e796598827a6992",
+          "sha256": "502feda6eae3a6466e621dfbf2c1f8f09d3867e2ecdb71b43ad54236d38f5492",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/dark-srgb-k1.heic",
+          "reference_sha256": "7d647987ac7d3b12cb5c0603bda620b764891f6cd4be5448e7bd4e8f710278e1",
+          "sha256": "61a7023b3dd6b6541c0492329dc56bb62ab5188c55f7573bad138a9af145aabb",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/edge-srgb-k4.heic",
+          "reference_sha256": "11aec5cf1cebc9f4b25296ebc46f2f008278c8ed7c65233a94f5f3c66869793b",
+          "sha256": "f47977c1c23a1bab00842e216cfcaa33ee083245ce99680299332547dc3f120a",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/dark-srgb-k0.heic",
+          "reference_sha256": "46efdf63daa5bfc1f32ebca282e561d427edb1339632e50c0ad3757d98c9a718",
+          "sha256": "8a4569a42f516ff52796fb308c0cf82ec0d38812ba667297e198c3695fac0b29",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/gradient-srgb-k4.heic",
+          "reference_sha256": "9980390bd19d0f11be2010260ced2e7b6e666a07c0d623cb92c30b3dee31f0ea",
+          "sha256": "0e07af4b55176aa3fe40ccc7306c14cf28e3fd7bafbce050ac60656b8120c8c0",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/edge-srgb-k2.heic",
+          "reference_sha256": "116bdc2918d7663560f2cc09aa6781bbab6a5dbd9a05fc8503f49b8692454064",
+          "sha256": "750f7ba00441c8f555e5f1ecfed78e890039aaa3498b25302e7c2305dfe827b1",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/bright-p3-k1.heic",
+          "reference_sha256": "dfc8dc0f00d2bb850951668294222fe708bb632fe7bde9d689f6ff10146e9b87",
+          "sha256": "8eacf35ed529cc839478858447b2facafb6d5f737949144ae1f58dcf904e0bc1",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/mono-bright-srgb-k2.heic",
+          "reference_sha256": "98fe12d120c1073dbe7aa3c7f3293493793d5a172862deb05da63bf5480a1e7c",
+          "sha256": "d31b509329417270129f5f6d1b480e63d1fbdd70803e9d0ce433849f73b14ddd",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/bright-p3-k0.heic",
+          "reference_sha256": "cbbd2d7ff612235138b399605510b81eba63e0856cbd0dbb02e724fe0a2524e0",
+          "sha256": "f79d03136229866d94ed211e9aebe984dc753e6b027abf32ff947e9629b08074",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/edge-srgb-k0.heic",
+          "reference_sha256": "da3d62ebcce70f6b02a58b52cb3b55a9df6352835cbac4ded356c25a9ac0dc8e",
+          "sha256": "d85a5fe7b03f9082f5982011f3e55227eacba7f2f2ac8e08ed62ab0326f00a00",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/mono-bright-srgb-k0.heic",
+          "reference_sha256": "e632717364e2e6e0dbfe926e41cc72fb5f377209dbbf021dcf31c890129ccda5",
+          "sha256": "6887b48047e0547013e334f72bb3dd3af0a407c7c9c868d97a66a533859ccf82",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/mono-bright-srgb-k1.heic",
+          "reference_sha256": "70442ab7ff78587dcada6e117c01afeb99612809966959d5d47eb4e2b0917b31",
+          "sha256": "c39b2d50d92da4af886751c63c0627a913793b2c74a9e2f5cf2549147b9f1ba0",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/dark-srgb-k4.heic",
+          "reference_sha256": "cc118d1b487b1d3ba7526e2fee97772b44b4088d7a1f8be180c347d7282d6f99",
+          "sha256": "05b73a925db4e112b6e2c0e597a666b7bf98d60db02669b6a23c1a16fc34452c",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/edge-srgb-k1.heic",
+          "reference_sha256": "51e81cf1e208e2abd70ba8770a7ff500533848cc08108e45fcadd10d69014d19",
+          "sha256": "815f6f2e2c938f32781e82b2797d09c5aa2ac5c68bad75e7436e57c19d32d122",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/bright-p3-k2.heic",
+          "reference_sha256": "074147047a779527d17cd1617cf8e115b2b043f2cccac4bdb28207358b2e2339",
+          "sha256": "1f1075f3f4e085d01835dc30ade09fad940476526543fb4979cf0d919901d6e6",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/gradient-srgb-k0.heic",
+          "reference_sha256": "9f9f560a76240cc9c66e17aa22118427fd9913e232d2099f36696dda6f4105a0",
+          "sha256": "83c571d9c1f7d048a734cbec9c2d05e2313ada6052c9a3873c141f0586ec5f45",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/gradient-srgb-k1.heic",
+          "reference_sha256": "b8787589f1ecd7e2556ee656b21f4cdded9a428c83c0e8ebd3faac071e774a28",
+          "sha256": "4c3e5e9bcfbfd06f257f33b0a987f4f31a8ea648b041fb6a83e5c6cbd85fe9f7",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/dark-srgb-k2.heic",
+          "reference_sha256": "01fa9d3ad102ab323074dcd95b8fed9fde879d50bc57bf4b32de9e2227b42504",
+          "sha256": "05b73a925db4e112b6e2c0e597a666b7bf98d60db02669b6a23c1a16fc34452c",
+          "equal": false
+        },
+        {
+          "lane": "swiftbuild-replay",
+          "file": "hdr/heic/bright-p3-k4.heic",
+          "reference_sha256": "ce28a1fcf4855c8b18fa91f7358fe51647e431ab5981d2afd2344543efd24d42",
+          "sha256": "2a62dd0cb755d04fd135243fd02bec36e7da6c37c177b405eba624d67eca6b04",
+          "equal": false
+        }
+      ]
+    },
+    "hdr-csv-comparison.json": {
+      "same-native": {
+        "content_headroom": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "hdr_max_channel": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "g1_mean_diff": {
+          "max_abs_difference": 1.4000000000000123e-05,
+          "mean_abs_difference": 1.5833333333334742e-06,
+          "different_rows": 19
+        },
+        "g2_mean_diff": {
+          "max_abs_difference": 1.5000000000001124e-05,
+          "mean_abs_difference": 1.5000000000002262e-06,
+          "different_rows": 15
+        },
+        "heic_bytes": {
+          "max_abs_difference": 161.0,
+          "mean_abs_difference": 13.63888888888889,
+          "different_rows": 20
+        },
+        "stable_fields_equal": true
+      },
+      "replay-backends": {
+        "content_headroom": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "hdr_max_channel": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "g1_mean_diff": {
+          "max_abs_difference": 5.000000000000013e-06,
+          "mean_abs_difference": 9.722222222223844e-07,
+          "different_rows": 16
+        },
+        "g2_mean_diff": {
+          "max_abs_difference": 5.000000000000013e-06,
+          "mean_abs_difference": 9.166666666663155e-07,
+          "different_rows": 15
+        },
+        "heic_bytes": {
+          "max_abs_difference": 161.0,
+          "mean_abs_difference": 15.222222222222221,
+          "different_rows": 18
+        },
+        "stable_fields_equal": true
+      },
+      "canonical-backends": {
+        "content_headroom": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "hdr_max_channel": {
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "different_rows": 0
+        },
+        "g1_mean_diff": {
+          "max_abs_difference": 1.299999999999999e-05,
+          "mean_abs_difference": 1.3333333333332934e-06,
+          "different_rows": 8
+        },
+        "g2_mean_diff": {
+          "max_abs_difference": 1.2999999999999123e-05,
+          "mean_abs_difference": 1.3888888888890732e-06,
+          "different_rows": 7
+        },
+        "heic_bytes": {
+          "max_abs_difference": 38.0,
+          "mean_abs_difference": 4.638888888888889,
+          "different_rows": 12
+        },
+        "stable_fields_equal": true
+      }
+    },
+    "heic-decoded-summary.json": {
+      "native-repeat": {
+        "pairs": 36,
+        "metadata_mismatches": [],
+        "sdr_base": {
+          "max_per_file_mae": 1.980895017708082e-05,
+          "max_channel_delta": 0.04402679204940796,
+          "different_files": 20
+        },
+        "expanded_hdr": {
+          "max_per_file_mae": 5.300454775562359e-05,
+          "max_channel_delta": 0.29268383979797363,
+          "different_files": 20
+        }
+      },
+      "replay-backends": {
+        "pairs": 36,
+        "metadata_mismatches": [],
+        "sdr_base": {
+          "max_per_file_mae": 1.1598063089231686e-05,
+          "max_channel_delta": 0.042838096618652344,
+          "different_files": 19
+        },
+        "expanded_hdr": {
+          "max_per_file_mae": 4.036759900954731e-05,
+          "max_channel_delta": 0.17664241790771484,
+          "different_files": 19
+        },
+        "files_exceeding_same_file_repeat_mae": {
+          "sdr_base": [
+            "dark-srgb-k2.heic",
+            "dark-srgb-k4.heic",
+            "mono-bright-srgb-k1.heic"
+          ],
+          "expanded_hdr": [
+            "dark-srgb-k2.heic",
+            "dark-srgb-k4.heic",
+            "mono-bright-srgb-k1.heic"
+          ]
+        }
+      },
+      "canonical-backends": {
+        "pairs": 36,
+        "metadata_mismatches": [],
+        "sdr_base": {
+          "max_per_file_mae": 1.3503397824674378e-05,
+          "max_channel_delta": 0.05103713274002075,
+          "different_files": 12
+        },
+        "expanded_hdr": {
+          "max_per_file_mae": 5.839134035121342e-05,
+          "max_channel_delta": 0.21846246719360352,
+          "different_files": 12
+        },
+        "files_exceeding_same_file_repeat_mae": {
+          "sdr_base": [
+            "edge-srgb-k0.heic",
+            "edge-srgb-k1.heic",
+            "edge-srgb-k2.heic",
+            "edge-srgb-k4.heic",
+            "gradient-srgb-k2.heic",
+            "gradient-srgb-k4.heic",
+            "mono-bright-srgb-k0.heic",
+            "mono-bright-srgb-k1.heic",
+            "mono-bright-srgb-k2.heic",
+            "mono-bright-srgb-k4.heic"
+          ],
+          "expanded_hdr": [
+            "edge-srgb-k0.heic",
+            "edge-srgb-k1.heic",
+            "edge-srgb-k2.heic",
+            "edge-srgb-k4.heic",
+            "gradient-srgb-k2.heic",
+            "gradient-srgb-k4.heic",
+            "mono-bright-srgb-k0.heic",
+            "mono-bright-srgb-k1.heic",
+            "mono-bright-srgb-k2.heic",
+            "mono-bright-srgb-k4.heic"
+          ]
+        }
+      }
+    },
+    "vector-audit-parity.json": [
+      {
+        "file": "glyph-drift.csv",
+        "sha256": [
+          "13e7d2edec3b07b115f3621f5013060f36df518afa5287124f41ed301e37d93e",
+          "13e7d2edec3b07b115f3621f5013060f36df518afa5287124f41ed301e37d93e",
+          "13e7d2edec3b07b115f3621f5013060f36df518afa5287124f41ed301e37d93e"
+        ],
+        "all_equal": true
+      },
+      {
+        "file": "set-summary.csv",
+        "sha256": [
+          "61a88c6f241809e8c683460e9c8a9454e8ba4c2a083bd65ea4c1cc7dd656b518",
+          "61a88c6f241809e8c683460e9c8a9454e8ba4c2a083bd65ea4c1cc7dd656b518",
+          "61a88c6f241809e8c683460e9c8a9454e8ba4c2a083bd65ea4c1cc7dd656b518"
+        ],
+        "all_equal": true
+      }
+    ],
+    "generator-completion-commands.json": [
+      {
+        "label": "vectors-native-repeat",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "native",
+          "--skip-build",
+          "BuildStandardVectors",
+          "--audit",
+          "--output-dir",
+          "<evidence>/vectors-native-repeat"
+        ],
+        "cwd": "<native>",
+        "exit": 1,
+        "seconds": 3.9699018001556396
+      },
+      {
+        "label": "kernel-swiftbuild",
+        "argv": [
+          "<swiftbuild>/.build/out/Products/Debug/BuildKernelLibrary"
+        ],
+        "cwd": "<evidence>/kernel-swiftbuild",
+        "exit": 0,
+        "seconds": 2.762218713760376,
+        "sha256": "bb663922b4e69c7507f1795cf91f2faa5fda0418693a0fa1195696821377ad38",
+        "matches_native": true,
+        "matches_checked_in": false
+      },
+      {
+        "label": "vectors-swiftbuild",
+        "argv": [
+          "xcrun",
+          "swift",
+          "run",
+          "--build-system",
+          "swiftbuild",
+          "--skip-build",
+          "BuildStandardVectors",
+          "--audit",
+          "--output-dir",
+          "<evidence>/vectors-swiftbuild"
+        ],
+        "cwd": "<swiftbuild>",
+        "exit": 1,
+        "seconds": 2.9063382148742676
+      }
+    ]
+  },
+  "raw_log_sha256": {
+    "BuildRepoMap-drift.stderr.log": "b7811d416d563fab73d1ff616d50405cc76cc9ae9db61100874b0bde9884fcfe",
+    "BuildRepoMap-drift.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "BuildRepoMap-restored.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "BuildRepoMap-restored.stdout.log": "01814e34af0ae9ec7ee12baae394e35dc375199125b1a9adea8c653bb450cf7e",
+    "BuildResearchIndex-drift.stderr.log": "f2554433479127c9cf054f3203919c018ef1de22ffd5734039f584e9f2cfaf88",
+    "BuildResearchIndex-drift.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "BuildResearchIndex-restored.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "BuildResearchIndex-restored.stdout.log": "c336144bf207c948192422b6620d72c98a377eebcae71d6d7b3e8d400ddef873",
+    "artifact-matrix-qualified.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-matrix-qualified.stdout.log": "6856e09c29972057fbbafa03c257e76bc0a53f14b60f60cda2fabf1d3d312685",
+    "artifact-matrix.stderr.log": "1e6e2942ac67da65a5131ec671d0d2d1a7de7626eaa297de86a39a7c5449d16b",
+    "artifact-matrix.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-accessibility.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-accessibility.stdout.log": "10ae166681385cbc7c3200a4465ef87af3c720d08ae7478bda8d896f2af7c060",
+    "artifact-native-replay-color.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-color.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-decolor.stderr.log": "b4e54230acea03d2869126a49a8d9ebeabdf976499895624b2f9a172fe7807c6",
+    "artifact-native-replay-decolor.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-motion.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-motion.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-video.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-native-replay-video.stdout.log": "04f19d71efadced86991987ee8bfedc9d66d103841c9c8aa11ceaaadb0f3eb69",
+    "artifact-qualified-native-canonical-accessibility.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-accessibility.stdout.log": "30318d7d4814af560bdc160ed3c9ad2bcc87fc2fc7f3c9fb813cfea301452137",
+    "artifact-qualified-native-canonical-color.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-color.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-decolor.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-decolor.stdout.log": "859bb7a6e007e404b45df4f4e811680d9b2252f802cf55fa4adc576739897e80",
+    "artifact-qualified-native-canonical-hdr.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-hdr.stdout.log": "6df1d052a43ad794bd2fc9027e11d16c5c7b1153392a90ca5f9c016269d7bed8",
+    "artifact-qualified-native-canonical-motion.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-motion.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-preset.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-preset.stdout.log": "f45d67bcff6ab2fefb9395cea8ebf9db0afcc5166f1af486d057562d22126558",
+    "artifact-qualified-native-canonical-video.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-canonical-video.stdout.log": "5eafca5fc7922360bfc8c128bef52a5246cca61f5423edade81a0f4e2b91a7a6",
+    "artifact-qualified-native-replay-accessibility.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-accessibility.stdout.log": "4d5c53fbcb686ce1143c9298824bd9b19a271d61e02dc9e5e72724ace1a9a749",
+    "artifact-qualified-native-replay-color.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-color.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-decolor.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-decolor.stdout.log": "1986dab7c77c03f6b4f7baba6b0b4c264fc13cba247b6d5049ff0c88d2f29589",
+    "artifact-qualified-native-replay-hdr.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-hdr.stdout.log": "0c42aed1cb201779eb2ea7359b7a8892df8f1f9403a172bfb9d9eba32a88978d",
+    "artifact-qualified-native-replay-motion.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-motion.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-preset.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-preset.stdout.log": "e57ad1fb5e66787e3679c9883f922e28b40a13a8126d0adef909783adde94e35",
+    "artifact-qualified-native-replay-video.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-native-replay-video.stdout.log": "18e36642c976a29c5ad07928c4d87440221737a9558f2e91c088cede60c5e001",
+    "artifact-qualified-swiftbuild-canonical-accessibility.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-accessibility.stdout.log": "894e6c64b92661091d6eb7fd66df557e2567990e53614e225fe855507463eb52",
+    "artifact-qualified-swiftbuild-canonical-color.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-color.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-decolor.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-decolor.stdout.log": "9c63ab7aae08a782374920ea9a89bc714103513cc992ee613350805772e19be4",
+    "artifact-qualified-swiftbuild-canonical-hdr.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-hdr.stdout.log": "6f2fcd2720c93650983e91d418e20260f3b28d6e28333cdb7bfe9fd980b26a65",
+    "artifact-qualified-swiftbuild-canonical-motion.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-motion.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-preset.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-preset.stdout.log": "541f1a6d64879b68360af6a91125dfcb770394b5ec22a8e9765c8b09951f8820",
+    "artifact-qualified-swiftbuild-canonical-video.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-canonical-video.stdout.log": "c1298f6905ff3b3d58e2be7f241320cabf72c1c97403550cb506768e09efa015",
+    "artifact-qualified-swiftbuild-replay-accessibility.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-accessibility.stdout.log": "726d8806b1e9f720dcf074cabbb357215e96d2180c59524a45278268f775dad2",
+    "artifact-qualified-swiftbuild-replay-color.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-color.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-decolor.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-decolor.stdout.log": "e380b13f406bb7cb29210623b53510869144d55f384b743df440fb0216492dd7",
+    "artifact-qualified-swiftbuild-replay-hdr.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-hdr.stdout.log": "6f2d08e660839ba779a06fbdfa6db832e2012724e87636c736b24fe707c8cfcc",
+    "artifact-qualified-swiftbuild-replay-motion.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-motion.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-preset.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-preset.stdout.log": "430f462a3876a552f6118260901785d10e83375135323b25d3cc3aef45eb4be3",
+    "artifact-qualified-swiftbuild-replay-video.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifact-qualified-swiftbuild-replay-video.stdout.log": "2c2ee9d51de3a4e0c35988250965605374651b122779a040e498a223d0f7c96d",
+    "benchmark-smoke-swiftbuild.stderr.log": "04740185859bd6c37d8d60ca05e92538899f100d965d858e3d2b14c9992c8db5",
+    "benchmark-smoke-swiftbuild.stdout.log": "e295693b5f620c3125d1acb08af9f768254ad15cd67c01508f6838a4b444bfbe",
+    "benchmark-smoke-validation.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "benchmark-smoke-validation.stdout.log": "57a306fff75ec5921e465b7411372ef2ebfab0b7bb26036c00cca8b71aa25ab9",
+    "clean-native-control.stderr.log": "685a6ffe1a6337807dc5e0abe3cc3321c22d4b6d2bf33b754008f3296a4d5d9d",
+    "clean-native-control.stdout.log": "7d4ed18a874e3e1591139f07e0b65814d090cc5ab40641018adacb735a906c9b",
+    "clean-swiftbuild.log": "e0ba78262d9f7e6f9dd407b30c4be47bf79534586d408d1bda1273954bdd91fe",
+    "core-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "core-swiftbuild.stdout.log": "abf4c565872b94cd240327dab83f78257bb318c96f9af8e99a10ae3523654a1e",
+    "docc-cache-provenance.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docc-cache-provenance.stdout.log": "ca78b9e54937d8cf4aaf484377c2c8b1098bfd23e365cea038f652afb8c1cc0b",
+    "docc-markdown-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docc-markdown-swiftbuild.stdout.log": "895d49d646198114729933898b55db683a271fa4972c5fb8bc8c84a88c9bd97a",
+    "filtered-swiftbuild.log": "0e35811ea41d470572120d194c9bff448320072cb6fde7231c52be9582d9be8f",
+    "final-canonical-check.stderr.log": "5dd52841f67e1e1e22d26cd113d39a33e1ad3844d7d37ff76ebae4f358a8e64c",
+    "final-canonical-check.stdout.log": "9f759a235548b3b79a6cfca16456a564b984f4c059f77379f0f29cc0ccf1fb59",
+    "generator-completion-run.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "generator-completion-run.stdout.log": "167a09cf84161bd02f6be8465e235c43e80415e171da131c10cac0dbe868d13d",
+    "generator-followup.stderr.log": "3e154038ee6bd26ec30b9a246a76987f77c980956275bf3c9d9ee274cd3646f7",
+    "generator-followup.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "generator-tools.stderr.log": "b89f8179b4933c05483c807b8f95d09c0e09f7a2f806f9416246d37785e983b6",
+    "generator-tools.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "hdr-native-repeat.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "hdr-native-repeat.stdout.log": "2b5656c69b0bc88164df6c987e2750fa89837b5521c4a5d19478df2e5d1355a5",
+    "heic-probe-compile.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "heic-probe-compile.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "heic-probe.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "heic-probe.stdout.log": "a18f2a260407f4896f344f69d2412fe0e1d1f3b1a9675400718a43e02448d44d",
+    "kernel-followup-native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel-followup-native.stdout.log": "0188feb5375def0b6e991472baf86daab07f1f59a11aed2b39d636bf7a361299",
+    "kernel-native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel-native.stdout.log": "34c32a04dfbf79e944042cb32a4b2ec0d759ea652bb19b259eef1b653e8bf092",
+    "kernel-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel-swiftbuild.stdout.log": "4f3c56939260eefae5c2363e7699a7e7573fa953bb4fba8e80ca5097e3bbeaaa",
+    "media-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "media-swiftbuild.stdout.log": "f999d8b2d5517006dd3684fd897d5cd51871d0a5a35ba9f6d10b79c3b5bf73b6",
+    "render-native-AskiDemo.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-native-AskiDemo.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-native-AskiTileMatrix.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-native-AskiTileMatrix.stdout.log": "26a5d24d46a69c964ebdf921b03d9c73017e8a14311a9bc23836d744ad63b3d1",
+    "render-native-aski.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-native-aski.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-swiftbuild-AskiDemo.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-swiftbuild-AskiDemo.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-swiftbuild-AskiTileMatrix.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-swiftbuild-AskiTileMatrix.stdout.log": "b0e4208049d8ae281f082029548c585ad05adc287673d84aa2d6c95442e4127f",
+    "render-swiftbuild-aski.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-swiftbuild-aski.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-tools.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "render-tools.stdout.log": "3c1c1ca54e0489daa7e71521e2633b78d3cdd9933e95fffa6dbb81597a229e8e",
+    "repo-map-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repo-map-swiftbuild.stdout.log": "01814e34af0ae9ec7ee12baae394e35dc375199125b1a9adea8c653bb450cf7e",
+    "research-index-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "research-index-swiftbuild.stdout.log": "c336144bf207c948192422b6620d72c98a377eebcae71d6d7b3e8d400ddef873",
+    "sentinels-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sentinels-swiftbuild.stdout.log": "e18fc57c271f210dc363978430f167038f0783a2bf669d25bdedaad9bb2d2e43",
+    "surfaces-native/AskiAccessLab-bare.stderr.log": "8512ef780ce66f72c8886296b8b9477faa8c22548beb66f22c65965efe741746",
+    "surfaces-native/AskiAccessLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiAccessLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiAccessLab-help.stdout.log": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+    "surfaces-native/AskiAccessLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiAccessLab-reuse-help.stdout.log": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+    "surfaces-native/AskiAccessLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiAccessLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiColorLab-bare.stderr.log": "d2e8841da62c86c2fde515250130b75916499f1af2224937a15037db81990a93",
+    "surfaces-native/AskiColorLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiColorLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiColorLab-help.stdout.log": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+    "surfaces-native/AskiColorLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiColorLab-reuse-help.stdout.log": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+    "surfaces-native/AskiColorLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiColorLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiDecolorLab-bare.stderr.log": "60357f7d730347526909c59d6197cc7bab43c379ea698637463c70265d5456b8",
+    "surfaces-native/AskiDecolorLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDecolorLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDecolorLab-help.stdout.log": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+    "surfaces-native/AskiDecolorLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDecolorLab-reuse-help.stdout.log": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+    "surfaces-native/AskiDecolorLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDecolorLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiDemo-bare.stderr.log": "b66ca7c968f68dfc4894b7de096ac2398f21a76f6a5d9d1f3691f3e9c8522253",
+    "surfaces-native/AskiDemo-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDemo-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDemo-help.stdout.log": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+    "surfaces-native/AskiDemo-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDemo-reuse-help.stdout.log": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+    "surfaces-native/AskiDemo-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiDemo-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiHDRLab-bare.stderr.log": "b13197282e4b854aca190f4f1774a7ba9850f33854b3def1cd2e779ab6b6183f",
+    "surfaces-native/AskiHDRLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiHDRLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiHDRLab-help.stdout.log": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+    "surfaces-native/AskiHDRLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiHDRLab-reuse-help.stdout.log": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+    "surfaces-native/AskiHDRLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiHDRLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiMotionLab-bare.stderr.log": "7c843778ec58ec9608ac91e9f4734a40cfd1739c1dc3dc3510a922fd81d02ad1",
+    "surfaces-native/AskiMotionLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiMotionLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiMotionLab-help.stdout.log": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+    "surfaces-native/AskiMotionLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiMotionLab-reuse-help.stdout.log": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+    "surfaces-native/AskiMotionLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiMotionLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiPresetLab-bare.stderr.log": "14b77992611a7ef9cbfb324e322a07f30433c80ec8e860609d393d1e169ec13c",
+    "surfaces-native/AskiPresetLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiPresetLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiPresetLab-help.stdout.log": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+    "surfaces-native/AskiPresetLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiPresetLab-reuse-help.stdout.log": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+    "surfaces-native/AskiPresetLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiPresetLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiTileMatrix-bare.stderr.log": "2c2016ca0dc553eb1b77fd642150de6d942d1a4121734d8b2df3d7db06dd9b9b",
+    "surfaces-native/AskiTileMatrix-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiTileMatrix-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiTileMatrix-help.stdout.log": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+    "surfaces-native/AskiTileMatrix-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiTileMatrix-reuse-help.stdout.log": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+    "surfaces-native/AskiTileMatrix-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiTileMatrix-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/AskiVideoLab-bare.stderr.log": "7ebccb88b20f280e103ded0ad4d1366a5fb25816b436a630fa35810b426d5be1",
+    "surfaces-native/AskiVideoLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiVideoLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiVideoLab-help.stdout.log": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+    "surfaces-native/AskiVideoLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiVideoLab-reuse-help.stdout.log": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+    "surfaces-native/AskiVideoLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/AskiVideoLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/aski-bare.stderr.log": "9cc373eb255b1de1e24c7196a4b401f64d28df0f4c8e433f4a1fdd2128c824b4",
+    "surfaces-native/aski-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/aski-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/aski-help.stdout.log": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+    "surfaces-native/aski-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/aski-reuse-help.stdout.log": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+    "surfaces-native/aski-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/aski-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/bin-path.stderr.log": "8d13865527b64b7506e0c65bc7df4ac68841c6d2c6329546be9de001355584bb",
+    "surfaces-native/bin-path.stdout.log": "817bab5607ba7b04ba9b4fb91a699ade2bfb8bf8733a027a4a1bf1b58095939d",
+    "surfaces-native/canonical-accessibility-bare.stderr.log": "2ad55f40e57604ec96fd87959017223ec81f623947e444dadea9973149418858",
+    "surfaces-native/canonical-accessibility-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-accessibility-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-accessibility-help.stdout.log": "695d44b672d802447893698d571eb75c80bedfd73bac41d3c1718660f9927aad",
+    "surfaces-native/canonical-accessibility-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-accessibility-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-color-bare.stderr.log": "f1a0289e7d743f02d575641458a7e7a09b3da27f00eef0d67409a524bff2e7ea",
+    "surfaces-native/canonical-color-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-color-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-color-help.stdout.log": "f9982de8fd95d7b37ed32fce6869d583f0ca1f5d124e7283080af23a5cafef7f",
+    "surfaces-native/canonical-color-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-color-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-decolor-bare.stderr.log": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46",
+    "surfaces-native/canonical-decolor-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-decolor-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-decolor-help.stdout.log": "dd989326c0967ee8a29b8919f297ead11e9ac1ccd1cd918ec5d0b2119c0eef24",
+    "surfaces-native/canonical-decolor-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-decolor-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-hdr-bare.stderr.log": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46",
+    "surfaces-native/canonical-hdr-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-hdr-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-hdr-help.stdout.log": "23f4d3054f6f57c0d7d23d7bf4c0f8c82bbd84cb8ee281449624d1956dd98509",
+    "surfaces-native/canonical-hdr-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-hdr-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-motion-bare.stderr.log": "0cec8624fab12a59d475437e855cbcb1a4e81595efca800d5196d78d44d0d2a8",
+    "surfaces-native/canonical-motion-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-motion-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-motion-help.stdout.log": "01dc91ab51a0d38f06bbaa4d31431477606cbf940890f56320555df5b5034f1c",
+    "surfaces-native/canonical-motion-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-motion-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-preset-bare.stderr.log": "d6704606394a5d09e217199fbb70adf86875a08d86bf5c8bbb48130f3514fe39",
+    "surfaces-native/canonical-preset-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-preset-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-preset-help.stdout.log": "cea85137c18f89cb58c4e77bee8aa38ca475f908d7b94a645c0a1ec78adbfcac",
+    "surfaces-native/canonical-preset-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-preset-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native/canonical-video-bare.stderr.log": "f05da7d174860b43fb480d125b9b57333168e68405b1f59deb3a84b1e327ca48",
+    "surfaces-native/canonical-video-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-video-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-video-help.stdout.log": "9b0333577da7c0ba997de7e4d7959772d9258efe2561247b52e36fabfefa79c1",
+    "surfaces-native/canonical-video-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native/canonical-video-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-native.stdout.log": "d285cd11e9bf7cd3654558182ad014d46d4d38bfecbcd9781bb3033f382dcbf1",
+    "surfaces-swiftbuild/AskiAccessLab-bare.stderr.log": "8512ef780ce66f72c8886296b8b9477faa8c22548beb66f22c65965efe741746",
+    "surfaces-swiftbuild/AskiAccessLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiAccessLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiAccessLab-help.stdout.log": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+    "surfaces-swiftbuild/AskiAccessLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiAccessLab-reuse-help.stdout.log": "d9c6a044733cdd10ab4444b494b6b9149471ea316299cc4297140f45e1c86a02",
+    "surfaces-swiftbuild/AskiAccessLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiAccessLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiColorLab-bare.stderr.log": "d2e8841da62c86c2fde515250130b75916499f1af2224937a15037db81990a93",
+    "surfaces-swiftbuild/AskiColorLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiColorLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiColorLab-help.stdout.log": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+    "surfaces-swiftbuild/AskiColorLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiColorLab-reuse-help.stdout.log": "732452dbfc97c4ac108108914b64cf62fd671da84fe4598ef3e1c26817130338",
+    "surfaces-swiftbuild/AskiColorLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiColorLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiDecolorLab-bare.stderr.log": "60357f7d730347526909c59d6197cc7bab43c379ea698637463c70265d5456b8",
+    "surfaces-swiftbuild/AskiDecolorLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDecolorLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDecolorLab-help.stdout.log": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+    "surfaces-swiftbuild/AskiDecolorLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDecolorLab-reuse-help.stdout.log": "e1165f31c7c25eaf280cbdd5890a452ed78d366371867378165090623e306515",
+    "surfaces-swiftbuild/AskiDecolorLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDecolorLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiDemo-bare.stderr.log": "b66ca7c968f68dfc4894b7de096ac2398f21a76f6a5d9d1f3691f3e9c8522253",
+    "surfaces-swiftbuild/AskiDemo-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDemo-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDemo-help.stdout.log": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+    "surfaces-swiftbuild/AskiDemo-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDemo-reuse-help.stdout.log": "d4d5c369147c3d8d77a90d62fc94737e54bf86cb591965588e9ab6adf0c6829f",
+    "surfaces-swiftbuild/AskiDemo-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiDemo-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiHDRLab-bare.stderr.log": "b13197282e4b854aca190f4f1774a7ba9850f33854b3def1cd2e779ab6b6183f",
+    "surfaces-swiftbuild/AskiHDRLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiHDRLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiHDRLab-help.stdout.log": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+    "surfaces-swiftbuild/AskiHDRLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiHDRLab-reuse-help.stdout.log": "6623acff723cb877d73957790564a2a11640834bbfeca8486e18bfefd1349297",
+    "surfaces-swiftbuild/AskiHDRLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiHDRLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiMotionLab-bare.stderr.log": "7c843778ec58ec9608ac91e9f4734a40cfd1739c1dc3dc3510a922fd81d02ad1",
+    "surfaces-swiftbuild/AskiMotionLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiMotionLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiMotionLab-help.stdout.log": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+    "surfaces-swiftbuild/AskiMotionLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiMotionLab-reuse-help.stdout.log": "2afa3a94e01aa22adfc40a159c08ede92f65101529fcf4077a314e956707ce27",
+    "surfaces-swiftbuild/AskiMotionLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiMotionLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiPresetLab-bare.stderr.log": "14b77992611a7ef9cbfb324e322a07f30433c80ec8e860609d393d1e169ec13c",
+    "surfaces-swiftbuild/AskiPresetLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiPresetLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiPresetLab-help.stdout.log": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+    "surfaces-swiftbuild/AskiPresetLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiPresetLab-reuse-help.stdout.log": "08a9251b295727d8d333fb11b452a1cd8a65751c43d129891bd970619689f47b",
+    "surfaces-swiftbuild/AskiPresetLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiPresetLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiTileMatrix-bare.stderr.log": "2c2016ca0dc553eb1b77fd642150de6d942d1a4121734d8b2df3d7db06dd9b9b",
+    "surfaces-swiftbuild/AskiTileMatrix-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiTileMatrix-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiTileMatrix-help.stdout.log": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+    "surfaces-swiftbuild/AskiTileMatrix-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiTileMatrix-reuse-help.stdout.log": "d3da9fbdd85fec2d48c7ffdb804ebe067ca0f8b1ea2079be79bd99c6ed50c0da",
+    "surfaces-swiftbuild/AskiTileMatrix-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiTileMatrix-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/AskiVideoLab-bare.stderr.log": "7ebccb88b20f280e103ded0ad4d1366a5fb25816b436a630fa35810b426d5be1",
+    "surfaces-swiftbuild/AskiVideoLab-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiVideoLab-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiVideoLab-help.stdout.log": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+    "surfaces-swiftbuild/AskiVideoLab-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiVideoLab-reuse-help.stdout.log": "f51fb9188d35b73cef91fd4a4575f1e7c32f80009868736f1e55dae87c8656ef",
+    "surfaces-swiftbuild/AskiVideoLab-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/AskiVideoLab-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/aski-bare.stderr.log": "9cc373eb255b1de1e24c7196a4b401f64d28df0f4c8e433f4a1fdd2128c824b4",
+    "surfaces-swiftbuild/aski-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/aski-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/aski-help.stdout.log": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+    "surfaces-swiftbuild/aski-reuse-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/aski-reuse-help.stdout.log": "3617f4271ba3cc5bfc9f737f9fdb9c8019ee534ddca26a6fdf9239328a0d3e01",
+    "surfaces-swiftbuild/aski-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/aski-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/bin-path.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/bin-path.stdout.log": "9d8ed6d225a25f7378434a92bf6b0d2a75f7f6a30ed27ff986bd7f60bdee0e75",
+    "surfaces-swiftbuild/canonical-accessibility-bare.stderr.log": "2ad55f40e57604ec96fd87959017223ec81f623947e444dadea9973149418858",
+    "surfaces-swiftbuild/canonical-accessibility-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-accessibility-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-accessibility-help.stdout.log": "695d44b672d802447893698d571eb75c80bedfd73bac41d3c1718660f9927aad",
+    "surfaces-swiftbuild/canonical-accessibility-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-accessibility-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-color-bare.stderr.log": "f1a0289e7d743f02d575641458a7e7a09b3da27f00eef0d67409a524bff2e7ea",
+    "surfaces-swiftbuild/canonical-color-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-color-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-color-help.stdout.log": "f9982de8fd95d7b37ed32fce6869d583f0ca1f5d124e7283080af23a5cafef7f",
+    "surfaces-swiftbuild/canonical-color-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-color-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-decolor-bare.stderr.log": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46",
+    "surfaces-swiftbuild/canonical-decolor-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-decolor-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-decolor-help.stdout.log": "dd989326c0967ee8a29b8919f297ead11e9ac1ccd1cd918ec5d0b2119c0eef24",
+    "surfaces-swiftbuild/canonical-decolor-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-decolor-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-hdr-bare.stderr.log": "56ac06f585dc439b06d497ce4d0411af87e349fdd980f11976ec0b1fa59eab46",
+    "surfaces-swiftbuild/canonical-hdr-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-hdr-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-hdr-help.stdout.log": "23f4d3054f6f57c0d7d23d7bf4c0f8c82bbd84cb8ee281449624d1956dd98509",
+    "surfaces-swiftbuild/canonical-hdr-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-hdr-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-motion-bare.stderr.log": "0cec8624fab12a59d475437e855cbcb1a4e81595efca800d5196d78d44d0d2a8",
+    "surfaces-swiftbuild/canonical-motion-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-motion-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-motion-help.stdout.log": "01dc91ab51a0d38f06bbaa4d31431477606cbf940890f56320555df5b5034f1c",
+    "surfaces-swiftbuild/canonical-motion-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-motion-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-preset-bare.stderr.log": "d6704606394a5d09e217199fbb70adf86875a08d86bf5c8bbb48130f3514fe39",
+    "surfaces-swiftbuild/canonical-preset-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-preset-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-preset-help.stdout.log": "cea85137c18f89cb58c4e77bee8aa38ca475f908d7b94a645c0a1ec78adbfcac",
+    "surfaces-swiftbuild/canonical-preset-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-preset-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild/canonical-video-bare.stderr.log": "f05da7d174860b43fb480d125b9b57333168e68405b1f59deb3a84b1e327ca48",
+    "surfaces-swiftbuild/canonical-video-bare.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-video-help.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-video-help.stdout.log": "9b0333577da7c0ba997de7e4d7959772d9258efe2561247b52e36fabfefa79c1",
+    "surfaces-swiftbuild/canonical-video-version.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild/canonical-video-version.stdout.log": "b5019882cbd5ef091681379dcbed7872173dffc40525b5990cdccca44f023563",
+    "surfaces-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "surfaces-swiftbuild.stdout.log": "03e2663fbb233ec1a3336eec478622ad9a43b73c502c3bbb9d5de8e3e1e772fb",
+    "symbolgraph-swiftbuild.stderr.log": "78205a7d2f1150afc89dce05ac2ab69bdaa9962f5fafad1ee96ff1d94e31d147",
+    "symbolgraph-swiftbuild.stdout.log": "d9aa14377adbe798d35196a08e1780541928271a4d58594ec22a5ce4f6578580",
+    "updated-research-index-check.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "updated-research-index-check.stdout.log": "c336144bf207c948192422b6620d72c98a377eebcae71d6d7b3e8d400ddef873",
+    "updated-research-index.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "updated-research-index.stdout.log": "cfc4018bf7330cd3bf89cea486abe073b5eaa725a756c21add398fffe1b2dff9",
+    "vectors-native-repeat.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vectors-native-repeat.stdout.log": "d4325ea667fbc12ae31aa702363485154f20fe9d6e9ac0b76170dc86c93265f1",
+    "vectors-native.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vectors-native.stdout.log": "d4325ea667fbc12ae31aa702363485154f20fe9d6e9ac0b76170dc86c93265f1",
+    "vectors-swiftbuild.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vectors-swiftbuild.stdout.log": "d4325ea667fbc12ae31aa702363485154f20fe9d6e9ac0b76170dc86c93265f1"
+  }
+}

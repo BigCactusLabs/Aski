@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-90",
+  "declared_at": "2026-11-13T05:58:51.584581+00:00",
+  "base_revision": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "minimum_pairs": 5,
+  "pair_order": [
+    "control,candidate",
+    "candidate,control",
+    "control,candidate",
+    "candidate,control",
+    "control,candidate"
+  ],
+  "selections": {
+    "e2e": {
+      "workloads": [
+        "aski90-convert-ansi16-p3-parallel-1cols",
+        "aski90-convert-ansi16-p3-parallel-512cols",
+        "aski90-convert-ansi16-p3-parallel-80cols",
+        "aski90-convert-ansi16-p3-parallel-8cols",
+        "aski90-convert-ansi16-p3-serial-1cols",
+        "aski90-convert-ansi16-p3-serial-512cols",
+        "aski90-convert-ansi16-p3-serial-80cols",
+        "aski90-convert-ansi16-p3-serial-8cols",
+        "aski90-convert-ansi16-srgb-parallel-1cols",
+        "aski90-convert-ansi16-srgb-parallel-512cols",
+        "aski90-convert-ansi16-srgb-parallel-80cols",
+        "aski90-convert-ansi16-srgb-parallel-8cols",
+        "aski90-convert-ansi16-srgb-serial-1cols",
+        "aski90-convert-ansi16-srgb-serial-512cols",
+        "aski90-convert-ansi16-srgb-serial-80cols",
+        "aski90-convert-ansi16-srgb-serial-8cols",
+        "aski90-convert-mono-p3-parallel-1cols",
+        "aski90-convert-mono-p3-parallel-512cols",
+        "aski90-convert-mono-p3-parallel-80cols",
+        "aski90-convert-mono-p3-parallel-8cols",
+        "aski90-convert-mono-p3-serial-1cols",
+        "aski90-convert-mono-p3-serial-512cols",
+        "aski90-convert-mono-p3-serial-80cols",
+        "aski90-convert-mono-p3-serial-8cols",
+        "aski90-convert-mono-srgb-parallel-1cols",
+        "aski90-convert-mono-srgb-parallel-512cols",
+        "aski90-convert-mono-srgb-parallel-80cols",
+        "aski90-convert-mono-srgb-parallel-8cols",
+        "aski90-convert-mono-srgb-serial-1cols",
+        "aski90-convert-mono-srgb-serial-512cols",
+        "aski90-convert-mono-srgb-serial-80cols",
+        "aski90-convert-mono-srgb-serial-8cols",
+        "aski90-convert-passthrough-p3-parallel-1cols",
+        "aski90-convert-passthrough-p3-parallel-512cols",
+        "aski90-convert-passthrough-p3-parallel-80cols",
+        "aski90-convert-passthrough-p3-parallel-8cols",
+        "aski90-convert-passthrough-p3-serial-1cols",
+        "aski90-convert-passthrough-p3-serial-512cols",
+        "aski90-convert-passthrough-p3-serial-80cols",
+        "aski90-convert-passthrough-p3-serial-8cols",
+        "aski90-convert-passthrough-srgb-parallel-1cols",
+        "aski90-convert-passthrough-srgb-parallel-512cols",
+        "aski90-convert-passthrough-srgb-parallel-80cols",
+        "aski90-convert-passthrough-srgb-parallel-8cols",
+        "aski90-convert-passthrough-srgb-serial-1cols",
+        "aski90-convert-passthrough-srgb-serial-512cols",
+        "aski90-convert-passthrough-srgb-serial-80cols",
+        "aski90-convert-passthrough-srgb-serial-8cols",
+        "aski90-policy-adaptive-p3-80cols",
+        "aski90-policy-adaptive-srgb-80cols",
+        "aski90-policy-clip-p3-80cols",
+        "aski90-policy-clip-srgb-80cols",
+        "aski90-policy-helmlab-compressed-p3-80cols",
+        "aski90-policy-helmlab-compressed-srgb-80cols",
+        "aski90-policy-helmlab-p3-80cols",
+        "aski90-policy-helmlab-srgb-80cols",
+        "aski90-policy-hyab-p3-80cols",
+        "aski90-policy-hyab-srgb-80cols",
+        "aski90-ranked-ansi16-p3-80cols",
+        "aski90-ranked-ansi16-srgb-80cols",
+        "aski90-ranked-mono-p3-80cols",
+        "aski90-ranked-mono-srgb-80cols",
+        "aski90-ranked-passthrough-p3-80cols",
+        "aski90-ranked-passthrough-srgb-80cols",
+        "aski90-repeated-ansi16-p3-80cols",
+        "aski90-repeated-ansi16-srgb-80cols",
+        "aski90-repeated-mono-p3-80cols",
+        "aski90-repeated-mono-srgb-80cols",
+        "aski90-repeated-passthrough-p3-80cols",
+        "aski90-repeated-passthrough-srgb-80cols"
+      ],
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal"
+      ]
+    },
+    "setup": {
+      "workloads": [
+        "aski90-setup-ansi16-p3-adaptive",
+        "aski90-setup-ansi16-p3-clip",
+        "aski90-setup-ansi16-p3-default",
+        "aski90-setup-ansi16-p3-helmlab",
+        "aski90-setup-ansi16-p3-helmlab-compressed",
+        "aski90-setup-ansi16-p3-hyab",
+        "aski90-setup-ansi16-srgb-adaptive",
+        "aski90-setup-ansi16-srgb-clip",
+        "aski90-setup-ansi16-srgb-default",
+        "aski90-setup-ansi16-srgb-helmlab",
+        "aski90-setup-ansi16-srgb-helmlab-compressed",
+        "aski90-setup-ansi16-srgb-hyab",
+        "aski90-setup-mono-p3-adaptive",
+        "aski90-setup-mono-p3-clip",
+        "aski90-setup-mono-p3-default",
+        "aski90-setup-mono-p3-helmlab",
+        "aski90-setup-mono-p3-helmlab-compressed",
+        "aski90-setup-mono-p3-hyab",
+        "aski90-setup-mono-srgb-adaptive",
+        "aski90-setup-mono-srgb-clip",
+        "aski90-setup-mono-srgb-default",
+        "aski90-setup-mono-srgb-helmlab",
+        "aski90-setup-mono-srgb-helmlab-compressed",
+        "aski90-setup-mono-srgb-hyab",
+        "aski90-setup-passthrough-p3-adaptive",
+        "aski90-setup-passthrough-p3-clip",
+        "aski90-setup-passthrough-p3-default",
+        "aski90-setup-passthrough-p3-helmlab",
+        "aski90-setup-passthrough-p3-helmlab-compressed",
+        "aski90-setup-passthrough-p3-hyab",
+        "aski90-setup-passthrough-srgb-adaptive",
+        "aski90-setup-passthrough-srgb-clip",
+        "aski90-setup-passthrough-srgb-default",
+        "aski90-setup-passthrough-srgb-helmlab",
+        "aski90-setup-passthrough-srgb-helmlab-compressed",
+        "aski90-setup-passthrough-srgb-hyab"
+      ],
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal"
+      ],
+      "operations_per_exported_sample": 1000,
+      "role": "attribution only; divide absolute sample costs by 1000 for per-operation values"
+    },
+    "tile-guards": {
+      "workloads": [
+        "aski92-convert-16x16-p3-mixed-8cols-k256",
+        "aski92-convert-16x16-p3-opaque-8cols-k256",
+        "aski92-convert-16x16-srgb-mixed-8cols-k256",
+        "aski92-convert-16x16-srgb-opaque-8cols-k256",
+        "aski92-convert-512x512-p3-mixed-256cols-k256",
+        "aski92-convert-512x512-p3-opaque-256cols-k256",
+        "aski92-convert-512x512-srgb-mixed-256cols-k256",
+        "aski92-convert-512x512-srgb-opaque-256cols-k256"
+      ],
+      "required_metrics": [
+        "wallClock",
+        "cpuTotal",
+        "mallocCountTotal",
+        "peakMemoryResident"
+      ]
+    }
+  },
+  "primary_wall_workloads": [
+    "aski90-convert-ansi16-p3-parallel-512cols",
+    "aski90-convert-ansi16-p3-parallel-80cols",
+    "aski90-convert-ansi16-p3-serial-512cols",
+    "aski90-convert-ansi16-p3-serial-80cols",
+    "aski90-convert-ansi16-srgb-parallel-512cols",
+    "aski90-convert-ansi16-srgb-parallel-80cols",
+    "aski90-convert-ansi16-srgb-serial-512cols",
+    "aski90-convert-ansi16-srgb-serial-80cols",
+    "aski90-convert-mono-p3-parallel-512cols",
+    "aski90-convert-mono-p3-parallel-80cols",
+    "aski90-convert-mono-p3-serial-512cols",
+    "aski90-convert-mono-p3-serial-80cols",
+    "aski90-convert-mono-srgb-parallel-512cols",
+    "aski90-convert-mono-srgb-parallel-80cols",
+    "aski90-convert-mono-srgb-serial-512cols",
+    "aski90-convert-mono-srgb-serial-80cols"
+  ],
+  "benefit_rule": {
+    "every_primary_required": true,
+    "median_paired_percent_at_most": -5,
+    "improving_pairs_at_least": 4
+  },
+  "regression_guards": {
+    "aski90-convert-ansi16-p3-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-p3-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-p3-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-p3-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-srgb-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-srgb-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-srgb-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-ansi16-srgb-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-p3-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-p3-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-p3-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-p3-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-srgb-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-srgb-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-srgb-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-mono-srgb-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-parallel-512cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-parallel-80cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-serial-512cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-serial-80cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-p3-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-parallel-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-parallel-512cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-parallel-80cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-parallel-8cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-serial-1cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-serial-512cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-serial-80cols": [
+      "wallClock"
+    ],
+    "aski90-convert-passthrough-srgb-serial-8cols": [
+      "wallClock"
+    ],
+    "aski90-ranked-passthrough-p3-80cols": [
+      "wallClock"
+    ],
+    "aski90-ranked-passthrough-srgb-80cols": [
+      "wallClock"
+    ],
+    "aski90-repeated-passthrough-p3-80cols": [
+      "wallClock"
+    ],
+    "aski90-repeated-passthrough-srgb-80cols": [
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-mixed-8cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-16x16-p3-opaque-8cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-mixed-8cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-16x16-srgb-opaque-8cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-512x512-p3-mixed-256cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-512x512-p3-opaque-256cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-512x512-srgb-mixed-256cols-k256": [
+      "wallClock"
+    ],
+    "aski92-convert-512x512-srgb-opaque-256cols-k256": [
+      "wallClock"
+    ]
+  },
+  "regression_rule": {
+    "paired_percent_over": 3,
+    "pairs_at_least": 4
+  },
+  "additional_gates": [
+    "Exact native parity",
+    "Full just check",
+    "Relevant existing benchmark thresholds unchanged and passing",
+    "Every required capture and metric complete; missing/unresolved evidence is inconclusive",
+    "Stable normalized observed allocator identity; identical pins, toolchain, host and harness across arms"
+  ],
+  "notes": [
+    "All production files except ASKI-90 treatment are identical between arms; ASKI-92 shared tile instrument uses scalar tile production in both arms.",
+    "Ranked workloads measure animation construction. Setup is separate attribution, not an adoption benefit.",
+    "No benchmark budget thresholds change. A failed numerical rule is not waived by a good average."
+  ]
+}

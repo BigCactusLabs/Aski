@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "status": "source-ready-not-executed",
+  "candidate_revision": "0e897a39f1ee44b6d4b7235e694492006e7372f3",
+  "scope": "supplemental actual-layout and real-pipeline growth/behavior probes; not a replacement adoption rule",
+  "new_numeric_acceptance_thresholds": false,
+  "primary_adoption_protocol": "Scripts/research/aski4-2026-11-13/protocol.json in the frozen candidate",
+  "dependency": {
+    "default_relative_path": "../aski4",
+    "override": "ASKI_REPO_PATH",
+    "manifest_name": "Aski",
+    "directory_identity": "aski4",
+    "explicit_dependency_name": "Aski",
+    "library_product": "Aski",
+    "package_resolved_copied": true
+  },
+  "owning_source_sha256": {
+    "Package.swift": "40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513",
+    "Package.resolved": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "Benchmarks/AskiBenchmarks/Benchmarks.swift": "1c528713dd272e968cc6ce3b65d7fe3425a7e256ef4f3bce036eaf32d09df1fd",
+    "Benchmarks/AskiBenchmarks/GIFStreamingBenchmarks.swift": "0ab9f998e95e7632b0de6df788d54d1be40e9b5550f0e024df148195a094d176",
+    "Tools/AskiVideoLab/VideoLabCommand.swift": "e37d10c4684e4efa679b2789020cb511a355c41c39dd950fe89242f6019a22c3",
+    "Tools/AskiVideoLab/VideoLabCLI.swift": "a4b9d8f1c2c07ff15b949f4ef7b343ac0380374d15d0f3b2d7327cc6a36fadd6",
+    "Tools/AskiToolSupport/SharedOptions.swift": "b68a49e3a72423ec8df1f0486f16e7f32b83339bc219b2168a9688b9f7101684",
+    "Sources/Aski/Video/ResampleSession.swift": "a883d7d889613f7e0ffe66be5f0b9e49f1654874ac65b175124dd67ea0aacc84",
+    "Sources/Aski/Video/FrameResampler.swift": "303689f393ac5dcf8a2de81f3f7cf457bbf9c768b1f56e95b629ada243f8987a",
+    "Scripts/research/aski4-2026-11-13/protocol.json": "13e2ee82ec8eebbfc778ca64f20b56346818a43d79302253360427149130985b"
+  },
+  "layout": {
+    "mode": "layout",
+    "fixture": "exact makeGradient body from Benchmarks/AskiBenchmarks/Benchmarks.swift",
+    "input_dimensions": [
+      640,
+      360
+    ],
+    "columns": 80,
+    "font": "system",
+    "font_size": 10,
+    "scale": 1,
+    "background": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "observed_fields_required": [
+      "width",
+      "height",
+      "bytes_per_row",
+      "total_bytes"
+    ],
+    "total_bytes": "observed bytes_per_row * observed height; not an RSS estimate"
+  },
+  "source": {
+    "counts": [
+      240,
+      1200
+    ],
+    "width": 640,
+    "height": 360,
+    "fps": 25,
+    "delay_seconds": 0.04,
+    "loop_count": 0,
+    "fixture_id": "aski4-changing-gradient-r1-640x360-25fps-loop0",
+    "pattern": "horizontal RGB changing gradient, phase=index%640, plus 11-bit black/white frame-index strip; unique source images for indices 0...1199",
+    "generated_once_per_count": true,
+    "generation_outside_measurements": true,
+    "incremental_imageio_no_frame_array": true,
+    "do_not_overwrite": true
+  },
+  "measurement": {
+    "runs_per_case": 1,
+    "separate_process_per_case": true,
+    "no_concurrent_native_work": true,
+    "tool_argv_prefix": [
+      "/usr/bin/time",
+      "-l",
+      "-o",
+      "{evidence}/{id}.time.log"
+    ],
+    "rss_field": "maximum resident set size",
+    "rss_units": "bytes",
+    "units_evidence": {
+      "time_manual": "host time(1), lines 73-76: -l prints rusage",
+      "getrusage_manual": "selected SDK getrusage(2), lines 94-95: ru_maxrss is in bytes",
+      "time_manual_sha256": "0c7ed0db9aed96ac333444270d432d7d7a07542fd2c0e2150eb27b3895641992",
+      "getrusage_manual_sha256": "b4f4ed265c063282cb851254a5c903f9c1bc484f4e6bb720703c758583eff8b9"
+    },
+    "scope": "whole executable process, including startup, metadata validation/report emission; excludes fixture generation, compilation and subsequent VideoLab inspect",
+    "stdout": "preserved as {id}.stdout.json for harness or {id}.stdout.log for lab",
+    "stderr": "preserved as {id}.stderr.log; time output separate",
+    "exit_code": "record for every process, including failures",
+    "no_numeric_growth_gate_for_supplement": true
+  },
+  "matrix": [
+    {
+      "id": "convert-240-native",
+      "kind": "convertGIF",
+      "source_frames": 240,
+      "target_fps": null,
+      "cap": null,
+      "argv": [
+        "{harness_binary}",
+        "convert",
+        "{evidence}/source-240.gif",
+        "{evidence}/convert-240-native.gif",
+        "native"
+      ],
+      "output": "convert-240-native.gif",
+      "expected_frames": 240
+    },
+    {
+      "id": "convert-240-12",
+      "kind": "convertGIF",
+      "source_frames": 240,
+      "target_fps": 12,
+      "cap": null,
+      "argv": [
+        "{harness_binary}",
+        "convert",
+        "{evidence}/source-240.gif",
+        "{evidence}/convert-240-12.gif",
+        "12"
+      ],
+      "output": "convert-240-12.gif",
+      "expected_frames": 116
+    },
+    {
+      "id": "convert-1200-native",
+      "kind": "convertGIF",
+      "source_frames": 1200,
+      "target_fps": null,
+      "cap": null,
+      "argv": [
+        "{harness_binary}",
+        "convert",
+        "{evidence}/source-1200.gif",
+        "{evidence}/convert-1200-native.gif",
+        "native"
+      ],
+      "output": "convert-1200-native.gif",
+      "expected_frames": 1200
+    },
+    {
+      "id": "convert-1200-12",
+      "kind": "convertGIF",
+      "source_frames": 1200,
+      "target_fps": 12,
+      "cap": null,
+      "argv": [
+        "{harness_binary}",
+        "convert",
+        "{evidence}/source-1200.gif",
+        "{evidence}/convert-1200-12.gif",
+        "12"
+      ],
+      "output": "convert-1200-12.gif",
+      "expected_frames": 576
+    },
+    {
+      "id": "videolab-240-native",
+      "kind": "VideoLab",
+      "source_frames": 240,
+      "target_fps": null,
+      "cap": null,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-240.gif",
+        "--output-dir",
+        "{evidence}/videolab-240-native",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1"
+      ],
+      "output": "videolab-240-native/ascii.gif",
+      "expected_frames": 240
+    },
+    {
+      "id": "videolab-240-12",
+      "kind": "VideoLab",
+      "source_frames": 240,
+      "target_fps": 12,
+      "cap": null,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-240.gif",
+        "--output-dir",
+        "{evidence}/videolab-240-12",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1",
+        "--target-fps",
+        "12"
+      ],
+      "output": "videolab-240-12/ascii.gif",
+      "expected_frames": 116
+    },
+    {
+      "id": "videolab-1200-native",
+      "kind": "VideoLab",
+      "source_frames": 1200,
+      "target_fps": null,
+      "cap": null,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-1200.gif",
+        "--output-dir",
+        "{evidence}/videolab-1200-native",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1"
+      ],
+      "output": "videolab-1200-native/ascii.gif",
+      "expected_frames": 1200
+    },
+    {
+      "id": "videolab-1200-12",
+      "kind": "VideoLab",
+      "source_frames": 1200,
+      "target_fps": 12,
+      "cap": null,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-1200.gif",
+        "--output-dir",
+        "{evidence}/videolab-1200-12",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1",
+        "--target-fps",
+        "12"
+      ],
+      "output": "videolab-1200-12/ascii.gif",
+      "expected_frames": 576
+    },
+    {
+      "id": "videolab-1200-cap240-native",
+      "kind": "VideoLab",
+      "source_frames": 1200,
+      "target_fps": null,
+      "cap": 240,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-1200.gif",
+        "--output-dir",
+        "{evidence}/videolab-1200-cap240-native",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1",
+        "--max-frames",
+        "240"
+      ],
+      "output": "videolab-1200-cap240-native/ascii.gif",
+      "expected_frames": 240
+    },
+    {
+      "id": "videolab-1200-cap240-12",
+      "kind": "VideoLab",
+      "source_frames": 1200,
+      "target_fps": 12,
+      "cap": 240,
+      "argv": [
+        "{aski_binary}",
+        "lab",
+        "video",
+        "--input",
+        "{evidence}/source-1200.gif",
+        "--output-dir",
+        "{evidence}/videolab-1200-cap240-12",
+        "--columns",
+        "80",
+        "--font-scale",
+        "1",
+        "--max-frames",
+        "240",
+        "--target-fps",
+        "12"
+      ],
+      "output": "videolab-1200-cap240-12/ascii.gif",
+      "expected_frames": 116
+    }
+  ],
+  "validation": {
+    "every_output_preserved": true,
+    "metadata_argv": [
+      "{harness_binary}",
+      "inspect",
+      "{output}"
+    ],
+    "metadata_output": "{id}.metadata.json after measured process for lab; convert stdout already includes full metadata",
+    "expected_loop_count": 0,
+    "expected_native_delay_seconds": 0.04,
+    "expected_12fps_delay_seconds": 0.08,
+    "expected_12fps_achieved_rate": 12.5,
+    "canvas": "must equal observed layout mode width/height for identical render settings",
+    "count_note": "116/576 are fixture predictions from existing ceil source-duration slots, not a new implementation; disagreement triggers investigation, never substitution",
+    "resample_report": "preserve all actual fields, require output count agrees with encoded count; do not assume all source frames are pulled",
+    "lab_artifacts": [
+      "ascii.gif",
+      "metrics.csv",
+      "result.yaml"
+    ],
+    "source_identity": "record generated source SHA256 once; same file reused for every row at that length"
+  },
+  "record": [
+    "host OS/Xcode/Swift/hardware",
+    "candidate clean HEAD",
+    "harness source hashes",
+    "both release binary SHA256",
+    "Package.resolved before/after native resolution",
+    "actual argv",
+    "environment",
+    "complete stdout/stderr/time logs",
+    "exit codes",
+    "all metadata and output GIFs"
+  ],
+  "deferred": [
+    "Swift manifest/typecheck/link",
+    "native fixture generation and layout",
+    "source distinctness after GIF encoding",
+    "metadata/count/canvas parity",
+    "all RSS and timing captures"
+  ]
+}

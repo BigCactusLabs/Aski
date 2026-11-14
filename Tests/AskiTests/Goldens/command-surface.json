@@ -760,6 +760,58 @@
           ]
         },
         {
+          "abstract" : "Print versioned JSON describing the Aski command-line interface.",
+          "arguments" : [
+            {
+              "abstract" : "Show the version.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "long",
+                  "name" : "version"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "version"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "version"
+            },
+            {
+              "abstract" : "Show help information.",
+              "isOptional" : true,
+              "isRepeating" : false,
+              "kind" : "flag",
+              "names" : [
+                {
+                  "kind" : "short",
+                  "name" : "h"
+                },
+                {
+                  "kind" : "long",
+                  "name" : "help"
+                }
+              ],
+              "parsingStrategy" : "default",
+              "preferredName" : {
+                "kind" : "long",
+                "name" : "help"
+              },
+              "shouldDisplay" : true,
+              "valueName" : "help"
+            }
+          ],
+          "commandName" : "metadata",
+          "shouldDisplay" : true,
+          "superCommands" : [
+            "aski"
+          ]
+        },
+        {
           "abstract" : "Run Aski research harnesses and evidence-producing quality gates.",
           "arguments" : [
             {

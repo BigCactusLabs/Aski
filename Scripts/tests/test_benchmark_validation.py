@@ -1,6 +1,7 @@
 """Synthetic pinned-export fixtures, NOT macOS benchmark measurements (ASKI-86)."""
 
 import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -31,7 +32,7 @@ DEFAULT = {
 }
 
 FAKE_XCRUN = r'''
-import json, os, pathlib, re, subprocess, sys, time
+import hashlib, json, os, pathlib, re, subprocess, sys, time
 args = sys.argv[1:]
 root = pathlib.Path.cwd()
 fixture = json.loads((root / 'fixture.json').read_text())
@@ -43,8 +44,90 @@ if args == ['swift', '--version']:
 if args == ['xcodebuild', '-version']:
     print('Xcode 27.0\nBuild version SYNTHETIC')
     sys.exit(fixture.get('xcode_status', 0))
-assert args[:4] == ['swift', 'package', '--disable-sandbox', 'benchmark'], args
-verb = args[4]
+assert args[:3] == ['swift', 'package', '--scratch-path'], args
+scratch = pathlib.Path(args[3])
+assert scratch == root / '.build', args
+workspace = scratch / 'workspace-state.json'
+vendor = root / 'Vendor/malloc-interposer'
+
+def change_source():
+    source = vendor / 'Sources/MallocInterposerC/src/interposer-darwin.c'
+    with source.open('ab') as stream:
+        stream.write(b'\n/* changed during capture */\n')
+
+lock_path = root / 'Package.resolved'
+
+def rewrite_lock(drop_allocator):
+    lock = json.loads(lock_path.read_text())
+    lock['originHash'] = hashlib.sha256((root / 'Package.swift').read_bytes()).hexdigest()
+    if drop_allocator:
+        lock['pins'] = [pin for pin in lock['pins'] if pin['identity'] != 'malloc-interposer']
+    lock_path.write_text(json.dumps(lock, sort_keys=True, indent=2, separators=(',', ' : ')) + '\n')
+
+if args[4] == 'show-dependencies':
+    assert args[4:] == ['show-dependencies', '--format', 'json'], args
+    assert json.loads(workspace.read_text())['object']['dependencies'][0]['state']['name'] == 'edited'
+    if not fixture.get('skip_effective_lock_rewrite'):
+        rewrite_lock(drop_allocator=True)
+        (root / 'settled-lock').write_bytes(lock_path.read_bytes())
+    if fixture.get('change_manifest_during_setup'):
+        with (root / 'Package.swift').open('ab') as stream:
+            stream.write(b'// changed during setup\n')
+    sys.exit(fixture.get('settle_status', 0))
+
+if args[4] in {'resolve', 'edit'}:
+    verb = args[4]
+    status = fixture.get('setup_status', {}).get(verb, 0)
+    if status:
+        print('failed setup fixture', file=sys.stderr)
+        sys.exit(status)
+    if verb == 'resolve':
+        assert args[4:] == ['resolve'], args
+        assert not workspace.exists()
+        scratch.mkdir(exist_ok=True)
+        state = fixture['remote_workspace']
+    else:
+        assert args[4:] == ['edit', 'malloc-interposer', '--path', str(vendor)], args
+        state = json.loads(workspace.read_text())
+        remote = state['object']['dependencies'][0]
+        assert remote['state']['name'] == 'sourceControlCheckout', remote
+        state['object']['dependencies'][0] = dict(remote, basedOn=remote,
+            state={'name': 'edited', 'path': str(vendor)})
+        links = root / 'Packages'
+        links.mkdir(exist_ok=True)
+        (links / 'malloc-interposer').symlink_to(vendor, target_is_directory=True)
+    workspace.write_text(json.dumps(state))
+    if fixture.get('normalize_origin_during_setup') == verb:
+        rewrite_lock(drop_allocator=False)
+    if fixture.get('change_pin_during_setup') == verb:
+        (root / 'Package.resolved').write_text('{}\n')
+    if fixture.get('change_source_during_setup') == verb:
+        change_source()
+    sys.exit(0)
+
+assert args[4:6] == ['--disable-sandbox', 'benchmark'], args
+verb = args[6]
+assert lock_path.read_bytes() == (root / 'settled-lock').read_bytes()
+if fixture.get('bad_malloc_route_phase') == verb:
+    state = json.loads(workspace.read_text())
+    dependency = state['object']['dependencies'][0]
+    route = fixture['bad_malloc_route']
+    if route == 'other path':
+        dependency['state']['path'] = str(root / 'elsewhere/malloc-interposer')
+    elif route == 'other URL':
+        dependency['packageRef']['location'] = 'https://example.com/malloc-interposer.git'
+    elif route == 'other package':
+        dependency['packageRef']['identity'] = 'another-allocator'
+    elif route == 'duplicate':
+        state['object']['dependencies'].append(dependency)
+    else:
+        raise AssertionError(route)
+    workspace.write_text(json.dumps(state))
+if not fixture.get('omit_allocator_observation') and verb != fixture.get('omit_allocator_phase'):
+    print('ASKI_ALLOCATOR_OBSERVATION ' + json.dumps(fixture.get('allocator_observation', {
+        'schema_version': 1, 'pid': 123, 'backend': 'malloc-interposer',
+        'image': '/synthetic/libMallocInterposerSwift.dylib', 'allocated': True,
+        'malloc_delta': 1, 'free_delta': 1})), file=sys.stderr)
 def option(name):
     return args[args.index(name) + 1]
 assert option('--target') == 'AskiBenchmarks'
@@ -73,7 +156,13 @@ for name, metrics in fixture['exports'].items():
         for metric, content in metrics.items():
             (output / f'Current_run.AskiBenchmarks.{name}.{metric}.histogram.samples.tsv').write_text(content)
 if fixture.get('change_pin'):
-    (root / 'Package.resolved').write_text('{}\n')
+    lock = json.loads(lock_path.read_text())
+    lock['pins'][0]['state']['version'] = '9.9.9'
+    lock_path.write_text(json.dumps(lock) + '\n')
+if fixture.get('rewind_lock'):
+    lock_path.write_bytes((root / 'original-lock').read_bytes())
+if fixture.get('change_malloc_source'):
+    change_source()
 print(fixture.get('stdout', ''))
 print(fixture.get('stderr', ''), file=sys.stderr)
 sys.exit(fixture.get('run_status', 0))
@@ -207,10 +296,35 @@ class CommandTests(unittest.TestCase):
         self.root.mkdir()
         (self.root / "Scripts").mkdir()
         shutil.copy2(SCRIPT, self.root / "Scripts" / SCRIPT.name)
-        pins = {"pins": [{"identity": "package-benchmark", "location": "https://github.com/ordo-one/package-benchmark",
-                          "state": {"version": validator.PIN[0], "revision": validator.PIN[1]}},
-                         {"identity": "malloc-interposer", "state": {"version": "1.4.0", "revision": "fixture"}}]}
-        (self.root / "Package.resolved").write_text(json.dumps(pins))
+        self.allocator_pin = {
+            "identity": "malloc-interposer", "kind": "remoteSourceControl",
+            "location": "https://github.com/ordo-one/malloc-interposer.git",
+            "state": {"version": "1.4.0", "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d"},
+        }
+        (self.root / "Package.swift").write_text("// swift-tools-version: 6.3\nimport PackageDescription\n")
+        pins = {"originHash": "a" * 64, "version": 3, "pins": [{"identity": "package-benchmark", "location": "https://github.com/ordo-one/package-benchmark",
+                          "state": {"version": validator.PIN[0], "revision": validator.PIN[1]}}, self.allocator_pin]}
+        self.lock = self.root / "Package.resolved"
+        self.original_lock = (json.dumps(pins, indent=2, sort_keys=True, separators=(",", " : ")) + "\n").encode()
+        self.lock.write_bytes(self.original_lock)
+        (self.root / "original-lock").write_bytes(self.original_lock)
+        self.vendor = self.root / "Vendor/malloc-interposer"
+        shutil.copytree(SCRIPT.parents[1] / "Vendor/malloc-interposer", self.vendor)
+        # Match the verified SwiftPM 6.4 remote and edited dependency entries.
+        self.workspace = self.root / ".build/workspace-state.json"
+        self.workspace.parent.mkdir()
+        self.remote_allocator = {
+            "basedOn": None,
+            "packageRef": {"identity": "malloc-interposer", "kind": "remoteSourceControl",
+                           "name": "malloc-interposer", "location": self.allocator_pin["location"]},
+            "state": {"name": "sourceControlCheckout", "checkoutState": self.allocator_pin["state"]},
+            "subpath": "malloc-interposer",
+        }
+        self.edited_allocator = dict(
+            self.remote_allocator, basedOn=self.remote_allocator,
+            state={"name": "edited", "path": str(self.vendor.resolve())},
+        )
+        self.write_workspace(self.edited_allocator)
         self.bin = Path(self.temporary.name) / "fake tools"
         self.bin.mkdir()
         for name, code in {
@@ -226,8 +340,12 @@ class CommandTests(unittest.TestCase):
         for key in ["MALLOC_INTERPOSER_LOCAL_PATH", "BENCHMARK_DISABLE_MALLOC_INTERPOSER", "BENCHMARK_DISABLE_JEMALLOC"]:
             self.environment.pop(key, None)
         self.fixture = copy.deepcopy(DEFAULT)
+        self.fixture["remote_workspace"] = {"version": 7, "object": {"dependencies": [self.remote_allocator]}}
         self.output = Path(self.temporary.name) / "retained evidence"
         self.addCleanup(self.cleanup_waiting_processes)
+
+    def write_workspace(self, dependency):
+        self.workspace.write_text(json.dumps({"version": 7, "object": {"dependencies": [dependency]}}))
 
     def invoke(self, *arguments):
         (self.root / "fixture.json").write_text(json.dumps(self.fixture))
@@ -241,6 +359,9 @@ class CommandTests(unittest.TestCase):
     def calls(self):
         path = self.root / "calls.jsonl"
         return [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
+
+    def phases(self):
+        return [command["phase"] for command in self.report()["commands"]]
 
     def assert_invalid(self, completed, reason):
         self.assertNotEqual(completed.returncode, 0, completed.stdout + completed.stderr)
@@ -258,10 +379,67 @@ class CommandTests(unittest.TestCase):
         self.assertEqual(report["selected"], DEFAULT["names"])
         self.assertIn("synthetic fixture", report["identity"]["swift"])
         self.assertEqual(report["identity"]["malloc_backend"]["configured"], "malloc-interposer")
+        self.assertEqual(report["identity"]["malloc_pin"], self.allocator_pin)
+        self.assertFalse(any(phase in {"resolve", "edit"} for phase in self.phases()))
+        settled = (self.root / "settled-lock").read_bytes()
+        self.assertEqual(report["identity"]["lock_sha256"], hashlib.sha256(self.original_lock).hexdigest())
+        self.assertEqual(report["identity"]["effective_lock_sha256"], hashlib.sha256(settled).hexdigest())
+        self.assertEqual([entry["lock_form"] for entry in report["lock_transaction"]["setup"]], ["edited"])
+        self.assert_restored()
+        self.assertEqual(report["identity"]["malloc_backend"]["vendored_source"],
+                         validator.reviewed_malloc_source(self.root))
+        self.assertNotIn(str(self.root.resolve()), json.dumps(report["identity"]["malloc_backend"]))
         self.assertEqual(self.output.stat().st_mode & 0o777, 0o700)
         self.assertIn("OPTIONAL NOT EXPORTED", completed.stderr)
         self.assertEqual(report["results"]["video-one-shot"]["metrics"]["wallClock"]["sample_count"], 3)
         self.assertEqual(len([call for call in self.calls() if "benchmark" in call]), 2)
+
+    def test_missing_runtime_observation_is_not_configured_identity(self):
+        self.fixture["omit_allocator_observation"] = True
+        self.assert_invalid(self.invoke(), "native allocator observation missing")
+
+    def test_loaded_but_inactive_interposer_is_rejected(self):
+        self.fixture["allocator_observation"] = {
+            "schema_version": 1, "pid": 123, "backend": "malloc-interposer",
+            "image": "/synthetic/lib.dylib", "allocated": True, "malloc_delta": 0, "free_delta": 0}
+        self.assert_invalid(self.invoke(), "did not observe")
+
+    def test_missing_run_probe_preserves_execution_and_export_failures(self):
+        self.fixture["omit_allocator_phase"] = "run"
+        self.fixture["run_status"] = 9
+        self.fixture["stderr"] = "Error: video-one-shot failed during execution"
+        del self.fixture["exports"]["video-one-shot"]
+        self.assert_invalid(self.invoke(), "native allocator observation missing")
+        errors = "\n".join(self.report()["errors"])
+        self.assertIn("benchmark process exited 9", errors)
+        self.assertIn("video-one-shot failed during execution", errors)
+        self.assertIn("video-one-shot: selected workload absent", errors)
+
+    def test_malformed_allocator_observation_is_rejected(self):
+        self.fixture["allocator_observation"] = ["not", "an", "object"]
+        self.assert_invalid(self.invoke(), "unsupported allocator observation")
+
+    def test_complete_run_retains_runtime_observations(self):
+        self.assertEqual(self.invoke().returncode, 0)
+        observations = self.report()["allocator_observations"]
+        for phase in ("inventory", "run"):
+            self.assertEqual(observations[phase][0]["malloc_delta"], 1)
+            self.assertEqual(observations[phase][0]["backend"], "malloc-interposer")
+
+    def test_mixed_runtime_backends_or_images_rejected(self):
+        first = {"schema_version": 1, "pid": 1, "backend": "malloc-interposer",
+                 "image": "/control/libMallocInterposerSwift.dylib", "allocated": True,
+                 "malloc_delta": 1, "free_delta": 1}
+        for second in [dict(first, image="/candidate/different.dylib"),
+                       {"schema_version": 1, "pid": 2, "backend": "unavailable"}]:
+            for same_phase in [False, True]:
+                with self.subTest(second=second, same_phase=same_phase):
+                    report = {"identity": {"malloc_backend": {}}}
+                    lines = ["ASKI_ALLOCATOR_OBSERVATION " + json.dumps(item) for item in [first, second]]
+                    if not same_phase:
+                        validator.capture_allocator_observations(lines[0], report, "inventory")
+                    with self.assertRaisesRegex(validator.InvalidEvidence, "incoherent"):
+                        validator.capture_allocator_observations("\n".join(lines) if same_phase else lines[1], report, "run")
 
     def test_setup_failure_with_exit_zero_and_partial_results(self):
         del self.fixture["exports"]["video-one-shot"]
@@ -284,6 +462,7 @@ class CommandTests(unittest.TestCase):
     def test_nonzero_plugin_exit(self):
         self.fixture["run_status"] = 7
         self.assert_invalid(self.invoke(), "benchmark process exited 7")
+        self.assert_restored()
 
     def test_silent_missing_workload(self):
         del self.fixture["exports"]["video-one-shot"]
@@ -344,6 +523,7 @@ class CommandTests(unittest.TestCase):
         self.fixture["inventory_status"] = 1
         self.assert_invalid(self.invoke(), "inventory failed")
         self.assertFalse(any("run" in call for call in self.calls()))
+        self.assert_restored()
 
     def test_inventory_exit_zero_error(self):
         self.fixture["inventory_stderr"] = "error: benchmark registration failed"
@@ -361,9 +541,208 @@ class CommandTests(unittest.TestCase):
         self.assert_invalid(self.invoke(), "adapter requires review")
         self.assertEqual(self.calls(), [])
 
-    def test_pin_change_during_run_fails(self):
-        self.fixture["change_pin"] = True
+    def assert_restored(self):
+        self.assertEqual(self.lock.read_bytes(), self.original_lock)
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "restored")
+
+    def test_unexpected_pin_change_is_retained_with_original_run_error(self):
+        self.fixture.update(change_pin=True, run_status=29)
+        self.assert_invalid(self.invoke(), "effective lock identity is not stable")
+        errors = "\n".join(self.report()["errors"])
+        self.assertIn("benchmark process exited 29", errors)
+        self.assertIn("refusing to overwrite", errors)
+        self.assertEqual(json.loads(self.lock.read_bytes())["pins"][0]["state"]["version"], "9.9.9")
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "unexpected_lock_retained")
+
+    def test_rewind_to_original_lock_still_fails_effective_capture(self):
+        self.fixture["rewind_lock"] = True
+        self.assert_invalid(self.invoke(), "effective lock identity is not stable")
+        self.assertEqual(self.lock.read_bytes(), self.original_lock)
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "already_original")
+
+    def test_setup_normalized_form_is_accepted_then_settled(self):
+        self.write_workspace(self.remote_allocator)
+        self.fixture["normalize_origin_during_setup"] = "edit"
+        completed = self.invoke()
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        forms = [entry["lock_form"] for entry in self.report()["lock_transaction"]["setup"]]
+        self.assertEqual(forms, ["normalized_origin", "edited"])
+        self.assert_restored()
+
+    def test_effective_setup_form_is_required(self):
+        self.fixture["skip_effective_lock_rewrite"] = True
+        self.assert_invalid(self.invoke(), "did not produce the expected effective")
+        self.assertEqual(self.phases()[-1], "show-dependencies")
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "already_original")
+
+    def test_settling_failure_after_lock_write_restores_original(self):
+        self.fixture["settle_status"] = 14
+        self.assert_invalid(self.invoke(), "setup failed (show-dependencies, exit 14)")
+        self.assertEqual(self.phases()[-1], "show-dependencies")
+        self.assert_restored()
+
+    def test_manifest_drift_after_lock_write_restores_original(self):
+        self.fixture["change_manifest_during_setup"] = True
+        self.assert_invalid(self.invoke(), "Package.swift changed")
+        self.assert_restored()
+
+    def test_failed_restore_invalidates_good_capture(self):
+        script = self.root / "Scripts" / SCRIPT.name
+        source = script.read_text()
+        helper = "\ndef fail_restore(*args):\n    raise PermissionError('simulated restoration denial')\n"
+        script.write_text(source.replace('if __name__ == "__main__":', helper
+            + 'restore_package_lock = fail_restore\n\nif __name__ == "__main__":'))
+        self.assert_invalid(self.invoke(), "Package.resolved restoration failed: simulated restoration denial")
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "failed")
+        self.assertEqual(self.lock.read_bytes(), (self.root / "settled-lock").read_bytes())
+
+    def test_unreviewed_allocator_pin_rejected(self):
+        path = self.root / "Package.resolved"
+        pins = json.loads(path.read_text())
+        pins["pins"][1]["state"]["version"] = "1.6.1"
+        path.write_text(json.dumps(pins))
+        self.assert_invalid(self.invoke(), "unexpected malloc-interposer pin")
+        self.assertEqual(self.calls(), [])
+
+    def test_fresh_workspace_resolves_then_edits_and_captures(self):
+        self.workspace.unlink()
+        completed = self.invoke()
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(self.phases()[-5:], ["resolve", "edit", "show-dependencies", "inventory", "run"])
+        self.assertEqual(self.read_allocator_entry(), self.edited_allocator)
+
+    def test_remote_checkout_edits_without_resolving(self):
+        self.write_workspace(self.remote_allocator)
+        lock = self.root / "Package.resolved"
+        original_lock = lock.read_bytes()
+        completed = self.invoke()
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(self.phases()[-4:], ["edit", "show-dependencies", "inventory", "run"])
+        self.assertNotIn("resolve", self.phases())
+        self.assertEqual(lock.read_bytes(), original_lock)
+
+    def read_allocator_entry(self):
+        return json.loads(self.workspace.read_text())["object"]["dependencies"][0]
+
+    def test_refuses_existing_unreviewed_edit_without_touching_it(self):
+        for field, reason in [
+            ("path", "is not edited at the reviewed vendored path"),
+            ("revision", "has an unreviewed base checkout"),
+        ]:
+            with self.subTest(field=field):
+                entry = copy.deepcopy(self.edited_allocator)
+                if field == "path":
+                    entry["state"]["path"] = str(self.root / "elsewhere/malloc-interposer")
+                else:
+                    entry["basedOn"]["state"]["checkoutState"]["revision"] = "a" * 40
+                self.write_workspace(entry)
+                self.output = self.output.with_name(field)
+                self.assert_invalid(self.invoke(), reason)
+                self.assertEqual(self.read_allocator_entry(), entry)
+                self.assertFalse(set(self.phases()) & {"resolve", "edit", "inventory", "run"})
+
+    def test_unknown_edit_link_without_workspace_is_left_alone(self):
+        self.workspace.unlink()
+        link = self.root / "Packages/malloc-interposer"
+        link.parent.mkdir()
+        alternate = self.root / "some other package"
+        link.symlink_to(alternate, target_is_directory=True)
+        self.assert_invalid(self.invoke(), "edit link points outside the reviewed vendored path")
+        self.assertEqual(Path(os.readlink(link)), alternate)
+        self.assertFalse(set(self.phases()) & {"resolve", "edit", "inventory", "run"})
+
+    def test_malformed_workspace_fails_without_resolve_or_edit(self):
+        self.workspace.write_text('{"object":{"dependencies":null}}')
+        self.assert_invalid(self.invoke(), "malformed SwiftPM workspace dependency state")
+        self.assertFalse(set(self.phases()) & {"resolve", "edit", "inventory", "run"})
+
+    def test_setup_nonzero_exit_stops_capture(self):
+        for phase in ("resolve", "edit"):
+            with self.subTest(phase=phase):
+                self.output = self.output.with_name(phase)
+                self.fixture["setup_status"] = {phase: 19}
+                if phase == "resolve":
+                    self.workspace.unlink()
+                else:
+                    self.write_workspace(self.remote_allocator)
+                self.assert_invalid(self.invoke(), f"setup failed ({phase}, exit 19)")
+                last = self.report()["commands"][-1]
+                self.assertEqual((last["phase"], last["returncode"]), (phase, 19))
+
+    def test_lock_drift_during_resolve_stops_before_edit(self):
+        self.workspace.unlink()
+        self.fixture["change_pin_during_setup"] = "resolve"
         self.assert_invalid(self.invoke(), "Package.resolved changed")
+        self.assertEqual(self.phases()[-1], "resolve")
+        self.assertEqual(self.report()["lock_transaction"]["restoration"], "unexpected_lock_retained")
+        self.assertEqual(self.lock.read_text(), "{}\n")
+
+    def test_source_drift_during_edit_stops_before_inventory(self):
+        self.write_workspace(self.remote_allocator)
+        self.fixture["change_source_during_setup"] = "edit"
+        self.assert_invalid(self.invoke(), "vendored malloc-interposer hash mismatch")
+        self.assertEqual(self.phases()[-1], "edit")
+
+    def test_unreviewed_workspace_allocator_routing_stops_before_run(self):
+        original = self.workspace.read_bytes()
+        for route, message in [
+            ("other path", "is not edited at the reviewed vendored path"),
+            ("other URL", "unexpected allocator package reference"),
+            ("other package", "expected exactly one malloc-interposer"),
+            ("duplicate", "expected exactly one malloc-interposer"),
+        ]:
+            with self.subTest(route=route):
+                self.workspace.write_bytes(original)
+                self.output = self.output.with_name(route)
+                self.fixture.update(bad_malloc_route_phase="list", bad_malloc_route=route)
+                self.assert_invalid(self.invoke(), message)
+                self.assertFalse(any("run" in call for call in self.calls()))
+
+    def test_workspace_allocator_routing_rechecked_after_run(self):
+        self.fixture.update(bad_malloc_route_phase="run", bad_malloc_route="other path")
+        self.assert_invalid(self.invoke(), "is not edited at the reviewed vendored path")
+        self.assertIn("run", self.report()["allocator_observations"])
+
+    def test_vendored_source_identity_is_worktree_independent(self):
+        first = validator.reviewed_malloc_source(self.root)
+        second = validator.reviewed_malloc_source(SCRIPT.parents[1])
+        self.assertEqual(first, second)
+        self.assertEqual(first["upstream_revision"], "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d")
+
+    def test_changed_vendored_source_rejected(self):
+        path = self.vendor / "Sources/MallocInterposerC/include/interposer.h"
+        with path.open("ab") as stream:
+            stream.write(b"\n/* altered header */\n")
+        self.assert_invalid(self.invoke(), "vendored malloc-interposer hash mismatch")
+        self.assertEqual(self.calls(), [])
+
+    def test_missing_vendored_input_rejected(self):
+        (self.vendor / "Sources/MallocInterposerC/include/interposer.h").unlink()
+        self.assert_invalid(self.invoke(), "unexpected vendored malloc-interposer file set")
+        self.assertEqual(self.calls(), [])
+
+    def test_alternate_package_manifest_rejected(self):
+        shutil.copyfile(self.vendor / "Package.swift", self.vendor / "Package@swift-6.4.swift")
+        self.assert_invalid(self.invoke(), "Package@swift-6.4.swift")
+        self.assertEqual(self.calls(), [])
+
+    def test_symlinked_vendored_input_rejected_even_with_matching_bytes(self):
+        path = self.vendor / "Sources/MallocInterposerC/include/interposer.h"
+        path.unlink()
+        path.symlink_to(SCRIPT.parents[1] / path.relative_to(self.root))
+        self.assert_invalid(self.invoke(), "vendored malloc-interposer input is not a regular file")
+        self.assertEqual(self.calls(), [])
+
+    def test_mid_capture_source_drift_preserves_run_exit_and_metric_errors(self):
+        self.fixture["change_malloc_source"] = True
+        self.fixture["run_status"] = 23
+        self.assert_invalid(self.invoke("--require-metric", "allocatedResidentMemory"), "vendored malloc-interposer hash mismatch")
+        report = self.report()
+        errors = "\n".join(report["errors"])
+        self.assertIn("required metric allocatedResidentMemory", errors)
+        self.assertIn("benchmark process exited 23", errors)
+        self.assertIn("run", report["allocator_observations"])
+        self.assertEqual(report["commands"][-1]["returncode"], 23)
 
     def test_toolchain_identity_failure(self):
         self.fixture["xcode_status"] = 1
@@ -491,6 +870,7 @@ class CommandTests(unittest.TestCase):
             self.assertIsNone(unrelated.poll())
             self.assertFalse(self.report()["complete"])
             self.assert_processes_gone(pids)
+            self.assert_restored()
         finally:
             if process.poll() is None:
                 process.kill()

@@ -1,10 +1,10 @@
 ---
 id: ASKI-74
 title: Validate Swift 6.4 fix for case-only product collisions
-status: To Do
+status: Done
 assignee: []
 created_date: 2026-09-04 08:24
-updated_date: '2026-11-13T05:21:00Z'
+updated_date: '2026-11-14T17:38:00Z'
 labels:
   - toolchain
   - ci
@@ -34,12 +34,12 @@ Do not implement a Swift 6.3 repo workaround. On a genuine side-by-side Xcode 27
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 From a fresh current-main checkout, swift build --build-tests --build-system swiftbuild succeeds with the unchanged one-package graph; neither the Aski/aski case-only corruption nor the earlier demo/lab collision diagnostics occur.
-- [ ] #2 Filtered and full Swift Build tests run from the built graph, and build-once then test/run --skip-build reuse succeeds with an explicit backend on every SwiftPM command.
-- [ ] #3 The aski command, AskiDemo, and all seven lab products preserve help, version, bare-exit, unified-routing, and generated-artifact behavior against the native backend.
-- [ ] #4 Resources remain byte-identical; research-index and repo-map checks detect reversible drift; DocC plus Markdown export and the benchmark plugin succeed under Swift Build.
-- [ ] #5 Sources, Package.swift, Package.resolved, public and executable product names, swift-tools-version, and the one-package architecture remain unchanged; a final native just check passes before any completion commit.
-- [ ] #6 The validation runs on the installed final Xcode 27 / Apple Swift 6.4 toolchain (now the selected default); record xcodebuild -version and xcrun swift --version with the results.
+- [x] #1 From a fresh current-main checkout, swift build --build-tests --build-system swiftbuild succeeds with the unchanged one-package graph; neither the Aski/aski case-only corruption nor the earlier demo/lab collision diagnostics occur.
+- [x] #2 Filtered and full Swift Build tests run from the built graph, and build-once then test/run --skip-build reuse succeeds with an explicit backend on every SwiftPM command.
+- [x] #3 The aski command, AskiDemo, and all seven lab products preserve help, version, bare-exit, unified-routing, and generated-artifact behavior against the native backend.
+- [x] #4 Resources remain byte-identical; research-index and repo-map checks detect reversible drift; DocC plus Markdown export and the benchmark plugin succeed under Swift Build.
+- [x] #5 Sources, Package.swift, Package.resolved, public and executable product names, swift-tools-version, and the one-package architecture remain unchanged; a final native just check passes before any completion commit.
+- [x] #6 The validation runs on the installed final Xcode 27 / Apple Swift 6.4 toolchain (now the selected default); record xcodebuild -version and xcrun swift --version with the results.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -50,6 +50,10 @@ Do not implement a Swift 6.3 repo workaround. On a genuine side-by-side Xcode 27
 3. Run a clean Swift Build build-tests command first. Inspect the generated graph and logs for the prior AskiDemo shadow, seven lab basename collisions, and Aski/aski file-list corruption. If the upstream 6.4 fix does not hold, keep the task open and report the upstream failure; do not rename required names or add package/wrapper ceremony.
 4. If the clean graph passes, run filtered and full skip-build tests, all package tools with drift falsification, resource parity, DocC plus Markdown, the benchmark plugin, and native-versus-Swift-Build command/replay parity. Keep runs serial.
 5. Record the compatibility result in the ASKI-41 verdict note and generated research index. Mark ASKI-74 Done only when every acceptance criterion passes, then let ASKI-41 repeat its frozen performance and promotion lane.
+
+2026-11-13 execution: validate the unchanged current-main graph on selected final Xcode 27 / Swift 6.4 with an explicit swiftbuild backend; capture the first clean build and stop the dependent validation matrix if it fails. Current upstream sources were checked again; preserve the package and product names.
+
+2026-11-13 continuation: prepare an opt-in exact pre-encoder input comparison for all 36 HDR fixture/k cases, using the existing renderer, encoder and frozen HDR gates. Commit the rule before native captures. Compare two independent invocations per backend with repeated encodes of identical inputs; retain any unresolved cross-backend-only effect. Finish an explicitly native full gate without changing product/source/manifest names or the canonical gate ordering.
 <!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
@@ -74,4 +78,20 @@ Source map: `Tests/AskiTests/UnifiedLabCommandTests.swift`, `Tests/AskiTests/Com
 Audit 2026-11-12: Swift 6.4 / Xcode 27 is now the installed default, so the wait condition is met; the side-by-side premise of AC#1 no longer applies. The title and filename differ.
 
 2026-11-13: owner ruling: AC#1 re-scoped. The original criterion (a final toolchain side-by-side via DEVELOPER_DIR without a global Xcode change) no longer applies because Xcode 27 / Swift 6.4 is the installed default. The replacement criterion is now the last in the list. The task is unblocked.
+
+2026-11-13 explicit-backend replay: unchanged clean Swift Build graph passed; filtered 30 tests and full 1537 core / 177 media / 2 sentinels passed with skip-build. Native control build, 112 command-surface comparisons, 15 resource-copy byte checks, reversible index drift rejection/restoration, explicit Swift Build symbol graph, DocC/Markdown, six-workload benchmark exports and final unmodified just check passed. Final canonical gate used default Swift Build (206.05s), not explicit native. All 28 seven-lab artifact commands succeeded; HDR metadata and existing gates agree, but some decoded cross-backend measures exceed the one same-native repeat envelope. Keep task open pending owner review. Extra generator checks show identical kernel regeneration and vector-audit drift on both backends; source/resources preserved. Research note records exact bounds and limitations.
+
+Lead review: AC1, AC2, AC4 and AC6 are established by the unchanged-graph explicit-backend captures. AC3 stays open for HDR artifact parity; a single same-backend repeat is not a noise bound. AC5 stays open because the unmodified canonical just check passed using the installed Swift Build default, not an explicit legacy-native backend. Compact evidence is in Scripts/research/aski74-2026-11-13/readout.json. The vector drift repeats the existing ASKI-78 finding. No production bytes or acceptance thresholds changed.
+
+2026-11-13 pause checkpoint: the explicit legacy-native full just check passed on original product base e9ac79bd48ab0d387d85cedf15f5bab244fc0aad plus five reviewed test/lab diagnostic files. Core 1538, media 177, two deadlock sentinels and DocC passed. The seven logged SwiftPM calls all selected native; exactly one initial build was followed by skip-build drift/test phases. All 1194 source hashes remained unchanged, including production Sources, Tools, Package.swift and Package.resolved. AC5 is established for this frozen snapshot. The HDR boundary diagnostic compiled and was explicitly skipped; no new HDR capture ran. AC3 remains open. Owner requested a pause; all native processes exited and the worktrees, reports and resume instructions were saved locally. Any later source change requires validation appropriate to that change before completion.
+
+2026-11-14: The committed HDR boundary diagnostic at 026a448 passed its unchanged comparator after four independent explicit-backend captures (432 records). All 36 input pairs and interpretation metadata match exactly; all 12 G1-G4 gate sets pass; no field varies only across backends under the frozen predicate. All 66 differing case/fields also vary within an unchanged binary;45 have no shared observed value between backends. This establishes the scoped registered boundary condition, not general or statistical backend equivalence, byte-identical HEIC, a future variability bound or exclusion of concurrent backend effects. All1194 source hashes and per-backend binaries remained unchanged. Earlier native full gate carries for those exact bytes. Combined latest-main gate is pending before final integration. Public rule, comparator, negative controls and compact hashed receipts are in Scripts/research/aski74-hdr-boundary-2026-11-13.
+
+Final combined integration gate on 2026-11-14 passed after merging main b2297d9:1549 core tests,178 media,two deadlock sentinels and DocC; opt-in HDR capture remained disabled. All1316 tested file hashes and the dependency lock were unchanged through the gate. The final bookkeeping change only marks this already qualified scoped task Done; native measurement evidence stays bound to026a448. ASKI-41 historical performance criterion remains superseded, not passed.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Qualified the unchanged case-only Aski/aski product graph on installed Xcode27/Swift6.4. Full graph, reuse, commands, resources, tools and explicit native gate pass. The registered four-capture HDR comparison preserves exact inputs and existing gate outcomes; compressed output variability remains scoped and does not establish general backend equivalence. Final latest-main combined gate passes.
+<!-- SECTION:FINAL_SUMMARY:END -->

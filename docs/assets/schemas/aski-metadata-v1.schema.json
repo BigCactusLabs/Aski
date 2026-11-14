@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/BigCactusLabs/Aski/blob/main/docs/assets/schemas/aski-metadata-v1.schema.json",
+  "title": "Aski CLI metadata v1",
+  "description": "Deterministic machine-readable output from aski metadata.",
+  "type": "object",
+  "required": ["schemaVersion", "toolVersion", "commands", "replayMappings"],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "toolVersion": {
+      "description": "Git HEAD from the invocation's working directory, or unknown.",
+      "$ref": "#/$defs/token"
+    },
+    "commands": {
+      "description": "Visible commands in root-first depth-first declaration order.",
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/command"}
+    },
+    "replayMappings": {
+      "description": "Historical executable prefix mappings, sorted by product.",
+      "type": "array",
+      "items": {"$ref": "#/$defs/replayMapping"}
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "token": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "array",
+      "minItems": 1,
+      "prefixItems": [{"const": "aski"}],
+      "items": {"$ref": "#/$defs/token"}
+    },
+    "command": {
+      "type": "object",
+      "required": ["path", "aliases", "stability", "arguments"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "aliases": {
+          "description": "Alternate spellings of the final path token.",
+          "type": "array",
+          "items": {"$ref": "#/$defs/token"}
+        },
+        "stability": {"enum": ["stable", "research"]},
+        "arguments": {
+          "description": "Visible arguments in parser order.",
+          "type": "array",
+          "items": {"$ref": "#/$defs/argument"}
+        },
+        "defaultSubcommand": {
+          "description": "Canonical token of the direct child selected by default.",
+          "$ref": "#/$defs/token"
+        }
+      },
+      "additionalProperties": true
+    },
+    "argument": {
+      "type": "object",
+      "required": ["kind", "names", "isOptional", "isRepeating"],
+      "properties": {
+        "kind": {"enum": ["positional", "option", "flag"]},
+        "names": {
+          "description": "Complete flag or option spellings in parser order. Empty for positionals.",
+          "type": "array",
+          "items": {"$ref": "#/$defs/token"}
+        },
+        "isOptional": {"type": "boolean"},
+        "isRepeating": {"type": "boolean"},
+        "valueName": {"$ref": "#/$defs/token"},
+        "defaultValue": {
+          "description": "Opaque default text supplied by parser help, when available.",
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "replayMapping": {
+      "type": "object",
+      "required": ["product", "canonicalPath"],
+      "properties": {
+        "product": {"$ref": "#/$defs/token"},
+        "canonicalPath": {"$ref": "#/$defs/path"}
+      },
+      "additionalProperties": true
+    }
+  }
+}

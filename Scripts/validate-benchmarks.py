@@ -8,12 +8,14 @@ See docs/benchmark-validation.md. Python 3 standard library only.
 
 import argparse
 from datetime import datetime, timezone
+import fcntl
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
 import signal
+import stat
 import subprocess
 import sys
 import tempfile
@@ -22,6 +24,24 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "AskiBenchmarks"
 PIN = ("1.35.0", "4b9ef5663e9c270419351a20392bf77b007f37f6")
+# ASKI-109 reviewed vendored snapshot. Update only after source re-review.
+MALLOC_PACKAGE = Path("Vendor/malloc-interposer")
+MALLOC_ORIGIN = "https://github.com/ordo-one/malloc-interposer.git"
+MALLOC_VERSION = "1.4.0"
+MALLOC_REVISION = "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d"
+MALLOC_FILES = {
+    "ASKI-PATCHES.md": "4b6cbb4345cc54982f6f95b85f3e8c19657adb5df3219e49b2754f26aaf2cfa0",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+    "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+    "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+    "Sources/MallocInterposerC/include/interposer.h": "e8ed97ce37d1aae6de5be64c262e8db1137d5214ed4cb3cea9fd7706424c90b6",
+    "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+    "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+    "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+    "Tests/InterposerCrashProbe/main.c": "4c7d3a9d4e485cec4dfc9c92829fdecc490e2849f6142340157e96949e638951",
+    "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "9cb9b0d36d081e8c87cdb48ff3265af8494d17b53cbf94fd5a8627fda21d984a",
+}
 SUFFIX = ".histogram.samples.tsv"
 # Frozen ASKI-86 reproduction set. --smoke requires every member, so a rename
 # or accidental removal cannot silently reduce the validation workload.
@@ -270,9 +290,184 @@ def run_command(command, root, directory, label, report, timeout=None):
     return entry["returncode"], stdout, stderr
 
 
+def reviewed_malloc_source(root):
+    vendor = root / MALLOC_PACKAGE
+    if vendor.parent.is_symlink() or vendor.is_symlink() or not vendor.is_dir():
+        raise InvalidEvidence("reviewed malloc-interposer directory is missing or symlinked")
+    entries = {path.relative_to(vendor).as_posix(): path for path in vendor.rglob("*")
+               if path.is_symlink() or not path.is_dir()}
+    missing = sorted(MALLOC_FILES.keys() - entries.keys())
+    unexpected = sorted(entries.keys() - MALLOC_FILES.keys())
+    if missing or unexpected:
+        raise InvalidEvidence(f"unexpected vendored malloc-interposer file set (missing: {missing}; extra: {unexpected})")
+    hashes = {}
+    for name, expected in MALLOC_FILES.items():
+        path = entries[name]
+        if path.is_symlink() or not path.is_file():
+            raise InvalidEvidence(f"vendored malloc-interposer input is not a regular file: {name}")
+        hashes[name] = digest(path.read_bytes())
+        if hashes[name] != expected:
+            raise InvalidEvidence(f"vendored malloc-interposer hash mismatch: {name}")
+    return {"package_path": MALLOC_PACKAGE.as_posix(), "upstream_url": MALLOC_ORIGIN,
+            "upstream_revision": MALLOC_REVISION, "sha256_by_file": hashes}
+
+
+def malloc_workspace_entry(scratch):
+    path = scratch / "workspace-state.json"
+    if path.is_symlink() or not path.is_file():
+        raise InvalidEvidence("SwiftPM workspace state is missing or is not a regular file")
+    try:
+        dependencies = json.loads(path.read_bytes())["object"]["dependencies"]
+        if not isinstance(dependencies, list):
+            raise TypeError("dependencies must be a list")
+        matches = [entry for entry in dependencies if entry["packageRef"]["identity"] == MALLOC_PACKAGE.name]
+    except (ValueError, KeyError, TypeError) as error:
+        raise InvalidEvidence("malformed SwiftPM workspace dependency state") from error
+    if len(matches) != 1:
+        raise InvalidEvidence("expected exactly one malloc-interposer in SwiftPM workspace state")
+    return matches[0]
+
+
+def verify_malloc_edit_link(root):
+    packages = root / "Packages"
+    link = packages / MALLOC_PACKAGE.name
+    if packages.is_symlink() or (packages.exists() and not packages.is_dir()):
+        raise InvalidEvidence("SwiftPM Packages path is not a local directory")
+    if (link.exists() or link.is_symlink()) and (
+            not link.is_symlink() or Path(os.readlink(link)) != root / MALLOC_PACKAGE):
+        raise InvalidEvidence("SwiftPM malloc-interposer edit link points outside the reviewed vendored path")
+
+
+def is_reviewed_malloc_checkout(entry, pin):
+    package = {key: pin[key] for key in ("identity", "kind", "location")}
+    package["name"] = MALLOC_PACKAGE.name
+    return (
+        entry.get("packageRef") == package
+        and entry.get("state") == {"name": "sourceControlCheckout", "checkoutState": pin["state"]}
+        and entry.get("subpath") == MALLOC_PACKAGE.name
+        and "basedOn" in entry and entry["basedOn"] is None
+    )
+
+
+def verify_malloc_edit(entry, root, pin):
+    package = entry["packageRef"]
+    if (package.get("kind"), package.get("location")) != (pin["kind"], pin["location"]):
+        raise InvalidEvidence("unexpected allocator package reference in SwiftPM workspace state")
+    if entry.get("state") != {"name": "edited", "path": str(root / MALLOC_PACKAGE)}:
+        raise InvalidEvidence("SwiftPM malloc-interposer is not edited at the reviewed vendored path")
+    base = entry.get("basedOn")
+    if (not isinstance(base, dict) or not is_reviewed_malloc_checkout(base, pin)
+            or package != base["packageRef"] or entry.get("subpath") != base["subpath"]):
+        raise InvalidEvidence("SwiftPM malloc-interposer edit has an unreviewed base checkout")
+    verify_malloc_edit_link(root)
+
+
+def read_package_lock(path):
+    if path.is_symlink() or not path.is_file():
+        raise InvalidEvidence("Package.resolved is missing or is not a regular file")
+    return path.read_bytes()
+
+
+def verify_malloc_inputs(root, manifest_bytes):
+    if (root / "Package.swift").read_bytes() != manifest_bytes:
+        raise InvalidEvidence("Package.swift changed during validation; tool/backend identity is not stable")
+    reviewed_malloc_source(root)
+
+
+def verify_effective_lock(lock_path, expected):
+    if read_package_lock(lock_path) != expected:
+        raise InvalidEvidence("Package.resolved changed during validation; effective lock identity is not stable")
+
+
+def edited_lock_forms(original_bytes, manifest_bytes, pin):
+    lock = json.loads(original_bytes)
+    lock["originHash"] = digest(manifest_bytes)
+
+    def swiftpm_json(value):
+        return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False, separators=(",", " : ")) + "\n").encode("utf-8")
+
+    normalized = swiftpm_json(lock)
+    lock["pins"].remove(pin)
+    return normalized, swiftpm_json(lock)
+
+
+def restore_package_lock(path, original, allowed, record):
+    try:
+        current = read_package_lock(path)
+    except InvalidEvidence as error:
+        record["restoration"] = "unexpected_lock_retained"
+        raise InvalidEvidence(f"could not restore Package.resolved safely: {error}") from error
+    if current == original:
+        record["restoration"] = "already_original"
+        return
+    if current not in allowed:
+        record["restoration"] = "unexpected_lock_retained"
+        raise InvalidEvidence("unexpected Package.resolved retained; refusing to overwrite it")
+
+    record["restoration"] = "failed"
+    descriptor, filename = tempfile.mkstemp(prefix=".Package.resolved.", dir=path.parent)
+    try:
+        with os.fdopen(descriptor, "wb") as stream:
+            os.fchmod(stream.fileno(), stat.S_IMODE(path.stat().st_mode))
+            stream.write(original)
+        if read_package_lock(path) != current:
+            record["restoration"] = "unexpected_lock_retained"
+            raise InvalidEvidence("Package.resolved changed before restoration; refusing to overwrite it")
+        os.replace(filename, path)
+    finally:
+        Path(filename).unlink(missing_ok=True)
+    record["restoration"] = "restored"
+
+
+def prepare_malloc_edit(root, scratch, swift_package, directory, report, original, manifest, allowed, timeout):
+    pin = report["identity"]["malloc_pin"]
+    lock_path = root / "Package.resolved"
+    normalized, effective = allowed
+    observed = {"original": original, "normalized_origin": normalized, "edited": effective}
+    transaction = report["lock_transaction"]
+
+    def run_setup(arguments, phase):
+        # A nonzero exit or interrupt can still leave a reviewed lock rewrite.
+        transaction["restoration"] = "pending"
+        status, stdout, stderr = run_command(swift_package + arguments, root, directory, phase, report, timeout)
+        lock_bytes = read_package_lock(lock_path)
+        form = next((name for name, content in observed.items() if content == lock_bytes), "unexpected")
+        transaction["setup"].append({"phase": phase, "lock_form": form, "lock_sha256": digest(lock_bytes)})
+        if status or FAILURE.search(ANSI.sub("", stdout + "\n" + stderr)):
+            report["errors"].append(f"SwiftPM malloc-interposer setup failed ({phase}, exit {status}); see setup logs")
+        if form == "unexpected":
+            raise InvalidEvidence("Package.resolved changed to an unreviewed form during SwiftPM setup")
+        verify_malloc_inputs(root, manifest)
+        if report["errors"]:
+            raise InvalidEvidence(f"SwiftPM {phase} did not complete successfully")
+        return lock_bytes
+
+    verify_effective_lock(lock_path, original)
+    verify_malloc_inputs(root, manifest)
+    verify_malloc_edit_link(root)
+    workspace = scratch / "workspace-state.json"
+    if not workspace.exists() and not workspace.is_symlink():
+        run_setup(["resolve"], "resolve")
+    entry = malloc_workspace_entry(scratch)
+    if is_reviewed_malloc_checkout(entry, pin):
+        verify_malloc_edit_link(root)
+        run_setup(["edit", MALLOC_PACKAGE.name, "--path", str(root / MALLOC_PACKAGE)], "edit")
+        entry = malloc_workspace_entry(scratch)
+    verify_malloc_edit(entry, root, pin)
+    settled = run_setup(["show-dependencies", "--format", "json"], "show-dependencies")
+    verify_malloc_edit(malloc_workspace_entry(scratch), root, pin)
+    if settled != effective:
+        raise InvalidEvidence("SwiftPM edited graph did not produce the expected effective Package.resolved")
+    return settled
+
+
 def capture_identity(root, directory, report):
-    lock_bytes = (root / "Package.resolved").read_bytes()
-    pins = json.loads(lock_bytes)["pins"]
+    lock_bytes = read_package_lock(root / "Package.resolved")
+    lock = json.loads(lock_bytes)
+    if (set(lock) != {"originHash", "pins", "version"} or lock["version"] != 3
+            or not isinstance(lock["originHash"], str) or not re.fullmatch(r"[0-9a-f]{64}", lock["originHash"])):
+        raise InvalidEvidence("expected the original SwiftPM version 3 Package.resolved")
+    pins = lock["pins"]
     benchmark = [pin for pin in pins if pin["identity"] in {"benchmark", "package-benchmark"}]
     if len(benchmark) != 1:
         raise InvalidEvidence("expected exactly one benchmark dependency in Package.resolved")
@@ -281,8 +476,13 @@ def capture_identity(root, directory, report):
         raise InvalidEvidence("benchmark export adapter requires review for the current Package.resolved pin")
     if "MALLOC_INTERPOSER_LOCAL_PATH" in os.environ:
         raise InvalidEvidence("local malloc-interposer override has unverified provenance; unset MALLOC_INTERPOSER_LOCAL_PATH")
-    identity = {"lock_sha256": digest(lock_bytes), "benchmark_pin": benchmark[0],
-                "malloc_pin": next((pin for pin in pins if pin["identity"] == "malloc-interposer"), None)}
+    allocator = [pin for pin in pins if pin["identity"] == MALLOC_PACKAGE.name]
+    expected_allocator = {"identity": MALLOC_PACKAGE.name, "kind": "remoteSourceControl", "location": MALLOC_ORIGIN,
+                          "state": {"version": MALLOC_VERSION, "revision": MALLOC_REVISION}}
+    if allocator != [expected_allocator]:
+        raise InvalidEvidence("unexpected malloc-interposer pin in Package.resolved; expected the reviewed upstream pin")
+    identity = {"lock_sha256": digest(lock_bytes), "benchmark_pin": benchmark[0], "malloc_pin": allocator[0]}
+    source = reviewed_malloc_source(root)
     for label, command in [
         ("swift", ["xcrun", "swift", "--version"]),
         ("xcode", ["xcrun", "xcodebuild", "-version"]),
@@ -300,10 +500,44 @@ def capture_identity(root, directory, report):
     identity["malloc_backend"] = {
         "configured": "disabled" if disabled else "malloc-interposer",
         "disabled_by": disabled,
-        "basis": "reviewed package pin, Swift 6.3+, default traits, and environment; not runtime introspection",
+        "basis": "configured provenance: reviewed benchmark pin and vendored edit of the pinned allocator, Swift 6.3+, default traits, and environment",
+        "vendored_source": source,
     }
     report["identity"] = identity
     return lock_bytes
+
+
+def capture_allocator_observations(diagnostic, report, phase):
+    """Observe the instrumented native executable, not the parent shell environment."""
+    prefix = "ASKI_ALLOCATOR_OBSERVATION "
+    observations = []
+    for line in diagnostic.splitlines():
+        if not line.startswith(prefix):
+            continue
+        try:
+            item = json.loads(line[len(prefix):])
+        except ValueError as error:
+            raise InvalidEvidence("malformed allocator observation") from error
+        if not isinstance(item, dict) or item.get("schema_version") != 1 or type(item.get("pid")) is not int:
+            raise InvalidEvidence("unsupported allocator observation")
+        if item.get("backend") == "malloc-interposer":
+            if not (isinstance(item.get("image"), str) and item["image"] and item.get("allocated") is True
+                    and type(item.get("malloc_delta")) is int and item["malloc_delta"] > 0
+                    and type(item.get("free_delta")) is int and item["free_delta"] > 0):
+                raise InvalidEvidence("malloc-interposer did not observe the native allocation/free probe")
+        elif item.get("backend") != "unavailable":
+            raise InvalidEvidence("unreviewed observed allocator backend")
+        observations.append(item)
+    if not observations:
+        raise InvalidEvidence(f"{phase}: native allocator observation missing")
+    report.setdefault("allocator_observations", {})[phase] = observations
+    backend_identity = report["identity"]["malloc_backend"]
+    for item in observations:
+        observed = {"backend": item["backend"],
+                    "image_basename": Path(item["image"]).name if item["backend"] == "malloc-interposer" else None}
+        if "observed" in backend_identity and backend_identity["observed"] != observed:
+            raise InvalidEvidence("incoherent observed allocator backend/image across capture")
+        backend_identity["observed"] = observed
 
 
 def main(argv=None):
@@ -349,16 +583,39 @@ def main(argv=None):
     def interrupt(signum, _frame):
         raise Interrupted(signum)
     exit_code = 1
+    transaction = {"setup": [], "restoration": "not_started"}
+    report["lock_transaction"] = transaction
+    ownership = None
+    lock_path = ROOT / "Package.resolved"
     try:
         for signum in (signal.SIGINT, signal.SIGTERM):
             previous_handlers[signum] = signal.signal(signum, interrupt)
-        lock_bytes = capture_identity(ROOT, directory, report)
-        command = ["xcrun", "swift", "package", "--disable-sandbox", "benchmark"]
+        scratch = ROOT / ".build"
+        scratch.mkdir(exist_ok=True)
+        ownership = (scratch / "benchmark-package-lock.guard").open("a")
+        try:
+            fcntl.flock(ownership, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise InvalidEvidence("another benchmark capture owns this checkout's lock transaction") from error
+        manifest = (ROOT / "Package.swift").read_bytes()
+        original = capture_identity(ROOT, directory, report)
+        pin = report["identity"]["malloc_pin"]
+        allowed = edited_lock_forms(original, manifest, pin)
+        transaction["manifest_sha256"] = digest(manifest)
+        swift_package = ["xcrun", "swift", "package", "--scratch-path", str(scratch)]
+        effective = prepare_malloc_edit(ROOT, scratch, swift_package, directory, report, original,
+                                        manifest, allowed, args.timeout)
+        report["identity"]["effective_lock_sha256"] = digest(effective)
+        command = swift_package + ["--disable-sandbox", "benchmark"]
         status, stdout, stderr = run_command(command + ["list", "--target", TARGET, "--no-progress"],
                                             ROOT, directory, "inventory", report, args.timeout)
         diagnostic = ANSI.sub("", stdout + "\n" + stderr)
         if status or FAILURE.search(diagnostic):
             raise InvalidEvidence(f"benchmark inventory failed (exit {status}); see inventory logs")
+        capture_allocator_observations(diagnostic, report, "inventory")
+        verify_malloc_edit(malloc_workspace_entry(scratch), ROOT, pin)
+        verify_effective_lock(lock_path, effective)
+        verify_malloc_inputs(ROOT, manifest)
         inventory = parse_inventory(stdout)
         selected = select_workloads(inventory, args.filter, args.skip, args.expect)
         report["inventory"] = inventory
@@ -377,8 +634,17 @@ def main(argv=None):
         report["errors"].extend(FAILURE.findall(diagnostic))
         report["results"], errors = validate_exports(samples, selected, report["required_metrics"])
         report["errors"].extend(errors)
-        if (ROOT / "Package.resolved").read_bytes() != lock_bytes:
-            report["errors"].append("Package.resolved changed during validation; tool/backend identity is not stable")
+        # Run each check so one invalid observation cannot hide other failures.
+        for check in (
+            lambda: capture_allocator_observations(diagnostic, report, "run"),
+            lambda: verify_malloc_edit(malloc_workspace_entry(scratch), ROOT, pin),
+            lambda: verify_effective_lock(lock_path, effective),
+            lambda: verify_malloc_inputs(ROOT, manifest),
+        ):
+            try:
+                check()
+            except (InvalidEvidence, OSError, ValueError, KeyError, TypeError) as error:
+                report["errors"].append(str(error))
         exit_code = int(bool(report["errors"]))
     except Interrupted as error:
         exit_code = 128 + error.signum
@@ -386,8 +652,23 @@ def main(argv=None):
     except (InvalidEvidence, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
         report["errors"].append(str(error))
     finally:
-        for signum, handler in previous_handlers.items():
-            signal.signal(signum, handler)
+        # Process cleanup in run_command has already run for handled interrupts.
+        for signum in previous_handlers:
+            signal.signal(signum, signal.SIG_IGN)
+        try:
+            if transaction["restoration"] == "pending":
+                try:
+                    restore_package_lock(lock_path, original, allowed, transaction)
+                except (InvalidEvidence, OSError) as error:
+                    if transaction["restoration"] == "pending":
+                        transaction["restoration"] = "failed"
+                    report["errors"].append(f"Package.resolved restoration failed: {error}")
+                    exit_code = exit_code or 1
+        finally:
+            if ownership is not None:
+                ownership.close()
+            for signum, handler in previous_handlers.items():
+                signal.signal(signum, handler)
         report["complete"] = exit_code == 0
         report["status"] = "valid" if exit_code == 0 else "invalid"
         report["finished_at"] = utc_now()

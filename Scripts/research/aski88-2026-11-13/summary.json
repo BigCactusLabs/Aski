@@ -1,0 +1,950 @@
+{
+  "task": "ASKI-88",
+  "numeric_rule_outcome": "not_supported",
+  "adoption_verdict": "not_evaluated",
+  "budget_verdict": "not_evaluated",
+  "primary": {
+    "aski88-convert-braille-120cols-k12-serial": {
+      "status": "pass",
+      "improving_pairs": 5,
+      "median_percent": -28.371812553679238
+    },
+    "aski88-convert-braille-80cols-k12-serial": {
+      "status": "pass",
+      "improving_pairs": 5,
+      "median_percent": -25.4015503875969
+    },
+    "aski88-convert-standard-120cols-k12-serial": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 9.863431265602635
+    },
+    "aski88-convert-standard-80cols-k12-serial": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 10.798725413939389
+    },
+    "aski88-ranked-braille-120cols-k12-serial": {
+      "status": "pass",
+      "improving_pairs": 5,
+      "median_percent": -27.765365021970272
+    },
+    "aski88-ranked-braille-80cols-k12-serial": {
+      "status": "pass",
+      "improving_pairs": 5,
+      "median_percent": -26.086959983090605
+    },
+    "aski88-ranked-standard-120cols-k12-serial": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 8.22538990165274
+    },
+    "aski88-ranked-standard-80cols-k12-serial": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 7.122345478292793
+    }
+  },
+  "guards": {
+    "aski88-convert-blocks-120cols-k12-serial/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-120cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-80cols-k12-serial/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-80cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-blocks-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k36-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k36-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-120cols-k36-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-braille-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k36-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k36-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-120cols-k36-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-convert-standard-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k1-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k1-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k1-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k12-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k12-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k12-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k24-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k24-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k24-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k256-batch64/wallClock": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k256-batch64/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k256-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k256-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k257-batch64/wallClock": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k257-batch64/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k257-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k257-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k36-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k36-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n256-k36-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k1-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k1-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k1-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k1-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k12-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 2,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k12-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 3,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k12-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k12-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k24-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 2,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k24-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 3,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k24-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k24-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k36-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 3,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k36-batch64/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 4,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k36-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k36-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k8-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k8-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 2,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k8-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k8-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k9-batch64/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 3,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k9-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 3,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k9-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n8-k9-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k1-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k1-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k1-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k12-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k12-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k12-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k24-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k24-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k24-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k36-batch64/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k36-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k36-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k95-batch64/wallClock": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k95-batch64/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k95-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k95-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k96-batch64/wallClock": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k96-batch64/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k96-batch64/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-pool-n95-k96-batch64/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-120cols-k12-serial/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-120cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-80cols-k12-serial/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-80cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 2,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-blocks-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 2,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k36-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k36-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-120cols-k36-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-serial/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-braille-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k36-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 5,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k36-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-120cols-k36-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-parallel/wallClock": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-parallel/cpuTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-parallel/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-parallel/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-serial/cpuTotal": {
+      "status": "fail",
+      "regressing_pairs": 4,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-serial/mallocCountTotal": {
+      "status": "pass",
+      "regressing_pairs": 0,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    },
+    "aski88-ranked-standard-80cols-k12-serial/peakMemoryResident": {
+      "status": "pass",
+      "regressing_pairs": 1,
+      "unclassified_pairs": 0,
+      "undefined_percentage_pairs": 0
+    }
+  },
+  "additional_gates": [
+    "Exact native same-host parity with retained full sort, including tone fallback.",
+    "Full just check and original conversion/animation benchmark gates without threshold changes.",
+    "Coherent source review, identical instruments and pins, and stable observed allocator on one physical Mac.",
+    "Incomplete captures, undefined decision ratios or ambiguous measurements cannot establish adoption."
+  ],
+  "limitations": [
+    "Each pair is a repetition; histogram values are distributions, not independent chronological samples.",
+    "HDR histogram quantization remains at base export units. Observed host load and sample counts can vary.",
+    "Pool batch per-operation fields apply only to time and allocation count. RSS is absolute process residency."
+  ],
+  "host_conditions": "Same physical M3 Max Mac15,10 14CPU/36GiB; macOS27.0.1 26A434; Xcode27.0 27A266a; Swift6.4; AC100%; no recorded thermal/performance warning; MallocNanoZone=0. No competing batch native jobs. Ordinary system/desktop activity present: mediaanalysisd92.1%, simulator services53.9-62.7%, WithSecure16.3% at preflight. Host not quiet or idle. Lead may make light91 fixture edits without native commands. User services and global settings unchanged."
+}

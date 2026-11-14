@@ -1,0 +1,596 @@
+{
+  "schema_version": 1,
+  "candidate_revision": "0e897a39f1ee44b6d4b7235e694492006e7372f3",
+  "final_clean": true,
+  "source_gate": {
+    "core_tests": 1537,
+    "media_tests": 186,
+    "sentinels": 2,
+    "format_build_drift_docc": "pass",
+    "targeted_media_tests": 65,
+    "evidence_sha256": {
+      "aski4-r3-full.before.json": "d8d549ae6a1d9f203cb659e9aca5333fb67cc9caed6fa72b95f399b3e6f0fd1c",
+      "aski4-r3-full.log": "a3774047343991ded3fdaec69067717d5f4f73289de696a819fc269a40825334",
+      "aski4-r3-full.after.json": "d8d549ae6a1d9f203cb659e9aca5333fb67cc9caed6fa72b95f399b3e6f0fd1c"
+    },
+    "source_report_sha256": "e965228f7fab07b77b415d1aa52e0d366bfcde1a74d8899a111850bccb3c4f51",
+    "carry_forward": "Only task/ledger notes followed the passing source gate before candidate commit; frozen source inventories bind the tested bytes. Memory verification made no source change."
+  },
+  "full_bench": {
+    "status": "valid",
+    "complete": true,
+    "selected": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "aski87-convert-120cols-os2-parallel",
+      "aski87-convert-120cols-os2-serial",
+      "aski87-convert-120cols-os4-parallel",
+      "aski87-convert-120cols-os4-serial",
+      "aski87-convert-120cols-os8-parallel",
+      "aski87-convert-120cols-os8-serial",
+      "aski87-convert-1cols-os2-parallel",
+      "aski87-convert-1cols-os2-serial",
+      "aski87-convert-1cols-os4-parallel",
+      "aski87-convert-1cols-os4-serial",
+      "aski87-convert-1cols-os8-parallel",
+      "aski87-convert-1cols-os8-serial",
+      "aski87-convert-80cols-os2-parallel",
+      "aski87-convert-80cols-os2-serial",
+      "aski87-convert-80cols-os4-parallel",
+      "aski87-convert-80cols-os4-serial",
+      "aski87-convert-80cols-os8-parallel",
+      "aski87-convert-80cols-os8-serial",
+      "aski87-convert-8cols-os2-parallel",
+      "aski87-convert-8cols-os2-serial",
+      "aski87-convert-8cols-os4-parallel",
+      "aski87-convert-8cols-os4-serial",
+      "aski87-convert-8cols-os8-parallel",
+      "aski87-convert-8cols-os8-serial",
+      "aski87-dotmatrix-control-120cols",
+      "aski87-dotmatrix-control-1cols",
+      "aski87-dotmatrix-control-80cols",
+      "aski87-dotmatrix-control-8cols",
+      "aski87-histogram-prepared-16x24-1cells",
+      "aski87-histogram-prepared-16x24-2400cells",
+      "aski87-histogram-prepared-2x3-1cells",
+      "aski87-histogram-prepared-2x3-2400cells",
+      "aski87-histogram-prepared-3x3-1cells",
+      "aski87-histogram-prepared-3x3-2400cells",
+      "aski87-histogram-prepared-8x12-1cells",
+      "aski87-histogram-prepared-8x12-2400cells",
+      "aski87-histogram-scalar-16x24-1cells",
+      "aski87-histogram-scalar-16x24-2400cells",
+      "aski87-histogram-scalar-2x3-1cells",
+      "aski87-histogram-scalar-2x3-2400cells",
+      "aski87-histogram-scalar-3x3-1cells",
+      "aski87-histogram-scalar-3x3-2400cells",
+      "aski87-histogram-scalar-8x12-1cells",
+      "aski87-histogram-scalar-8x12-2400cells",
+      "aski87-ranked-80cols-parallel",
+      "aski87-ranked-80cols-serial",
+      "aski87-repeated-80cols-os2-parallel",
+      "aski87-repeated-80cols-os2-serial",
+      "aski87-repeated-80cols-os4-parallel",
+      "aski87-repeated-80cols-os4-serial",
+      "aski87-repeated-80cols-os8-parallel",
+      "aski87-repeated-80cols-os8-serial",
+      "aski88-convert-blocks-120cols-k12-serial",
+      "aski88-convert-blocks-80cols-k12-serial",
+      "aski88-convert-braille-120cols-k12-parallel",
+      "aski88-convert-braille-120cols-k12-serial",
+      "aski88-convert-braille-120cols-k36-serial",
+      "aski88-convert-braille-80cols-k12-parallel",
+      "aski88-convert-braille-80cols-k12-serial",
+      "aski88-convert-standard-120cols-k12-parallel",
+      "aski88-convert-standard-120cols-k12-serial",
+      "aski88-convert-standard-120cols-k36-serial",
+      "aski88-convert-standard-80cols-k12-parallel",
+      "aski88-convert-standard-80cols-k12-serial",
+      "aski88-pool-n256-k1-batch64",
+      "aski88-pool-n256-k12-batch64",
+      "aski88-pool-n256-k24-batch64",
+      "aski88-pool-n256-k256-batch64",
+      "aski88-pool-n256-k257-batch64",
+      "aski88-pool-n256-k36-batch64",
+      "aski88-pool-n8-k1-batch64",
+      "aski88-pool-n8-k12-batch64",
+      "aski88-pool-n8-k24-batch64",
+      "aski88-pool-n8-k36-batch64",
+      "aski88-pool-n8-k8-batch64",
+      "aski88-pool-n8-k9-batch64",
+      "aski88-pool-n95-k1-batch64",
+      "aski88-pool-n95-k12-batch64",
+      "aski88-pool-n95-k24-batch64",
+      "aski88-pool-n95-k36-batch64",
+      "aski88-pool-n95-k95-batch64",
+      "aski88-pool-n95-k96-batch64",
+      "aski88-ranked-blocks-120cols-k12-serial",
+      "aski88-ranked-blocks-80cols-k12-serial",
+      "aski88-ranked-braille-120cols-k12-parallel",
+      "aski88-ranked-braille-120cols-k12-serial",
+      "aski88-ranked-braille-120cols-k36-serial",
+      "aski88-ranked-braille-80cols-k12-parallel",
+      "aski88-ranked-braille-80cols-k12-serial",
+      "aski88-ranked-standard-120cols-k12-parallel",
+      "aski88-ranked-standard-120cols-k12-serial",
+      "aski88-ranked-standard-120cols-k36-serial",
+      "aski88-ranked-standard-80cols-k12-parallel",
+      "aski88-ranked-standard-80cols-k12-serial",
+      "aski91-frame-no-pattern-192cols",
+      "aski91-frame-no-pattern-288cols",
+      "aski91-frame-no-pattern-80cols",
+      "aski91-frame-radial-active-192cols",
+      "aski91-frame-radial-active-288cols",
+      "aski91-frame-radial-active-80cols",
+      "aski91-frame-radial-complete-192cols",
+      "aski91-frame-radial-complete-288cols",
+      "aski91-frame-radial-complete-80cols",
+      "aski91-overlay-neutral-pulse-192cols",
+      "aski91-overlay-neutral-pulse-288cols",
+      "aski91-overlay-neutral-pulse-80cols",
+      "aski91-overlay-neutral-wave-192cols",
+      "aski91-overlay-neutral-wave-288cols",
+      "aski91-overlay-neutral-wave-80cols",
+      "aski91-overlay-pulse-192cols",
+      "aski91-overlay-pulse-288cols",
+      "aski91-overlay-pulse-80cols",
+      "aski91-overlay-wave-diagonal-192cols",
+      "aski91-overlay-wave-diagonal-288cols",
+      "aski91-overlay-wave-diagonal-80cols",
+      "aski91-overlay-wave-horizontal-192cols",
+      "aski91-overlay-wave-horizontal-288cols",
+      "aski91-overlay-wave-horizontal-80cols",
+      "aski93-video-120to12-720p-80cols",
+      "aski93-video-12to12-720p-80cols",
+      "aski93-video-12to30-720p-80cols",
+      "aski93-video-30to12-720p-80cols",
+      "aski93-video-60to12-10s-720p-80cols",
+      "aski93-video-60to12-720p-80cols",
+      "aski93-video-60to12-rotated-720p-80cols",
+      "aski93-video-source-30fps-720p-80cols",
+      "aski93-video-vfrto12-720p-80cols",
+      "aski94-control-character-160cols",
+      "aski94-control-character-320cols",
+      "aski94-control-character-80cols",
+      "aski94-control-solid-160cols",
+      "aski94-control-solid-320cols",
+      "aski94-control-solid-80cols",
+      "aski94-control-transparent-160cols",
+      "aski94-control-transparent-320cols",
+      "aski94-control-transparent-80cols",
+      "aski94-original-fill-grounded-160cols",
+      "aski94-original-fill-grounded-320cols",
+      "aski94-original-fill-grounded-80cols",
+      "aski94-original-fill-overlay-160cols",
+      "aski94-original-fill-overlay-320cols",
+      "aski94-original-fill-overlay-80cols",
+      "aski94-original-fit-grounded-160cols",
+      "aski94-original-fit-grounded-320cols",
+      "aski94-original-fit-grounded-80cols",
+      "aski94-original-fit-overlay-160cols",
+      "aski94-original-fit-overlay-320cols",
+      "aski94-original-fit-overlay-80cols",
+      "aski94-original-stretch-grounded-160cols",
+      "aski94-original-stretch-grounded-320cols",
+      "aski94-original-stretch-grounded-80cols",
+      "aski94-original-stretch-overlay-160cols",
+      "aski94-original-stretch-overlay-320cols",
+      "aski94-original-stretch-overlay-80cols",
+      "convert-frame-1920x1080-80cols",
+      "convert-gradient-2400x1800-120cols",
+      "convert-gradient-800x600-80cols",
+      "convert-photo-4032x3024-76cols",
+      "crossover-parallel-landscape-120cols",
+      "crossover-parallel-landscape-200cols",
+      "crossover-parallel-landscape-24cols",
+      "crossover-parallel-landscape-40cols",
+      "crossover-parallel-landscape-64cols",
+      "crossover-parallel-landscape-80cols",
+      "crossover-parallel-portrait-40cols",
+      "crossover-parallel-portrait-76cols",
+      "crossover-parallel-repeated-80cols",
+      "crossover-parallel-wide-120cols",
+      "crossover-serial-landscape-120cols",
+      "crossover-serial-landscape-200cols",
+      "crossover-serial-landscape-24cols",
+      "crossover-serial-landscape-40cols",
+      "crossover-serial-landscape-64cols",
+      "crossover-serial-landscape-80cols",
+      "crossover-serial-portrait-40cols",
+      "crossover-serial-portrait-76cols",
+      "crossover-serial-repeated-80cols",
+      "crossover-serial-wide-120cols",
+      "gamut-adaptiveL0-displayp3-out-of-gamut-256",
+      "gamut-adaptiveL0-srgb-out-of-gamut-256",
+      "gamut-raytrace-displayp3-out-of-gamut-256",
+      "gamut-raytrace-srgb-out-of-gamut-256",
+      "gif-decode-noop-120frames",
+      "gif-metadata-one-delay-scan-120frames",
+      "gif-metadata-two-delay-scans-120frames",
+      "gif-render-encode-incremental-24frames",
+      "gif-render-encode-retained-24frames",
+      "helmlab-compressed-convert-80cols",
+      "masked-ascii-convert-80cols-transparent-fallback",
+      "masked-ascii-convert-render-80cols",
+      "masked-effects-render-solid-fallback",
+      "perf-spike-ascii-192x108-1-metallib-effect",
+      "perf-spike-ascii-192x108-3-stock-effects",
+      "perf-spike-ascii-192x108-full-metallib-chain",
+      "perf-spike-ascii-192x108-no-effects",
+      "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+      "perf-spike-tilegrid-64x64-3-effects",
+      "prepare-frame-1920x1080-80cols",
+      "prepare-photo-4032x3024-76cols",
+      "render-image-gradient-80cols",
+      "tile-quantize-rich-512x512-256cols-adaptive16",
+      "tile-quantize-rich-512x512-256cols-adaptive16-masked",
+      "tile-quantize-rich-512x512-256cols-adaptive64",
+      "tile-quantize-rich-512x512-256cols-adaptive8",
+      "tile-render-256x256-pixelart-square-scale32",
+      "tile-render-64x64-brick-circle-scale8",
+      "tile-render-64x64-brick-diamond-scale8",
+      "tile-render-64x64-brick-hex-scale8",
+      "tile-render-64x64-brick-square-scale8",
+      "tile-render-64x64-brick-triangle-scale8",
+      "tile-render-64x64-mosaic-circle-scale8",
+      "tile-render-64x64-mosaic-diamond-scale8",
+      "tile-render-64x64-mosaic-hex-scale8",
+      "tile-render-64x64-mosaic-square-scale8",
+      "tile-render-64x64-mosaic-triangle-scale8",
+      "tile-render-64x64-pixelArt-circle-scale8",
+      "tile-render-64x64-pixelArt-diamond-scale8",
+      "tile-render-64x64-pixelArt-hex-scale8",
+      "tile-render-64x64-pixelArt-square-scale8",
+      "tile-render-64x64-pixelArt-triangle-scale8",
+      "tile-render-finite16-128x128-brick-circle-scale8-unmasked",
+      "tile-render-finite16-128x128-brick-square-scale8-unmasked",
+      "tile-render-finite16-128x128-pixelart-circle-scale8-masked",
+      "tile-render-finite16-128x128-pixelart-circle-scale8-unmasked",
+      "tile-render-finite16-128x128-pixelart-square-scale8-masked",
+      "tile-render-finite16-128x128-pixelart-square-scale8-unmasked",
+      "video-decode-720p-12frames",
+      "video-decode-convert-720p-80cols-12frames",
+      "video-decode-convert-rotated-720p-80cols-12frames",
+      "video-decode-rotated-720p-12frames",
+      "video-e2e-one-shot-720p-80cols-12frames",
+      "video-e2e-one-shot-rotated-720p-80cols-12frames",
+      "video-e2e-serial-720p-80cols-12frames",
+      "video-e2e-serial-rotated-720p-80cols-12frames",
+      "video-encode-ascii-12frames"
+    ],
+    "required_metrics": [
+      "wallClock"
+    ],
+    "identity": {
+      "benchmark_pin": {
+        "identity": "package-benchmark",
+        "kind": "remoteSourceControl",
+        "location": "https://github.com/ordo-one/package-benchmark",
+        "state": {
+          "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+          "version": "1.35.0"
+        }
+      },
+      "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+      "malloc_backend": {
+        "basis": "configured provenance: reviewed package pin, Swift 6.3+, default traits, and environment",
+        "configured": "malloc-interposer",
+        "disabled_by": [],
+        "observed": {
+          "backend": "malloc-interposer",
+          "image_basename": "libMallocInterposerSwift.dylib"
+        }
+      },
+      "malloc_pin": {
+        "identity": "malloc-interposer",
+        "kind": "remoteSourceControl",
+        "location": "https://github.com/ordo-one/malloc-interposer.git",
+        "state": {
+          "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+          "version": "1.4.0"
+        }
+      },
+      "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+      "revision": "0e897a39f1ee44b6d4b7235e694492006e7372f3",
+      "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+      "xcode": "Xcode 27.0\nBuild version 27A266a"
+    },
+    "report_sha256": "5a90941c79da4dad05c5b4c4c3f1810b09bc7d45e2f5ba7ce478cf00cc84524d",
+    "budget_verdict": "not_evaluated"
+  },
+  "absolute_budgets": {
+    "first_attempt": "setup degenerateOutput, exit1; no numeric verdict",
+    "corrected_attempt": "pass, exit0",
+    "thresholds_changed": false,
+    "selection_proof": {
+      "method": "Scripts/validate-benchmarks.py exact_filter",
+      "inventory_count": 239,
+      "expected": [
+        "animation-regression-static-convert-80cols",
+        "animation-build-gradient-80cols-k6",
+        "animation-grid-at-80cols",
+        "animation-materialize-80cols-5s-60fps",
+        "perf-spike-ascii-192x108-no-effects",
+        "perf-spike-ascii-192x108-3-stock-effects",
+        "perf-spike-ascii-192x108-1-metallib-effect",
+        "perf-spike-ascii-192x108-full-metallib-chain",
+        "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+        "perf-spike-tilegrid-64x64-3-effects",
+        "helmlab-compressed-convert-80cols"
+      ],
+      "selected": [
+        "animation-build-gradient-80cols-k6",
+        "animation-grid-at-80cols",
+        "animation-materialize-80cols-5s-60fps",
+        "animation-regression-static-convert-80cols",
+        "helmlab-compressed-convert-80cols",
+        "perf-spike-ascii-192x108-1-metallib-effect",
+        "perf-spike-ascii-192x108-3-stock-effects",
+        "perf-spike-ascii-192x108-full-metallib-chain",
+        "perf-spike-ascii-192x108-no-effects",
+        "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+        "perf-spike-tilegrid-64x64-3-effects"
+      ],
+      "filter": "^(animation[-]regression[-]static[-]convert[-]80cols|animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|perf[-]spike[-]ascii[-]192x108[-]no[-]effects|perf[-]spike[-]ascii[-]192x108[-]3[-]stock[-]effects|perf[-]spike[-]ascii[-]192x108[-]1[-]metallib[-]effect|perf[-]spike[-]ascii[-]192x108[-]full[-]metallib[-]chain|perf[-]spike[-]aski[-]render[-]engine[-]192x108[-]warm[-]cache[-]3[-]effects|perf[-]spike[-]tilegrid[-]64x64[-]3[-]effects|helmlab[-]compressed[-]convert[-]80cols)$",
+      "first_filter": "^(animation\\-regression\\-static\\-convert\\-80cols|animation\\-build\\-gradient\\-80cols\\-k6|animation\\-grid\\-at\\-80cols|animation\\-materialize\\-80cols\\-5s\\-60fps|perf\\-spike\\-ascii\\-192x108\\-no\\-effects|perf\\-spike\\-ascii\\-192x108\\-3\\-stock\\-effects|perf\\-spike\\-ascii\\-192x108\\-1\\-metallib\\-effect|perf\\-spike\\-ascii\\-192x108\\-full\\-metallib\\-chain|perf\\-spike\\-aski\\-render\\-engine\\-192x108\\-warm\\-cache\\-3\\-effects|perf\\-spike\\-tilegrid\\-64x64\\-3\\-effects|helmlab\\-compressed\\-convert\\-80cols)$"
+    },
+    "source_inventory": {
+      "sources": {
+        "Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift": {
+          "sha256": "8e57ada1d8e9fe96bb9744679ef6c11535d0814bbbbb4c5c71800c9df17ce490",
+          "names": [
+            "animation-regression-static-convert-80cols",
+            "animation-build-gradient-80cols-k6",
+            "animation-grid-at-80cols",
+            "animation-materialize-80cols-5s-60fps"
+          ]
+        },
+        "Benchmarks/AskiBenchmarks/EffectChainBenchmarks.swift": {
+          "sha256": "81329a0c27d9a39f94b3cef991dd0e0c00110670253ef0e69c1fe8e36d565c38",
+          "names": [
+            "perf-spike-ascii-192x108-no-effects",
+            "perf-spike-ascii-192x108-3-stock-effects",
+            "perf-spike-ascii-192x108-1-metallib-effect",
+            "perf-spike-ascii-192x108-full-metallib-chain",
+            "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+            "perf-spike-tilegrid-64x64-3-effects"
+          ]
+        },
+        "Benchmarks/AskiBenchmarks/HelmlabBenchmarks.swift": {
+          "sha256": "76bf94d790901e2218e85645c15be1b7015fe541dc6f4b6b6876142c7b3eadce",
+          "names": [
+            "helmlab-compressed-convert-80cols"
+          ]
+        }
+      },
+      "names": [
+        "animation-regression-static-convert-80cols",
+        "animation-build-gradient-80cols-k6",
+        "animation-grid-at-80cols",
+        "animation-materialize-80cols-5s-60fps",
+        "perf-spike-ascii-192x108-no-effects",
+        "perf-spike-ascii-192x108-3-stock-effects",
+        "perf-spike-ascii-192x108-1-metallib-effect",
+        "perf-spike-ascii-192x108-full-metallib-chain",
+        "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+        "perf-spike-tilegrid-64x64-3-effects",
+        "helmlab-compressed-convert-80cols"
+      ],
+      "filter": "^(animation\\-regression\\-static\\-convert\\-80cols|animation\\-build\\-gradient\\-80cols\\-k6|animation\\-grid\\-at\\-80cols|animation\\-materialize\\-80cols\\-5s\\-60fps|perf\\-spike\\-ascii\\-192x108\\-no\\-effects|perf\\-spike\\-ascii\\-192x108\\-3\\-stock\\-effects|perf\\-spike\\-ascii\\-192x108\\-1\\-metallib\\-effect|perf\\-spike\\-ascii\\-192x108\\-full\\-metallib\\-chain|perf\\-spike\\-aski\\-render\\-engine\\-192x108\\-warm\\-cache\\-3\\-effects|perf\\-spike\\-tilegrid\\-64x64\\-3\\-effects|helmlab\\-compressed\\-convert\\-80cols)$"
+    },
+    "observed_runner_probes": 12,
+    "success_line": "Baseline 'Current_run' is EQUAL to the defined absolute baseline thresholds.",
+    "limitation": "Invocation mode and selector were both corrected; the isolated cause of the first setup failure is unproved."
+  },
+  "commands": {
+    "full-bench": {
+      "run": {
+        "label": "full-bench",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "env",
+          "-u",
+          "ASKI_GIF_MEMORY_MATRIX",
+          "just",
+          "bench",
+          "--timeout",
+          "1800",
+          "--output-dir",
+          "$STUDY/full-bench-export"
+        ],
+        "env_overrides": {},
+        "malloc_environment": {
+          "MallocNanoZone": "0"
+        },
+        "start": 1794561083.913315,
+        "before": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": ""
+          }
+        },
+        "pid": 86981,
+        "exit": 0,
+        "seconds": 187.61879086494446,
+        "after": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": ""
+          }
+        }
+      },
+      "run_sha256": "1ca1e1b754e87e140fc1cedcf579361b5dab9b6d2c65c31f5cae45b215193171",
+      "stdout_sha256": "94f29bce98c333062c6974b8ca58fc72c52fa3217c5867001c8123948f68f5c8",
+      "stderr_sha256": "e1de87b7c2d6de59a47050e125fcb991276b08cff062d153fcafa1485a2bbe0a"
+    },
+    "absolute-budgets": {
+      "run": {
+        "label": "absolute-budgets",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "env",
+          "-u",
+          "ASKI_GIF_MEMORY_MATRIX",
+          "xcrun",
+          "swift",
+          "package",
+          "--allow-writing-to-package-directory",
+          "benchmark",
+          "baseline",
+          "check",
+          "--check-absolute",
+          "--target",
+          "^AskiBenchmarks$",
+          "--filter",
+          "^(animation\\-regression\\-static\\-convert\\-80cols|animation\\-build\\-gradient\\-80cols\\-k6|animation\\-grid\\-at\\-80cols|animation\\-materialize\\-80cols\\-5s\\-60fps|perf\\-spike\\-ascii\\-192x108\\-no\\-effects|perf\\-spike\\-ascii\\-192x108\\-3\\-stock\\-effects|perf\\-spike\\-ascii\\-192x108\\-1\\-metallib\\-effect|perf\\-spike\\-ascii\\-192x108\\-full\\-metallib\\-chain|perf\\-spike\\-aski\\-render\\-engine\\-192x108\\-warm\\-cache\\-3\\-effects|perf\\-spike\\-tilegrid\\-64x64\\-3\\-effects|helmlab\\-compressed\\-convert\\-80cols)$",
+          "--no-progress"
+        ],
+        "env_overrides": {},
+        "malloc_environment": {
+          "MallocNanoZone": "0"
+        },
+        "start": 1794561362.349082,
+        "before": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": "89544 /opt/homebrew/Ce /opt/homebrew/Cellar/python@3.15/3.15.2/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python $STUDY/run.py absolute-budgets $CANDIDATE 1800 {} env -u ASKI_GIF_MEMORY_MATRIX xcrun swift package --allow-writing-to-package-directory benchmark baseline check --check-absolute --target ^AskiBenchmarks$ --filter ^(animation\\-regression\\-static\\-convert\\-80cols|animation\\-build\\-gradient\\-80cols\\-k6|animation\\-grid\\-at\\-80cols|animation\\-materialize\\-80cols\\-5s\\-60fps|perf\\-spike\\-ascii\\-192x108\\-no\\-effects|perf\\-spike\\-ascii\\-192x108\\-3\\-stock\\-effects|perf\\-spike\\-ascii\\-192x108\\-1\\-metallib\\-effect|perf\\-spike\\-ascii\\-192x108\\-full\\-metallib\\-chain|perf\\-spike\\-aski\\-render\\-engine\\-192x108\\-warm\\-cache\\-3\\-effects|perf\\-spike\\-tilegrid\\-64x64\\-3\\-effects|helmlab\\-compressed\\-convert\\-80cols)$ --no-progress"
+          }
+        },
+        "pid": 89548,
+        "exit": 1,
+        "seconds": 42.43049097061157,
+        "after": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": "89544 /opt/homebrew/Ce /opt/homebrew/Cellar/python@3.15/3.15.2/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python $STUDY/run.py absolute-budgets $CANDIDATE 1800 {} env -u ASKI_GIF_MEMORY_MATRIX xcrun swift package --allow-writing-to-package-directory benchmark baseline check --check-absolute --target ^AskiBenchmarks$ --filter ^(animation\\-regression\\-static\\-convert\\-80cols|animation\\-build\\-gradient\\-80cols\\-k6|animation\\-grid\\-at\\-80cols|animation\\-materialize\\-80cols\\-5s\\-60fps|perf\\-spike\\-ascii\\-192x108\\-no\\-effects|perf\\-spike\\-ascii\\-192x108\\-3\\-stock\\-effects|perf\\-spike\\-ascii\\-192x108\\-1\\-metallib\\-effect|perf\\-spike\\-ascii\\-192x108\\-full\\-metallib\\-chain|perf\\-spike\\-aski\\-render\\-engine\\-192x108\\-warm\\-cache\\-3\\-effects|perf\\-spike\\-tilegrid\\-64x64\\-3\\-effects|helmlab\\-compressed\\-convert\\-80cols)$ --no-progress"
+          }
+        }
+      },
+      "run_sha256": "4b981bde1b4ec593513b1910cabf823768758c9b2ca65a836466fa956635566a",
+      "stdout_sha256": "a06acc8d06a253288cc3e01b0f1192f88d6ec4cc43be623c6c033aeb0234dac7",
+      "stderr_sha256": "046a5e84aa5dc5084d42bc2bf767fab8035058b7b27dceece06320e90dcd2f7f"
+    },
+    "absolute-budgets-r2": {
+      "run": {
+        "label": "absolute-budgets-r2",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "env",
+          "-u",
+          "ASKI_GIF_MEMORY_MATRIX",
+          "xcrun",
+          "swift",
+          "package",
+          "--disable-sandbox",
+          "benchmark",
+          "baseline",
+          "check",
+          "--check-absolute",
+          "--target",
+          "AskiBenchmarks",
+          "--filter",
+          "^(animation[-]regression[-]static[-]convert[-]80cols|animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|perf[-]spike[-]ascii[-]192x108[-]no[-]effects|perf[-]spike[-]ascii[-]192x108[-]3[-]stock[-]effects|perf[-]spike[-]ascii[-]192x108[-]1[-]metallib[-]effect|perf[-]spike[-]ascii[-]192x108[-]full[-]metallib[-]chain|perf[-]spike[-]aski[-]render[-]engine[-]192x108[-]warm[-]cache[-]3[-]effects|perf[-]spike[-]tilegrid[-]64x64[-]3[-]effects|helmlab[-]compressed[-]convert[-]80cols)$",
+          "--no-progress"
+        ],
+        "env_overrides": {},
+        "malloc_environment": {
+          "MallocNanoZone": "0"
+        },
+        "start": 1794561668.149804,
+        "before": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": "90906 /opt/homebrew/Ce /opt/homebrew/Cellar/python@3.15/3.15.2/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python $STUDY/run.py absolute-budgets-r2 $CANDIDATE 1800 {} env -u ASKI_GIF_MEMORY_MATRIX xcrun swift package --disable-sandbox benchmark baseline check --check-absolute --target AskiBenchmarks --filter ^(animation[-]regression[-]static[-]convert[-]80cols|animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|perf[-]spike[-]ascii[-]192x108[-]no[-]effects|perf[-]spike[-]ascii[-]192x108[-]3[-]stock[-]effects|perf[-]spike[-]ascii[-]192x108[-]1[-]metallib[-]effect|perf[-]spike[-]ascii[-]192x108[-]full[-]metallib[-]chain|perf[-]spike[-]aski[-]render[-]engine[-]192x108[-]warm[-]cache[-]3[-]effects|perf[-]spike[-]tilegrid[-]64x64[-]3[-]effects|helmlab[-]compressed[-]convert[-]80cols)$ --no-progress"
+          }
+        },
+        "pid": 90910,
+        "exit": 0,
+        "seconds": 47.276925802230835,
+        "after": {
+          "thermal": {
+            "exit": 0,
+            "output": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+          },
+          "power": {
+            "exit": 0,
+            "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7667811)\t100%; charged; 0:00 remaining present: true\n"
+          },
+          "processes": {
+            "exit": 0,
+            "output": "90906 /opt/homebrew/Ce /opt/homebrew/Cellar/python@3.15/3.15.2/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python $STUDY/run.py absolute-budgets-r2 $CANDIDATE 1800 {} env -u ASKI_GIF_MEMORY_MATRIX xcrun swift package --disable-sandbox benchmark baseline check --check-absolute --target AskiBenchmarks --filter ^(animation[-]regression[-]static[-]convert[-]80cols|animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|perf[-]spike[-]ascii[-]192x108[-]no[-]effects|perf[-]spike[-]ascii[-]192x108[-]3[-]stock[-]effects|perf[-]spike[-]ascii[-]192x108[-]1[-]metallib[-]effect|perf[-]spike[-]ascii[-]192x108[-]full[-]metallib[-]chain|perf[-]spike[-]aski[-]render[-]engine[-]192x108[-]warm[-]cache[-]3[-]effects|perf[-]spike[-]tilegrid[-]64x64[-]3[-]effects|helmlab[-]compressed[-]convert[-]80cols)$ --no-progress"
+          }
+        }
+      },
+      "run_sha256": "a485f06d237a9632045029b9db9902a9f922e0ad57203768b924e056c580bf3f",
+      "stdout_sha256": "c6e785e9a2395b1be8399778e78d21848ed75e8838e73f08fbc1ddf454eab956",
+      "stderr_sha256": "e27693a6410d5c689102debaa82653246459c08627d56557826133cc3e995600"
+    }
+  },
+  "binary_stability": {
+    "harness": {
+      "before": "53e59d1bfb408109fe494b1e74a8bcf9b32f3404952f7c206d3f0b613d4d7e3a",
+      "after": "53e59d1bfb408109fe494b1e74a8bcf9b32f3404952f7c206d3f0b613d4d7e3a"
+    },
+    "aski": {
+      "before": "14a3df4453f1ade12c8892cf7f79cd4dd8cc352962678eff3de6cad38b24ceaa",
+      "after": "14a3df4453f1ade12c8892cf7f79cd4dd8cc352962678eff3de6cad38b24ceaa"
+    },
+    "benchmark": {
+      "before": "ee58375d5ed3b814b4d3b775e598fe655825e5c9e8b4b3727508f6e73914bc20",
+      "after": "ee58375d5ed3b814b4d3b775e598fe655825e5c9e8b4b3727508f6e73914bc20"
+    }
+  },
+  "final_snapshot_sha256": "817410d45971d0d205984368074d5fcd8abd1d88d879ba2123bff68a54383613",
+  "source_protocol_sha256": "13e2ee82ec8eebbfc778ca64f20b56346818a43d79302253360427149130985b",
+  "native_memory_report_sha256": "1d32da913645d15338fd8de6266b16edee207df6d173d306a5bb5cf73d8d7fe5",
+  "all_commands_index_sha256": "4ace33a7ba4105d08e9863546b51d1bbddf65cdcf2d258d585e751799c6f6e6e",
+  "local_artifact_inventory_sha256": "65c6d26193a8f6fd8458636bbd130a26bc1471636340c767bec0fef0d082194e",
+  "warning_limits": [
+    "Existing MetalSupport.withValue deprecation retained.",
+    "Upstream plugin/deprecated absolute-check notices retained.",
+    "Optional allocatedResidentMemory is unavailable; it was not substituted."
+  ],
+  "unreproduced_failure_path": "ImageIO finalize returning false was inspected, not injected."
+}

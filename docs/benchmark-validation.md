@@ -83,25 +83,61 @@ can still be slow.
 Each invocation creates a private, fresh directory beneath `.build/benchmark-validation/`.
 Its location is printed before work begins. `--output-dir PATH` chooses another **new**
 directory with an existing parent; existing output is refused, never reused or deleted.
-Concurrent captures use separate directories, though concurrent performance measurements
-are not comparable evidence. Raw logs and sample files are retained on failure as well as
+A checkout admits one active benchmark capture. Use separate checkouts for concurrent
+captures, though concurrent performance measurements are not comparable evidence. Raw logs and sample files are retained on failure as well as
 success. Remove captures when no longer needed; raw-sample exports can be large.
 
 `report.json` starts with `complete: false` and `status: running`. A finished capture is
 `valid` only after all checks pass; interruptions/timeouts remain `invalid`. SIGINT and
 SIGTERM stop processes in the invocation's isolated session, including child process
 groups created by SwiftPM. Cleanup requires host `ps` access. An optional `--timeout SECONDS` applies to
-each inventory/run subprocess. An uncatchable kill may leave `running`, which is **not**
-a successful result.
+each SwiftPM setup, inventory, or run subprocess. An uncatchable kill may leave the
+report `running` and the edited lock in place. Treat that capture as invalid.
 
 The report retains selected and discovered identities, required metrics, per-metric
 sample counts/headers/units, file hashes, plugin diagnostics, exact commands, timestamps,
-Git revision, Swift/Xcode/macOS versions, and dependency pins. Backend identity is
-**configured provenance** derived from the reviewed package, Swift 6.3+, default traits,
-and backend-disable environment flags—not an independently probed runtime allocator.
-The malloc-interposer pin is retained. Local `MALLOC_INTERPOSER_LOCAL_PATH` overrides are
-rejected because their provenance is not established. Inspect logs before posting them:
-compiler/AVFoundation diagnostics can contain local paths. No environment dump is saved.
+Git revision, Swift/Xcode/macOS versions, and dependency pins. Backend identity separates
+**configured provenance** (reviewed package, Swift version, and environment flags) from
+**runtime observations** in the actual benchmark executable. Before registration and
+outside measured workloads, the probe resolves `malloc_interposer_get_stats` with
+`dlsym`/`dladdr`, records its loaded image, and checks that a real 4096-byte `malloc`/`free`
+pair changes the interposer counters. It does not reset counters. Counting is disabled
+after the probe; the pinned runner enables it and takes fresh snapshots for measurements.
+Raw inventory and run observations, including process IDs, full image paths and counter
+deltas, live in top-level `allocator_observations`. Comparable
+`identity.malloc_backend.observed` contains only the backend name and image basename.
+All observations within and across the two phases must agree on those stable fields.
+This keeps independent captures comparable despite different processes and checkout paths,
+while a changed observed backend or image basename still invalidates paired comparison.
+Missing or inactive interposer observations fail validation. A build without the interposer
+records `unavailable`; required metric exports are still checked independently. These are
+process-local observations, not an attribution of every allocation in every workload or a
+resident-memory measurement.
+
+The allocator is a reviewed edit of the pinned malloc-interposer 1.4.0 package.
+The adapter checks the original lock pin, the vendored file set and hashes, and the
+SwiftPM edit's base and exact path. It rejects other local edits and
+`MALLOC_INTERPOSER_LOCAL_PATH` overrides. Before inventory, the adapter uses SwiftPM's
+supported edit mode and runs `show-dependencies` to settle the edited graph. In this
+step SwiftPM normalizes the lock's `originHash` to the manifest SHA-256 and removes
+the edited allocator's pin. Every other lock entry must match. The adapter then
+requires byte-for-byte stability of the effective lock throughout inventory and
+execution, and checks the manifest, vendor bytes, and edit routing at each phase.
+
+The report records both `identity.lock_sha256` for the original lock and
+`identity.effective_lock_sha256` for the edited graph, with setup and restoration
+outcomes under `lock_transaction`. The original pin and `malloc_backend.vendored_source`
+describe the configured base and source bytes. Runtime probes separately report
+the observed loaded image and active counters. The adapter does not verify that
+image's file bytes. Paired comparisons require matching effective hashes when
+either capture provides one. Historical pairs can omit the field on both captures.
+
+On exit, including handled interrupts, the adapter restores the original lock
+only from the exact verified SwiftPM forms. Unexpected lock edits are preserved
+and invalidate the capture. The reviewed SwiftPM edit remains active in local
+workspace state. Avoid other SwiftPM operations in the same checkout during
+capture. Inspect logs before posting them because compiler and AVFoundation
+diagnostics can contain local paths. No environment dump is saved.
 
 The data files are the upstream `histogramSamples` export, with nanosecond units forced
 for capture. They contain normalized HDR-histogram samples, not chronological observations.
@@ -128,11 +164,36 @@ setup/execution/teardown failures, exit-zero partial output, empty/missing selec
 empty/corrupt samples, required/optional metrics, stale output, dependency drift,
 selection quoting, timeouts, and interruptions. **They are not real Swift benchmark runs.**
 
-Before ASKI-86 can be closed, run the real smoke subset with encoder access on the recorded
-Mac toolchain, exercise genuine plugin setup/execution failure paths, verify the captured
-backend identity against that host, and run `just check` plus `just test-infra`. The initial
-implementation was exercised in Linux/Python, not Xcode. Do not infer native acceptance,
-encoder correctness, or end-to-end speedups from those portable results.
+The 2026-11-13 bounded native replay used macOS 27.0.1 (26A434), Xcode 27.0
+(27A266a), and Swift 6.4. A render-only capture completed with 82 wall-clock and
+82 malloc-count samples. Runtime probes in its actual benchmark processes resolved
+`malloc_interposer_get_stats` to `libMallocInterposerSwift.dylib` and observed allocation
+and free deltas of 3 and 2. These include incidental probe activity; they are evidence
+of active instrumentation, not a claim that one allocation produces exactly those counts.
+
+Two temporary native registrations read `/dev/null/aski86-unreadable-input` using
+Foundation `Data(contentsOf:)`, once in setup and once in a throwing execution closure.
+Both produced NSCocoaErrorDomain 256 with underlying POSIX 20 (not a directory). The
+pinned runner caught the execution error and passed it to `benchmark.error`. Both failed
+workloads had no samples; a valid render workload in the same capture exported 86 samples
+for each of its two available metrics. The plugin returned zero, but canonical `just bench`
+returned one and retained both named failures and their causes. The registrations were
+removed after capture: there is no shipped failure switch. This tests real native error
+propagation without claiming to reproduce the earlier AVFoundation encoder restriction.
+
+A restored-source render capture requiring `allocatedResidentMemory` returned one: it
+exported 84 wall-clock and 84 malloc-count samples, but no required resident-memory
+samples. No zero or alternative counter substituted for the missing measurement.
+
+The [compact native readout and temporary failure patch](../Scripts/research/aski86-2026-11-13/README.md) retain the native validity evidence.
+
+The final native gate passed: `just check` ran 1,537 core tests, 177 media tests,
+both deadlock sentinels, and DocC; `just test-infra` passed 139 tests with one
+existing expected failure. The canonical six-workload smoke, including video
+one-shot encoding, exported required wall-clock and malloc-count samples for
+every workload. No threshold, golden, or gate order changed. These are validity
+and integration checks, not a performance-budget or speedup claim. Only evidence,
+changelog and task completion metadata changed after that frozen source check.
 
 `just check` is unchanged: format, one shared build, drift checks, the existing three test
 phases, then DocC. Benchmark discovery/run commands are separate and may each ask SwiftPM

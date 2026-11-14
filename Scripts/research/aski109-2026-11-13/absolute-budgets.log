@@ -1,0 +1,64 @@
+warning: 'aski109': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 55] Benchmark
+[16 / 103]
+[30 / 91] ArgumentParser
+[39 / 97] MallocInterposerSwift
+[56 / 85] Numerics
+[61 / 76] ArgumentParser
+[66 / 76] MallocInterposerSwift-product
+[84 / 94] Benchmark
+[88 / 93] MallocInterposerSwift-product
+[90 / 94] BenchmarkTool-product
+[105 / 109] BenchmarkTool-product
+[106 / 109] BenchmarkTool-product
+[108 / 109] BenchmarkTool-product
+[109 / 109] BenchmarkTool-product
+Build complete! (3.25 sec)
+warning: 'aski109': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md
+warning: 'aski109': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md
+    $WORKTREE/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md
+
+Warning: this project depends on the benchmark package using its legacy
+identifier 'package-benchmark'. The repository has been renamed; please update
+your Package.swift to use the new URL and identifier:
+
+  .package(url: "https://github.com/ordo-one/benchmark", ...)
+  .product(name: "Benchmark", package: "benchmark"),
+  .plugin(name: "BenchmarkPlugin", package: "benchmark"),
+
+Support for the legacy 'package-benchmark' identifier will be removed in a
+future release.
+
+Build complete!
+Using --check-absolute is deprecated. Please use swift package benchmark threshold and related operations instead.
+This option will be removed in a future release.
+Building BenchmarkTool in release mode...
+Building benchmark targets in release mode for benchmark run...
+Building AskiBenchmarks
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15648,"schema_version":1}
+
+==================
+Running Benchmarks
+==================
+
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15665,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15666,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15673,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15678,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15680,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15681,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15682,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15684,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15685,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15686,"schema_version":1}
+ASKI_ALLOCATOR_OBSERVATION {"allocated":true,"backend":"malloc-interposer","free_delta":2,"image":"$WORKTREE\/.build\/out\/Products\/Release\/libMallocInterposerSwift.dylib","malloc_delta":3,"pid":15688,"schema_version":1}
+
+Baseline 'Current_run' is EQUAL to the defined absolute baseline thresholds. (--check-absolute)

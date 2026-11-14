@@ -1,0 +1,324 @@
+{
+  "task": "ASKI-90",
+  "numeric_rule_outcome": "not_supported",
+  "adoption_verdict": "not_evaluated",
+  "budget_verdict": "not_evaluated",
+  "primary": {
+    "aski90-convert-ansi16-p3-parallel-512cols": {
+      "status": "fail",
+      "improving_pairs": 4,
+      "median_percent": -0.6270627315332488
+    },
+    "aski90-convert-ansi16-p3-parallel-80cols": {
+      "status": "fail",
+      "improving_pairs": 2,
+      "median_percent": 0.7830496382758694
+    },
+    "aski90-convert-ansi16-p3-serial-512cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -0.1651800479157235
+    },
+    "aski90-convert-ansi16-p3-serial-80cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -0.2700049739019961
+    },
+    "aski90-convert-ansi16-srgb-parallel-512cols": {
+      "status": "fail",
+      "improving_pairs": 2,
+      "median_percent": 0.5931939033441664
+    },
+    "aski90-convert-ansi16-srgb-parallel-80cols": {
+      "status": "fail",
+      "improving_pairs": 2,
+      "median_percent": 1.234106658632118
+    },
+    "aski90-convert-ansi16-srgb-serial-512cols": {
+      "status": "pass",
+      "improving_pairs": 5,
+      "median_percent": -5.432780898034167
+    },
+    "aski90-convert-ansi16-srgb-serial-80cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -3.4358776179283335
+    },
+    "aski90-convert-mono-p3-parallel-512cols": {
+      "status": "fail",
+      "improving_pairs": 4,
+      "median_percent": -2.7440084525744943
+    },
+    "aski90-convert-mono-p3-parallel-80cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -0.8674702877778087
+    },
+    "aski90-convert-mono-p3-serial-512cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -0.13559322174168703
+    },
+    "aski90-convert-mono-p3-serial-80cols": {
+      "status": "fail",
+      "improving_pairs": 3,
+      "median_percent": -0.024937661933462713
+    },
+    "aski90-convert-mono-srgb-parallel-512cols": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 0.7578149960551669
+    },
+    "aski90-convert-mono-srgb-parallel-80cols": {
+      "status": "fail",
+      "improving_pairs": 4,
+      "median_percent": -1.7081328139986822
+    },
+    "aski90-convert-mono-srgb-serial-512cols": {
+      "status": "fail",
+      "improving_pairs": 2,
+      "median_percent": 1.4905598030766065
+    },
+    "aski90-convert-mono-srgb-serial-80cols": {
+      "status": "fail",
+      "improving_pairs": 0,
+      "median_percent": 3.3687950553721016
+    }
+  },
+  "guards": {
+    "aski90-convert-ansi16-p3-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-p3-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-p3-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-p3-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-srgb-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-srgb-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-srgb-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-ansi16-srgb-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-p3-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-p3-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-p3-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-p3-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-srgb-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-srgb-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-srgb-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-mono-srgb-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-parallel-512cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-parallel-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 3,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-serial-512cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-serial-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-p3-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-parallel-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 2,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-parallel-512cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-parallel-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-parallel-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-serial-1cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-serial-512cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-serial-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 3,
+      "undefined_pairs": 0
+    },
+    "aski90-convert-passthrough-srgb-serial-8cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-ranked-passthrough-p3-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski90-ranked-passthrough-srgb-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-repeated-passthrough-p3-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski90-repeated-passthrough-srgb-80cols/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-16x16-p3-mixed-8cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-16x16-p3-opaque-8cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-16x16-srgb-mixed-8cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-16x16-srgb-opaque-8cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 1,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-512x512-p3-mixed-256cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-512x512-p3-opaque-256cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-512x512-srgb-mixed-256cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    },
+    "aski92-convert-512x512-srgb-opaque-256cols-k256/wallClock": {
+      "status": "pass",
+      "pairs_above_bar": 0,
+      "undefined_pairs": 0
+    }
+  },
+  "additional_gates": [
+    "Exact native parity",
+    "Full just check",
+    "Relevant existing benchmark thresholds unchanged and passing",
+    "Every required capture and metric complete; missing/unresolved evidence is inconclusive",
+    "Stable normalized observed allocator identity; identical pins, toolchain, host and harness across arms"
+  ],
+  "limitations": [
+    "Each pair is a repetition; histogram values are distributions, not independent chronological samples.",
+    "HDR histogram quantization remains at base export units. Observed host load and sample counts can vary.",
+    "Candidate-only phase medians are attribution and cannot establish paired benefit.",
+    "Setup medians are batch values; per-operation fields divide them by the registered batch factor."
+  ],
+  "host_conditions": "Same physical M3 Max 14-core/36 GiB host; macOS 27.0.1 26A434, Xcode 27.0 27A266a, Swift 6.4; AC 100%; no recorded thermal/performance warning at preflight; MallocNanoZone=0. No competing batch builds/tests/benchmarks/profiles. Desktop/system background load present: duetexpertd 66-92% CPU and intermittent Chrome/mediaanalysisd 66-92% CPU; host not idle or quiet. Lead r1/g1 authorized this disclosed deviation from ideal quiet-host conditions. Lightweight lead documentation/status permitted; user/system processes unchanged."
+}

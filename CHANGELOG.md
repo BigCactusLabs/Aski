@@ -11,7 +11,33 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ## Unreleased
 
+### Added
+
+- `aski metadata` emits deterministic, versioned JSON for CLI discovery (ASKI-49).
+  It reports command paths, aliases, visible arguments, parser defaults, research
+  classification, replay product mappings, and the current checkout revision.
+
 ### Changed
+
+- **Benchmark instrumentation corrects a reproduced allocator cleanup defect (ASKI-109).**
+  Canonical captures use a reviewed local edit of malloc-interposer 1.4.0 that
+  clears a stale thread-local counter pointer during teardown. Source and routing
+  checks preserve allocator observations and reject invalid samples. Setup records
+  SwiftPM's effective lock and restores the original lock from verified bytes.
+  The native regression does not establish the cause of earlier ASKI-92 reset
+  crashes. Evidence: `Scripts/research/aski109-2026-11-13/README.md`.
+
+- **Pulse math is reused once per frame (ASKI-91).** Pulse overlays and animated
+  frames preserve the existing arithmetic and exact cell values. Five paired
+  runs of synthetic overlays at 80/192/288 columns on one Mac measured 34.56%,
+  43.65% and 47.77% lower median wall time; all 93 regression guards passed.
+  Animated pulse has exact parity coverage, not a direct timing result in this
+  matrix. Evidence and limits: `Scripts/research/aski91-2026-11-13/README.md`.
+
+- **Benchmark captures record the active allocator (ASKI-86).** A native probe
+  verifies the loaded malloc interposer and live counters. Process-specific probe
+  details stay separate from stable comparison identity. Real setup/execution
+  failures and missing required metrics were verified to fail the canonical command.
 
 - **Log-polar conversions reuse footprint geometry (ASKI-87).** An immutable
   pixel-to-bin map is prepared once per conversion context, with exact scalar
