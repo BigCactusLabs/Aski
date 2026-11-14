@@ -1,0 +1,466 @@
+{
+  "adoption_verdict": "not_evaluated",
+  "budget_verdict": "not_evaluated",
+  "rendered_frame_bytes": 460800,
+  "allowance_bytes": 16777216,
+  "medians": {
+    "24": {
+      "incremental": {
+        "wallClock": 168951807,
+        "cpuTotal": 168689663,
+        "mallocCountTotal": 656383,
+        "peakMemoryResident": 54624255
+      },
+      "retained": {
+        "wallClock": 168427519,
+        "cpuTotal": 168034303,
+        "mallocCountTotal": 651263,
+        "peakMemoryResident": 54755327
+      }
+    },
+    "240": {
+      "incremental": {
+        "wallClock": 1578106879,
+        "cpuTotal": 1589641215,
+        "mallocCountTotal": 6537215,
+        "peakMemoryResident": 332136447
+      },
+      "retained": {
+        "wallClock": 1572863999,
+        "cpuTotal": 1582301183,
+        "mallocCountTotal": 6475775,
+        "peakMemoryResident": 333447167
+      }
+    },
+    "1200": {
+      "incremental": {
+        "wallClock": 7960788991,
+        "cpuTotal": 7990149119,
+        "mallocCountTotal": 32669695,
+        "peakMemoryResident": 1560281087
+      },
+      "retained": {
+        "wallClock": 7918845951,
+        "cpuTotal": 7969177599,
+        "mallocCountTotal": 32374783,
+        "peakMemoryResident": 1570766847
+      }
+    }
+  },
+  "incremental_1200_minus_240_bytes": 1228144640,
+  "incremental_growth_within_allowance": false,
+  "retained_control_observed_increasing_medians": true,
+  "retained_control_1200_minus_240_bytes": 1237319680,
+  "rss_evidence": "failed",
+  "provider_lifetime": {
+    "fixture_bytes_per_frame": 921600,
+    "cases": [
+      {
+        "count": 24,
+        "mode": "incremental",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "preFinalize": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 22118400,
+            "liveCount": 24,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 24,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 24,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 24,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 24,
+        "peak_live_count": 24,
+        "peak_live_bytes": 22118400
+      },
+      {
+        "count": 24,
+        "mode": "retained",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "afterArrayCreation": {
+            "appended": 0,
+            "created": 24,
+            "liveBytes": 22118400,
+            "liveCount": 24,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 0,
+            "stage": "afterArrayCreation"
+          },
+          "preFinalize": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 22118400,
+            "liveCount": 24,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 22118400,
+            "liveCount": 24,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 0,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 24,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 24,
+            "created": 24,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 22118400,
+            "maxLiveCount": 24,
+            "released": 24,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 24,
+        "peak_live_count": 24,
+        "peak_live_bytes": 22118400
+      },
+      {
+        "count": 240,
+        "mode": "incremental",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "preFinalize": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 221184000,
+            "liveCount": 240,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 240,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 240,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 240,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 240,
+        "peak_live_count": 240,
+        "peak_live_bytes": 221184000
+      },
+      {
+        "count": 240,
+        "mode": "retained",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "afterArrayCreation": {
+            "appended": 0,
+            "created": 240,
+            "liveBytes": 221184000,
+            "liveCount": 240,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 0,
+            "stage": "afterArrayCreation"
+          },
+          "preFinalize": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 221184000,
+            "liveCount": 240,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 221184000,
+            "liveCount": 240,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 0,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 240,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 240,
+            "created": 240,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 221184000,
+            "maxLiveCount": 240,
+            "released": 240,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 240,
+        "peak_live_count": 240,
+        "peak_live_bytes": 221184000
+      },
+      {
+        "count": 1200,
+        "mode": "incremental",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "preFinalize": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 1105920000,
+            "liveCount": 1200,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 1200,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 1200,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 1200,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 1200,
+        "peak_live_count": 1200,
+        "peak_live_bytes": 1105920000
+      },
+      {
+        "count": 1200,
+        "mode": "retained",
+        "stages": {
+          "initial": {
+            "appended": 0,
+            "created": 0,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 0,
+            "maxLiveCount": 0,
+            "released": 0,
+            "stage": "initial"
+          },
+          "afterArrayCreation": {
+            "appended": 0,
+            "created": 1200,
+            "liveBytes": 1105920000,
+            "liveCount": 1200,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 0,
+            "stage": "afterArrayCreation"
+          },
+          "preFinalize": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 1105920000,
+            "liveCount": 1200,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 0,
+            "stage": "preFinalize"
+          },
+          "afterFinish": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 1105920000,
+            "liveCount": 1200,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 0,
+            "stage": "afterFinish"
+          },
+          "afterArrayReleased": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 1200,
+            "stage": "afterArrayReleased"
+          },
+          "afterSessionReleased": {
+            "appended": 1200,
+            "created": 1200,
+            "liveBytes": 0,
+            "liveCount": 0,
+            "maxLiveBytes": 1105920000,
+            "maxLiveCount": 1200,
+            "released": 1200,
+            "stage": "afterSessionReleased"
+          }
+        },
+        "append_peak_live_count": 1200,
+        "peak_live_count": 1200,
+        "peak_live_bytes": 1105920000
+      }
+    ],
+    "status": "failed",
+    "all_original_providers_live_before_finalize_at_every_count": true,
+    "limit": "Callbacks observe original payload lifetimes only. Logical bytes are not process RSS or ImageIO internal-copy measurements."
+  },
+  "limitations": [
+    "Sensitivity describes increasing retained medians; the protocol gives no numeric sensitivity margin or host-noise bound.",
+    "Both modes used one candidate revision and benchmark binary; retained is an application-array control.",
+    "Timing and allocation deltas are descriptive. This does not compare the candidate with the shipping encoder.",
+    "Sampled process RSS includes unrelated residency and can miss transient peaks."
+  ],
+  "rendered_layout": {
+    "bits_per_component": 8,
+    "bits_per_pixel": 32,
+    "bytes_per_row": 1920,
+    "expected_candidate_revision": "0e897a39f1ee44b6d4b7235e694492006e7372f3",
+    "fixture_id": "aski4-benchmark-deviceRGB-gradient-640x360-80cols-system10-scale1",
+    "height": 240,
+    "mode": "layout",
+    "schema_version": 1,
+    "total_bytes": 460800,
+    "width": 480
+  },
+  "host_conditions": "Serial same-host captures on AC power with no competing batch native jobs. Ordinary desktop/system background activity was allowed. See invocation power, thermal, and process observations."
+}

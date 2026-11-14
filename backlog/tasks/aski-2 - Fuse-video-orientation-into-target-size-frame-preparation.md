@@ -1,10 +1,10 @@
 ---
 id: ASKI-2
 title: Fuse video orientation into target-size frame preparation
-status: To Do
+status: In Progress
 assignee: []
 created_date: 2026-08-18 18:01
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-13T06:45:00Z'
 labels:
   - performance
   - video
@@ -31,6 +31,14 @@ Rotated and mirrored video frames are currently materialized as full-resolution 
 - [ ] #5 just check and just bench pass without loosening an existing benchmark threshold.
 <!-- AC:END -->
 
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Compare raw-axis target preparation plus lattice permutation against the retained CI orientation and exact sampling lattice on a tagged synthetic matrix. Require exact bytes and validate the oracle with a known-wrong transform.
+2. Run the opt-in native raster experiment when assigned the host. If any bytes differ, retain the mismatch report before considering another arm. If exact, verify cells and rendered pixels before changing production.
+3. Only after exact parity, consider the internal video preparation route. Preserve the public upright decoder, selector and prefetch bounds, and verify native media and paired performance gates.
+<!-- SECTION:PLAN:END -->
+
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
@@ -51,4 +59,6 @@ Source map: `Sources/Aski/Video/ASCIIVideoDecoder.swift`, `Tests/AskiTests/AskiV
 2026-11-10 from ASKI-1 (PR https://github.com/BigCactusLabs/Aski/pull/23): the ASKI-1 benchmark run is the before baseline here. On the two rotated end-to-end 720p benchmarks, ASKI-1 cut wall time 33% and 49% but raised peak resident memory by 8.3 MB and 5.3 MB, likely because the vImage preparation path converts each full-size CIContext-oriented frame to an RGBA8 buffer before resampling. Removing the full-size oriented frame here should remove that increase; record it in AC4.
 
 Audit 2026-11-12: the reorient call is now in nextDecodedFrame (Sources/Aski/Video/ASCIIVideoDecoder.swift, about :282).
+
+2026-11-13 native fidelity experiment REJECTED this raw-axis-resize then pixel-permutation arm: compilation succeeded; all 128 rows and 16 negative controls were captured. Geometry and lengths match in 128/128; exact RGBA8 matches 40/128, mismatches 88/128; all negative controls detect differences. Identity passes all cases; quarter-turn/transpose orientations fail all cases. Signed differences are not an accepted tolerance. No retry, production change, timing claim or golden update. Reproducer and complete evidence: Scripts/research/aski2-2026-11-13/. Test is opt-in and expected to reject. Next arm must isolate retained CI color/alpha processing and sampling order before reconsidering fused preparation. All task ACs remain open.
 <!-- SECTION:NOTES:END -->

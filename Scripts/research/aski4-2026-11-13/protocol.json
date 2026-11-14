@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "task": "ASKI-4",
+  "status": "frozen-before-native-capture",
+  "base": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "modes": [
+    "incremental",
+    "retained"
+  ],
+  "frame_counts": [
+    24,
+    240,
+    1200
+  ],
+  "rss_benchmark": {
+    "name_template": "gif-render-encode-{mode}-{count}frames",
+    "environment": {
+      "ASKI_GIF_MEMORY_MATRIX": "1"
+    },
+    "source_gradient_pixels": [
+      640,
+      360
+    ],
+    "columns": 80,
+    "font": "system",
+    "font_size": 10,
+    "scale": 1,
+    "background_rgba": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "frame_delay_seconds": 0.04,
+    "loop_count": 0,
+    "fresh_rendered_image_per_frame": true,
+    "pairs_per_count": 5,
+    "pair_order": [
+      "AB",
+      "BA",
+      "AB",
+      "BA",
+      "AB"
+    ],
+    "A": "retained",
+    "B": "incremental",
+    "warmup_iterations": 0,
+    "measured_iterations": 1,
+    "separate_process_per_workload": true,
+    "concurrent_native_jobs_allowed": false,
+    "exports": {
+      "mallocCountTotal": {
+        "configuration_unit": "count",
+        "raw_quantity": "allocations",
+        "scale": 1
+      },
+      "peakMemoryResident": {
+        "configuration_unit": "count",
+        "raw_quantity": "bytes",
+        "scale": 1
+      }
+    },
+    "timing": "existing benchmark startMeasurement/stopMeasurement boundaries unchanged"
+  },
+  "decision": {
+    "rss_growth_statistic": "median incremental peak RSS at 1200 minus median incremental peak RSS at 240",
+    "rss_growth_limit": "max(fixed_allowance_bytes, frame_allowance * actual_rendered_frame_bytes)",
+    "fixed_allowance_bytes": 16777216,
+    "frame_allowance": 16,
+    "actual_rendered_frame_bytes": "observed rendered image bytesPerRow * height",
+    "lifetime_requirement": "independent live bitmap evidence must show no linear accumulation; report observations without asserting a bound in the test",
+    "control_sensitivity": "retained control must visibly grow with frame count; otherwise inconclusive",
+    "imageio_linear_retention": "AC4 fails even if application arrays were removed",
+    "threshold_changes_after_capture_allowed": false,
+    "wall_time": "secondary paired evidence; no speed claim from a single run"
+  },
+  "provider_fixture": {
+    "suite": "AskiGIFProviderLifetimeTests",
+    "test": "captureProviderLifetime",
+    "environment": {
+      "ASKI_GIF_PROVIDER_LIFETIME": "1",
+      "ASKI_GIF_PROVIDER_REPORT": "caller-selected absolute JSON output path"
+    },
+    "dimensions": [
+      640,
+      360
+    ],
+    "bytes_per_row": 2560,
+    "bytes_per_frame": 921600,
+    "format": "immutable fresh RGBA8 premultiplied-last sRGB bitmap for each frame",
+    "frame_pattern": "R=(x+index)%256 G=(y+index)%256 B=index%256 A=255",
+    "stages": [
+      "initial",
+      "afterArrayCreation (retained only)",
+      "afterAppend (every frame)",
+      "preFinalize",
+      "afterFinish",
+      "afterArrayReleased",
+      "afterSessionReleased"
+    ],
+    "fields": [
+      "created",
+      "released",
+      "liveCount",
+      "maxLiveCount",
+      "liveBytes",
+      "maxLiveBytes",
+      "appended"
+    ],
+    "bounded_lifetime_assertion": false,
+    "limitations": [
+      "Provider callbacks observe original payload lifetimes, not internal ImageIO copies.",
+      "Fixed bitmap fixture is an ownership probe, not a renderer timing comparison.",
+      "Test-process RSS across six cases is not an independent benchmark RSS sample."
+    ]
+  },
+  "additional_evidence": [
+    "Instruments Allocations/VM Tracker at 240 and 1200 frames in both modes, if provider/RSS evidence does not resolve backing-store behavior.",
+    "Long synthetic source through actual convertGIF and VideoLab, including target-FPS and max-frames; source generation excluded from measurement; verify output metadata before accepting RSS trace."
+  ],
+  "required_capture_metadata": [
+    "OS",
+    "Xcode",
+    "Swift",
+    "hardware",
+    "git base and dirty source hashes",
+    "optimized binary SHA256",
+    "actual output width/height/bytesPerRow",
+    "environment",
+    "raw export unit labels and values",
+    "exit codes",
+    "complete logs",
+    "no competing native jobs"
+  ],
+  "unreproduced_failure_paths": {
+    "imageio_finalize_false": "Inspected but not injected. No global limits, full volumes or interposition. Count guards are separate evidence.",
+    "midstream_corrupt_lzw": "Not claimed; real decoder malformed-source rejection (cannotOpenSource or noFrames) is covered."
+  }
+}

@@ -1,0 +1,1095 @@
+{
+  "task": "ASKI-74",
+  "result": "registered diagnostic passed",
+  "sourceCommit": "026a448df403210ed1bc54e126eb433cd729d7ed",
+  "ruleSHA256": "07cf2228f873cc0fd51d9539b0e30d141ba26953cf9dafb0efa3eb53fb650a9b",
+  "comparatorSHA256": "4cc17a5fedc6753c668e20f356e21e10e833f0ea4ec01bb2d67988bf2e8b3ba8",
+  "comparisonExit": 0,
+  "comparison": {
+    "captureCount": 4,
+    "crossBackendOnlyCount": 0,
+    "exactInputPairs": 36,
+    "gatePasses": 12,
+    "outputFindings": [
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "bright-p3",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "bright-p3",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "bright-p3",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "bright-p3",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "bright-p3",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "bright-p3",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 3
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 2
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 2
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 2
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "dark-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "dark-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "dark-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 1
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "dark-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "dark-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "dark-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "dark-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "dark-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "dark-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "dark-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "dark-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "dark-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "edge-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "edge-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "edge-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "edge-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "edge-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "edge-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "edge-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "edge-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 3,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "edge-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "edge-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "edge-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "edge-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "gradient-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "gradient-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "gradient-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "gradient-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "gradient-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 5,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "gradient-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "gradient-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "gradient-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "gradient-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "gradient-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "gradient-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 6,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "gradient-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "mono-bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "mono-bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "mono-bright-srgb",
+        "k": 0,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "heic",
+        "fixture": "mono-bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "sdr",
+        "fixture": "mono-bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 3
+        },
+        "field": "hdr",
+        "fixture": "mono-bright-srgb",
+        "k": 1,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 2
+        },
+        "field": "heic",
+        "fixture": "mono-bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 2
+        },
+        "field": "sdr",
+        "fixture": "mono-bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 4,
+          "swiftbuild": 2
+        },
+        "field": "hdr",
+        "fixture": "mono-bright-srgb",
+        "k": 2,
+        "sameBinaryVariation": [
+          "native",
+          "swiftbuild"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "heic",
+        "fixture": "mono-bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "sdr",
+        "fixture": "mono-bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      },
+      {
+        "crossBackendOnly": false,
+        "distinctPerBackend": {
+          "native": 2,
+          "swiftbuild": 1
+        },
+        "field": "hdr",
+        "fixture": "mono-bright-srgb",
+        "k": 4,
+        "sameBinaryVariation": [
+          "native"
+        ],
+        "sharedObservedValues": 0
+      }
+    ]
+  },
+  "receipts": [
+    {
+      "backend": "native",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "native",
+        "--scratch-path",
+        "<evidence>/build-native",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "BackendHDRInputParityTests"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "026a448df403210ed1bc54e126eb433cd729d7ed",
+      "testBinarySHA256": "0360de431ca867be479780c878b1e5111f80f85aaf79ecb43a2befc1023d778f",
+      "output": "<evidence>/capture-native-1",
+      "completionSHA256": "b1b78b899f80bffc28fb3d991fd879df3a1051b036084cbb34e4e49aa1ca3567"
+    },
+    {
+      "backend": "native",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "native",
+        "--scratch-path",
+        "<evidence>/build-native",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "BackendHDRInputParityTests"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "026a448df403210ed1bc54e126eb433cd729d7ed",
+      "testBinarySHA256": "0360de431ca867be479780c878b1e5111f80f85aaf79ecb43a2befc1023d778f",
+      "output": "<evidence>/capture-native-2",
+      "completionSHA256": "895d590f5fea6b0ad2ac7cd90e2b7d246894b63837f04fb3e14bd441deb1578a"
+    },
+    {
+      "backend": "swiftbuild",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--scratch-path",
+        "<evidence>/build-swiftbuild",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "BackendHDRInputParityTests"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "026a448df403210ed1bc54e126eb433cd729d7ed",
+      "testBinarySHA256": "3b71806d434c837a030fc1adcc30153e7c492f13186f7917e18c71b18e37d023",
+      "output": "<evidence>/capture-swiftbuild-1",
+      "completionSHA256": "a8d54f8db880540b589acce929d2e86666f51877a5e8102780ffb5a327e0934b"
+    },
+    {
+      "backend": "swiftbuild",
+      "argv": [
+        "xcrun",
+        "swift",
+        "test",
+        "--build-system",
+        "swiftbuild",
+        "--scratch-path",
+        "<evidence>/build-swiftbuild",
+        "--skip-build",
+        "--no-parallel",
+        "--filter",
+        "BackendHDRInputParityTests"
+      ],
+      "exitCode": 0,
+      "sourceCommit": "026a448df403210ed1bc54e126eb433cd729d7ed",
+      "testBinarySHA256": "3b71806d434c837a030fc1adcc30153e7c492f13186f7917e18c71b18e37d023",
+      "output": "<evidence>/capture-swiftbuild-2",
+      "completionSHA256": "87019a86f79a74df63486b983d939a6a2985c35bfd991de0aca9cc7cac9b6e57"
+    }
+  ],
+  "pathLabels": {
+    "<evidence>": "private capture root; media and complete manifests retained locally"
+  },
+  "nativeEvidenceSHA256": {
+    "receipts.json": "58d2544c2f963b83432bba1edefb6a1cd6406ea7cfc960225abd72d3d84aad7d",
+    "comparison.json": "edb01135cb680250ded3674fdc08cf809b8b827a22d7e272918ba0ce7d5d3699",
+    "source-before.json": "4e68fdc9865e27f8df56185dd370aac99c861bca9213454ef64c3c777a7e62b4",
+    "source-after.json": "f942aaa09d657cc53999d5dbc9d23bbc2d88fce3f1c469fe363e4ce50cbdbd00",
+    "native-build.log": "f02f89cf9149069ce0141de0ad1defe8a02ba6f617d242b936bdbeaf185943be",
+    "swiftbuild-build.log": "26f2d25a4ba11e5059348938ed5a077fd6cf4c05b2eb226fcd58df7dc01c2efe",
+    "comparator-tests.log": "de5d3b2d3b7c144e04bd5e1bfdbcead095690a3b2bd48a1baf789d7c21ed06fe"
+  },
+  "host": {
+    "macOS": "27.0.1 (26A434)",
+    "Xcode": "27.0 (27A266a)",
+    "Swift": "6.4"
+  },
+  "limits": [
+    "Exact inputs and metadata, plus all existing HDR gates, establish the registered boundary condition on this host and frozen source.",
+    "66 case/field findings show same-binary variation;45 have no shared observed value across backends.",
+    "No statistical equivalence, future variability bound or exclusion of concurrent backend effects is claimed.",
+    "No new image tolerance or substituted capture.",
+    "Compact evidence only: public receipts bind original local manifests; generated media are not committed."
+  ]
+}

@@ -1,10 +1,10 @@
 ---
 id: ASKI-88
 title: Avoid full per-cell brightness pool sorting
-status: To Do
+status: Done
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-13T10:22:00Z'
 labels:
   - performance
   - matching
@@ -14,6 +14,7 @@ references:
   - Sources/Aski/ShapeMatching.swift
   - Sources/Aski/Algorithms/LogPolarKernel.swift
   - Benchmarks/AskiBenchmarks/AnimationBenchmarks.swift
+  - Scripts/research/aski88-2026-11-13/README.md
 priority: medium
 type: spike
 ordinal: 89000
@@ -29,11 +30,11 @@ Source mechanism verified during the 2026-09-29 sweep at c49bbd; impact and an a
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The investigation reports repeated release time/allocations for N=8/95/256 and representative K values, plus 80/120-column conversions and ranked animation construction.
-- [ ] #2 Any adopted selection path produces the exact existing pool membership/order, winners, ranked candidates, and residuals for equal brightness, midpoint ties, duplicate vectors, and zero/orthogonal descriptors.
-- [ ] #3 Candidate distance arithmetic and deterministic tie rules remain unchanged in serial and parallel conversion.
-- [ ] #4 The task records adopt/reject against a stated end-to-end benefit bar and checks setup cost and small-bank regressions.
-- [ ] #5 If adopted, just check and relevant benchmarks pass without relaxed thresholds or a matcher-policy change.
+- [x] #1 The investigation reports repeated release time/allocations for N=8/95/256 and representative K values, plus 80/120-column conversions and ranked animation construction.
+- [x] #2 Any adopted selection path produces the exact existing pool membership/order, winners, ranked candidates, and residuals for equal brightness, midpoint ties, duplicate vectors, and zero/orthogonal descriptors.
+- [x] #3 Candidate distance arithmetic and deterministic tie rules remain unchanged in serial and parallel conversion.
+- [x] #4 The task records adopt/reject against a stated end-to-end benefit bar and checks setup cost and small-bank regressions.
+- [x] #5 If adopted, just check and relevant benchmarks pass without relaxed thresholds or a matcher-policy change.
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -48,4 +49,10 @@ First bounded candidate: a size-K selection buffer or heap ordered by that exact
 A precomputed brightness index plus two-sided nearest expansion is a separate possible arm, not an assumed win: descending traversal on the left reverses duplicate-brightness indices, and distinct brightness values can have equal rounded Float distances. Either handle those equal-distance runs explicitly with original-index tie order or reject the arm. Do not sort the bank's canonical glyph arrays or alter nonfinite-input behavior in this performance task. Production code and adoption status are unchanged.
 
 Audit 2026-11-12: public PR #14 (c81861c) landed groundwork: BrightnessPoolContractTests, BrightnessRankingContractTests, Scripts/research/brightness-pool/, docs/agents/brightness-pool-groundwork.md and 42 benchmark definitions. No captures have run. The sort is in findBestScored (CharacterMatcher, sort near :130); findBest wraps it.
+
+2026-11-13 native heap evaluation: complete five-pair release study over all 42 names/four required metrics, with two excluded preparations and no retry. Four braille primaries pass (-25.40% to -28.37% median paired wall); all four standard primaries fail (+7.12% to +10.80%, 0/5 improving). Seventeen of 148 guards fail (13 CPU, four wall); all allocation/RSS guards pass. The frozen rule rejects this candidate. No bank-dependent exception or production heap is adopted.
+
+Exact parity passed in both arms, including 21 optimized tests, and both full local gates passed (1541 core/177 media/two sentinels plus DocC). Candidate infrastructure passed 139 tests with one existing expected failure. Existing seven-workload capture and five unchanged absolute budgets passed. All selection/setup work is timed; no persistent index or setup cost is excluded. Desktop/system activity is disclosed, not described as quiet.
+
+The bounded spike is complete as a rejection. Scripts/research/aski88-2026-11-13 retains the original amended pre-registration, 1680 raw histogram exports (five observations each), 840 paired rows, portable reproducer, exact source patches and native evidence. An independent exact-rational recomputation and the copied public packet replay agree. The shipping full sort, policies, goldens and thresholds remain unchanged; any new selection strategy needs a separately frozen investigation.
 <!-- SECTION:NOTES:END -->

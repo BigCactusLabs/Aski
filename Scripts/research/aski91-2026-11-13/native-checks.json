@@ -1,0 +1,458 @@
+{
+  "task": "ASKI-91",
+  "candidate_revision": "6a10696bbf190a6a840d570aedbae79df3114eb6",
+  "control_revision": "420579c7c7c49093172e2107dbdcd9e2bcd75ab6",
+  "checks": [
+    {
+      "phase": "before_oracle_repair",
+      "record": {
+        "label": "aski91-release-1",
+        "task": "ASKI-91",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "PatternFrameWorkContractTests|PatternGridGroundworkTests|AnimationOngoingPatternContractTests|AnimationOngoingPatternTests|ASCIIGridPatternOverlayTests|AnimationEntrancePatternTests"
+        ],
+        "status": "finished",
+        "exit": 1,
+        "started": 1794563566.412413,
+        "pid": 18944,
+        "seconds": 191.08439803123474,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "f08105fa8930e7025182456c2a75af177f79411e5378e5a475dc5071f2d13a77",
+        "bytes": 591
+      },
+      "log": {
+        "sha256": "02fab2ccff5be3178acce2a7b97cb9f56c786b3fc2f0ba65bc42422a77ba560f",
+        "bytes": 16515
+      },
+      "test_summaries": [
+        "39 tests in 6 suites failed after 8.337 seconds with 2 issues."
+      ],
+      "source_before": {
+        "sha256": "b9b4ae4aa58c304eb6889e0bf78a87e987f0799b8e6d9d463723c23a75cb9222",
+        "bytes": 164506
+      },
+      "source_after": {
+        "sha256": "b9b4ae4aa58c304eb6889e0bf78a87e987f0799b8e6d9d463723c23a75cb9222",
+        "bytes": 164506
+      }
+    },
+    {
+      "phase": "before_oracle_repair",
+      "record": {
+        "label": "aski91-control-release-1",
+        "task": "ASKI-91",
+        "cwd": "$CONTROL",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "PatternFrameWorkContractTests|PatternGridGroundworkTests|AnimationOngoingPatternContractTests|AnimationOngoingPatternTests|ASCIIGridPatternOverlayTests|AnimationEntrancePatternTests"
+        ],
+        "status": "finished",
+        "exit": 1,
+        "started": 1794563783.7198331,
+        "pid": 20450,
+        "seconds": 195.83239603042603,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "26964f7f92ba6887d3b2b1f7136fb0e26dad9c4b0cfae5c45c182c2ba2f672e5",
+        "bytes": 608
+      },
+      "log": {
+        "sha256": "890634e43a4c851a886ce6f61d71c6ba1b7df416d223e37056860ab758ca5b53",
+        "bytes": 16547
+      },
+      "test_summaries": [
+        "39 tests in 6 suites failed after 8.347 seconds with 2 issues."
+      ],
+      "source_before": {
+        "sha256": "178b073adc1aece97603158f57735486536668401faef27b4c8c205846f3ff25",
+        "bytes": 164506
+      },
+      "source_after": {
+        "sha256": "178b073adc1aece97603158f57735486536668401faef27b4c8c205846f3ff25",
+        "bytes": 164506
+      }
+    },
+    {
+      "phase": "after_oracle_repair",
+      "record": {
+        "label": "aski91-release-1",
+        "task": "ASKI-91",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "PatternFrameWorkContractTests|PatternGridGroundworkTests|AnimationOngoingPatternContractTests|AnimationOngoingPatternTests|ASCIIGridPatternOverlayTests|AnimationEntrancePatternTests"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794565261.472221,
+        "pid": 33100,
+        "seconds": 132.00288724899292,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "40440ca00215ebcc75aeb174b009f6601b513c91c3a9e9dc35352967382746f5",
+        "bytes": 591
+      },
+      "log": {
+        "sha256": "d717962758a7fdf70a36ee46db6c66750dbc62cb8c5c49fbc6cbe9a17eda59ba",
+        "bytes": 11528
+      },
+      "test_summaries": [
+        "39 tests in 6 suites passed after 8.489 seconds."
+      ],
+      "source_before": {
+        "sha256": "2a699b3bd46a2752375b51ede0a01b605f77562efaa19faafb1df5d35db69f23",
+        "bytes": 164559
+      },
+      "source_after": {
+        "sha256": "2a699b3bd46a2752375b51ede0a01b605f77562efaa19faafb1df5d35db69f23",
+        "bytes": 164559
+      }
+    },
+    {
+      "phase": "after_oracle_repair",
+      "record": {
+        "label": "aski91-control-release-1",
+        "task": "ASKI-91",
+        "cwd": "$CONTROL",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "PatternFrameWorkContractTests|PatternGridGroundworkTests|AnimationOngoingPatternContractTests|AnimationOngoingPatternTests|ASCIIGridPatternOverlayTests|AnimationEntrancePatternTests"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794565404.103879,
+        "pid": 33874,
+        "seconds": 132.0689980983734,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "d7de10c4030bc0f0b8a8a03ff4a9dddddaabfbed0f67f0253e44a9c0bd2cefb8",
+        "bytes": 606
+      },
+      "log": {
+        "sha256": "f47c0be91c3226839ad9b46d31f5564684f6dcb053ef6e41c2aa7e06b69c9b4a",
+        "bytes": 11529
+      },
+      "test_summaries": [
+        "39 tests in 6 suites passed after 8.491 seconds."
+      ],
+      "source_before": {
+        "sha256": "721dbf6df525752d49d48ac4aa1f467f18f5a1f5482c0dd0addcbfbb7251f959",
+        "bytes": 164559
+      },
+      "source_after": {
+        "sha256": "721dbf6df525752d49d48ac4aa1f467f18f5a1f5482c0dd0addcbfbb7251f959",
+        "bytes": 164559
+      }
+    },
+    {
+      "phase": "after_oracle_repair",
+      "record": {
+        "label": "aski91-check-1",
+        "task": "ASKI-91",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "just",
+          "check"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794565545.339118,
+        "pid": 34601,
+        "seconds": 160.9349241256714,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "3dcc407c6b66a97a20ba381def2e7759c693aa05a364715982b631fce8429923",
+        "bytes": 324
+      },
+      "log": {
+        "sha256": "a62daa053884dd60ed3c63b8ee1264b395ed59cbc61a8fa979132fe17cbfca72",
+        "bytes": 428741
+      },
+      "test_summaries": [
+        "1539 tests in 235 suites passed after 102.999 seconds.",
+        "177 tests in 42 suites passed after 10.109 seconds.",
+        "2 tests in 2 suites passed after 1.557 seconds."
+      ],
+      "source_before": {
+        "sha256": "2a699b3bd46a2752375b51ede0a01b605f77562efaa19faafb1df5d35db69f23",
+        "bytes": 164559
+      },
+      "source_after": {
+        "sha256": "2a699b3bd46a2752375b51ede0a01b605f77562efaa19faafb1df5d35db69f23",
+        "bytes": 164559
+      }
+    },
+    {
+      "phase": "after_oracle_repair",
+      "record": {
+        "label": "aski91-control-check-1",
+        "task": "ASKI-91",
+        "cwd": "$CONTROL",
+        "argv": [
+          "just",
+          "check"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794565713.21556,
+        "pid": 36718,
+        "seconds": 162.24840593338013,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "091d3677dc1423c08145783e13bfa99e0a843e1e302ce77392c353dda5e8a2dc",
+        "bytes": 340
+      },
+      "log": {
+        "sha256": "f8865f311f7427b738d3f5f9b5d658d48d6b7908255ca05457ad7aa3de18b2f8",
+        "bytes": 428730
+      },
+      "test_summaries": [
+        "1539 tests in 235 suites passed after 104.601 seconds.",
+        "177 tests in 42 suites passed after 9.312 seconds.",
+        "2 tests in 2 suites passed after 1.596 seconds."
+      ],
+      "source_before": {
+        "sha256": "721dbf6df525752d49d48ac4aa1f467f18f5a1f5482c0dd0addcbfbb7251f959",
+        "bytes": 164559
+      },
+      "source_after": {
+        "sha256": "721dbf6df525752d49d48ac4aa1f467f18f5a1f5482c0dd0addcbfbb7251f959",
+        "bytes": 164559
+      }
+    }
+  ],
+  "original_release_oracle_failure": {
+    "tests": 39,
+    "issues": 2,
+    "actual_alpha_bits": "0x7fe00000",
+    "oracle_alpha_bits": "0x7fa00000",
+    "candidate": "74acf325e58348f66d7fed9c35977e50acdbd5ef",
+    "control": "f0cb201657c03fbf3a7f0d319cc3600dc3c3ae3e",
+    "repair": "Identical private test-only unoptimized multiplication primitive; exact assertions and production optimization preserved. No benchmark sample or decision rule changed."
+  },
+  "existing_checks": {
+    "brief_revision": 4,
+    "explicit_aski4_only_exclusions": [
+      "gif-render-encode-incremental-24frames",
+      "gif-render-encode-retained-24frames"
+    ],
+    "expected_names": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "gif-decode-noop-120frames",
+      "gif-metadata-one-delay-scan-120frames",
+      "gif-metadata-two-delay-scans-120frames",
+      "video-decode-720p-12frames",
+      "video-decode-convert-720p-80cols-12frames",
+      "video-decode-convert-rotated-720p-80cols-12frames",
+      "video-decode-rotated-720p-12frames",
+      "video-e2e-one-shot-720p-80cols-12frames",
+      "video-e2e-one-shot-rotated-720p-80cols-12frames",
+      "video-e2e-serial-720p-80cols-12frames",
+      "video-e2e-serial-rotated-720p-80cols-12frames",
+      "video-encode-ascii-12frames"
+    ],
+    "budget_names": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols"
+    ],
+    "selector": "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|gif[-]decode[-]noop[-]120frames|gif[-]metadata[-]one[-]delay[-]scan[-]120frames|gif[-]metadata[-]two[-]delay[-]scans[-]120frames|video[-]decode[-]720p[-]12frames|video[-]decode[-]convert[-]720p[-]80cols[-]12frames|video[-]decode[-]convert[-]rotated[-]720p[-]80cols[-]12frames|video[-]decode[-]rotated[-]720p[-]12frames|video[-]e2e[-]one[-]shot[-]720p[-]80cols[-]12frames|video[-]e2e[-]one[-]shot[-]rotated[-]720p[-]80cols[-]12frames|video[-]e2e[-]serial[-]720p[-]80cols[-]12frames|video[-]e2e[-]serial[-]rotated[-]720p[-]80cols[-]12frames|video[-]encode[-]ascii[-]12frames)$",
+    "budget_selector": "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols)$",
+    "runs": [
+      {
+        "label": "aski91-capture-1",
+        "argv": [
+          "python3",
+          "-B",
+          "Scripts/validate-benchmarks.py",
+          "--filter",
+          "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|gif[-]decode[-]noop[-]120frames|gif[-]metadata[-]one[-]delay[-]scan[-]120frames|gif[-]metadata[-]two[-]delay[-]scans[-]120frames|video[-]decode[-]720p[-]12frames|video[-]decode[-]convert[-]720p[-]80cols[-]12frames|video[-]decode[-]convert[-]rotated[-]720p[-]80cols[-]12frames|video[-]decode[-]rotated[-]720p[-]12frames|video[-]e2e[-]one[-]shot[-]720p[-]80cols[-]12frames|video[-]e2e[-]one[-]shot[-]rotated[-]720p[-]80cols[-]12frames|video[-]e2e[-]serial[-]720p[-]80cols[-]12frames|video[-]e2e[-]serial[-]rotated[-]720p[-]80cols[-]12frames|video[-]encode[-]ascii[-]12frames)$",
+          "--require-metric",
+          "mallocCountTotal",
+          "--timeout",
+          "600",
+          "--output-dir",
+          "$BATCH/existing-wave2-checks/aski91-capture-1",
+          "--expect",
+          "animation-build-gradient-80cols-k6",
+          "--expect",
+          "animation-grid-at-80cols",
+          "--expect",
+          "animation-materialize-80cols-5s-60fps",
+          "--expect",
+          "animation-regression-static-convert-80cols",
+          "--expect",
+          "gif-decode-noop-120frames",
+          "--expect",
+          "gif-metadata-one-delay-scan-120frames",
+          "--expect",
+          "gif-metadata-two-delay-scans-120frames",
+          "--expect",
+          "video-decode-720p-12frames",
+          "--expect",
+          "video-decode-convert-720p-80cols-12frames",
+          "--expect",
+          "video-decode-convert-rotated-720p-80cols-12frames",
+          "--expect",
+          "video-decode-rotated-720p-12frames",
+          "--expect",
+          "video-e2e-one-shot-720p-80cols-12frames",
+          "--expect",
+          "video-e2e-one-shot-rotated-720p-80cols-12frames",
+          "--expect",
+          "video-e2e-serial-720p-80cols-12frames",
+          "--expect",
+          "video-e2e-serial-rotated-720p-80cols-12frames",
+          "--expect",
+          "video-encode-ascii-12frames"
+        ],
+        "cwd": "$CANDIDATE",
+        "started_at": "2026-11-13T10:47:57.524275+00:00",
+        "exit": 0,
+        "seconds": 76.11624466697685,
+        "finished_at": "2026-11-13T10:49:13.642175+00:00"
+      },
+      {
+        "label": "aski91-budget-1",
+        "argv": [
+          "xcrun",
+          "swift",
+          "package",
+          "--disable-sandbox",
+          "benchmark",
+          "baseline",
+          "check",
+          "--check-absolute",
+          "--target",
+          "AskiBenchmarks",
+          "--no-progress",
+          "--filter",
+          "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols)$"
+        ],
+        "cwd": "$CANDIDATE",
+        "started_at": "2026-11-13T10:49:13.690082+00:00",
+        "exit": 0,
+        "seconds": 29.040642833919264,
+        "finished_at": "2026-11-13T10:49:42.731485+00:00"
+      }
+    ],
+    "revision": "6a10696bbf190a6a840d570aedbae79df3114eb6"
+  },
+  "existing_capture": {
+    "status": "valid",
+    "complete": true,
+    "errors": [],
+    "selected": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "gif-decode-noop-120frames",
+      "gif-metadata-one-delay-scan-120frames",
+      "gif-metadata-two-delay-scans-120frames",
+      "video-decode-720p-12frames",
+      "video-decode-convert-720p-80cols-12frames",
+      "video-decode-convert-rotated-720p-80cols-12frames",
+      "video-decode-rotated-720p-12frames",
+      "video-e2e-one-shot-720p-80cols-12frames",
+      "video-e2e-one-shot-rotated-720p-80cols-12frames",
+      "video-e2e-serial-720p-80cols-12frames",
+      "video-e2e-serial-rotated-720p-80cols-12frames",
+      "video-encode-ascii-12frames"
+    ],
+    "required_metrics": [
+      "mallocCountTotal",
+      "wallClock"
+    ],
+    "report": {
+      "sha256": "be71ba57dafbfcd77bb5d53a14e4329a0ce058ac1193888576caa3e5b8f66e0a",
+      "bytes": 70727
+    }
+  },
+  "absolute_budget_log": {
+    "sha256": "a6cf46be693456d18f7dc9bf2f5fc0c0eb1bb59a1af00526721911a908555a77",
+    "bytes": 3741
+  },
+  "post_study_binary_observation": {
+    "observed_at": "2026-11-13T10:50:03.055049+00:00",
+    "binary_observation_limit": "Post-study and post-existing-check on-disk hashes only; not per-capture executable hashes or proof of the exact loaded bytes for every earlier process.",
+    "binary_files": {
+      "aski91/AskiBenchmarks": {
+        "sha256": "a439c54ebef552b888e86483c7d391a6d6babd1cea9df0d4cf71cc5d12028c73",
+        "bytes": 5425008,
+        "modified_at": "2026-11-13T10:49:41.697361+00:00"
+      },
+      "aski91/libMallocInterposerSwift.dylib": {
+        "sha256": "d0198ace95d951cc49ed8dc2a7e244cc515840b385640edf6c80155972d76827",
+        "bytes": 67184,
+        "modified_at": "2026-11-13T10:49:20.439456+00:00"
+      },
+      "aski91-control/AskiBenchmarks": {
+        "sha256": "0b1eb20eea1911de491c245a7bd0cc0e5eee9e8d4944626f89676cc8ae609849",
+        "bytes": 5429168,
+        "modified_at": "2026-11-13T10:46:25.631560+00:00"
+      },
+      "aski91-control/libMallocInterposerSwift.dylib": {
+        "sha256": "f4d2200da396e2d52b89b181093039ddd74eb89eb36372bed96a462b6d3ec820",
+        "bytes": 67216,
+        "modified_at": "2026-11-13T10:46:04.258608+00:00"
+      }
+    }
+  },
+  "report_evidence": {
+    "sha256": "2efcafc5af5673dd4102f6de37c4958fa431e22d9be49a2e7b70ea5ec0686629",
+    "bytes": 6882
+  },
+  "adoption": "accepted for integration after lead source review, exact parity, complete frozen study and existing checks",
+  "limitations": "Compact native records and evidence hashes; full local logs are retained separately. Tests ran at the stated HEAD plus dirty inventory before test-only commits. Post-study on-disk binary hashes do not prove earlier loaded bytes. Final integrated repository gate is recorded separately.",
+  "derived_table": {
+    "file": "all-cells.csv",
+    "sha256": "f99579fac7c63d6edf6b0ce8279fad48f4adfdbe04fae9ceb30c197c9cd4c842",
+    "bytes": 12871,
+    "rows": 96,
+    "verification": "Lead independently recomputed median/range/MAD from exact rational paired inputs; agrees within1e-12."
+  }
+}

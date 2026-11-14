@@ -1,0 +1,67 @@
+{
+  "native_exit": 0,
+  "process_starts": 28,
+  "baseline_lifecycle_failures": 12,
+  "corrected_lifecycle_passes": 12,
+  "single_thread_exact_count_passes": 4,
+  "marginal_counter_checks": [
+    {
+      "optimization": "O1",
+      "destructor_passes": 1,
+      "exact_marginal_allocations": 40,
+      "result": "pass"
+    },
+    {
+      "optimization": "O1",
+      "destructor_passes": 2,
+      "exact_marginal_allocations": 80,
+      "result": "pass"
+    },
+    {
+      "optimization": "O1",
+      "destructor_passes": 4,
+      "exact_marginal_allocations": 160,
+      "result": "pass"
+    },
+    {
+      "optimization": "O3",
+      "destructor_passes": 1,
+      "exact_marginal_allocations": 40,
+      "result": "pass"
+    },
+    {
+      "optimization": "O3",
+      "destructor_passes": 2,
+      "exact_marginal_allocations": 80,
+      "result": "pass"
+    },
+    {
+      "optimization": "O3",
+      "destructor_passes": 4,
+      "exact_marginal_allocations": 160,
+      "result": "pass"
+    }
+  ],
+  "original_reset_attribution": "unresolved",
+  "captured_at": "2026-11-13",
+  "toolchain": {
+    "xcode": "27.0 (27A266a)",
+    "swift": "6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)",
+    "os": "macOS 27.0.1 (26A434)",
+    "architecture": "arm64"
+  },
+  "limits": [
+    "The original ASKI-92 reset crash at address0x20c8 is not causally attributed by this experiment.",
+    "This tests independent process starts and destructor passes1,2,4; repeated thread creation/join over a long process lifetime was not run.",
+    "Sanitizers disable upstream global hooks and were not used for this native interposer regression.",
+    "Debugging/tracing changes observed failure behavior; the plain-run matrix is retained separately."
+  ],
+  "source_sha256": {
+    "lifecycle-probe.c": "249264d5fafa7020c449ecad27cd313b48dbdeb4962b0b5ad4327bbbf8593c7a",
+    "upstream-interposer-darwin.c": "e6004d55640abf3ec730fa7c893de42c00c2d4bf6ae161a5c17fa957e9902c52",
+    "count-regression.c": "8a439d9a457e15a1dcc313d7c0adba6d9b5c33c83817b18a1eee750cd3fbed8d"
+  },
+  "upstream_revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+  "intervention": "t_block = NULL immediately after the destructor null-argument guard",
+  "validity_status": "Native count/lifecycle regressions, full local gate, complete237-workload capture and11 unchanged budgets passed; see native-qualification.json."
+}

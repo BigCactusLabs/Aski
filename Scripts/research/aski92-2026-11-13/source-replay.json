@@ -1,0 +1,16 @@
+{
+  "scope": "Replay benchmark and production/test source only, not task metadata or an exact commit reconstruction. Local study SHAs are provenance and are not assumed published.",
+  "public_base": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "patches": {
+    "control-support.patch": {
+      "base": "bb399f9136e8c50fb2a256551bacad029115024d",
+      "result": "4010636b9c467b5470a8c145caabbc5755192634",
+      "sha256": "059d63408db358477e1f20e8f39b4e13ff0201aac2ba180456d8c397d516f740"
+    },
+    "candidate-treatment.patch": {
+      "base": "4010636b9c467b5470a8c145caabbc5755192634",
+      "result": "260ff2deda5652b3c5bd97a4bc87065ae28bc808",
+      "sha256": "4f22f93d6825a63c9e96eacfe0f9b47c011d9d0ecc4424420fe16bebf994fc96"
+    }
+  }
+}

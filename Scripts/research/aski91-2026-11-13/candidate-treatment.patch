@@ -1,0 +1,88 @@
+diff --git a/Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift b/Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift
+index af1a053..a64daef 100644
+--- a/Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift
++++ b/Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift
+@@ -20,6 +20,13 @@ public extension ASCIIGrid {
+         pattern.validate()
+         guard rows > 0, columns > 0 else { return self }
+         let resolvedTime = time.isFinite ? max(0, time) : 0
++        let pulseMultiplier: Float?
++        if case .pulse(let period, let depth) = pattern {
++            let multiplier = PatternEvaluator.pulseAlpha(period: period, depth: depth, time: resolvedTime)
++            pulseMultiplier = Float(PatternEvaluator.clampUnit(multiplier, fallback: 1))
++        } else {
++            pulseMultiplier = nil
++        }
+ 
+         let modulated = cells.enumerated().map { row, line in
+             line.enumerated().map { column, cell -> ASCIICell in
+@@ -29,8 +36,12 @@ public extension ASCIIGrid {
+                     columns: columns,
+                     rows: rows
+                 )
+-                let multiplier = PatternEvaluator.ongoingAlpha(pattern, coord: coord, time: resolvedTime)
+-                let alpha = cell.alpha * Float(PatternEvaluator.clampUnit(multiplier, fallback: 1))
++                let multiplier =
++                    pulseMultiplier
++                    ?? Float(
++                        PatternEvaluator.clampUnit(
++                            PatternEvaluator.ongoingAlpha(pattern, coord: coord, time: resolvedTime), fallback: 1))
++                let alpha = cell.alpha * multiplier
+                 return ASCIICell(
+                     character: cell.character,
+                     displayColor: cell.displayColor,
+diff --git a/Sources/Aski/Animation/AnimatedASCIIGrid.swift b/Sources/Aski/Animation/AnimatedASCIIGrid.swift
+index 167c515..8a74867 100644
+--- a/Sources/Aski/Animation/AnimatedASCIIGrid.swift
++++ b/Sources/Aski/Animation/AnimatedASCIIGrid.swift
+@@ -27,6 +27,13 @@ public struct AnimatedASCIIGrid: Sendable {
+             return baseGrid
+         }
+         let resolvedTime = time.isFinite ? max(0, time) : 0
++        // Keep the pulse in Double until it has been combined with the entrance alpha.
++        let pulseMultiplier: Double?
++        if case .pulse(let period, let depth)? = schedule.ongoing {
++            pulseMultiplier = PatternEvaluator.pulseAlpha(period: period, depth: depth, time: resolvedTime)
++        } else {
++            pulseMultiplier = nil
++        }
+         var rows: [[ASCIICell]] = []
+         rows.reserveCapacity(baseGrid.rows)
+ 
+@@ -53,7 +60,7 @@ public struct AnimatedASCIIGrid: Sendable {
+                         PatternEvaluator.entranceAlpha($0, coord: coord, time: resolvedTime, duration: duration)
+                     } ?? 1
+                 let ongoingAlpha =
+-                    schedule.ongoing.map {
++                    pulseMultiplier ?? schedule.ongoing.map {
+                         PatternEvaluator.ongoingAlpha($0, coord: coord, time: resolvedTime)
+                     } ?? 1
+                 let alpha = baseCell.alpha * Float(PatternEvaluator.clampUnit(entranceAlpha * ongoingAlpha, fallback: 1))
+diff --git a/Sources/Aski/Animation/PatternEvaluator.swift b/Sources/Aski/Animation/PatternEvaluator.swift
+index e98de33..822b98e 100644
+--- a/Sources/Aski/Animation/PatternEvaluator.swift
++++ b/Sources/Aski/Animation/PatternEvaluator.swift
+@@ -79,14 +79,18 @@ internal enum PatternEvaluator {
+             return clampUnit(value, fallback: 1)
+ 
+         case .pulse(let period, let depth):
+-            precondition(period.isFinite && period > 0, "pulse period must be finite and positive")
+-            let resolvedDepth = sanitizedClamped(depth, min: 0, max: 1, defaultValue: 1)
+-            guard resolvedDepth > 0 else { return 1 }
+-            let value = 1 - resolvedDepth / 2 + (resolvedDepth / 2) * sin(2 * Double.pi * time / period + Double.pi / 2)
+-            return clampUnit(value, fallback: 1)
++            return pulseAlpha(period: period, depth: depth, time: time)
+         }
+     }
+ 
++    static func pulseAlpha(period: TimeInterval, depth: Double, time: TimeInterval) -> Double {
++        precondition(period.isFinite && period > 0, "pulse period must be finite and positive")
++        let resolvedDepth = sanitizedClamped(depth, min: 0, max: 1, defaultValue: 1)
++        guard resolvedDepth > 0 else { return 1 }
++        let value = 1 - resolvedDepth / 2 + (resolvedDepth / 2) * sin(2 * Double.pi * time / period + Double.pi / 2)
++        return clampUnit(value, fallback: 1)
++    }
++
+     static func clampUnit(_ value: Double, fallback: Double) -> Double {
+         guard value.isFinite else { return min(1, max(0, fallback)) }
+         return min(1, max(0, value))

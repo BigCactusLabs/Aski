@@ -1,0 +1,926 @@
+diff --git a/Benchmarks/AskiBenchmarks/Benchmarks.swift b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+index 6c9e4ac..49a1aad 100644
+--- a/Benchmarks/AskiBenchmarks/Benchmarks.swift
++++ b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+@@ -62,6 +62,7 @@ let benchmarks: @Sendable () -> Void = {
+     addVideoPipelineBenchmarks()
+     addVideoSelectionBenchmarks()
+     addGIFMetadataBenchmarks()
++    addGIFStreamingBenchmarks()
+     addASTSK55Benchmarks()
+     addPreparationBenchmarks()
+     addShapeContextFootprintBenchmarks()
+diff --git a/Benchmarks/AskiBenchmarks/GIFStreamingBenchmarks.swift b/Benchmarks/AskiBenchmarks/GIFStreamingBenchmarks.swift
+new file mode 100644
+index 0000000..77b572e
+--- /dev/null
++++ b/Benchmarks/AskiBenchmarks/GIFStreamingBenchmarks.swift
+@@ -0,0 +1,53 @@
++import Aski
++import Benchmark
++import CoreGraphics
++import Foundation
++
++/// Each frame is freshly rendered: reusing a single CGImage would hide the
++/// retained-array cost. Opt-in sizes are for isolated process RSS captures.
++func addGIFStreamingBenchmarks() {
++    let counts = ProcessInfo.processInfo.environment["ASKI_GIF_MEMORY_MATRIX"] == "1" ? [24, 240, 1200] : [24]
++    for count in counts {
++        for retained in [false, true] {
++            let mode = retained ? "retained" : "incremental"
++            Benchmark(
++                "gif-render-encode-\(mode)-\(count)frames",
++                configuration: .init(
++                    metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
++                    units: [.mallocCountTotal: .count, .peakMemoryResident: .count],
++                    warmupIterations: 0, maxDuration: .seconds(10), maxIterations: 1
++                )
++            ) { benchmark in
++                let grid = DefaultConverter().convert(makeGradient(width: 640, height: 360), columns: 80)
++                let font = ASCIIFont.system(size: 10)
++                let background = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
++                let output = FileManager.default.temporaryDirectory
++                    .appendingPathComponent("AskiGIFStreaming-\(UUID().uuidString).gif")
++                defer { try? FileManager.default.removeItem(at: output) }
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations {
++                    if retained {
++                        let frames = (0..<count).map { _ in
++                            RenderedGIFFrame(
++                                image: grid.renderImage(font: font, backgroundColor: background, scale: 1), delay: 0.04
++                            )
++                        }
++                        blackHole(try ASCIIGIFEncoder().write(frames, loopCount: 0, to: output))
++                    } else {
++                        let session = try GIFEncodeSession(frameCount: count, loopCount: 0, to: output)
++                        for _ in 0..<count {
++                            try autoreleasepool {
++                                try session.append(
++                                    RenderedGIFFrame(
++                                        image: grid.renderImage(font: font, backgroundColor: background, scale: 1), delay: 0.04
++                                    ))
++                            }
++                        }
++                        blackHole(try session.finish())
++                    }
++                }
++                benchmark.stopMeasurement()
++            }
++        }
++    }
++}
+diff --git a/Sources/Aski/Aski.docc/Video.md b/Sources/Aski/Aski.docc/Video.md
+index 6f301a6..516e645 100644
+--- a/Sources/Aski/Aski.docc/Video.md
++++ b/Sources/Aski/Aski.docc/Video.md
+@@ -28,6 +28,14 @@ let report = try await convertVideo(
+ 
+ `targetFPS` resamples to a constant frame rate; omit it to preserve the source cadence. For GIFs, `loopCount: nil` preserves the source's reported loop value (once stays once, infinite stays infinite), and `maximumFrameCount` (default 10,000) rejects oversized inputs before any decode work.
+ 
++GIF conversion renders and appends each output frame directly to ImageIO without
++collecting the rendered images. ImageIO can still retain encoding state; this is
++not a guarantee of constant process memory. Output is written to a sibling
++staging directory, finalized and checked before it replaces the destination. A
++conversion failure or cancellation before replacement preserves an existing file.
++The public array-based GIF encoder remains available and uses the same encoding
++and replacement path.
++
+ The GIF encoder accepts `loopCount` in `0...32767`: `0` means infinite playback,
+ `1` means play once, and `2...32767` gives the total number of plays. These values
+ round-trip through ImageIO for both one-frame and multi-frame GIFs on the recorded
+diff --git a/Sources/Aski/Video/ASCIIGIFConverter.swift b/Sources/Aski/Video/ASCIIGIFConverter.swift
+index d3eef07..dd59bd4 100644
+--- a/Sources/Aski/Video/ASCIIGIFConverter.swift
++++ b/Sources/Aski/Video/ASCIIGIFConverter.swift
+@@ -2,7 +2,7 @@ import CoreGraphics
+ import Foundation
+ 
+ /// One-shot GIF -> ASCII-GIF convenience: decode (streaming) -> convert -> render
+-/// -> batch-encode. Generics are confined to this function — the GIF halves never
++/// -> incrementally encode. Generics are confined to this function — the GIF halves never
+ /// carry the converter's `<C, P>` parameters.
+ ///
+ /// `loopCount: nil` PRESERVES the source's reported loop value (1 = once stays
+@@ -40,16 +40,22 @@ public func convertGIF<C, P>(
+         transform: { converter.convert($0, columns: columns) }
+     )
+ 
+-    var rendered: [RenderedGIFFrame] = []
++    let duration = try targetFPS.map { _ in try decoder.containerInfo(ofGIFAt: source).totalDuration } ?? 0
++    let expectedCount =
++        try targetFPS.map {
++            try resamplePreflight(targetFPS: $0, sourceDuration: duration)
++        } ?? header.frameCount
++    let session = try GIFEncodeSession(frameCount: expectedCount, loopCount: resolvedLoop, to: output)
+     var resampleReport: ResampleReport?
+     if let targetFPS {
+-        let info = try decoder.containerInfo(ofGIFAt: source)
+         let stats = ResampleStats()
+         let resampled = try resampledGIFFrames(
+-            stream, targetFPS: targetFPS, sourceDuration: info.totalDuration, into: stats
++            stream, targetFPS: targetFPS, sourceDuration: duration, into: stats
+         )
+         for try await frame in resampled {
+-            rendered.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
++            try autoreleasepool {
++                try session.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
++            }
+         }
+         resampleReport = ResampleReport(
+             requestedFPS: targetFPS,
+@@ -61,11 +67,13 @@ public func convertGIF<C, P>(
+         )
+     } else {
+         for try await frame in stream {
+-            rendered.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
++            try autoreleasepool {
++                try session.append(renderGIFFrame(frame, font: font, backgroundColor: backgroundColor, scale: scale))
++            }
+         }
+     }
+ 
+-    let base = try ASCIIGIFEncoder().write(rendered, loopCount: resolvedLoop, to: output)
++    let base = try session.finish()
+     return GIFEncodeReport(
+         framesWritten: base.framesWritten,
+         loopCount: base.loopCount,
+@@ -80,8 +88,6 @@ public func convertGIF<C, P>(
+ /// `async throws` effects overload (preferred in an async context). The
+ /// non-`Sendable` `CGColor` stays inside this nonisolated function — no `@Sendable`
+ /// closure captures it (the decode `transform` captures only `converter`/`columns`)
+-/// — so this is `Sendable`-clean WITHOUT an actor, because export is batch (not the
+-/// streaming encoder `convertVideo` feeds, which is why C2a needed `RenderPump`).
+ private func renderGIFFrame(
+     _ frame: ASCIIGIFFrame,
+     font: ASCIIFont,
+diff --git a/Sources/Aski/Video/ASCIIGIFDecoder.swift b/Sources/Aski/Video/ASCIIGIFDecoder.swift
+index 652506e..c152678 100644
+--- a/Sources/Aski/Video/ASCIIGIFDecoder.swift
++++ b/Sources/Aski/Video/ASCIIGIFDecoder.swift
+@@ -45,7 +45,16 @@ public struct ASCIIGIFDecoder: Sendable {
+         fromGIFAt url: URL,
+         transform: @escaping @Sendable (CGImage) -> ASCIIGrid
+     ) -> AsyncThrowingStream<ASCIIGIFFrame, Error> {
+-        let session = GIFDecodeSession(url: url, transform: transform)
++        grids(fromGIFAt: url, maximumFrames: nil, transform: transform)
++    }
++
++    /// Package-only cap applied before pulling or transforming the next frame.
++    package func grids(
++        fromGIFAt url: URL,
++        maximumFrames: Int?,
++        transform: @escaping @Sendable (CGImage) -> ASCIIGrid
++    ) -> AsyncThrowingStream<ASCIIGIFFrame, Error> {
++        let session = GIFDecodeSession(url: url, maximumFrames: maximumFrames, transform: transform)
+         // MUST be `unfolding:` — the unfolding closure is `@Sendable` and captures
+         // only the `session` actor reference (Sendable), so it compiles under strict
+         // 6. Pull-based: one decoded frame per `next()`; nil ends the stream.
+@@ -87,6 +96,7 @@ private actor GIFDecodeSession {
+     private let queue = DispatchSerialQueue(label: "art.aski.gif.decode")
+     nonisolated var unownedExecutor: UnownedSerialExecutor { queue.asUnownedSerialExecutor() }
+ 
++    private let maximumFrames: Int?
+     private let url: URL
+     private let transform: @Sendable (CGImage) -> ASCIIGrid
+     private var source: CGImageSource?
+@@ -95,7 +105,8 @@ private actor GIFDecodeSession {
+     private var started = false
+     private var finished = false
+ 
+-    init(url: URL, transform: @escaping @Sendable (CGImage) -> ASCIIGrid) {
++    init(url: URL, maximumFrames: Int?, transform: @escaping @Sendable (CGImage) -> ASCIIGrid) {
++        self.maximumFrames = maximumFrames
+         self.url = url
+         self.transform = transform
+     }
+@@ -135,7 +146,7 @@ private actor GIFDecodeSession {
+             throw GIFDecodeError.noFrames
+         }
+         self.source = source
+-        self.count = frameCount
++        self.count = min(frameCount, max(0, maximumFrames ?? frameCount))
+     }
+ 
+     /// Reads the UNCLAMPED per-frame delay (raw value). Falls back to the clamped
+diff --git a/Sources/Aski/Video/ASCIIGIFEncoder.swift b/Sources/Aski/Video/ASCIIGIFEncoder.swift
+index 3a2e04d..8b99e4d 100644
+--- a/Sources/Aski/Video/ASCIIGIFEncoder.swift
++++ b/Sources/Aski/Video/ASCIIGIFEncoder.swift
+@@ -3,14 +3,9 @@ import Foundation
+ import ImageIO
+ import UniformTypeIdentifiers
+ 
+-/// Batch-encodes rendered frames as an animated GIF via `CGImageDestination`,
++/// Encodes rendered frames as an animated GIF via `CGImageDestination`,
+ /// with per-frame delays + an explicit loop count, returning a pure-data report.
+ /// The library NEVER prints — callers decide what to surface from the report.
+-///
+-/// Promoted + extended from `Tools/AskiMotionLab/GIFExporter.swift`. Asymmetric
+-/// with `ASCIIVideoEncoder`'s streaming `write` BY DESIGN: GIFs are short loops,
+-/// and `CGImageDestination` accumulates then finalizes, so batch is the right
+-/// shape (roadmap "batch first").
+ public struct ASCIIGIFEncoder: Sendable {
+     public init() {}
+ 
+@@ -28,48 +23,9 @@ public struct ASCIIGIFEncoder: Sendable {
+     ///   `subFloorDelayCount`.
+     @discardableResult
+     public func write(_ frames: [RenderedGIFFrame], loopCount: Int, to url: URL) throws -> GIFEncodeReport {
+-        guard !frames.isEmpty else { throw GIFEncodeError.noFrames }
+-        guard (0...32767).contains(loopCount) else {
+-            throw GIFEncodeError.invalidLoopCount(loopCount)
+-        }
+-        guard
+-            let destination = CGImageDestinationCreateWithURL(
+-                url as CFURL,
+-                UTType.gif.identifier as CFString,
+-                frames.count,
+-                nil
+-            )
+-        else {
+-            throw GIFEncodeError.cannotCreateDestination(url.path)
+-        }
+-
+-        let fileProperties: [CFString: Any] = [
+-            kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: loopCount]
+-        ]
+-        CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
+-
+-        var subFloorDelayCount = 0
+-        var minDelay = Double.greatestFiniteMagnitude
+-        for frame in frames {
+-            let delay = Self.normalizedDelay(frame.delay)
+-            if delay < 0.02 { subFloorDelayCount += 1 }
+-            minDelay = min(minDelay, delay)
+-            let frameProperties: [CFString: Any] = [
+-                kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: delay]
+-            ]
+-            CGImageDestinationAddImage(destination, frame.image, frameProperties as CFDictionary)
+-        }
+-
+-        guard CGImageDestinationFinalize(destination) else {
+-            throw GIFEncodeError.cannotFinalize(url.path)
+-        }
+-        let encodedHeader = try ASCIIGIFDecoder().containerHeader(ofGIFAt: url)
+-        return GIFEncodeReport(
+-            framesWritten: frames.count,
+-            loopCount: encodedHeader.loopCount,
+-            subFloorDelayCount: subFloorDelayCount,
+-            minDelay: minDelay
+-        )
++        let session = try GIFEncodeSession(frameCount: frames.count, loopCount: loopCount, to: url)
++        for frame in frames { try session.append(frame) }
++        return try session.finish()
+     }
+ 
+     /// Non-finite or non-positive delays normalize to the documented 0.1s default;
+@@ -79,3 +35,100 @@ public struct ASCIIGIFEncoder: Sendable {
+         return delay
+     }
+ }
++
++/// Caller-confined incremental destination. ImageIO requires the exact image count
++/// at creation. No rendered images are retained by this session; ImageIO's own
++/// memory use must be measured separately. A failed or abandoned session removes
++/// its staging directory and leaves the requested output unchanged.
++package final class GIFEncodeSession {
++    private let output: URL
++    private let temporaryDirectory: URL
++    private let temporary: URL
++    private let expectedCount: Int
++    private var destination: CGImageDestination?
++    private var framesWritten = 0
++    private var subFloorDelayCount = 0
++    private var minDelay = Double.greatestFiniteMagnitude
++
++    package init(frameCount: Int, loopCount: Int, to output: URL) throws {
++        guard frameCount > 0 else { throw GIFEncodeError.noFrames }
++        guard (0...32767).contains(loopCount) else { throw GIFEncodeError.invalidLoopCount(loopCount) }
++        self.output = output
++        self.expectedCount = frameCount
++        self.temporaryDirectory = output.deletingLastPathComponent()
++            .appendingPathComponent(".aski-gif-\(UUID().uuidString)", isDirectory: true)
++        self.temporary = temporaryDirectory.appendingPathComponent("output.gif")
++        do {
++            try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: false)
++        } catch {
++            throw GIFEncodeError.cannotCreateDestination(output.path)
++        }
++        guard
++            let destination = CGImageDestinationCreateWithURL(
++                temporary as CFURL, UTType.gif.identifier as CFString, frameCount, nil
++            )
++        else {
++            try? FileManager.default.removeItem(at: temporaryDirectory)
++            throw GIFEncodeError.cannotCreateDestination(output.path)
++        }
++        self.destination = destination
++        CGImageDestinationSetProperties(
++            destination,
++            [
++                kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: loopCount]
++            ] as CFDictionary)
++    }
++
++    deinit {
++        // ImageIO can leave its own staging sidecar after an unfinalized write,
++        // even after destination release. Own the whole private directory so
++        // failure cleanup removes that sidecar without guessing its filename.
++        destination = nil
++        try? FileManager.default.removeItem(at: temporaryDirectory)
++    }
++
++    package func append(_ frame: RenderedGIFFrame) throws {
++        try Task.checkCancellation()
++        guard let destination, framesWritten < expectedCount else {
++            self.destination = nil
++            throw GIFEncodeError.cannotFinalize(output.path)
++        }
++        let delay = ASCIIGIFEncoder.normalizedDelay(frame.delay)
++        if delay < 0.02 { subFloorDelayCount += 1 }
++        minDelay = min(minDelay, delay)
++        CGImageDestinationAddImage(
++            destination, frame.image,
++            [
++                kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: delay]
++            ] as CFDictionary)
++        framesWritten += 1
++    }
++
++    package func finish() throws -> GIFEncodeReport {
++        try Task.checkCancellation()
++        guard let destination, framesWritten == expectedCount else {
++            self.destination = nil
++            throw GIFEncodeError.cannotFinalize(output.path)
++        }
++        self.destination = nil
++        guard CGImageDestinationFinalize(destination) else {
++            throw GIFEncodeError.cannotFinalize(output.path)
++        }
++        let header = try ASCIIGIFDecoder().containerHeader(ofGIFAt: temporary)
++        guard header.frameCount == expectedCount else { throw GIFEncodeError.cannotFinalize(output.path) }
++        try Task.checkCancellation()
++        let manager = FileManager.default
++        var isDirectory: ObjCBool = false
++        if manager.fileExists(atPath: output.path, isDirectory: &isDirectory) {
++            guard !isDirectory.boolValue else { throw GIFEncodeError.cannotCreateDestination(output.path) }
++            _ = try manager.replaceItemAt(output, withItemAt: temporary)
++        } else {
++            try manager.moveItem(at: temporary, to: output)
++        }
++        try? manager.removeItem(at: temporaryDirectory)
++        return GIFEncodeReport(
++            framesWritten: framesWritten, loopCount: header.loopCount,
++            subFloorDelayCount: subFloorDelayCount, minDelay: minDelay
++        )
++    }
++}
+diff --git a/Sources/Aski/Video/ResampleSession.swift b/Sources/Aski/Video/ResampleSession.swift
+index dc046c1..615ee19 100644
+--- a/Sources/Aski/Video/ResampleSession.swift
++++ b/Sources/Aski/Video/ResampleSession.swift
+@@ -20,7 +20,7 @@ import Foundation
+ /// exceed `Int.max`, and `Int(_:)` traps on that — the Double check throws
+ /// `resampledFrameCountExceeded` instead. Only a value already known to be within
+ /// `0...maxResampledFrames` is ever converted to `Int`.
+-func resamplePreflight(targetFPS: Int, sourceDuration: TimeInterval) throws -> Int {
++package func resamplePreflight(targetFPS: Int, sourceDuration: TimeInterval) throws -> Int {
+     guard targetFPS >= 1, targetFPS <= maxTargetFPS else {
+         throw ResampleError.invalidTargetFPS(targetFPS)
+     }
+diff --git a/Tests/AskiTests/AskiGIFDecoderTests.swift b/Tests/AskiTests/AskiGIFDecoderTests.swift
+index e227d07..20ed07d 100644
+--- a/Tests/AskiTests/AskiGIFDecoderTests.swift
++++ b/Tests/AskiTests/AskiGIFDecoderTests.swift
+@@ -204,7 +204,7 @@ private final class TransformCounter: @unchecked Sendable {
+     /// iterator, so the converter never runs on frame index 2. A break-after-pull
+     /// loop would convert a 3rd frame before stopping. `frame_count` alone cannot
+     /// catch this (it reads 2 either way), so we count transform invocations.
+-    @Test func prefixDecodesExactlyNFramesWithoutOverPulling() async throws {
++    @Test(arguments: [false, true]) func prefixDecodesExactlyNFramesWithoutOverPulling(packageCap: Bool) async throws {
+         let fixture = GIF89aFixture(
+             canvasWidth: 4, canvasHeight: 4,
+             colorTable: GIFFixturePalette.table, backgroundColorIndex: 3, netscapeLoop: nil,
+@@ -220,14 +220,18 @@ private final class TransformCounter: @unchecked Sendable {
+ 
+         let counter = TransformCounter()
+         let stream = ASCIIGIFDecoder().grids(
+-            fromGIFAt: url,
++            fromGIFAt: url, maximumFrames: packageCap ? 2 : nil,
+             transform: { _ in
+                 counter.increment()
+                 return ASCIIGrid(cells: [], colorSpace: .sRGB)
+             }
+         )
+         var collected = 0
+-        for try await _ in stream.prefix(2) { collected += 1 }
++        if packageCap {
++            for try await _ in stream { collected += 1 }
++        } else {
++            for try await _ in stream.prefix(2) { collected += 1 }
++        }
+ 
+         #expect(collected == 2)
+         #expect(counter.value == 2)  // NOT 3 — the converter never runs on the capped frame
+diff --git a/Tests/AskiTests/AskiGIFEncoderTests.swift b/Tests/AskiTests/AskiGIFEncoderTests.swift
+index e8989d4..d2d0af8 100644
+--- a/Tests/AskiTests/AskiGIFEncoderTests.swift
++++ b/Tests/AskiTests/AskiGIFEncoderTests.swift
+@@ -2,16 +2,17 @@ import CoreGraphics
+ import Foundation
+ import ImageIO
+ import Testing
++import UniformTypeIdentifiers
+ @testable import Aski
+ 
+ @Suite struct AskiGIFEncoderTests {
+-    private func solid(_ r: UInt8, _ g: UInt8, _ b: UInt8, size: Int = 4) -> CGImage {
++    private func solid(_ r: UInt8, _ g: UInt8, _ b: UInt8, size: Int = 4, alpha: UInt8 = 255) -> CGImage {
+         var buffer = [UInt8](repeating: 0, count: size * size * 4)
+         for pixel in 0..<(size * size) {
+             buffer[pixel * 4 + 0] = r
+             buffer[pixel * 4 + 1] = g
+             buffer[pixel * 4 + 2] = b
+-            buffer[pixel * 4 + 3] = 255
++            buffer[pixel * 4 + 3] = alpha
+         }
+         let space = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
+         let provider = CGDataProvider(data: Data(buffer) as CFData)!
+@@ -110,4 +111,175 @@ import Testing
+         let delays = try unclampedDelays(url)
+         #expect(abs(delays[0] - 0.01) < 0.005)  // written RAW, not normalized
+     }
++    /// Independent retained control preserves the pre-streaming ImageIO calls.
++    @Test(arguments: [0, 1, 4])
++    func incrementalMatchesRetainedControl(loopCount: Int) throws {
++        let control = tempGIF()
++        let output = tempGIF()
++        defer {
++            try? FileManager.default.removeItem(at: control)
++            try? FileManager.default.removeItem(at: output)
++        }
++        let frames = [
++            RenderedGIFFrame(image: solid(255, 0, 0), delay: 0.01),
++            RenderedGIFFrame(image: solid(0, 255, 0), delay: 0.2),
++            RenderedGIFFrame(image: solid(0, 0, 255), delay: 0),
++            RenderedGIFFrame(image: solid(0, 0, 0, alpha: 0), delay: 0.1),
++        ]
++        let destination = try #require(
++            CGImageDestinationCreateWithURL(
++                control as CFURL, UTType.gif.identifier as CFString, frames.count, nil
++            ))
++        CGImageDestinationSetProperties(
++            destination,
++            [
++                kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: loopCount]
++            ] as CFDictionary)
++        for frame in frames {
++            CGImageDestinationAddImage(
++                destination, frame.image,
++                [
++                    kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: ASCIIGIFEncoder.normalizedDelay(frame.delay)]
++                ] as CFDictionary)
++        }
++        #expect(CGImageDestinationFinalize(destination))
++        let session = try GIFEncodeSession(frameCount: frames.count, loopCount: loopCount, to: output)
++        for frame in frames { try session.append(frame) }
++        let report = try session.finish()
++        // Byte equality covers frame order, palette, canvas and timing metadata.
++        #expect(try Data(contentsOf: output) == Data(contentsOf: control))
++        #expect(report.framesWritten == frames.count)
++        #expect(report.loopCount == loopCount)
++    }
++
++    @Test(arguments: [false, true])
++    func incompleteOrExcessFramesPreserveExistingOutput(excess: Bool) throws {
++        let output = tempGIF()
++        defer { try? FileManager.default.removeItem(at: output) }
++        let sentinel = Data("existing output".utf8)
++        try sentinel.write(to: output)
++        let session = try GIFEncodeSession(frameCount: 2, loopCount: 0, to: output)
++        let frame = RenderedGIFFrame(image: solid(1, 2, 3), delay: 0.1)
++        try session.append(frame)
++        if excess {
++            try session.append(frame)
++            #expect(throws: GIFEncodeError.self) { try session.append(frame) }
++        }
++        #expect(throws: GIFEncodeError.self) { try session.finish() }
++        #expect(try Data(contentsOf: output) == sentinel)
++    }
++
++    @Test func abandonedProducerOrRendererFailureRemovesTemporaryOutput() throws {
++        enum Failure: Error { case frame }
++        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        defer { try? FileManager.default.removeItem(at: directory) }
++        let output = directory.appendingPathComponent("output.gif")
++        let sentinel = Data("existing output".utf8)
++        try sentinel.write(to: output)
++        #expect(throws: Failure.self) {
++            let session = try GIFEncodeSession(frameCount: 3, loopCount: 0, to: output)
++            try session.append(RenderedGIFFrame(image: solid(1, 2, 3), delay: 0.1))
++            throw Failure.frame
++        }
++        #expect(try Data(contentsOf: output) == sentinel)
++        let remaining = try FileManager.default.contentsOfDirectory(atPath: directory.path)
++        #expect(remaining == ["output.gif"])
++    }
++
++    @Test func successfulReplacementPublishesCompleteGIFAndRemovesSiblingTemporary() throws {
++        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        defer { try? FileManager.default.removeItem(at: directory) }
++        let output = directory.appendingPathComponent("output.gif")
++        let sentinel = Data("previous output".utf8)
++        try sentinel.write(to: output)
++        let session = try GIFEncodeSession(frameCount: 2, loopCount: 4, to: output)
++        try session.append(RenderedGIFFrame(image: solid(255, 0, 0), delay: 0.04))
++        #expect(try Data(contentsOf: output) == sentinel)
++        try session.append(RenderedGIFFrame(image: solid(0, 255, 0), delay: 0.2))
++        let report = try session.finish()
++        let info = try ASCIIGIFDecoder().containerInfo(ofGIFAt: output)
++        #expect(report.framesWritten == 2)
++        #expect(info.frameCount == 2 && info.loopCount == 4)
++        #expect(info.canvasSize == CGSize(width: 4, height: 4))
++        #expect(info.frameDelays == [0.04, 0.2])
++        let source = try #require(CGImageSourceCreateWithURL(output as CFURL, nil))
++        let first = try #require(CGImageSourceCreateImageAtIndex(source, 0, nil))
++        let second = try #require(CGImageSourceCreateImageAtIndex(source, 1, nil))
++        expectColor(first, x: 0, y: 0, 255, 0, 0)
++        expectColor(second, x: 0, y: 0, 0, 255, 0)
++        #expect(try FileManager.default.contentsOfDirectory(atPath: directory.path) == ["output.gif"])
++    }
++
++    /// Real decoder producer rejection, not a synthetic throw in
++    /// the consumer. This does not claim a partially decoded LZW failure.
++    @Test func malformedSourceProducerFailurePreservesExistingOutput() async throws {
++        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        defer { try? FileManager.default.removeItem(at: directory) }
++        let source = directory.appendingPathComponent("source.gif")
++        try Data([0xFF, 0x00, 0xFF]).write(to: source)
++        let output = directory.appendingPathComponent("output.gif")
++        let sentinel = Data("previous output".utf8)
++        try sentinel.write(to: output)
++        do {
++            let session = try GIFEncodeSession(frameCount: 1, loopCount: 0, to: output)
++            let stream = ASCIIGIFDecoder().grids(fromGIFAt: source) { _ in
++                Issue.record("Malformed input unexpectedly reached transform")
++                return ASCIIGrid(cells: [], colorSpace: .sRGB)
++            }
++            for try await _ in stream {
++                Issue.record("Malformed input unexpectedly produced a frame")
++            }
++            _ = try session.finish()
++            Issue.record("Malformed source unexpectedly succeeded")
++        } catch GIFDecodeError.cannotOpenSource, GIFDecodeError.noFrames {
++            #expect(try Data(contentsOf: output) == sentinel)
++        }
++        #expect(try FileManager.default.contentsOfDirectory(atPath: directory.path).sorted() == ["output.gif", "source.gif"])
++    }
++
++    @Test func destinationDirectoryIsNotReplaced() throws {
++        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        defer { try? FileManager.default.removeItem(at: directory) }
++        let child = directory.appendingPathComponent("sentinel")
++        let sentinel = Data("keep directory".utf8)
++        try sentinel.write(to: child)
++        let session = try GIFEncodeSession(frameCount: 1, loopCount: 0, to: directory)
++        try session.append(RenderedGIFFrame(image: solid(1, 2, 3), delay: 0.1))
++        #expect(throws: GIFEncodeError.self) { try session.finish() }
++        #expect(try Data(contentsOf: child) == sentinel)
++    }
++
++    @Test func missingParentFailsBeforeProduction() throws {
++        let parent = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        let output = parent.appendingPathComponent("output.gif")
++        #expect(throws: GIFEncodeError.self) {
++            _ = try GIFEncodeSession(frameCount: 1, loopCount: 0, to: output)
++        }
++        #expect(!FileManager.default.fileExists(atPath: parent.path))
++    }
++
++    @Test func cancelledSessionDoesNotPublish() async throws {
++        let output = tempGIF()
++        defer { try? FileManager.default.removeItem(at: output) }
++        let sentinel = Data("existing output".utf8)
++        try sentinel.write(to: output)
++        let frame = RenderedGIFFrame(image: solid(1, 2, 3), delay: 0.1)
++        let task = Task {
++            let session = try GIFEncodeSession(frameCount: 1, loopCount: 0, to: output)
++            try session.append(frame)
++            withUnsafeCurrentTask { $0?.cancel() }
++            return try session.finish()
++        }
++        do {
++            _ = try await task.value
++            Issue.record("Cancelled GIF encode succeeded")
++        } catch is CancellationError {
++            #expect(try Data(contentsOf: output) == sentinel)
++        }
++    }
++
+ }
+diff --git a/Tests/AskiTests/AskiGIFProviderLifetimeTests.swift b/Tests/AskiTests/AskiGIFProviderLifetimeTests.swift
+new file mode 100644
+index 0000000..6134c6f
+--- /dev/null
++++ b/Tests/AskiTests/AskiGIFProviderLifetimeTests.swift
+@@ -0,0 +1,185 @@
++import CoreGraphics
++import Foundation
++import Testing
++@testable import Aski
++
++/// Opt-in ownership evidence only. Provider releases cannot observe ImageIO's
++/// internal copies, so this readout must be paired with process RSS captures.
++@Suite struct AskiGIFProviderLifetimeTests {
++    @Test(.enabled(if: ProcessInfo.processInfo.environment["ASKI_GIF_PROVIDER_LIFETIME"] == "1"))
++    func captureProviderLifetime() throws {
++        let reportPath = try #require(ProcessInfo.processInfo.environment["ASKI_GIF_PROVIDER_REPORT"])
++        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        defer { try? FileManager.default.removeItem(at: directory) }
++        var runs: [GIFProviderRun] = []
++        for frameCount in [24, 240, 1200] {
++            for retained in [false, true] {
++                let counter = GIFProviderCounter()
++                let mode = retained ? "retained" : "incremental"
++                let output = directory.appendingPathComponent("\(mode)-\(frameCount).gif")
++                var samples = try encode(
++                    count: frameCount, retained: retained, counter: counter, output: output
++                )
++                samples.append(counter.snapshot(stage: "afterSessionReleased", appended: frameCount))
++                runs.append(
++                    GIFProviderRun(
++                        mode: mode, frameCount: frameCount, width: 640, height: 360,
++                        bytesPerRow: 640 * 4, samples: samples
++                    ))
++            }
++        }
++        let report = GIFProviderReport(schemaVersion: 1, runs: runs)
++        let encoder = JSONEncoder()
++        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
++        // The caller selects a durable artifact path. No stdout-only evidence.
++        try encoder.encode(report).write(to: URL(fileURLWithPath: reportPath), options: .atomic)
++    }
++
++    private func encode(
++        count: Int, retained: Bool, counter: GIFProviderCounter, output: URL
++    ) throws -> [GIFProviderSample] {
++        let session = try GIFEncodeSession(frameCount: count, loopCount: 0, to: output)
++        var samples = [counter.snapshot(stage: "initial", appended: 0)]
++        var frames: [RenderedGIFFrame] = []
++        if retained {
++            for index in 0..<count {
++                frames.append(autoreleasepool { makeFrame(index: index, counter: counter) })
++            }
++            samples.append(counter.snapshot(stage: "afterArrayCreation", appended: 0))
++            for (index, frame) in frames.enumerated() {
++                try autoreleasepool { try session.append(frame) }
++                samples.append(counter.snapshot(stage: "afterAppend", appended: index + 1))
++            }
++        } else {
++            for index in 0..<count {
++                try autoreleasepool {
++                    try session.append(makeFrame(index: index, counter: counter))
++                }
++                samples.append(counter.snapshot(stage: "afterAppend", appended: index + 1))
++            }
++        }
++        samples.append(counter.snapshot(stage: "preFinalize", appended: count))
++        try withExtendedLifetime(frames) {
++            let report = try autoreleasepool { try session.finish() }
++            #expect(report.framesWritten == count)
++            samples.append(counter.snapshot(stage: "afterFinish", appended: count))
++        }
++        frames.removeAll()
++        samples.append(counter.snapshot(stage: "afterArrayReleased", appended: count))
++        return samples
++    }
++
++    private func makeFrame(index: Int, counter: GIFProviderCounter) -> RenderedGIFFrame {
++        let payload = GIFProviderPayload(width: 640, height: 360, index: index, counter: counter)
++        let info = Unmanaged.passRetained(payload).toOpaque()
++        // The C callback owns one retained payload. It captures no Swift state;
++        // payload deinit frees immutable storage and updates a locked counter.
++        let provider = CGDataProvider(
++            dataInfo: info, data: payload.storage, size: payload.byteCount,
++            releaseData: { info, _, _ in
++                guard let info else { return }
++                Unmanaged<GIFProviderPayload>.fromOpaque(info).release()
++            }
++        )!
++        let image = CGImage(
++            width: 640, height: 360, bitsPerComponent: 8, bitsPerPixel: 32,
++            bytesPerRow: 640 * 4, space: CGColorSpace(name: CGColorSpace.sRGB)!,
++            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
++            provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent
++        )!
++        return RenderedGIFFrame(image: image, delay: 0.04)
++    }
++}
++
++private struct GIFProviderReport: Encodable {
++    let schemaVersion: Int
++    let runs: [GIFProviderRun]
++}
++
++private struct GIFProviderRun: Encodable {
++    let mode: String
++    let frameCount: Int
++    let width: Int
++    let height: Int
++    let bytesPerRow: Int
++    let samples: [GIFProviderSample]
++}
++
++private struct GIFProviderSample: Encodable {
++    let stage: String
++    let appended: Int
++    let created: Int
++    let released: Int
++    let liveCount: Int
++    let maxLiveCount: Int
++    let liveBytes: Int
++    let maxLiveBytes: Int
++}
++
++/// Test-owned, synchronously locked because ImageIO may release a provider on
++/// another thread. No Sendable assertion is used to cross the callback boundary.
++private final class GIFProviderCounter {
++    private let lock = NSLock()
++    private var created = 0
++    private var released = 0
++    private var liveBytes = 0
++    private var maxLiveCount = 0
++    private var maxLiveBytes = 0
++
++    func add(bytes: Int) {
++        lock.lock()
++        defer { lock.unlock() }
++        created += 1
++        liveBytes += bytes
++        maxLiveCount = max(maxLiveCount, created - released)
++        maxLiveBytes = max(maxLiveBytes, liveBytes)
++    }
++
++    func release(bytes: Int) {
++        lock.lock()
++        defer { lock.unlock() }
++        released += 1
++        liveBytes -= bytes
++    }
++
++    func snapshot(stage: String, appended: Int) -> GIFProviderSample {
++        lock.lock()
++        defer { lock.unlock() }
++        return GIFProviderSample(
++            stage: stage, appended: appended, created: created, released: released,
++            liveCount: created - released, maxLiveCount: maxLiveCount,
++            liveBytes: liveBytes, maxLiveBytes: maxLiveBytes
++        )
++    }
++}
++
++/// Each provider has a distinct immutable RGBA allocation. Its sole mutation is
++/// initialization before publication; storage is freed only by payload deinit.
++private final class GIFProviderPayload {
++    let storage: UnsafeMutableRawPointer
++    let byteCount: Int
++    private let counter: GIFProviderCounter
++
++    init(width: Int, height: Int, index: Int, counter: GIFProviderCounter) {
++        byteCount = width * height * 4
++        storage = .allocate(byteCount: byteCount, alignment: 16)
++        self.counter = counter
++        let bytes = storage.bindMemory(to: UInt8.self, capacity: byteCount)
++        for y in 0..<height {
++            for x in 0..<width {
++                let offset = (y * width + x) * 4
++                bytes[offset] = UInt8((x + index) % 256)
++                bytes[offset + 1] = UInt8((y + index) % 256)
++                bytes[offset + 2] = UInt8(index % 256)
++                bytes[offset + 3] = 255
++            }
++        }
++        counter.add(bytes: byteCount)
++    }
++
++    deinit {
++        storage.deallocate()
++        counter.release(bytes: byteCount)
++    }
++}
+diff --git a/Tools/AskiVideoLab/VideoLabCLI.swift b/Tools/AskiVideoLab/VideoLabCLI.swift
+index 46c2540..2907a3a 100644
+--- a/Tools/AskiVideoLab/VideoLabCLI.swift
++++ b/Tools/AskiVideoLab/VideoLabCLI.swift
+@@ -115,49 +115,52 @@ public enum VideoLabCLI {
+                 let header = try decoder.containerHeader(ofGIFAt: inputURL)
+                 try validateGIFFrameBudget(frameCount: header.frameCount, maxFrames: arguments.maxFrames)
+                 let stream = decoder.grids(
+-                    fromGIFAt: inputURL,
++                    fromGIFAt: inputURL, maximumFrames: arguments.maxFrames,
+                     transform: { converter.convert($0, columns: arguments.columns) }
+                 )
+-                var rendered: [RenderedGIFFrame] = []
+-                var delays: [TimeInterval] = []
++                let sourceCount = min(header.frameCount, arguments.maxFrames ?? header.frameCount)
++                let sourceDuration =
++                    try arguments.targetFPS.map { _ in
++                        try decoder.containerInfo(ofGIFAt: inputURL).frameDelays.prefix(sourceCount).reduce(0, +)
++                    } ?? 0
++                let expectedCount =
++                    try arguments.targetFPS.map {
++                        try resamplePreflight(targetFPS: $0, sourceDuration: sourceDuration)
++                    } ?? sourceCount
++                let session = try GIFEncodeSession(frameCount: expectedCount, loopCount: header.loopCount, to: asciiURL)
++                var delayMin = Double.greatestFiniteMagnitude
++                var delayMax = 0.0
++                var firstDelay: TimeInterval?
++                var delayUniform = true
+                 // Accumulated OUTPUT presentation time (running sum of emitted-frame
+                 // delays, AFTER any --target-fps resample). `ASCIIGIFFrame` carries no
+                 // PTS, so this is the global-phase clock for the overlay on the GIF
+                 // path — the analogue of `ASCIIVideoFrame.time` on the MP4 paths.
+                 var patternTime: TimeInterval = 0
+-                func collect(_ frame: ASCIIGIFFrame) {
+-                    rendered.append(
+-                        GIFRenderHelper.render(
+-                            frame, font: font, backgroundColor: background, scale: scale,
+-                            pattern: arguments.ongoingPattern, effects: arguments.effects, at: patternTime
+-                        ))
+-                    delays.append(frame.delay)
++                func collect(_ frame: ASCIIGIFFrame) throws {
++                    try autoreleasepool {
++                        try session.append(
++                            GIFRenderHelper.render(
++                                frame, font: font, backgroundColor: background, scale: scale,
++                                pattern: arguments.ongoingPattern, effects: arguments.effects, at: patternTime
++                            ))
++                    }
++                    delayMin = min(delayMin, frame.delay)
++                    delayMax = max(delayMax, frame.delay)
++                    if let firstDelay {
++                        delayUniform = delayUniform && abs(frame.delay - firstDelay) < 1e-6
++                    } else {
++                        firstDelay = frame.delay
++                    }
+                     patternTime += frame.delay
+                 }
+-                // `.prefix(limit)` stops WITHOUT pulling the (limit+1)th element, so
+-                // exactly `limit` frames are decoded+converted — matching the MP4
+-                // CappedRenderDriver's "check remaining before next()" contract and
+-                // the addendum's literal `grids(...).prefix(N)`. A plain
+-                // `for-await ... { if count >= limit { break } }` would pull AND run
+-                // the converter on one extra frame before breaking.
++                // The decoder cap stops before pulling or converting an extra frame.
+                 if let targetFPS = arguments.targetFPS {
+-                    // Collect the (optionally capped) source frames, then resample.
+-                    var sourceFrames: [ASCIIGIFFrame] = []
+-                    if let limit = arguments.maxFrames {
+-                        for try await frame in stream.prefix(limit) { sourceFrames.append(frame) }
+-                    } else {
+-                        for try await frame in stream { sourceFrames.append(frame) }
+-                    }
+-                    let sourceDuration = sourceFrames.reduce(0) { $0 + $1.delay }
+-                    let reStream = AsyncThrowingStream<ASCIIGIFFrame, Error> { continuation in
+-                        for frame in sourceFrames { continuation.yield(frame) }
+-                        continuation.finish()
+-                    }
+                     let stats = ResampleStats()
+                     let resampled = try resampledGIFFrames(
+-                        reStream, targetFPS: targetFPS, sourceDuration: sourceDuration, into: stats
++                        stream, targetFPS: targetFPS, sourceDuration: sourceDuration, into: stats
+                     )
+-                    for try await frame in resampled { collect(frame) }
++                    for try await frame in resampled { try collect(frame) }
+                     resampleReport = ResampleReport(
+                         requestedFPS: targetFPS,
+                         achievedFPS: gifAchievedFPS(targetFPS: targetFPS),
+@@ -166,20 +169,12 @@ public enum VideoLabCLI {
+                         droppedCount: await stats.droppedCount,
+                         duplicatedCount: await stats.duplicatedCount
+                     )
+-                } else if let limit = arguments.maxFrames {
+-                    for try await frame in stream.prefix(limit) { collect(frame) }
+                 } else {
+-                    for try await frame in stream { collect(frame) }
+-                }
+-                let report = try await writeReplacingMediaOutput(to: asciiURL) { tempURL in
+-                    try ASCIIGIFEncoder().write(rendered, loopCount: header.loopCount, to: tempURL)
++                    for try await frame in stream { try collect(frame) }
+                 }
++                let report = try session.finish()
+                 peakBytes = await memory.finish()
+-                frameCount = rendered.count
+-                let delayMin = delays.min() ?? 0
+-                let delayMax = delays.max() ?? 0
+-                let first = delays.first ?? 0
+-                let delayUniform = delays.allSatisfy { abs($0 - first) < 1e-6 }
++                frameCount = report.framesWritten
+                 media = GIFMediaSummary(
+                     loopCount: report.loopCount,
+                     delayMin: delayMin,

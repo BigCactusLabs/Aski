@@ -27,6 +27,13 @@ public struct AnimatedASCIIGrid: Sendable {
             return baseGrid
         }
         let resolvedTime = time.isFinite ? max(0, time) : 0
+        // Keep the pulse in Double until it has been combined with the entrance alpha.
+        let pulseMultiplier: Double?
+        if case .pulse(let period, let depth)? = schedule.ongoing {
+            pulseMultiplier = PatternEvaluator.pulseAlpha(period: period, depth: depth, time: resolvedTime)
+        } else {
+            pulseMultiplier = nil
+        }
         var rows: [[ASCIICell]] = []
         rows.reserveCapacity(baseGrid.rows)
 
@@ -53,7 +60,7 @@ public struct AnimatedASCIIGrid: Sendable {
                         PatternEvaluator.entranceAlpha($0, coord: coord, time: resolvedTime, duration: duration)
                     } ?? 1
                 let ongoingAlpha =
-                    schedule.ongoing.map {
+                    pulseMultiplier ?? schedule.ongoing.map {
                         PatternEvaluator.ongoingAlpha($0, coord: coord, time: resolvedTime)
                     } ?? 1
                 let alpha = baseCell.alpha * Float(PatternEvaluator.clampUnit(entranceAlpha * ongoingAlpha, fallback: 1))

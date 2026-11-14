@@ -1,0 +1,19 @@
+{
+  "base": "bb399f9136e8c50fb2a256551bacad029115024d",
+  "patches": {
+    "control-support.patch": {
+      "from": "bb399f9136e8c50fb2a256551bacad029115024d",
+      "to": "7c60b3a24637dc42c68453298e7d318d4446bbad",
+      "sha256": "7ead9f5ed40c19b7d07b57508385cb255475c97d20a8466e31d3d959b29d71c0",
+      "scope": "Sources, Benchmarks and Tests only; source replay, no task/ledger/documentation changes"
+    },
+    "candidate-treatment.patch": {
+      "from": "7c60b3a24637dc42c68453298e7d318d4446bbad",
+      "to": "f34a0576a7b1c0d3e9b4f8d99aeea29183f7a891",
+      "sha256": "a118090f981edb8ede320d5bb5653a25cc3c5f7b9265695560682a7c764555d3",
+      "scope": "Sources, Benchmarks and Tests only; source replay, no task/ledger/documentation changes"
+    }
+  },
+  "original_commits": "Retained in local experiment branches; do not assume these unpublished commits are remotely available.",
+  "replay": "Apply control-support.patch to base for the scalar instrument, then candidate-treatment.patch for the candidate. Place the unchanged pre-registration.json at its recorded repository path before native recapture. Native toolchain/gates remain required; portable reproduction below uses the retained exports only."
+}

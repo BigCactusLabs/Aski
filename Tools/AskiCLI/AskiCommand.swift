@@ -16,7 +16,7 @@ public struct AskiCommand: AsyncParsableCommand {
         commandName: "aski",
         abstract: "Deterministic, shape-aware ASCII rendering for images and media.",
         version: ToolVersion.current,
-        subcommands: [AskiRenderCommand.self, AskiInspectCommand.self, LabCommand.self],
+        subcommands: [AskiRenderCommand.self, AskiInspectCommand.self, AskiMetadataCommand.self, LabCommand.self],
         defaultSubcommand: AskiRenderCommand.self
     )
 

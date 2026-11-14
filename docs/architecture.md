@@ -93,6 +93,33 @@ establish source or output authenticity. Its Draft 2020-12 schema is
 [`assets/schemas/aski-render-manifest-v1.schema.json`](assets/schemas/aski-render-manifest-v1.schema.json).
 It follows the same additive compatibility rule.
 
+`aski metadata` writes a JSON description of the live CLI to stdout:
+
+```bash
+swift run aski metadata
+```
+
+The [metadata v1 schema](assets/schemas/aski-metadata-v1.schema.json) describes
+the visible command tree, including `help`, in root-first depth-first order.
+Paths start with `aski`. Command aliases replace the last token of a path.
+`defaultSubcommand` names the direct child selected by default. Each command
+lists visible arguments in parser order with their spellings and cardinality.
+`defaultValue`, when present, is the parser's help text for the default and
+may require interpretation before use as an argument.
+
+Paths under `aski lab` carry the `research` classification. Other visible
+paths carry `stable`. A replay mapping replaces the historical executable
+token with its canonical lab prefix and preserves the remaining argument tokens.
+The mapping array is sorted by product. `toolVersion` reports Git HEAD in the
+invocation's working directory, as `--version` does, and uses `unknown` when Git
+cannot resolve a checkout. It describes that checkout independently of the
+revision used to build the executable.
+
+The output uses sorted keys, unescaped slashes, and one trailing newline.
+Readers must tolerate additive fields. Published field names and meanings
+follow the same v1 rule as `inspect`. Commands and defaults describe the current
+CLI surface and follow the existing pre-1.0 change policy.
+
 Research commands are grouped under one canonical namespace:
 
 ```bash

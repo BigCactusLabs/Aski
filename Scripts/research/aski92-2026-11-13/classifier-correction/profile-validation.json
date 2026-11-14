@@ -1,0 +1,40 @@
+{
+  "classification": "single diagnostic profiler validation; corrected scratch allocator; no performance comparison",
+  "created_at": "2026-11-14T18:19:03.925584+00:00",
+  "executable_sha256": "9a582bbd14aaffc0b7496ea59945fd03601fc1626744eac31ec6758e0eea2ca7",
+  "interposer_sha256": "dde5f532589148c5703d2fc2dca1d5967609e2b2d9ec7ee5fe4d88cf4d1814b8",
+  "header_sha256": "6f2fb65677db9da64f4ec27d1a87ccbc9400e3728b9d4a27f0813c092fd3c1c1",
+  "required_swift_symbols": [
+    "_$s21MallocInterposerSwiftAAC10StatisticsVMn",
+    "_$s21MallocInterposerSwiftAAC10initializeyyFZ",
+    "_$s21MallocInterposerSwiftAAC13getStatisticsAB0E0VyFZ",
+    "_$s21MallocInterposerSwiftAAC4hookyyFZ",
+    "_$s21MallocInterposerSwiftAAC6unhookyyFZ",
+    "_$s21MallocInterposerSwiftAACMa"
+  ],
+  "all_required_symbols_exported": true,
+  "binary_uuid": "UUID: 177AA8C9-7687-3FA2-84AD-4D6530E81A87 (arm64) $EVIDENCE/profile-validation/AskiBenchmarks",
+  "interposer_uuid": "UUID: BD5A1706-D94D-372F-A737-1A0D3485C80F (arm64) $EVIDENCE/profile-validation/libMallocInterposerSwift.dylib",
+  "limit_seconds": 30,
+  "maximum_captures": 1,
+  "build_note": "clang O3 arm64-macos15 selected SDK; swiftc O/g same module/target. Initial sandbox cache denial; normal escalated compile session35826 passed. Original executable unchanged.",
+  "outcome": {
+    "record_exit": 0,
+    "target_exit": 0,
+    "original_executable_unchanged": true,
+    "duration_seconds": 1.839779,
+    "persistent_allocations": 4111,
+    "freed_allocations": 109020,
+    "exported_free_timestamps": false,
+    "role": "instrument functional validation only"
+  },
+  "retained_artifacts": {
+    "toc.xml": "63f660e1480dd6e5f116164abf8a6540080ea192b34660a593f363c13b4a229f",
+    "allocations.xml": "06b99d8cadbda7abcc5eb74719621b2cb18369913b7d438ecdcd6ee12b6f6747",
+    "statistics.xml": "14ea141b3b2cf936efe9123cc71b37c56cf24dde53ff185200300b76827d9d64",
+    "capture-command.json": "811f2c514521f6d6e0e1025af09f3d2d8ddb67468b117a4c97f09d172dce8151",
+    "loaded-allocator.json": "02dfe83c827042dbc1a7a7a9367b9bd2c2a2e4cab791e091d07478c09af187f5"
+  },
+  "integration_note": "The integrated header changes explanatory comments and whitespace only relative to the scratch correction. Classifier operations are identical.",
+  "integrated_header_sha256": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4"
+}

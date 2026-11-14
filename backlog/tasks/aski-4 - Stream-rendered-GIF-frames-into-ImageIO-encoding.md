@@ -1,16 +1,18 @@
 ---
 id: ASKI-4
 title: Stream rendered GIF frames into ImageIO encoding
-status: To Do
+status: In Progress
 assignee: []
-created_date: '2026-08-18 18:01'
-updated_date: '2026-09-10 04:15'
+created_date: 2026-08-18 18:01
+updated_date: '2026-11-13T09:27:00Z'
 labels:
   - performance
   - video
   - gif
   - memory
 dependencies: []
+documentation:
+  - Scripts/research/aski4-2026-11-13/README.md
 priority: medium
 type: enhancement
 ordinal: 4000
@@ -25,11 +27,11 @@ ASCIIGIFConverter currently retains all rendered frames before ASCIIGIFEncoder w
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [ ] #1 GIF conversion can render and add frames to the destination incrementally without retaining the full rendered-frame sequence in memory.
-- [ ] #2 Frame count, frame order, per-frame delay, loop count, canvas size, alpha handling, and color behavior match the current encoder for representative fixtures.
-- [ ] #3 Producer, renderer, and destination failures stop the operation cleanly and do not report a successful finalized GIF.
+- [x] #2 Frame count, frame order, per-frame delay, loop count, canvas size, alpha handling, and color behavior match the current encoder for representative fixtures.
+- [x] #3 Producer, renderer, and destination failures stop the operation cleanly and do not report a successful finalized GIF.
 - [ ] #4 A long-animation benchmark or test demonstrates that peak resident memory is bounded by a small number of frames rather than increasing linearly with total frame count.
-- [ ] #5 Existing public GIF conversion behavior remains source compatible unless a deliberate source-breaking change is documented as materially simpler for consumers.
-- [ ] #6 just check and just bench pass without loosening an existing benchmark threshold.
+- [x] #5 Existing public GIF conversion behavior remains source compatible unless a deliberate source-breaking change is documented as materially simpler for consumers.
+- [x] #6 just check and just bench pass without loosening an existing benchmark threshold.
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -48,4 +50,10 @@ Validation to run: Add focused regression coverage for one-at-a-time production,
 First step: enumerate every `ASCIIGIFEncoder.write` call site and decide how the streaming contract coexists with the current batch API under AC#5. Trace the output transaction and failure paths before changing the producer/encoder seam.
 
 Source map: `Sources/Aski/Video/ASCIIGIFConverter.swift`, `Sources/Aski/Video/ASCIIGIFDecoder.swift`, `Sources/Aski/Video/ASCIIVideoEncoder.swift`, `docs/Research/2026-06-03-gif-lab-roundtrip-fidelity.md`.
+
+2026-11-13: a source-compatible incremental-append candidate passes the full correctness gate, but its independent provider fixture shows ImageIO retaining all original bitmaps until finalize at 24, 240 and 1200 frames. This fails the frozen bounded-lifetime requirement; removing application arrays is insufficient. Registered process-RSS and real-pipeline measurements remain in progress. No candidate source is adopted. The experiment and evidence are retained under Scripts/research/aski4-2026-11-13.
+
+All 30 registered primary captures now completed validly with no replacement or retry. Incremental median sampled RSS grows from 332,136,447 bytes at 240 frames to 1,560,281,087 at 1200: a 1,228,144,640-byte increase versus the frozen 16,777,216-byte allowance. The retained control also grows strongly. Together with N live original providers before finalize, this rejects the candidate under both independent memory requirements. Portable raw evidence and reproduction are saved; no treatment is integrated.
+
+Verification complete for the rejected candidate: 65 affected tests and full just check passed (1537 core, 186 media, 2 sentinels, DocC); all 10 actual pipeline cases passed metadata checks; just bench produced valid evidence for all 239 workloads. The corrected canonical absolute check passed all 11 unchanged configured budgets after preserving one setup failure. AC 2/3/5/6 record these candidate contracts and gates, not adoption. AC 1/4 remain unmet. ImageIO finalize-false was inspected, not fault-injected. The full portable primary packet, supplemental source/data and native provenance are retained in the linked README; no GIF production code is integrated.
 <!-- SECTION:NOTES:END -->

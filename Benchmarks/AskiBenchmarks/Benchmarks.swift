@@ -1,8 +1,15 @@
 import Aski
 import Benchmark
 import CoreGraphics
+import Darwin
+import Foundation
+#if canImport(MallocInterposerSwift)
+    import MallocInterposerSwift
+#endif
 
 let benchmarks: @Sendable () -> Void = {
+    reportAllocatorObservation()
+
     Benchmark.defaultConfiguration = .init(
         metrics: [.wallClock, .mallocCountTotal, .allocatedResidentMemory],
         warmupIterations: 3,
@@ -80,4 +87,35 @@ internal func makeGradient(width: Int, height: Int) -> CGImage {
     }
 
     return context.makeImage()!
+}
+
+// Runs before registration, outside every measured workload. The pinned runner
+// enables counting only around measurement and takes fresh counter snapshots.
+private func reportAllocatorObservation() {
+    var observation: [String: Any] = ["schema_version": 1, "pid": getpid(), "backend": "unavailable"]
+    #if canImport(MallocInterposerSwift)
+        let symbol = dlsym(UnsafeMutableRawPointer(bitPattern: -2), "malloc_interposer_get_stats")
+        var info = Dl_info()
+        if let symbol, dladdr(symbol, &info) != 0, let image = info.dli_fname {
+            observation["image"] = String(cString: image)
+        }
+        MallocInterposerSwift.hook()
+        let before = MallocInterposerSwift.getStatistics()
+        // A real libc allocation, escaped through blackHole so release optimization
+        // cannot remove the call. No counter reset changes upstream state.
+        let pointer = malloc(4096)
+        blackHole(pointer)
+        free(pointer)
+        let after = MallocInterposerSwift.getStatistics()
+        MallocInterposerSwift.unhook()
+        observation["backend"] = "malloc-interposer"
+        observation["malloc_delta"] = after.mallocCount - before.mallocCount
+        observation["free_delta"] = after.freeCount - before.freeCount
+        observation["allocated"] = pointer != nil
+    #endif
+    if let data = try? JSONSerialization.data(withJSONObject: observation, options: [.sortedKeys]),
+        let json = String(data: data, encoding: .utf8)
+    {
+        FileHandle.standardError.write(Data(("ASKI_ALLOCATOR_OBSERVATION " + json + "\n").utf8))
+    }
 }

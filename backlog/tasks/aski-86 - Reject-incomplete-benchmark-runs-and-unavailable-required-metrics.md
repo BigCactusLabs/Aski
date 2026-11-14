@@ -1,10 +1,10 @@
 ---
 id: ASKI-86
 title: Reject incomplete benchmark runs and unavailable required metrics
-status: To Do
+status: Done
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T05:22:00Z'
+updated_date: '2026-11-13T06:33:00Z'
 labels:
   - performance
   - benchmarks
@@ -33,12 +33,18 @@ This task owns validity/completeness of benchmark evidence. ASKI-5 owns numeric 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The canonical validation command exits nonzero when any selected workload fails setup/execution, returns no samples, or is unexpectedly absent; diagnostics identify the workload and cause.
-- [ ] #2 An explicitly required unavailable metric fails validation or uses a documented, verified alternative; optional metric omissions are recorded and cannot satisfy a required budget.
+- [x] #1 The canonical validation command exits nonzero when any selected workload fails setup/execution, returns no samples, or is unexpectedly absent; diagnostics identify the workload and cause.
+- [x] #2 An explicitly required unavailable metric fails validation or uses a documented, verified alternative; optional metric omissions are recorded and cannot satisfy a required budget.
 - [x] #3 Validation covers intentional setup failure, execution failure, empty selection, missing samples, unavailable required metrics, and a successful complete run.
 - [x] #4 Successful results retain workload identity, units, toolchain/backend identity, and enough information to distinguish a complete run from a partial one.
 - [x] #5 The solution preserves existing thresholds and the one-build just check ordering; relevant tooling checks, just check, and the validated benchmark subset pass.
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Inspect pinned native runner and allocator APIs; run bounded native success and genuine setup/execution failure captures without permanent fault switches; add runtime allocator observation if supported, portable regressions and precise evidence documentation. Preserve thresholds and check ordering; leave final acceptance to lead.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
@@ -54,4 +60,10 @@ Audit 2026-11-12: PR #7 is no longer open: it merged as 969ba20 on 2026-11-12 an
 2026-11-13: owner ruling: AC#3-5 are met by public PR #7 (969ba20; synthetic setup/execution/empty/missing/required-metric coverage, inventory with units and provenance, just check passed with thresholds unchanged). AC#1 and AC#2 stay open: a genuine native setup/execution failure and a probed (not configured) allocator identity remain. Moved to To Do because no work is active.
 
 2026-11-13: PRs #9 and #10 now target main, so deleting work/aski-86-benchmark-validity no longer closes them.
+
+2026-11-13 bounded native replay: canonical just bench rejected genuine Foundation setup and execution failures (NSCocoaErrorDomain 256 / POSIX 20) with exit 1 despite plugin exit 0; a valid render workload still exported samples. Temporary failure registrations were restored. In-process allocator observations resolve the interposer image and show positive allocation/free counter deltas. Added parser regressions; host-access focused suite passed 53 tests with one existing expected failure (short-write limitation). Full smoke, just check and just test-infra remain integration gates; acceptance and completion belong to the lead.
+
+2026-11-13 review repair 86-R1: raw allocator observations moved out of comparable identity into allocator_observations; identity retains only normalized observed backend and image basename. Mixed observed identities within a capture fail validation. Cross-run regression verifies distinct process IDs, paths and deltas remain comparable while changed observed backend remains incompatible. Retained native logs replayed through repaired parser; native helper unchanged. Final gates remain with lead.
+
+Completed 2026-11-13 after native acceptance: actual Foundation setup/execution failures produced no samples while plugin exited zero and canonical validator exited one; explicitly required unavailable allocatedResidentMemory also failed. The actual benchmark process resolved the loaded interposer and positive malloc/free deltas. Stable backend identity excludes PID/path/deltas so compatible paired captures compare; raw observations remain. Full just check passed 1537 core/177 media/2 sentinels and DocC; test-infra passed 139 tests with one existing expected failure; all six canonical smoke workloads exported required wallClock/mallocCountTotal. Independent review and lead diagnostics fix complete. No thresholds/goldens/one-build ordering changed. Public compact evidence: Scripts/research/aski86-2026-11-13/. Only evidence/changelog/task metadata changed after the frozen source gate.
 <!-- SECTION:NOTES:END -->

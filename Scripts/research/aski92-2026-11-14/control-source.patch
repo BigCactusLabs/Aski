@@ -1,0 +1,1105 @@
+diff --git a/Benchmarks/AskiBenchmarks/Benchmarks.swift b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+index 6c9e4ac..b56f711 100644
+--- a/Benchmarks/AskiBenchmarks/Benchmarks.swift
++++ b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+@@ -65,6 +65,7 @@ let benchmarks: @Sendable () -> Void = {
+     addASTSK55Benchmarks()
+     addPreparationBenchmarks()
+     addShapeContextFootprintBenchmarks()
++    addTileColorSampleBenchmarks()
+ }
+ 
+ internal func makeGradient(width: Int, height: Int) -> CGImage {
+diff --git a/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift b/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift
+new file mode 100644
+index 0000000..81fb53c
+--- /dev/null
++++ b/Benchmarks/AskiBenchmarks/TileColorSampleBenchmarks.swift
+@@ -0,0 +1,84 @@
++import Aski
++import Benchmark
++import CoreGraphics
++import Foundation
++
++/// ASKI-92 instruments, not budgets. Resolve/convert timing includes sample
++/// preparation. Stage timing excludes upstream stages; RSS still describes the
++/// child process during measurement, including fixture memory still resident.
++func addTileColorSampleBenchmarks() {
++    let spaces: [(String, RenderColorSpace)] = [("srgb", .sRGB), ("p3", .displayP3)]
++    for (spaceName, space) in spaces {
++        for alphaMode in ["opaque", "mixed"] {
++            for columns in [8, 80, 256] {
++                let side = columns * 2
++                let key = "\(side)x\(side)-\(spaceName)-\(alphaMode)"
++
++                for count in [8, 16, 64, 256] {
++                    Benchmark("aski92-convert-\(key)-\(columns)cols-k\(count)", configuration: tileSampleConfiguration()) { benchmark in
++                        let image = tileSampleImage(side: side, alphaMode: alphaMode, space: space)
++                        let converter = TileGridConverter(palette: .adaptive(maxColors: count), colorSpace: space)
++                        benchmark.startMeasurement()
++                        for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                        benchmark.stopMeasurement()
++                    }
++                }
++                Benchmark("aski92-fixed-\(key)-\(columns)cols", configuration: tileSampleConfiguration()) { benchmark in
++                    let image = tileSampleImage(side: side, alphaMode: alphaMode, space: space)
++                    let converter = TileGridConverter(palette: .brick, colorSpace: space)
++                    benchmark.startMeasurement()
++                    for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                    benchmark.stopMeasurement()
++                }
++            }
++        }
++        for columns in [8, 80, 256] {
++            let side = columns * 2
++            Benchmark("aski92-transparent-\(side)x\(side)-\(spaceName)-\(columns)cols", configuration: tileSampleConfiguration()) { benchmark in
++                let image = tileSampleImage(side: side, alphaMode: "transparent", space: space)
++                let converter = TileGridConverter(palette: .adaptive(maxColors: 16), colorSpace: space)
++                benchmark.startMeasurement()
++                for _ in benchmark.scaledIterations { blackHole(converter.convert(image, columns: columns)) }
++                benchmark.stopMeasurement()
++            }
++        }
++    }
++}
++
++func tileSampleConfiguration() -> Benchmark.Configuration {
++    .init(
++        metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
++        units: [.mallocCountTotal: .count, .peakMemoryResident: .count],
++        warmupIterations: 1,
++        scalingFactor: .one,
++        maxDuration: .seconds(3),
++        maxIterations: 6
++    )
++}
++
++func tileSamplePixels(side: Int, alphaMode: String) -> [UInt8] {
++    var pixels = [UInt8](repeating: 0, count: side * side * 4)
++    for y in 0..<side {
++        for x in 0..<side {
++            let index = y * side + x
++            let offset = index * 4
++            let alpha = alphaMode == "transparent" ? 0 : (alphaMode == "opaque" ? 255 : (index * 37) & 255)
++            pixels[offset] = UInt8(((x * 13 + y * 7) & 255) * alpha / 255)
++            pixels[offset + 1] = UInt8(((x * 3 + y * 19) & 255) * alpha / 255)
++            pixels[offset + 2] = UInt8((((x ^ y) * 11) & 255) * alpha / 255)
++            pixels[offset + 3] = UInt8(alpha)
++        }
++    }
++    return pixels
++}
++
++private func tileSampleImage(side: Int, alphaMode: String, space: RenderColorSpace) -> CGImage {
++    let pixels = tileSamplePixels(side: side, alphaMode: alphaMode)
++    let cgSpace = CGColorSpace(name: space == .sRGB ? CGColorSpace.sRGB : CGColorSpace.displayP3)!
++    let provider = CGDataProvider(data: Data(pixels) as CFData)!
++    return CGImage(
++        width: side, height: side, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: side * 4,
++        space: cgSpace, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue),
++        provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent
++    )!
++}
+diff --git a/Sources/Aski/Aski.docc/CommandLine.md b/Sources/Aski/Aski.docc/CommandLine.md
+index dda5845..9d6b555 100644
+--- a/Sources/Aski/Aski.docc/CommandLine.md
++++ b/Sources/Aski/Aski.docc/CommandLine.md
+@@ -156,18 +156,6 @@ Schemas and field contracts live in the repository's
+ [command-line architecture reference](https://github.com/BigCactusLabs/Aski/blob/main/docs/architecture.md#command-line-product).
+ `--write-manifest` belongs to `render`, not `inspect`.
+ 
+-## Discover CLI commands
+-
+-Use `metadata` to read command paths, aliases, visible arguments, and replay
+-product mappings as versioned JSON.
+-
+-```bash
+-xcrun swift run aski metadata
+-```
+-
+-See the [CLI automation contracts](https://github.com/BigCactusLabs/Aski/blob/main/docs/architecture.md#command-line-product)
+-for the metadata schema and field definitions.
+-
+ ## Reuse a built executable
+ 
+ Build once, then call the executable in SwiftPM's reported binary directory:
+diff --git a/Sources/Aski/Aski.docc/Effects.md b/Sources/Aski/Aski.docc/Effects.md
+index 86de926..972513b 100644
+--- a/Sources/Aski/Aski.docc/Effects.md
++++ b/Sources/Aski/Aski.docc/Effects.md
+@@ -23,8 +23,6 @@ Active-region grounds use the same grouped ordering in synchronous and asynchron
+ 
+ Background, ``ColorOverlay``, and ``PointLight`` colors are interpreted in their `CGColor`'s declared color space and color-matched into the render's working and output spaces, so a Display P3 overlay keeps its P3 meaning in an sRGB render. `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, which is matched like any other; use `CGColor(srgbRed:green:blue:alpha:)` for sRGB component values. ``ColorOverlay/opacity`` replaces the overlay color's own alpha. ``PointLight/intensity`` scales the light's encoded sRGB components, and each scaled component stops at 1, or at the light's own value when a wide-gamut light's component exceeds 1, so an intensity above 1 saturates the light instead of overdriving it.
+ 
+-Lighting multiplies the image by a light field built in linear light: the ``LightingOptions/ambient`` gray plus every ``PointLight``, each strongest at its ``PointLight/position`` and fading to no light at its ``PointLight/radius``. Over a white image, a light of intensity 1 with ambient 0 renders exactly the light's color at its center, and ambient alone renders the ambient gray: `ambient: 1` with no lights leaves the image unchanged, and the default 0.5 renders white as sRGB gray 0.5. Positions are fractions of the output with (0, 0) at the bottom-left corner, and the radius is a fraction of the output's longer side. The image keeps its alpha, and only the first four lights are used.
+-
+ ## ASCIIGrid quick start
+ 
+ ```swift
+diff --git a/Sources/Aski/Effects/Internal/LightingApplicator.swift b/Sources/Aski/Effects/Internal/LightingApplicator.swift
+index 72646ef..b7e9e4c 100644
+--- a/Sources/Aski/Effects/Internal/LightingApplicator.swift
++++ b/Sources/Aski/Effects/Internal/LightingApplicator.swift
+@@ -23,10 +23,7 @@ internal struct LightingApplicator: Sendable {
+         }
+ 
+         let ambientField = constantField(intensity: lighting.ambient, extent: context.outputExtent)
+-        // Addition also sums alpha. Keep the field's premultiplied RGB, but make
+-        // it opaque so excess alpha cannot brighten color or increase input alpha.
+         let combined = additive(lightField, with: ambientField, extent: context.outputExtent)
+-            .settingAlphaOne(in: context.outputExtent)
+         return multiply(image, with: combined, extent: context.outputExtent)
+     }
+ 
+diff --git a/Sources/Aski/Effects/LightingOptions.swift b/Sources/Aski/Effects/LightingOptions.swift
+index 75beb68..d7c982b 100644
+--- a/Sources/Aski/Effects/LightingOptions.swift
++++ b/Sources/Aski/Effects/LightingOptions.swift
+@@ -1,21 +1,9 @@
+ import CoreGraphics
+ 
+-/// A radial light for ``LightingOptions``.
+-///
+-/// Over a white image with no ambient light, a light of ``intensity`` 1 renders
+-/// exactly ``color`` at ``position`` and fades to no light at ``radius``.
+ public struct PointLight: Sendable {
+-    /// The light's center as fractions of the output width and height, with (0, 0)
+-    /// at the bottom-left corner.
+     public var position: CGPoint
+-    /// The distance at which the light reaches zero, as a fraction of the output's
+-    /// longer side.
+     public var radius: Double
+-    /// A scale for the light's encoded sRGB components. Each scaled component stops
+-    /// at 1, or at the color's own value when a wide-gamut component exceeds 1, so
+-    /// values above 1 saturate the light instead of overdriving it.
+     public var intensity: Double
+-    /// The light's color, interpreted in the color space the `CGColor` declares.
+     public var color: CGColor
+ 
+     public init(position: CGPoint, radius: Double, intensity: Double, color: CGColor) {
+@@ -26,16 +14,8 @@ public struct PointLight: Sendable {
+     }
+ }
+ 
+-/// Point lights and an ambient level that multiply the rendered image.
+-///
+-/// The light field is the ambient gray plus every light, added in linear light. It
+-/// multiplies the image after mask composition and before the effect chain, and the
+-/// image keeps its alpha. Only the first four lights are used.
+ public struct LightingOptions: Sendable {
+     public var lights: [PointLight]
+-    /// The gray level present everywhere, as an encoded sRGB value; negative values
+-    /// count as 0. With no lights, white renders as this gray, so 1 leaves the image
+-    /// unchanged.
+     public var ambient: Double
+ 
+     public init(lights: [PointLight], ambient: Double = 0.5) {
+diff --git a/Tests/AskiTests/AskiMetadataCommandSurfaceTests.swift b/Tests/AskiTests/AskiMetadataCommandSurfaceTests.swift
+deleted file mode 100644
+index c01dccc..0000000
+--- a/Tests/AskiTests/AskiMetadataCommandSurfaceTests.swift
++++ /dev/null
+@@ -1,254 +0,0 @@
+-import ArgumentParser
+-import Foundation
+-import Testing
+-
+-@testable import AskiCLI
+-import AskiToolSupport
+-
+-@Suite struct AskiMetadataCommandSurfaceTests {
+-    private typealias JSON = [String: Any]
+-
+-    private static var root: URL {
+-        URL(fileURLWithPath: #filePath)
+-            .deletingLastPathComponent()
+-            .deletingLastPathComponent()
+-            .deletingLastPathComponent()
+-    }
+-
+-    @Test func builtMetadataMatchesLiveCommandSurface() throws {
+-        let output = try Self.runAski(["metadata"], in: Self.root)
+-        #expect(output == (try Self.runAski(["metadata"], in: Self.root)))
+-        #expect(output.last == 0x0A)
+-        #expect(output.dropLast().last != 0x0A)
+-        let report = try Self.object(from: output)
+-        let json = String(decoding: output, as: UTF8.self)
+-        let topLevelKeys = json.split(separator: "\n")
+-            .filter { $0.hasPrefix("  \"") }
+-            .compactMap { $0.split(separator: "\"").dropFirst().first }
+-        #expect(topLevelKeys == ["commands", "replayMappings", "schemaVersion", "toolVersion"])
+-        #expect(!json.contains("\\/"))
+-        #expect(report["schemaVersion"] as? Int == 1)
+-
+-        let revision = GitSHA.probe(workingDirectory: Self.root.path)
+-        #expect(revision != "unknown")
+-        #expect(report["toolVersion"] as? String == revision)
+-        let version = try Self.runAski(["--version"], in: Self.root)
+-        #expect(String(decoding: version, as: UTF8.self).trimmingCharacters(in: .newlines) == revision)
+-
+-        let liveHelp = try Self.help(AskiCommand.self)
+-        let liveCommands = try Self.flatten(liveHelp)
+-        let commands = try #require(report["commands"] as? [JSON])
+-        #expect(NSDictionary(dictionary: ["commands": commands]) == NSDictionary(dictionary: ["commands": liveCommands]))
+-
+-        let paths = try commands.map { try #require($0["path"] as? [String]) }
+-        #expect(Set(paths).count == paths.count)
+-        #expect(paths.contains(["aski", "metadata"]))
+-        #expect(paths.contains(["aski", "help"]))
+-        #expect(!paths.contains { $0.count > 2 && $0.last == "help" })
+-
+-        let liveDefaults = Self.configuredDefaults(AskiCommand.self)
+-        for command in commands {
+-            let path = try #require(command["path"] as? [String])
+-            let actual = command["defaultSubcommand"] as? String
+-            #expect(actual == liveDefaults[path])
+-            if let actual {
+-                #expect(paths.contains(path + [actual]))
+-            }
+-        }
+-        #expect(liveDefaults[["aski"]] == "render")
+-        #expect(liveDefaults[["aski", "lab", "motion"]] == "animate")
+-
+-        try Self.checkReplayMappings(report, liveHelp: liveHelp, paths: Set(paths))
+-    }
+-
+-    @Test func checkoutRevisionIsUnknownOutsideGit() throws {
+-        let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+-        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+-        defer { try? FileManager.default.removeItem(at: directory) }
+-        let output = try Self.runAski(["metadata"], in: directory, withoutGitOverrides: true)
+-        #expect(try Self.object(from: output)["toolVersion"] as? String == "unknown")
+-    }
+-
+-    @Test func aliasesVisibilityAndImplicitDefaultFollowConfiguration() throws {
+-        let report = try Self.object(from: AskiMetadataCommand.documentData(root: FixtureRoot.self))
+-        let commands = try #require(report["commands"] as? [JSON])
+-        let paths = commands.compactMap { $0["path"] as? [String] }
+-        #expect(paths == [["aski"], ["aski", "fixture-child"], ["aski", "help"]])
+-        #expect(commands.first?["defaultSubcommand"] as? String == "fixture-child")
+-        let child = try #require(commands.first { $0["path"] as? [String] == ["aski", "fixture-child"] })
+-        #expect(child["aliases"] as? [String] == ["shortcut"])
+-        let arguments = try #require(child["arguments"] as? [JSON])
+-        let names = arguments.compactMap { $0["names"] as? [String] }
+-        #expect(names.contains(["--fixture-value"]))
+-        #expect(!names.joined().contains("--fixture-secret"))
+-        let visible = try #require(arguments.first { $0["names"] as? [String] == ["--fixture-value"] })
+-        #expect(visible["defaultValue"] as? String == "example/path")
+-        #expect(visible["isOptional"] as? Bool == true)
+-    }
+-
+-    @Test func committedSchemaDescribesTheV1Contract() throws {
+-        let schemaURL = Self.root.appending(path: "docs/assets/schemas/aski-metadata-v1.schema.json")
+-        let schema = try Self.object(from: Data(contentsOf: schemaURL))
+-        #expect(schema["$schema"] as? String == "https://json-schema.org/draft/2020-12/schema")
+-        let properties = try #require(schema["properties"] as? [String: JSON])
+-        #expect(properties["schemaVersion"]?["const"] as? Int == 1)
+-        #expect(Set(schema["required"] as? [String] ?? []) == ["schemaVersion", "toolVersion", "commands", "replayMappings"])
+-        let definitions = try #require(schema["$defs"] as? [String: JSON])
+-        let command = try #require(definitions["command"]?["properties"] as? [String: JSON])
+-        #expect(command["stability"]?["enum"] as? [String] == ["stable", "research"])
+-        let argument = try #require(definitions["argument"]?["properties"] as? [String: JSON])
+-        #expect(argument["kind"]?["enum"] as? [String] == ["positional", "option", "flag"])
+-        #expect(argument["defaultValue"]?["type"] as? String == "string")
+-        for additiveObject in [schema, definitions["command"], definitions["argument"], definitions["replayMapping"]] {
+-            #expect(additiveObject?["additionalProperties"] as? Bool == true)
+-        }
+-    }
+-
+-    private static func checkReplayMappings(_ report: JSON, liveHelp: JSON, paths: Set<[String]>) throws {
+-        let manifest = try String(contentsOf: root.appending(path: "Package.swift"), encoding: .utf8)
+-        let replayProduct = try NSRegularExpression(pattern: #"\.executable\(\s*name:\s*"(Aski[A-Za-z0-9]*Lab)""#)
+-        let declaredProducts = replayProduct.matches(in: manifest, range: NSRange(manifest.startIndex..., in: manifest))
+-            .compactMap { Range($0.range(at: 1), in: manifest).map { String(manifest[$0]) } }
+-
+-        let mappings = try #require(report["replayMappings"] as? [JSON])
+-        let products = try mappings.map { try #require($0["product"] as? String) }
+-        #expect(products == declaredProducts.sorted())
+-        #expect(!products.isEmpty)
+-
+-        let lab = try child(named: "lab", of: liveHelp)
+-        let replayPaths = try mappings.map { try #require($0["canonicalPath"] as? [String]) }
+-        let labChildren = try #require(lab["subcommands"] as? [JSON])
+-        let expectedPaths = labChildren.filter { $0["shouldDisplay"] as? Bool == true }.compactMap {
+-            ($0["commandName"] as? String).map { ["aski", "lab", $0] }
+-        }
+-        #expect(Set(replayPaths) == Set(expectedPaths))
+-        for (product, canonicalPath) in zip(products, replayPaths) {
+-            #expect(paths.contains(canonicalPath))
+-            let labName = try #require(canonicalPath.last)
+-            let replay = try #require(CommandSurfaceGoldenTests.tools.first { $0.name == product })
+-            let replayDump = try object(from: Data(replay.dumpHelp().utf8))
+-            let replayRoot = try #require(replayDump["command"] as? JSON)
+-            let canonical = try child(named: labName, of: lab)
+-            let canonicalSurface = try relativeSurface(canonical)
+-            let replaySurface = try relativeSurface(replayRoot)
+-            #expect(NSDictionary(dictionary: ["surface": canonicalSurface]) == NSDictionary(dictionary: ["surface": replaySurface]))
+-        }
+-    }
+-
+-    private static func help(_ command: ParsableCommand.Type) throws -> JSON {
+-        let dump = try object(from: Data(command._dumpHelp().utf8))
+-        #expect(dump["serializationVersion"] as? Int == 0)
+-        return try #require(dump["command"] as? JSON)
+-    }
+-
+-    private static func object(from data: Data) throws -> JSON {
+-        try #require(JSONSerialization.jsonObject(with: data) as? JSON)
+-    }
+-
+-    private static func child(named name: String, of node: JSON) throws -> JSON {
+-        try #require((node["subcommands"] as? [JSON])?.first { $0["commandName"] as? String == name })
+-    }
+-
+-    private static func flatten(_ node: JSON, parents: [String] = []) throws -> [JSON] {
+-        guard node["shouldDisplay"] as? Bool == true else { return [] }
+-        let path = parents + [try #require(node["commandName"] as? String)]
+-        let arguments = (node["arguments"] as? [JSON] ?? []).filter { $0["shouldDisplay"] as? Bool == true }
+-        let publicArguments: [JSON] = try arguments.map { argument in
+-            var result = argument.filter { ["defaultValue", "isOptional", "isRepeating", "kind", "valueName"].contains($0.key) }
+-            result["names"] = try (argument["names"] as? [JSON] ?? []).map { name in
+-                let prefix = name["kind"] as? String == "long" ? "--" : "-"
+-                return prefix + (try #require(name["name"] as? String))
+-            }
+-            return result
+-        }
+-        var command: JSON = [
+-            "path": path,
+-            "aliases": node["aliases"] as? [String] ?? [],
+-            "stability": path.prefix(2).elementsEqual(["aski", "lab"]) ? "research" : "stable",
+-            "arguments": publicArguments,
+-        ]
+-        command["defaultSubcommand"] = node["defaultSubcommand"]
+-        let children = node["subcommands"] as? [JSON] ?? []
+-        return [command] + (try children.flatMap { try flatten($0, parents: path) })
+-    }
+-
+-    private static func relativeSurface(_ node: JSON) throws -> [JSON] {
+-        try flatten(node).compactMap { command in
+-            let path = try #require(command["path"] as? [String])
+-            // Replay roots have an injected help child that is not part of the lab.
+-            guard path.count != 2 || path.last != "help" else { return nil }
+-            var relative = command
+-            relative["path"] = Array(path.dropFirst())
+-            relative["stability"] = nil
+-            return relative
+-        }
+-    }
+-
+-    private static func configuredDefaults(
+-        _ type: ParsableCommand.Type,
+-        parents: [String] = []
+-    ) -> [[String]: String] {
+-        let configuration = type.configuration
+-        guard configuration.shouldDisplay else { return [:] }
+-        let path = parents + [type._commandName]
+-        var defaults: [[String]: String] = [:]
+-        defaults[path] = configuration.defaultSubcommand?._commandName
+-        for child in configuration.subcommands {
+-            defaults.merge(configuredDefaults(child, parents: path)) { first, _ in first }
+-        }
+-        return defaults
+-    }
+-
+-    private static func runAski(
+-        _ arguments: [String],
+-        in directory: URL,
+-        withoutGitOverrides: Bool = false
+-    ) throws -> Data {
+-        let process = Process()
+-        process.executableURL = root.appending(path: ".build/debug/aski")
+-        process.arguments = arguments
+-        process.currentDirectoryURL = directory
+-        if withoutGitOverrides {
+-            process.environment = ProcessInfo.processInfo.environment.filter { !$0.key.hasPrefix("GIT_") }
+-        }
+-
+-        // Use a file for stderr so an unexpected large error cannot block stdout.
+-        let errorURL = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+-        try Data().write(to: errorURL, options: .withoutOverwriting)
+-        defer { try? FileManager.default.removeItem(at: errorURL) }
+-        let errorOutput = try FileHandle(forWritingTo: errorURL)
+-        defer { try? errorOutput.close() }
+-        let output = Pipe()
+-        process.standardOutput = output
+-        process.standardError = errorOutput
+-        try process.run()
+-        let data = output.fileHandleForReading.readDataToEndOfFile()
+-        process.waitUntilExit()
+-        let errors = try Data(contentsOf: errorURL)
+-        #expect(process.terminationStatus == 0, "aski \(arguments) failed: \(String(decoding: errors, as: UTF8.self))")
+-        #expect(errors.isEmpty)
+-        return data
+-    }
+-
+-    private struct FixtureRoot: ParsableCommand {
+-        static let configuration = CommandConfiguration(
+-            commandName: "aski",
+-            subcommands: [FixtureChild.self, HiddenChild.self],
+-            defaultSubcommand: FixtureChild.self
+-        )
+-    }
+-
+-    private struct FixtureChild: ParsableCommand {
+-        static let configuration = CommandConfiguration(aliases: ["shortcut"])
+-
+-        @Option(help: "A visible option.")
+-        var fixtureValue = "example/path"
+-
+-        @Flag(help: .hidden)
+-        var fixtureSecret = false
+-    }
+-
+-    private struct HiddenChild: ParsableCommand {
+-        static let configuration = CommandConfiguration(shouldDisplay: false, subcommands: [FixtureChild.self])
+-    }
+-}
+diff --git a/Tests/AskiTests/BackendHDRInputParityTests.swift b/Tests/AskiTests/BackendHDRInputParityTests.swift
+deleted file mode 100644
+index a6366c4..0000000
+--- a/Tests/AskiTests/BackendHDRInputParityTests.swift
++++ /dev/null
+@@ -1,231 +0,0 @@
+-@_spi(AskiResearch) import Aski
+-import CoreGraphics
+-import CoreImage
+-import CryptoKit
+-import Darwin
+-import Foundation
+-import ImageIO
+-import Testing
+-@testable import AskiHDRLab
+-
+-@Suite struct BackendHDRInputParityTests {
+-    private static let outputVariable = "ASKI_HDR_BOUNDARY_OUTPUT"
+-    private static let passes = 1...3
+-
+-    @Test(.enabled(if: ProcessInfo.processInfo.environment[BackendHDRInputParityTests.outputVariable] != nil))
+-    func captureHDRBoundary() throws {
+-        let path = try #require(ProcessInfo.processInfo.environment[Self.outputVariable])
+-        try #require(path.hasPrefix("/"))
+-        let output = URL(fileURLWithPath: path, isDirectory: true)
+-        // mkdir is exclusive. A pre-existing directory or symlink cannot become a capture.
+-        let result = output.path.withCString { mkdir($0, 0o700) }
+-        try #require(result == 0, "Capture requires a new directory with an existing parent")
+-
+-        let command = try HDREvaluateCommand.parse(["--output-dir", path])
+-        let color = try #require(UInt32(command.backgroundHex.dropFirst(), radix: 16))
+-        try #require(command.backgroundHex.hasPrefix("#") && command.backgroundHex.count == 7)
+-        // Match HDRLabCLI.cgColor(fromHex:): opaque transfer-encoded sRGB.
+-        let background = CGColor(
+-            srgbRed: CGFloat((color >> 16) & 255) / 255, green: CGFloat((color >> 8) & 255) / 255,
+-            blue: CGFloat(color & 255) / 255, alpha: 1)
+-        let scale: CGFloat = 1
+-        let preserveSourceAspect = false
+-        let font = ASCIIFont.system(size: HDRLabCLI.fontSize)
+-        let fixtures = HDRFixtures.all(columns: command.columns)
+-        let context = CIContext()
+-        let sweep = HDRLabCLI.kSweep
+-        try #require(fixtures.count == 9 && Set(fixtures.map(\.id)).count == 9)
+-        try #require(sweep == [0, 1, 2, 4])
+-
+-        var cases: [[String: Any]] = []
+-        var measurements = Array(repeating: [HDRMeasurement](), count: Self.passes.count)
+-        for fixture in fixtures {
+-            let sdr = fixture.grid.renderImage(font: font, backgroundColor: background, scale: scale, preserveSourceAspect: preserveSourceAspect)
+-            let gamut = fixture.gamut == .sRGB ? "sRGB" : "displayP3"
+-            let gamutName = fixture.gamut == .sRGB ? CGColorSpace.sRGB : CGColorSpace.displayP3
+-            let gamutSpace = CGColorSpace(name: gamutName) ?? CGColorSpaceCreateDeviceRGB()
+-            for k in sweep {
+-                let emission = EmissionOptions(
+-                    k: k, threshold: HDRLabCLI.emissionThreshold, maxHeadroom: HDRLabCLI.emissionMaxHeadroom,
+-                    source: fixture.emissionSource)
+-                let hdr = try #require(
+-                    fixture.grid.renderExtendedRangeImage(
+-                        font: font, backgroundColor: background, scale: scale, preserveSourceAspect: preserveSourceAspect, emission: emission))
+-                try #require(hdr.width == sdr.width && hdr.height == sdr.height)
+-                try #require(sdr.bitsPerComponent == 8 && sdr.bitsPerPixel == 32)
+-                try #require(hdr.bitsPerComponent == 16 && hdr.bitsPerPixel == 64)
+-
+-                for pass in Self.passes {
+-                    let sdrInput = try Self.fingerprint(sdr)
+-                    let hdrInput = try Self.fingerprint(hdr)
+-                    let floatStats = HDRArtifacts.floatStats(hdr, maxHeadroom: HDRLabCLI.emissionMaxHeadroom)
+-                    let file = "\(fixture.id)-k\(Int(k))-r\(pass).heic"
+-                    let url = output.appendingPathComponent(file)
+-                    try HDRArtifacts.writeGainMapHEIC(sdr: sdr, hdr: hdr, gamutSpace: gamutSpace, ciContext: context, to: url)
+-                    let measurement = HDRMeasurement(
+-                        fixtureID: fixture.id, gamut: gamut, expectation: fixture.expectation.rawValue,
+-                        k: k, threshold: HDRLabCLI.emissionThreshold, maxHeadroom: HDRLabCLI.emissionMaxHeadroom,
+-                        contentHeadroom: HDRArtifacts.contentHeadroom(ofHEIC: url),
+-                        hdrMaxChannel: floatStats.maxChannel,
+-                        g1MeanDiff: HDRArtifacts.sdrBaseMeanDiff(heic: url, vs: sdr),
+-                        g2MeanDiff: HDRArtifacts.toneMappedMeanDiff(heic: url, gamutSpace: gamutSpace, ciContext: context, vs: sdr),
+-                        floatClean: !floatStats.hasNaNOrInf && !floatStats.exceedsCeiling,
+-                        heicBytes: try Data(contentsOf: url).count)
+-                    measurements[pass - 1].append(measurement)
+-                    cases.append([
+-                        "fixture": fixture.id, "k": k, "repetition": pass, "file": file,
+-                        "sdr": sdrInput, "hdr": hdrInput,
+-                        "gamut": gamut, "encoderColorSpace": Self.colorSpace(gamutSpace),
+-                        "expectation": measurement.expectation,
+-                        "measurement": [
+-                            "contentHeadroom": measurement.contentHeadroom, "hdrMaxChannel": measurement.hdrMaxChannel,
+-                            "g1MeanDiff": measurement.g1MeanDiff, "g2MeanDiff": measurement.g2MeanDiff,
+-                            "floatClean": measurement.floatClean, "heicBytes": measurement.heicBytes,
+-                        ],
+-                    ])
+-                }
+-            }
+-        }
+-
+-        let gateResults = measurements.enumerated().map { index, rows in
+-            let verdict = HDRGates.evaluate(rows)
+-            return [
+-                "repetition": index + 1, "rowCount": rows.count,
+-                "g1Pass": verdict.g1Pass, "g2Pass": verdict.g2Pass, "g3Pass": verdict.g3Pass, "g4Pass": verdict.g4Pass,
+-                "detail": verdict.detail,
+-            ] as [String: Any]
+-        }
+-        try Self.write(gateResults, to: output.appendingPathComponent("gates.json"))
+-        for gate in gateResults {
+-            for name in ["g1Pass", "g2Pass", "g3Pass", "g4Pass"] {
+-                try #require(gate[name] as? Bool == true, "\(gate["detail"] ?? "")")
+-            }
+-        }
+-
+-        // Decode for diagnosis only, after the production code has finished encoding and grading.
+-        let decodeSpace = try #require(CGColorSpace(name: CGColorSpace.extendedLinearSRGB))
+-        let decoder = CIContext(options: [.workingColorSpace: decodeSpace])
+-        for index in cases.indices {
+-            let file = try #require(cases[index]["file"] as? String)
+-            let url = output.appendingPathComponent(file)
+-            cases[index]["encoded"] = try Self.encodedOutput(url, decoder: decoder, space: decodeSpace)
+-        }
+-        try Self.write(
+-            [
+-                "schemaVersion": 1, "complete": true,
+-                "captureID": UUID().uuidString, "processID": ProcessInfo.processInfo.processIdentifier,
+-                "configuration": [
+-                    "columns": command.columns, "fontSize": HDRLabCLI.fontSize, "scale": scale,
+-                    "backgroundHex": command.backgroundHex, "backgroundAlpha": background.alpha,
+-                    "preserveSourceAspect": preserveSourceAspect,
+-                    "threshold": HDRLabCLI.emissionThreshold, "maxHeadroom": HDRLabCLI.emissionMaxHeadroom,
+-                    "kSweep": sweep, "repetitions": Self.passes.count,
+-                    "encoder": "CIContext.heifRepresentation",
+-                    "encoderFormat": "RGBA8", "encoderOptions": ["hdrImage"],
+-                    "decodedPixelFormat": "RGBAf", "decodedColorSpace": "extendedLinearSRGB",
+-                ],
+-                "gateResults": gateResults, "cases": cases,
+-            ],
+-            to: output.appendingPathComponent("completion.json"))
+-    }
+-
+-    private static func fingerprint(_ image: CGImage) throws -> [String: Any] {
+-        let (rowBits, rowOverflow) = image.width.multipliedReportingOverflow(by: image.bitsPerPixel)
+-        let (strideBytes, strideOverflow) = image.bytesPerRow.multipliedReportingOverflow(by: image.height)
+-        try #require(!rowOverflow && !strideOverflow && image.height > 0 && rowBits > 0 && rowBits.isMultiple(of: 8))
+-        let activeBytes = rowBits / 8
+-        try #require(image.bytesPerRow >= activeBytes)
+-        let data = try #require(image.dataProvider?.data)
+-        try #require(CFDataGetLength(data) >= strideBytes)
+-        let base = try #require(CFDataGetBytePtr(data))
+-        let space = try #require(image.colorSpace)
+-        var digest = SHA256()
+-        for y in 0..<image.height {
+-            // Padding beyond the final active pixel is outside the input fingerprint.
+-            digest.update(bufferPointer: UnsafeRawBufferPointer(start: base + y * image.bytesPerRow, count: activeBytes))
+-        }
+-        var fingerprint: [String: Any] = [
+-            "activeSHA256": hex(digest.finalize()), "activeBytesPerRow": activeBytes,
+-            "width": image.width, "height": image.height, "bytesPerRow": image.bytesPerRow,
+-            "bitsPerComponent": image.bitsPerComponent, "bitsPerPixel": image.bitsPerPixel,
+-            "alphaInfo": image.alphaInfo.rawValue, "bitmapInfo": image.bitmapInfo.rawValue,
+-            "renderingIntent": image.renderingIntent.rawValue, "interpolate": image.shouldInterpolate,
+-            "contentHeadroom": image.contentHeadroom, "shouldToneMap": image.shouldToneMap,
+-            "pixelFormat": image.pixelFormatInfo.rawValue, "isMask": image.isMask,
+-            "colorSpace": colorSpace(space),
+-        ]
+-        if let decode = image.decode {
+-            fingerprint["decode"] = Array(UnsafeBufferPointer(start: decode, count: 2 * space.numberOfComponents))
+-        } else {
+-            fingerprint["decode"] = NSNull()
+-        }
+-        return fingerprint
+-    }
+-
+-    private static func colorSpace(_ space: CGColorSpace) -> [String: Any] {
+-        let name = space.name.map { $0 as String }
+-        let icc = space.copyICCData().map { ($0 as Data).base64EncodedString() }
+-        return [
+-            "model": space.model.rawValue, "components": space.numberOfComponents,
+-            "name": (name as Any?) ?? NSNull(), "iccBase64": (icc as Any?) ?? NSNull(),
+-        ]
+-    }
+-
+-    private static func encodedOutput(_ url: URL, decoder: CIContext, space: CGColorSpace) throws -> [String: Any] {
+-        let data = try Data(contentsOf: url)
+-        let source = try #require(CGImageSourceCreateWithData(data as CFData, nil))
+-        let properties = try #require(CGImageSourceCopyPropertiesAtIndex(source, 0, nil))
+-        let sdr = try #require(CGImageSourceCreateImageAtIndex(source, 0, nil))
+-        let hdr = try #require(CIImage(contentsOf: url, options: [.expandToHDR: true]))
+-        return [
+-            "sha256": hex(SHA256.hash(data: data)), "imageCount": CGImageSourceGetCount(source),
+-            "type": (CGImageSourceGetType(source).map { $0 as String } as Any?) ?? NSNull(),
+-            "properties": try jsonProperty(properties),
+-            "sdr": try decodedPixels(CIImage(cgImage: sdr), decoder: decoder, space: space),
+-            "hdr": try decodedPixels(hdr, decoder: decoder, space: space),
+-        ]
+-    }
+-
+-    private static func decodedPixels(_ image: CIImage, decoder: CIContext, space: CGColorSpace) throws -> [String: Any] {
+-        let extent = image.extent
+-        let width = try #require(Int(exactly: extent.width))
+-        let height = try #require(Int(exactly: extent.height))
+-        let (area, areaOverflow) = width.multipliedReportingOverflow(by: height)
+-        let (samples, sampleOverflow) = area.multipliedReportingOverflow(by: 4)
+-        let (byteCount, bytesOverflow) = samples.multipliedReportingOverflow(by: MemoryLayout<Float>.size)
+-        try #require(width > 0 && height > 0 && !areaOverflow && !sampleOverflow && !bytesOverflow)
+-        var pixels = [Float](repeating: .nan, count: samples)
+-        pixels.withUnsafeMutableBytes { bytes in
+-            decoder.render(
+-                image, toBitmap: bytes.baseAddress!, rowBytes: byteCount / height, bounds: extent,
+-                format: .RGBAf, colorSpace: space)
+-        }
+-        let pixelsAreFinite = pixels.allSatisfy(\.isFinite)
+-        try #require(pixelsAreFinite)
+-        let digest = pixels.withUnsafeBytes {
+-            var hash = SHA256()
+-            hash.update(bufferPointer: $0)
+-            return hex(hash.finalize())
+-        }
+-        return ["width": width, "height": height, "rgbaFloat32SHA256": digest]
+-    }
+-
+-    private static func jsonProperty(_ value: Any) throws -> Any {
+-        switch value {
+-        case let properties as [String: Any]: try properties.mapValues(jsonProperty)
+-        case let array as [Any]: try array.map(jsonProperty)
+-        case let data as Data: ["dataBase64": data.base64EncodedString()]
+-        case let date as Date: ["dateSecondsSinceReference": date.timeIntervalSinceReferenceDate]
+-        case is String, is NSNumber, is NSNull: value
+-        default: throw EncodingError.invalidValue(value, .init(codingPath: [], debugDescription: "Unsupported ImageIO property"))
+-        }
+-    }
+-
+-    private static func hex(_ bytes: some Sequence<UInt8>) -> String {
+-        bytes.map { String(format: "%02x", $0) }.joined()
+-    }
+-
+-    private static func write(_ object: Any, to url: URL) throws {
+-        try JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted, .sortedKeys]).write(to: url, options: .atomic)
+-    }
+-}
+diff --git a/Tests/AskiTests/EffectColorSpaceTests.swift b/Tests/AskiTests/EffectColorSpaceTests.swift
+index 90f100b..de35099 100644
+--- a/Tests/AskiTests/EffectColorSpaceTests.swift
++++ b/Tests/AskiTests/EffectColorSpaceTests.swift
+@@ -128,69 +128,6 @@ import Testing
+     private static let lightExtent = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+     private static let lightSample = CGPoint(x: 512, y: 512)
+ 
+-    private func lightingPixel(
+-        colors: [CGColor], ambient: Double = 0, alpha: CGFloat = 1,
+-        output: RenderColorSpace = .sRGB
+-    ) -> [Int] {
+-        let extent = Self.lightExtent
+-        let context = EffectContext(
+-            workingColorSpace: WorkingColorSpace.extendedLinearSRGB, outputExtent: extent,
+-            renderColorSpace: output, deviceCapability: .full)
+-        let input = CIImage(color: CIColor(red: 1, green: 1, blue: 1, alpha: alpha)).cropped(to: extent)
+-        let lights = colors.map {
+-            PointLight(position: CGPoint(x: 0.5, y: 0.5), radius: 1, intensity: 1, color: $0)
+-        }
+-        let result = LightingApplicator().apply(LightingOptions(lights: lights, ambient: ambient), to: input, in: context)
+-        return render(result, at: Self.lightSample, into: space(output))
+-    }
+-
+-    @Test(arguments: [RenderColorSpace.sRGB, .displayP3], [RenderColorSpace.sRGB, .displayP3])
+-    func pointLightOnWhiteMatchesItsOwnColor(source: RenderColorSpace, output: RenderColorSpace) throws {
+-        let light = color(space(source), [0.8, 0.2, 0.1])
+-        expectClose(
+-            lightingPixel(colors: [light], output: output), try oracle(light, destination: space(output)),
+-            "\(source) light into \(output)")
+-    }
+-
+-    @Test(arguments: [0.25, 0.5])
+-    func ambientOnWhiteMatchesEncodedSRGBGray(ambient: Double) throws {
+-        let gray = color(sRGB, [CGFloat](repeating: CGFloat(ambient), count: 3))
+-        expectClose(lightingPixel(colors: [], ambient: ambient), try oracle(gray, destination: sRGB), "ambient \(ambient)")
+-    }
+-
+-    /// Independent sRGB transfer functions: fields add after decoding, before encoding.
+-    private func linearSum(_ components: [Double], copies: Double = 1, ambient: Double = 0) -> [Int] {
+-        func decode(_ value: Double) -> Double {
+-            value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
+-        }
+-        func encode(_ value: Double) -> Double {
+-            value <= 0.0031308 ? value * 12.92 : 1.055 * pow(value, 1 / 2.4) - 0.055
+-        }
+-        return components.map { Int((encode(copies * decode($0) + decode(ambient)) * 255).rounded()) } + [255]
+-    }
+-
+-    @Test func pointLightAndAmbientAddInLinearSpace() {
+-        let light = color(sRGB, [0.8, 0.2, 0.1])
+-        expectClose(
+-            lightingPixel(colors: [light], ambient: 0.5), linearSum([0.8, 0.2, 0.1], ambient: 0.5),
+-            "light plus ambient")
+-    }
+-
+-    @Test func twoPointLightsAddInLinearSpace() {
+-        let light = color(sRGB, [0.3, 0.2, 0.1])
+-        expectClose(lightingPixel(colors: [light, light]), linearSum([0.3, 0.2, 0.1], copies: 2), "two lights")
+-    }
+-
+-    @Test(arguments: [0.0, 0.5], [RenderColorSpace.sRGB, .displayP3])
+-    func pointLightingPreservesInputAlpha(alpha: Double, output: RenderColorSpace) throws {
+-        let light = color(sRGB, [0.8, 0.2, 0.1])
+-        let opaque = try oracle(light, destination: space(output))
+-        let expected = opaque.map { Int((Double($0) * alpha).rounded()) }
+-        expectClose(
+-            lightingPixel(colors: [light], alpha: CGFloat(alpha), output: output), expected,
+-            "alpha \(alpha) into \(output)")
+-    }
+-
+     private func lightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat = 1) -> [Int] {
+         let extent = Self.lightExtent
+         let context = EffectContext(
+@@ -204,10 +141,10 @@ import Testing
+         return render(result, at: Self.lightSample, into: sRGB)
+     }
+ 
+-    /// Pins only the pre-ASKI-99 light-color construction: `CIColor(cgColor:)`
+-    /// with each component scaled by intensity in the default (sRGB) space.
+-    /// The composite field is made opaque before multiplying, as required by
+-    /// the corrected lighting model (ASKI-102).
++    /// The pre-ASKI-99 point-light chain, rebuilt from Core Image filters: the light
++    /// color is `CIColor(cgColor:)` with each component scaled by intensity, in the
++    /// default (sRGB) `CIColor` space, then added over black and an ambient of 0 and
++    /// multiplied into the input.
+     private func legacyLightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat) throws -> [Int] {
+         let extent = Self.lightExtent
+         let input = CIImage(color: CIColor(red: gray, green: gray, blue: gray, alpha: 1)).cropped(to: extent)
+@@ -232,7 +169,7 @@ import Testing
+         let lightField = try composite(
+             "CIAdditionCompositing", black, try #require(radial.outputImage).cropped(to: extent))
+         let ambient = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 1)).cropped(to: extent)
+-        let combined = try composite("CIAdditionCompositing", lightField, ambient).settingAlphaOne(in: extent)
++        let combined = try composite("CIAdditionCompositing", lightField, ambient)
+         let result = try composite("CIMultiplyCompositing", input, combined)
+         return render(result, at: Self.lightSample, into: sRGB)
+     }
+@@ -279,8 +216,10 @@ import Testing
+         #expect(atTwo[0] - clippedResult[0] >= 5, "P3 \(atTwo) vs clipped \(clippedResult)")
+     }
+ 
+-    /// Intensity keeps its existing meaning: an sRGB color and its Display P3
+-    /// equivalent light the scene identically at any intensity.
++    /// The light field's absolute scale is the applicator's own model, so the
++    /// reference is the same physical color declared in sRGB. Intensity keeps its
++    /// existing meaning: an sRGB color and its Display P3 equivalent light the
++    /// scene identically at any intensity.
+     @Test(arguments: [0.6, 1.0])
+     func pointLightIntensityIsIndependentOfSourceSpace(intensity: Double) throws {
+         let sRGBLight = color(sRGB, [0.9, 0.5, 0.3])
+diff --git a/Tests/AskiTests/Goldens/command-surface.json b/Tests/AskiTests/Goldens/command-surface.json
+index dc581a2..019af0e 100644
+--- a/Tests/AskiTests/Goldens/command-surface.json
++++ b/Tests/AskiTests/Goldens/command-surface.json
+@@ -759,58 +759,6 @@
+             "aski"
+           ]
+         },
+-        {
+-          "abstract" : "Print versioned JSON describing the Aski command-line interface.",
+-          "arguments" : [
+-            {
+-              "abstract" : "Show the version.",
+-              "isOptional" : true,
+-              "isRepeating" : false,
+-              "kind" : "flag",
+-              "names" : [
+-                {
+-                  "kind" : "long",
+-                  "name" : "version"
+-                }
+-              ],
+-              "parsingStrategy" : "default",
+-              "preferredName" : {
+-                "kind" : "long",
+-                "name" : "version"
+-              },
+-              "shouldDisplay" : true,
+-              "valueName" : "version"
+-            },
+-            {
+-              "abstract" : "Show help information.",
+-              "isOptional" : true,
+-              "isRepeating" : false,
+-              "kind" : "flag",
+-              "names" : [
+-                {
+-                  "kind" : "short",
+-                  "name" : "h"
+-                },
+-                {
+-                  "kind" : "long",
+-                  "name" : "help"
+-                }
+-              ],
+-              "parsingStrategy" : "default",
+-              "preferredName" : {
+-                "kind" : "long",
+-                "name" : "help"
+-              },
+-              "shouldDisplay" : true,
+-              "valueName" : "help"
+-            }
+-          ],
+-          "commandName" : "metadata",
+-          "shouldDisplay" : true,
+-          "superCommands" : [
+-            "aski"
+-          ]
+-        },
+         {
+           "abstract" : "Run Aski research harnesses and evidence-producing quality gates.",
+           "arguments" : [
+diff --git a/Tests/AskiTests/UnifiedLabCommandTests.swift b/Tests/AskiTests/UnifiedLabCommandTests.swift
+index 8dd3f2a..1128197 100644
+--- a/Tests/AskiTests/UnifiedLabCommandTests.swift
++++ b/Tests/AskiTests/UnifiedLabCommandTests.swift
+@@ -14,7 +14,7 @@ import Testing
+     ]
+ 
+     @Test func canonicalTreeContainsEveryLabNamespace() {
+-        #expect(Self.commandNames(AskiCommand.configuration.subcommands) == ["render", "inspect", "metadata", "lab"])
++        #expect(Self.commandNames(AskiCommand.configuration.subcommands) == ["render", "inspect", "lab"])
+         #expect(Self.commandNames(LabCommand.configuration.subcommands) == Self.labNames)
+     }
+ 
+diff --git a/Tools/AskiCLI/AskiCommand.swift b/Tools/AskiCLI/AskiCommand.swift
+index 541a45c..0ae095e 100644
+--- a/Tools/AskiCLI/AskiCommand.swift
++++ b/Tools/AskiCLI/AskiCommand.swift
+@@ -16,7 +16,7 @@ public struct AskiCommand: AsyncParsableCommand {
+         commandName: "aski",
+         abstract: "Deterministic, shape-aware ASCII rendering for images and media.",
+         version: ToolVersion.current,
+-        subcommands: [AskiRenderCommand.self, AskiInspectCommand.self, AskiMetadataCommand.self, LabCommand.self],
++        subcommands: [AskiRenderCommand.self, AskiInspectCommand.self, LabCommand.self],
+         defaultSubcommand: AskiRenderCommand.self
+     )
+ 
+diff --git a/Tools/AskiCLI/AskiMetadataCommand.swift b/Tools/AskiCLI/AskiMetadataCommand.swift
+deleted file mode 100644
+index 5702650..0000000
+--- a/Tools/AskiCLI/AskiMetadataCommand.swift
++++ /dev/null
+@@ -1,206 +0,0 @@
+-import ArgumentParser
+-import AskiToolSupport
+-import Foundation
+-
+-struct AskiMetadataCommand: ParsableCommand {
+-    static let configuration = CommandConfiguration(
+-        commandName: "metadata",
+-        abstract: "Print versioned JSON describing the Aski command-line interface."
+-    )
+-
+-    func run() throws {
+-        try FileHandle.standardOutput.write(contentsOf: Self.documentData())
+-    }
+-
+-    static func documentData(root: ParsableCommand.Type = AskiCommand.self) throws -> Data {
+-        let dump = Data(root._dumpHelp().utf8)
+-        let decoder = JSONDecoder()
+-        let header = try Self.decode(HelpHeader.self, from: dump, using: decoder)
+-        guard header.serializationVersion == 0 else {
+-            throw MetadataError.unsupportedHelpVersion(header.serializationVersion)
+-        }
+-
+-        let help = try Self.decode(HelpDocument.self, from: dump, using: decoder)
+-        var commands: [MetadataCommand] = []
+-        try help.command.appendCommands(configured: root, parentPath: [], to: &commands)
+-        return try StableJSON.data(for: MetadataDocument(toolVersion: ToolVersion.current, commands: commands))
+-    }
+-
+-    private static func decode<Value: Decodable>(
+-        _ type: Value.Type,
+-        from dump: Data,
+-        using decoder: JSONDecoder
+-    ) throws -> Value {
+-        do {
+-            return try decoder.decode(type, from: dump)
+-        } catch {
+-            throw MetadataError.invalidHelp(error)
+-        }
+-    }
+-}
+-
+-private struct MetadataDocument: Encodable {
+-    let schemaVersion = 1
+-    let toolVersion: String
+-    let commands: [MetadataCommand]
+-
+-    // Each product replaces the executable prefix. The remainder of argv is unchanged.
+-    let replayMappings = [
+-        ReplayMapping(product: "AskiAccessLab", lab: "accessibility"),
+-        ReplayMapping(product: "AskiColorLab", lab: "color"),
+-        ReplayMapping(product: "AskiDecolorLab", lab: "decolor"),
+-        ReplayMapping(product: "AskiHDRLab", lab: "hdr"),
+-        ReplayMapping(product: "AskiMotionLab", lab: "motion"),
+-        ReplayMapping(product: "AskiPresetLab", lab: "preset"),
+-        ReplayMapping(product: "AskiVideoLab", lab: "video"),
+-    ]
+-}
+-
+-private struct ReplayMapping: Encodable {
+-    let product: String
+-    let canonicalPath: [String]
+-
+-    init(product: String, lab: String) {
+-        self.product = product
+-        canonicalPath = ["aski", "lab", lab]
+-    }
+-}
+-
+-private struct MetadataCommand: Encodable {
+-    enum Stability: String, Encodable {
+-        case stable
+-        case research
+-    }
+-
+-    let path: [String]
+-    let aliases: [String]
+-    let stability: Stability
+-    let arguments: [MetadataArgument]
+-    let defaultSubcommand: String?
+-}
+-
+-private struct MetadataArgument: Encodable {
+-    enum Kind: String, Codable {
+-        case positional
+-        case option
+-        case flag
+-    }
+-
+-    let kind: Kind
+-    let names: [String]
+-    let isOptional: Bool
+-    let isRepeating: Bool
+-    let valueName: String?
+-    let defaultValue: String?
+-}
+-
+-// ArgumentParser's experimental dump is only an input to the Aski v1 contract.
+-private struct HelpHeader: Decodable {
+-    let serializationVersion: Int
+-}
+-
+-private struct HelpDocument: Decodable {
+-    let command: HelpCommand
+-}
+-
+-private struct HelpCommand: Decodable {
+-    let commandName: String
+-    let shouldDisplay: Bool
+-    let aliases: [String]?
+-    let arguments: [HelpArgument]?
+-    let subcommands: [HelpCommand]?
+-
+-    func appendCommands(
+-        configured: ParsableCommand.Type?,
+-        parentPath: [String],
+-        to commands: inout [MetadataCommand]
+-    ) throws {
+-        let path = parentPath + [commandName]
+-        if let configured, configured._commandName != commandName {
+-            throw MetadataError.commandMismatch(path)
+-        }
+-        guard shouldDisplay else { return }
+-
+-        let configuration = configured?.configuration
+-        commands.append(
+-            MetadataCommand(
+-                path: path,
+-                aliases: aliases ?? [],
+-                stability: path.starts(with: ["aski", "lab"]) ? .research : .stable,
+-                arguments: (arguments ?? []).filter(\.shouldDisplay).map { $0.metadata() },
+-                defaultSubcommand: configuration?.defaultSubcommand?._commandName
+-            )
+-        )
+-
+-        let configuredChildren = configuration?.subcommands ?? []
+-        var dumpedChildren = subcommands ?? []
+-        if parentPath.isEmpty {
+-            // The v0 dump appends one built-in help node after the configured root children.
+-            guard dumpedChildren.popLast()?.commandName == "help" else {
+-                throw MetadataError.commandMismatch(path)
+-            }
+-        }
+-        guard configuredChildren.map({ $0._commandName }) == dumpedChildren.map(\.commandName) else {
+-            throw MetadataError.commandMismatch(path)
+-        }
+-        for (child, type) in zip(dumpedChildren, configuredChildren) {
+-            try child.appendCommands(configured: type, parentPath: path, to: &commands)
+-        }
+-        if parentPath.isEmpty, !configuredChildren.isEmpty, let help = subcommands?.last {
+-            try help.appendCommands(configured: nil, parentPath: path, to: &commands)
+-        }
+-    }
+-}
+-
+-private struct HelpArgument: Decodable {
+-    struct Name: Decodable {
+-        enum Kind: String, Decodable {
+-            case long
+-            case short
+-            case longWithSingleDash
+-        }
+-
+-        let kind: Kind
+-        let name: String
+-
+-        var spelling: String {
+-            (kind == .long ? "--" : "-") + name
+-        }
+-    }
+-
+-    let kind: MetadataArgument.Kind
+-    let shouldDisplay: Bool
+-    let names: [Name]?
+-    let isOptional: Bool
+-    let isRepeating: Bool
+-    let valueName: String?
+-    let defaultValue: String?
+-
+-    func metadata() -> MetadataArgument {
+-        MetadataArgument(
+-            kind: kind,
+-            names: (names ?? []).map(\.spelling),
+-            isOptional: isOptional,
+-            isRepeating: isRepeating,
+-            valueName: valueName,
+-            defaultValue: defaultValue
+-        )
+-    }
+-}
+-
+-private enum MetadataError: LocalizedError {
+-    case invalidHelp(any Error)
+-    case unsupportedHelpVersion(Int)
+-    case commandMismatch([String])
+-
+-    var errorDescription: String? {
+-        switch self {
+-        case .invalidHelp(let error):
+-            return "Aski metadata cannot decode ArgumentParser help: \(error)."
+-        case .unsupportedHelpVersion(let version):
+-            return "Aski metadata cannot read ArgumentParser help version \(version)."
+-        case .commandMismatch(let path):
+-            return "Aski metadata found a mismatch between ArgumentParser help and configuration at '\(path.joined(separator: " "))'."
+-        }
+-    }
+-}

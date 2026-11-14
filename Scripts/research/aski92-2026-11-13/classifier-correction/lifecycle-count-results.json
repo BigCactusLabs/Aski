@@ -1,0 +1,694 @@
+[
+  {
+    "label": "build-count-regression-original-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$REPO/Scripts/research/aski109-2026-11-13/count-regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O1.dylib",
+      "-o",
+      "$EVIDENCE/count-regression-original-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-0-17",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-1-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-1-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-2-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-2-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-4-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O1-4-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O1",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-lifecycle-probe-original-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$REPO/Scripts/research/aski109-2026-11-13/lifecycle-probe.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O1.dylib",
+      "-o",
+      "$EVIDENCE/lifecycle-probe-original-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-0",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "0"
+    ],
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-1",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-2",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "2"
+    ],
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-3",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "3"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-4",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "4"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O1-5",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O1",
+      "5"
+    ],
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-count-regression-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$REPO/Scripts/research/aski109-2026-11-13/count-regression.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O1.dylib",
+      "-o",
+      "$EVIDENCE/count-regression-corrected-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-0-17",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-1-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-1-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-2-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-2-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-4-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O1-4-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O1",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-lifecycle-probe-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$REPO/Scripts/research/aski109-2026-11-13/lifecycle-probe.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O1.dylib",
+      "-o",
+      "$EVIDENCE/lifecycle-probe-corrected-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-0",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "0"
+    ],
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-1",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-2",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "2"
+    ],
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-3",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "3"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-4",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "4"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O1-5",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O1",
+      "5"
+    ],
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-count-regression-original-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$REPO/Scripts/research/aski109-2026-11-13/count-regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O3.dylib",
+      "-o",
+      "$EVIDENCE/count-regression-original-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-0-17",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-1-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-1-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-2-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-2-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-4-1",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-original-O3-4-41",
+    "argv": [
+      "$EVIDENCE/count-regression-original-O3",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-lifecycle-probe-original-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$REPO/Scripts/research/aski109-2026-11-13/lifecycle-probe.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O3.dylib",
+      "-o",
+      "$EVIDENCE/lifecycle-probe-original-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-0",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "0"
+    ],
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-1",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-2",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "2"
+    ],
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-3",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "3"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-4",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "4"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-original-O3-5",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-original-O3",
+      "5"
+    ],
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-count-regression-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$REPO/Scripts/research/aski109-2026-11-13/count-regression.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O3.dylib",
+      "-o",
+      "$EVIDENCE/count-regression-corrected-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-0-17",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "0",
+      "17"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":17,\"free\":17,\"bytes\":69632,\"freed_bytes\":69632,\"callbacks\":0}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-1-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "1",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":12,\"free\":12,\"bytes\":32832,\"freed_bytes\":32832,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-1-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "1",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":52,\"free\":52,\"bytes\":196672,\"freed_bytes\":196672,\"callbacks\":1}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-2-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "2",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":13,\"free\":13,\"bytes\":36928,\"freed_bytes\":36928,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-2-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "2",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":93,\"free\":93,\"bytes\":364608,\"freed_bytes\":364608,\"callbacks\":2}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-4-1",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "4",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":15,\"free\":15,\"bytes\":45120,\"freed_bytes\":45120,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "count-regression-corrected-O3-4-41",
+    "argv": [
+      "$EVIDENCE/count-regression-corrected-O3",
+      "4",
+      "41"
+    ],
+    "exit": 0,
+    "stdout": "{\"malloc\":175,\"free\":175,\"bytes\":700480,\"freed_bytes\":700480,\"callbacks\":4}\n",
+    "stderr": ""
+  },
+  {
+    "label": "build-lifecycle-probe-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$REPO/Scripts/research/aski109-2026-11-13/lifecycle-probe.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O3.dylib",
+      "-o",
+      "$EVIDENCE/lifecycle-probe-corrected-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-0",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "0"
+    ],
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-1",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "1"
+    ],
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-2",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "2"
+    ],
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-3",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "3"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-4",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "4"
+    ],
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "label": "lifecycle-probe-corrected-O3-5",
+    "argv": [
+      "$EVIDENCE/lifecycle-probe-corrected-O3",
+      "5"
+    ],
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  }
+]

@@ -5,6 +5,12 @@ Recovered files are committed at `dd9e8ab96322a765dc3ee21b2a82e3c5a2021a1f`;
 verification below was repeated on 2026-10-27 rather than inferred from the
 interrupted upload. Production source and existing benchmark budgets are unchanged.
 
+Status 2026-11-13: the bounded native heap investigation is complete and rejected.
+Four of eight primaries passed, but all four standard-character primaries slowed
+and 17 regression guards failed. The full-sort production matcher is retained.
+The [complete study](../../Scripts/research/aski88-2026-11-13/README.md) includes
+the frozen rule, all measurements, exact source replay and native checks.
+
 ## What must stay identical
 
 [`ShapeMatching`](../../Sources/Aski/ShapeMatching.swift) sorts each candidate by
@@ -151,6 +157,7 @@ That environment could not run the Apple gate (`just` and Apple frameworks were
 absent). On 2026-11-12 the source-pinned portable probe also passed on arm64 macOS
 with Apple Swift 6.4, strict concurrency and warnings-as-errors, without timing.
 Use the native commands above to validate a particular checkout; PR validation
-records identify the tested revision. The 42-workload paired measurements, real
-allocation/RSS evidence and converted-grid parity remain future adoption work.
-ASKI-88 is not closed, and neither experimental arm is adopted in production.
+records identify the tested revision. The 2026-11-13 study subsequently completed
+the 42-workload paired measurements, allocation/RSS evidence and converted-grid
+parity. ASKI-88 closed with a rejection; neither experimental arm is adopted
+in production.

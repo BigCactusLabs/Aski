@@ -1,0 +1,251 @@
+{
+  "task": "ASKI-92",
+  "classification": "Diagnostic only; not a valid benchmark capture or study",
+  "outcome": "not reproduced",
+  "sourceCommit": "75470ee273596d24d71f1682e90668140760db09",
+  "ruleCommit": "4395f1b",
+  "ruleSHA256": "56d7c873f77a632654ea4c9dc92deafb5128fcc7481dcbe42383d8fe38cea9d4",
+  "identitySHA256": {
+    "Package.resolved": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    ".build/workspace-state.json": "ae88698371365608dee569c1cbe7a0fb747e0fd820d1daa4ee82aaf33ad3f4b4",
+    ".build/out/Products/Release/AskiBenchmarks": "9a582bbd14aaffc0b7496ea59945fd03601fc1626744eac31ec6758e0eea2ca7",
+    ".build/out/Products/Release/libMallocInterposerSwift.dylib": "e0d6343cae1ced638458da9abf8d26bf6eb9e2b4afd2356666b721408cb8739c",
+    ".build/out/Products/Release/BenchmarkTool": "f4b0bb807ed433734d4d3398a661dc8c3444ae397faccbdc03d9e4ef4108f549"
+  },
+  "sourceAndBinariesUnchanged": true,
+  "originalCrashSHA256": "5b0a6043b0fb068b9d6cb76d320b9bd2b866e65b3840d6c8658cf738c97d828a",
+  "originalCrashPreserved": true,
+  "relevantEnvironment": {
+    "MallocNanoZone": "0",
+    "GIT_CONFIG_PARAMETERS": "'safe.bareRepository=all'"
+  },
+  "pathLabels": {
+    "<control>": "frozen control worktree",
+    "<diagnostic>": "fresh per-probe output root"
+  },
+  "starts": [
+    {
+      "number": 1,
+      "argv": [
+        "<control>/.build/out/Products/Release/BenchmarkTool",
+        "--benchmark-executable-paths",
+        "<control>/.build/out/Products/Release/AskiBenchmarks",
+        "--targets",
+        "AskiBenchmarks",
+        "--command",
+        "run",
+        "--format",
+        "histogramSamples",
+        "--baseline-storage-path",
+        "<diagnostic>/start-1/baselines",
+        "--path",
+        "<diagnostic>/start-1/samples",
+        "--grouping",
+        "benchmark",
+        "--no-progress",
+        "--time-units",
+        "nanoseconds",
+        "--filter",
+        "^aski92-fixed-512x512-srgb-opaque-256cols$"
+      ],
+      "started": "2026-11-14T17:13:17.354012+00:00",
+      "finished": "2026-11-14T17:13:17.577164+00:00",
+      "pid": 22864,
+      "seconds": 0.22114174999296665,
+      "exit": 0,
+      "timed_out": false,
+      "process_group_remaining": false,
+      "allocator_observations": [
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 22865,
+          "schema_version": 1
+        },
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 22866,
+          "schema_version": 1
+        }
+      ],
+      "new_crashes": [],
+      "sample_names": [
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv"
+      ],
+      "outcome": "clean",
+      "evidenceSHA256": {
+        "command.json": "be4a446562ce9a901590a07b7ac60cfe128738c4c4f84ae6466016f44830d495",
+        "result.json": "f20eb281169d3a0605e4cbc26ebf1a833dafe575eef79b6530bcd1c646cc5fcc",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv": "9906a28493b3e38318ea9b0af1974ac740df591d142990df3c6c03c8c5b2d202",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv": "3324b3f93f34073d40f9f8d86cb0c8dafb2791007dc9f7c75603e36b30a4a41f",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv": "2be66f25fa9d1138b7a1aef3cdaa186c8cefe73cff8de3627beb90e9d10f39d7",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv": "55c0e7a776dab79b740ebe418a4329a5fa1137ab7dab480f70fceb43368cd999",
+        "stderr.log": "e4cd4cc3c68fb8e84c126770a257d4241ee7f2a3f63c6a2dc2857e8acdc779c3",
+        "stdout.log": "eb83b6f83d22a283704f7a4fab00210ebdf5e8cc075f26c583e6afe573fc8322"
+      }
+    },
+    {
+      "number": 2,
+      "argv": [
+        "<control>/.build/out/Products/Release/BenchmarkTool",
+        "--benchmark-executable-paths",
+        "<control>/.build/out/Products/Release/AskiBenchmarks",
+        "--targets",
+        "AskiBenchmarks",
+        "--command",
+        "run",
+        "--format",
+        "histogramSamples",
+        "--baseline-storage-path",
+        "<diagnostic>/start-2/baselines",
+        "--path",
+        "<diagnostic>/start-2/samples",
+        "--grouping",
+        "benchmark",
+        "--no-progress",
+        "--time-units",
+        "nanoseconds",
+        "--filter",
+        "^aski92-fixed-512x512-srgb-opaque-256cols$"
+      ],
+      "started": "2026-11-14T17:13:32.002736+00:00",
+      "finished": "2026-11-14T17:13:32.238161+00:00",
+      "pid": 23045,
+      "seconds": 0.2291972090024501,
+      "exit": 0,
+      "timed_out": false,
+      "process_group_remaining": false,
+      "allocator_observations": [
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 23046,
+          "schema_version": 1
+        },
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 23047,
+          "schema_version": 1
+        }
+      ],
+      "new_crashes": [],
+      "sample_names": [
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv"
+      ],
+      "outcome": "clean",
+      "evidenceSHA256": {
+        "command.json": "b2f287242caba9d527a94a9322a33574043089b6e8462586b6e5719c89f37f30",
+        "result.json": "b8b691df4dab046bd0ca4e1293c4ed1cb3cc6eaac84284b8cec56e053bc293b0",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv": "0c0710295df8cdc44ddce0422351196bcc49facf179570bc9868cb45e225bdc4",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv": "3324b3f93f34073d40f9f8d86cb0c8dafb2791007dc9f7c75603e36b30a4a41f",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv": "8f4d9ec8b78e4d72d294c30954724f053b32a513e7f88916be91bf3dc68b6b12",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv": "be7c3e8f1a20282715850baba9278fa541b45f9cd370d5f02403cd04e91a3a00",
+        "stderr.log": "cd5ec4532130def71653635ea34914adf11389c94330942d7eb041773290217f",
+        "stdout.log": "9250fa4ece0f23be7f49de2f69fd6a2b39ba6470989d64ec0eb93cad74e69c96"
+      }
+    },
+    {
+      "number": 3,
+      "argv": [
+        "<control>/.build/out/Products/Release/BenchmarkTool",
+        "--benchmark-executable-paths",
+        "<control>/.build/out/Products/Release/AskiBenchmarks",
+        "--targets",
+        "AskiBenchmarks",
+        "--command",
+        "run",
+        "--format",
+        "histogramSamples",
+        "--baseline-storage-path",
+        "<diagnostic>/start-3/baselines",
+        "--path",
+        "<diagnostic>/start-3/samples",
+        "--grouping",
+        "benchmark",
+        "--no-progress",
+        "--time-units",
+        "nanoseconds",
+        "--filter",
+        "^aski92-fixed-512x512-srgb-opaque-256cols$"
+      ],
+      "started": "2026-11-14T17:13:50.128672+00:00",
+      "finished": "2026-11-14T17:13:50.396431+00:00",
+      "pid": 23256,
+      "seconds": 0.2643664589850232,
+      "exit": 0,
+      "timed_out": false,
+      "process_group_remaining": false,
+      "allocator_observations": [
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 23257,
+          "schema_version": 1
+        },
+        {
+          "allocated": true,
+          "backend": "malloc-interposer",
+          "free_delta": 2,
+          "image": "<control>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+          "malloc_delta": 3,
+          "pid": 23258,
+          "schema_version": 1
+        }
+      ],
+      "new_crashes": [],
+      "sample_names": [
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv",
+        "Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv"
+      ],
+      "outcome": "clean",
+      "evidenceSHA256": {
+        "command.json": "d1baf926e384cdfe0ee245f233941f2a99fe9ec41dc31bcca7f1b1b4328ccb81",
+        "result.json": "a47f2a43e1c0b8f173b12ea687a226840b2c0c448b3145a1d20a5e57a1bcecc7",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.cpuTotal.histogram.samples.tsv": "5c45d45890cc6e1ff705376badbf21ad5fd4e9fbf2194755a7559f1e1431de7d",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.mallocCountTotal.histogram.samples.tsv": "3324b3f93f34073d40f9f8d86cb0c8dafb2791007dc9f7c75603e36b30a4a41f",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.peakMemoryResident.histogram.samples.tsv": "cbaac2c000b2c381174ae7a593d0b03cb9fbafe55b299349048614525e7d097b",
+        "samples/Current_run.AskiBenchmarks.aski92-fixed-512x512-srgb-opaque-256cols.wallClock.histogram.samples.tsv": "1cf488c0fdc28b8d900a2ec14a5db204e483b0436878d1e3bd233db8cb5287f6",
+        "stderr.log": "b941833b92644fb18bb6fc7cf998a0c06f52b653e2a7d5d6df253c0ead1e99b5",
+        "stdout.log": "4db93c09243532c3089b6eced5b8c29aa780d6b7d9415a2619b81a4c5f3f3e9b"
+      }
+    }
+  ],
+  "sourceEvidenceSHA256": {
+    "before.json": "f4b38ebeadf8de7a52af96ace7855b46b94bee5e7b35af1e1dd659f2896988a7",
+    "after.json": "c4f5ac74191cb178eda708aded492b5041ed7afa983e3084f5f7e270639d588f",
+    "summary.json": "f1b8460e2e3f01c0e11eb89e583233901132c43e552ec717dfde5959122a4eaa",
+    "rule.json": "56d7c873f77a632654ea4c9dc92deafb5128fcc7481dcbe42383d8fe38cea9d4"
+  },
+  "limitations": [
+    "Cause unresolved; three clean starts do not validate the previously failed study.",
+    "No candidate run, source repair, replacement capture, follow-on hook variant or adoption verdict.",
+    "No matching crash report was observed through final verification; later OS publication is not excluded.",
+    "Direct BenchmarkTool outputs bypass the canonical validator for diagnosis only.",
+    "Elapsed seconds are probe duration, not an end-to-end performance comparison."
+  ]
+}

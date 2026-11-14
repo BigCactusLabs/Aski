@@ -1,0 +1,574 @@
+[
+  {
+    "label": "v2-build-regression-original-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O1.dylib",
+      "-o",
+      "$EVIDENCE/regression-v2-original-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned0",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned0"
+    ],
+    "exit": 0,
+    "stdout": "case=owned0 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned1",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned1"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned16",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned16"
+    ],
+    "exit": 0,
+    "stdout": "case=owned16 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned64",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned64"
+    ],
+    "exit": 0,
+    "stdout": "case=owned64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned4096",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned4096"
+    ],
+    "exit": 0,
+    "stdout": "case=owned4096 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-owned1048576",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "owned1048576"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1048576 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-foreign-malloc",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "foreign-malloc"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-malloc size=64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O1-foreign-aligned",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O1",
+      "foreign-aligned"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-aligned size=16384 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-build-lib-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-dynamiclib",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-corrected-O1.dylib"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-build-regression-corrected-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O1.dylib",
+      "-o",
+      "$EVIDENCE/regression-v2-corrected-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned0",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned0"
+    ],
+    "exit": 0,
+    "stdout": "case=owned0 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned1",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned1"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned16",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned16"
+    ],
+    "exit": 0,
+    "stdout": "case=owned16 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned64",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned64"
+    ],
+    "exit": 0,
+    "stdout": "case=owned64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned4096",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned4096"
+    ],
+    "exit": 0,
+    "stdout": "case=owned4096 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-owned1048576",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "owned1048576"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1048576 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-foreign-malloc",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "foreign-malloc"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-malloc size=64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-foreign-aligned",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "foreign-aligned"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-aligned size=16384 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-unreadable-page",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "unreadable-page"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "unreadable-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-mapped-page",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-null",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-tagged",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O1-small-address",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O1",
+      "small-address"
+    ],
+    "exit": 0,
+    "stdout": "case=small-address zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-build-regression-original-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O3.dylib",
+      "-o",
+      "$EVIDENCE/regression-v2-original-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned0",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned0"
+    ],
+    "exit": 0,
+    "stdout": "case=owned0 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned1",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned1"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned16",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned16"
+    ],
+    "exit": 0,
+    "stdout": "case=owned16 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned64",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned64"
+    ],
+    "exit": 0,
+    "stdout": "case=owned64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned4096",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned4096"
+    ],
+    "exit": 0,
+    "stdout": "case=owned4096 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-owned1048576",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "owned1048576"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1048576 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-foreign-malloc",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "foreign-malloc"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-malloc size=64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-original-O3-foreign-aligned",
+    "argv": [
+      "$EVIDENCE/regression-v2-original-O3",
+      "foreign-aligned"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-aligned size=16384 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-build-lib-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-dynamiclib",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-corrected-O3.dylib"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-build-regression-corrected-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/corrected/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-corrected-O3.dylib",
+      "-o",
+      "$EVIDENCE/regression-v2-corrected-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned0",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned0"
+    ],
+    "exit": 0,
+    "stdout": "case=owned0 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned1",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned1"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned16",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned16"
+    ],
+    "exit": 0,
+    "stdout": "case=owned16 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned64",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned64"
+    ],
+    "exit": 0,
+    "stdout": "case=owned64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned4096",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned4096"
+    ],
+    "exit": 0,
+    "stdout": "case=owned4096 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-owned1048576",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "owned1048576"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1048576 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-foreign-malloc",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "foreign-malloc"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-malloc size=64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-foreign-aligned",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "foreign-aligned"
+    ],
+    "exit": 0,
+    "stdout": "case=foreign-aligned size=16384 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-unreadable-page",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "unreadable-page"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "unreadable-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-mapped-page",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-null",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-tagged",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "v2-corrected-O3-small-address",
+    "argv": [
+      "$EVIDENCE/regression-v2-corrected-O3",
+      "small-address"
+    ],
+    "exit": 0,
+    "stdout": "case=small-address zone=0x0 size=0\n",
+    "stderr": ""
+  }
+]

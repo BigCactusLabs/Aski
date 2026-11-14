@@ -1,0 +1,12 @@
+ALLOC 0x100-0x13f [size=64]:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1
+FREE  0x100:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1
+ALLOC 0x100-0x17f [size=128]:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1
+ALLOC 0x200-0x20f [size=16]:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1
+FREE  0x200:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1
+FREE  0x100:
+0   AskiBenchmarks 0x123 TileGridConverter.convert(_:columns:mask:) + 1

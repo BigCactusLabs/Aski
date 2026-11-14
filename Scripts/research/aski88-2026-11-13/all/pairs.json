@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "experiment": "aski-88-2026-11-13-all",
+  "control_revision": "100f3806317fe593c71dc2ed24ed58ed6f35a929",
+  "candidate_revision": "3b88421844d6623d8ae8c5572c2d2e53ae870a46",
+  "expected_workloads": [
+    "aski88-convert-blocks-120cols-k12-serial",
+    "aski88-convert-blocks-80cols-k12-serial",
+    "aski88-convert-braille-120cols-k12-parallel",
+    "aski88-convert-braille-120cols-k12-serial",
+    "aski88-convert-braille-120cols-k36-serial",
+    "aski88-convert-braille-80cols-k12-parallel",
+    "aski88-convert-braille-80cols-k12-serial",
+    "aski88-convert-standard-120cols-k12-parallel",
+    "aski88-convert-standard-120cols-k12-serial",
+    "aski88-convert-standard-120cols-k36-serial",
+    "aski88-convert-standard-80cols-k12-parallel",
+    "aski88-convert-standard-80cols-k12-serial",
+    "aski88-pool-n256-k1-batch64",
+    "aski88-pool-n256-k12-batch64",
+    "aski88-pool-n256-k24-batch64",
+    "aski88-pool-n256-k256-batch64",
+    "aski88-pool-n256-k257-batch64",
+    "aski88-pool-n256-k36-batch64",
+    "aski88-pool-n8-k1-batch64",
+    "aski88-pool-n8-k12-batch64",
+    "aski88-pool-n8-k24-batch64",
+    "aski88-pool-n8-k36-batch64",
+    "aski88-pool-n8-k8-batch64",
+    "aski88-pool-n8-k9-batch64",
+    "aski88-pool-n95-k1-batch64",
+    "aski88-pool-n95-k12-batch64",
+    "aski88-pool-n95-k24-batch64",
+    "aski88-pool-n95-k36-batch64",
+    "aski88-pool-n95-k95-batch64",
+    "aski88-pool-n95-k96-batch64",
+    "aski88-ranked-blocks-120cols-k12-serial",
+    "aski88-ranked-blocks-80cols-k12-serial",
+    "aski88-ranked-braille-120cols-k12-parallel",
+    "aski88-ranked-braille-120cols-k12-serial",
+    "aski88-ranked-braille-120cols-k36-serial",
+    "aski88-ranked-braille-80cols-k12-parallel",
+    "aski88-ranked-braille-80cols-k12-serial",
+    "aski88-ranked-standard-120cols-k12-parallel",
+    "aski88-ranked-standard-120cols-k12-serial",
+    "aski88-ranked-standard-120cols-k36-serial",
+    "aski88-ranked-standard-80cols-k12-parallel",
+    "aski88-ranked-standard-80cols-k12-serial"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident"
+  ],
+  "decision_rule": {
+    "reference": "3b88421844d6623d8ae8c5572c2d2e53ae870a46:Scripts/research/aski88-2026-11-13/pre-registration.json",
+    "declared_at": "2026-11-13T08:10:19.529999+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "local-aski-overnight-2026-11-13",
+    "same_physical_host": true,
+    "conditions": "Same physical M3 Max Mac15,10 14CPU/36GiB; macOS27.0.1 26A434; Xcode27.0 27A266a; Swift6.4; AC100%; no recorded thermal/performance warning; MallocNanoZone=0. No competing batch native jobs. Ordinary system/desktop activity present: mediaanalysisd92.1%, simulator services53.9-62.7%, WithSecure16.3% at preflight. Host not quiet or idle. Lead may make light91 fixture edits without native commands. User services and global settings unchanged."
+  },
+  "pairs": [
+    {
+      "control": "pair-1/control/report.json",
+      "candidate": "pair-1/candidate/report.json"
+    },
+    {
+      "control": "pair-2/control/report.json",
+      "candidate": "pair-2/candidate/report.json"
+    },
+    {
+      "control": "pair-3/control/report.json",
+      "candidate": "pair-3/candidate/report.json"
+    },
+    {
+      "control": "pair-4/control/report.json",
+      "candidate": "pair-4/candidate/report.json"
+    },
+    {
+      "control": "pair-5/control/report.json",
+      "candidate": "pair-5/candidate/report.json"
+    }
+  ]
+}

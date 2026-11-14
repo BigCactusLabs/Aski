@@ -1,0 +1,29 @@
+[
+  {
+    "step": "edit",
+    "argv": [
+      "xcrun",
+      "swift",
+      "package",
+      "edit",
+      "malloc-interposer",
+      "--path",
+      "$STUDY/control/Vendor/malloc-interposer"
+    ],
+    "cwd": "$STUDY/control",
+    "start": 1794681886.420469,
+    "exit": 0,
+    "finished": 1794681902.357501
+  },
+  {
+    "step": "check",
+    "argv": [
+      "just",
+      "check"
+    ],
+    "cwd": "$STUDY/control",
+    "start": 1794681902.357732,
+    "exit": 0,
+    "finished": 1794682121.911829
+  }
+]

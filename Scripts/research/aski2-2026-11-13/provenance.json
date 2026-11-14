@@ -1,0 +1,19 @@
+{
+  "task": "ASKI-2",
+  "base_revision": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "experiment": "raw-axis resize followed by signed pixel permutation vs retained Core Image reorient then existing prepareConversion",
+  "rule": "exact lattice geometry and every RGBA8 byte; no numerical tolerance",
+  "declaration": "Test rule and dirty source frozen before native execution; not a committed preregistration.",
+  "command": "ASKI2_ORIENTATION_RASTER=1 xcrun swift test --no-parallel --filter VideoOrientationPreparationTests/rawAxisResamplingMatchesRetainedLattice",
+  "exit": 1,
+  "source_sha256": "212bbb85e9605bf5dffdd802937c0b27b74404a85590cac7309c7163f1afe950",
+  "raw_log_sha256": "477bf688877df1849e0004984ff5151459fb1cd6427b7bd488329b71468c7d21",
+  "toolchain": {
+    "xcode": "27.0 (27A266a)",
+    "swift": "6.4 (swiftlang-6.4.0.34.1)",
+    "os": "macOS 27.0.1 (26A434)"
+  },
+  "production_changes": false,
+  "verdict": "reject_this_arm",
+  "scope": "fidelity only; no timing, allocation, final-cell or rendered-output claim"
+}

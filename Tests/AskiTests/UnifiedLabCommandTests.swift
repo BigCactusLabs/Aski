@@ -14,7 +14,7 @@ import Testing
     ]
 
     @Test func canonicalTreeContainsEveryLabNamespace() {
-        #expect(Self.commandNames(AskiCommand.configuration.subcommands) == ["render", "inspect", "lab"])
+        #expect(Self.commandNames(AskiCommand.configuration.subcommands) == ["render", "inspect", "metadata", "lab"])
         #expect(Self.commandNames(LabCommand.configuration.subcommands) == Self.labNames)
     }
 

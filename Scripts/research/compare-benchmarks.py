@@ -57,7 +57,7 @@ IDENTITY_FIELDS = ("lock_sha256", "benchmark_pin", "malloc_pin", "swift", "xcode
 LIMITATIONS = [
     "No native benchmark, parity test, allocation profile, or budget gate is run by this reader.",
     "Recorded Git revisions do not prove clean worktrees or identical benchmark instrumentation; verify both separately.",
-    "Allocator identity is configured provenance from ASKI-86, not independent runtime introspection.",
+    "Allocator identity includes configured provenance and, in newer ASKI-86 captures, a normalized native observation; raw process observations are not compared.",
     "Histogram exports are quantized distributions, not chronological independent repetitions; the pair is the repetition unit.",
     "package-benchmark 1.35.0 can silently short-write at a complete-row boundary; matching hashes/counts cannot detect rows never captured.",
     "A declared rule timestamp and host attestation are operator statements, not independently verified facts.",
@@ -236,6 +236,9 @@ def inspect_report(path, plan, role):
     for field in ("swift", "xcode", "os"):
         text(identity[field], "identity." + field)
     require(isinstance(identity["lock_sha256"], str) and re.fullmatch(r"[0-9a-f]{64}", identity["lock_sha256"]), "invalid lock identity")
+    if "effective_lock_sha256" in identity:
+        effective = identity["effective_lock_sha256"]
+        require(isinstance(effective, str) and re.fullmatch(r"[0-9a-f]{64}", effective), "invalid effective lock identity")
     pin = identity["benchmark_pin"]
     require(isinstance(pin, dict) and isinstance(pin.get("state"), dict), "benchmark pin lacks state")
     require((pin["state"].get("version"), pin["state"].get("revision")) == PIN, "unreviewed benchmark export pin")
@@ -311,9 +314,12 @@ def compare(plan, base):
                 require(run_id not in seen_runs, "capture identity reused")
                 seen_runs.add(run_id)
                 compatibility = {field: identity[field] for field in IDENTITY_FIELDS}
+                if "effective_lock_sha256" in identity:
+                    compatibility["effective_lock_sha256"] = identity["effective_lock_sha256"]
                 if reference_identity is None:
                     reference_identity = compatibility
-                mismatched = [field for field in IDENTITY_FIELDS if compatibility[field] != reference_identity[field]]
+                fields = (*IDENTITY_FIELDS, "effective_lock_sha256")
+                mismatched = [field for field in fields if compatibility.get(field) != reference_identity.get(field)]
                 require(not mismatched, "toolchain, OS, dependency, or configured allocator differs between captures: " + ", ".join(mismatched))
                 host_ids.append(identity.get("host_id"))
                 run.update(parsed)

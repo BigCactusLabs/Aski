@@ -1,0 +1,386 @@
+[
+  {
+    "mode": "incremental",
+    "count": 24,
+    "append_peak_live_count": 24,
+    "peak_live_count": 24,
+    "peak_live_bytes": 22118400,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "preFinalize": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 22118400,
+        "liveCount": 24,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 24,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 24,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 24,
+        "stage": "afterSessionReleased"
+      }
+    }
+  },
+  {
+    "mode": "retained",
+    "count": 24,
+    "append_peak_live_count": 24,
+    "peak_live_count": 24,
+    "peak_live_bytes": 22118400,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "afterArrayCreation": {
+        "appended": 0,
+        "created": 24,
+        "liveBytes": 22118400,
+        "liveCount": 24,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 0,
+        "stage": "afterArrayCreation"
+      },
+      "preFinalize": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 22118400,
+        "liveCount": 24,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 22118400,
+        "liveCount": 24,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 0,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 24,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 24,
+        "created": 24,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 22118400,
+        "maxLiveCount": 24,
+        "released": 24,
+        "stage": "afterSessionReleased"
+      }
+    }
+  },
+  {
+    "mode": "incremental",
+    "count": 240,
+    "append_peak_live_count": 240,
+    "peak_live_count": 240,
+    "peak_live_bytes": 221184000,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "preFinalize": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 221184000,
+        "liveCount": 240,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 240,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 240,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 240,
+        "stage": "afterSessionReleased"
+      }
+    }
+  },
+  {
+    "mode": "retained",
+    "count": 240,
+    "append_peak_live_count": 240,
+    "peak_live_count": 240,
+    "peak_live_bytes": 221184000,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "afterArrayCreation": {
+        "appended": 0,
+        "created": 240,
+        "liveBytes": 221184000,
+        "liveCount": 240,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 0,
+        "stage": "afterArrayCreation"
+      },
+      "preFinalize": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 221184000,
+        "liveCount": 240,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 221184000,
+        "liveCount": 240,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 0,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 240,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 240,
+        "created": 240,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 221184000,
+        "maxLiveCount": 240,
+        "released": 240,
+        "stage": "afterSessionReleased"
+      }
+    }
+  },
+  {
+    "mode": "incremental",
+    "count": 1200,
+    "append_peak_live_count": 1200,
+    "peak_live_count": 1200,
+    "peak_live_bytes": 1105920000,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "preFinalize": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 1105920000,
+        "liveCount": 1200,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 1200,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 1200,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 1200,
+        "stage": "afterSessionReleased"
+      }
+    }
+  },
+  {
+    "mode": "retained",
+    "count": 1200,
+    "append_peak_live_count": 1200,
+    "peak_live_count": 1200,
+    "peak_live_bytes": 1105920000,
+    "stages": {
+      "initial": {
+        "appended": 0,
+        "created": 0,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 0,
+        "maxLiveCount": 0,
+        "released": 0,
+        "stage": "initial"
+      },
+      "afterArrayCreation": {
+        "appended": 0,
+        "created": 1200,
+        "liveBytes": 1105920000,
+        "liveCount": 1200,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 0,
+        "stage": "afterArrayCreation"
+      },
+      "preFinalize": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 1105920000,
+        "liveCount": 1200,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 0,
+        "stage": "preFinalize"
+      },
+      "afterFinish": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 1105920000,
+        "liveCount": 1200,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 0,
+        "stage": "afterFinish"
+      },
+      "afterArrayReleased": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 1200,
+        "stage": "afterArrayReleased"
+      },
+      "afterSessionReleased": {
+        "appended": 1200,
+        "created": 1200,
+        "liveBytes": 0,
+        "liveCount": 0,
+        "maxLiveBytes": 1105920000,
+        "maxLiveCount": 1200,
+        "released": 1200,
+        "stage": "afterSessionReleased"
+      }
+    }
+  }
+]

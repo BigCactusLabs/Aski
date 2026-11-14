@@ -1,0 +1,41 @@
+{
+  "task": "ASKI-74",
+  "schemaVersion": 1,
+  "frozenProductSource": "e9ac79bd48ab0d387d85cedf15f5bab244fc0aad",
+  "configuration": {
+    "columns": 80,
+    "fontSize": 12,
+    "scale": 1,
+    "backgroundHex": "#101010",
+    "backgroundAlpha": 1,
+    "preserveSourceAspect": false,
+    "threshold": 0.5,
+    "maxHeadroom": 8,
+    "kSweep": [0, 1, 2, 4],
+    "repetitions": 3,
+    "encoder": "CIContext.heifRepresentation",
+    "encoderFormat": "RGBA8",
+    "encoderOptions": ["hdrImage"],
+    "decodedPixelFormat": "RGBAf",
+    "decodedColorSpace": "extendedLinearSRGB"
+  },
+  "fixtures": {
+    "authored-bright-flat": ["sRGB", "flat"],
+    "authored-dark-emits": ["sRGB", "blooms"],
+    "authored-intensity-sweep": ["sRGB", "blooms"],
+    "bright-p3": ["displayP3", "blooms"],
+    "bright-srgb": ["sRGB", "blooms"],
+    "dark-srgb": ["sRGB", "flat"],
+    "edge-srgb": ["sRGB", "blooms"],
+    "gradient-srgb": ["sRGB", "blooms"],
+    "mono-bright-srgb": ["sRGB", "blooms"]
+  },
+  "backends": ["native", "swiftbuild"],
+  "independentProcessesPerBackend": 2,
+  "rules": {
+    "boundary": "All 36 pairs and their interpretation metadata must match exactly in all three repetitions and all four processes.",
+    "gates": "Apply the existing HDRGates evaluator to each complete set of 36 measurements. All G1 through G4 checks must pass unchanged in every repetition.",
+    "variability": "Evaluate each case and output field separately. A changed field under the same binary and from exact inputs demonstrates framework variability for that case and field. A field that differs across backends without a corresponding same-binary change remains unresolved. No observed maximum becomes a tolerance.",
+    "scope": "This host, Xcode, Swift toolchain, framework versions, fixture corpus and render configuration only."
+  }
+}

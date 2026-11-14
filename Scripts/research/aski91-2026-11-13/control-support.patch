@@ -1,0 +1,209 @@
+diff --git a/Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift b/Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift
+index 8dfb561..98df773 100644
+--- a/Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift
++++ b/Benchmarks/AskiBenchmarks/RenderingGroundworkBenchmarks.swift
+@@ -9,6 +9,8 @@ func addRenderingGroundworkBenchmarks() {
+         metrics: [.wallClock, .cpuTotal, .mallocCountTotal, .peakMemoryResident],
+         warmupIterations: 1, scalingFactor: .one, maxDuration: .seconds(3), maxIterations: 6
+     )
++    var patternConfiguration = configuration
++    patternConfiguration.units = [.mallocCountTotal: .count, .peakMemoryResident: .count]
+     let overlays: [(String, OngoingPattern)] = [
+         ("pulse", .pulse(period: 1, depth: 0.8)),
+         ("wave-horizontal", .wave(amplitude: 0.4, frequency: 1, direction: .horizontal)),
+@@ -19,7 +21,7 @@ func addRenderingGroundworkBenchmarks() {
+     // 15 overlay + 9 animation-frame workloads = 24 ASKI-91 identities.
+     for columns in [80, 192, 288] {
+         for (name, pattern) in overlays {
+-            Benchmark("aski91-overlay-\(name)-\(columns)cols", configuration: configuration) { benchmark in
++            Benchmark("aski91-overlay-\(name)-\(columns)cols", configuration: patternConfiguration) { benchmark in
+                 let grid = groundworkGrid(columns: columns)
+                 benchmark.startMeasurement()
+                 for _ in benchmark.scaledIterations {
+@@ -29,7 +31,7 @@ func addRenderingGroundworkBenchmarks() {
+             }
+         }
+         for name in ["radial-active", "radial-complete", "no-pattern"] {
+-            Benchmark("aski91-frame-\(name)-\(columns)cols", configuration: configuration) { benchmark in
++            Benchmark("aski91-frame-\(name)-\(columns)cols", configuration: patternConfiguration) { benchmark in
+                 let image = makeGradient(width: 800, height: 600)
+                 let entrance: EntrancePattern? = name == "no-pattern" ? nil : .reveal(origin: .init(x: -0.25, y: 0.5))
+                 let animated = DefaultConverter().animate(
+diff --git a/Tests/AskiTests/PatternGridGroundworkTests.swift b/Tests/AskiTests/PatternGridGroundworkTests.swift
+index b41ed92..4024110 100644
+--- a/Tests/AskiTests/PatternGridGroundworkTests.swift
++++ b/Tests/AskiTests/PatternGridGroundworkTests.swift
+@@ -7,42 +7,64 @@ import Testing
+ /// semantics, not just ordinary finite alpha. Native Apple-platform tests.
+ @Suite struct PatternGridGroundworkTests {
+     @Test func neutralOverlayPreservesRaggedCellsAndMaskMetadata() throws {
+-        let alphas: [Float] = [0, -0.0, 0.25, 1, -1, 2, .infinity, -.infinity, .nan, .signalingNaN]
+-        let row = alphas.map {
+-            ASCIICell(character: "#", displayColor: SIMD3<Float>(0.1, 0.3, 0.7), alpha: $0, brightness: 0.6, coverage: 0.25)
+-        }
+-        let source = try Self.image()
+-        let ground = CGColor(gray: 0.2, alpha: 1)
+-        let base = ASCIIGrid(
+-            cells: [row, [], Array(row.prefix(3))], colorSpace: .sRGB,
+-            composition: .extendedLinearPerGamut,
+-            maskFallback: .originalImage(source, sizing: .fit), maskGroundColor: ground, maskUsesHardEdges: true
+-        )
++        let base = try Self.grid(ragged: true)
+         for pattern in [OngoingPattern.pulse(period: 1, depth: 0), .wave(amplitude: 0, frequency: 1)] {
+             let actual = base.applyingOngoingPattern(pattern, at: .infinity)
+-            #expect(actual.cells.map(\.count) == [10, 0, 3])
+-            #expect(actual.columns == base.columns && actual.rows == base.rows)
+-            #expect(actual.colorSpace == base.colorSpace && actual.composition == base.composition)
+-            #expect(actual.maskUsesHardEdges)
+-            #expect(actual.maskGroundColor?.components == ground.components)
+-            if case .originalImage(let image, let sizing) = actual.maskFallback {
+-                #expect(ObjectIdentifier(image) == ObjectIdentifier(source))
+-                if case .fit = sizing {} else { Issue.record("fallback sizing changed") }
+-            } else {
+-                Issue.record("original-image fallback was lost")
+-            }
+-            for (actualRow, originalRow) in zip(actual.cells, base.cells) {
+-                for (cell, original) in zip(actualRow, originalRow) {
+-                    let expectedAlpha = original.alpha * Float(1)
+-                    #expect(cell.alpha.bitPattern == expectedAlpha.bitPattern)
+-                    #expect(cell.character == original.character && cell.displayColor == original.displayColor)
+-                    #expect(cell.brightness.bitPattern == original.brightness.bitPattern)
+-                    #expect(cell.coverage.bitPattern == original.coverage.bitPattern)
++            Self.expectGrid(actual, matches: base) { _, _, original in Self.scalarMultiply(original.alpha, 1) }
++        }
++    }
++
++    @Test func pulseOverlayAndAnimatedFramesMatchScalarAcrossConcurrentInvocations() async throws {
++        let ragged = try Self.grid(ragged: true)
++        let rectangular = try Self.grid(ragged: false)
++        let cases: [(period: Double, depth: Double, time: Double)] = [
++            (1, 0.8, 0.375), (0.7, 0.3, 0.62), (1, 1, 0.5),
++            (1, 0.8, 1.0.nextDown), (1, 0.8, 1), (1, 0.8, 1.0.nextUp),
++            (2, 0.2, -1), (2, 0.2, .nan), (2, 0.2, .infinity), (2, 0.2, -.infinity),
++            (0.125, 0.3, .greatestFiniteMagnitude), (1, .nan, 0.5), (1, .infinity, 0.5),
++            (1, -2, 0.5), (1, 2, 0.5),
++        ]
++        await withTaskGroup(of: Void.self) { group in
++            for (period, depth, time) in cases {
++                group.addTask {
++                    let resolvedTime = time.isFinite ? max(0, time) : 0
++                    let pattern = OngoingPattern.pulse(period: period, depth: depth)
++                    let pulse = Self.scalarPulse(period: period, depth: depth, time: resolvedTime)
++                    let overlay = ragged.applyingOngoingPattern(pattern, at: time)
++                    Self.expectGrid(overlay, matches: ragged) { _, _, original in original.alpha * Float(pulse) }
++
++                    for entrance in [nil, EntrancePattern.reveal(origin: .init(x: -0.25, y: 0.5))] {
++                        let frame = Self.animated(rectangular, entrance: entrance, ongoing: pattern).grid(at: time)
++                        Self.expectGrid(frame, matches: rectangular) { column, row, original in
++                            let coord = AnimationCellCoordinate(
++                                column: column, row: row, columns: rectangular.columns, rows: rectangular.rows)
++                            // Entrance evaluation is unchanged. Only the pulse oracle is independent.
++                            let entranceAlpha =
++                                entrance.map { PatternEvaluator.entranceAlpha($0, coord: coord, time: resolvedTime, duration: 1) } ?? 1
++                            return original.alpha * Float(min(1, max(0, entranceAlpha * pulse)))
++                        }
++                    }
+                 }
+             }
+         }
+     }
+ 
++    @Test func combinedRevealAndPulseRoundsAfterMultiplyingInDouble() throws {
++        let base = try Self.grid(ragged: false)
++        let entrance = EntrancePattern.reveal(origin: .init(x: -0.25, y: 0.5))
++        let time = 0.375
++        let pulse = Self.scalarPulse(period: 1, depth: 0.8, time: time)
++        let coord = AnimationCellCoordinate(column: 0, row: 0, columns: base.columns, rows: base.rows)
++        let entranceAlpha = PatternEvaluator.entranceAlpha(entrance, coord: coord, time: time, duration: 1)
++        let expected = Float(entranceAlpha * pulse)
++        let premature = Float(entranceAlpha * Double(Float(pulse)))
++        #expect(base.cells[0][0].alpha == 1)
++        #expect(expected.bitPattern != premature.bitPattern)
++
++        let frame = Self.animated(base, entrance: entrance, ongoing: .pulse(period: 1, depth: 0.8)).grid(at: time)
++        #expect(frame.cells[0][0].alpha.bitPattern == expected.bitPattern)
++    }
++
+     @Test func publicOverlayResolvesNonfiniteAndNegativeTimeBeforeEvaluation() {
+         let cell = ASCIICell(character: "#", displayColor: .zero, alpha: 0.75, brightness: 0.5)
+         let grid = ASCIIGrid(cells: [[cell, cell], [cell]], colorSpace: .sRGB)
+@@ -54,6 +76,79 @@ import Testing
+         }
+     }
+ 
++    // Keep this oracle's multiplication in release builds. Folding alpha * 1
++    // to identity preserves a signaling NaN instead of quieting it.
++    @_optimize(none)
++    private static func scalarMultiply(_ alpha: Float, _ multiplier: Float) -> Float {
++        alpha * multiplier
++    }
++
++    private static func scalarPulse(period: Double, depth: Double, time: Double) -> Double {
++        // Frozen scalar expression from the pre-change evaluator.
++        let resolvedDepth = depth.isFinite ? min(1, max(0, depth)) : 1
++        let value = 1 - resolvedDepth / 2 + (resolvedDepth / 2) * sin(2 * Double.pi * time / period + Double.pi / 2)
++        return resolvedDepth == 0 || !value.isFinite ? 1 : min(1, max(0, value))
++    }
++
++    private static func expectGrid(
++        _ actual: ASCIIGrid,
++        matches base: ASCIIGrid,
++        alpha: (Int, Int, ASCIICell) -> Float
++    ) {
++        #expect(actual.cells.map(\.count) == base.cells.map(\.count))
++        #expect(actual.columns == base.columns && actual.rows == base.rows)
++        #expect(actual.colorSpace == base.colorSpace && actual.composition == base.composition)
++        #expect(actual.maskUsesHardEdges == base.maskUsesHardEdges)
++        #expect(actual.maskGroundColor?.components == base.maskGroundColor?.components)
++        if case .originalImage(let image, .fit) = actual.maskFallback,
++            case .originalImage(let source, .fit) = base.maskFallback
++        {
++            #expect(ObjectIdentifier(image) == ObjectIdentifier(source))
++        } else {
++            Issue.record("original-image fallback or fit sizing was lost")
++        }
++        for (row, lines) in zip(actual.cells, base.cells).enumerated() {
++            for (column, cells) in zip(lines.0, lines.1).enumerated() {
++                let (cell, original) = cells
++                #expect(cell.alpha.bitPattern == alpha(column, row, original).bitPattern)
++                #expect(cell.character == original.character)
++                #expect(cell.displayColor.x.bitPattern == original.displayColor.x.bitPattern)
++                #expect(cell.displayColor.y.bitPattern == original.displayColor.y.bitPattern)
++                #expect(cell.displayColor.z.bitPattern == original.displayColor.z.bitPattern)
++                #expect(cell.brightness.bitPattern == original.brightness.bitPattern)
++                #expect(cell.coverage.bitPattern == original.coverage.bitPattern)
++            }
++        }
++    }
++
++    private static func grid(ragged: Bool) throws -> ASCIIGrid {
++        let alphas: [Float] = [1, 0, -0.0, 0.25, -1, 2, .infinity, -.infinity, .nan, .signalingNaN]
++        let row = alphas.enumerated().map { index, alpha in
++            ASCIICell(
++                character: index.isMultiple(of: 2) ? "#" : "+",
++                displayColor: SIMD3<Float>(0.1, 0.3, Float(index) / 10), alpha: alpha, brightness: 0.6,
++                coverage: Float(index % 5) / 4)
++        }
++        return ASCIIGrid(
++            cells: ragged ? [row, [], Array(row.prefix(3))] : [row, Array(row.reversed())],
++            colorSpace: .sRGB, composition: .extendedLinearPerGamut,
++            maskFallback: .originalImage(try image(), sizing: .fit),
++            maskGroundColor: CGColor(gray: 0.2, alpha: 1), maskUsesHardEdges: true
++        )
++    }
++
++    private static func animated(_ base: ASCIIGrid, entrance: EntrancePattern?, ongoing: OngoingPattern) -> AnimatedASCIIGrid {
++        let snapshot = CharacterSetSnapshot(characters: ["#", "+"])
++        let candidates = ContiguousArray(base.cells.joined().map { UInt16($0.character == "#" ? 0 : 1) })
++        let schedule = ScheduleBuilder.build(
++            baseGrid: base, candidates: candidates, candidateStride: 1,
++            candidateCounts: ContiguousArray(repeating: 1, count: candidates.count),
++            characterSet: snapshot,
++            options: AnimationOptions(duration: 1, cycling: nil, entrance: entrance, ongoing: ongoing)
++        )
++        return AnimatedASCIIGrid(baseGrid: base, duration: 1, seed: 0, schedule: schedule, characterSet: snapshot)
++    }
++
+     private static func image() throws -> CGImage {
+         let space = try #require(CGColorSpace(name: CGColorSpace.sRGB))
+         let context = try #require(

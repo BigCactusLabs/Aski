@@ -1,0 +1,23 @@
+--- a/Benchmarks/AskiBenchmarks/Benchmarks.swift
++++ b/Benchmarks/AskiBenchmarks/Benchmarks.swift
+@@ -9,6 +9,20 @@
+ 
+ let benchmarks: @Sendable () -> Void = {
+     reportAllocatorObservation()
++
++    // Temporary native ASKI-86 failure registrations; never shipped.
++    let missingInput = URL(fileURLWithPath: "/dev/null/aski86-unreadable-input")
++    Benchmark(
++        "aski86-native-setup-failure",
++        configuration: .init(metrics: [.wallClock], warmupIterations: 0, maxDuration: .milliseconds(1), maxIterations: 1),
++        closure: { benchmark in blackHole(benchmark.currentIteration) },
++        setup: { _ = try Data(contentsOf: missingInput) }
++    )
++    Benchmark(
++        "aski86-native-execution-failure",
++        configuration: .init(metrics: [.wallClock], warmupIterations: 0, maxDuration: .milliseconds(1), maxIterations: 1),
++        closure: { _ in blackHole(try Data(contentsOf: missingInput)) }
++    )
+ 
+     Benchmark.defaultConfiguration = .init(
+         metrics: [.wallClock, .mallocCountTotal, .allocatedResidentMemory],

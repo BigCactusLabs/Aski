@@ -1,0 +1,398 @@
+[
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "0"
+    ],
+    "repeat": 0,
+    "pid": 69921,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "0"
+    ],
+    "repeat": 1,
+    "pid": 69922,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "0"
+    ],
+    "repeat": 2,
+    "pid": 69923,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "1"
+    ],
+    "repeat": 0,
+    "pid": 69924,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "1"
+    ],
+    "repeat": 1,
+    "pid": 69925,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "1"
+    ],
+    "repeat": 2,
+    "pid": 69926,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "2"
+    ],
+    "repeat": 0,
+    "pid": 69927,
+    "exit": -11,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "2"
+    ],
+    "repeat": 1,
+    "pid": 69928,
+    "exit": -11,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "2"
+    ],
+    "repeat": 2,
+    "pid": 69931,
+    "exit": -11,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "3"
+    ],
+    "repeat": 0,
+    "pid": 69932,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "3"
+    ],
+    "repeat": 1,
+    "pid": 69934,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "3"
+    ],
+    "repeat": 2,
+    "pid": 69935,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "4"
+    ],
+    "repeat": 0,
+    "pid": 69936,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "4"
+    ],
+    "repeat": 1,
+    "pid": 69937,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "4"
+    ],
+    "repeat": 2,
+    "pid": 69938,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "5"
+    ],
+    "repeat": 0,
+    "pid": 69939,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "5"
+    ],
+    "repeat": 1,
+    "pid": 69940,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-v3",
+      "5"
+    ],
+    "repeat": 2,
+    "pid": 69941,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "0"
+    ],
+    "repeat": 0,
+    "pid": 69942,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "0"
+    ],
+    "repeat": 1,
+    "pid": 69943,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "0"
+    ],
+    "repeat": 2,
+    "pid": 69944,
+    "exit": 0,
+    "stdout": "mode=0 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "1"
+    ],
+    "repeat": 0,
+    "pid": 69945,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "1"
+    ],
+    "repeat": 1,
+    "pid": 69946,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "1"
+    ],
+    "repeat": 2,
+    "pid": 69947,
+    "exit": 0,
+    "stdout": "mode=1 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "2"
+    ],
+    "repeat": 0,
+    "pid": 69948,
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "2"
+    ],
+    "repeat": 1,
+    "pid": 69949,
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "2"
+    ],
+    "repeat": 2,
+    "pid": 69950,
+    "exit": 0,
+    "stdout": "mode=2 reset=ok total=0\npost-reset malloc=1 free=1 bytes=4096\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "3"
+    ],
+    "repeat": 0,
+    "pid": 69951,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "3"
+    ],
+    "repeat": 1,
+    "pid": 69952,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "3"
+    ],
+    "repeat": 2,
+    "pid": 69953,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "4"
+    ],
+    "repeat": 0,
+    "pid": 69954,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "4"
+    ],
+    "repeat": 1,
+    "pid": 69955,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "4"
+    ],
+    "repeat": 2,
+    "pid": 69956,
+    "exit": 0,
+    "stdout": "reset after main exit ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "5"
+    ],
+    "repeat": 0,
+    "pid": 69957,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "5"
+    ],
+    "repeat": 1,
+    "pid": 69958,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      ".build/aski109-probe-clear-v3",
+      "5"
+    ],
+    "repeat": 2,
+    "pid": 69959,
+    "exit": 0,
+    "stdout": "mode=5 reset=ok total=0\npost-reset malloc=2 free=1 bytes=4112\n",
+    "stderr": ""
+  }
+]

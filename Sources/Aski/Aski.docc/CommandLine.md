@@ -156,6 +156,18 @@ Schemas and field contracts live in the repository's
 [command-line architecture reference](https://github.com/BigCactusLabs/Aski/blob/main/docs/architecture.md#command-line-product).
 `--write-manifest` belongs to `render`, not `inspect`.
 
+## Discover CLI commands
+
+Use `metadata` to read command paths, aliases, visible arguments, and replay
+product mappings as versioned JSON.
+
+```bash
+xcrun swift run aski metadata
+```
+
+See the [CLI automation contracts](https://github.com/BigCactusLabs/Aski/blob/main/docs/architecture.md#command-line-product)
+for the metadata schema and field definitions.
+
 ## Reuse a built executable
 
 Build once, then call the executable in SwiftPM's reported binary directory:

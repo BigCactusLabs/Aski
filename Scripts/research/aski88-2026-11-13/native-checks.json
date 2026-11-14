@@ -1,0 +1,330 @@
+{
+  "task": "ASKI-88",
+  "candidate_revision": "3b88421844d6623d8ae8c5572c2d2e53ae870a46",
+  "control_revision": "100f3806317fe593c71dc2ed24ed58ed6f35a929",
+  "checks": [
+    {
+      "record": {
+        "label": "aski88-check-1",
+        "task": "ASKI-88",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "just",
+          "check"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794562033.983266,
+        "pid": 92828,
+        "seconds": 208.5601589679718,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "ee9356a7949857e9f4eab868aa36d4d3893fa694a06aa0c60ff5deb4df043d62",
+        "bytes": 324
+      },
+      "log": {
+        "sha256": "6f2dda5fa75306420377f970d3367d6c8cbd858a4c934a5de3d13d37e7f5a94a",
+        "bytes": 441885
+      },
+      "test_summaries": [
+        "1541 tests in 236 suites passed after 99.043 seconds.",
+        "177 tests in 42 suites passed after 9.903 seconds.",
+        "2 tests in 2 suites passed after 1.627 seconds."
+      ],
+      "source_before": {
+        "sha256": "b0312ff6c5377b69981b2ad640cc0598493c46c5b857493449c5dd711e3db159",
+        "bytes": 165252
+      },
+      "source_after": {
+        "sha256": "b0312ff6c5377b69981b2ad640cc0598493c46c5b857493449c5dd711e3db159",
+        "bytes": 165252
+      }
+    },
+    {
+      "record": {
+        "label": "aski88-control-check-1",
+        "task": "ASKI-88",
+        "cwd": "$CONTROL",
+        "argv": [
+          "just",
+          "check"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794562621.321561,
+        "pid": 5851,
+        "seconds": 207.61279892921448,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "dd93f54b11a854ec0d8bfd2836b158af1813e01cd6f0415e501040e372a622ff",
+        "bytes": 340
+      },
+      "log": {
+        "sha256": "3ae8af9d6594b73145a132e0c1a5f7b7b6a4ea5490be61c4a08de83d23b22b00",
+        "bytes": 441683
+      },
+      "test_summaries": [
+        "1541 tests in 236 suites passed after 97.137 seconds.",
+        "177 tests in 42 suites passed after 9.220 seconds.",
+        "2 tests in 2 suites passed after 1.573 seconds."
+      ],
+      "source_before": {
+        "sha256": "b52ae8289dea0ef9a2db38b33f7e6fd9f8dbb94c91567d8c30951896fdd6d4a6",
+        "bytes": 164929
+      },
+      "source_after": {
+        "sha256": "b52ae8289dea0ef9a2db38b33f7e6fd9f8dbb94c91567d8c30951896fdd6d4a6",
+        "bytes": 164929
+      }
+    },
+    {
+      "record": {
+        "label": "aski88-infra-1",
+        "task": "ASKI-88",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "just",
+          "test-infra"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794562254.74865,
+        "pid": 97434,
+        "seconds": 57.98050880432129,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "0e70fd0a0b70663f4f9b2761c537620d4c57dd017dea5a5b708d0bb00128b677",
+        "bytes": 328
+      },
+      "log": {
+        "sha256": "f8a173cb11e35d373aba9a64ed265899b7c5c5f78915425b264d8d9a962d892c",
+        "bytes": 20276
+      },
+      "test_summaries": [],
+      "source_before": {
+        "sha256": "b0312ff6c5377b69981b2ad640cc0598493c46c5b857493449c5dd711e3db159",
+        "bytes": 165252
+      },
+      "source_after": {
+        "sha256": "b0312ff6c5377b69981b2ad640cc0598493c46c5b857493449c5dd711e3db159",
+        "bytes": 165252
+      }
+    },
+    {
+      "record": {
+        "label": "aski88-release-1",
+        "task": "ASKI-88",
+        "cwd": "$CANDIDATE",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "BrightnessPoolContractTests|BrightnessRankingContractTests|BrightnessSelectionParityTests|SamplingLatticeContractTests"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794563181.1531498,
+        "pid": 15774,
+        "seconds": 184.0642750263214,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "9269ddb64348dc3aa68890502e65c7b77d1c5a45c79a28d4653d72aca57a71a1",
+        "bytes": 528
+      },
+      "log": {
+        "sha256": "7651a6b0b54c4c4e14ba72eb5cae935da15139fa8ba0570bebe918352f29969d",
+        "bytes": 12287
+      },
+      "test_summaries": [
+        "21 tests in 4 suites passed after 0.239 seconds."
+      ],
+      "source_before": {
+        "sha256": "35056cacea2e8cd737c703f7b099192f67fa09b6efa3c3e162b01f92d29d2813",
+        "bytes": 164892
+      },
+      "source_after": {
+        "sha256": "35056cacea2e8cd737c703f7b099192f67fa09b6efa3c3e162b01f92d29d2813",
+        "bytes": 164892
+      }
+    },
+    {
+      "record": {
+        "label": "aski88-control-release-1",
+        "task": "ASKI-88",
+        "cwd": "$CONTROL",
+        "argv": [
+          "xcrun",
+          "swift",
+          "test",
+          "-c",
+          "release",
+          "--no-parallel",
+          "--filter",
+          "BrightnessPoolContractTests|BrightnessRankingContractTests|BrightnessSelectionParityTests|SamplingLatticeContractTests"
+        ],
+        "status": "finished",
+        "exit": 0,
+        "started": 1794563373.2075992,
+        "pid": 17416,
+        "seconds": 184.0949068069458,
+        "snapshot_frozen": true,
+        "changed_paths": []
+      },
+      "source_record": {
+        "sha256": "5ce3480b857eabbabbbd3f0c3c8821e8a1a750eab3a90576ca8ffd7e631c041b",
+        "bytes": 544
+      },
+      "log": {
+        "sha256": "6aa1e9ec7dc9a46411e1b8fe6fdc2770eeb6452605315905534a5080e328d53b",
+        "bytes": 12366
+      },
+      "test_summaries": [
+        "21 tests in 4 suites passed after 0.238 seconds."
+      ],
+      "source_before": {
+        "sha256": "2bf37ea66f507f6e2cdbc2904a7e1e0ebe49ddb7a1fb697fd32afa72d79a15eb",
+        "bytes": 164892
+      },
+      "source_after": {
+        "sha256": "2bf37ea66f507f6e2cdbc2904a7e1e0ebe49ddb7a1fb697fd32afa72d79a15eb",
+        "bytes": 164892
+      }
+    }
+  ],
+  "existing_checks": {
+    "expected_names": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "convert-gradient-2400x1800-120cols",
+      "convert-gradient-800x600-80cols",
+      "helmlab-compressed-convert-80cols"
+    ],
+    "budget_names": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "helmlab-compressed-convert-80cols"
+    ],
+    "selector": "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|convert[-]gradient[-]2400x1800[-]120cols|convert[-]gradient[-]800x600[-]80cols|helmlab[-]compressed[-]convert[-]80cols)$",
+    "budget_selector": "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|helmlab[-]compressed[-]convert[-]80cols)$",
+    "runs": [
+      {
+        "label": "aski88-capture-1",
+        "argv": [
+          "python3",
+          "-B",
+          "Scripts/validate-benchmarks.py",
+          "--filter",
+          "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|convert[-]gradient[-]2400x1800[-]120cols|convert[-]gradient[-]800x600[-]80cols|helmlab[-]compressed[-]convert[-]80cols)$",
+          "--require-metric",
+          "mallocCountTotal",
+          "--timeout",
+          "600",
+          "--output-dir",
+          "$BATCH/existing-wave2-checks/aski88-capture-1",
+          "--expect",
+          "animation-build-gradient-80cols-k6",
+          "--expect",
+          "animation-grid-at-80cols",
+          "--expect",
+          "animation-materialize-80cols-5s-60fps",
+          "--expect",
+          "animation-regression-static-convert-80cols",
+          "--expect",
+          "convert-gradient-2400x1800-120cols",
+          "--expect",
+          "convert-gradient-800x600-80cols",
+          "--expect",
+          "helmlab-compressed-convert-80cols"
+        ],
+        "cwd": "$CANDIDATE",
+        "started_at": "2026-11-13T10:16:40.922908+00:00",
+        "exit": 0,
+        "seconds": 65.98867533402517,
+        "finished_at": "2026-11-13T10:17:46.913171+00:00"
+      },
+      {
+        "label": "aski88-budget-1",
+        "argv": [
+          "xcrun",
+          "swift",
+          "package",
+          "--disable-sandbox",
+          "benchmark",
+          "baseline",
+          "check",
+          "--check-absolute",
+          "--target",
+          "AskiBenchmarks",
+          "--no-progress",
+          "--filter",
+          "^(animation[-]build[-]gradient[-]80cols[-]k6|animation[-]grid[-]at[-]80cols|animation[-]materialize[-]80cols[-]5s[-]60fps|animation[-]regression[-]static[-]convert[-]80cols|helmlab[-]compressed[-]convert[-]80cols)$"
+        ],
+        "cwd": "$CANDIDATE",
+        "started_at": "2026-11-13T10:17:46.958177+00:00",
+        "exit": 0,
+        "seconds": 29.998953000060283,
+        "finished_at": "2026-11-13T10:18:16.958127+00:00"
+      }
+    ],
+    "revision": "3b88421844d6623d8ae8c5572c2d2e53ae870a46"
+  },
+  "existing_capture": {
+    "status": "valid",
+    "complete": true,
+    "errors": [],
+    "selected": [
+      "animation-build-gradient-80cols-k6",
+      "animation-grid-at-80cols",
+      "animation-materialize-80cols-5s-60fps",
+      "animation-regression-static-convert-80cols",
+      "convert-gradient-2400x1800-120cols",
+      "convert-gradient-800x600-80cols",
+      "helmlab-compressed-convert-80cols"
+    ],
+    "required_metrics": [
+      "mallocCountTotal",
+      "wallClock"
+    ],
+    "report": {
+      "sha256": "a5058d0faf57ba57745e2bc0b35a3211c603ca015f45f1d44698d086137fecd7",
+      "bytes": 34062
+    }
+  },
+  "absolute_budget_log": {
+    "sha256": "3ef6cff2990b5be3ed2cfca5e1ba6161c58236eb708dfec935ae4190e5902d38",
+    "bytes": 4014
+  },
+  "report_evidence": {
+    "sha256": "5f534392ef6f1edc603af73ebcfde93a3ec0d67b89112739710544788c70c800",
+    "bytes": 8214
+  },
+  "adoption": "rejected under frozen primary and regression rules",
+  "limitations": "Compact native evidence hashes and command records; full local native logs are retained separately. Source checks occurred at the recorded HEAD plus dirty inventory before isolated commits. Native gate times are not performance comparisons.",
+  "derived_table": {
+    "file": "all-cells.csv",
+    "sha256": "a89e6033921ecf4cc99e35b071123555e543da3e4f6c7c3b3e68368548eb0881",
+    "rows": 168,
+    "verification": "Lead independently recomputed medians, range and MAD from all canonical pairs with exact rational inputs; numeric serialization agrees within1e-12."
+  },
+  "original_report_evidence": {
+    "sha256": "68dbe2e180e0125626747aa32bbd916bc020e619b30812757aade1cfbe1912c3",
+    "bytes": 7985
+  },
+  "executable_provenance_limit": "The tools retained source, raw capture and log hashes, not per-capture executable hashes. No loaded-byte attestation is inferred from frozen source identities."
+}

@@ -1,0 +1,13 @@
+{
+  "pinned": "1.4.0 (9221411ac2e845a93ce65b9ca2ab84f8c1084b0d)",
+  "compared_ref": "1.6.1",
+  "source": "https://github.com/ordo-one/malloc-interposer/blob/1.6.1/Sources/MallocInterposerC/src/interposer-darwin.c",
+  "source_sha256": "006a00345b4b832d6acd7a7b73b2883ae998e2ec1d577cb4539f07683d95e698",
+  "bodies_equal": {
+    "block_destructor": true,
+    "tls_block_init": true,
+    "get_tls_block": true,
+    "malloc_interposer_reset": true
+  },
+  "limit": "Bounded source comparison only. Equal bodies do not prove absence of an indirect fix elsewhere, nor establish the crash cause. No pin change or native retry."
+}
