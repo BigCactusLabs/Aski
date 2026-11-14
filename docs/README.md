@@ -50,7 +50,7 @@ describe intended assets; do not assume a hosted API site.
 | Inspect the incomplete tile-buffer study and separate phase measurements | [ASKI-92 inconclusive study](../Scripts/research/aski92-2026-11-13/README.md) |
 | Inspect provider lifetimes and failed RSS limits in the ImageIO append approach | [ASKI-4 memory study](../Scripts/research/aski4-2026-11-13/README.md) |
 | Inspect the rejected orientation-preparation arm | [ASKI-2 exact-raster experiment](../Scripts/research/aski2-2026-11-13/README.md) |
-| Inspect Swift 6.4 product-collision validation and open HDR parity | [ASKI-74 native replay](../Scripts/research/aski74-2026-11-13/README.md) |
+| Inspect Swift 6.4 collision qualification and scoped HDR boundary evidence | [ASKI-74 native replay](../Scripts/research/aski74-2026-11-13/README.md) |
 | Prepare animation, masked-rendering and fallback-noise work | [Rendering task groundwork](agents/rendering-groundwork.md) |
 | Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
 | Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |

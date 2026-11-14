@@ -128,6 +128,69 @@ import Testing
     private static let lightExtent = CGRect(x: 0, y: 0, width: 1024, height: 1024)
     private static let lightSample = CGPoint(x: 512, y: 512)
 
+    private func lightingPixel(
+        colors: [CGColor], ambient: Double = 0, alpha: CGFloat = 1,
+        output: RenderColorSpace = .sRGB
+    ) -> [Int] {
+        let extent = Self.lightExtent
+        let context = EffectContext(
+            workingColorSpace: WorkingColorSpace.extendedLinearSRGB, outputExtent: extent,
+            renderColorSpace: output, deviceCapability: .full)
+        let input = CIImage(color: CIColor(red: 1, green: 1, blue: 1, alpha: alpha)).cropped(to: extent)
+        let lights = colors.map {
+            PointLight(position: CGPoint(x: 0.5, y: 0.5), radius: 1, intensity: 1, color: $0)
+        }
+        let result = LightingApplicator().apply(LightingOptions(lights: lights, ambient: ambient), to: input, in: context)
+        return render(result, at: Self.lightSample, into: space(output))
+    }
+
+    @Test(arguments: [RenderColorSpace.sRGB, .displayP3], [RenderColorSpace.sRGB, .displayP3])
+    func pointLightOnWhiteMatchesItsOwnColor(source: RenderColorSpace, output: RenderColorSpace) throws {
+        let light = color(space(source), [0.8, 0.2, 0.1])
+        expectClose(
+            lightingPixel(colors: [light], output: output), try oracle(light, destination: space(output)),
+            "\(source) light into \(output)")
+    }
+
+    @Test(arguments: [0.25, 0.5])
+    func ambientOnWhiteMatchesEncodedSRGBGray(ambient: Double) throws {
+        let gray = color(sRGB, [CGFloat](repeating: CGFloat(ambient), count: 3))
+        expectClose(lightingPixel(colors: [], ambient: ambient), try oracle(gray, destination: sRGB), "ambient \(ambient)")
+    }
+
+    /// Independent sRGB transfer functions: fields add after decoding, before encoding.
+    private func linearSum(_ components: [Double], copies: Double = 1, ambient: Double = 0) -> [Int] {
+        func decode(_ value: Double) -> Double {
+            value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
+        }
+        func encode(_ value: Double) -> Double {
+            value <= 0.0031308 ? value * 12.92 : 1.055 * pow(value, 1 / 2.4) - 0.055
+        }
+        return components.map { Int((encode(copies * decode($0) + decode(ambient)) * 255).rounded()) } + [255]
+    }
+
+    @Test func pointLightAndAmbientAddInLinearSpace() {
+        let light = color(sRGB, [0.8, 0.2, 0.1])
+        expectClose(
+            lightingPixel(colors: [light], ambient: 0.5), linearSum([0.8, 0.2, 0.1], ambient: 0.5),
+            "light plus ambient")
+    }
+
+    @Test func twoPointLightsAddInLinearSpace() {
+        let light = color(sRGB, [0.3, 0.2, 0.1])
+        expectClose(lightingPixel(colors: [light, light]), linearSum([0.3, 0.2, 0.1], copies: 2), "two lights")
+    }
+
+    @Test(arguments: [0.0, 0.5], [RenderColorSpace.sRGB, .displayP3])
+    func pointLightingPreservesInputAlpha(alpha: Double, output: RenderColorSpace) throws {
+        let light = color(sRGB, [0.8, 0.2, 0.1])
+        let opaque = try oracle(light, destination: space(output))
+        let expected = opaque.map { Int((Double($0) * alpha).rounded()) }
+        expectClose(
+            lightingPixel(colors: [light], alpha: CGFloat(alpha), output: output), expected,
+            "alpha \(alpha) into \(output)")
+    }
+
     private func lightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat = 1) -> [Int] {
         let extent = Self.lightExtent
         let context = EffectContext(
@@ -141,10 +204,10 @@ import Testing
         return render(result, at: Self.lightSample, into: sRGB)
     }
 
-    /// The pre-ASKI-99 point-light chain, rebuilt from Core Image filters: the light
-    /// color is `CIColor(cgColor:)` with each component scaled by intensity, in the
-    /// default (sRGB) `CIColor` space, then added over black and an ambient of 0 and
-    /// multiplied into the input.
+    /// Pins only the pre-ASKI-99 light-color construction: `CIColor(cgColor:)`
+    /// with each component scaled by intensity in the default (sRGB) space.
+    /// The composite field is made opaque before multiplying, as required by
+    /// the corrected lighting model (ASKI-102).
     private func legacyLightCenter(_ light: CGColor, intensity: Double, input gray: CGFloat) throws -> [Int] {
         let extent = Self.lightExtent
         let input = CIImage(color: CIColor(red: gray, green: gray, blue: gray, alpha: 1)).cropped(to: extent)
@@ -169,7 +232,7 @@ import Testing
         let lightField = try composite(
             "CIAdditionCompositing", black, try #require(radial.outputImage).cropped(to: extent))
         let ambient = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 1)).cropped(to: extent)
-        let combined = try composite("CIAdditionCompositing", lightField, ambient)
+        let combined = try composite("CIAdditionCompositing", lightField, ambient).settingAlphaOne(in: extent)
         let result = try composite("CIMultiplyCompositing", input, combined)
         return render(result, at: Self.lightSample, into: sRGB)
     }
@@ -216,10 +279,8 @@ import Testing
         #expect(atTwo[0] - clippedResult[0] >= 5, "P3 \(atTwo) vs clipped \(clippedResult)")
     }
 
-    /// The light field's absolute scale is the applicator's own model, so the
-    /// reference is the same physical color declared in sRGB. Intensity keeps its
-    /// existing meaning: an sRGB color and its Display P3 equivalent light the
-    /// scene identically at any intensity.
+    /// Intensity keeps its existing meaning: an sRGB color and its Display P3
+    /// equivalent light the scene identically at any intensity.
     @Test(arguments: [0.6, 1.0])
     func pointLightIntensityIsIndependentOfSourceSpace(intensity: Double) throws {
         let sRGBLight = color(sRGB, [0.9, 0.5, 0.3])

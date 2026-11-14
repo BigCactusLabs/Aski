@@ -4,7 +4,7 @@ title: Prepare adaptive tile palette color samples once
 status: In Progress
 assignee: []
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T08:41:00Z'
+updated_date: '2026-11-14T17:16:00Z'
 labels:
   - performance
   - tiles
@@ -56,4 +56,8 @@ Audit 2026-11-12: draft PR #10 targets work/aski-86-benchmark-validity, which me
 Both the original complete-study attempt and its sole unchanged fresh recovery stopped before any complete pair. Each hit SIGSEGV at 0x20c8 in malloc_interposer_reset during BenchmarkRunner initialization. Root cause remains unproved. No sample was substituted, no pin/threshold changed and no numeric benefit or rejection is claimed. Allocation-lifetime profiles at 160 and 512 in both arms remain unrun. AC 3 and 4 remain open; no shared-buffer production change is integrated. See Scripts/research/aski92-2026-11-13/README.md for crash excerpts, raw candidate-phase samples/table, frozen rules, source replay patches and native evidence hashes. Draft PR #10 and both isolated study branches remain preserved.
 
 ASKI-109 now owns diagnosis of the reproduced allocator-reset failure. A new valid paired study remains dependent on resolving that instrumentation blocker.
+
+Fresh study after ASKI-109: control 75470ee273596d24d71f1682e90668140760db09 and candidate 3217dfe8ab1688898a8caffa787133c5a84a111c passed full local gates; all ten candidate parity/storage tests passed. The first excluded control preparation then failed before candidate preparation or any pair. The missing workload was aski92-fixed-512x512-srgb-opaque-256cols. Matching native crash PID 38846 was SIGSEGV in objc_msgSend through CFPreferences and CGBitmapContextCreate during readRGBA8/TileGridConverter.convert. This is a different stack from the old reset/0x20c8 failure; cause remains unproved. Validator rejected the capture and restored its lock. No capture was replaced, no paired verdict exists, and remaining phase/support/profile runs were stopped. Both committed study trees remain clean. Work paused at the owner request on 2026-11-13; full evidence is retained in the local follow-through checkpoint.
+
+2026-11-14 bounded diagnostic: matching executable/dylib UUIDs and preserved symbols place the fresh CoreGraphics/CFPreferences crash in fixed-palette warmup, before measurement. The unchanged failing binary/workload completed three independent starts under committed rule 4395f1b; every start exited 0 with active allocator observations. No matching new crash appeared and source/lock/binaries/original IPS remained unchanged. Result: not reproduced, cause unresolved. These direct-tool outputs are diagnostic-only and do not replace the invalid preparation or satisfy AC3/4. No hook variant, new pair, candidate capture or production change followed. Portable rule and result receipts are in Scripts/research/aski92-2026-11-13/diagnostic-2026-11-14*.json. PR #10 remains draft and not ready to merge.
 <!-- SECTION:NOTES:END -->

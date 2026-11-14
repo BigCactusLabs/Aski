@@ -23,6 +23,8 @@ Active-region grounds use the same grouped ordering in synchronous and asynchron
 
 Background, ``ColorOverlay``, and ``PointLight`` colors are interpreted in their `CGColor`'s declared color space and color-matched into the render's working and output spaces, so a Display P3 overlay keeps its P3 meaning in an sRGB render. `CGColor(red:green:blue:alpha:)` creates a Generic RGB color, which is matched like any other; use `CGColor(srgbRed:green:blue:alpha:)` for sRGB component values. ``ColorOverlay/opacity`` replaces the overlay color's own alpha. ``PointLight/intensity`` scales the light's encoded sRGB components, and each scaled component stops at 1, or at the light's own value when a wide-gamut light's component exceeds 1, so an intensity above 1 saturates the light instead of overdriving it.
 
+Lighting multiplies the image by a light field built in linear light: the ``LightingOptions/ambient`` gray plus every ``PointLight``, each strongest at its ``PointLight/position`` and fading to no light at its ``PointLight/radius``. Over a white image, a light of intensity 1 with ambient 0 renders exactly the light's color at its center, and ambient alone renders the ambient gray: `ambient: 1` with no lights leaves the image unchanged, and the default 0.5 renders white as sRGB gray 0.5. Positions are fractions of the output with (0, 0) at the bottom-left corner, and the radius is a fraction of the output's longer side. The image keeps its alpha, and only the first four lights are used.
+
 ## ASCIIGrid quick start
 
 ```swift

@@ -54,3 +54,20 @@ ASKI-109 owns diagnosis of the allocator-reset failure. A [bounded upstream sour
 check](upstream-source-check.json) found the four inspected bookkeeping/reset
 function bodies unchanged in 1.6.1; this does not establish the cause or exclude
 an indirect fix elsewhere. No dependency update was attempted.
+
+## November 14 warmup diagnostic
+
+A later fresh control preparation failed in `objc_msgSend` through CFPreferences
+and CoreGraphics during the fixed-palette workload
+`aski92-fixed-512x512-srgb-opaque-256cols`. Matching native image UUIDs and symbols
+place this failure in warmup, before measurement. It is a different observed
+fault site from the reset failures above; the cause is still unproved.
+
+The [bounded diagnostic rule](diagnostic-2026-11-14.json) was committed before
+three independent starts of the same saved binary and workload. All three
+completed with active allocator observations and no matching crash. Source,
+lock, binaries and the original crash report remained unchanged. The result is
+**not reproduced**, as recorded in the [diagnostic receipts](diagnostic-2026-11-14-result.json).
+These direct-tool outputs are diagnostic only. They do not repair the failed
+study, replace a sample, establish instrumentation reliability or authorize
+adoption. The paired comparison and allocation-lifetime profiles remain open.
