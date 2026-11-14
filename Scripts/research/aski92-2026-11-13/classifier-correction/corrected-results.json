@@ -1,0 +1,91 @@
+[
+  {
+    "label": "build-regression-original-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O1.dylib",
+      "-o",
+      "$EVIDENCE/regression-original-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned0",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned0"
+    ],
+    "exit": 0,
+    "stdout": "case=owned0 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned1",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned1"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned16",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned16"
+    ],
+    "exit": 0,
+    "stdout": "case=owned16 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned64",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned64"
+    ],
+    "exit": 0,
+    "stdout": "case=owned64 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned4096",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned4096"
+    ],
+    "exit": 0,
+    "stdout": "case=owned4096 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-owned1048576",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "owned1048576"
+    ],
+    "exit": 0,
+    "stdout": "case=owned1048576 valid=true\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-foreign-malloc",
+    "argv": [
+      "$EVIDENCE/regression-original-O1",
+      "foreign-malloc"
+    ],
+    "exit": 74,
+    "stdout": "",
+    "stderr": ""
+  }
+]

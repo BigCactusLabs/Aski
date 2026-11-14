@@ -1,0 +1,34 @@
+{
+  "task": "ASKI-92",
+  "revision": 8,
+  "generation": 7,
+  "classification": "functional API regression, not performance data",
+  "rule": "Native oracle must safely return0/NULL; unchanged classifier may fault. No hardcoded address from prior crash. One process per case/optimization. No Aski source changes.",
+  "cases": [
+    "unreadable-page",
+    "unreadable-offset256",
+    "mapped-page",
+    "mapped-offset256",
+    "null",
+    "tagged",
+    "small-address"
+  ],
+  "optimization": [
+    "O1",
+    "O3"
+  ],
+  "created_at": "2026-11-14T18:15:30.684103+00:00",
+  "valid_cases": [
+    "owned0",
+    "owned1",
+    "owned16",
+    "owned64",
+    "owned4096",
+    "owned1048576",
+    "foreign-malloc",
+    "foreign-aligned"
+  ],
+  "corrected_header_sha256": "6f2fb65677db9da64f4ec27d1a87ccbc9400e3728b9d4a27f0813c092fd3c1c1",
+  "regression_sha256": "0712f8f8c11648306015cc4cf3d08f6bf7d48cde72489d5e720ea40020b43cfc",
+  "harness_correction": "dlsym malloc was still interposed: foreign-malloc precondition exit74. Use direct public malloc-zone allocator callback to produce an unwrapped allocation. No source repair attempted for harness failure."
+}

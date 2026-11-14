@@ -24,23 +24,23 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "AskiBenchmarks"
 PIN = ("1.35.0", "4b9ef5663e9c270419351a20392bf77b007f37f6")
-# ASKI-109 reviewed vendored snapshot. Update only after source re-review.
+# ASKI-109/92 reviewed vendored snapshot. Update only after source re-review.
 MALLOC_PACKAGE = Path("Vendor/malloc-interposer")
 MALLOC_ORIGIN = "https://github.com/ordo-one/malloc-interposer.git"
 MALLOC_VERSION = "1.4.0"
 MALLOC_REVISION = "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d"
 MALLOC_FILES = {
-    "ASKI-PATCHES.md": "4b6cbb4345cc54982f6f95b85f3e8c19657adb5df3219e49b2754f26aaf2cfa0",
+    "ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
     "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
     "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
-    "Sources/MallocInterposerC/include/interposer.h": "e8ed97ce37d1aae6de5be64c262e8db1137d5214ed4cb3cea9fd7706424c90b6",
+    "Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
     "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
     "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
     "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
-    "Tests/InterposerCrashProbe/main.c": "4c7d3a9d4e485cec4dfc9c92829fdecc490e2849f6142340157e96949e638951",
-    "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "9cb9b0d36d081e8c87cdb48ff3265af8494d17b53cbf94fd5a8627fda21d984a",
+    "Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+    "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68",
 }
 SUFFIX = ".histogram.samples.tsv"
 # Frozen ASKI-86 reproduction set. --smoke requires every member, so a rename

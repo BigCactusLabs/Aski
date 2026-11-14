@@ -71,3 +71,66 @@ lock, binaries and the original crash report remained unchanged. The result is
 These direct-tool outputs are diagnostic only. They do not repair the failed
 study, replace a sample, establish instrumentation reliability or authorize
 adoption. The paired comparison and allocation-lifetime profiles remain open.
+
+## November 14 allocation-profile pilot
+
+The single registered 160-pixel control pilot failed under Instruments
+Allocations. The [pilot receipt](allocation-pilot-2026-11-14.json) records
+SIGBUS in `malloc_interposer_is_ours` through `replacement_malloc_size`,
+Instruments `liboainject`, and benchmark cleanup. The supplied pointer was not
+page-aligned; the classifier read unreadable memory immediately before it.
+Matching crash UUIDs and 1,302 unchanged file hashes bind this observation to
+the frozen control. This is a confirmed classifier read fault, with the pointer's
+origin still unknown. It does not explain the earlier CoreGraphics or reset
+failures. At the time of that pilot, no correction had been verified.
+
+The retained trace exports 4,186 allocation rows with source stacks through the
+CLI's Allocations List track detail. All exported rows are marked live, and
+the table supplies no free timestamps. This does not prove that the raw trace
+contains no free events; it leaves allocation/free lifetimes and overlap
+unproved. Six paired measurement signposts do not cure the crashed target.
+That pilot ran no second profile or replacement study capture. AC3 and AC4 remain open.
+
+The [upstream page-aligned-pointer correction](https://github.com/ordo-one/malloc-interposer/commit/4d5c09d92394ad4a04426cca812ced8d9b15d2dd)
+is relevant background, but its alignment condition does not cover this
+observed pointer. The later correction below follows that failed pilot and does
+not replace it.
+
+## November 14 classifier correction
+
+The Darwin classifier now verifies that the complete header starts at a native
+allocation before it reads the tag and magic. A standalone O1/O3 regression
+reproduced faults for unreadable pages, unreadable offsets and a small address
+in the old classifier; the native allocator returned zero for all seven
+non-owned pointer cases. All 30 corrected pointer cases and 16 original
+valid-allocation controls passed. The existing count/lifecycle matrix also
+passed in all 52 processes, preserving exact marginal counts and reset behavior.
+See [the manifest and raw results](classifier-correction/manifest.json). The
+first foreign-allocation harness attempt is retained separately: its `dlsym`
+call was still interposed, so the corrected harness uses the public malloc-zone
+callback to obtain an unwrapped allocation. This was a harness setup failure.
+
+The same frozen benchmark executable, copied byte-for-byte and linked to the
+corrected scratch allocator, completed one Allocations validation run with
+exit zero. The trace records 109,020 freed allocations; its default CLI list
+exports 4,111 persistent rows. Those rows alone still do not establish free
+timestamps or sample-buffer overlap. This is instrumentation validation, not
+a replacement study sample or proof that the earlier reset/CoreGraphics
+failures have the same cause. A fresh study must use identical corrected
+instrumentation in both arms because the additional ownership lookup affects
+the measurement path.
+
+The [integrated qualification](classifier-correction/qualification.json) passed
+the native vendor suite, 122 portable validator tests (one documented expected
+failure), the full local gate, all 237 benchmark workloads with required malloc
+counts, and all 11 unchanged absolute budgets. The native gate ran 1,549 core
+tests, 178 media tests, two sentinels and DocC. The lead reviewed the source;
+independent cross-family review was unavailable.
+
+A separate command-line capability capture uses `MallocStackLoggingNoCompact=1`
+and pauses the unchanged executable at normal exit to read `malloc_history
+-allEvents -fullStacks -noContent`. It retains ordered allocation/free records
+and source stacks, but no clock timestamps. All 49 Wu tables and all seven
+control sample buffers have matching frees in this diagnostic. A fresh protocol
+uses event ordinals for overlap and peak-live calculations; it cannot report
+lifetime durations. The diagnostic is excluded from the fresh study.

@@ -1,0 +1,138 @@
+{
+  "processes": 52,
+  "all_exit_zero": true,
+  "marginal_checks": [
+    {
+      "optimization": "O1",
+      "variant": "original",
+      "passes": 1,
+      "marginal": {
+        "malloc": 40,
+        "free": 40,
+        "bytes": 163840,
+        "freed_bytes": 163840
+      }
+    },
+    {
+      "optimization": "O1",
+      "variant": "original",
+      "passes": 2,
+      "marginal": {
+        "malloc": 80,
+        "free": 80,
+        "bytes": 327680,
+        "freed_bytes": 327680
+      }
+    },
+    {
+      "optimization": "O1",
+      "variant": "original",
+      "passes": 4,
+      "marginal": {
+        "malloc": 160,
+        "free": 160,
+        "bytes": 655360,
+        "freed_bytes": 655360
+      }
+    },
+    {
+      "optimization": "O1",
+      "variant": "corrected",
+      "passes": 1,
+      "marginal": {
+        "malloc": 40,
+        "free": 40,
+        "bytes": 163840,
+        "freed_bytes": 163840
+      }
+    },
+    {
+      "optimization": "O1",
+      "variant": "corrected",
+      "passes": 2,
+      "marginal": {
+        "malloc": 80,
+        "free": 80,
+        "bytes": 327680,
+        "freed_bytes": 327680
+      }
+    },
+    {
+      "optimization": "O1",
+      "variant": "corrected",
+      "passes": 4,
+      "marginal": {
+        "malloc": 160,
+        "free": 160,
+        "bytes": 655360,
+        "freed_bytes": 655360
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "original",
+      "passes": 1,
+      "marginal": {
+        "malloc": 40,
+        "free": 40,
+        "bytes": 163840,
+        "freed_bytes": 163840
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "original",
+      "passes": 2,
+      "marginal": {
+        "malloc": 80,
+        "free": 80,
+        "bytes": 327680,
+        "freed_bytes": 327680
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "original",
+      "passes": 4,
+      "marginal": {
+        "malloc": 160,
+        "free": 160,
+        "bytes": 655360,
+        "freed_bytes": 655360
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "corrected",
+      "passes": 1,
+      "marginal": {
+        "malloc": 40,
+        "free": 40,
+        "bytes": 163840,
+        "freed_bytes": 163840
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "corrected",
+      "passes": 2,
+      "marginal": {
+        "malloc": 80,
+        "free": 80,
+        "bytes": 327680,
+        "freed_bytes": 327680
+      }
+    },
+    {
+      "optimization": "O3",
+      "variant": "corrected",
+      "passes": 4,
+      "marginal": {
+        "malloc": 160,
+        "free": 160,
+        "bytes": 655360,
+        "freed_bytes": 655360
+      }
+    }
+  ]
+}

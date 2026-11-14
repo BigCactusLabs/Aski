@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "task": "ASKI-92",
+  "date": "2026-11-14",
+  "classification": "Failed allocation-profile pilot. Diagnostic evidence only; no performance/adoption verdict.",
+  "controlCommit": "75470ee273596d24d71f1682e90668140760db09",
+  "workload": "aski92-convert-160x160-srgb-opaque-80cols-k16",
+  "maximumCaptures": 1,
+  "captures": 1,
+  "timeLimitSeconds": 30,
+  "traceDurationSeconds": 1.934113,
+  "xctraceExit": 54,
+  "targetPID": 55187,
+  "targetExitSignal": "SIGBUS",
+  "crash": {
+    "file": "AskiBenchmarks-2026-11-14-130105.ips",
+    "sha256": "a61bd46a13f00313d9b8d78ef547e23f3e29ea5b43b14c68da86b0698fb3d119",
+    "exception": "EXC_BAD_ACCESS / KERN_PROTECTION_FAILURE",
+    "faultAddress": "0x6080000fc",
+    "suppliedPointerX0": "0x608000100",
+    "region": "reserved GPU Carveout, unreadable",
+    "pointerPageAligned": false,
+    "frames": [
+      "malloc_interposer_is_ours (interposer.h:118)",
+      "replacement_malloc_size (interposer-darwin.c:511)",
+      "Instruments liboainject.dylib (two frames)",
+      "find_zone_and_free",
+      "UnsafeMutablePointer.deallocate / BenchmarkExecutor.run (attributed to BenchmarkExecutor.swift:477)"
+    ],
+    "interpretation": "Confirmed classifier read fault during profiler run. Pointer origin and complete ownership cause remain unknown. Different observed stack from prior CoreGraphics warmup and reset faults."
+  },
+  "identity": {
+    "executableSHA256": "9a582bbd14aaffc0b7496ea59945fd03601fc1626744eac31ec6758e0eea2ca7",
+    "executableUUID": "177aa8c9-7687-3fa2-84ad-4d6530e81a87",
+    "interposerSHA256": "e0d6343cae1ced638458da9abf8d26bf6eb9e2b4afd2356666b721408cb8739c",
+    "interposerUUID": "40678e8f-35d5-3d5e-abb8-a763dfa54f91",
+    "matchingCrashUUIDs": true,
+    "unchangedFileHashes": 1302
+  },
+  "traceReadback": {
+    "allocationsTableExportExit": 0,
+    "rows": 4186,
+    "liveTrueRows": 4186,
+    "freeTimestampFields": false,
+    "sourceStackAttribution": [
+      "TileGridConverter",
+      "TilePalette",
+      "WuQuantizer",
+      "KMeansRefinement"
+    ],
+    "pairedMeasurementSignposts": 6,
+    "limit": "Table export is available via track-detail XPath. Exported rows do not establish allocation/free lifetimes; no inference that raw trace contains no frees. Target crashed and complete profile acceptance failed."
+  },
+  "next": "Validate a narrowly scoped classifier correction before another profile. No correction or standalone regression was executed in this continuation. Paired study, lifetime profiles and AC3/4 remain open.",
+  "ownerSources": [
+    "https://github.com/ordo-one/malloc-interposer/commit/4d5c09d92394ad4a04426cca812ced8d9b15d2dd",
+    "https://developer.apple.com/documentation/xcode/investigating-memory-access-crashes"
+  ],
+  "upstreamLimit": "The published guard correction addresses page-aligned unknown pointers; the observed pointer is not page-aligned. No attribution to that fix or prior crash causes is established."
+}

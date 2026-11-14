@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "tested_base": "bb581ec022d94ccf720f365e197d9ddf9d2f1995",
+  "tested_source": "base plus the exact vendor and validator file hashes below; public evidence/docs added during and after gates",
+  "identity": {
+    "benchmark_pin": {
+      "identity": "package-benchmark",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/ordo-one/package-benchmark",
+      "state": {
+        "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+        "version": "1.35.0"
+      }
+    },
+    "effective_lock_sha256": "d7b13f03855f4a20728e5e1b4e847937990ccce7c253b0dd64eda41ee515338f",
+    "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "malloc_backend": {
+      "basis": "configured provenance: reviewed benchmark pin and vendored edit of the pinned allocator, Swift 6.3+, default traits, and environment",
+      "configured": "malloc-interposer",
+      "disabled_by": [],
+      "observed": {
+        "backend": "malloc-interposer",
+        "image_basename": "libMallocInterposerSwift.dylib"
+      },
+      "vendored_source": {
+        "package_path": "Vendor/malloc-interposer",
+        "sha256_by_file": {
+          "ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+          "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+          "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+          "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+          "Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+          "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+          "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+          "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+          "Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+          "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+        },
+        "upstream_revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+        "upstream_url": "https://github.com/ordo-one/malloc-interposer.git"
+      }
+    },
+    "malloc_pin": {
+      "identity": "malloc-interposer",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/ordo-one/malloc-interposer.git",
+      "state": {
+        "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+        "version": "1.4.0"
+      }
+    },
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "revision": "bb581ec022d94ccf720f365e197d9ddf9d2f1995",
+    "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "xcode": "Xcode 27.0\nBuild version 27A266a"
+  },
+  "source_hashes": {
+    "Scripts/validate-benchmarks.py": "ba789e7c47041b4f7dd7fb0a5e8cce19d9c9a00f42b460314af2ec50eec2fe22",
+    "Vendor/malloc-interposer/Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+    "Vendor/malloc-interposer/Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+    "Vendor/malloc-interposer/Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68",
+    "Vendor/malloc-interposer/ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c"
+  },
+  "vendor_native_suite": {
+    "exit": 0,
+    "tests": 12
+  },
+  "portable_validator_suites": {
+    "exit": 0,
+    "tests": 122,
+    "expected_failures": 1
+  },
+  "full_gate": {
+    "exit": 0,
+    "core": 1549,
+    "media": 178,
+    "sentinels": 2,
+    "docc": "passed"
+  },
+  "benchmark_qualification": {
+    "exit": 0,
+    "workloads": 237,
+    "complete": true,
+    "metric_workloads": {
+      "cpuTotal": 181,
+      "mallocCountTotal": 237,
+      "wallClock": 237,
+      "peakMemoryResident": 102,
+      "peakMemoryResidentDelta": 13,
+      "throughput": 12
+    },
+    "lock_transaction": {
+      "manifest_sha256": "40c6c1ef42761b4232634517c6ec3fa4fcc2ef733e8bcbee3bac94fa086e6513",
+      "restoration": "restored",
+      "setup": [
+        {
+          "lock_form": "original",
+          "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+          "phase": "edit"
+        },
+        {
+          "lock_form": "edited",
+          "lock_sha256": "d7b13f03855f4a20728e5e1b4e847937990ccce7c253b0dd64eda41ee515338f",
+          "phase": "show-dependencies"
+        }
+      ]
+    },
+    "active_observations": {
+      "inventory": 1,
+      "run": 238
+    }
+  },
+  "absolute_budgets": {
+    "exit": 0,
+    "count": 11,
+    "result": "EQUAL to defined absolute thresholds",
+    "thresholds_changed": false
+  },
+  "artifact_sha256": {
+    "vendor-tests-native.log": "ec601d59f9320cacc2022a5df3a60eb7c60508140b55396d09c677d7f1af2b92",
+    "validator-tests-clean.log": "6980c8f1372452abf98baccf86425215eb258b64be2ede8b6cae970cf52a92a1",
+    "full-check.log": "ce55cfe23e99b24ee48dfa5f7132e793ff48e4be44c321661fa90fff6cc8bb25",
+    "full-bench/report.json": "bbdb592b9c8cae3a7c18ab334153162a6d3a78d806e888a7036539b18f416a73",
+    "budgets.log": "6d218bb83757fb5d6711aeb7e1f01f8d4ed761d469545d2864d429a1720e1b86",
+    "budgets-command.json": "f3e3e9c9f866e41870c245d1a0c5ca55123a248fbc5d81d32a6ec2c4ba3cffff"
+  },
+  "limits": [
+    "Single arm64 host/toolchain; no cross-platform runtime qualification.",
+    "Independent cross-family review unavailable; lead source review completed.",
+    "Initial portable test attempt saw generated vendor .build files and failed the strict source inventory; moving those generated files to scratch restored the required source-only layout. No validator guard was weakened.",
+    "No ASKI-92 paired speed verdict; historical reset and CoreGraphics crash causes unproved."
+  ]
+}

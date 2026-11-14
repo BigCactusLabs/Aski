@@ -1,0 +1,386 @@
+[
+  {
+    "label": "build-native-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "$EVIDENCE/regression.c",
+      "-o",
+      "$EVIDENCE/native-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "build-lib-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-dynamiclib",
+      "$EVIDENCE/original/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-original-O1.dylib"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "build-original-O1",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O1",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O1.dylib",
+      "-o",
+      "$EVIDENCE/original-O1"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-unreadable-page",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "unreadable-page"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "unreadable-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-mapped-page",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-null",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-tagged",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O1-small-address",
+    "argv": [
+      "$EVIDENCE/native-O1",
+      "small-address"
+    ],
+    "exit": 0,
+    "stdout": "case=small-address zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-unreadable-page",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "unreadable-page"
+    ],
+    "exit": -10,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "unreadable-offset256"
+    ],
+    "exit": -10,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-mapped-page",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-null",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-tagged",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O1-small-address",
+    "argv": [
+      "$EVIDENCE/original-O1",
+      "small-address"
+    ],
+    "exit": -11,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "build-native-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "$EVIDENCE/regression.c",
+      "-o",
+      "$EVIDENCE/native-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "build-lib-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-dynamiclib",
+      "$EVIDENCE/original/Sources/MallocInterposerC/src/interposer-darwin.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "-o",
+      "$EVIDENCE/lib-original-O3.dylib"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "build-original-O3",
+    "argv": [
+      "xcrun",
+      "clang",
+      "-g",
+      "-O3",
+      "-DREPLACEMENT",
+      "$EVIDENCE/regression.c",
+      "-I",
+      "$EVIDENCE/original/Sources/MallocInterposerC/include",
+      "$EVIDENCE/lib-original-O3.dylib",
+      "-o",
+      "$EVIDENCE/original-O3"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-unreadable-page",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "unreadable-page"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "unreadable-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=unreadable-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-mapped-page",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-null",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-tagged",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "native-O3-small-address",
+    "argv": [
+      "$EVIDENCE/native-O3",
+      "small-address"
+    ],
+    "exit": 0,
+    "stdout": "case=small-address zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-unreadable-page",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "unreadable-page"
+    ],
+    "exit": -10,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-unreadable-offset256",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "unreadable-offset256"
+    ],
+    "exit": -10,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-mapped-page",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "mapped-page"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-page zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-mapped-offset256",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "mapped-offset256"
+    ],
+    "exit": 0,
+    "stdout": "case=mapped-offset256 zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-null",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "null"
+    ],
+    "exit": 0,
+    "stdout": "case=null zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-tagged",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "tagged"
+    ],
+    "exit": 0,
+    "stdout": "case=tagged zone=0x0 size=0\n",
+    "stderr": ""
+  },
+  {
+    "label": "original-O3-small-address",
+    "argv": [
+      "$EVIDENCE/original-O3",
+      "small-address"
+    ],
+    "exit": -11,
+    "stdout": "",
+    "stderr": ""
+  }
+]

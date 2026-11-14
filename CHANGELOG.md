@@ -19,6 +19,13 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **Benchmark allocation profiling rejects unreadable foreign pointers (ASKI-92).**
+  The Darwin allocator classifier checks native header ownership before reading
+  its prefix. Native pointer, count and lifecycle regressions pass, and the
+  previously crashing Allocations pilot completes with the corrected instrument.
+  This does not establish an ASKI-92 performance benefit or explain the separate
+  historical reset and CoreGraphics failures.
+
 - **Benchmark instrumentation corrects a reproduced allocator cleanup defect (ASKI-109).**
   Canonical captures use a reviewed local edit of malloc-interposer 1.4.0 that
   clears a stale thread-local counter pointer during teardown. Source and routing
