@@ -22,10 +22,39 @@ Rules that individual research notes learned the hard way, collected in one plac
 
 - **A mechanism story that merely fits the numbers is a hypothesis, not a finding.** Label it as such until an independent check has run. The ASKI-54 "portal exclusion already landed" explanation was falsified the same day by the device's own policy files.
 - **Build the instrument before arguing the metric.** The ASKI-56 arbiter settled in one sitting what three weeks of reconstruction metrics could only argue about; when two oracles disagree on a promotion, the next step is a blinded sitting, not a third metric.
-- **A golden re-record proves determinism, not quality.** A change that moves goldens on the frozen preset carries its selection-ceiling before/after CSV in the same PR (AGENTS.md hard rule; ASKI-31 had to rebuild the pre-change commit to recover the measurement).
+- **A golden re-record proves determinism, not quality.** A change that moves goldens on the frozen render reference carries its selection-ceiling before/after CSV in the same PR (AGENTS.md hard rule; ASKI-31 had to rebuild the pre-change commit to recover the measurement).
 
 ## Closing the task
 
 - **Read every acceptance criterion before claiming DONE.** A change that satisfies the first clause of AC #1 says nothing about AC #3. The 2026-09-02 docs audit wrote a wrong DONE recommendation into the backlog on that basis (v1 blotter cut `bl_97e2f915fea1`, retired at d412667).
 - **A retraction reaches the front matter, not just the body.** `docs/Research/README.md` and `index.json` are generated from the `summary` field; `research-check` cannot see a body that contradicts its own front matter. Edit the front matter and regenerate.
 - **An audit covers the generated artifacts and the sibling task records, not only the files it edited.** The research README, `index.json`, `docs/repo-map.generated.md`, CHANGELOG, and every backlog task the change re-adjudicates are in scope.
+
+## Frozen render reference
+
+`Tools/AskiToolSupport/FrozenRenderReference.swift` is the package-only reference
+recipe shared by research tools and regression tests. It preserves the canonical
+recipe formerly exposed as `VesperPreset.canonical` (ASTSK-47). Product retirement
+changes neither the reference settings nor the near-white KEEP-ground decision.
+
+- Conversion: 76 columns, `.blocks`, `.logPolar`, `.wide`, brightness 0, contrast
+  0.15, Display P3 output, and oversample 2.
+- Palette order: bone `#E8E2D2` declared in sRGB, then oxblood `#5E1B18` declared in
+  Display P3. Preserve the Float component construction and declared color spaces.
+- Render: bundled Courier Prime at 14 pt, scale 2, sRGB charcoal `#161616`, and
+  `preserveSourceAspect: true`.
+
+`FrozenRenderReferenceTests` retains the original raster baseline and the portrait
+nonblank, palette, aspect, and determinism guards. `RevealRenderingIntegrationTests`
+retains the public Aski conversion/animation/rendering integration checks. The
+near-white, preparation, and temporal tests use the same recipe. The reference image
+is moved without re-recording; historical reports naming `VesperPresetTests` or the
+old snapshot path describe that same baseline.
+
+Keep dated research protocols, scripts, result manifests, source hashes, and release
+records unchanged. Replay instruments that used the removed public API require the
+recorded source revision. For new experiments, use the package-only reference or an
+explicit recipe with the settings above. The former product-probe commands were
+retired by scope; no human preference, demand, or KILL verdict is inferred from their
+removal. A change to reference output still requires the same MAE/GMSD no-harm census
+and reviewed golden change described above.

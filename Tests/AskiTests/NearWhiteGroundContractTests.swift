@@ -4,30 +4,30 @@ import Testing
 import simd
 
 @_spi(AskiResearch) @testable import Aski
+import AskiToolSupport
 
-/// ASKI-84: the owner retained the canonical preset's near-white ground.
+/// ASKI-84: the frozen reference retains near-white ground.
 /// These contracts pin that decision without changing matcher or snapshot bytes.
 @Suite struct NearWhiteGroundContractTests {
     @Test(arguments: [UInt8(243), UInt8(255)])
     func opaqueNearWhiteSourceExposesCanonicalGround(gray: UInt8) throws {
-        let preset = VesperPreset.canonical
         let source = try Self.opaqueImage { _ in gray }
         let queries = try #require(
-            preset.makeConverter().cellQueryDescriptors(source, columns: preset.columns))
+            FrozenRenderReference.makeConverter().cellQueryDescriptors(source, columns: FrozenRenderReference.columns))
 
         // A real two-dimensional footprint must reach the matcher. This must
         // not pass by taking the separate one-pixel-axis tone fallback.
         #expect(queries.supportsShapeDescriptor)
-        #expect(queries.columns == preset.columns)
+        #expect(queries.columns == FrozenRenderReference.columns)
         try #require(queries.rows > 0)
         #expect(queries.lanes.allSatisfy { $0 == .zero })
         let cells = queries.grid.cells.flatMap { $0 }
-        #expect(cells.count == queries.rows * preset.columns)
+        #expect(cells.count == queries.rows * FrozenRenderReference.columns)
         #expect(cells.allSatisfy { $0.character == " " && $0.alpha == 1 && $0.coverage == 1 })
 
         // Compare to an independent solid fill in the renderer's own color
         // space. This checks visible ground without adding an OS byte golden.
-        let rendered = preset.render(source)
+        let rendered = FrozenRenderReference.render(source)
         try #require(rendered.width > 1 && rendered.height > 1)
         let colorSpace = try #require(rendered.colorSpace)
         let ground = try #require(
@@ -35,7 +35,7 @@ import simd
                 data: nil, width: rendered.width, height: rendered.height,
                 bitsPerComponent: 8, bytesPerRow: rendered.width * 4,
                 space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
-        ground.setFillColor(preset.backgroundColor)
+        ground.setFillColor(FrozenRenderReference.backgroundColor)
         ground.fill(CGRect(x: 0, y: 0, width: rendered.width, height: rendered.height))
         let reference = try #require(ground.makeImage())
         #expect(TestImages.deviceRGBBytes(rendered) == TestImages.deviceRGBBytes(reference))
@@ -46,7 +46,7 @@ import simd
     /// conversion, and premultiplied alpha happen before the shape query.
     @Test(arguments: [(UInt8(242), false), (UInt8(243), true), (UInt8(255), true)])
     func neighboringOpaqueSamplesSeparateInkFromGround(gray: UInt8, isGround: Bool) {
-        let converter = VesperPreset.canonical.makeConverter()
+        let converter = FrozenRenderReference.makeConverter()
         let pixels = Array(repeating: [gray, gray, gray, UInt8(255)], count: 8).flatMap { $0 }
         let context = ConversionContext(
             pixels: pixels, pixelWidth: 2, pixelHeight: 4,
@@ -77,10 +77,9 @@ import simd
     /// not pinned to a pre-resize luma value. Visual cliff assessment on the
     /// occupancy fixtures remains a separate native research check.
     @Test func gradientIntoWhiteContainsBothInkAndContiguousGround() throws {
-        let preset = VesperPreset.canonical
         let source = try Self.opaqueImage { x in UInt8(224 + 31 * x / 151) }
         let queries = try #require(
-            preset.makeConverter().cellQueryDescriptors(source, columns: preset.columns))
+            FrozenRenderReference.makeConverter().cellQueryDescriptors(source, columns: FrozenRenderReference.columns))
         try #require(queries.supportsShapeDescriptor && queries.rows > 0)
         let row = queries.rows / 2
         var groundColumns: [Int] = []

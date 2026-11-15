@@ -13,7 +13,6 @@ let package = Package(
         .executable(name: "AskiAccessLab", targets: ["AskiAccessLabRunner"]),
         .executable(name: "AskiDecolorLab", targets: ["AskiDecolorLabRunner"]),
         .executable(name: "AskiHDRLab", targets: ["AskiHDRLabRunner"]),
-        .executable(name: "AskiPresetLab", targets: ["AskiPresetLabRunner"]),
     ],
     dependencies: [
         .package(url: "https://github.com/x-sheep/swift-property-based.git", from: "1.2.0"),
@@ -198,25 +197,6 @@ let package = Package(
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .target(
-            name: "AskiPresetLab",
-            dependencies: [
-                "Aski",
-                "AskiToolSupport",
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            ],
-            path: "Tools/AskiPresetLab",
-            swiftSettings: [.swiftLanguageMode(.v6)]
-        ),
-        .executableTarget(
-            name: "AskiPresetLabRunner",
-            dependencies: [
-                "AskiPresetLab",
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            ],
-            path: "Tools/AskiPresetLabRunner",
-            swiftSettings: [.swiftLanguageMode(.v6)]
-        ),
-        .target(
             name: "AskiCLI",
             dependencies: [
                 "AskiToolSupport",
@@ -226,7 +206,6 @@ let package = Package(
                 "AskiAccessLab",
                 "AskiDecolorLab",
                 "AskiHDRLab",
-                "AskiPresetLab",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
             path: "Tools/AskiCLI",
@@ -265,7 +244,6 @@ let package = Package(
                 "AskiAccessLab",
                 "AskiDecolorLab",
                 "AskiHDRLab",
-                "AskiPresetLab",
                 "BuildStandardVectors",
                 "BuildResearchIndex",
                 "BuildRepoMap",

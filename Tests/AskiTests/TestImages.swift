@@ -33,7 +33,7 @@ enum TestImages {
     /// *inverted* luma and gates out near-white pixels, so bright-centred
     /// synthetics collapse every cell to the space glyph. The tonal span drives
     /// the duotone palette end-to-end (dark figure → accent, mid ground → ink).
-    /// Used by the ASTSK-47 Vesper preset golden so drift in any frozen knob is
+    /// Used by the ASTSK-47 render reference snapshot so drift in any frozen knob is
     /// visible.
     static func structuredPortraitProxy(width: Int, height: Int) -> CGImage {
         var buffer = [UInt8](repeating: 0, count: width * height * 4)

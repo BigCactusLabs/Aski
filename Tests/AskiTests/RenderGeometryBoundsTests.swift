@@ -3,6 +3,7 @@ import CoreImage
 import Testing
 
 @testable import Aski
+import AskiToolSupport
 
 /// ASKI-17: every raster entry point must reach its documented degenerate
 /// fallback for large-but-finite scale and font sizes, instead of trapping in
@@ -161,39 +162,30 @@ private let extremeFontSizes: [CGFloat] = [.infinity, 1e30]
         #expect(image.extent.isEmpty)
     }
 
-    // MARK: - VesperPreset reaches the same bound
+    // MARK: - Conversion followed by rendering
 
-    /// `VesperPreset.init` validates neither `scale` nor `fontSize` (by design
-    /// under the one rule: bound the derived geometry, not the constructor).
-    /// These pin that the preset's render path is downstream of the bound.
-
-    private static func vesper(scale: CGFloat, fontSize: CGFloat) -> VesperPreset {
-        let canonical = VesperPreset.canonical
-        return VesperPreset(
-            columns: 12,
-            ink: canonical.ink,
-            accent: canonical.accent,
-            contrast: canonical.contrast,
-            colorSpace: canonical.colorSpace,
-            oversample: canonical.oversample,
-            fontSize: fontSize,
-            scale: scale,
-            backgroundColor: canonical.backgroundColor
-        )
+    private static func renderConvertedPortrait(scale: CGFloat, fontSize: CGFloat) -> CGImage {
+        let source = TestImages.structuredPortraitProxy(width: 48, height: 64)
+        return FrozenRenderReference.makeConverter()
+            .convert(source, columns: 12)
+            .renderImage(
+                font: .courierPrime(size: fontSize),
+                backgroundColor: FrozenRenderReference.backgroundColor,
+                scale: scale,
+                preserveSourceAspect: true
+            )
     }
 
     @Test(arguments: extremeScales)
-    func vesperPresetDegradesForExtremeScale(scale: CGFloat) {
-        let source = TestImages.structuredPortraitProxy(width: 48, height: 64)
-        let rendered = Self.vesper(scale: scale, fontSize: 14).render(source)
+    func convertedPortraitDegradesForExtremeScale(scale: CGFloat) {
+        let rendered = Self.renderConvertedPortrait(scale: scale, fontSize: 14)
         #expect(rendered.width == 1)
         #expect(rendered.height == 1)
     }
 
     @Test(arguments: extremeFontSizes)
-    func vesperPresetDegradesForExtremeFontSize(size: CGFloat) {
-        let source = TestImages.structuredPortraitProxy(width: 48, height: 64)
-        let rendered = Self.vesper(scale: 2, fontSize: size).render(source)
+    func convertedPortraitDegradesForExtremeFontSize(size: CGFloat) {
+        let rendered = Self.renderConvertedPortrait(scale: 2, fontSize: size)
         #expect(rendered.width == 1)
         #expect(rendered.height == 1)
     }

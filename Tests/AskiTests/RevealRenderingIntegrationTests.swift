@@ -2,47 +2,13 @@ import CoreGraphics
 import Foundation
 import Testing
 
-// Deliberately NOT `@testable`: this suite is the ASKI-9 proof that a host app
-// can drive the whole beat with the public module interface only. Any symbol it
-// needs that is `internal` or `@_spi` would fail to compile here, which is the
-// point of the file.
+// Plain Aski import keeps the integration on the public API.
 import Aski
+import AskiToolSupport
 
-/// ASKI-9 — the host-app seam contract: photo → canonical duotone render →
-/// `EntrancePattern` reveal → `CGImage` frames.
-///
-/// An integrating app drives the beat in five steps, all public API:
-///
-/// 1. **Photo in.** Obtain the source as a `CGImage` (PhotosPicker /
-///    `CGImageSourceCreateImageAtIndex` / camera buffer). No Aski call yet.
-/// 2. **Take the frozen preset.** `let preset = VesperPreset.canonical` — the
-///    one settled look (blocks charset, 76 columns, bone-on-oxblood duotone on
-///    charcoal). Never re-derive its knobs; read them off the preset so the app
-///    cannot drift from the library.
-/// 3. **Build the converter once.** `let converter = preset.makeConverter()`.
-///    It is `Sendable` and reusable; build it once per look, not per frame.
-/// 4. **Animate instead of convert.** `converter.animate(photo, columns:
-///    preset.columns, options:)` where `options` carries the reveal, e.g.
-///    `AnimationOptions(duration: 1, seed: 0, cycling: nil, entrance:
-///    .reveal(origin: .center))`. Pass `cycling: nil` for a clean reveal with
-///    stable glyphs; keep `.default` to let glyphs churn underneath it. The
-///    result, `AnimatedASCIIGrid`, is a *closed form* — it holds no timer and
-///    no state.
-/// 5. **Pull frames.** Either sample on the app's own clock
-///    (`animated.grid(at: t)`) for a `CADisplayLink`/`TimelineView` reveal, or
-///    materialize a fixed cadence up front
-///    (`animated.materialize(frameRate: 12)`) for an export. Render each grid
-///    with the preset's own render parameters:
-///    `grid.renderImage(font: preset.font, backgroundColor:
-///    preset.backgroundColor, scale: preset.scale, preserveSourceAspect: true)`.
-///
-/// Seam caveat (step 5): render through `grid(at:)`/`materialize(frameRate:)`
-/// plus `ASCIIGrid.renderImage`, **not** through the
-/// `AnimatedASCIIGrid.renderImage(at:...)` convenience, which has no
-/// `preserveSourceAspect` parameter and therefore cannot reproduce the
-/// preset's aspect-faithful geometry. `frameGeometryMatchesStaticPresetRender`
-/// below locks that the documented route agrees with `VesperPreset.render`.
-@Suite struct VesperRevealIntegrationTests {
+/// Exercises the ASKI-9 path from a source photo to a center reveal rendered
+/// with the same settings and aspect ratio as the reference still.
+@Suite struct RevealRenderingIntegrationTests {
 
     private static let frameRate = 12
     private static let duration: TimeInterval = 1
@@ -61,14 +27,13 @@ import Aski
     }
 
     private static func revealFrames() -> [CGImage] {
-        let preset = VesperPreset.canonical
-        let animated = preset.makeConverter()
-            .animate(photo(), columns: preset.columns, options: revealOptions())
+        let animated = FrozenRenderReference.makeConverter()
+            .animate(photo(), columns: FrozenRenderReference.columns, options: revealOptions())
         return animated.materialize(frameRate: frameRate).map { grid in
             grid.renderImage(
-                font: preset.font,
-                backgroundColor: preset.backgroundColor,
-                scale: preset.scale,
+                font: FrozenRenderReference.font,
+                backgroundColor: FrozenRenderReference.backgroundColor,
+                scale: FrozenRenderReference.scale,
                 preserveSourceAspect: true
             )
         }
@@ -130,9 +95,8 @@ import Aski
     // AC#1: the reveal envelope itself — hidden at t=0, fully open at t=duration,
     // read through the public `grid(at:)` sampling seam a live host would use.
     @Test func revealAlphaProgressesFromHiddenToFullyOpen() {
-        let preset = VesperPreset.canonical
-        let animated = preset.makeConverter()
-            .animate(Self.photo(), columns: preset.columns, options: Self.revealOptions())
+        let animated = FrozenRenderReference.makeConverter()
+            .animate(Self.photo(), columns: FrozenRenderReference.columns, options: Self.revealOptions())
 
         let samples = [0, 0.25, 0.5, 0.75, 1.0].map { Self.meanAlpha(animated.grid(at: $0 * Self.duration)) }
         for (earlier, later) in zip(samples, samples.dropFirst()) {
@@ -152,11 +116,9 @@ import Aski
         }
     }
 
-    // AC#3 lock: the documented step-5 route reproduces the frozen preset's
-    // geometry, so a host can cross-fade the reveal's last frame into
-    // `VesperPreset.render`'s still without a resize.
-    @Test func frameGeometryMatchesStaticPresetRender() {
-        let still = VesperPreset.canonical.render(Self.photo())
+    // A host can cross-fade the reveal into the still without a resize.
+    @Test func frameGeometryMatchesStaticRender() {
+        let still = FrozenRenderReference.render(Self.photo())
         let frames = Self.revealFrames()
         #expect(frames[0].width == still.width)
         #expect(frames[0].height == still.height)

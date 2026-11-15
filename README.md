@@ -122,9 +122,8 @@ let converter = ASCIIConverter(
 )
 ```
 
-For one deliberately fixed look, `VesperPreset.canonical.render(image)` pairs block
-glyphs with bone and oxblood colors. [Vesper](Sources/Aski/Aski.docc/Vesper.md) documents
-the recipe and its evidence; it is a preset, not a separate app included in this package.
+For a two-color treatment, compose a fixed palette with the converter and renderer.
+The [duotone recipe](Sources/Aski/Aski.docc/Duotone.md) is a complete Swift example.
 
 | Make | With |
 | --- | --- |

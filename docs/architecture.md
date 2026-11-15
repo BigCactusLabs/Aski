@@ -12,7 +12,7 @@ The package publishes the `Aski` library, the first-class `aski` executable, and
 - `Tools/BuildResearchIndex/` — research front-matter, corpus, and results index generator
 - `Tools/BuildRepoMap/` — source-scanned top-level-declaration index generator (`docs/repo-map.generated.md`)
 - `Tools/AskiCLI/`, `Tools/AskiCLIRunner/` — importable command composition and the async-correct `aski` executable entry point
-- `Tools/AskiDemo/`, `Tools/AskiToolSupport/` — the historical demo executable plus shared CLI parsing, argument bounds, source-thumbnail loading, stable JSON, async command launch, and tool helpers
+- `Tools/AskiDemo/`, `Tools/AskiToolSupport/` — the historical demo executable plus shared CLI parsing, argument bounds, source-thumbnail loading, stable JSON, async command launch, and tool helpers, including the package-only `FrozenRenderReference` used by research and tests
 - `Tools/AskiTileMatrix/` — tile-grid render matrix harness
 - `Tools/AskiColorLab/` — internal color-pipeline research harness (`sampling-ablation`, `palette-match-ablation`, `gamut-sweep`, `linear-composite-ab`, `cuberoot-accuracy`, `cam16-hct-reference`, `helmlab-reference`, `shape-residual-map`, `render-matcher-challenge`, `inter-cell-smoothing`, `lattice-support`, `lattice-phase`, `selection-ceiling`, `query-orthogonality`, `orthogonality-render-pair`, `reference-recovery`, `convention-ablation`, `polarity-gate`, `target-width-gate`), plus the `Arbiter/` human-arbitrated perceptual instrument (`arbiter stimuli`/`judge`/`score`; protocol frozen in `docs/Research/2026-08-25-aski56-arbiter-protocol.md`). ASKI-68 removed closed experiment-specific runners; their frozen notes, result artifacts, and Git commits remain the replay record. The ASKI-69 matcher challenge remains a fixed one-shot instrument, not a product option.
 - `Tools/AskiMotionLab/` — animation frame materialization, motion presets, GIF export (via the library `ASCIIGIFEncoder`), and flicker metrics, and the temporal-coherence research gates (`temporal-prior`, `source-tether`)
@@ -20,7 +20,6 @@ The package publishes the `Aski` library, the first-class `aski` executable, and
 - `Tools/AskiAccessLab/` — palette and rendered-grid CVD distinguishability audit harness
 - `Tools/AskiDecolorLab/` — composited-cell perceptual oracle (`evaluate`, `check`)
 - `Tools/AskiHDRLab/` — HDR/EDR emissive-spike artifact writer and fail-fast gate (`evaluate`, `check`)
-- `Tools/AskiPresetLab/` — Vesper lab: the charset × columns A/B that froze the built-in preset (`ab`), plus ASKI-73's lab-local `probe-stimuli`/`probe-score` instrument. The product probe writes a public blinded three-arm set and a separately located private key, binds the schema-v2 pair and every referenced media file with SHA-256, reuses the existing center reveal, validates private response CSVs, and emits aggregate gates only. Its frozen protocol is `docs/Research/2026-09-04-aski73-vesper-product-probe-rule.md`; its source, generated-pair, and score schemas are under `docs/assets/schemas/`
 - `Tools/Aski*LabRunner/` — one-file historical replay entry points; all implementation and command definitions stay in the corresponding importable `Tools/Aski*Lab/` module
 - `Benchmarks/AskiBenchmarks/` — `package-benchmark` target
 - `Tests/AskiTests/` — Swift Testing suite
@@ -129,12 +128,11 @@ swift run aski lab video --help
 swift run aski lab accessibility --help
 swift run aski lab decolor --help
 swift run aski lab hdr --help
-swift run aski lab preset --help
 ```
 
-The seven lab implementations are regular importable targets. The historical
+The six lab implementations are regular importable targets. The historical
 `AskiColorLab`, `AskiMotionLab`, `AskiVideoLab`, `AskiAccessLab`, `AskiDecolorLab`,
-`AskiHDRLab`, and `AskiPresetLab` executable products contain no command logic:
+and `AskiHDRLab` executable products contain no command logic:
 each delegates to the same command type through a one-file runner. Surviving
 commands therefore have identical help, usage, and exit behavior on both paths;
 removed experiments remain in Git history, with their invocations captured by

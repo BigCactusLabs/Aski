@@ -95,8 +95,8 @@ interruptions stop the Metal regeneration process group before restoring the bac
 including when a supervisor signals only the doctor process. SIGKILL and machine
 failure cannot be trapped.
 
-Snapshot changes need an explanation, not just new golden files. On the frozen preset,
-changes that move goldens must include the before/after selection-ceiling MAE and GMSD
+Snapshot changes need an explanation, not just new golden files. On the frozen render
+reference (`Tools/AskiToolSupport/FrozenRenderReference.swift`), changes that move goldens must include the before/after selection-ceiling MAE and GMSD
 no-harm census in the same PR. Do not loosen snapshot or benchmark thresholds to make a
 failure disappear. See [research methodology](docs/agents/research-methodology.md).
 

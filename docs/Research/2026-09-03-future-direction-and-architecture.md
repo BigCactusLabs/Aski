@@ -4,9 +4,9 @@ slug: 2026-09-03-future-direction-and-architecture
 date: 2026-09-03
 status: complete
 subsystem: [meta, shape-context, frontier]
-summary: "Decision record for the 2026-09-03 future-direction and architecture reviews, checked against commit 6083c40, the live backlog, current research notes, independent architecture review, and a frontier scan. ACCEPT the direction of production-surface compression, a research-only render-space matcher challenger, an internal glyph-data owner after raster and matcher decisions, consolidation of the three ordinary converter loops, and an authored Vesper product probe. MODIFY the three-arm thesis to one active arm plus two evidence-gated parking lots: research supplies differentiated capabilities but is not itself a moat. ASKI-70 subsequently measured and KILLED the nested research-package split: the Aski library target was already isolated, while the split duplicated artifacts or weakened the one-build gate. ASKI-41 subsequently HOLDs Swift Build and Swift 6.4 adoption: native Swift 6.3.2 has a repeated baseline, but the current backend cannot compile the full graph, including its documented case-insensitive Aski library / aski executable-product limitation. Upstream fixed that class for Swift 6.4, but no final Swift 6.4/Xcode 27 lane is installed. REJECT moving dotMatrix after glyph selection because its Floyd-Steinberg state changes selection, and DEFER canonical mask assets, Swift 6.4-only code, a learned runtime matcher, and public visual-primitive abstractions until named gates pass. The implementation sequence is captured in ASKI-16 and ASKI-68 through ASKI-74."
+summary: "Decision record for the 2026-09-03 future-direction and architecture reviews, checked against commit 6083c40, the live backlog, current research notes, independent architecture review, and a frontier scan. ACCEPT the direction of production-surface compression, a research-only render-space matcher challenger, an internal glyph-data owner after raster and matcher decisions, consolidation of the three ordinary converter loops, and an authored Vesper product probe. MODIFY the three-arm thesis to one active arm plus two evidence-gated parking lots: research supplies differentiated capabilities but is not itself a moat. ASKI-70 subsequently measured and KILLED the nested research-package split: the Aski library target was already isolated, while the split duplicated artifacts or weakened the one-build gate. ASKI-41 subsequently HOLDs Swift Build and Swift 6.4 adoption: native Swift 6.3.2 has a repeated baseline, but the current backend cannot compile the full graph, including its documented case-insensitive Aski library / aski executable-product limitation. Upstream fixed that class for Swift 6.4, but no final Swift 6.4/Xcode 27 lane is installed. REJECT moving dotMatrix after glyph selection because its Floyd-Steinberg state changes selection, and DEFER canonical mask assets, Swift 6.4-only code, a learned runtime matcher, and public visual-primitive abstractions until named gates pass. The implementation sequence is captured in ASKI-16 and ASKI-68 through ASKI-74. On 2026-11-14 the owner retired the Vesper public preset and ASKI-73 product-probe surface while preserving the exact render reference and generic regression coverage; this is a scope decision, not a human-study verdict."
 related_specs: [docs/architecture.md, docs/agents/research-methodology.md, docs/Research/2026-08-19-sampling-lattice-support-collapse.md, docs/Research/2026-08-19-selection-optimality-gap.md]
-next_action: "The implementation sequence through ASKI-72 is complete. Finish the bounded ASKI-73 human product probe and the ASKI-62 human/VLM validation. When a genuine final side-by-side Xcode 27 / Swift 6.4 toolchain exists, run ASKI-74 on the unchanged one-package graph before ASKI-41 repeats the backend lane."
+next_action: "The implementation sequence through ASKI-72 is complete. The owner retired the ASKI-73 product arm on 2026-11-14; it is no longer a next action. ASKI-62 human/VLM validation remains a separate research question. When a genuine final side-by-side Xcode 27 / Swift 6.4 toolchain exists, run ASKI-74 on the unchanged one-package graph before ASKI-41 repeats the backend lane."
 ---
 
 # Future direction and architecture
@@ -15,6 +15,16 @@ next_action: "The implementation sequence through ASKI-72 is complete. Finish th
 
 **Baseline:** `6083c40394597430c1f3b1b4d38f3cb490869bf5` on `main`, clean and equal to
 `origin/main` when the review started.
+
+## Product scope update — 2026-11-14
+
+The owner retired the Vesper public preset and its dedicated A/B/product-probe lab
+from the open-source product scope. The ASKI-73 product arm below is a historical
+decision, not a current execution commitment. This does not change an algorithm
+verdict or establish a human preference, demand, or KILL result. The exact recipe,
+raster reference, useful regression coverage, and research evidence are preserved;
+see the [frozen render reference](../agents/research-methodology.md#frozen-render-reference).
+The remainder of this note records the original review and its dated evidence.
 
 ## 1. Question
 

@@ -5,12 +5,12 @@ import Testing
 
 @Suite(.serialized) struct UnifiedLabCommandTests {
     private static let labNames = [
-        "color", "motion", "video", "accessibility", "decolor", "hdr", "preset",
+        "color", "motion", "video", "accessibility", "decolor", "hdr",
     ]
 
     private static let replayProducts = [
         "AskiColorLab", "AskiMotionLab", "AskiVideoLab", "AskiAccessLab",
-        "AskiDecolorLab", "AskiHDRLab", "AskiPresetLab",
+        "AskiDecolorLab", "AskiHDRLab",
     ]
 
     @Test func canonicalTreeContainsEveryLabNamespace() {
@@ -75,7 +75,6 @@ import Testing
             "AskiAccessLab": "AskiAccessLabCommand",
             "AskiDecolorLab": "AskiDecolorLabCommand",
             "AskiHDRLab": "AskiHDRLabCommand",
-            "AskiPresetLab": "AskiPresetLabCommand",
         ]
 
         for (module, command) in syncCommands {

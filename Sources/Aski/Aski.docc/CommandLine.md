@@ -189,7 +189,7 @@ xcrun swift run aski lab video --help
 xcrun swift run aski lab color --help
 ```
 
-The lab groups `color`, `motion`, `video`, `accessibility`, `decolor`, `hdr`, and `preset`
+The lab groups `color`, `motion`, `video`, `accessibility`, `decolor`, and `hdr`
 research harnesses. Their availability does not make every experiment a supported
 product option. Prefer `aski lab …` to the historical `Aski*Lab` compatibility products.
 The [documentation hub](https://github.com/BigCactusLabs/Aski/blob/main/docs/README.md)

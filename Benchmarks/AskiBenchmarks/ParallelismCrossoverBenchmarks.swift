@@ -13,7 +13,7 @@ func addParallelismCrossoverBenchmarks() {
     // char aspect) span squat→tall at comparable cell counts.
     let shapes: [(name: String, width: Int, height: Int, columns: [Int])] = [
         ("landscape", 800, 600, [24, 40, 64, 80, 120, 200]),
-        ("portrait", 600, 800, [40, 76]),  // tall: many rows, Vesper preset shape
+        ("portrait", 600, 800, [40, 76]),  // tall: many rows, 76-column reference shape
         ("wide", 1200, 400, [120]),  // squat: few rows, many columns
     ]
     let modes: [(name: String, mode: GridRowWalk.Mode)] = [
