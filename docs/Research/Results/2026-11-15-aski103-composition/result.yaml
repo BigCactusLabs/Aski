@@ -1,0 +1,21 @@
+---
+schema_version: "1"
+date: 2026-11-15
+aski_git_sha: e609764b0c186880a5175a037a4e9014e07007f0
+command: "ASKI_103_CSV=<new-directory>/composition.csv xcrun swift test --skip-build --no-parallel --filter MaskCompositionPolicyDiagnosticTests"
+provenance:
+  - "Protocol and instrument committed before first enabled capture; clean tree; prior full native gate built the identical source tree"
+  - "Apple M3 Max, macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, arm64"
+  - "Capture exit 0; 520 unique data rows; 496 applicable passes and 24 tile glyph N/A rows"
+  - "CSV and capture-log bytes retained unchanged; artifact hashes in SHA256SUMS"
+outputs:
+  - README.md
+  - composition.csv
+  - provenance.json
+  - summary.json
+  - test.log
+  - exit-status.txt
+  - coretext-control.log
+  - SHA256SUMS
+summary: "KEEP existing per-stage mask/glyph composition under the frozen rule; all registered applicable rows and known-difference controls pass. No production output or golden change."
+---

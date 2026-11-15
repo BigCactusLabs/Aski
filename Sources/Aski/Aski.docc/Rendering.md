@@ -78,6 +78,32 @@ into the grid's gamut, including Generic RGB colors from
 declared space. For the old literal meaning on effects, async, and engine paths,
 tag the components with the grid's space. See <doc:Masking>.
 
+### Composition spaces
+
+``RenderCompositionPolicy`` selects the Core Graphics raster space of an ASCII
+grid. It does not select one working space for the entire effects pipeline.
+The default ``RenderCompositionPolicy/encodedDisplay8Bit`` blends direct glyphs
+and no-ground fallbacks in encoded values. The opt-in
+``RenderCompositionPolicy/extendedLinearPerGamut`` uses the grid gamut's linear
+space for that raster stage.
+
+Effects, async, and engine paths rasterize glyphs onto clear, then compose them
+over the background with an explicitly linear-light Core Image source-over
+operation. Glyph edge blending therefore remains linear on those paths under
+either grid policy, including when a returned `CIImage` is evaluated by an
+encoded consumer context. Target-width rendering also has its separate
+linear-light reduction stage, described below.
+
+Soft-mask branch selection is a different operation. Renders with a positive
+mask ground use Core Image, and returned `CIImage` graphs defer that mask blend
+to the caller's context. See <doc:Masking> for the route table. Tile grids have
+no composition-policy setting; their Core Graphics raster is encoded.
+
+For exact comparisons, keep the render path, grid policy, and CI consumer context
+fixed. Selecting the linear ASCII policy does not promise byte-identical output
+from every route. These are the existing rendering semantics; documenting them
+does not change defaults or saved render baselines.
+
 ### Exact pixel width
 
 For monochrome monospaced fonts, the effective pixel size is `pointSize × scale` and nothing else; doubling the font size and doubling `scale` are the same operation. This was measured 2026-09-01 on the bundled Courier Prime and on Menlo at six size-times-scale ratios, 0 differing bytes; see the issue #33 research note.

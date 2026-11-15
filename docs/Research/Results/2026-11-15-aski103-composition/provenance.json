@@ -1,0 +1,16 @@
+{
+  "commit": "e609764b0c186880a5175a037a4e9014e07007f0",
+  "tree_clean": true,
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+  "xcode": "Xcode 27.0\nBuild version 27A266a",
+  "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+  "architecture": "arm64",
+  "cpu": "Apple M3 Max",
+  "tests_built_by": "just check; check-g2.log exit0 on identical source tree before commit",
+  "expected_data_rows": 520,
+  "sha256": {
+    "Tests/AskiTests/MaskColorContractTests.swift": "098fbefc7df48682db4f7430732d2728b84091620d0883b5d6bba3a8a4c55552",
+    "Tests/AskiTests/MaskCompositionPolicyDiagnosticTests.swift": "a5a1023144ebedaa18ee847fb82756ffd84d338d4623bb5ccdc82becd52c0eee",
+    "Scripts/research/aski103-2026-11-15/PROTOCOL.md": "c65594fccf17699fde665ebbf8054ecbb9e9af5a8be2d64e22e6daede24a5383"
+  }
+}

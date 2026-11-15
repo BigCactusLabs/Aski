@@ -26,6 +26,13 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   `@_spi(AskiResearch) import Aski`; ordinary rendering defaults and glyph data
   are unchanged. See the Character Sets guide for construction invariants.
 
+- **Mask and glyph composition spaces are documented (ASKI-103).** A frozen
+  18-path diagnostic supports keeping the current stage-specific behavior.
+  The ASCII composition policy controls its Core Graphics raster stage;
+  later Core Image operations and deferred consumers use their own spaces.
+  The Masking and Rendering guides explain the differences. Defaults and
+  render baselines are unchanged.
+
 - **Chromatic aberration and the stock RGB-split fallback preserve source alpha (ASKI-110).**
   The shifted channels no longer add three copies of alpha. Uniform color interiors
   keep their brightness, translucent glyphs stay translucent, and color fringes

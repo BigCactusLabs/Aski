@@ -3,11 +3,11 @@ id: ASKI-103
 title: >-
   Soft mask edges mix opaque branches in encoded values on Core Graphics paths
   and in linear light on Core Image paths
-status: In Progress
+status: Done
 assignee:
   - '@codex'
 created_date: '2026-11-10T19:09:00Z'
-updated_date: '2026-11-15T19:28:00Z'
+updated_date: '2026-11-15T19:54:00Z'
 labels:
   - correctness
   - rendering
@@ -26,9 +26,9 @@ Found while fixing ASKI-101. After ASKI-101 every render path applies the same c
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Measure the split on every MaskColorContractTests path under both composition policies, for soft mask edges and for glyph antialiasing edges
-- [ ] #2 Decide whether Core Image paths should follow the grid's RenderCompositionPolicy, with a pre-registered rule and the frozen-preset no-harm census if any frozen-preset golden would move
-- [ ] #3 Document the outcome in the Masking and Rendering guides
+- [x] #1 Measure the split on every MaskColorContractTests path under both composition policies, for soft mask edges and for glyph antialiasing edges
+- [x] #2 Decide whether Core Image paths should follow the grid's RenderCompositionPolicy, with a pre-registered rule and the frozen-preset no-harm census if any frozen-preset golden would move
+- [x] #3 Document the outcome in the Masking and Rendering guides
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -41,4 +41,12 @@ Found while fixing ASKI-101. After ASKI-101 every render path applies the same c
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-11-13: related: ASKI-107 measures linear-light cell averages, which this task's composition policy affects.
+
+2026-11-15: Protocol and instrument frozen at e609764 before first capture. Independent source review required a real reducer control and narrowed target glyph claims before capture; thresholds stayed unchanged. Native matrix passed all 496 applicable rows, with 24 tile glyph N/A rows: 18 paths, both ASCII policies and grid gamuts, both CI consumers, 432 soft-mask rows, 48 glyph rows and 16 controls. TileGrid has no policy knob, so tile policy is explicitly N/A. KEEP current per-stage behavior; the policy controls ASCII Core Graphics rasterization, not every later CI operation or caller context. Masking/Rendering guides and API comments now state this scope. Production output and goldens unchanged, so no no-harm census is required. Full native gate passed before capture; final documentation/evidence gate runs before PR.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Measured and documented mask and glyph composition across all existing color-contract paths. All registered applicable measurements pass. Kept current stage-specific blending, with explicit policy and CI-consumer limits. Committed CSV, controls, source hashes, replay protocol and native capture evidence; no production render behavior or golden changes.
+<!-- SECTION:FINAL_SUMMARY:END -->

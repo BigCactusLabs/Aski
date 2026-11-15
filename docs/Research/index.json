@@ -1622,6 +1622,31 @@
 
       ],
       "date" : "2026-11-15",
+      "path" : "docs/Research/2026-11-15-aski103-composition-spaces.md",
+      "related_specs" : [
+        "Sources/Aski/Aski.docc/Masking.md",
+        "Sources/Aski/Aski.docc/Rendering.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski103-composition-spaces",
+      "status" : "complete",
+      "subsystem" : [
+        "color-science",
+        "tile-grid"
+      ],
+      "summary" : "KEEP current per-stage composition: 496 applicable rows pass a frozen mask and glyph diagnostic across 18 paths; 24 tile glyph rows are not applicable. The ASCII policy selects the Core Graphics raster space, while later Core Image operations and deferred consumers retain their own spaces. Defaults and goldens are unchanged.",
+      "title" : "ASKI-103 — mask and glyph composition spaces"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
       "path" : "docs/Research/2026-11-15-aski76-charset-boundary.md",
       "related_specs" : [
         "Sources/Aski/Aski.docc/CharacterSets.md"
@@ -2308,6 +2333,36 @@
       ],
       "schema_version" : "1",
       "summary" : "Reproduced and corrected channel-sum brightening and alpha loss; exactly three effect snapshots updated. No frozen-preset change."
+    },
+    {
+      "aski_git_sha" : "e609764b0c186880a5175a037a4e9014e07007f0",
+      "command" : "ASKI_103_CSV=<new-directory>/composition.csv xcrun swift test --skip-build --no-parallel --filter MaskCompositionPolicyDiagnosticTests",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "README.md",
+        "composition.csv",
+        "provenance.json",
+        "summary.json",
+        "test.log",
+        "exit-status.txt",
+        "coretext-control.log",
+        "SHA256SUMS"
+      ],
+      "path" : "docs/Research/Results/2026-11-15-aski103-composition",
+      "provenance" : [
+        "Protocol and instrument committed before first enabled capture; clean tree; prior full native gate built the identical source tree",
+        "Apple M3 Max, macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), Swift 6.4, arm64",
+        "Capture exit 0; 520 unique data rows; 496 applicable passes and 24 tile glyph N/A rows",
+        "CSV and capture-log bytes retained unchanged; artifact hashes in SHA256SUMS"
+      ],
+      "schema_version" : "1",
+      "summary" : "KEEP existing per-stage mask/glyph composition under the frozen rule; all registered applicable rows and known-difference controls pass. No production output or golden change."
     }
   ]
 }
