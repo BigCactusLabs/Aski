@@ -1,56 +1,43 @@
 import simd
 
-/// A character set with precomputed matching data.
+/// An expert extension point for character sets with precomputed matching data.
 ///
-/// **Dimensionality:** 60D log-polar shape context per character, stored as
-/// 15 × SIMD4<Float> (60 lanes, zero padding, clean NEON register tiling).
-///
-/// The log-polar idea comes from Xu, Zhang & Wong, *Structure-based ASCII Art*,
-/// ACM Transactions on Graphics 29(4), SIGGRAPH 2010 — **not** SIGGRAPH Asia,
-/// as this comment previously said. The construction here is a deliberate
-/// simplification of that paper's, and calling it a match would overstate the
-/// lineage: the paper samples a *tiled* lattice of overlapping log-polar
-/// windows (stride 2) across the whole cell and concatenates them, so a cell
-/// carries dozens of windows and thousands of dimensions, and it applies the
-/// same pattern to the source cell and the glyph alike. This descriptor is one
-/// window over the whole raster — N = 1, 60 dimensions total — which keeps the
-/// matcher cheap but discards the positional structure the tiling exists to
-/// preserve. Measured in ASKI-52 / ASKI-26; see
+/// Use ``RasterizedCharacterSet`` to create a set from a font and a glyph list.
+/// Conform directly when you supply the matcher data for each glyph.
+/// The descriptor is one whole-raster, 60-component log-polar histogram,
+/// simplified from the tiled construction in Xu, Zhang and Wong's
+/// *Structure-based ASCII Art* (SIGGRAPH 2010). It does not reproduce that
+/// paper's positional descriptor; see the ASKI-52/26 convention study under
 /// `docs/Research/2026-08-28-aski52-26-candidate-convention.md`.
 ///
-/// **Parallel-array invariant (a precondition, not a hint).** Every per-glyph
-/// array is indexed in lockstep with `characters`: `brightnessValues.count` and
-/// `rawDensityValues.count` equal `characters.count`, `shapeVectorLanes.count`
-/// equals `characters.count * lanesPerCharacter`.
-/// Conformances should enforce this at construction; `StandardCharacterSet.parse`
-/// throws `LoadError.invalidScalar` rather than return a short `characters`
-/// array. `ASCIIConverter.init(characterSet:palette:...)` takes one validated
-/// internal snapshot before a matcher can use the arrays unchecked.
+/// Keep `characters` nonempty and all four arrays aligned in glyph order.
+/// Both density arrays have one entry per glyph. The shape array has
+/// `lanesPerCharacter` consecutive SIMD entries per glyph.
+///
+/// Keep the arrays coherent while the converter reads them. An
+/// ``ASCIIConverter`` traps on an empty set or mismatched array lengths when it
+/// takes a snapshot at initialization or on assignment to `characterSet`. If a
+/// reference-type conformance changes later, assign it again to take a fresh
+/// snapshot.
 public protocol ASCIICharacterSet: Sendable {
 
     /// The characters in this set, in presentation order.
     var characters: [Character] { get }
 
-    /// Mean ink density per character (1D), used for the first-pass brightness filter.
-    /// Same count as `characters`, values in 0...1.
+    /// Normalized ink density per glyph, with finite values in `0...1`.
+    /// Used by dot-matrix selection and the log-polar brightness prefilter.
     var brightnessValues: [Float] { get }
 
-    /// Absolute ink-area density per character: the fraction of the character
-    /// cell covered by ink, in 0...1. Unlike `brightnessValues`, this is NOT
-    /// normalized to the densest glyph — `rawDensityValues[i]` is the physical
-    /// coverage `k` retained for tone/oracle research and historical replay.
-    /// The current production matcher does not read this channel.
-    /// Same count as `characters`.
-    ///
-    /// Ordering follows the `brightnessValues` density ramp only up to
-    /// brightness-quantization ties (distinct raw values can normalize to the
-    /// same brightness float, leaving one-ulp inversions — e.g. braille).
-    /// Index into it; do not binary-search it.
+    /// The fraction of each glyph cell covered by ink, with finite values in
+    /// `0...1`. Retained for research and replay. The default implementation
+    /// uses `brightnessValues` as an approximation for sets without measured
+    /// coverage. Look up values by glyph index because the array can be unsorted.
     var rawDensityValues: [Float] { get }
 
-    /// Flat array of SIMD4 lanes representing the 60D shape vector per character.
-    /// Layout: `characters.count * 15` entries, where lanes `[i*15 ..< (i+1)*15]`
-    /// contain the 60 float values for character `i`.
+    /// The log-polar descriptor for each glyph, packed as 15 consecutive
+    /// `SIMD4<Float>` entries with no padding. Entries `i * 15 ..< (i + 1) * 15`
+    /// contain the 60 components for glyph `i`. Supply this layout for every
+    /// glyph, including when using dot-matrix selection.
     var shapeVectorLanes: [SIMD4<Float>] { get }
 
 }

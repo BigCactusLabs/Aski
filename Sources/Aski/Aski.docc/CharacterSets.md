@@ -19,10 +19,11 @@ Ten built-in sets, accessed as static properties on ``StandardCharacterSet``:
 
 ## Extending Aski with custom character sets
 
-Implement ``ASCIICharacterSet`` directly, or use ``RasterizedCharacterSet``
-to compute shape vectors at runtime from a custom font + character list:
+Use ``RasterizedCharacterSet`` to compute matching data from a font and a
+nonempty character list. Pass the font you will use to render the grid.
 
 ```swift
+import Aski
 import CoreText
 
 let custom = RasterizedCharacterSet(
@@ -39,10 +40,28 @@ let converter = ASCIIConverter(
 The example uses ``ASCIIAlgorithm/dotMatrix`` for the reason in the next
 section.
 
-`ASCIIConverter` takes one validated snapshot of a custom conformance's four
-per-glyph arrays during initialization and whenever its public `characterSet`
-property is assigned. If a reference-type conformance changes its arrays after
-initialization, assign it to `characterSet` again to refresh that snapshot.
+### Supplying precomputed matching data
+
+Conform directly to ``ASCIICharacterSet`` when you have precomputed data in
+Aski's matcher format. The arrays are the expert extension contract. Keep the
+glyph list nonempty and use the same glyph order in every array.
+
+- `characters` supplies the output glyph for each index. Keep the order you
+  want Aski to use when breaking matching ties.
+- `brightnessValues` contains one normalized ink density in `0...1` per glyph.
+  Dot-matrix selection and the log-polar brightness prefilter use this array.
+- `rawDensityValues` contains one absolute ink-area fraction in `0...1` per
+  glyph for research and replay. Use the default implementation if you only
+  have normalized values.
+- `shapeVectorLanes` contains one 60-component log-polar descriptor per glyph,
+  stored as 15 consecutive `SIMD4<Float>` entries in descriptor order, with
+  no padding. The layout is required for both algorithms.
+
+The converter traps on an empty glyph list or mismatched array lengths when it
+snapshots a custom conformance. Keep the arrays coherent during initialization and
+assignment to `characterSet`. Assign a reference-type conformance again after
+changing its arrays to refresh that snapshot. Animation accepts up to 65,535
+glyphs.
 
 ## Custom sets and logPolar
 
@@ -68,3 +87,9 @@ Every built-in set except ``StandardCharacterSet/braille`` includes a literal
 " " as its first character. Braille uses U+2800 (zero dots) as its native
 blank. Matching falls back to the lowest-brightness glyph when a custom set has
 no literal space.
+
+## Research import
+
+Code that explicitly names `ShapeQueryPolarity` now uses
+`@_spi(AskiResearch) import Aski`, the same import as
+`RenderingOptions.shapeQueryPolarity`. The default remains `.inverted`.

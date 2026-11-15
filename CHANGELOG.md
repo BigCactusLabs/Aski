@@ -19,6 +19,13 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- **The charset extension contract is explicit; query polarity is research SPI (ASKI-76).**
+  `ASCIICharacterSet` keeps its existing low-level matching arrays and validated
+  converter snapshot behavior. Use `RasterizedCharacterSet` for font-and-glyph
+  input. Code that names `ShapeQueryPolarity` must now use
+  `@_spi(AskiResearch) import Aski`; ordinary rendering defaults and glyph data
+  are unchanged. See the Character Sets guide for construction invariants.
+
 - **Chromatic aberration and the stock RGB-split fallback preserve source alpha (ASKI-110).**
   The shifted channels no longer add three copies of alpha. Uniform color interiors
   keep their brightness, translucent glyphs stay translucent, and color fringes

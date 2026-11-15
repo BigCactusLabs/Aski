@@ -19,7 +19,8 @@ import Testing
 @Suite struct MaskColorContractTests {
     private static let components: [CGFloat] = [0.8, 0.2, 0.1]
     private let clear = CGColor(gray: 0, alpha: 0)
-    private let font = ASCIIFont.system(size: 40)
+    let font = ASCIIFont.system(size: 40)
+    static let targetWidth = 96
 
     enum Paint: String, CaseIterable, Sendable {
         /// `CGColor(red:green:blue:alpha:)`, Generic RGB on macOS.
@@ -96,7 +97,7 @@ import Testing
         gamut == .sRGB ? .displayP3 : .sRGB
     }
 
-    private static func outputGamut(_ path: Path, grid gamut: RenderColorSpace) -> RenderColorSpace {
+    static func outputGamut(_ path: Path, grid gamut: RenderColorSpace) -> RenderColorSpace {
         path.crossesGamut ? opposite(gamut) : gamut
     }
 
@@ -143,60 +144,68 @@ import Testing
         case linear
     }
 
-    private func cgImage(_ image: CIImage, destination: CGColorSpace, consumer: CIConsumer = .encoded) throws -> CGImage {
+    func cgImage(_ image: CIImage, destination: CGColorSpace, consumer: CIConsumer = .encoded) throws -> CGImage {
         let working =
             consumer == .linear ? CGColorSpace(name: CGColorSpace.extendedLinearSRGB)! : destination
         let context = CIContext(options: [.workingColorSpace: working, .outputColorSpace: destination])
         return try #require(context.createCGImage(image, from: image.extent, format: .RGBA8, colorSpace: destination))
     }
 
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
     private func render(
         _ path: Path, gamut: RenderColorSpace, paint: CGColor, mask: MaskPaint,
         coverage: Float? = nil, hardEdges: Bool = false, consumer: CIConsumer = .encoded
     ) async throws -> CGImage {
         let a = asciiGrid(gamut, paint: paint, mask: mask, coverage: coverage, hardEdges: hardEdges)
         let t = tileGrid(gamut, paint: paint, mask: mask, coverage: coverage, hardEdges: hardEdges)
+        return try await render(path, ascii: a, tile: t, background: clear, consumer: consumer)
+    }
+
+    // Share the overload and mode selection with the opt-in composition diagnostic.
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
+    func render(
+        _ path: Path, ascii a: ASCIIGrid, tile t: TileGrid, background: CGColor, consumer: CIConsumer
+    ) async throws -> CGImage {
+        let gamut = path.isTile ? t.colorSpace : a.colorSpace
         let gridSpace = Self.space(gamut)
         let crossSpace = Self.space(Self.opposite(gamut))
-        let effectsComposition = CompositionOptions(background: .solid(clear))
+        let effectsComposition = CompositionOptions(background: .solid(background))
         let mosaic = TileGridMode.mosaic(grout: clear, groutThickness: 0.2)
         // Nested synchronous helpers keep the synchronous overloads selected.
-        func direct() -> CGImage { a.renderImage(font: font, backgroundColor: clear, scale: 1) }
+        func direct() -> CGImage { a.renderImage(font: font, backgroundColor: background, scale: 1) }
         func syncEffects() -> CGImage {
-            a.renderImage(font: font, backgroundColor: clear, scale: 1, composition: effectsComposition)
+            a.renderImage(font: font, backgroundColor: background, scale: 1, composition: effectsComposition)
         }
-        func syncCI() -> CIImage { a.renderCIImage(font: font, backgroundColor: clear, scale: 1) }
+        func syncCI() -> CIImage { a.renderCIImage(font: font, backgroundColor: background, scale: 1) }
         func directTile(_ mode: TileGridMode) -> CGImage {
-            t.renderImage(mode: mode, scale: 32, backgroundColor: clear)
+            t.renderImage(mode: mode, scale: 32, backgroundColor: background)
         }
         func syncEffectsTile() -> CGImage {
-            t.renderImage(scale: 32, backgroundColor: clear, composition: effectsComposition)
+            t.renderImage(scale: 32, backgroundColor: background, composition: effectsComposition)
         }
-        func syncCITile() -> CIImage { t.renderCIImage(scale: 32, backgroundColor: clear) }
+        func syncCITile() -> CIImage { t.renderCIImage(scale: 32, backgroundColor: background) }
 
         switch path {
         case .directASCII:
             return direct()
         case .targetWidthASCII:
-            return a.renderImage(font: font, backgroundColor: clear, targetPixelWidth: 96)
+            return a.renderImage(font: font, backgroundColor: background, targetPixelWidth: Self.targetWidth)
         case .syncEffectsASCII:
             return syncEffects()
         case .asyncASCII:
-            return try await a.renderImage(font: font, backgroundColor: clear, scale: 1)
+            return try await a.renderImage(font: font, backgroundColor: background, scale: 1)
         case .syncCIASCII:
             return try cgImage(syncCI(), destination: gridSpace, consumer: consumer)
         case .asyncCIASCII:
-            let image = try await a.renderCIImage(font: font, backgroundColor: clear, scale: 1)
+            let image = try await a.renderCIImage(font: font, backgroundColor: background, scale: 1)
             return try cgImage(image, destination: gridSpace, consumer: consumer)
         case .engineSameASCII:
-            return try await AskiRenderEngine(colorSpace: gamut).render(a, font: font, backgroundColor: clear, scale: 1)
+            return try await AskiRenderEngine(colorSpace: gamut).render(a, font: font, backgroundColor: background, scale: 1)
         case .engineCrossASCII:
             return try await AskiRenderEngine(colorSpace: Self.opposite(gamut))
-                .render(a, font: font, backgroundColor: clear, scale: 1)
+                .render(a, font: font, backgroundColor: background, scale: 1)
         case .engineCrossCIASCII:
             let image = try await AskiRenderEngine(colorSpace: Self.opposite(gamut))
-                .renderCIImage(a, font: font, backgroundColor: clear, scale: 1)
+                .renderCIImage(a, font: font, backgroundColor: background, scale: 1)
             return try cgImage(image, destination: crossSpace, consumer: consumer)
         case .directTilePixelArt:
             return directTile(.pixelArt)
@@ -205,19 +214,19 @@ import Testing
         case .syncEffectsTile:
             return syncEffectsTile()
         case .asyncTile:
-            return try await t.renderImage(scale: 32, backgroundColor: clear)
+            return try await t.renderImage(scale: 32, backgroundColor: background)
         case .syncCITile:
             return try cgImage(syncCITile(), destination: gridSpace, consumer: consumer)
         case .asyncCITile:
-            let image = try await t.renderCIImage(scale: 32, backgroundColor: clear)
+            let image = try await t.renderCIImage(scale: 32, backgroundColor: background)
             return try cgImage(image, destination: gridSpace, consumer: consumer)
         case .engineSameTile:
-            return try await AskiRenderEngine(colorSpace: gamut).render(t, scale: 32, backgroundColor: clear)
+            return try await AskiRenderEngine(colorSpace: gamut).render(t, scale: 32, backgroundColor: background)
         case .engineCrossTile:
-            return try await AskiRenderEngine(colorSpace: Self.opposite(gamut)).render(t, scale: 32, backgroundColor: clear)
+            return try await AskiRenderEngine(colorSpace: Self.opposite(gamut)).render(t, scale: 32, backgroundColor: background)
         case .engineCrossCITile:
             let image = try await AskiRenderEngine(colorSpace: Self.opposite(gamut))
-                .renderCIImage(t, scale: 32, backgroundColor: clear)
+                .renderCIImage(t, scale: 32, backgroundColor: background)
             return try cgImage(image, destination: crossSpace, consumer: consumer)
         }
     }

@@ -1616,6 +1616,30 @@
       ],
       "summary" : "A visible cutoff is supported in the Lovell portrait sky under the frozen Vesper preset. The two line diagrams do not establish a gradient cliff. Native render pairs, exact zero-query boundaries and a passing diagnostic are retained. Shipping behavior is unchanged; a separate lab-only opacity-taper arm is specified for future evaluation.",
       "title" : "ASKI-108 — near-white boundary inspection"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "path" : "docs/Research/2026-11-15-aski76-charset-boundary.md",
+      "related_specs" : [
+        "Sources/Aski/Aski.docc/CharacterSets.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski76-charset-boundary",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "Aski keeps the ASCIICharacterSet arrays as the expert contract for supplying precomputed glyph data. RasterizedCharacterSet remains the font and glyph input path. ShapeQueryPolarity joins its setting behind AskiResearch SPI.",
+      "title" : "ASKI-76 — character set extension boundary"
     }
   ],
   "results" : [

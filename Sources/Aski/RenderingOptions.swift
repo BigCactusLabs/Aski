@@ -8,6 +8,7 @@ import simd
 /// BRIGHT cell to a dense glyph, while the shape query has inverted the source
 /// since the first log-polar commit. Measuring the disagreement needs both
 /// arms reachable from one binary.
+@_spi(AskiResearch)
 public enum ShapeQueryPolarity: Sendable {
     /// `1 - Rec.601 luma`: DARK source regions carry the descriptor mass. The
     /// shipped default; reproduces every archived pick byte for byte.

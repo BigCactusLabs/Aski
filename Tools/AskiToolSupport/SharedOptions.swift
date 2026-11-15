@@ -41,7 +41,7 @@ public struct ShapeQueryPolarityOption: ParsableArguments {
 
     /// The parsed knob value. Validated by ``validate()``, so a bad string
     /// fails argument parsing rather than silently resolving to the default.
-    public var shapeQueryPolarity: ShapeQueryPolarity {
+    package var shapeQueryPolarity: ShapeQueryPolarity {
         Self.parse(shapeQueryPolarityName) ?? .inverted
     }
 
@@ -53,7 +53,7 @@ public struct ShapeQueryPolarityOption: ParsableArguments {
         return resolved
     }
 
-    public static func parse(_ raw: String) -> ShapeQueryPolarity? {
+    package static func parse(_ raw: String) -> ShapeQueryPolarity? {
         switch raw {
         case "inverted": return .inverted
         case "direct": return .direct
@@ -61,7 +61,7 @@ public struct ShapeQueryPolarityOption: ParsableArguments {
         }
     }
 
-    public static func label(_ polarity: ShapeQueryPolarity) -> String {
+    package static func label(_ polarity: ShapeQueryPolarity) -> String {
         switch polarity {
         case .inverted: return "inverted"
         case .direct: return "direct"

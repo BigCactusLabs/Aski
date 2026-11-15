@@ -37,6 +37,7 @@ describe intended assets; do not assume a hosted API site.
 | CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |
 | Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
 | Research findings, decisions, and retractions | [Research index](Research/README.md) |
+| Charset extension contract and research polarity visibility | [ASKI-76 boundary decision](Research/2026-11-15-aski76-charset-boundary.md) |
 | Color-interpretation correction and its frozen-selection guard | [ASKI-3 protocol](Research/2026-11-05-aski3-color-semantics.md) |
 | Inspect the channel-split alpha and brightness correction | [ASKI-110 native render evidence](Research/Results/2026-11-14-aski110-channel-alpha/README.md) |
 | Inspect the near-white cutoff and proposed lab follow-up | [ASKI-108 native pairs and decision](Research/2026-11-14-aski108-near-white-inspection.md) |
