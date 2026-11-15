@@ -12,6 +12,34 @@ Aski remains pre-1.0. Source APIs and rendered output can change between minor r
 Use an exact published version when reproducibility matters, and review the repository's
 [changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) before upgrading.
 
+## Unreleased: compose render recipes directly
+
+`VesperPreset` has been removed from the public library. Replace
+`VesperPreset.canonical.render(image)` with the complete `renderDuotone(image)`
+example in <doc:Duotone>. It uses the same canonical conversion and render settings
+on the same checkout; this removal does not change the rendering engine or its
+reference image. Cross-version or cross-host pixel equality is not implied.
+
+For `makeConverter()` callers, use the example's `ASCIIConverter` construction and
+retain the grid. Its palette is the example's `DuotonePalette`; if you explicitly
+typed the old result as `DefaultConverter` or
+`ASCIIConverter<StandardCharacterSet, BuiltInPalette>`, let Swift infer the new type
+or change that palette type argument to `DuotonePalette`. Replace `font` with
+`.courierPrime(size: 14)` for the former canonical look. Callers of the configurable initializer should pass their own columns, palette,
+contrast, color space, oversample, font size, scale, and background directly to the
+converter and renderer. Keep `preserveSourceAspect: true` to retain that geometry.
+
+The `AskiPresetLab` executable and `aski lab preset` namespace were also removed,
+including `ab`, `probe-stimuli`, `probe-score`, and their four product-probe schemas.
+They have no replacement command. For ordinary conversion, use `aski render` or the
+library recipe. For a parameter comparison, render explicit configurations and compare
+the outputs. Historical study results and dated replay instruments remain tied to their
+recorded revisions; do not run an old instrument against an arbitrary current checkout.
+
+This is a product-scope retirement, not a failed human-study verdict. The recipe used
+for research and regression tests remains package-only tool support, with its original
+settings and raster baseline. It is not a replacement public API.
+
 ## Moving to v0.8.0
 
 Update the package dependency:

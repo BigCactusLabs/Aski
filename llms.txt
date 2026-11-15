@@ -22,7 +22,7 @@
 - [Animation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Animation.md): Time-based frames from one conversion.
 - [Video and GIF](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Video.md): Library round-trips and streaming components; CLI harnesses live under aski lab video.
 - [Tiles](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Tiles.md): Pixel-art, brick, and mosaic cell-grid output.
-- [Vesper](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Vesper.md): A fixed duotone recipe, not a bundled standalone app.
+- [Duotone recipe](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Duotone.md): Compose a fixed two-color palette, converter, and raster renderer using public APIs.
 - [Migration notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Migrating-to-A1.md): First-public-release migration and clearly labeled private-history transitions.
 - [Changelog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CHANGELOG.md): Versioned source and behavior changes; earlier private tags are not available in this repository.
 

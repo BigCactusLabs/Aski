@@ -4,7 +4,6 @@ import AskiColorLab
 import AskiDecolorLab
 import AskiHDRLab
 import AskiMotionLab
-import AskiPresetLab
 import AskiToolSupport
 import AskiVideoLab
 
@@ -37,7 +36,6 @@ public struct LabCommand: AsyncParsableCommand {
             AccessibilityLabCommand.self,
             DecolorLabCommand.self,
             HDRLabCommand.self,
-            PresetLabCommand.self,
         ]
     )
 
@@ -137,20 +135,5 @@ public struct HDRLabCommand: ParsableCommand {
 
     public func run() throws {
         throw ValidationError("Missing command. Commands: evaluate, check. See --help.")
-    }
-}
-
-public struct PresetLabCommand: ParsableCommand {
-    public static let configuration = CommandConfiguration(
-        commandName: "preset",
-        abstract: AskiPresetLabCommand.configuration.abstract,
-        version: ToolVersion.current,
-        subcommands: AskiPresetLabCommand.configuration.subcommands
-    )
-
-    public init() {}
-
-    public func run() throws {
-        throw ValidationError("Missing command. Use 'ab', 'probe-stimuli', or 'probe-score'. See --help.")
     }
 }

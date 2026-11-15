@@ -186,7 +186,7 @@ import Testing
         let runners = IndexCheck.executableRunnerTargets(root: try packageRoot())
         for runner in [
             "aski", "AskiColorLab", "AskiMotionLab", "AskiVideoLab", "AskiAccessLab",
-            "AskiDecolorLab", "AskiHDRLab", "AskiPresetLab",
+            "AskiDecolorLab", "AskiHDRLab",
         ] {
             #expect(runners.contains(runner), "missing public runner: \(runner)")
         }

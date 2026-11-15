@@ -15,7 +15,7 @@ navigation hub; the [project README](../README.md) is the front door.
 | Change the alphabet, matcher, or palette | [Character Sets](../Sources/Aski/Aski.docc/CharacterSets.md), [Algorithms](../Sources/Aski/Aski.docc/Algorithms.md), [Palette Matching](../Sources/Aski/Aski.docc/PaletteMatching.md) |
 | Make cutouts and photo-to-type dissolves | [Masking](../Sources/Aski/Aski.docc/Masking.md) |
 | Add motion, video, or finishing effects | [Animation](../Sources/Aski/Aski.docc/Animation.md), [Video & GIF](../Sources/Aski/Aski.docc/Video.md), [Effects](../Sources/Aski/Aski.docc/Effects.md) |
-| Use tiles or a fixed duotone recipe | [Tile grids](../Sources/Aski/Aski.docc/Tiles.md), [Vesper](../Sources/Aski/Aski.docc/Vesper.md) |
+| Use tiles or a two-color recipe | [Tile grids](../Sources/Aski/Aski.docc/Tiles.md), [Duotone](../Sources/Aski/Aski.docc/Duotone.md) |
 | Upgrade an existing integration | [Migration notes](../Sources/Aski/Aski.docc/Migrating-to-A1.md), [CHANGELOG](../CHANGELOG.md), [checked-in release notes](release-notes/) |
 
 The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) is the API documentation source.
@@ -81,7 +81,6 @@ harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
 | `aski lab accessibility` | Palette/grid color-vision-deficiency audit | `xcrun swift run aski lab accessibility audit --output-dir <dir>` |
 | `aski lab decolor` | Composited-cell perceptual oracle; `check` fails on a KILL verdict | `xcrun swift run aski lab decolor check --output-dir <dir>` |
 | `aski lab hdr` | Research-only HDR artifacts and fail-fast gates | `xcrun swift run aski lab hdr check --output-dir <dir>` |
-| `aski lab preset` | Vesper A/B and blinded product-probe instruments | `xcrun swift run aski lab preset --help` |
 | `BuildKernelLibrary` | Regenerate the checked-in Metal library | `just regen-kernels` |
 | `BuildStandardVectors` | Audit or regenerate charset shape vectors | `just audit-vectors --output-dir <dir>` · `just regen-vectors` |
 | `BuildResearchIndex` | Validate research/lifecycle records or regenerate their index | `just research-check` · `xcrun swift run BuildResearchIndex` |

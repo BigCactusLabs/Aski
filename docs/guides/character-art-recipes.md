@@ -129,7 +129,7 @@ manifests, reusable builds, option dependencies, and troubleshooting.
 For a Swift app, [Getting Started](../../Sources/Aski/Aski.docc/GettingStarted.md)
 shows how to load a `CGImage`, convert it once, and choose text or image output.
 [Masking](../../Sources/Aski/Aski.docc/Masking.md) explains photo-to-type dissolves;
-[Vesper](../../Sources/Aski/Aski.docc/Vesper.md) describes the fixed duotone library preset.
+[Duotone](../../Sources/Aski/Aski.docc/Duotone.md) shows a complete two-color Swift recipe.
 
 ## Reproduction notes
 

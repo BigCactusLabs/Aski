@@ -5,6 +5,7 @@ import Testing
 import VideoToolbox
 
 @testable import Aski
+import AskiToolSupport
 
 /// ASKI-1. A decoded `CGImage` larger than the conversion budget is resampled
 /// straight from its own pixels to the sampling lattice, with no PNG encode and
@@ -100,7 +101,7 @@ import VideoToolbox
     /// direct resampler, at the lattice size, and nothing else.
     @Test func oversizedSourceIsResampledStraightToTheLattice() throws {
         let image = Self.photoLike(width: 2_400, height: 1_600)
-        let converter = VesperPreset.canonical.makeConverter()
+        let converter = FrozenRenderReference.makeConverter()
         let preparation = try #require(converter.prepareConversion(image, columns: 76, mask: nil))
         let context = preparation.context
 
@@ -119,7 +120,7 @@ import VideoToolbox
     @Test(arguments: [(152, 101), (120, 152), (152, 152)])
     func withinBudgetSourceKeepsTheExistingDraw(width: Int, height: Int) throws {
         let image = Self.photoLike(width: width, height: height)
-        let converter = VesperPreset.canonical.makeConverter()
+        let converter = FrozenRenderReference.makeConverter()
         let preparation = try #require(converter.prepareConversion(image, columns: 76, mask: nil))
         let context = preparation.context
 
@@ -224,15 +225,15 @@ import VideoToolbox
     // MARK: - Conversion output
 
     enum ConversionCase: String, CaseIterable, Sendable {
-        case vesperLandscape
-        case vesperPortrait
+        case referenceLandscape
+        case referencePortrait
         case fullColorLandscape
         case fullColorDisplayP3
     }
 
     /// AC#3: the grid the converter produces from the direct preparation
     /// matches the grid the same converter produces from the exact
-    /// area-averaged lattice. The first two cases run the frozen preset.
+    /// area-averaged lattice. The first two cases run the frozen render reference.
     ///
     /// This build measures glyph agreement 0.950–0.978, brightness MAE
     /// 0.0024–0.0051 and display-color MAE 0.0020–0.0034 (on a 0–1 scale).
@@ -244,30 +245,35 @@ import VideoToolbox
     /// bounds cap how far the resampler may move what the user sees.
     @Test(arguments: ConversionCase.allCases)
     func conversionMatchesTheAreaAveragedReference(testCase: ConversionCase) throws {
-        let image: CGImage
-        let converter: DefaultConverter
-        let columns: Int
         switch testCase {
-        case .vesperLandscape:
-            image = Self.photoLike(width: 2_400, height: 1_600)
-            converter = VesperPreset.canonical.makeConverter()
-            columns = VesperPreset.canonical.columns
-        case .vesperPortrait:
-            image = Self.photoLike(width: 1_500, height: 2_250)
-            converter = VesperPreset.canonical.makeConverter()
-            columns = VesperPreset.canonical.columns
+        case .referenceLandscape:
+            try checkConversion(
+                Self.photoLike(width: 2_400, height: 1_600),
+                converter: FrozenRenderReference.makeConverter(), columns: FrozenRenderReference.columns, testCase: testCase)
+        case .referencePortrait:
+            try checkConversion(
+                Self.photoLike(width: 1_500, height: 2_250),
+                converter: FrozenRenderReference.makeConverter(), columns: FrozenRenderReference.columns, testCase: testCase)
         case .fullColorLandscape:
-            image = Self.photoLike(width: 2_400, height: 1_600)
-            converter = ASCIIConverter(
+            let converter = DefaultConverter(
                 characterSet: .standard, palette: .fullColor, colorSpace: .sRGB, oversample: 4)
-            columns = 80
+            try checkConversion(
+                Self.photoLike(width: 2_400, height: 1_600), converter: converter, columns: 80, testCase: testCase)
         case .fullColorDisplayP3:
-            image = try Self.tagged(.displayP3Saturated, width: 2_400, height: 1_600)
-            converter = ASCIIConverter(
+            let converter = DefaultConverter(
                 characterSet: .standard, palette: .fullColor, colorSpace: .displayP3, oversample: 4)
-            columns = 80
+            try checkConversion(
+                Self.tagged(.displayP3Saturated, width: 2_400, height: 1_600),
+                converter: converter, columns: 80, testCase: testCase)
         }
+    }
 
+    private func checkConversion<P: ASCIIPalette>(
+        _ image: CGImage,
+        converter: ASCIIConverter<StandardCharacterSet, P>,
+        columns: Int,
+        testCase: ConversionCase
+    ) throws {
         let preparation = try #require(converter.prepareConversion(image, columns: columns, mask: nil))
         let context = preparation.context
         let reference = try Self.areaReference(

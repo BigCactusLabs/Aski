@@ -51,7 +51,6 @@ private struct MetadataDocument: Encodable {
         ReplayMapping(product: "AskiDecolorLab", lab: "decolor"),
         ReplayMapping(product: "AskiHDRLab", lab: "hdr"),
         ReplayMapping(product: "AskiMotionLab", lab: "motion"),
-        ReplayMapping(product: "AskiPresetLab", lab: "preset"),
         ReplayMapping(product: "AskiVideoLab", lab: "video"),
     ]
 }

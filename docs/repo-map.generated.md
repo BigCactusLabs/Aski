@@ -28,7 +28,6 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 - `RenderingOptions.swift` — struct RenderingOptions, struct ResolvedRenderingOptions, enum ShapeQueryPolarity
 - `ResolvedPalette.swift` — enum PaletteColorSpaceConverters, struct ResolvedPalette, struct ResolvedPaletteColor
 - `ShapeMatching.swift` — enum ShapeMatching
-- `VesperPreset.swift` — struct VesperPreset
 
 ## Sources/Aski/Algorithms
 

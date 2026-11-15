@@ -3,8 +3,8 @@ id: ASKI-35
 title: Public initializers accept unvalidated Double and CGFloat parameters
 status: Done
 assignee: []
-created_date: '2026-08-20 03:15'
-updated_date: '2026-08-24 15:36'
+created_date: 2026-08-20 03:15
+updated_date: '2026-11-14T21:38:00Z'
 labels:
   - correctness
   - api-contract
@@ -52,4 +52,6 @@ The pure data carriers (ResampleReport, the GIF report structs) may well be fine
 
 <!-- SECTION:NOTES:BEGIN -->
 Board audit 2026-08-24: implemented and merged to main in PR #28 (batch-validation wave, merge b835160); all ACs were already checked — status flip only.
+
+2026-11-14 surface retirement: the frozen-preset public initializer is removed. Its historical classification remains accurate for the reviewed version. Generic derived-geometry bounds and converter-to-render extreme font/scale regressions remain in RenderGeometryBoundsTests; no new constructor validation or public replacement preset is introduced.
 <!-- SECTION:NOTES:END -->

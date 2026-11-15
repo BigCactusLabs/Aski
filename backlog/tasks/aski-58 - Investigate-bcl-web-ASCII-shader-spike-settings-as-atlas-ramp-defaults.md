@@ -4,7 +4,7 @@ title: Investigate bcl-web ASCII shader spike settings as atlas/ramp defaults
 status: To Do
 assignee: []
 created_date: 2026-08-27 05:03
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-14T21:46:00Z'
 labels: []
 dependencies:
   - ASKI-15
@@ -44,4 +44,6 @@ First step: define the lab artifact schema and ordering contract from the existi
 Source map: `Tests/AskiTests/StandardCharacterSetScalarValidationTests.swift`.
 
 Audit 2026-11-12: edgeMap no longer exists in Aski (removed by ASKI-16), so directional-edge settings from the bcl-web spike cannot fold back onto it. The task has no acceptance criteria yet.
+
+2026-11-14 product-scope update: the preset A/B tool is retired. The AskiPresetLab and Tools/AskiPresetLab/PresetLabCLI.swift references above are historical only. Future comparisons should use explicit converter configurations and DemoImageIO to write candidate PNGs, with the same source and frozen comparison rule. Existing charset/vector support and the separate atlas/LUT research scope remain unchanged.
 <!-- SECTION:NOTES:END -->

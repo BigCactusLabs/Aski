@@ -90,7 +90,7 @@ Because the public path draws at 4×, `targetPixelWidth` is bound by ``ASCIIGrid
 
 Color fonts and fonts with optical-size axes are out of scope for this claim.
 
-The image renderer is what ``VesperPreset/render(_:)`` and the video/GIF round-trip carriers call internally; see <doc:Vesper> and <doc:Video>.
+The <doc:Duotone> recipe and the video/GIF round-trip carriers use this image renderer; see <doc:Video>.
 
 An extended-range (HDR) sibling of `renderImage` exists behind `@_spi(AskiResearch)`; see <doc:HDRRendering>.
 

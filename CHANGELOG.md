@@ -99,6 +99,16 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Removed
 
+- **Vesper preset and product-probe lab (source-breaking).** Removed the public
+  `VesperPreset`, `AskiPresetLab` product, `aski lab preset` commands (`ab`,
+  `probe-stimuli`, `probe-score`), and their four probe schemas. Compose the existing
+  converter and renderer with a fixed palette instead; the
+  [duotone recipe](Sources/Aski/Aski.docc/Duotone.md) reproduces the former canonical
+  settings. [Migration notes](Sources/Aski/Aski.docc/Migrating-to-A1.md) cover custom
+  recipes and removed commands. This retires the product-specific surface without
+  changing generic rendering behavior. The exact reference recipe and raster baseline
+  remain in package-only tool/test support; historical research evidence is retained.
+
 - **`ImageIOThumbnail.decode(image:maxPixelSize:)` (ASKI-1, source-breaking).** It shrank a
   decoded image by PNG-encoding it and decoding an ImageIO thumbnail. Pass the `CGImage` to
   `convert` directly; the converter now resamples it itself. For encoded input, keep using

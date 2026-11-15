@@ -4,6 +4,7 @@ import Testing
 import simd
 
 @_spi(AskiResearch) @testable import Aski
+import AskiToolSupport
 
 @Suite struct TemporalPriorHookTests {
     @Test func distanceOfGlyphMatchesScoredWinnerDistance() {
@@ -90,8 +91,7 @@ import simd
     }
 
     @Test func controlArmMatchesConvertAcrossAspectRatiosAndPortraitPaintsGlyphs() {
-        let preset = VesperPreset.canonical
-        let converter = preset.makeConverter()
+        let converter = FrozenRenderReference.makeConverter()
         let fixtures: [(name: String, image: CGImage)] = [
             ("square", TestImages.structuredPortraitProxy(width: 240, height: 240)),
             ("landscape", TestImages.structuredPortraitProxy(width: 320, height: 240)),
@@ -99,10 +99,10 @@ import simd
         ]
 
         for fixture in fixtures {
-            let baseline = converter.convert(fixture.image, columns: preset.columns)
+            let baseline = converter.convert(fixture.image, columns: FrozenRenderReference.columns)
             let temporal = converter.convertTemporalFrame(
                 fixture.image,
-                columns: preset.columns,
+                columns: FrozenRenderReference.columns,
                 prior: nil,
                 alpha: 1,
                 tau: 0

@@ -38,7 +38,6 @@ policies, and research SPI have different readiness levels. In particular,
 
 - ``ASCIIConverter``
 - ``DefaultConverter``
-- ``VesperPreset``
 
 ### Output
 
@@ -119,7 +118,7 @@ policies, and research SPI have different readiness levels. In particular,
 - <doc:GettingStarted>
 - <doc:CommandLine>
 - <doc:Rendering>
-- <doc:Vesper>
+- <doc:Duotone>
 - <doc:HDRRendering>
 - <doc:Masking>
 - <doc:Animation>

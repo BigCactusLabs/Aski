@@ -8,7 +8,6 @@ import AskiColorLab
 import AskiDecolorLab
 import AskiHDRLab
 import AskiMotionLab
-import AskiPresetLab
 import AskiToolSupport
 import AskiVideoLab
 
@@ -48,12 +47,10 @@ import AskiVideoLab
             ("aski lab decolor", "AskiCLIRunner", AskiCLI.DecolorLabCommand._dumpHelp),
             ("aski lab hdr", "AskiCLIRunner", AskiCLI.HDRLabCommand._dumpHelp),
             ("aski lab motion", "AskiCLIRunner", AskiCLI.MotionLabCommand._dumpHelp),
-            ("aski lab preset", "AskiCLIRunner", AskiCLI.PresetLabCommand._dumpHelp),
             ("aski lab video", "AskiCLIRunner", AskiCLI.VideoLabCommand._dumpHelp),
             ("AskiDemo", "AskiDemo", AskiDemoCommand._dumpHelp),
             ("AskiHDRLab", "AskiHDRLabRunner", AskiHDRLabCommand._dumpHelp),
             ("AskiMotionLab", "AskiMotionLabRunner", AskiMotionLab.MotionLabCommand._dumpHelp),
-            ("AskiPresetLab", "AskiPresetLabRunner", AskiPresetLabCommand._dumpHelp),
             ("AskiTileMatrix", "AskiTileMatrix", TileMatrixCommand._dumpHelp),
             ("AskiVideoLab", "AskiVideoLabRunner", AskiVideoLab.VideoLabCommand._dumpHelp),
         ]

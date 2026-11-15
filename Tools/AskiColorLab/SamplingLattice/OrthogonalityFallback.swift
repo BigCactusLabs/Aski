@@ -3,6 +3,7 @@ import Foundation
 import simd
 
 @_spi(AskiResearch) import Aski
+import AskiToolSupport
 
 /// The two ASKI-79/80 candidate selectors, pure and lab-only. The frozen rule
 /// is `docs/Research/2026-09-27-aski-79-80-orthogonality-fallback-rule.md` §3.
@@ -112,7 +113,7 @@ enum OrthogonalityFallback {
     }
 }
 
-/// A before/after render of the frozen preset for owner review (ASKI-79/80 rule
+/// A before/after render of the frozen render reference for owner review (ASKI-79/80 rule
 /// §3.2): production's grid, and the same grid with arm 1's pick substituted
 /// in every cell. Colour, alpha, brightness and coverage come from the
 /// converter's own cells and do not depend on the glyph, so the two renders
@@ -124,7 +125,7 @@ enum OrthogonalityRenderPair {
         let fallback: CGImage
         let cells: Int
         let changedCells: Int
-        /// Whether the production half is byte-identical to the preset's own
+        /// Whether the production half is byte-identical to the reference's
         /// `render(_:)` entry point, i.e. the pair was built on the real path.
         let productionMatchesEntryPoint: Bool
         /// The fallback grid's characters, row-major, for a text record.
@@ -132,9 +133,9 @@ enum OrthogonalityRenderPair {
         let productionText: String
     }
 
-    static func render(_ image: CGImage, preset: VesperPreset = .canonical) -> Result? {
-        let converter = preset.makeConverter()
-        guard let queries = converter.cellQueryDescriptors(image, columns: preset.columns)
+    static func render(_ image: CGImage) -> Result? {
+        let converter = FrozenRenderReference.makeConverter()
+        guard let queries = converter.cellQueryDescriptors(image, columns: FrozenRenderReference.columns)
         else { return nil }
         let characterSet = converter.characterSet
         let candidateLanes = characterSet.shapeVectorLanes
@@ -171,11 +172,11 @@ enum OrthogonalityRenderPair {
 
         func draw(_ grid: ASCIIGrid) -> CGImage {
             grid.renderImage(
-                font: preset.font, backgroundColor: preset.backgroundColor, scale: preset.scale,
+                font: FrozenRenderReference.font, backgroundColor: FrozenRenderReference.backgroundColor, scale: FrozenRenderReference.scale,
                 preserveSourceAspect: true)
         }
         let production = draw(grid)
-        let entryPoint = preset.render(image)
+        let entryPoint = FrozenRenderReference.render(image)
         func text(_ grid: ASCIIGrid) -> String {
             grid.cells.map { String($0.map(\.character)) }.joined(separator: "\n")
         }

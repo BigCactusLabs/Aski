@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: 2026-08-18 18:02
-updated_date: '2026-11-13T05:21:00Z'
+updated_date: '2026-11-14T21:38:00Z'
 labels:
   - research
   - algorithms
@@ -48,4 +48,6 @@ First step: record the oracle decision and fixed-budget corpus, then design the 
 Source map: `Sources/Aski/Masking/MaskOptions.swift`, `Sources/Aski/Masking/MaskSampler.swift`, `Sources/Aski/ASCIIConverter.swift`, `Sources/Aski/ASCIIGrid.swift`, `Sources/Aski/Renderers/ImageRenderer.swift`, `Tests/AskiTests/MaskSamplerTests.swift`, `docs/agents/research-methodology.md`.
 
 2026-11-13: AC#2 reworded with owner authorization to apply the ASKI-27 ruling: MAE is the deciding oracle and GMSD is the agreeing-direction guard. HaarPSI is dropped as a deciding oracle because ASKI-27 disqualified GMSD/HaarPSI from defining optima. The rule must still be frozen before any decisive run.
+
+2026-11-14 product-scope update: the preset A/B tool is retired. The historical AskiPresetLab-style wording in AC#3 means a side-by-side visual contact sheet, not a dependency on that executable. Produce any future comparison from explicit converter settings using the same real sources and total cell budget. The mask APIs and MAE/GMSD decision rule remain unchanged; Tools/AskiPresetLab/PresetLabCLI.swift is a historical pointer only.
 <!-- SECTION:NOTES:END -->
