@@ -2,14 +2,26 @@
 title: "ASKI-94 completed original-image fallback rule"
 slug: "2026-11-15-aski94-completed-original-fallback"
 date: "2026-11-15"
-status: "active"
+status: "complete"
 subsystem: [meta]
-summary: "Register an exact-parity test and paired render benchmark for drawing the grounded original-image fallback once through the populated-cell clip."
-next_action: "Run native parity and five release pairs if parity passes."
+summary: "Rejected: one original-image draw through the populated-cell clip changed native pixels in 239 of 1,161 cases. The control repeat matched exactly; all 27 control baseline workloads completed. Production retains per-cell drawing."
+next_action: "No adoption. Preserve the exact-parity rejection and replay evidence."
 related_specs: [docs/agents/paired-benchmarks.md, docs/benchmark-validation.md]
 ---
 
 ## Question and treatment
+
+**Outcome:** rejected under the rule committed at
+`e44962a2e00bb1b0b63bf8a0d2f276d1bed30e18`, before candidate measurements.
+The two control exports matched all 1,161 cases. Candidate export passed, but
+239 cases changed active pixel bytes; native metadata was identical. All
+differences occurred with partial ground. No tolerance was added. The 27-workload
+control baseline completed with wall time, CPU time, allocation calls and sampled
+RSS. Candidate timing and compatibility captures stopped at the parity veto.
+Production and frozen goldens remain unchanged. The
+[result packet](../../Scripts/research/aski94-2026-11-15/README.md) preserves
+the candidate patch, every mismatch, all-case hashes and the descriptive baseline.
+The original decision rule follows unchanged.
 
 Can a single original-image draw reduce the cost of the inactive branch of a
 grounded ASCII render? The control at

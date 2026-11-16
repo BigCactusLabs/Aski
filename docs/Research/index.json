@@ -1671,7 +1671,32 @@
 
       ],
       "date" : "2026-11-15",
-      "next_action" : "Run native parity and five release pairs if parity passes.",
+      "next_action" : "Complete source attribution and one separately registered fresh timing series after the first series was invalidated by an unrelated native build.",
+      "path" : "docs/Research/2026-11-15-aski89-histogram-storage.md",
+      "related_specs" : [
+        "docs/agents/paired-benchmarks.md",
+        "docs/benchmark-validation.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski89-histogram-storage",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Pre-registered evaluation of a scoped 60-float accumulator in the log-polar descriptor extractor. Adoption requires exact native parity, source-attributed removal of the intermediate heap allocation and per-workload end-to-end benefit with time and memory safeguards.",
+      "title" : "ASKI-89 — Scoped log-polar histogram storage decision rule"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "next_action" : "No adoption. Preserve the exact-parity rejection and replay evidence.",
       "path" : "docs/Research/2026-11-15-aski94-completed-original-fallback.md",
       "related_specs" : [
         "docs/agents/paired-benchmarks.md",
@@ -1684,11 +1709,11 @@
 
       ],
       "slug" : "2026-11-15-aski94-completed-original-fallback",
-      "status" : "active",
+      "status" : "complete",
       "subsystem" : [
         "meta"
       ],
-      "summary" : "Register an exact-parity test and paired render benchmark for drawing the grounded original-image fallback once through the populated-cell clip.",
+      "summary" : "Rejected: one original-image draw through the populated-cell clip changed native pixels in 239 of 1,161 cases. The control repeat matched exactly; all 27 control baseline workloads completed. Production retains per-cell drawing.",
       "title" : "ASKI-94 completed original-image fallback rule"
     }
   ],

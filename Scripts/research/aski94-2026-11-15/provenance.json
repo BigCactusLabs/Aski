@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "verdict": "rejected",
+  "criterion": "exact native raster parity",
+  "registrationCommit": "e44962a2e00bb1b0b63bf8a0d2f276d1bed30e18",
+  "candidateBase": "e44962a2e00bb1b0b63bf8a0d2f276d1bed30e18",
+  "candidateSourceSHA256": {
+    "Sources/Aski/Renderers/ImageRenderer.swift": "e08a1b0b2efb9c21689fca1c7d64f36be6b2260e933863531380f238d58058eb"
+  },
+  "manifestSHA256": "fdbaa25486de9d376482af29be97c1a656d2348e4308919e824f55ecfb5083d3",
+  "caseCount": 1161,
+  "controlRepeatMismatches": 0,
+  "candidateMismatches": 239,
+  "metadataChanges": 0,
+  "nativeExportExits": {
+    "control": 0,
+    "control-repeat": 0,
+    "candidate": 0
+  },
+  "comparatorExits": {
+    "control-repeat": 0,
+    "candidate": 1
+  },
+  "controlBaselineExit": 0,
+  "controlBaselineWorkloads": 27,
+  "controlBaselineMetrics": 108,
+  "nativeMetadataSHA256": {
+    "control": "afc7771c879a124ec1644ab81668fa51059de8e4d97f90b4038c33d02eaac3ab",
+    "control-repeat": "afc7771c879a124ec1644ab81668fa51059de8e4d97f90b4038c33d02eaac3ab",
+    "candidate": "d253645348c69e8f7f9d28c181f930b32ea9d98b72f7883fdde320c6b02a8ae0"
+  },
+  "originalBaselineReportSHA256": "aa12b76beba510fe1b700cae19bafc9b4d3a60102708214ddaa52c378a79547a",
+  "releaseArtifactsSHA256": {
+    "AskiBenchmarks": "4631b46741235e330c500dd55bed67b4e568a714905221bcba7d1bc0b442cf53",
+    "libMallocInterposerSwift.dylib": "b0cefd4305ad59bc5beeadc4fbd20ca1ce48ed1e91a65000ca7ea06d8a2ceab9"
+  },
+  "sourceAndSupportUnchanged": true,
+  "originalLockRestored": true,
+  "hostObservations": {
+    "power": "AC,100% before and after",
+    "thermalState": 0,
+    "thermalStateScope": "before and after baseline",
+    "unrelatedNativeJobsObserved": false,
+    "continuousTelemetry": false
+  },
+  "omittedMeasurements": [
+    "candidate benchmark",
+    "five paired captures",
+    "mask/render compatibility capture"
+  ],
+  "localEvidenceSHA256": {
+    "measurement/g4-candidate.log": "d3a1b90e220b46e146ba43573d91f6b2bd21d533b902ada5dee22f5d4e9d93fc",
+    "measurement/g4-comparison.log": "75f0fa3d59ad178aa456cf63199a27c2ce59cceb7969a3610815a00738d218fe",
+    "measurement/g4-baseline.log": "4b896961e3537f92c005e492be9e4ebe2597c805fb2e683835e45193a0471c46",
+    "measurement/g4-control-baseline.csv": "5aed2759dc8bc775f50548767d61475c786f1b5bcca02b2616004516cae819c3",
+    "aski94-native-01/baseline-control/report.json": "aa12b76beba510fe1b700cae19bafc9b4d3a60102708214ddaa52c378a79547a"
+  },
+  "limits": [
+    "Baseline is one descriptive control capture, not a benefit comparison.",
+    "Draw counts are derived from source and fixed grid geometry; no runtime trace was executed.",
+    "Raw native rasters and complete native logs remain in the local evidence archive.",
+    "baseline-report.json replaces host-specific paths; original report hash is recorded separately."
+  ],
+  "artifactSHA256": {
+    "candidate-treatment.patch": "8bfb3d12c48b9f5050272c4bddba1896627e8da0fc15e4ede4eac7b380499cb6",
+    "parity-mismatches.json": "75f0fa3d59ad178aa456cf63199a27c2ce59cceb7969a3610815a00738d218fe",
+    "parity-groups.json": "746135619cfa8ad5e9ea3c8bea48272fce0d3581ceebe12fee01b6ea612105a6",
+    "parity-cases.csv": "041182d599beab6d2b4096a8f3e2bec01dd157061fe530b78b4d823a4dc0ca3e",
+    "control-baseline.csv": "f9f7e612c402c0f3326eb4b07606e411bb85b2c302b981fc8cc84301474d6037",
+    "baseline-samples.json": "5019f6ff24b1046a1b497fb586a057b0fcaf8a408f50d0e6590e0b1eff2e93dd",
+    "baseline-report.json": "de6b6504f6d7266b62245245d0a8018d82ed3074dd849fee8d58b889fb7f52fa"
+  }
+}

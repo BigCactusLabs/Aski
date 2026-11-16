@@ -8,21 +8,26 @@ groundwork left production sources, package requirements, goldens and budgets un
 Status 2026-11-13: ASKI-91's pulse-only reuse is adopted. All three overlay
 primaries and 93 regression guards pass the frozen five-pair rule, with exact
 native parity and unchanged existing budgets. The [complete study](../../Scripts/research/aski91-2026-11-13/README.md)
-records the source, release-oracle repair, measurements and limits. ASKI-94 and
-ASKI-95 remain at groundwork; other pattern optimizations were not combined with
-the pulse arm.
+records the source, release-oracle repair, measurements and limits. Other pattern
+optimizations were not combined with the pulse arm.
+
+Status 2026-11-15: ASKI-94's single original-image draw is rejected. It changed
+pixels in 239 of 1,161 native cases; the control repeat matched exactly. All 27
+control baseline workloads completed. The
+[result packet](../../Scripts/research/aski94-2026-11-15/README.md) retains the
+rule, rejected patch and evidence. ASKI-95 remains at groundwork.
 
 ## Delivered and still required
 
 | Task | Executable preparation | Still required before adoption |
 | --- | --- | --- |
 | ASKI-91 | Exact native/debug/release parity; 24 frame/overlay workloads; adopted local pulse reuse | Complete for the pulse arm; animated-pulse speed is not directly measured by this matrix |
-| ASKI-94 | Native ragged-coverage and placement contracts; 27 original-image/control workloads | Measured draw census; full control/candidate pixel comparisons including fractional boundaries, P3, source alpha and target-width rendering |
+| ASKI-94 | Exact 1,161-case native comparison; 27-workload control baseline; source-derived draw census | Closed as rejected: 239 pixel mismatches; no candidate timing or comparative regression claim |
 | ASKI-95 | Forced reduced-route versus stock pixel checks, seed/extent interleaving, concurrency and CI cache-toggle checks | Product fallback frequency; 512-square/1080p construction/render timing, retained-memory accounting and normal-Metal controls |
 
 The original groundwork completed no task. Its Backlog files were not edited
 because the CLI was unavailable then; current task records include the later
-ASKI-91 result. This page records preparation and evidence, not a competing task
+ASKI-91 and ASKI-94 results. This page records preparation and evidence, not a competing task
 tracker. The test names below all contain `Groundwork` or
 `PatternFrameWork`, so native checks can select this batch without guessing files.
 
@@ -61,6 +66,11 @@ construction is outside timed frame evaluation. These families have different
 cell counts; compare matching identities, not an average across families.
 
 ## ASKI-94: one image draw through populated row spans
+
+The later registered experiment used the literal populated-cell rectangles,
+preserving their fractional coordinates, and still failed exact native parity.
+Its [decision and limits](../Research/2026-11-15-aski94-completed-original-fallback.md)
+supersede the proposed experiment below. The production path is unchanged.
 
 `ImageRenderer.drawMaskFallbackOverlay` currently draws the original image once
 for each admitted cell. A completed mask-ground branch admits every existing cell,
@@ -166,7 +176,8 @@ Freeze the exact identities from
 into each pair manifest's `expected_workloads` (24 and 27 respectively). Native
 inventory must match. These counts initially came from registration source;
 the 24 ASKI-91 identities now have complete native captures, while the 27
-ASKI-94 identities remain prepared instruments.
+ASKI-94 identities have one control baseline. ASKI-94 candidate comparison was
+vetoed by exact pixel mismatch before any timed pair.
 Start both arms from the same groundwork commit, then alter only the intended
 production code in the candidate. Keep fixtures and instruments byte-identical.
 Use the [paired readout](paired-benchmarks.md) for at least five adjacent,
@@ -202,6 +213,7 @@ absent). On 2026-11-12 the portable probe also passed on arm64 macOS with Apple
 Swift 6.4, strict concurrency and warnings-as-errors. Use the native commands
 above to validate a particular checkout; PR validation records identify the
 tested revision. The 24 ASKI-91 workloads were subsequently measured in the linked
-native study. The 27 ASKI-94 workloads, full render parity, fallback frequency and
-ASKI-95 memory accounting remain future adoption work. The original portable
+native study. ASKI-94's later native study rejected its candidate on pixel parity
+and recorded all 27 control workloads. Fallback frequency and ASKI-95 memory
+accounting remain future adoption work. The original portable
 groundwork alone establishes no allocation reduction or speedup.

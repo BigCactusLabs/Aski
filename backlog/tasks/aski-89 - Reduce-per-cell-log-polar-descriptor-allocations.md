@@ -1,10 +1,11 @@
 ---
 id: ASKI-89
 title: Reduce per-cell log-polar descriptor allocations
-status: To Do
-assignee: []
+status: In Progress
+assignee:
+  - '@codex'
 created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T04:22:00Z'
+updated_date: '2026-11-16T00:52:00Z'
 labels:
   - performance
   - conversion
@@ -36,6 +37,12 @@ Swift's current official guidance describes InlineArray and Span as tools for fi
 - [ ] #4 Any newer standard-library storage is verified against Swift 6.3+ and the package's iOS 18/macOS 15/visionOS 2 deployment minimums.
 - [ ] #5 The task records allocation reduction and a material end-to-end result or a rejection; adopted code passes just check and relevant benchmarks without relaxed thresholds.
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Freeze a minimal treatment and complete measurement rule from current source and existing groundwork. 2. Review the instrument and commit the rule before reading measurements. 3. Verify exact parity, then collect serial release profiles and five alternating paired captures with unchanged thresholds. 4. Adopt only if the frozen benefit and no-harm rules pass; otherwise retain evidence and reject the treatment. 5. Run required gates, record every AC result and integrate the verified outcome.
+<!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
 
