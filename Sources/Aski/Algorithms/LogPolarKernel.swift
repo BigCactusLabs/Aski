@@ -276,19 +276,23 @@ internal struct LogPolarKernel: CharacterScoring {
             }
         }
 
-        let descriptor = context.shapeContextFootprint.histogram60(grayscale)
-        var lanes: [SIMD4<Float>] = []
-        lanes.reserveCapacity(StandardCharacterSet.lanesPerCharacter)
-        for index in stride(from: 0, to: StandardCharacterSet.shapeVectorDimension, by: 4) {
-            lanes.append(
-                SIMD4(
-                    descriptor[index],
-                    descriptor[index + 1],
-                    descriptor[index + 2],
-                    descriptor[index + 3]
-                ))
+        return withUnsafeTemporaryAllocation(of: Float.self, capacity: ShapeContext.dimension) { descriptor in
+            descriptor.initialize(repeating: 0)
+            defer { descriptor.deinitialize() }
+            context.shapeContextFootprint.histogram60(grayscale, into: descriptor)
+            var lanes: [SIMD4<Float>] = []
+            lanes.reserveCapacity(StandardCharacterSet.lanesPerCharacter)
+            for index in stride(from: 0, to: descriptor.count, by: 4) {
+                lanes.append(
+                    SIMD4(
+                        descriptor[index],
+                        descriptor[index + 1],
+                        descriptor[index + 2],
+                        descriptor[index + 3]
+                    ))
+            }
+            return lanes
         }
-        return lanes
     }
 
     /// The base ink field for a cell, before the optional edge blend.

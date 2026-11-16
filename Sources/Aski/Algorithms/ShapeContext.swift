@@ -108,6 +108,15 @@ package enum ShapeContext {
 
         package func histogram60(_ pixels: [Float]) -> [Float] {
             var histogram = [Float](repeating: 0, count: ShapeContext.dimension)
+            histogram.withUnsafeMutableBufferPointer { buffer in
+                histogram60(pixels, into: buffer)
+            }
+            return histogram
+        }
+
+        /// The accumulator must contain 60 initialized, zero-valued elements.
+        func histogram60(_ pixels: [Float], into histogram: UnsafeMutableBufferPointer<Float>) {
+            precondition(histogram.count == ShapeContext.dimension)
             // Degenerate footprints intentionally require no pixel storage,
             // matching the scalar entry point's early return.
             for index in bins.indices {
@@ -121,7 +130,6 @@ package enum ShapeContext {
             if total > 0 {
                 for index in 0..<ShapeContext.dimension { histogram[index] /= total }
             }
-            return histogram
         }
     }
 }
