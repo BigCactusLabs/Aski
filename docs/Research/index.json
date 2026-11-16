@@ -1665,6 +1665,31 @@
       ],
       "summary" : "Aski keeps the ASCIICharacterSet arrays as the expert contract for supplying precomputed glyph data. RasterizedCharacterSet remains the font and glyph input path. ShapeQueryPolarity joins its setting behind AskiResearch SPI.",
       "title" : "ASKI-76 — character set extension boundary"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "next_action" : "Freeze both arm identities and qualify the parity, deployment and allocation probes before collecting paired benchmarks.",
+      "path" : "docs/Research/2026-11-15-aski89-histogram-storage.md",
+      "related_specs" : [
+        "docs/agents/paired-benchmarks.md",
+        "docs/benchmark-validation.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski89-histogram-storage",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Pre-registered evaluation of a scoped 60-float accumulator in the log-polar descriptor extractor. Adoption requires exact native parity, source-attributed removal of the intermediate heap allocation and per-workload end-to-end benefit with time and memory safeguards.",
+      "title" : "ASKI-89 — Scoped log-polar histogram storage decision rule"
     }
   ],
   "results" : [

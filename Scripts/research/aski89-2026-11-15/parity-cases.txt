@@ -1,0 +1,15 @@
+aski89-convert-120cols-os2-e0-parallel
+aski89-convert-120cols-os2-e0-serial
+aski89-convert-120cols-os8-e50-parallel
+aski89-convert-120cols-os8-e50-serial
+aski89-convert-1cols-os2-e0-serial
+aski89-convert-240cols-os2-e0-parallel
+aski89-convert-240cols-os2-e0-serial
+aski89-convert-80cols-os2-e0-parallel
+aski89-convert-80cols-os2-e0-serial
+aski89-convert-8cols-os2-e0-serial
+aski89-degenerate-8cols-os2
+aski89-dotmatrix-control-120cols
+aski89-dotmatrix-control-8cols
+aski89-flat-120cols-os8
+aski89-texture-40cols-os8-e50-serial
