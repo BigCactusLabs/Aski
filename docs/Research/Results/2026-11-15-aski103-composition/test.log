@@ -1,0 +1,8 @@
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MaskCompositionPolicyDiagnosticTests started.
+◇ Test captureRegisteredMatrix() started.
+✔ Test captureRegisteredMatrix() passed after 3.902 seconds.
+✔ Suite MaskCompositionPolicyDiagnosticTests passed after 3.902 seconds.
+✔ Test run with 1 test in 1 suite passed after 3.902 seconds.

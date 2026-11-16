@@ -157,6 +157,32 @@ A ``MaskFallback/solid(_:)`` color and a ``MaskOptions/groundColor`` are interpr
 
 Before ASKI-98, effects, async, `renderCIImage`, and engine renders, and tile renders with a ground or a partly covered mosaic, read Generic RGB and unnamed-RGB mask paint components as values in the grid's gamut. Direct ASCII renders and the direct tile fallback overlay already color-matched them. To reproduce the old numbers on those paths, tag the color with the grid's space as above.
 
+### Soft edges and composition space
+
+Coverage is a linear weight. The color space in which that weight mixes opaque
+branches depends on the render stage. Color matching the input paint does not
+make encoded and linear-light interpolation equivalent.
+
+| Render path | Soft fallback without a ground | Positive ground |
+| --- | --- | --- |
+| Direct scale or target-width ASCII | Grid's ``RenderCompositionPolicy`` at the Core Graphics stage | Linear-light Core Image branch selection |
+| Direct pixel-art tile | Encoded Core Graphics | Linear-light Core Image branch selection |
+| Soft mosaic, effects, async, and engine `CGImage` output | Linear-light Core Image | Linear-light Core Image |
+| `renderCIImage` output, including engine output | Caller context's working space | Caller context's working space |
+
+For example, a measured one-cell sRGB fixture with a transparent glyph, white
+fallback, black background, and 0.5 coverage produced 128 in each RGB channel on
+the direct encoded ASCII path and 187 on the effects path. The direct linear
+ASCII path produced 188. These 8-bit results describe that neutral fixture on
+the recorded host; small rounding differences and other colors need their own
+comparison.
+
+The grid's composition policy does not override the working space of a context
+that evaluates a returned `CIImage`. Use an explicit linear working space when
+you want linear-light mask interpolation in that consumer. Glyph antialiasing
+on the effects path is a separate, explicitly linear source-over operation;
+see <doc:Rendering>. Existing defaults and output are unchanged.
+
 ## Effects
 
 When a positive-alpha ground is present, effects renderers keep per-character effects and color overlays inside the active branch. They use Core Image `CIBlendWithMask` only after the active and inactive branches are complete, then apply lighting and the whole-image ``EffectChain``. Ground-enabled pixel-art, brick, and mosaic tile renders use this same grouped effects path; no-ground tile renders keep their direct legacy paths. See <doc:Effects> for the full ordering.

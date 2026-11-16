@@ -136,6 +136,10 @@ public struct GamutMappingPolicy: Sendable, Hashable {
     public static let clip = GamutMappingPolicy(kind: .clip)
 }
 
+/// Selects the color space of the ASCII grid's Core Graphics raster stage.
+/// Later Core Image composition and effects use their own working spaces;
+/// this policy does not override a caller's context for a deferred `CIImage`.
+/// See <doc:Rendering> and <doc:Masking> for the per-stage behavior.
 public struct RenderCompositionPolicy: Sendable, Hashable {
     internal enum Kind: Sendable, Hashable {
         case encodedDisplay8Bit
@@ -152,11 +156,11 @@ public struct RenderCompositionPolicy: Sendable, Hashable {
     /// 8-bit space (sRGB or Display P3). Preserves v0.2.0 behavior exactly.
     public static let encodedDisplay8Bit = RenderCompositionPolicy(kind: .encodedDisplay8Bit)
 
-    /// Opt-in: composite in the target gamut's own linear-light space —
+    /// Opt-in: rasterize in the target gamut's own linear-light space —
     /// `CGColorSpace.linearSRGB` for ``RenderColorSpace/sRGB`` output, and
     /// `CGColorSpace.linearDisplayP3` for ``RenderColorSpace/displayP3``.
-    /// **No cross-gamut conversion** — this is not the "extended-linear sRGB
-    /// as universal working space" model.
+    /// This raster stage has no cross-gamut conversion. Later Core Image
+    /// composition can use extended-linear sRGB independently of this policy.
     ///
     /// Validated against the lab `linear-composite-ab` fixtures: linear-light
     /// composite is closer to ground truth than the encoded 8-bit default on

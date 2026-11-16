@@ -1,7 +1,8 @@
-import Aski
 import ArgumentParser
 import AskiToolSupport
 import Foundation
+
+@_spi(AskiResearch) import Aski
 
 /// Builds the delegation context for a subcommand from its shared option groups.
 func labArguments(

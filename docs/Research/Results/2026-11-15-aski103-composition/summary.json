@@ -1,0 +1,30 @@
+{
+  "controls": {
+    "rows": 16,
+    "rgb_mae_max": 0.48396932162538064,
+    "rgb_max_max": 0.48396932162538064,
+    "alpha_max": 0.0,
+    "alternative_mae_min": 44.62646870329467
+  },
+  "mask": {
+    "rows": 432,
+    "rgb_mae_max": 1.25,
+    "rgb_max_max": 1.25,
+    "alpha_max": 0.0,
+    "alternative_mae_min": 32.75
+  },
+  "glyph": {
+    "rows": 48,
+    "rgb_mae_max": 0.2781681218057413,
+    "rgb_max_max": 0.938047248746642,
+    "alpha_max": 0.5000000000000284,
+    "alternative_mae_min": 9.673241842144261
+  },
+  "glyph_non_target": {
+    "rows": 44,
+    "rgb_mae_max": 0.24473658651879032,
+    "rgb_max_max": 0.5111862613354106,
+    "alpha_max": 0.0,
+    "alternative_mae_min": 57.41111111111111
+  }
+}
