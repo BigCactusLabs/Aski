@@ -1,0 +1,47 @@
+{
+  "case_count": 1161,
+  "mismatch_count": 239,
+  "by_axis": {
+    "shape": {
+      "ragged": 119,
+      "rect": 120
+    },
+    "sizing": {
+      "fill": 80,
+      "fit": 79,
+      "stretch": 80
+    },
+    "edges": {
+      "hard": 118,
+      "soft": 121
+    },
+    "gamut": {
+      "p3": 118,
+      "sRGB": 121
+    },
+    "composition": {
+      "encoded": 121,
+      "linear": 118
+    },
+    "ground": {
+      "partial": 239
+    },
+    "route": {
+      "direct97": 96,
+      "scale1": 46,
+      "width97": 97
+    },
+    "aspect": {
+      "legacy": 96,
+      "source": 143
+    },
+    "source": {
+      "partialSRGB": 238,
+      "partialP3": 1
+    },
+    "canvas": {
+      "partial": 238,
+      "clear": 1
+    }
+  }
+}

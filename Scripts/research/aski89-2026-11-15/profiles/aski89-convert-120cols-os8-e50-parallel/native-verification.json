@@ -1,0 +1,34 @@
+{
+  "revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "workload": "aski89-convert-120cols-os8-e50-parallel",
+  "uuid": [
+    [
+      "E77FC8CE-34F2-35D5-AB95-E07CDBBD20F7",
+      "arm64"
+    ]
+  ],
+  "release_hashes": {
+    "<control-checkout>/.build/out/Products/Release/AskiBenchmarks": "5d6f3236ff6970528366fbc11834683244ab6039f4bb98d09438376d102330fd",
+    "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib": "aa7747a74fb81c64d4e89b654f60cfae2de7b65cfb1b8e70e7614da00f9d8ef7"
+  },
+  "parser_sha256": "039049ec89751e6f0ca3d1c36ef6d9f98c4fb4b4919a04749d753be84f4de110",
+  "events_sha256": "e5a13e02cece02afa72fd7f8bb0b89de1104aa32a211de355c6ed54a850980b9",
+  "events_bytes": 1822749962,
+  "export": {
+    "pid": 17154,
+    "stop": "normal exit breakpoint",
+    "modules": [
+      {
+        "path": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "uuid": "1F4AEBD9-BF3B-3A0E-9CC9-4033CF95782B"
+      }
+    ],
+    "malloc_history_exit": 0
+  },
+  "process": {
+    "state": 10,
+    "exited": true,
+    "exit_status": 0
+  },
+  "free_disk_before": 18548101120
+}

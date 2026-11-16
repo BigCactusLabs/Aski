@@ -1,0 +1,38 @@
+diff --git i/Sources/Aski/Renderers/ImageRenderer.swift w/Sources/Aski/Renderers/ImageRenderer.swift
+index 84c8970..7e6979f 100644
+--- i/Sources/Aski/Renderers/ImageRenderer.swift
++++ w/Sources/Aski/Renderers/ImageRenderer.swift
+@@ -1109,6 +1109,33 @@ public extension ASCIIGrid {
+     ) {
+         let pointWidth = CGFloat(columns) * glyphWidth
+         let pointHeight = CGFloat(rows) * glyphHeight
++        if completedBranch, case .originalImage(let image, let sizing) = fallback {
++            var rects: [CGRect] = []
++            for (rowIndex, row) in cells.enumerated() {
++                let rectY = CGFloat(rows - rowIndex - 1) * glyphHeight
++                for columnIndex in row.indices {
++                    rects.append(
++                        CGRect(
++                            x: CGFloat(columnIndex) * glyphWidth,
++                            y: rectY,
++                            width: glyphWidth,
++                            height: glyphHeight
++                        ))
++                }
++            }
++            guard !rects.isEmpty else { return }
++            context.saveGState()
++            context.clip(to: rects)
++            context.setAlpha(1)
++            let drawRect = Self.fallbackImageRect(
++                image: image,
++                sizing: sizing,
++                canvas: CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight)
++            )
++            context.draw(image, in: drawRect)
++            context.restoreGState()
++            return
++        }
+         for (rowIndex, row) in cells.enumerated() {
+             let rectY = CGFloat(rows - rowIndex - 1) * glyphHeight
+             let baselineY = rectY + baselineOffset

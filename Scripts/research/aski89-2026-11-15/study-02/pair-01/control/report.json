@@ -1,0 +1,2354 @@
+{
+  "allocator_observations": {
+    "inventory": [
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3024,
+        "schema_version": 1
+      }
+    ],
+    "run": [
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3481,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3482,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3483,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3484,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3487,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3489,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3491,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3492,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3493,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3494,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3495,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3497,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3503,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3504,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3505,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3517,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3564,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3565,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3566,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3567,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3569,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3586,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3587,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3588,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3589,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3590,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3591,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3592,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3593,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3594,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3595,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3596,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3597,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3600,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3601,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3603,
+        "schema_version": 1
+      },
+      {
+        "allocated": true,
+        "backend": "malloc-interposer",
+        "free_delta": 2,
+        "image": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "malloc_delta": 3,
+        "pid": 3604,
+        "schema_version": 1
+      }
+    ]
+  },
+  "budget_verdict": "not_evaluated",
+  "commands": [
+    {
+      "argv": [
+        "xcrun",
+        "swift",
+        "--version"
+      ],
+      "phase": "swift",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "xcrun",
+        "xcodebuild",
+        "-version"
+      ],
+      "phase": "xcode",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "sw_vers"
+      ],
+      "phase": "os",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "phase": "revision",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "xcrun",
+        "swift",
+        "package",
+        "--scratch-path",
+        "<control-checkout>/.build",
+        "show-dependencies",
+        "--format",
+        "json"
+      ],
+      "phase": "show-dependencies",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "xcrun",
+        "swift",
+        "package",
+        "--scratch-path",
+        "<control-checkout>/.build",
+        "--disable-sandbox",
+        "benchmark",
+        "list",
+        "--target",
+        "AskiBenchmarks",
+        "--no-progress"
+      ],
+      "phase": "inventory",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "xcrun",
+        "swift",
+        "package",
+        "--scratch-path",
+        "<control-checkout>/.build",
+        "--disable-sandbox",
+        "benchmark",
+        "run",
+        "--target",
+        "AskiBenchmarks",
+        "--no-progress",
+        "--filter",
+        "^(aski89[-]convert[-]120cols[-]os2[-]e0[-]parallel|aski89[-]convert[-]120cols[-]os2[-]e0[-]serial|aski89[-]convert[-]120cols[-]os8[-]e50[-]parallel|aski89[-]convert[-]120cols[-]os8[-]e50[-]serial|aski89[-]convert[-]1cols[-]os2[-]e0[-]serial|aski89[-]convert[-]240cols[-]os2[-]e0[-]parallel|aski89[-]convert[-]240cols[-]os2[-]e0[-]serial|aski89[-]convert[-]80cols[-]os2[-]e0[-]parallel|aski89[-]convert[-]80cols[-]os2[-]e0[-]serial|aski89[-]convert[-]8cols[-]os2[-]e0[-]serial|aski89[-]dotmatrix[-]control[-]120cols|aski89[-]dotmatrix[-]control[-]8cols|aski89[-]ranked[-]120cols[-]os2[-]e0[-]parallel|aski89[-]ranked[-]120cols[-]os2[-]e0[-]serial|aski89[-]ranked[-]120cols[-]os8[-]e50[-]parallel|aski89[-]ranked[-]120cols[-]os8[-]e50[-]serial|aski89[-]ranked[-]240cols[-]os2[-]e0[-]parallel|aski89[-]ranked[-]240cols[-]os2[-]e0[-]serial|aski89[-]ranked[-]80cols[-]os2[-]e0[-]parallel|aski89[-]ranked[-]80cols[-]os2[-]e0[-]serial|aski89[-]residual[-]120cols[-]os2[-]e0[-]parallel|aski89[-]residual[-]120cols[-]os2[-]e0[-]serial|aski89[-]residual[-]120cols[-]os8[-]e50[-]parallel|aski89[-]residual[-]120cols[-]os8[-]e50[-]serial|aski89[-]residual[-]240cols[-]os2[-]e0[-]parallel|aski89[-]residual[-]240cols[-]os2[-]e0[-]serial|aski89[-]residual[-]80cols[-]os2[-]e0[-]parallel|aski89[-]residual[-]80cols[-]os2[-]e0[-]serial|aski89[-]temporal[-]120cols[-]os2[-]e0[-]parallel|aski89[-]temporal[-]120cols[-]os2[-]e0[-]serial|aski89[-]temporal[-]120cols[-]os8[-]e50[-]parallel|aski89[-]temporal[-]120cols[-]os8[-]e50[-]serial|aski89[-]temporal[-]240cols[-]os2[-]e0[-]parallel|aski89[-]temporal[-]240cols[-]os2[-]e0[-]serial|aski89[-]temporal[-]80cols[-]os2[-]e0[-]parallel|aski89[-]temporal[-]80cols[-]os2[-]e0[-]serial)$",
+        "--format",
+        "histogramSamples",
+        "--time-units",
+        "nanoseconds",
+        "--path",
+        "<local-evidence>/aski89-native-02/pair-01/control/samples"
+      ],
+      "phase": "run",
+      "returncode": 0
+    }
+  ],
+  "complete": true,
+  "diagnostics": [
+    "Warning: this project depends on the benchmark package using its legacy",
+    "identifier 'package-benchmark'. The repository has been renamed; please update",
+    "your Package.swift to use the new URL and identifier:",
+    "  .package(url: \"https://github.com/ordo-one/benchmark\", ...)",
+    "  .product(name: \"Benchmark\", package: \"benchmark\"),",
+    "  .plugin(name: \"BenchmarkPlugin\", package: \"benchmark\"),",
+    "Support for the legacy 'package-benchmark' identifier will be removed in a",
+    "future release.",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3481,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3482,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3483,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3484,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3487,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3489,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3491,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3492,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3493,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3494,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3495,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3497,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3503,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3504,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3505,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3517,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3564,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3565,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3566,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3567,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3569,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3586,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3587,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3588,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3589,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3590,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3591,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3592,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3593,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3594,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3595,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3596,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3597,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3600,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3601,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3603,\"schema_version\":1}",
+    "ASKI_ALLOCATOR_OBSERVATION {\"allocated\":true,\"backend\":\"malloc-interposer\",\"free_delta\":2,\"image\":\"\\/private\\/tmp\\/aski-batch-20261115-89\\/.build\\/out\\/Products\\/Release\\/libMallocInterposerSwift.dylib\",\"malloc_delta\":3,\"pid\":3604,\"schema_version\":1}",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+    "Writing to <local-evidence>/aski89-native-02/pair-01/control/samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+    "warning: 'aski-batch-20261115-89': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md",
+    "Building for debugging...",
+    "[Computing dependencies]",
+    "[16\u2009/\u2009102]",
+    "[27\u2009/\u2009101]",
+    "[44\u2009/\u200992] MallocInterposerSwift",
+    "[57\u2009/\u200988] MallocInterposerSwift",
+    "[66\u2009/\u200977] Benchmark",
+    "[86\u2009/\u200996] Benchmark",
+    "[89\u2009/\u200994] Benchmark",
+    "[105\u2009/\u2009109] BenchmarkTool-product",
+    "[106\u2009/\u2009109] BenchmarkTool-product",
+    "[108\u2009/\u2009109] BenchmarkTool-product",
+    "[109\u2009/\u2009109] BenchmarkTool-product",
+    "Build complete! (2.90 sec)",
+    "warning: 'aski-batch-20261115-89': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md",
+    "warning: 'aski-batch-20261115-89': found 2 file(s) which are unhandled; explicitly declare them as resources or exclude from the target",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-54-measurements.md",
+    "    <control-checkout>/Benchmarks/AskiBenchmarks/ASTSK-55-measurements.md"
+  ],
+  "errors": [],
+  "finished_at": "2026-11-16T02:24:10.081541+00:00",
+  "identity": {
+    "benchmark_pin": {
+      "identity": "package-benchmark",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/ordo-one/package-benchmark",
+      "state": {
+        "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+        "version": "1.35.0"
+      }
+    },
+    "effective_lock_sha256": "196782541d0dd65a74d863ff19a7fff5dd7324fec08b0edc34c8a2c3d3b9e1f6",
+    "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+    "malloc_backend": {
+      "basis": "configured provenance: reviewed benchmark pin and vendored edit of the pinned allocator, Swift 6.3+, default traits, and environment",
+      "configured": "malloc-interposer",
+      "disabled_by": [],
+      "observed": {
+        "backend": "malloc-interposer",
+        "image_basename": "libMallocInterposerSwift.dylib"
+      },
+      "vendored_source": {
+        "package_path": "Vendor/malloc-interposer",
+        "sha256_by_file": {
+          "ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+          "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+          "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+          "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+          "Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+          "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+          "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+          "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+          "Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+          "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+        },
+        "upstream_revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+        "upstream_url": "https://github.com/ordo-one/malloc-interposer.git"
+      }
+    },
+    "malloc_pin": {
+      "identity": "malloc-interposer",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/ordo-one/malloc-interposer.git",
+      "state": {
+        "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+        "version": "1.4.0"
+      }
+    },
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+    "revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+    "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "xcode": "Xcode 27.0\nBuild version 27A266a"
+  },
+  "inventory": [
+    "animation-build-gradient-80cols-k6",
+    "animation-grid-at-80cols",
+    "animation-materialize-80cols-5s-60fps",
+    "animation-regression-static-convert-80cols",
+    "aski87-convert-120cols-os2-parallel",
+    "aski87-convert-120cols-os2-serial",
+    "aski87-convert-120cols-os4-parallel",
+    "aski87-convert-120cols-os4-serial",
+    "aski87-convert-120cols-os8-parallel",
+    "aski87-convert-120cols-os8-serial",
+    "aski87-convert-1cols-os2-parallel",
+    "aski87-convert-1cols-os2-serial",
+    "aski87-convert-1cols-os4-parallel",
+    "aski87-convert-1cols-os4-serial",
+    "aski87-convert-1cols-os8-parallel",
+    "aski87-convert-1cols-os8-serial",
+    "aski87-convert-80cols-os2-parallel",
+    "aski87-convert-80cols-os2-serial",
+    "aski87-convert-80cols-os4-parallel",
+    "aski87-convert-80cols-os4-serial",
+    "aski87-convert-80cols-os8-parallel",
+    "aski87-convert-80cols-os8-serial",
+    "aski87-convert-8cols-os2-parallel",
+    "aski87-convert-8cols-os2-serial",
+    "aski87-convert-8cols-os4-parallel",
+    "aski87-convert-8cols-os4-serial",
+    "aski87-convert-8cols-os8-parallel",
+    "aski87-convert-8cols-os8-serial",
+    "aski87-dotmatrix-control-120cols",
+    "aski87-dotmatrix-control-1cols",
+    "aski87-dotmatrix-control-80cols",
+    "aski87-dotmatrix-control-8cols",
+    "aski87-histogram-prepared-16x24-1cells",
+    "aski87-histogram-prepared-16x24-2400cells",
+    "aski87-histogram-prepared-2x3-1cells",
+    "aski87-histogram-prepared-2x3-2400cells",
+    "aski87-histogram-prepared-3x3-1cells",
+    "aski87-histogram-prepared-3x3-2400cells",
+    "aski87-histogram-prepared-8x12-1cells",
+    "aski87-histogram-prepared-8x12-2400cells",
+    "aski87-histogram-scalar-16x24-1cells",
+    "aski87-histogram-scalar-16x24-2400cells",
+    "aski87-histogram-scalar-2x3-1cells",
+    "aski87-histogram-scalar-2x3-2400cells",
+    "aski87-histogram-scalar-3x3-1cells",
+    "aski87-histogram-scalar-3x3-2400cells",
+    "aski87-histogram-scalar-8x12-1cells",
+    "aski87-histogram-scalar-8x12-2400cells",
+    "aski87-ranked-80cols-parallel",
+    "aski87-ranked-80cols-serial",
+    "aski87-repeated-80cols-os2-parallel",
+    "aski87-repeated-80cols-os2-serial",
+    "aski87-repeated-80cols-os4-parallel",
+    "aski87-repeated-80cols-os4-serial",
+    "aski87-repeated-80cols-os8-parallel",
+    "aski87-repeated-80cols-os8-serial",
+    "aski88-convert-blocks-120cols-k12-serial",
+    "aski88-convert-blocks-80cols-k12-serial",
+    "aski88-convert-braille-120cols-k12-parallel",
+    "aski88-convert-braille-120cols-k12-serial",
+    "aski88-convert-braille-120cols-k36-serial",
+    "aski88-convert-braille-80cols-k12-parallel",
+    "aski88-convert-braille-80cols-k12-serial",
+    "aski88-convert-standard-120cols-k12-parallel",
+    "aski88-convert-standard-120cols-k12-serial",
+    "aski88-convert-standard-120cols-k36-serial",
+    "aski88-convert-standard-80cols-k12-parallel",
+    "aski88-convert-standard-80cols-k12-serial",
+    "aski88-pool-n256-k1-batch64",
+    "aski88-pool-n256-k12-batch64",
+    "aski88-pool-n256-k24-batch64",
+    "aski88-pool-n256-k256-batch64",
+    "aski88-pool-n256-k257-batch64",
+    "aski88-pool-n256-k36-batch64",
+    "aski88-pool-n8-k1-batch64",
+    "aski88-pool-n8-k12-batch64",
+    "aski88-pool-n8-k24-batch64",
+    "aski88-pool-n8-k36-batch64",
+    "aski88-pool-n8-k8-batch64",
+    "aski88-pool-n8-k9-batch64",
+    "aski88-pool-n95-k1-batch64",
+    "aski88-pool-n95-k12-batch64",
+    "aski88-pool-n95-k24-batch64",
+    "aski88-pool-n95-k36-batch64",
+    "aski88-pool-n95-k95-batch64",
+    "aski88-pool-n95-k96-batch64",
+    "aski88-ranked-blocks-120cols-k12-serial",
+    "aski88-ranked-blocks-80cols-k12-serial",
+    "aski88-ranked-braille-120cols-k12-parallel",
+    "aski88-ranked-braille-120cols-k12-serial",
+    "aski88-ranked-braille-120cols-k36-serial",
+    "aski88-ranked-braille-80cols-k12-parallel",
+    "aski88-ranked-braille-80cols-k12-serial",
+    "aski88-ranked-standard-120cols-k12-parallel",
+    "aski88-ranked-standard-120cols-k12-serial",
+    "aski88-ranked-standard-120cols-k36-serial",
+    "aski88-ranked-standard-80cols-k12-parallel",
+    "aski88-ranked-standard-80cols-k12-serial",
+    "aski89-convert-120cols-os2-e0-parallel",
+    "aski89-convert-120cols-os2-e0-serial",
+    "aski89-convert-120cols-os8-e50-parallel",
+    "aski89-convert-120cols-os8-e50-serial",
+    "aski89-convert-1cols-os2-e0-serial",
+    "aski89-convert-240cols-os2-e0-parallel",
+    "aski89-convert-240cols-os2-e0-serial",
+    "aski89-convert-80cols-os2-e0-parallel",
+    "aski89-convert-80cols-os2-e0-serial",
+    "aski89-convert-8cols-os2-e0-serial",
+    "aski89-dotmatrix-control-120cols",
+    "aski89-dotmatrix-control-8cols",
+    "aski89-ranked-120cols-os2-e0-parallel",
+    "aski89-ranked-120cols-os2-e0-serial",
+    "aski89-ranked-120cols-os8-e50-parallel",
+    "aski89-ranked-120cols-os8-e50-serial",
+    "aski89-ranked-240cols-os2-e0-parallel",
+    "aski89-ranked-240cols-os2-e0-serial",
+    "aski89-ranked-80cols-os2-e0-parallel",
+    "aski89-ranked-80cols-os2-e0-serial",
+    "aski89-residual-120cols-os2-e0-parallel",
+    "aski89-residual-120cols-os2-e0-serial",
+    "aski89-residual-120cols-os8-e50-parallel",
+    "aski89-residual-120cols-os8-e50-serial",
+    "aski89-residual-240cols-os2-e0-parallel",
+    "aski89-residual-240cols-os2-e0-serial",
+    "aski89-residual-80cols-os2-e0-parallel",
+    "aski89-residual-80cols-os2-e0-serial",
+    "aski89-temporal-120cols-os2-e0-parallel",
+    "aski89-temporal-120cols-os2-e0-serial",
+    "aski89-temporal-120cols-os8-e50-parallel",
+    "aski89-temporal-120cols-os8-e50-serial",
+    "aski89-temporal-240cols-os2-e0-parallel",
+    "aski89-temporal-240cols-os2-e0-serial",
+    "aski89-temporal-80cols-os2-e0-parallel",
+    "aski89-temporal-80cols-os2-e0-serial",
+    "aski91-frame-no-pattern-192cols",
+    "aski91-frame-no-pattern-288cols",
+    "aski91-frame-no-pattern-80cols",
+    "aski91-frame-radial-active-192cols",
+    "aski91-frame-radial-active-288cols",
+    "aski91-frame-radial-active-80cols",
+    "aski91-frame-radial-complete-192cols",
+    "aski91-frame-radial-complete-288cols",
+    "aski91-frame-radial-complete-80cols",
+    "aski91-overlay-neutral-pulse-192cols",
+    "aski91-overlay-neutral-pulse-288cols",
+    "aski91-overlay-neutral-pulse-80cols",
+    "aski91-overlay-neutral-wave-192cols",
+    "aski91-overlay-neutral-wave-288cols",
+    "aski91-overlay-neutral-wave-80cols",
+    "aski91-overlay-pulse-192cols",
+    "aski91-overlay-pulse-288cols",
+    "aski91-overlay-pulse-80cols",
+    "aski91-overlay-wave-diagonal-192cols",
+    "aski91-overlay-wave-diagonal-288cols",
+    "aski91-overlay-wave-diagonal-80cols",
+    "aski91-overlay-wave-horizontal-192cols",
+    "aski91-overlay-wave-horizontal-288cols",
+    "aski91-overlay-wave-horizontal-80cols",
+    "aski93-video-120to12-720p-80cols",
+    "aski93-video-12to12-720p-80cols",
+    "aski93-video-12to30-720p-80cols",
+    "aski93-video-30to12-720p-80cols",
+    "aski93-video-60to12-10s-720p-80cols",
+    "aski93-video-60to12-720p-80cols",
+    "aski93-video-60to12-rotated-720p-80cols",
+    "aski93-video-source-30fps-720p-80cols",
+    "aski93-video-vfrto12-720p-80cols",
+    "aski94-control-character-160cols",
+    "aski94-control-character-320cols",
+    "aski94-control-character-80cols",
+    "aski94-control-solid-160cols",
+    "aski94-control-solid-320cols",
+    "aski94-control-solid-80cols",
+    "aski94-control-transparent-160cols",
+    "aski94-control-transparent-320cols",
+    "aski94-control-transparent-80cols",
+    "aski94-original-fill-grounded-160cols",
+    "aski94-original-fill-grounded-320cols",
+    "aski94-original-fill-grounded-80cols",
+    "aski94-original-fill-overlay-160cols",
+    "aski94-original-fill-overlay-320cols",
+    "aski94-original-fill-overlay-80cols",
+    "aski94-original-fit-grounded-160cols",
+    "aski94-original-fit-grounded-320cols",
+    "aski94-original-fit-grounded-80cols",
+    "aski94-original-fit-overlay-160cols",
+    "aski94-original-fit-overlay-320cols",
+    "aski94-original-fit-overlay-80cols",
+    "aski94-original-stretch-grounded-160cols",
+    "aski94-original-stretch-grounded-320cols",
+    "aski94-original-stretch-grounded-80cols",
+    "aski94-original-stretch-overlay-160cols",
+    "aski94-original-stretch-overlay-320cols",
+    "aski94-original-stretch-overlay-80cols",
+    "convert-frame-1920x1080-80cols",
+    "convert-gradient-2400x1800-120cols",
+    "convert-gradient-800x600-80cols",
+    "convert-photo-4032x3024-76cols",
+    "crossover-parallel-landscape-120cols",
+    "crossover-parallel-landscape-200cols",
+    "crossover-parallel-landscape-24cols",
+    "crossover-parallel-landscape-40cols",
+    "crossover-parallel-landscape-64cols",
+    "crossover-parallel-landscape-80cols",
+    "crossover-parallel-portrait-40cols",
+    "crossover-parallel-portrait-76cols",
+    "crossover-parallel-repeated-80cols",
+    "crossover-parallel-wide-120cols",
+    "crossover-serial-landscape-120cols",
+    "crossover-serial-landscape-200cols",
+    "crossover-serial-landscape-24cols",
+    "crossover-serial-landscape-40cols",
+    "crossover-serial-landscape-64cols",
+    "crossover-serial-landscape-80cols",
+    "crossover-serial-portrait-40cols",
+    "crossover-serial-portrait-76cols",
+    "crossover-serial-repeated-80cols",
+    "crossover-serial-wide-120cols",
+    "gamut-adaptiveL0-displayp3-out-of-gamut-256",
+    "gamut-adaptiveL0-srgb-out-of-gamut-256",
+    "gamut-raytrace-displayp3-out-of-gamut-256",
+    "gamut-raytrace-srgb-out-of-gamut-256",
+    "gif-decode-noop-120frames",
+    "gif-metadata-one-delay-scan-120frames",
+    "gif-metadata-two-delay-scans-120frames",
+    "helmlab-compressed-convert-80cols",
+    "masked-ascii-convert-80cols-transparent-fallback",
+    "masked-ascii-convert-render-80cols",
+    "masked-effects-render-solid-fallback",
+    "perf-spike-ascii-192x108-1-metallib-effect",
+    "perf-spike-ascii-192x108-3-stock-effects",
+    "perf-spike-ascii-192x108-full-metallib-chain",
+    "perf-spike-ascii-192x108-no-effects",
+    "perf-spike-aski-render-engine-192x108-warm-cache-3-effects",
+    "perf-spike-tilegrid-64x64-3-effects",
+    "prepare-frame-1920x1080-80cols",
+    "prepare-photo-4032x3024-76cols",
+    "render-image-gradient-80cols",
+    "tile-quantize-rich-512x512-256cols-adaptive16",
+    "tile-quantize-rich-512x512-256cols-adaptive16-masked",
+    "tile-quantize-rich-512x512-256cols-adaptive64",
+    "tile-quantize-rich-512x512-256cols-adaptive8",
+    "tile-render-256x256-pixelart-square-scale32",
+    "tile-render-64x64-brick-circle-scale8",
+    "tile-render-64x64-brick-diamond-scale8",
+    "tile-render-64x64-brick-hex-scale8",
+    "tile-render-64x64-brick-square-scale8",
+    "tile-render-64x64-brick-triangle-scale8",
+    "tile-render-64x64-mosaic-circle-scale8",
+    "tile-render-64x64-mosaic-diamond-scale8",
+    "tile-render-64x64-mosaic-hex-scale8",
+    "tile-render-64x64-mosaic-square-scale8",
+    "tile-render-64x64-mosaic-triangle-scale8",
+    "tile-render-64x64-pixelArt-circle-scale8",
+    "tile-render-64x64-pixelArt-diamond-scale8",
+    "tile-render-64x64-pixelArt-hex-scale8",
+    "tile-render-64x64-pixelArt-square-scale8",
+    "tile-render-64x64-pixelArt-triangle-scale8",
+    "tile-render-finite16-128x128-brick-circle-scale8-unmasked",
+    "tile-render-finite16-128x128-brick-square-scale8-unmasked",
+    "tile-render-finite16-128x128-pixelart-circle-scale8-masked",
+    "tile-render-finite16-128x128-pixelart-circle-scale8-unmasked",
+    "tile-render-finite16-128x128-pixelart-square-scale8-masked",
+    "tile-render-finite16-128x128-pixelart-square-scale8-unmasked",
+    "video-decode-720p-12frames",
+    "video-decode-convert-720p-80cols-12frames",
+    "video-decode-convert-rotated-720p-80cols-12frames",
+    "video-decode-rotated-720p-12frames",
+    "video-e2e-one-shot-720p-80cols-12frames",
+    "video-e2e-one-shot-rotated-720p-80cols-12frames",
+    "video-e2e-serial-720p-80cols-12frames",
+    "video-e2e-serial-rotated-720p-80cols-12frames",
+    "video-encode-ascii-12frames"
+  ],
+  "lock_transaction": {
+    "manifest_sha256": "65175b9f2eb811ec78d9b660b91125c7a83e3e3fc794ed099b727eeb000d63a6",
+    "restoration": "restored",
+    "setup": [
+      {
+        "lock_form": "edited",
+        "lock_sha256": "196782541d0dd65a74d863ff19a7fff5dd7324fec08b0edc34c8a2c3d3b9e1f6",
+        "phase": "show-dependencies"
+      }
+    ]
+  },
+  "required_metrics": [
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident",
+    "wallClock"
+  ],
+  "results": {
+    "aski89-convert-120cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "07a10eb30135b0528debacae590f75530151fa933a787df32320f6b9c995444a",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "697f87680277ce8d7849062fef414767f207d81323a13e005b3c59a646ca21c8",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "e5c44431e5ec8b99ce6eff33f6c6a1df572c205c6e7974e3e867f185ddd634bb",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "8130ad7f81d239ee986ef803f66f8a2bef415daa16f577b8d064d4b11c733f5a",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-120cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "119b0459220c9f8a4b5ce5e408c1b8b02348207ad02f025af47df36da3d9191b",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "697f87680277ce8d7849062fef414767f207d81323a13e005b3c59a646ca21c8",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "a3995cf52d6338158bf86cf0bc0cebd596b621ae6d0ed503942287ab6fdfeebb",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "336c6be5c94b8797fbf70ce8be48f2708480ca3a9d75ba3bff83a009ded4b924",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-120cols-os8-e50-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "732e44bdce9fad24a1b356ecb5d4ccef7adbdf59031335111eaa1944cb120621",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "1464dda9f1ef8bd9942483d770773572cac39a4e943e8da4cd50f16435421ab6",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "adf5c00ae8fce99e769a8be735ef2ee9f3d511d12c4c550befd4b1bca0adece9",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "f2d181dee2c670fdc455161a6315aecdf800719cb8c4332527484d6a5318a79a",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-120cols-os8-e50-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "240c53b321e46a06abee02e193ad52716172ff64f55a07a450ec3d7575c38594",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "1464dda9f1ef8bd9942483d770773572cac39a4e943e8da4cd50f16435421ab6",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "4a6390f2b5c281e9bb6b2b3ecfa32c3cd0a03736c038481e5d795821bf36f2f3",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "80d81122278df78df894a90564e621c2e9141bf15e433ba5a22c39f966c2265a",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-1cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "ef32fcac623695ce34e67cd12abdb8d9e346842f235874db22cb5976e2f53e7a",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "ec0c2cc06c7c2b8248c45849b150dc6cd962502d8ab3dae9e66efabf69d249cf",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "1898423c1256a3e0539799385cf09c8a7d969a0d8ae083ba17a3a766f034d72d",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-1cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "cbc98ab65d7c44d882e530ac0791fd4c47e5f613b52920fa2d6aec3343515510",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-240cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "27222155f1ce4824853bb6e08df1b5be39b01b7b173150bbd460c35c18b016e5",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "241aa307241f56e64bdc3371c614e51f4e5fc482092d3f7fbc49a1ece1cde180",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "6c32f8d50cb78f45d664efb7cc37e3a32810e17fa120577fe02a61e01cdee676",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "3a7d6b2684ab20815a22eb3f953011ba167b0feb923788d1a21230716132ab02",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-240cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "0956f1cbae41fe6a85382881b8f32eebf1006fc2a98bc814ebdde7dcec510dd4",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "241aa307241f56e64bdc3371c614e51f4e5fc482092d3f7fbc49a1ece1cde180",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "c867a5023a30707d10c1ca031e58a725b5380cf90d5c0fab574a0be99e7a97d0",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "56c69a207d33f89afaa795051a64018c982259401ff717865785c9530587dca4",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-80cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "0819ca052c2b3f5196305c9b868b104fae7a0e9c8248dcb57f3d092de6945f86",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "c013cd4d3b4653a776618e2032b3eb8e1dfadd5130eadb572ed3aebbcb4985dd",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "e7ebcf578680c93ff3e02ca61e36dc4466a89664fe236590c97c92b9bddc6693",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "bb08eb02233e52dee0a2831cc26025e0d945dcaa62dbc82b8b07708c3e02a782",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-80cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "8b8ac3101e243f050073ce3c994ea85d9f4f5516e774f72de214fd5f6f8c9d3e",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "18e48bdcaa3e3090312fab50cd56e7932049c8e1de3a9e80cbadac45df8f97f1",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "96270febb4fddaf181039e0f58f377c0b49b609f4357721b0dad0d45fc85ae0f",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "7752c877ed65592bdeccf445e2718d2e7b1d9c3584e35417e1aba0de94982fcb",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-convert-8cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "083726d23350974d2de33e846a04ddc4a5ea765610409e4cdbf725c8404a0869",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "26eb3a37e1a0954a61f82aa4a17fc8fc26f6bed93f142fa1543a798ba61827fe",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "5e7e8cc1500a7928f9abae30fe7dbc0cb44729f8d78978c6f2eebda5fe14499a",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-convert-8cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "234d411d6b2a554048d19f0de7b978426c47364c7fc3b58ee830781a70a739ea",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-dotmatrix-control-120cols": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "ad1cd9bfc4a1a485e9fe2b69d42a019795bcac06ad3e0a571c41accc6f70b72c",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "333ab994e87f360a5b3b52c6c563f8b1e3e93524d321a132e3a4e56e1e30195b",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "638ae80c78d4c244ad98f00110fef295f1420ec8c94fbf836683d6241bc95bb2",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-120cols.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "dbad21787378ed93ec315b719e9acfec41ce14a0d1d4ff289cc18e63305e5450",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-dotmatrix-control-8cols": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "56ecca76c935d7f5f19c4b2e7fa9c3c02657e58c906d04c3a9bb2d1c5a8205a7",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "56347768b15886ace905090f4ad79a73c696daab35aaadcb031ffcf5906059c4",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "c26cc7769f0b0da06c38812e5025a5c971fa9e466d3bc2b68e6ef7816726a658",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-dotmatrix-control-8cols.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "be38a7e6f885b8fc9f916ac0c7a226d04251d6b10235807713b6549cb41defb9",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-120cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "02a3952b38ec9ef7576ed7b5311ffd127450d0975cb4625ec93291457dfd5829",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "e275d50406e99f5462c1871062ec033cf5d7ed0f12b53db42b07fa01465c65ad",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "46ae2f458a05a9d64d97997543f0ca2cf7a83c5cd382eee9ee40bf1611f7ea45",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "b7ceccfdf1aab5eb417e64a886529100860a2caceaed29fd8f8447043f6aaaa2",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-120cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "3065da98e5ed38bdcb54012fa52089d7f7f6e251a50764e9624da1dfd34dd2cb",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "e275d50406e99f5462c1871062ec033cf5d7ed0f12b53db42b07fa01465c65ad",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "23d1ea33d5fb3f95b52141631f1859cd1d739aebc4365db69093b263e1bb3729",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "d12a7c6644e8daac96962f7f314a19eea2c88aa3c4e1f49202e62fe79653c50a",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-120cols-os8-e50-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "efa4b00a61a8c0a14a4e1c4ebae6bb95208d86c01a57e5103df024fc8c184952",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "be83642bd7ad7e4b50fba9be30ef1aef2da03af8113f5c4021322415f0983883",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "69b4546e0cb1a7ed670b8681d40f8caf754b73d4d05272bb30a8894b665e9376",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "d55b1102f6e0c264ceaa9851e56df2015c64d7935ab4ec4df85406267b6a4662",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-120cols-os8-e50-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "8403316ee9aa32ad7bb557ba99e1c3ace989462fa0447dc0bf6d939328de90e4",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "be83642bd7ad7e4b50fba9be30ef1aef2da03af8113f5c4021322415f0983883",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "5e11929632df102426921d523d3826159b0040a159b2857fa13826f0a497aea0",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "a2a4880a34690dcd13831bb6dcab62ca28061acf40ff97f4ac7abfd9ae104aea",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-240cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "afc9d128a90fe5641f297a23257ab9ef818a64a9491de47fe7b2287ab53d02b8",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "290367347d3f26f6564dec84509422e8678a7b58bec37cad2ee830b59603b242",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "15eebc97ad75df221fb8be36c1d394ebc21cc3ffcab1533c78df395d59518d1b",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "8a7ebc6a78b13967915293086640d4f5f10b196730f966e30bb1ef456db0b9d9",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-240cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "f0c9742d101110fa6a34a581c3798c0b89e8e5224940064d819d011712b793bb",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "290367347d3f26f6564dec84509422e8678a7b58bec37cad2ee830b59603b242",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "ccf34ea0c6540fa1a09f7c1958427ab3326b0b5af7c52dd1043467ffadd79152",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "ec95aec1ca1cd78fb4a229963cc88fc422eebbd648dd2384d4780f8ebba1cd0e",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-80cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "40f9b88b12584320d94f096ad697c1ce9ccb2b3f330266b4653b62826db1c1c5",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "1f9cf79fd25676f022d8a6ba443ad242324b6ccd5d44f31b8740a5911b02f2b4",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "68b8f7f0ae010fcea073cd2caaf961f7e169e7243174188724f7fa97da405c0d",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "cc0d532f8d8b4014ef0eab02be59098fcb92afc62a4672efe770b3f58016a732",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-ranked-80cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "99ff6795bac15f0f43b695a3fbbb6257d0a4f1225f0582b524229af3f38ad76a",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "32c4ee8689bfd4bd07850cf71f87e639fbe79392acc33d33cd8eebcac0c4bd5b",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "7c068cb35cdd0bc73e89d1639294655fa80611d8a0304a76a3804f353e037bf7",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-ranked-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "df746332dfe5b46996a51db0dfe7bce007d6a95dfd73eb055610a8eb8a8b2817",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-120cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "0eb872bb1c262706d557c0904073ef71297fd3bdcb2447db78e7fecf054ff2ce",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "697f87680277ce8d7849062fef414767f207d81323a13e005b3c59a646ca21c8",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "64803c0e994e5499b42005c8ab6aeab57381c16bca630c4f0ff902d0c4d6025c",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "9aee43b41debe6b16e3c5270574467982d8692b3614af6bfebf2077de71352e7",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-120cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "bf7f18dd558045967432d10ab7d9dba8f84ebc481123f1c4fd8692bd6c9d99e2",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "697f87680277ce8d7849062fef414767f207d81323a13e005b3c59a646ca21c8",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "6fa54fec526f3f07024412741f3bc9e6d96cba18b66f73c03415e6c4b91ff17e",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "460d1853423befecded99b52b33f30be079c8e681cce4cf7219ddfb84df780ca",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-120cols-os8-e50-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "af1e626faad4f2ffe2d2416afa7808f668f5945ba6952af68524d36c8823b04a",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "1464dda9f1ef8bd9942483d770773572cac39a4e943e8da4cd50f16435421ab6",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "99665b16afbba045b21865f56dc745336dcba8a16f41bc114ae481fed54c2dbe",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "49adec598c45fd3a7ffcb0ea2f3828da0a397099b8f7f0af9b63de9314d2dcee",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-120cols-os8-e50-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "8b6600a8c72f5441b0de034e3677a87675251801beaa5cb5bbd1495df0264cf4",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "1464dda9f1ef8bd9942483d770773572cac39a4e943e8da4cd50f16435421ab6",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "0098039c57f00f2a9b59e70376192ca3fbb5a198992afe147c547f9589f45121",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "e0774526899d565bda6bfc46fb9716caebb0592a2cbe73275864db910d1b0054",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-240cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "6b83f9eff1c0d68b10e43a2f862e95f94157eb7881f990773b9d8817d2e3a126",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "241aa307241f56e64bdc3371c614e51f4e5fc482092d3f7fbc49a1ece1cde180",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "762a0510fb892f535f8a845c4a5240f54c3e950514bd52ea6154e07865757bb5",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "52113c47e6380f1ab09bb9df986cc1a033bace6f3c16ce5ed82add4693319cde",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-240cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "df86f3059db70aad4ddc878d79bdfd0bb54f67c04dbfa07e2ea7648845fdd677",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "241aa307241f56e64bdc3371c614e51f4e5fc482092d3f7fbc49a1ece1cde180",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "ccf34ea0c6540fa1a09f7c1958427ab3326b0b5af7c52dd1043467ffadd79152",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "9ead7113f6ed814751424aa12355b87a72dff2f6e49672aa5b3d0d6fa849a918",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-80cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "cd579f047dd0549dfff51f6023470c33d744e85c4ba9c0a9041a9349dd2ae9bd",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "c013cd4d3b4653a776618e2032b3eb8e1dfadd5130eadb572ed3aebbcb4985dd",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "35f353ebadcade281ef7e67efa4cd74e63932bd14d421e589df2e348a1896c03",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "56f7981321f6a7739295aa6f9a6d4f5e67f701bd13e3ac46bdea595f4ce1fd4d",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-residual-80cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "768a536a7f51a0cd8d2a0bc9af2ccd56027e8dec38dd8a22f7fb5e2054370adf",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "c013cd4d3b4653a776618e2032b3eb8e1dfadd5130eadb572ed3aebbcb4985dd",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "ff9d17c3f8e7dfa7840e0cbd2f44ca2432369e2b9ad03439e110bc9e76cb9257",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-residual-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "9b585171c7e602484615d5e98210978d6d6f48da18004fcfde09fe17363265e6",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-120cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "b75d43b9dcd7642ab827ba39d5e8c3f716a83a29c7eec4204fc2d4a3cfba0968",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "84d9421bcd3c3b114489759ce422fe5d7d6957a1c21f5f85bc851d831bda3f96",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "6114fc4dcd7a5ce5907af33c6c51850eecaa3883329c4e61b2b5011a85679e01",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "654bb4457bb18e76dc61680154e6469aeafdae2a5b120243b9e0519b801f062d",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-120cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "3c801c227272bfc6bf1e22cc3fb52507b945d4005d684cedcd70f7d631479122",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "84d9421bcd3c3b114489759ce422fe5d7d6957a1c21f5f85bc851d831bda3f96",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "de86f1d1a705d9622740e40f20aeaf3b3acb51ce1ef8ced031d149b80cbedd8f",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "f33c812460f7719b28000c0df2bdf00eb91a2c949ea20cb4d03fb893dbe69657",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-120cols-os8-e50-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "8df9ac5cc49e96aff3c722e06233132f11a8123e7d2668ef9a52e9f67862f156",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "6ef057702fc283aae8ad287869cc963c38f04b65780f799f71bfe0f370f3dce1",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "58d5cad3e7e58416c9864fc5b3b27a034cadfbcdf91f7903d2ce59fb3c4668da",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "8257b5546dc852132f6367ad59a57aa12a6e39d666988c45d8dc89b9f174782c",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-120cols-os8-e50-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "22447d726d7f113cab892a4db8fa8c4c09071b48043b879755132afd370c1aea",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "6ef057702fc283aae8ad287869cc963c38f04b65780f799f71bfe0f370f3dce1",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "636ef0170e6dcdcaa76ad1dfa63f13ffcd25d755fa40a0a2f95c32cdea26ad27",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-120cols-os8-e50-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "a154dac38a07824087deb4ef428fc8f6e56e6c10383292ad9528cf6d71e81860",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-240cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "9b255f0d179c389c83669f38cf24e6a667fd2aabfdcab776c5dd3cb9e7bda59f",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "c0e25662bb48c6fca981cb80f721c412e4fa9186f360b8e3e5d069ca8d2c1115",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "905dcada5d7a75961332e4e99ec16618e896fe8794fe07c3984c65c127753201",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "5dd26c8a2e90994a28a1be8b23b72cb35deba972456cd4ab0054518df7b56714",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-240cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "eb52e0a327b2fabcf8fc9a58d4830f91c9c71d2a3bad6460b61fa5572f8b9abb",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "c0e25662bb48c6fca981cb80f721c412e4fa9186f360b8e3e5d069ca8d2c1115",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "db2ecdcd1b7717499a9264cfbacf8472de2a6022d00de3b0894a17a17f2e6180",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-240cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "56401ebd270d95c767e876a76eced59fea67ff4bdaf040cd4b8250c3f06bc874",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-80cols-os2-e0-parallel": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "2ab18ed6bf6d79fd9723dceccc1833271df2c0d29114fc77ec9de884c1e001d5",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "06455ec558f7b6a3e9d282580b5c9e079054ce45fd29a929aff7b7123068685c",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "8de7195627c835cd6c1291b9b2f7869c2a3d7b2829294fb05eb33fc6283b7df3",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-parallel.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "96e23c29440e208bef31e1862e432458056f87f40c908a7950f94c29c4ef6fe4",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    },
+    "aski89-temporal-80cols-os2-e0-serial": {
+      "metrics": {
+        "cpuTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.cpuTotal.histogram.samples.tsv",
+          "header": "Time (total CPU) (ns)",
+          "sample_count": 6,
+          "sha256": "2c84f12488e7d3ecfeb071f189be34936971ce41af13296c434f4a5e2e900f51",
+          "unit": "ns"
+        },
+        "mallocCountTotal": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.mallocCountTotal.histogram.samples.tsv",
+          "header": "Malloc (total) ",
+          "sample_count": 6,
+          "sha256": "06455ec558f7b6a3e9d282580b5c9e079054ce45fd29a929aff7b7123068685c",
+          "unit": "#"
+        },
+        "peakMemoryResident": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.peakMemoryResident.histogram.samples.tsv",
+          "header": "Memory (resident peak) ",
+          "sample_count": 6,
+          "sha256": "55d97ce7b6a0893d5b8060c869b92019b26f516358a69bcaeea59d3013633a3a",
+          "unit": "#"
+        },
+        "wallClock": {
+          "file": "samples/Current_run.AskiBenchmarks.aski89-temporal-80cols-os2-e0-serial.wallClock.histogram.samples.tsv",
+          "header": "Time (wall clock) (ns)",
+          "sample_count": 6,
+          "sha256": "900303d985ae7d1c1a32203fc7658af0a2634c2457108f9fac2df3b5c2619550",
+          "unit": "ns"
+        }
+      },
+      "optional_not_exported": [
+        "allocatedResidentMemory"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "selected": [
+    "aski89-convert-120cols-os2-e0-parallel",
+    "aski89-convert-120cols-os2-e0-serial",
+    "aski89-convert-120cols-os8-e50-parallel",
+    "aski89-convert-120cols-os8-e50-serial",
+    "aski89-convert-1cols-os2-e0-serial",
+    "aski89-convert-240cols-os2-e0-parallel",
+    "aski89-convert-240cols-os2-e0-serial",
+    "aski89-convert-80cols-os2-e0-parallel",
+    "aski89-convert-80cols-os2-e0-serial",
+    "aski89-convert-8cols-os2-e0-serial",
+    "aski89-dotmatrix-control-120cols",
+    "aski89-dotmatrix-control-8cols",
+    "aski89-ranked-120cols-os2-e0-parallel",
+    "aski89-ranked-120cols-os2-e0-serial",
+    "aski89-ranked-120cols-os8-e50-parallel",
+    "aski89-ranked-120cols-os8-e50-serial",
+    "aski89-ranked-240cols-os2-e0-parallel",
+    "aski89-ranked-240cols-os2-e0-serial",
+    "aski89-ranked-80cols-os2-e0-parallel",
+    "aski89-ranked-80cols-os2-e0-serial",
+    "aski89-residual-120cols-os2-e0-parallel",
+    "aski89-residual-120cols-os2-e0-serial",
+    "aski89-residual-120cols-os8-e50-parallel",
+    "aski89-residual-120cols-os8-e50-serial",
+    "aski89-residual-240cols-os2-e0-parallel",
+    "aski89-residual-240cols-os2-e0-serial",
+    "aski89-residual-80cols-os2-e0-parallel",
+    "aski89-residual-80cols-os2-e0-serial",
+    "aski89-temporal-120cols-os2-e0-parallel",
+    "aski89-temporal-120cols-os2-e0-serial",
+    "aski89-temporal-120cols-os8-e50-parallel",
+    "aski89-temporal-120cols-os8-e50-serial",
+    "aski89-temporal-240cols-os2-e0-parallel",
+    "aski89-temporal-240cols-os2-e0-serial",
+    "aski89-temporal-80cols-os2-e0-parallel",
+    "aski89-temporal-80cols-os2-e0-serial"
+  ],
+  "selection": {
+    "expect": [
+      "aski89-convert-120cols-os2-e0-parallel",
+      "aski89-convert-120cols-os2-e0-serial",
+      "aski89-convert-120cols-os8-e50-parallel",
+      "aski89-convert-120cols-os8-e50-serial",
+      "aski89-convert-1cols-os2-e0-serial",
+      "aski89-convert-240cols-os2-e0-parallel",
+      "aski89-convert-240cols-os2-e0-serial",
+      "aski89-convert-80cols-os2-e0-parallel",
+      "aski89-convert-80cols-os2-e0-serial",
+      "aski89-convert-8cols-os2-e0-serial",
+      "aski89-dotmatrix-control-120cols",
+      "aski89-dotmatrix-control-8cols",
+      "aski89-ranked-120cols-os2-e0-parallel",
+      "aski89-ranked-120cols-os2-e0-serial",
+      "aski89-ranked-120cols-os8-e50-parallel",
+      "aski89-ranked-120cols-os8-e50-serial",
+      "aski89-ranked-240cols-os2-e0-parallel",
+      "aski89-ranked-240cols-os2-e0-serial",
+      "aski89-ranked-80cols-os2-e0-parallel",
+      "aski89-ranked-80cols-os2-e0-serial",
+      "aski89-residual-120cols-os2-e0-parallel",
+      "aski89-residual-120cols-os2-e0-serial",
+      "aski89-residual-120cols-os8-e50-parallel",
+      "aski89-residual-120cols-os8-e50-serial",
+      "aski89-residual-240cols-os2-e0-parallel",
+      "aski89-residual-240cols-os2-e0-serial",
+      "aski89-residual-80cols-os2-e0-parallel",
+      "aski89-residual-80cols-os2-e0-serial",
+      "aski89-temporal-120cols-os2-e0-parallel",
+      "aski89-temporal-120cols-os2-e0-serial",
+      "aski89-temporal-120cols-os8-e50-parallel",
+      "aski89-temporal-120cols-os8-e50-serial",
+      "aski89-temporal-240cols-os2-e0-parallel",
+      "aski89-temporal-240cols-os2-e0-serial",
+      "aski89-temporal-80cols-os2-e0-parallel",
+      "aski89-temporal-80cols-os2-e0-serial"
+    ],
+    "filter": [
+      "^aski89-.*$"
+    ],
+    "preset": null,
+    "skip": []
+  },
+  "started_at": "2026-11-16T02:22:53.927525+00:00",
+  "status": "valid",
+  "target": "AskiBenchmarks"
+}

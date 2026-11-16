@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "study": "ASKI-89 study 02",
+  "declaredAt": "2026-11-16T02:12:44.340239+00:00",
+  "controlRevision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "candidateRevision": "d96c9c1206d50d8ddd406eb699bda198cf687dfc",
+  "originalRuleCommit": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "originalRuleSHA256": "d6780fb12839e253756bf6b25773fba0f2d2e07763ad13bf11d8e3da8d9df5b7",
+  "originalRule": "docs/Research/2026-11-15-aski89-histogram-storage.md at the original registration commit",
+  "reason": "Study 1 is inconclusive due to observed unrelated native build overlap, independent of numerical results. No study 1 numerical comparison was read or scored.",
+  "priorEvidenceSHA256": {
+    "measurement/g7-pair-01-host.json": "4b923541ffcbc5d05349592ca26a8594299dec6837626eedb58fd9968e99f30b",
+    "measurement/g7-host-anomaly.json": "3fc45a0949c572da7e65f974a57e456bd22060c91766133eff903ac32a51597a",
+    "measurement/g7-pair-01-checkpoint.json": "166b2dbeee9d5ea1e8101d739731cdb74a84d6579f500dfc8d4dbe7fec762c68",
+    "aski89-native-01/pair-01/control/report.json": "a4d014b0d5f282bef1799da67ea126aefc07a39f8452f40d4d91e2bfccc4bd0c",
+    "aski89-native-01/pair-01/candidate/report.json": "bb437a708f0ea5d70b8e9e4af57e39264d6b7eecb58b0e54a26058b87f48d235",
+    "aski89-native-01/qualification/control/report.json": "dfad304f117e902b3a69a9d23c596b3172d77cfbfe5227043f4988f40f125cde",
+    "aski89-native-01/qualification/candidate/report.json": "18f02607ce552dc24f65be47c1e2e0bd080201cb1e3a47a6173530bb1a90f78b"
+  },
+  "sourceAndInstrumentChanges": [],
+  "qualification": "Carry forward the two valid qualification captures and frozen binary/dylib identities; exclude their samples from decision pairs.",
+  "startCondition": "At least 60 seconds of AC power, unchanged power mode, nominal thermal state and no unrelated native build/benchmark/media jobs observed at 15-second intervals.",
+  "pairs": 5,
+  "order": [
+    "control/candidate",
+    "candidate/control",
+    "control/candidate",
+    "candidate/control",
+    "control/candidate"
+  ],
+  "decisionRule": "Exactly the original registered workload, metric, primary, guard, median and 4-of-5 rules. No threshold or metric changes.",
+  "hostMonitoring": "Same 15-second sampled checks during each pair and at boundaries; sampled observations do not rule out shorter unseen activity.",
+  "failedAttemptPolicy": "Retain every attempt. Any invalid/noisy/unattested pair makes study 2 inconclusive and stops the series. No replacement, pooling or further series in this batch.",
+  "maximumFreshSeries": 1,
+  "scope": "Timing recovery only. Existing parity/API/full-gate evidence applies to the unchanged source. Allocation profiles and direct OS RSS remain separate prerequisites for adoption."
+}

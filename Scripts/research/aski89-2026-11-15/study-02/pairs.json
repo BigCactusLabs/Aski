@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "experiment": "aski89-study02-scoped-histogram",
+  "control_revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "candidate_revision": "d96c9c1206d50d8ddd406eb699bda198cf687dfc",
+  "expected_workloads": [
+    "aski89-convert-120cols-os2-e0-parallel",
+    "aski89-convert-120cols-os2-e0-serial",
+    "aski89-convert-120cols-os8-e50-parallel",
+    "aski89-convert-120cols-os8-e50-serial",
+    "aski89-convert-1cols-os2-e0-serial",
+    "aski89-convert-240cols-os2-e0-parallel",
+    "aski89-convert-240cols-os2-e0-serial",
+    "aski89-convert-80cols-os2-e0-parallel",
+    "aski89-convert-80cols-os2-e0-serial",
+    "aski89-convert-8cols-os2-e0-serial",
+    "aski89-dotmatrix-control-120cols",
+    "aski89-dotmatrix-control-8cols",
+    "aski89-ranked-120cols-os2-e0-parallel",
+    "aski89-ranked-120cols-os2-e0-serial",
+    "aski89-ranked-120cols-os8-e50-parallel",
+    "aski89-ranked-120cols-os8-e50-serial",
+    "aski89-ranked-240cols-os2-e0-parallel",
+    "aski89-ranked-240cols-os2-e0-serial",
+    "aski89-ranked-80cols-os2-e0-parallel",
+    "aski89-ranked-80cols-os2-e0-serial",
+    "aski89-residual-120cols-os2-e0-parallel",
+    "aski89-residual-120cols-os2-e0-serial",
+    "aski89-residual-120cols-os8-e50-parallel",
+    "aski89-residual-120cols-os8-e50-serial",
+    "aski89-residual-240cols-os2-e0-parallel",
+    "aski89-residual-240cols-os2-e0-serial",
+    "aski89-residual-80cols-os2-e0-parallel",
+    "aski89-residual-80cols-os2-e0-serial",
+    "aski89-temporal-120cols-os2-e0-parallel",
+    "aski89-temporal-120cols-os2-e0-serial",
+    "aski89-temporal-120cols-os8-e50-parallel",
+    "aski89-temporal-120cols-os8-e50-serial",
+    "aski89-temporal-240cols-os2-e0-parallel",
+    "aski89-temporal-240cols-os2-e0-serial",
+    "aski89-temporal-80cols-os2-e0-parallel",
+    "aski89-temporal-80cols-os2-e0-serial"
+  ],
+  "required_metrics": [
+    "wallClock",
+    "cpuTotal",
+    "mallocCountTotal",
+    "peakMemoryResident"
+  ],
+  "decision_rule": {
+    "reference": "Scripts/research/aski89-2026-11-15/study-02-registration.json @ bdb11b4be90742fbd5a68c9e5fa0dff7e16ea64f; original docs/Research/2026-11-15-aski89-histogram-storage.md @ 062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+    "declared_at": "2026-11-16T02:12:44.340239+00:00",
+    "minimum_pairs": 5,
+    "improvement_percent": 5,
+    "regression_percent": 3
+  },
+  "host_attestation": {
+    "label": "same-local-native-mac-study02-20261116",
+    "same_physical_host": true,
+    "conditions": "One local physical Mac. Startup five samples >=60s; before/during/after each pair AC power, constant pmset power mode, Foundation thermalState0, no unrelated native processes detected. Monitoring nominally15s plus command overhead; sampled observations cannot exclude shorter unseen activity. Qualification and all study1 samples excluded."
+  },
+  "pairs": [
+    {
+      "control": "pair-01/control/report.json",
+      "candidate": "pair-01/candidate/report.json"
+    },
+    {
+      "control": "pair-02/control/report.json",
+      "candidate": "pair-02/candidate/report.json"
+    },
+    {
+      "control": "pair-03/control/report.json",
+      "candidate": "pair-03/candidate/report.json"
+    },
+    {
+      "control": "pair-04/control/report.json",
+      "candidate": "pair-04/candidate/report.json"
+    },
+    {
+      "control": "pair-05/control/report.json",
+      "candidate": "pair-05/candidate/report.json"
+    }
+  ]
+}

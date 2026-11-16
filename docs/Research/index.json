@@ -1665,6 +1665,56 @@
       ],
       "summary" : "Aski keeps the ASCIICharacterSet arrays as the expert contract for supplying precomputed glyph data. RasterizedCharacterSet remains the font and glyph input path. ShapeQueryPolarity joins its setting behind AskiResearch SPI.",
       "title" : "ASKI-76 — character set extension boundary"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "next_action" : "No adoption. Preserve the rejected candidate and complete measurement evidence.",
+      "path" : "docs/Research/2026-11-15-aski89-histogram-storage.md",
+      "related_specs" : [
+        "docs/agents/paired-benchmarks.md",
+        "docs/benchmark-validation.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski89-histogram-storage",
+      "status" : "complete",
+      "subsystem" : [
+        "shape-context"
+      ],
+      "summary" : "Rejected: scoped histogram storage lowered allocation counts but failed three primary speed-benefit bars in five valid pairs. Native parity and API-floor probes passed; four control profiles attributed the temporary arrays. Production retains the owning histogram.",
+      "title" : "ASKI-89 — Scoped log-polar histogram storage decision rule"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "next_action" : "No adoption. Preserve the exact-parity rejection and replay evidence.",
+      "path" : "docs/Research/2026-11-15-aski94-completed-original-fallback.md",
+      "related_specs" : [
+        "docs/agents/paired-benchmarks.md",
+        "docs/benchmark-validation.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski94-completed-original-fallback",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Rejected: one original-image draw through the populated-cell clip changed native pixels in 239 of 1,161 cases. The control repeat matched exactly; all 27 control baseline workloads completed. Production retains per-cell drawing.",
+      "title" : "ASKI-94 completed original-image fallback rule"
     }
   ],
   "results" : [

@@ -1,0 +1,76 @@
+{
+  "original_registration_commit": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "fresh_registration_commit": "bdb11b4be90742fbd5a68c9e5fa0dff7e16ea64f",
+  "local_evidence_sha256": {
+    "aski89-checks/api.log": "e2871a332765cf06fb1e30771620d8fd10f9a241f6e78bfe5cae69e4443c610f",
+    "aski89-checks/api.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "aski89-checks/support-full.log": "9578e51ea9195ac4d65353efc3948342e2d7d9f28659bd18412e962cfb83d866",
+    "aski89-checks/candidate-full.log": "dcb972d1aef44afd5aa3a48525fa680b71b2c01e1eb55a7cc29b09ae911665c4",
+    "aski89-checks/candidate-full.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "measurement/g5-control-debug.log": "80a45af69ec677ea3ebc1bd9acbb0a27684697d417267290504ed287a7c520db",
+    "measurement/g5-control-release.log": "c43bb595f37c840ad4b6ae6c57b8491c5bb9115f6f20aae290d1cd12fac9b78c",
+    "measurement/g5-candidate-debug.log": "e72bc17c9cb90c32ca9bc562e2a127a804169a97bef867260fe091a04761d6b3",
+    "measurement/g5-candidate-release.log": "5d902e349c0be6f9666becd0210d3f62d6eafed167e381ba258c88e772021c39",
+    "measurement/g5-compare-debug.log": "e4d0a7701f1a0287da491dc77189724d8685bd35baeff0c393fe0ff831f3d0b9",
+    "measurement/g5-compare-release.log": "e4d0a7701f1a0287da491dc77189724d8685bd35baeff0c393fe0ff831f3d0b9",
+    "measurement/g9-registration-binding.json": "72cde60e7d4b933d06dfc41152daa3e17586eca1a61ef8c933104d44f29de491",
+    "measurement/g9-postflight.json": "770f0ed0f8f0d2735034c19ec050f6f8faff57c12ebc3f096624be1a8d0b4ac3",
+    "measurement/g10-postflight.json": "be68c36d410ec2802c7e2927f6924657496b16429aaa1bc904f6a91afc4cd887",
+    "profile-analysis/tests.g2.log": "a09cec63ab73cb595c2b77ed612d7d09431b3d1bb770985d9d5e2f162ad6c367",
+    "profile-analysis/tests.g2.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "profile-analysis/pilot.g2.invariants.log": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74",
+    "profile-analysis/pilot.g2.invariants.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "api_probes": {
+    "exit": 0,
+    "compiler_versions": [
+      "Swift6.3.1",
+      "AppleSwift6.4"
+    ],
+    "deployment_targets": [
+      "macOS15",
+      "iOS18simulator",
+      "visionOS2simulator"
+    ],
+    "probe_count": 6,
+    "scope": "Exact new temporary-allocation API only; not full mobile package builds."
+  },
+  "parity": {
+    "debug_cases": 15,
+    "release_cases": 15,
+    "mismatches": 0,
+    "native_export_exits": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "comparison_exits": [
+      0,
+      0
+    ]
+  },
+  "candidate_full_gate": {
+    "exit": 0,
+    "core_tests": 1519,
+    "media_tests": 178,
+    "deadlock_tests": 2,
+    "docc": "passed",
+    "tested_source": "Exact candidate source content before d96c9c1 commit, hashes in source-replay.json"
+  },
+  "profile_parser": {
+    "sha256": "039049ec89751e6f0ca3d1c36ef6d9f98c4fb4b4919a04749d753be84f4de110",
+    "regressions_passed": 8,
+    "local_source_review": "passed",
+    "independent_cross_family_review": "unavailable",
+    "formal_control_profiles": 4,
+    "unknown_extractor_allocations": 0,
+    "matched_target_generations": 717360
+  },
+  "artifact_limits": [
+    "Capture reports normalize host paths; original native hashes are in capture-report-hashes.json.",
+    "Full raw native streams and process inventories remain local. Portable profiles retain every target interval and all deduplicated stacks.",
+    "Only study02 enters the paired decision; qualification and study1 are preserved but excluded.",
+    "No candidate allocation attribution, direct OS RSS guard or compatibility budget pass is claimed after the valid timing veto."
+  ]
+}
