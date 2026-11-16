@@ -1,0 +1,132 @@
+{
+  "revisions": {
+    "control": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+    "candidate": "d96c9c1206d50d8ddd406eb699bda198cf687dfc"
+  },
+  "registration_time": "2026-11-16T01:31:01.803795+00:00",
+  "rule": "docs/Research/2026-11-15-aski89-histogram-storage.md",
+  "rule_sha256": "d6780fb12839e253756bf6b25773fba0f2d2e07763ad13bf11d8e3da8d9df5b7",
+  "qualification": {
+    "control": {
+      "identity": {
+        "benchmark_pin": {
+          "identity": "package-benchmark",
+          "kind": "remoteSourceControl",
+          "location": "https://github.com/ordo-one/package-benchmark",
+          "state": {
+            "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+            "version": "1.35.0"
+          }
+        },
+        "effective_lock_sha256": "196782541d0dd65a74d863ff19a7fff5dd7324fec08b0edc34c8a2c3d3b9e1f6",
+        "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+        "malloc_backend": {
+          "basis": "configured provenance: reviewed benchmark pin and vendored edit of the pinned allocator, Swift 6.3+, default traits, and environment",
+          "configured": "malloc-interposer",
+          "disabled_by": [],
+          "observed": {
+            "backend": "malloc-interposer",
+            "image_basename": "libMallocInterposerSwift.dylib"
+          },
+          "vendored_source": {
+            "package_path": "Vendor/malloc-interposer",
+            "sha256_by_file": {
+              "ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+              "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+              "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+              "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+              "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+              "Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+              "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+              "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+              "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+              "Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+              "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+            },
+            "upstream_revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+            "upstream_url": "https://github.com/ordo-one/malloc-interposer.git"
+          }
+        },
+        "malloc_pin": {
+          "identity": "malloc-interposer",
+          "kind": "remoteSourceControl",
+          "location": "https://github.com/ordo-one/malloc-interposer.git",
+          "state": {
+            "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+            "version": "1.4.0"
+          }
+        },
+        "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+        "revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+        "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+        "xcode": "Xcode 27.0\nBuild version 27A266a"
+      },
+      "report_sha256": "dfad304f117e902b3a69a9d23c596b3172d77cfbfe5227043f4988f40f125cde",
+      "release_files": {
+        "<control-checkout>/.build/out/Products/Release/AskiBenchmarks": "5d6f3236ff6970528366fbc11834683244ab6039f4bb98d09438376d102330fd",
+        "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib": "aa7747a74fb81c64d4e89b654f60cfae2de7b65cfb1b8e70e7614da00f9d8ef7"
+      }
+    },
+    "candidate": {
+      "identity": {
+        "benchmark_pin": {
+          "identity": "package-benchmark",
+          "kind": "remoteSourceControl",
+          "location": "https://github.com/ordo-one/package-benchmark",
+          "state": {
+            "revision": "4b9ef5663e9c270419351a20392bf77b007f37f6",
+            "version": "1.35.0"
+          }
+        },
+        "effective_lock_sha256": "196782541d0dd65a74d863ff19a7fff5dd7324fec08b0edc34c8a2c3d3b9e1f6",
+        "lock_sha256": "fd8ce4f277a4c419360393b2e968946d457f469d4dfa8f449196a49499e96c46",
+        "malloc_backend": {
+          "basis": "configured provenance: reviewed benchmark pin and vendored edit of the pinned allocator, Swift 6.3+, default traits, and environment",
+          "configured": "malloc-interposer",
+          "disabled_by": [],
+          "observed": {
+            "backend": "malloc-interposer",
+            "image_basename": "libMallocInterposerSwift.dylib"
+          },
+          "vendored_source": {
+            "package_path": "Vendor/malloc-interposer",
+            "sha256_by_file": {
+              "ASKI-PATCHES.md": "10666daa66aa292e4a7555c2dfeaff9cf8b51ca8f272cfb5b9bfd0d05029ef7c",
+              "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+              "NOTICE": "635a7bf92864130f9dbedd742a868d5527d5e673e383f8e4317ab425d307b1df",
+              "Package.swift": "db01e55bd0a3ca65738400cc184ab205f0c17855825377f4e5586dcef7294a7e",
+              "README.md": "8bf30fb893bcd06591dbc8610fdb6a1d3d5b5cf463550ee74ea2db5816b364a3",
+              "Sources/MallocInterposerC/include/interposer.h": "d63a35b10bb72197bf51755b990bd42ecf605c2584c6fbb0c0ebf5bc5076dee4",
+              "Sources/MallocInterposerC/src/interposer-darwin.c": "58adede454be543f5cd34847a98c61db446088d2782993a00ccc79642f1310c0",
+              "Sources/MallocInterposerC/src/interposer-unix.c": "2441014ebebaac6b74d79f10de0208462b407ab5474791350c43e6fab80fd58a",
+              "Sources/MallocInterposerSwift/MallocInterposerSwift.swift": "0d137259cf15855dc8eebc57f7da4ecf819819639919fd6e5a11c4a2811bbacb",
+              "Tests/InterposerCrashProbe/main.c": "83251924c434d10dba5714309f9e65687de4b14c436407668f53265a74a81eef",
+              "Tests/MallocInterposerTests/AlignedPointerSafetyTests.swift": "dd7593d692d34d863dfdbdd7257e1d9d15f3e90dcbe7b3facb8ffecae8846e68"
+            },
+            "upstream_revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+            "upstream_url": "https://github.com/ordo-one/malloc-interposer.git"
+          }
+        },
+        "malloc_pin": {
+          "identity": "malloc-interposer",
+          "kind": "remoteSourceControl",
+          "location": "https://github.com/ordo-one/malloc-interposer.git",
+          "state": {
+            "revision": "9221411ac2e845a93ce65b9ca2ab84f8c1084b0d",
+            "version": "1.4.0"
+          }
+        },
+        "os": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0.1\nBuildVersion:\t\t26A434",
+        "revision": "d96c9c1206d50d8ddd406eb699bda198cf687dfc",
+        "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+        "xcode": "Xcode 27.0\nBuild version 27A266a"
+      },
+      "report_sha256": "18f02607ce552dc24f65be47c1e2e0bd080201cb1e3a47a6173530bb1a90f78b",
+      "release_files": {
+        "<candidate-checkout>/.build/out/Products/Release/AskiBenchmarks": "eb935942a5cf2cd7a6f2eec56c3bfb5a6354c7b17fbd7dc12629028a8916e17e",
+        "<candidate-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib": "479d90a3c05013800ccb22bfb877fcbf308525607974c9203071c99d7427bd7f"
+      }
+    }
+  },
+  "common_hashes_file": "common-source-hashes.json"
+}

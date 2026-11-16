@@ -1,0 +1,30 @@
+{
+  "aski89-convert-120cols-os8-e50-parallel": {
+    "tracked_intervals": 168000,
+    "native_summary_sha256": "ac0d0aa69b23367875e838b41d3c572d5905caa3bab3aaa0ca54d408b499d859",
+    "native_interval_file_sha256": "519405b00a20f79889361eb68431eb96ed349ff2ec166c04178a818795368475",
+    "raw_event_sha256": "e5a13e02cece02afa72fd7f8bb0b89de1104aa32a211de355c6ed54a850980b9",
+    "qualified": true
+  },
+  "aski89-convert-120cols-os8-e50-serial": {
+    "tracked_intervals": 168000,
+    "native_summary_sha256": "4cca2dc70489b74dcaf79e7c4cea503d90650916d8959dbbba0ae3fa44042232",
+    "native_interval_file_sha256": "8b0267916d1f7f99aa9d1217480f01a96aca4ff113a86a2a721b2b6b41b43f0e",
+    "raw_event_sha256": "5e95d650ce264828079c627528527256f92973e1218cbab38050c9b78e2c6c02",
+    "qualified": true
+  },
+  "aski89-convert-80cols-os2-e0-serial": {
+    "tracked_intervals": 45360,
+    "native_summary_sha256": "3a4c041f40ab06e3705f4155da6a249cba5ebe990aff8b7b155ba2c11b8a8214",
+    "native_interval_file_sha256": "459692e899178c7be0c8bc4371a43619b4163f3c02e100ff4a18fd2f5a87f726",
+    "raw_event_sha256": "2c8ab9ab07744f77b0af9decee57ceb00fd076cd40f78c914e0bd9baab355a04",
+    "qualified": true
+  },
+  "aski89-temporal-120cols-os8-e50-serial": {
+    "tracked_intervals": 336000,
+    "native_summary_sha256": "55d35422815e3d23ca1551c1f190659e07e80675612477953327336d3512ef35",
+    "native_interval_file_sha256": "8fd127ab4f470e3c5fe277c80e12cb319e38ef9b72fba4fdbd9f982985988c04",
+    "raw_event_sha256": "f8740ecad3bb223c8911b106f925dc823a2eec28a453cd2a545da7e403d02ac2",
+    "qualified": true
+  }
+}

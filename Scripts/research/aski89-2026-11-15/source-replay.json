@@ -1,0 +1,12 @@
+{
+  "control_revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "candidate_revision": "d96c9c1206d50d8ddd406eb699bda198cf687dfc",
+  "control_sha256": {
+    "Sources/Aski/Algorithms/LogPolarKernel.swift": "ca060a404618c0a0368355b97965651214b8830401b8a8bad5f6f1702fc8ced0",
+    "Sources/Aski/Algorithms/ShapeContext.swift": "661edd685e14d6fc10730f985bccde7073ff6b1817b1079f316fa9474315f6f4"
+  },
+  "candidate_sha256": {
+    "Sources/Aski/Algorithms/LogPolarKernel.swift": "8bbdd610cbd6f9d0360628bf164479a64fecd8d745397bc71a7c0bf479d82e54",
+    "Sources/Aski/Algorithms/ShapeContext.swift": "918a51fef463f0b9da63dc356d92d00a1d3a37f37095dbc032d8ef1f8f537293"
+  }
+}

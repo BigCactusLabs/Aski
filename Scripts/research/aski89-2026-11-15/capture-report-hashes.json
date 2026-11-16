@@ -1,0 +1,86 @@
+{
+  "qualification/control": {
+    "native_report_sha256": "dfad304f117e902b3a69a9d23c596b3172d77cfbfe5227043f4988f40f125cde",
+    "portable_report_sha256": "01159d5249d846c85110cd7f9f9585da446be916c71e620eb9baad456d870f5c",
+    "metric_exports": 144,
+    "included_in_decision": false
+  },
+  "study-01/pair-01/control": {
+    "native_report_sha256": "a4d014b0d5f282bef1799da67ea126aefc07a39f8452f40d4d91e2bfccc4bd0c",
+    "portable_report_sha256": "776b193f6a8b61c17eca47888e45428b370b083970f167c6e094385969ab6e5c",
+    "metric_exports": 144,
+    "included_in_decision": false
+  },
+  "qualification/candidate": {
+    "native_report_sha256": "18f02607ce552dc24f65be47c1e2e0bd080201cb1e3a47a6173530bb1a90f78b",
+    "portable_report_sha256": "e41fabd8b0ad62f7c4ff93b74a9c677a74de24ff81d2e5a2367f57856990e401",
+    "metric_exports": 144,
+    "included_in_decision": false
+  },
+  "study-01/pair-01/candidate": {
+    "native_report_sha256": "bb437a708f0ea5d70b8e9e4af57e39264d6b7eecb58b0e54a26058b87f48d235",
+    "portable_report_sha256": "e82fcd7153a6ab9d212e9faaf32532c6006b1169b532bc3c812d063282067bbe",
+    "metric_exports": 144,
+    "included_in_decision": false
+  },
+  "study-02/pair-01/control": {
+    "native_report_sha256": "bb69f9ed85eafee667fd7985b65df07702c178ff450536172e34f2d9716d3465",
+    "portable_report_sha256": "a968f2efb67afd8746e71c750e5da94147758fddbc3ad77486cd8ffdd5e87010",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-01/candidate": {
+    "native_report_sha256": "489ea59b5a0402e998f5f8b0d5062bae1261db55841359f9f187dc74d28fdaf6",
+    "portable_report_sha256": "978e7146d13a1658d9307a4fc66bd3d9e7ddae3c073fdd2f8d8f643f54779b74",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-02/control": {
+    "native_report_sha256": "1f16be440a8af23f10a3232766817d41b42204407ff523f1c154ebd0e3915b16",
+    "portable_report_sha256": "1b48685cd8773fa9c538473030e4898f9c8517b2f3929a1f14f588efd6921a1a",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-02/candidate": {
+    "native_report_sha256": "b9247b0c36fc5424fed4bc02a70b6ec850b9c08b8dd902568227bdab8b5c02d7",
+    "portable_report_sha256": "9bfce073f769f85381bfee9c5fd8029db6d54f654261b02c86682e995fd08f90",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-03/control": {
+    "native_report_sha256": "9faeded80bdb30626eb1a2e470203c461b09035f4de2c4d2cc55d1083dbc8be5",
+    "portable_report_sha256": "c3c78576ffc417dea1b948aa8bd0c7c8d4b4d93c7ab6a1b5b71b5ccdb381b592",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-03/candidate": {
+    "native_report_sha256": "47770b9783cd9c1219eba3ac2d6e22c0cd5b97fbce62887c6a30032ef628dc3b",
+    "portable_report_sha256": "e9c85f2a19ac3d76948fc244dd0eced8cad103e1702ded8c76dcc833158adf99",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-04/control": {
+    "native_report_sha256": "8ea1a156271bc65432b25f794cfb05312b3a55dfcccbf54dd343f658fb198f03",
+    "portable_report_sha256": "7e08f2b1abaab619ae5bb4aa779f887a31aac84d43d1656a3d25e7fba7982734",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-04/candidate": {
+    "native_report_sha256": "6acf8b446b7ded8c0998150aa6b645a1b97881c50460ca69f919d31e089b0adb",
+    "portable_report_sha256": "55aa3a52b08b5d5fd4a84183237571a1c964137375650ccb6ed1e64018fb7d53",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-05/control": {
+    "native_report_sha256": "c5565c42af03eba93f1fa9bcfe0ff69161b8b38d12d1950807506d6c8cc67e71",
+    "portable_report_sha256": "d56c07f303ae56e3470001e30d61a638f537d6b66c39895b88db7e384a71907d",
+    "metric_exports": 144,
+    "included_in_decision": true
+  },
+  "study-02/pair-05/candidate": {
+    "native_report_sha256": "128030176520a2063d599e5403d4f52902fef758d1d5d262ad643e9dbb1af019",
+    "portable_report_sha256": "449352dedbece45455238138883e5ac4b3b5c4d2d1907a1808ec2fc4594fcd38",
+    "metric_exports": 144,
+    "included_in_decision": true
+  }
+}

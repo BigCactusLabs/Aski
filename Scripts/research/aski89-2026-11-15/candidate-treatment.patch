@@ -1,0 +1,68 @@
+diff --git a/Sources/Aski/Algorithms/LogPolarKernel.swift b/Sources/Aski/Algorithms/LogPolarKernel.swift
+index 73d4500..20237e3 100644
+--- a/Sources/Aski/Algorithms/LogPolarKernel.swift
++++ b/Sources/Aski/Algorithms/LogPolarKernel.swift
+@@ -276,19 +276,23 @@ internal struct LogPolarKernel: CharacterScoring {
+             }
+         }
+ 
+-        let descriptor = context.shapeContextFootprint.histogram60(grayscale)
+-        var lanes: [SIMD4<Float>] = []
+-        lanes.reserveCapacity(StandardCharacterSet.lanesPerCharacter)
+-        for index in stride(from: 0, to: StandardCharacterSet.shapeVectorDimension, by: 4) {
+-            lanes.append(
+-                SIMD4(
+-                    descriptor[index],
+-                    descriptor[index + 1],
+-                    descriptor[index + 2],
+-                    descriptor[index + 3]
+-                ))
++        return withUnsafeTemporaryAllocation(of: Float.self, capacity: ShapeContext.dimension) { descriptor in
++            descriptor.initialize(repeating: 0)
++            defer { descriptor.deinitialize() }
++            context.shapeContextFootprint.histogram60(grayscale, into: descriptor)
++            var lanes: [SIMD4<Float>] = []
++            lanes.reserveCapacity(StandardCharacterSet.lanesPerCharacter)
++            for index in stride(from: 0, to: descriptor.count, by: 4) {
++                lanes.append(
++                    SIMD4(
++                        descriptor[index],
++                        descriptor[index + 1],
++                        descriptor[index + 2],
++                        descriptor[index + 3]
++                    ))
++            }
++            return lanes
+         }
+-        return lanes
+     }
+ 
+     /// The base ink field for a cell, before the optional edge blend.
+diff --git a/Sources/Aski/Algorithms/ShapeContext.swift b/Sources/Aski/Algorithms/ShapeContext.swift
+index 7d43ec0..9d7a770 100644
+--- a/Sources/Aski/Algorithms/ShapeContext.swift
++++ b/Sources/Aski/Algorithms/ShapeContext.swift
+@@ -108,6 +108,15 @@ package enum ShapeContext {
+ 
+         package func histogram60(_ pixels: [Float]) -> [Float] {
+             var histogram = [Float](repeating: 0, count: ShapeContext.dimension)
++            histogram.withUnsafeMutableBufferPointer { buffer in
++                histogram60(pixels, into: buffer)
++            }
++            return histogram
++        }
++
++        /// The accumulator must contain 60 initialized, zero-valued elements.
++        func histogram60(_ pixels: [Float], into histogram: UnsafeMutableBufferPointer<Float>) {
++            precondition(histogram.count == ShapeContext.dimension)
+             // Degenerate footprints intentionally require no pixel storage,
+             // matching the scalar entry point's early return.
+             for index in bins.indices {
+@@ -121,7 +130,6 @@ package enum ShapeContext {
+             if total > 0 {
+                 for index in 0..<ShapeContext.dimension { histogram[index] /= total }
+             }
+-            return histogram
+         }
+     }
+ }

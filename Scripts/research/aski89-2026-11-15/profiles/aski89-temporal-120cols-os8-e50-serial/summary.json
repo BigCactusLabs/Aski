@@ -1,0 +1,583 @@
+{
+  "event_counts": {
+    "VM_ALLOC": 59,
+    "VM_DEALLOC": 47,
+    "ALLOC": 779485,
+    "FREE": 776675,
+    "matched_free": 776674,
+    "nonselected_free": 105511,
+    "unmatched_free": 1
+  },
+  "sha256": "f8740ecad3bb223c8911b106f925dc823a2eec28a453cd2a545da7e403d02ac2",
+  "families": {
+    "grayscale_base": {
+      "allocations": 67200,
+      "requested_bytes": 41932800,
+      "peak_live_requested_bytes": 624,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "grayscale_cow": {
+      "allocations": 67200,
+      "requested_bytes": 41932800,
+      "peak_live_requested_bytes": 624,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "histogram": {
+      "allocations": 67200,
+      "requested_bytes": 19353600,
+      "peak_live_requested_bytes": 288,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "simd_lanes": {
+      "allocations": 67200,
+      "requested_bytes": 19353600,
+      "peak_live_requested_bytes": 288,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "sobel": {
+      "allocations": 67200,
+      "requested_bytes": 41932800,
+      "peak_live_requested_bytes": 624,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "nonselected": {
+      "allocations": 108321,
+      "requested_bytes": 433359044,
+      "peak_live_requested_bytes": 30602825,
+      "live_requested_bytes": 1647465,
+      "live_allocations": 2810
+    },
+    "other_runtime_metadata": {
+      "allocations": 4,
+      "requested_bytes": 816,
+      "peak_live_requested_bytes": 752,
+      "live_requested_bytes": 656,
+      "live_allocations": 1
+    },
+    "other_logpolar": {
+      "allocations": 134400,
+      "requested_bytes": 109132800,
+      "peak_live_requested_bytes": 1568,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    },
+    "other_score_sort": {
+      "allocations": 200760,
+      "requested_bytes": 63369600,
+      "peak_live_requested_bytes": 944,
+      "live_requested_bytes": 0,
+      "live_allocations": 0
+    }
+  },
+  "combined_tracked": {
+    "allocations": 336000,
+    "requested_bytes": 164505600,
+    "peak_live_requested_bytes": 1872,
+    "live_requested_bytes": 0,
+    "live_allocations": 0
+  },
+  "combined_peak_event": 157014,
+  "combined_peak_families": {
+    "grayscale_base": 624,
+    "grayscale_cow": 624,
+    "histogram": 0,
+    "simd_lanes": 0,
+    "sobel": 624
+  },
+  "unknown_extractor_allocations": 0,
+  "attribution_blockers": [],
+  "source_groups": {
+    "6515": {
+      "category": "grayscale_base",
+      "owner_frame": "6   AskiBenchmarks                        0x100033f14 specialized LogPolarKernel.baseInkField(cell:in:) + 80  LogPolarKernel.swift:304",
+      "example": {
+        "event": 157012,
+        "line": 3127531,
+        "stack": 6515
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6516": {
+      "category": "sobel",
+      "owner_frame": "6   AskiBenchmarks                        0x100034168 specialized LogPolarKernel.sobelMagnitude(_:width:height:) + 80  LogPolarKernel.swift:322",
+      "example": {
+        "event": 157013,
+        "line": 3127556,
+        "stack": 6516
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6517": {
+      "category": "grayscale_cow",
+      "owner_frame": "6   AskiBenchmarks                        0x1000346b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 756  LogPolarKernel.swift:274",
+      "example": {
+        "event": 157014,
+        "line": 3127582,
+        "stack": 6517
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6519": {
+      "category": "histogram",
+      "owner_frame": "6   AskiBenchmarks                        0x100034dd0 ShapeContext.Footprint.histogram60(_:) + 44  ShapeContext.swift:110",
+      "example": {
+        "event": 157016,
+        "line": 3127629,
+        "stack": 6519
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6520": {
+      "category": "simd_lanes",
+      "owner_frame": "6   AskiBenchmarks                        0x1000345b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 500  LogPolarKernel.swift:281",
+      "example": {
+        "event": 157017,
+        "line": 3127655,
+        "stack": 6520
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6524": {
+      "category": "other_runtime_metadata",
+      "owner_frame": "5   libswiftCore.dylib                    0x1b2789414 swift_getTupleTypeMetadata + 388",
+      "example": {
+        "event": 157021,
+        "line": 3127745,
+        "stack": 6524
+      },
+      "allocations": 1,
+      "unmatched_allocations": 0
+    },
+    "6526": {
+      "category": "other_runtime_metadata",
+      "owner_frame": "6   libswiftCore.dylib                    0x1b27ff990 _swift_getGenericMetadata(swift::MetadataRequest, void const* const*, swift::TargetTypeContextDescriptor<swift::InProcess> const*) + 268",
+      "example": {
+        "event": 157023,
+        "line": 3127815,
+        "stack": 6526
+      },
+      "allocations": 1,
+      "unmatched_allocations": 1
+    },
+    "6527": {
+      "category": "other_runtime_metadata",
+      "owner_frame": "6   libswiftCore.dylib                    0x1b27ff990 _swift_getGenericMetadata(swift::MetadataRequest, void const* const*, swift::TargetTypeContextDescriptor<swift::InProcess> const*) + 268",
+      "example": {
+        "event": 157024,
+        "line": 3127851,
+        "stack": 6527
+      },
+      "allocations": 1,
+      "unmatched_allocations": 0
+    },
+    "6528": {
+      "category": "other_runtime_metadata",
+      "owner_frame": "8   libswiftCore.dylib                    0x1b27ff990 _swift_getGenericMetadata(swift::MetadataRequest, void const* const*, swift::TargetTypeContextDescriptor<swift::InProcess> const*) + 268",
+      "example": {
+        "event": 157025,
+        "line": 3127887,
+        "stack": 6528
+      },
+      "allocations": 1,
+      "unmatched_allocations": 0
+    },
+    "6532": {
+      "category": "other_logpolar",
+      "owner_frame": "6   AskiBenchmarks                        0x1000347a4 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 232  LogPolarKernel.swift:156",
+      "example": {
+        "event": 157029,
+        "line": 3128025,
+        "stack": 6532
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6533": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x1000679a8 specialized UnsafeMutableBufferPointer._stableSortImpl(by:) + 112",
+      "example": {
+        "event": 157030,
+        "line": 3128050,
+        "stack": 6533
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6534": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067de0 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 652",
+      "example": {
+        "event": 157031,
+        "line": 3128077,
+        "stack": 6534
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6535": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067e00 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 684",
+      "example": {
+        "event": 157032,
+        "line": 3128105,
+        "stack": 6535
+      },
+      "allocations": 4680,
+      "unmatched_allocations": 0
+    },
+    "6540": {
+      "category": "other_logpolar",
+      "owner_frame": "5   AskiBenchmarks                        0x100034b98 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 1244  LogPolarKernel.swift:166",
+      "example": {
+        "event": 157037,
+        "line": 3128230,
+        "stack": 6540
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6620": {
+      "category": "grayscale_base",
+      "owner_frame": "6   AskiBenchmarks                        0x100033f14 specialized LogPolarKernel.baseInkField(cell:in:) + 80  LogPolarKernel.swift:304",
+      "example": {
+        "event": 252945,
+        "line": 5453357,
+        "stack": 6620
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6621": {
+      "category": "sobel",
+      "owner_frame": "6   AskiBenchmarks                        0x100034168 specialized LogPolarKernel.sobelMagnitude(_:width:height:) + 80  LogPolarKernel.swift:322",
+      "example": {
+        "event": 252946,
+        "line": 5453382,
+        "stack": 6621
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6622": {
+      "category": "grayscale_cow",
+      "owner_frame": "6   AskiBenchmarks                        0x1000346b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 756  LogPolarKernel.swift:274",
+      "example": {
+        "event": 252947,
+        "line": 5453408,
+        "stack": 6622
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6624": {
+      "category": "histogram",
+      "owner_frame": "6   AskiBenchmarks                        0x100034dd0 ShapeContext.Footprint.histogram60(_:) + 44  ShapeContext.swift:110",
+      "example": {
+        "event": 252949,
+        "line": 5453455,
+        "stack": 6624
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6625": {
+      "category": "simd_lanes",
+      "owner_frame": "6   AskiBenchmarks                        0x1000345b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 500  LogPolarKernel.swift:281",
+      "example": {
+        "event": 252950,
+        "line": 5453481,
+        "stack": 6625
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6629": {
+      "category": "other_logpolar",
+      "owner_frame": "6   AskiBenchmarks                        0x1000347a4 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 232  LogPolarKernel.swift:156",
+      "example": {
+        "event": 252954,
+        "line": 5453571,
+        "stack": 6629
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6630": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x1000679a8 specialized UnsafeMutableBufferPointer._stableSortImpl(by:) + 112",
+      "example": {
+        "event": 252955,
+        "line": 5453596,
+        "stack": 6630
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6631": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067de0 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 652",
+      "example": {
+        "event": 252956,
+        "line": 5453623,
+        "stack": 6631
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6632": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067e00 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 684",
+      "example": {
+        "event": 252957,
+        "line": 5453651,
+        "stack": 6632
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "6637": {
+      "category": "other_logpolar",
+      "owner_frame": "5   AskiBenchmarks                        0x100034b98 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 1244  LogPolarKernel.swift:166",
+      "example": {
+        "event": 252962,
+        "line": 5453776,
+        "stack": 6637
+      },
+      "allocations": 4800,
+      "unmatched_allocations": 0
+    },
+    "7017": {
+      "category": "grayscale_base",
+      "owner_frame": "6   AskiBenchmarks                        0x100033f14 specialized LogPolarKernel.baseInkField(cell:in:) + 80  LogPolarKernel.swift:304",
+      "example": {
+        "event": 354293,
+        "line": 7876607,
+        "stack": 7017
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7018": {
+      "category": "sobel",
+      "owner_frame": "6   AskiBenchmarks                        0x100034168 specialized LogPolarKernel.sobelMagnitude(_:width:height:) + 80  LogPolarKernel.swift:322",
+      "example": {
+        "event": 354294,
+        "line": 7876632,
+        "stack": 7018
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7019": {
+      "category": "grayscale_cow",
+      "owner_frame": "6   AskiBenchmarks                        0x1000346b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 756  LogPolarKernel.swift:274",
+      "example": {
+        "event": 354295,
+        "line": 7876658,
+        "stack": 7019
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7021": {
+      "category": "histogram",
+      "owner_frame": "6   AskiBenchmarks                        0x100034dd0 ShapeContext.Footprint.histogram60(_:) + 44  ShapeContext.swift:110",
+      "example": {
+        "event": 354297,
+        "line": 7876705,
+        "stack": 7021
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7022": {
+      "category": "simd_lanes",
+      "owner_frame": "6   AskiBenchmarks                        0x1000345b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 500  LogPolarKernel.swift:281",
+      "example": {
+        "event": 354298,
+        "line": 7876731,
+        "stack": 7022
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7026": {
+      "category": "other_logpolar",
+      "owner_frame": "6   AskiBenchmarks                        0x1000347a4 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 232  LogPolarKernel.swift:156",
+      "example": {
+        "event": 354302,
+        "line": 7876821,
+        "stack": 7026
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7027": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x1000679a8 specialized UnsafeMutableBufferPointer._stableSortImpl(by:) + 112",
+      "example": {
+        "event": 354303,
+        "line": 7876846,
+        "stack": 7027
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7028": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067de0 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 652",
+      "example": {
+        "event": 354304,
+        "line": 7876873,
+        "stack": 7028
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7029": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067e00 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 684",
+      "example": {
+        "event": 354305,
+        "line": 7876901,
+        "stack": 7029
+      },
+      "allocations": 28080,
+      "unmatched_allocations": 0
+    },
+    "7034": {
+      "category": "other_logpolar",
+      "owner_frame": "5   AskiBenchmarks                        0x100034b98 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 1244  LogPolarKernel.swift:166",
+      "example": {
+        "event": 354310,
+        "line": 7877026,
+        "stack": 7034
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7097": {
+      "category": "grayscale_base",
+      "owner_frame": "6   AskiBenchmarks                        0x100033f14 specialized LogPolarKernel.baseInkField(cell:in:) + 80  LogPolarKernel.swift:304",
+      "example": {
+        "event": 450201,
+        "line": 10201713,
+        "stack": 7097
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7098": {
+      "category": "sobel",
+      "owner_frame": "6   AskiBenchmarks                        0x100034168 specialized LogPolarKernel.sobelMagnitude(_:width:height:) + 80  LogPolarKernel.swift:322",
+      "example": {
+        "event": 450202,
+        "line": 10201738,
+        "stack": 7098
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7099": {
+      "category": "grayscale_cow",
+      "owner_frame": "6   AskiBenchmarks                        0x1000346b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 756  LogPolarKernel.swift:274",
+      "example": {
+        "event": 450203,
+        "line": 10201764,
+        "stack": 7099
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7101": {
+      "category": "histogram",
+      "owner_frame": "6   AskiBenchmarks                        0x100034dd0 ShapeContext.Footprint.histogram60(_:) + 44  ShapeContext.swift:110",
+      "example": {
+        "event": 450205,
+        "line": 10201811,
+        "stack": 7101
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7102": {
+      "category": "simd_lanes",
+      "owner_frame": "6   AskiBenchmarks                        0x1000345b4 specialized LogPolarKernel.extractShapeVector(cell:in:baseInkField:) + 500  LogPolarKernel.swift:281",
+      "example": {
+        "event": 450206,
+        "line": 10201837,
+        "stack": 7102
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7106": {
+      "category": "other_logpolar",
+      "owner_frame": "6   AskiBenchmarks                        0x1000347a4 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 232  LogPolarKernel.swift:156",
+      "example": {
+        "event": 450210,
+        "line": 10201927,
+        "stack": 7106
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7107": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x1000679a8 specialized UnsafeMutableBufferPointer._stableSortImpl(by:) + 112",
+      "example": {
+        "event": 450211,
+        "line": 10201952,
+        "stack": 7107
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7108": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067de0 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 652",
+      "example": {
+        "event": 450212,
+        "line": 10201979,
+        "stack": 7108
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7109": {
+      "category": "other_score_sort",
+      "owner_frame": "6   AskiBenchmarks                        0x100067e00 specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:) + 684",
+      "example": {
+        "event": 450213,
+        "line": 10202007,
+        "stack": 7109
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    },
+    "7114": {
+      "category": "other_logpolar",
+      "owner_frame": "5   AskiBenchmarks                        0x100034b98 specialized LogPolarKernel.match(fromLanes:cell:stats:in:resultLimit:) + 1244  LogPolarKernel.swift:166",
+      "example": {
+        "event": 450218,
+        "line": 10202132,
+        "stack": 7114
+      },
+      "allocations": 28800,
+      "unmatched_allocations": 0
+    }
+  },
+  "source": "<local-evidence>/aski89-profiles/control/aski89-temporal-120cols-os8-e50-serial/events.txt",
+  "arm": "control",
+  "revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321"
+}

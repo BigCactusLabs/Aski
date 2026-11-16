@@ -1671,7 +1671,7 @@
 
       ],
       "date" : "2026-11-15",
-      "next_action" : "Complete source attribution and one separately registered fresh timing series after the first series was invalidated by an unrelated native build.",
+      "next_action" : "No adoption. Preserve the rejected candidate and complete measurement evidence.",
       "path" : "docs/Research/2026-11-15-aski89-histogram-storage.md",
       "related_specs" : [
         "docs/agents/paired-benchmarks.md",
@@ -1684,11 +1684,11 @@
 
       ],
       "slug" : "2026-11-15-aski89-histogram-storage",
-      "status" : "active",
+      "status" : "complete",
       "subsystem" : [
         "shape-context"
       ],
-      "summary" : "Pre-registered evaluation of a scoped 60-float accumulator in the log-polar descriptor extractor. Adoption requires exact native parity, source-attributed removal of the intermediate heap allocation and per-workload end-to-end benefit with time and memory safeguards.",
+      "summary" : "Rejected: scoped histogram storage lowered allocation counts but failed three primary speed-benefit bars in five valid pairs. Native parity and API-floor probes passed; four control profiles attributed the temporary arrays. Production retains the owning histogram.",
       "title" : "ASKI-89 — Scoped log-polar histogram storage decision rule"
     },
     {

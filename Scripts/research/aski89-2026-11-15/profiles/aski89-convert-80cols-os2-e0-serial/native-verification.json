@@ -1,0 +1,34 @@
+{
+  "revision": "062c5c8d1ac02c58dc2a332deee8ddb9393f4321",
+  "workload": "aski89-convert-80cols-os2-e0-serial",
+  "uuid": [
+    [
+      "E77FC8CE-34F2-35D5-AB95-E07CDBBD20F7",
+      "arm64"
+    ]
+  ],
+  "release_hashes": {
+    "<control-checkout>/.build/out/Products/Release/AskiBenchmarks": "5d6f3236ff6970528366fbc11834683244ab6039f4bb98d09438376d102330fd",
+    "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib": "aa7747a74fb81c64d4e89b654f60cfae2de7b65cfb1b8e70e7614da00f9d8ef7"
+  },
+  "parser_sha256": "039049ec89751e6f0ca3d1c36ef6d9f98c4fb4b4919a04749d753be84f4de110",
+  "events_sha256": "2c8ab9ab07744f77b0af9decee57ceb00fd076cd40f78c914e0bd9baab355a04",
+  "events_bytes": 827836378,
+  "export": {
+    "pid": 16583,
+    "stop": "normal exit breakpoint",
+    "modules": [
+      {
+        "path": "<control-checkout>/.build/out/Products/Release/libMallocInterposerSwift.dylib",
+        "uuid": "1F4AEBD9-BF3B-3A0E-9CC9-4033CF95782B"
+      }
+    ],
+    "malloc_history_exit": 0
+  },
+  "process": {
+    "state": 10,
+    "exited": true,
+    "exit_status": 0
+  },
+  "free_disk_before": 21220491264
+}

@@ -1,0 +1,19 @@
+{
+  "verdict": "rejected",
+  "reason": "Three primary wall-time benefit bars fail the unchanged 5%/4-of-5 rule.",
+  "bar_counts": {
+    "pass": 139,
+    "fail": 3,
+    "inconclusive": 6
+  },
+  "study1": "inconclusive; retained and excluded, without numerical readout",
+  "study2": "five valid adjacent alternating pairs under committed registration bdb11b4be90742fbd5a68c9e5fa0dff7e16ea64f",
+  "primary_allocation_bars": "all 4 pass 5/5; allocation reduction alone does not satisfy the speed bar",
+  "not_run_after_timing_veto": [
+    "candidate allocation profiles",
+    "separate direct OS peak RSS pairs",
+    "ASKI87 compatibility capture and unchanged static/ranked budget checks"
+  ],
+  "production_change": "none; retain control",
+  "golden_or_threshold_changes": false
+}

@@ -1,0 +1,4154 @@
+{
+  "rows": [
+    {
+      "workload": "aski89-convert-120cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.329767269016802,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -21.636772484846446,
+      "maximum": 10.248902513951553,
+      "mad": 7.396180645561175,
+      "values": [
+        10.248902513951553,
+        -13.240693034239925,
+        -12.329767269016802,
+        -4.933586623455627,
+        -21.636772484846446
+      ],
+      "absolute_changes": [
+        1720320.0,
+        -2068480.0,
+        -2076672.0,
+        -851968.0,
+        -3952640.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.320121316642384,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.320121316642384,
+      "maximum": -14.320121316642384,
+      "mad": 0.0,
+      "values": [
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384
+      ],
+      "absolute_changes": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "malloc_reduction",
+      "unit": "#",
+      "limit": 0,
+      "operator": "<",
+      "median": -4816.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -4816.0,
+      "maximum": -4816.0,
+      "mad": 0.0,
+      "values": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ],
+      "absolute_changes": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.060569353027516634,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -0.301750156432519,
+      "maximum": 3.2757052471741526,
+      "mad": 0.24118080340500236,
+      "values": [
+        3.2757052471741526,
+        -0.301750156432519,
+        -0.09110233998191483,
+        -0.060569353027516634,
+        0.1825928214073589
+      ],
+      "absolute_changes": [
+        1769472.0,
+        -163840.0,
+        -49152.0,
+        -32768.0,
+        98304.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "wall_benefit",
+      "unit": "percent",
+      "limit": -5,
+      "operator": "<=",
+      "median": -1.8686603910474273,
+      "passing_pairs": 0,
+      "classification": "fail",
+      "minimum": -4.9118399991734885,
+      "maximum": 5.876069908747201,
+      "mad": 3.043179608126061,
+      "values": [
+        5.348005430568463,
+        5.876069908747201,
+        -3.857422794681262,
+        -4.9118399991734885,
+        -1.8686603910474273
+      ],
+      "absolute_changes": [
+        214016.0,
+        225280.0,
+        -161792.0,
+        -199680.0,
+        -71680.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -6.116374285929873,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -7.812916241004653,
+      "maximum": -2.3686363072585617,
+      "mad": 1.69654195507478,
+      "values": [
+        -7.812916241004653,
+        -2.3686363072585617,
+        -6.116374285929873,
+        -3.5885172121758826,
+        -6.984804961490082
+      ],
+      "absolute_changes": [
+        -602112.0,
+        -178176.0,
+        -462848.0,
+        -276480.0,
+        -536576.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.320121316642384,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.320121316642384,
+      "maximum": -14.320121316642384,
+      "mad": 0.0,
+      "values": [
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384
+      ],
+      "absolute_changes": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "malloc_reduction",
+      "unit": "#",
+      "limit": 0,
+      "operator": "<",
+      "median": -4816.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -4816.0,
+      "maximum": -4816.0,
+      "mad": 0.0,
+      "values": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ],
+      "absolute_changes": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.09193993429714013,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.951365991924926,
+      "maximum": 0.245398777600599,
+      "mad": 0.12271815006400359,
+      "values": [
+        0.245398777600599,
+        0.09188361580647193,
+        0.21465808436114373,
+        -1.951365991924926,
+        0.09193993429714013
+      ],
+      "absolute_changes": [
+        131072.0,
+        49152.0,
+        114688.0,
+        -1064960.0,
+        49152.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "wall_benefit",
+      "unit": "percent",
+      "limit": -5,
+      "operator": "<=",
+      "median": -6.175515442954604,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -7.819149951580934,
+      "maximum": -2.3446022750341684,
+      "mad": 1.64363450862633,
+      "values": [
+        -7.819149951580934,
+        -2.3446022750341684,
+        -6.175515442954604,
+        -3.592336815878316,
+        -7.041878751244961
+      ],
+      "absolute_changes": [
+        -602112.0,
+        -176128.0,
+        -466944.0,
+        -276480.0,
+        -540672.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.269373154282354,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -18.189486145739743,
+      "maximum": 2.7186375145315855,
+      "mad": 5.738975742045843,
+      "values": [
+        2.7186375145315855,
+        -12.269373154282354,
+        -18.008348896328197,
+        -18.189486145739743,
+        -7.930933850784775
+      ],
+      "absolute_changes": [
+        679936.0,
+        -3268608.0,
+        -4947968.0,
+        -5300224.0,
+        -2220032.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.111368318711081,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.111368318711081,
+      "maximum": -11.111368318711081,
+      "mad": 0.0,
+      "values": [
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.23628249262839035,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.6547930958526451,
+      "maximum": 0.7639620776155281,
+      "mad": 0.21238470910939605,
+      "values": [
+        0.7639620776155281,
+        0.4486672017377864,
+        0.23628249262839035,
+        0.10487677147382542,
+        -0.6547930958526451
+      ],
+      "absolute_changes": [
+        475136.0,
+        278528.0,
+        147456.0,
+        65536.0,
+        -409600.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.9039549685063134,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -12.199256508528707,
+      "maximum": 8.659102239628947,
+      "mad": 9.56305720813526,
+      "values": [
+        -0.9039549685063134,
+        8.659102239628947,
+        3.099511220812893,
+        -12.199256508528707,
+        -12.117134270134455
+      ],
+      "absolute_changes": [
+        -49152.0,
+        421888.0,
+        155648.0,
+        -737280.0,
+        -737280.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.7448716180683825,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.010764920353715,
+      "maximum": -0.5194805560826284,
+      "mad": 1.6036447197460293,
+      "values": [
+        -1.1412268983223532,
+        -3.711105025986726,
+        -2.7448716180683825,
+        -10.010764920353715,
+        -0.5194805560826284
+      ],
+      "absolute_changes": [
+        -163840.0,
+        -532480.0,
+        -389120.0,
+        -1523712.0,
+        -73728.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.111368318711081,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.111368318711081,
+      "maximum": -11.111368318711081,
+      "mad": 0.0,
+      "values": [
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.05324813718051341,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.7919746695718843,
+      "maximum": 0.2396804299943895,
+      "mad": 0.15963111763080645,
+      "values": [
+        0.10649627436102682,
+        0.05324813718051341,
+        -0.10638298045029304,
+        -0.7919746695718843,
+        0.2396804299943895
+      ],
+      "absolute_changes": [
+        65536.0,
+        32768.0,
+        -65536.0,
+        -491520.0,
+        147456.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-120cols-os8-e50-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.719907599548594,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.06458623712981,
+      "maximum": -0.5199307125754503,
+      "mad": 1.6065760917525762,
+      "values": [
+        -1.1133315077960177,
+        -3.7714288345025695,
+        -2.719907599548594,
+        -10.06458623712981,
+        -0.5199307125754503
+      ],
+      "absolute_changes": [
+        -159744.0,
+        -540672.0,
+        -385024.0,
+        -1531904.0,
+        -73728.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-1cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -3.9966472618713924,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -13.081987038304142,
+      "maximum": -0.4224163369518316,
+      "mad": 2.283205113190935,
+      "values": [
+        -5.866378524955263,
+        -1.7134421486804574,
+        -3.9966472618713924,
+        -13.081987038304142,
+        -0.4224163369518316
+      ],
+      "absolute_changes": [
+        -221184.0,
+        -59392.0,
+        -146432.0,
+        -529408.0,
+        -15360.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-1cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -1.7543859649122806,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.7543859649122806,
+      "maximum": -1.7543859649122806,
+      "mad": 0.0,
+      "values": [
+        -1.7543859649122806,
+        -1.7543859649122806,
+        -1.7543859649122806,
+        -1.7543859649122806,
+        -1.7543859649122806
+      ],
+      "absolute_changes": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-1cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.16103059897859187,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.448430502040367,
+      "maximum": 0.5148005249102093,
+      "mad": 0.12882447918287349,
+      "values": [
+        0.19342360148473234,
+        0.16103059897859187,
+        0.5148005249102093,
+        -0.448430502040367,
+        0.03220611979571837
+      ],
+      "absolute_changes": [
+        98304.0,
+        81920.0,
+        262144.0,
+        -229376.0,
+        16384.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-1cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -3.8946494265532587,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -13.233808938168407,
+      "maximum": -0.4512127582169936,
+      "mad": 2.1501190588291497,
+      "values": [
+        -5.935204409501241,
+        -1.744530367724109,
+        -3.8946494265532587,
+        -13.233808938168407,
+        -0.4512127582169936
+      ],
+      "absolute_changes": [
+        -223232.0,
+        -60416.0,
+        -142336.0,
+        -535552.0,
+        -16384.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -20.405278333044144,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -25.183992993815306,
+      "maximum": -11.983681981495641,
+      "mad": 4.062314605239042,
+      "values": [
+        -24.467592938283186,
+        -20.405278333044144,
+        -20.32136135168182,
+        -25.183992993815306,
+        -11.983681981495641
+      ],
+      "absolute_changes": [
+        -17317888.0,
+        -14188544.0,
+        -14090240.0,
+        -17940480.0,
+        -7700480.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.326212934532093,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.326212934532093,
+      "maximum": -14.326212934532093,
+      "mad": 0.0,
+      "values": [
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093
+      ],
+      "absolute_changes": [
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.17206768296592426,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -2.497895075065792,
+      "maximum": 0.8045977152611343,
+      "mad": 0.40165579236893,
+      "values": [
+        -2.497895075065792,
+        0.8045977152611343,
+        -0.02876870015992581,
+        0.5737234753348542,
+        0.17206768296592426
+      ],
+      "absolute_changes": [
+        -1458176.0,
+        458752.0,
+        -16384.0,
+        327680.0,
+        98304.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -16.63689924049144,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -27.150919900631195,
+      "maximum": -2.332896759923918,
+      "mad": 3.634638657030063,
+      "values": [
+        -20.271537897521505,
+        -16.63689924049144,
+        -16.021692832904165,
+        -27.150919900631195,
+        -2.332896759923918
+      ],
+      "absolute_changes": [
+        -1773568.0,
+        -1335296.0,
+        -1331200.0,
+        -2365440.0,
+        -182272.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.168304230248122,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -16.120135448296036,
+      "maximum": -1.5177066392131278,
+      "mad": 0.46624765549698033,
+      "values": [
+        -9.168304230248122,
+        -1.5177066392131278,
+        -9.160305714637033,
+        -16.120135448296036,
+        -9.634551885745102
+      ],
+      "absolute_changes": [
+        -2293760.0,
+        -368640.0,
+        -2260992.0,
+        -4308992.0,
+        -2375680.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.373338634974633,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.373338634974633,
+      "maximum": -14.373338634974633,
+      "mad": 0.0,
+      "values": [
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633
+      ],
+      "absolute_changes": [
+        -19520.0,
+        -19520.0,
+        -19520.0,
+        -19520.0,
+        -19520.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.0869313257913263,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.1165187712988542,
+      "maximum": 0.20307514139678648,
+      "mad": 0.0869313257913263,
+      "values": [
+        0.0869313257913263,
+        0.20307514139678648,
+        0.0,
+        -1.1165187712988542,
+        0.1160766126189072
+      ],
+      "absolute_changes": [
+        49152.0,
+        114688.0,
+        0.0,
+        -638976.0,
+        65536.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-240cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.196547517471922,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -16.207108449266787,
+      "maximum": -1.4517218694166585,
+      "mad": 0.41436075429614405,
+      "values": [
+        -9.138552609088102,
+        -1.4517218694166585,
+        -9.196547517471922,
+        -16.207108449266787,
+        -9.610908271768066
+      ],
+      "absolute_changes": [
+        -2285568.0,
+        -352256.0,
+        -2269184.0,
+        -4333568.0,
+        -2367488.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.826533721009708,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.740566886502645,
+      "maximum": 0.840998739900646,
+      "mad": 1.3632447918599153,
+      "values": [
+        0.840998739900646,
+        -8.581991575181618,
+        -7.826533721009708,
+        -14.740566886502645,
+        -6.463288929149793
+      ],
+      "absolute_changes": [
+        131072.0,
+        -1331200.0,
+        -1249280.0,
+        -2560000.0,
+        -1024000.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.256484720480497,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.256484720480497,
+      "maximum": -14.256484720480497,
+      "mad": 0.0,
+      "values": [
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "malloc_reduction",
+      "unit": "#",
+      "limit": 0,
+      "operator": "<",
+      "median": -2160.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -2160.0,
+      "maximum": -2160.0,
+      "mad": 0.0,
+      "values": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.09230769404123523,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.2750455609661824,
+      "maximum": 0.21551724542922684,
+      "mad": 0.1231243356069975,
+      "values": [
+        -0.12300123232084853,
+        0.21551724542922684,
+        0.03081664156576226,
+        -1.2750455609661824,
+        -0.09230769404123523
+      ],
+      "absolute_changes": [
+        -65536.0,
+        114688.0,
+        16384.0,
+        -688128.0,
+        -49152.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "wall_benefit",
+      "unit": "percent",
+      "limit": -5,
+      "operator": "<=",
+      "median": -1.747257385849862,
+      "passing_pairs": 1,
+      "classification": "fail",
+      "minimum": -9.357594609940215,
+      "maximum": 0.6102522982047915,
+      "mad": 2.357509684054653,
+      "values": [
+        0.6102522982047915,
+        -0.9090910008041508,
+        -4.952077160145053,
+        -9.357594609940215,
+        -1.747257385849862
+      ],
+      "absolute_changes": [
+        61440.0,
+        -90112.0,
+        -507904.0,
+        -1032192.0,
+        -176128.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -3.2947777092145425,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -5.5648680384211735,
+      "maximum": -0.8983112537960011,
+      "mad": 0.4552226086769231,
+      "values": [
+        -3.22692601936979,
+        -0.8983112537960011,
+        -3.7500003178914656,
+        -5.5648680384211735,
+        -3.2947777092145425
+      ],
+      "absolute_changes": [
+        -380928.0,
+        -102400.0,
+        -442368.0,
+        -679936.0,
+        -385024.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.264016377203989,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.264016377203989,
+      "maximum": -14.264016377203989,
+      "mad": 0.0,
+      "values": [
+        -14.264016377203989,
+        -14.264016377203989,
+        -14.264016377203989,
+        -14.264016377203989,
+        -14.264016377203989
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "malloc_reduction",
+      "unit": "#",
+      "limit": 0,
+      "operator": "<",
+      "median": -2160.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -2160.0,
+      "maximum": -2160.0,
+      "mad": 0.0,
+      "values": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.031026994071901157,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.9166413498577743,
+      "maximum": 1.2104283283298207,
+      "mad": 0.06205398814380232,
+      "values": [
+        1.2104283283298207,
+        0.03100775252482574,
+        0.031026994071901157,
+        -1.9166413498577743,
+        0.09308098221570348
+      ],
+      "absolute_changes": [
+        638976.0,
+        16384.0,
+        16384.0,
+        -1032192.0,
+        49152.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-80cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "wall_benefit",
+      "unit": "percent",
+      "limit": -5,
+      "operator": "<=",
+      "median": -3.297089023133418,
+      "passing_pairs": 1,
+      "classification": "fail",
+      "minimum": -5.888257423072214,
+      "maximum": -0.9349155800974017,
+      "mad": 0.4568216186747467,
+      "values": [
+        -3.231410975996767,
+        -0.9349155800974017,
+        -3.7539106418081647,
+        -5.888257423072214,
+        -3.297089023133418
+      ],
+      "absolute_changes": [
+        -380928.0,
+        -106496.0,
+        -442368.0,
+        -720896.0,
+        -385024.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-8cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.7608179675447333,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -0.23223411829901663,
+      "maximum": 3.5095932881770233,
+      "mad": 0.32562523757804573,
+      "values": [
+        -0.23223411829901663,
+        0.7608179675447333,
+        3.5095932881770233,
+        0.7561437545394182,
+        1.086443205122779
+      ],
+      "absolute_changes": [
+        -20480.0,
+        65536.0,
+        307200.0,
+        65536.0,
+        94208.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-8cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.815950920245399,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.815950920245399,
+      "maximum": -9.815950920245399,
+      "mad": 0.0,
+      "values": [
+        -9.815950920245399,
+        -9.815950920245399,
+        -9.815950920245399,
+        -9.815950920245399,
+        -9.815950920245399
+      ],
+      "absolute_changes": [
+        -16.0,
+        -16.0,
+        -16.0,
+        -16.0,
+        -16.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-8cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.06435006561377617,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.032144005773678694,
+      "maximum": 0.25723473173645084,
+      "mad": 0.03220605984009747,
+      "values": [
+        0.032144005773678694,
+        0.06435006561377617,
+        0.25723473173645084,
+        0.06439150158729728,
+        -0.032144005773678694
+      ],
+      "absolute_changes": [
+        16384.0,
+        32768.0,
+        131072.0,
+        32768.0,
+        -16384.0
+      ]
+    },
+    {
+      "workload": "aski89-convert-8cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.8518694784552517,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -0.27906979913129076,
+      "maximum": 3.561387473982832,
+      "mad": 0.33128257495482016,
+      "values": [
+        -0.27906979913129076,
+        0.6657157216016416,
+        3.561387473982832,
+        0.8518694784552517,
+        1.183152053410072
+      ],
+      "absolute_changes": [
+        -24576.0,
+        57344.0,
+        311296.0,
+        73728.0,
+        102400.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-120cols",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 2.093556442423524,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -4.284795162490424,
+      "maximum": 8.278492582080156,
+      "mad": 4.83811463813168,
+      "values": [
+        -1.648178006196144,
+        8.278492582080156,
+        2.093556442423524,
+        -4.284795162490424,
+        6.931671080555204
+      ],
+      "absolute_changes": [
+        -53248.0,
+        244736.0,
+        65536.0,
+        -136192.0,
+        216064.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-120cols",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mad": 0.0,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "absolute_changes": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-120cols",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.15323322382856688,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.030627871935490644,
+      "maximum": 0.15332720311510267,
+      "mad": 9.397928653578913e-05,
+      "values": [
+        0.03064664476571338,
+        -0.030627871935490644,
+        0.15323322382856688,
+        0.15332720311510267,
+        0.15323322382856688
+      ],
+      "absolute_changes": [
+        16384.0,
+        -16384.0,
+        81920.0,
+        81920.0,
+        81920.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-120cols",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 2.230971843400079,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -4.482426435785091,
+      "maximum": 8.217755903312153,
+      "mad": 4.773305315466877,
+      "values": [
+        -1.8095243705122677,
+        8.217755903312153,
+        2.230971843400079,
+        -4.482426435785091,
+        7.004277158866956
+      ],
+      "absolute_changes": [
+        -58368.0,
+        242688.0,
+        69632.0,
+        -142336.0,
+        218112.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-8cols",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.480112590311763,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -7.3784730040733555,
+      "maximum": 13.853429495122901,
+      "mad": 1.4201145988963564,
+      "values": [
+        -7.3784730040733555,
+        -2.480112590311763,
+        -1.6378102011492777,
+        -3.9002271892081195,
+        13.853429495122901
+      ],
+      "absolute_changes": [
+        -696320.0,
+        -217088.0,
+        -143360.0,
+        -352256.0,
+        1200128.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-8cols",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.0,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mad": 0.0,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "absolute_changes": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-8cols",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.2577319638307702,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.06443299095769255,
+      "maximum": 0.4185447603174323,
+      "mad": 0.09659757458331203,
+      "values": [
+        0.2900419006454247,
+        0.06443299095769255,
+        0.16113438924745815,
+        0.2577319638307702,
+        0.4185447603174323
+      ],
+      "absolute_changes": [
+        147456.0,
+        32768.0,
+        81920.0,
+        131072.0,
+        212992.0
+      ]
+    },
+    {
+      "workload": "aski89-dotmatrix-control-8cols",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.4367387979882538,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -7.344633547641645,
+      "maximum": 14.02179224220233,
+      "mad": 1.5088398701641461,
+      "values": [
+        -7.344633547641645,
+        -2.4367387979882538,
+        -1.6385769663123617,
+        -3.9455786681524,
+        14.02179224220233
+      ],
+      "absolute_changes": [
+        -692224.0,
+        -212992.0,
+        -143360.0,
+        -356352.0,
+        1212416.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.19459052731129,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -32.32125496097476,
+      "maximum": 21.008754716359004,
+      "mad": 14.983473796754938,
+      "values": [
+        -32.32125496097476,
+        -12.19459052731129,
+        -10.180624483888346,
+        -27.178064324066227,
+        21.008754716359004
+      ],
+      "absolute_changes": [
+        -8110080.0,
+        -2289664.0,
+        -2031616.0,
+        -6414336.0,
+        4128768.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.103143577525387,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.103143577525387,
+      "maximum": -11.103143577525387,
+      "mad": 0.0,
+      "values": [
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.06055101534839258,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -0.7233273189115117,
+      "maximum": 3.5757212194244903,
+      "mad": 0.24171043897674213,
+      "values": [
+        -0.18115942362834955,
+        -0.7233273189115117,
+        0.09068923988368559,
+        0.06055101534839258,
+        3.5757212194244903
+      ],
+      "absolute_changes": [
+        -98304.0,
+        -393216.0,
+        49152.0,
+        32768.0,
+        1949696.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.641149409658485,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -8.151701822285595,
+      "maximum": 10.09000707094328,
+      "mad": 3.51055241262711,
+      "values": [
+        -8.151701822285595,
+        -4.641149409658485,
+        -4.909681517973797,
+        0.7385526147815824,
+        10.09000707094328
+      ],
+      "absolute_changes": [
+        -382976.0,
+        -198656.0,
+        -217088.0,
+        30720.0,
+        436224.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.146227238058672,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.044743826545877,
+      "maximum": -3.624225505398512,
+      "mad": 2.4917838265218952,
+      "values": [
+        -7.146227238058672,
+        -4.654443411536777,
+        -7.331448274353779,
+        -10.044743826545877,
+        -3.624225505398512
+      ],
+      "absolute_changes": [
+        -620544.0,
+        -405504.0,
+        -636928.0,
+        -919552.0,
+        -311296.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.103143577525387,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.103143577525387,
+      "maximum": -11.103143577525387,
+      "mad": 0.0,
+      "values": [
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387,
+        -11.103143577525387
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.06116208065230494,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.9784173023839955,
+      "maximum": 0.5812175085575716,
+      "mad": 0.21420769110261492,
+      "values": [
+        -0.06116208065230494,
+        -0.09171507355482844,
+        0.15304561045030998,
+        -1.9784173023839955,
+        0.5812175085575716
+      ],
+      "absolute_changes": [
+        -32768.0,
+        -49152.0,
+        81920.0,
+        -1081344.0,
+        311296.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.112477191136402,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.098523271589693,
+      "maximum": -3.6992844406422987,
+      "mad": 2.4323261362845656,
+      "values": [
+        -7.112477191136402,
+        -4.680151054851836,
+        -7.318225583888654,
+        -10.098523271589693,
+        -3.6992844406422987
+      ],
+      "absolute_changes": [
+        -616448.0,
+        -407552.0,
+        -634880.0,
+        -923648.0,
+        -317440.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.743732853838409,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -8.246073561937376,
+      "maximum": 2.4667406599544908,
+      "mad": 0.4731942902434483,
+      "values": [
+        -8.246073561937376,
+        -7.743732853838409,
+        -8.216927144081858,
+        -7.595643933873954,
+        2.4667406599544908
+      ],
+      "absolute_changes": [
+        -2580480.0,
+        -2277376.0,
+        -2457600.0,
+        -2228224.0,
+        729088.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.091081270478607,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.091081270478607,
+      "maximum": -9.091081270478607,
+      "mad": 0.0,
+      "values": [
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.052397171390639125,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.26246719580570244,
+      "maximum": 0.10509721660920258,
+      "mad": 0.15743918988098998,
+      "values": [
+        0.10509721660920258,
+        -0.26246719580570244,
+        0.10504201849035084,
+        -0.13140604678591028,
+        -0.052397171390639125
+      ],
+      "absolute_changes": [
+        65536.0,
+        -163840.0,
+        65536.0,
+        -81920.0,
+        -32768.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.7407408746999556,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -8.706295192699546,
+      "maximum": 10.916181415269671,
+      "mad": 5.006386602576495,
+      "values": [
+        -0.7407408746999556,
+        -8.706295192699546,
+        -5.747127477276451,
+        1.5509890489797873,
+        10.916181415269671
+      ],
+      "absolute_changes": [
+        -40960.0,
+        -509952.0,
+        -317440.0,
+        81920.0,
+        573440.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.40000015625001,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -4.374337504759675,
+      "maximum": 4.294149503053232,
+      "mad": 1.1315985857061035,
+      "values": [
+        -2.40000015625001,
+        -1.3705993911902692,
+        -3.5315987419561137,
+        -4.374337504759675,
+        4.294149503053232
+      ],
+      "absolute_changes": [
+        -368640.0,
+        -208896.0,
+        -544768.0,
+        -675840.0,
+        655360.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.091081270478607,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.091081270478607,
+      "maximum": -9.091081270478607,
+      "mad": 0.0,
+      "values": [
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607,
+        -9.091081270478607
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.05319149022514652,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.0,
+      "maximum": 0.5579171185049305,
+      "mad": 2.830840398565515e-05,
+      "values": [
+        0.05319149022514652,
+        0.0,
+        0.05319149022514652,
+        0.053219798629132176,
+        0.5579171185049305
+      ],
+      "absolute_changes": [
+        32768.0,
+        0.0,
+        32768.0,
+        32768.0,
+        344064.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-120cols-os8-e50-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.4019216937300945,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -4.405520455298969,
+      "maximum": 4.19016949314816,
+      "mad": 1.210296335988144,
+      "values": [
+        -2.4019216937300945,
+        -1.3982254211787115,
+        -3.6122180297182385,
+        -4.405520455298969,
+        4.19016949314816
+      ],
+      "absolute_changes": [
+        -368640.0,
+        -212992.0,
+        -557056.0,
+        -679936.0,
+        638976.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -16.37184813685704,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -22.91302853623826,
+      "maximum": -9.863240903855045,
+      "mad": 5.138531482486087,
+      "values": [
+        -15.550935748264822,
+        -22.91302853623826,
+        -9.863240903855045,
+        -16.37184813685704,
+        -21.510379619343126
+      ],
+      "absolute_changes": [
+        -12255232.0,
+        -21495808.0,
+        -7798784.0,
+        -14254080.0,
+        -19693568.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.13559486947613,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.13559486947613,
+      "maximum": -11.13559486947613,
+      "mad": 0.0,
+      "values": [
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613
+      ],
+      "absolute_changes": [
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.11448197108970377,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.028661508096692354,
+      "maximum": 0.2864508786833498,
+      "mad": 0.11448197108970377,
+      "values": [
+        0.0,
+        -0.028661508096692354,
+        0.11448197108970377,
+        0.1719197737802723,
+        0.2864508786833498
+      ],
+      "absolute_changes": [
+        0.0,
+        -16384.0,
+        65536.0,
+        98304.0,
+        163840.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -8.708582041681675,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -15.296990941666774,
+      "maximum": -3.8530470164360695,
+      "mad": 4.392656253574627,
+      "values": [
+        -13.101238295256302,
+        -15.296990941666774,
+        -3.8530470164360695,
+        -6.784141698803786,
+        -8.708582041681675
+      ],
+      "absolute_changes": [
+        -1171456.0,
+        -1540096.0,
+        -352256.0,
+        -630784.0,
+        -839680.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -5.834273030493668,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -7.7293320904648875,
+      "maximum": -5.293276293605691,
+      "mad": 0.5409967368879762,
+      "values": [
+        -7.7293320904648875,
+        -5.404640820528068,
+        -6.616625189795247,
+        -5.293276293605691,
+        -5.834273030493668
+      ],
+      "absolute_changes": [
+        -2236416.0,
+        -1564672.0,
+        -1949696.0,
+        -1515520.0,
+        -1695744.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.13559486947613,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.13559486947613,
+      "maximum": -11.13559486947613,
+      "mad": 0.0,
+      "values": [
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613,
+        -11.13559486947613
+      ],
+      "absolute_changes": [
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.11600928279601064,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.05793742860261298,
+      "maximum": 2.204176373124202,
+      "mad": 0.05807185419339766,
+      "values": [
+        2.204176373124202,
+        0.05793742860261298,
+        0.11600928279601064,
+        0.08698173537516492,
+        0.43315045522304524
+      ],
+      "absolute_changes": [
+        1245184.0,
+        32768.0,
+        65536.0,
+        49152.0,
+        245760.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-240cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -5.837563652733564,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -7.733711315596758,
+      "maximum": -5.269186896681354,
+      "mad": 0.5683767560522099,
+      "values": [
+        -7.733711315596758,
+        -5.489530466923798,
+        -6.622148249406707,
+        -5.269186896681354,
+        -5.837563652733564
+      ],
+      "absolute_changes": [
+        -2236416.0,
+        -1589248.0,
+        -1949696.0,
+        -1507328.0,
+        -1695744.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -8.315288443070532,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.685249325223857,
+      "maximum": -5.443007402699348,
+      "mad": 1.7369748030624352,
+      "values": [
+        -11.685249325223857,
+        -5.443007402699348,
+        -9.778681659298432,
+        -6.578313640008097,
+        -8.315288443070532
+      ],
+      "absolute_changes": [
+        -2232320.0,
+        -913408.0,
+        -1773568.0,
+        -1118208.0,
+        -1572864.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.084312618668855,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.084312618668855,
+      "maximum": -11.084312618668855,
+      "mad": 0.0,
+      "values": [
+        -11.084312618668855,
+        -11.084312618668855,
+        -11.084312618668855,
+        -11.084312618668855,
+        -11.084312618668855
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.030740855172540087,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.45913683135093,
+      "maximum": 0.46012270800112315,
+      "mad": 0.30544497016949973,
+      "values": [
+        -0.33618582534203983,
+        -0.030740855172540087,
+        -0.45913683135093,
+        0.1229256322995652,
+        0.46012270800112315
+      ],
+      "absolute_changes": [
+        -180224.0,
+        -16384.0,
+        -245760.0,
+        65536.0,
+        245760.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.6446414816209405,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -6.368198207153952,
+      "maximum": 0.6430868798246112,
+      "mad": 1.2877283614455517,
+      "values": [
+        -5.667060757008955,
+        -0.6446414816209405,
+        0.6430868798246112,
+        -0.28443724885927985,
+        -6.368198207153952
+      ],
+      "absolute_changes": [
+        -589824.0,
+        -65536.0,
+        65536.0,
+        -28672.0,
+        -675840.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.247568114298116,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.980333787905236,
+      "maximum": -1.5724323800249662,
+      "mad": 0.6751357342731499,
+      "values": [
+        -7.188498963260265,
+        -1.5724323800249662,
+        -2.247568114298116,
+        -12.980333787905236,
+        -2.096010991116103
+      ],
+      "absolute_changes": [
+        -921600.0,
+        -192512.0,
+        -274432.0,
+        -1757184.0,
+        -253952.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.093420985054697,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.093420985054697,
+      "maximum": -11.093420985054697,
+      "mad": 0.0,
+      "values": [
+        -11.093420985054697,
+        -11.093420985054697,
+        -11.093420985054697,
+        -11.093420985054697,
+        -11.093420985054697
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.0309693409384387,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.7351598495907923,
+      "maximum": 2.1065675739078937,
+      "mad": 0.6153833951188836,
+      "values": [
+        -0.6463527360573224,
+        2.1065675739078937,
+        -0.0309693409384387,
+        -1.7351598495907923,
+        0.18610422188551498
+      ],
+      "absolute_changes": [
+        -344064.0,
+        1114112.0,
+        -16384.0,
+        -933888.0,
+        98304.0
+      ]
+    },
+    {
+      "workload": "aski89-ranked-80cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.315436431306073,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -13.022411623046551,
+      "maximum": -1.6398930389439463,
+      "mad": 0.6755433923621268,
+      "values": [
+        -7.163415973418885,
+        -1.6398930389439463,
+        -2.315436431306073,
+        -13.022411623046551,
+        -2.131258633398787
+      ],
+      "absolute_changes": [
+        -917504.0,
+        -200704.0,
+        -282624.0,
+        -1761280.0,
+        -258048.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -22.695036552557212,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -37.98600491328285,
+      "maximum": -3.3348774465444797,
+      "mad": 3.9925746809619724,
+      "values": [
+        -18.70246187159524,
+        -22.695036552557212,
+        -24.45719089942521,
+        -37.98600491328285,
+        -3.3348774465444797
+      ],
+      "absolute_changes": [
+        -3424256.0,
+        -4718592.0,
+        -4890624.0,
+        -8003584.0,
+        -589824.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.272546162766496,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.272546162766496,
+      "maximum": -14.272546162766496,
+      "mad": 0.0,
+      "values": [
+        -14.272546162766496,
+        -14.272546162766496,
+        -14.272546162766496,
+        -14.272546162766496,
+        -14.272546162766496
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.030184123707302356,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -3.641130271551691,
+      "maximum": 0.33333333949850075,
+      "mad": 0.3635174632058031,
+      "values": [
+        0.030138638287979656,
+        0.33333333949850075,
+        -0.6313890675096002,
+        -3.641130271551691,
+        -0.030184123707302356
+      ],
+      "absolute_changes": [
+        16384.0,
+        180224.0,
+        -344064.0,
+        -2048000.0,
+        -16384.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.939189473572771,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -22.01730908499053,
+      "maximum": 12.300090727481056,
+      "mad": 6.179177691311425,
+      "values": [
+        -17.800369398794174,
+        -14.939189473572771,
+        -8.760011782261346,
+        -22.01730908499053,
+        12.300090727481056
+      ],
+      "absolute_changes": [
+        -699392.0,
+        -578560.0,
+        -369664.0,
+        -990208.0,
+        433152.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -6.988667947230308,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -18.026567552664833,
+      "maximum": -2.2589534719021005,
+      "mad": 0.21926439990211843,
+      "values": [
+        -7.207932347132426,
+        -6.92225862087569,
+        -6.988667947230308,
+        -18.026567552664833,
+        -2.2589534719021005
+      ],
+      "absolute_changes": [
+        -550912.0,
+        -532480.0,
+        -530432.0,
+        -1556480.0,
+        -167936.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.320121316642384,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.320121316642384,
+      "maximum": -14.320121316642384,
+      "mad": 0.0,
+      "values": [
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384,
+        -14.320121316642384
+      ],
+      "absolute_changes": [
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0,
+        -4816.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.06123698828463232,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.3880507195895875,
+      "maximum": 0.06127451094972407,
+      "mad": 0.09188363305034569,
+      "values": [
+        -0.12239902309383216,
+        0.06127451094972407,
+        0.03064664476571338,
+        -1.3880507195895875,
+        -0.06123698828463232
+      ],
+      "absolute_changes": [
+        -65536.0,
+        32768.0,
+        16384.0,
+        -753664.0,
+        -32768.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.025129270531992,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -18.1451633918271,
+      "maximum": -2.2344830596017053,
+      "mad": 0.14696255272878123,
+      "values": [
+        -7.163939763353223,
+        -6.878166717803211,
+        -7.025129270531992,
+        -18.1451633918271,
+        -2.2344830596017053
+      ],
+      "absolute_changes": [
+        -546816.0,
+        -528384.0,
+        -532480.0,
+        -1566720.0,
+        -165888.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.473684530874136,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.683070166440052,
+      "maximum": -7.159287197796557,
+      "mad": 2.3143973330775793,
+      "values": [
+        -9.473684530874136,
+        -12.625139471956263,
+        -7.24928392118119,
+        -12.683070166440052,
+        -7.159287197796557
+      ],
+      "absolute_changes": [
+        -2801664.0,
+        -3719168.0,
+        -2072576.0,
+        -3547136.0,
+        -2039808.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.111368318711081,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.111368318711081,
+      "maximum": -11.111368318711081,
+      "mad": 0.0,
+      "values": [
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.15789473937819212,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.026371308441344127,
+      "maximum": 0.3659174130511831,
+      "mad": 0.13152343093684798,
+      "values": [
+        0.026371308441344127,
+        0.10515247277024121,
+        0.2900079139732872,
+        0.3659174130511831,
+        0.15789473937819212
+      ],
+      "absolute_changes": [
+        16384.0,
+        65536.0,
+        180224.0,
+        229376.0,
+        98304.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -5.4517144322312845,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.56921068943014,
+      "maximum": -1.6189762012483897,
+      "mad": 3.0454023316564993,
+      "values": [
+        -9.56921068943014,
+        -5.4517144322312845,
+        -1.6189762012483897,
+        -7.535212563134863,
+        -2.406312100574785
+      ],
+      "absolute_changes": [
+        -555008.0,
+        -286720.0,
+        -88064.0,
+        -438272.0,
+        -124928.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.341575922931299,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.805813114435395,
+      "maximum": -1.8597998437919017,
+      "mad": 2.339835137115736,
+      "values": [
+        -1.8597998437919017,
+        -2.001740785815563,
+        -4.341575922931299,
+        -10.805813114435395,
+        -4.445664403229222
+      ],
+      "absolute_changes": [
+        -266240.0,
+        -282624.0,
+        -618496.0,
+        -1675264.0,
+        -663552.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -11.111368318711081,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -11.111368318711081,
+      "maximum": -11.111368318711081,
+      "mad": 0.0,
+      "values": [
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081,
+        -11.111368318711081
+      ],
+      "absolute_changes": [
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0,
+        -4800.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.05319149022514652,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.8177262067818641,
+      "maximum": 0.15965939588739653,
+      "mad": 0.21285088611254305,
+      "values": [
+        0.15965939588739653,
+        -0.05319149022514652,
+        0.05319149022514652,
+        -0.6863780469622998,
+        -0.8177262067818641
+      ],
+      "absolute_changes": [
+        98304.0,
+        -32768.0,
+        32768.0,
+        -425984.0,
+        -507904.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-120cols-os8-e50-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.3453240462935625,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.911493438292954,
+      "maximum": -1.8327607237833186,
+      "mad": 2.3128035770076107,
+      "values": [
+        -1.8327607237833186,
+        -2.0325204692859518,
+        -4.3453240462935625,
+        -10.911493438292954,
+        -4.529234451213322
+      ],
+      "absolute_changes": [
+        -262144.0,
+        -286720.0,
+        -618496.0,
+        -1691648.0,
+        -675840.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -20.570012702724643,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -37.0759987683425,
+      "maximum": -12.242850162379396,
+      "mad": 7.7206237210216955,
+      "values": [
+        -12.242850162379396,
+        -37.0759987683425,
+        -17.66297689497234,
+        -20.570012702724643,
+        -28.29063642374634
+      ],
+      "absolute_changes": [
+        -7995392.0,
+        -28295168.0,
+        -11763712.0,
+        -13598720.0,
+        -20987904.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.326212934532093,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.326212934532093,
+      "maximum": -14.326212934532093,
+      "mad": 0.0,
+      "values": [
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093,
+        -14.326212934532093
+      ],
+      "absolute_changes": [
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0,
+        -19456.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 1.0380623020064288,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -2.0612813720920977,
+      "maximum": 3.5128131915937524,
+      "mad": 1.3189368770277228,
+      "values": [
+        1.0380623020064288,
+        3.5128131915937524,
+        0.689259058606845,
+        -2.0612813720920977,
+        2.3569991790341516
+      ],
+      "absolute_changes": [
+        589824.0,
+        1998848.0,
+        393216.0,
+        -1212416.0,
+        1343488.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.373090473524613,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -21.206411487910724,
+      "maximum": -8.079123914414852,
+      "mad": 1.7885150622087238,
+      "values": [
+        -14.373090473524613,
+        -8.079123914414852,
+        -12.584575411315889,
+        -14.8033390293666,
+        -21.206411487910724
+      ],
+      "absolute_changes": [
+        -1155072.0,
+        -694272.0,
+        -952320.0,
+        -1271808.0,
+        -1843200.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.057851605188356,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.852399081499692,
+      "maximum": -5.797101687783624,
+      "mad": 1.1896602936642902,
+      "values": [
+        -5.797101687783624,
+        -9.189723689654954,
+        -9.057851605188356,
+        -14.852399081499692,
+        -7.868191311524066
+      ],
+      "absolute_changes": [
+        -1409024.0,
+        -2285568.0,
+        -2244608.0,
+        -3956736.0,
+        -1916928.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.373338634974633,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.373338634974633,
+      "maximum": -14.373338634974633,
+      "mad": 0.0,
+      "values": [
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633,
+        -14.373338634974633
+      ],
+      "absolute_changes": [
+        -19520.0,
+        -19520.0,
+        -19520.0,
+        -19520.0,
+        -19520.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.11594203103667826,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.7074559203798632,
+      "maximum": 0.14505367242627606,
+      "mad": 0.029111641389597806,
+      "values": [
+        0.11600928279601064,
+        -0.08683068170759023,
+        0.14505367242627606,
+        -1.7074559203798632,
+        0.11594203103667826
+      ],
+      "absolute_changes": [
+        65536.0,
+        -49152.0,
+        81920.0,
+        -983040.0,
+        65536.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-240cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.066843516476645,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.861539019739297,
+      "maximum": -5.801012043214621,
+      "mad": 1.2243659138735845,
+      "values": [
+        -5.801012043214621,
+        -9.225700535810264,
+        -9.066843516476645,
+        -14.861539019739297,
+        -7.8424776026030605
+      ],
+      "absolute_changes": [
+        -1409024.0,
+        -2293760.0,
+        -2244608.0,
+        -3956736.0,
+        -1908736.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -6.651376519236519,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -20.27141750404507,
+      "maximum": -0.2426006936508212,
+      "mad": 4.512519615100911,
+      "values": [
+        -0.2426006936508212,
+        -5.793795943088723,
+        -6.651376519236519,
+        -20.27141750404507,
+        -11.16389613433743
+      ],
+      "absolute_changes": [
+        -40960.0,
+        -1040384.0,
+        -1187840.0,
+        -3915776.0,
+        -1925120.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.256484720480497,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.256484720480497,
+      "maximum": -14.256484720480497,
+      "mad": 0.0,
+      "values": [
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.09205277864941876,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.7199758916653582,
+      "maximum": 0.1845018484812728,
+      "mad": 0.27655462713069157,
+      "values": [
+        0.0614628161497826,
+        -1.6279771176858118,
+        0.1845018484812728,
+        -1.7199758916653582,
+        -0.09205277864941876
+      ],
+      "absolute_changes": [
+        32768.0,
+        -884736.0,
+        98304.0,
+        -933888.0,
+        -49152.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.6800002617187757,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.345795245490951,
+      "maximum": 1.222879802191179,
+      "mad": 1.0010484149127343,
+      "values": [
+        1.222879802191179,
+        -3.27619078089572,
+        -2.6800002617187757,
+        -9.345795245490951,
+        -1.6789518468060414
+      ],
+      "absolute_changes": [
+        126976.0,
+        -352256.0,
+        -274432.0,
+        -1024000.0,
+        -167936.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -1.8313754136534686,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -7.899104523230108,
+      "maximum": 14.715247114463965,
+      "mad": 1.4475651925426285,
+      "values": [
+        14.715247114463965,
+        -1.8313754136534686,
+        -7.899104523230108,
+        -0.38381022111083996,
+        -3.2654497181281372
+      ],
+      "absolute_changes": [
+        1703936.0,
+        -217088.0,
+        -974848.0,
+        -45056.0,
+        -380928.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.256484720480497,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -14.256484720480497,
+      "maximum": -14.256484720480497,
+      "mad": 0.0,
+      "values": [
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497,
+        -14.256484720480497
+      ],
+      "absolute_changes": [
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0,
+        -2160.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.06203474062850499,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -1.133925856331395,
+      "maximum": 2.2332506626261797,
+      "mad": 0.031046241587198486,
+      "values": [
+        2.2332506626261797,
+        0.09308098221570348,
+        -1.133925856331395,
+        0.031026994071901157,
+        0.06203474062850499
+      ],
+      "absolute_changes": [
+        1179648.0,
+        49152.0,
+        -606208.0,
+        16384.0,
+        32768.0
+      ]
+    },
+    {
+      "workload": "aski89-residual-80cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -1.7986857278216042,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -7.96812813590431,
+      "maximum": 14.806944249017578,
+      "mad": 1.4495236868842303,
+      "values": [
+        14.806944249017578,
+        -1.7986857278216042,
+        -7.96812813590431,
+        -0.3491620409373739,
+        -3.233743686990582
+      ],
+      "absolute_changes": [
+        1712128.0,
+        -212992.0,
+        -983040.0,
+        -40960.0,
+        -376832.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -16.243094287808397,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -22.986392571893365,
+      "maximum": -3.6731325729220887,
+      "mad": 6.743298284084968,
+      "values": [
+        -16.243094287808397,
+        -3.6731325729220887,
+        -19.560273386605132,
+        -6.471558283179131,
+        -22.986392571893365
+      ],
+      "absolute_changes": [
+        -7225344.0,
+        -1458176.0,
+        -8454144.0,
+        -2572288.0,
+        -10240000.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.479363552458825,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.479363552458825,
+      "maximum": -12.479363552458825,
+      "mad": 0.0,
+      "values": [
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825
+      ],
+      "absolute_changes": [
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.300884986821875,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -7.959081957530891,
+      "maximum": 29.25452978483956,
+      "mad": 4.20824196148487,
+      "values": [
+        -7.959081957530891,
+        1.9073569746629953,
+        -3.4755829767119995,
+        -2.300884986821875,
+        29.25452978483956
+      ],
+      "absolute_changes": [
+        -5226496.0,
+        1376256.0,
+        -2588672.0,
+        -1703936.0,
+        16138240.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.11297161954254,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.533913760193998,
+      "maximum": 2.68878756089375,
+      "mad": 5.420942140651459,
+      "values": [
+        -7.11297161954254,
+        2.68878756089375,
+        -12.533913760193998,
+        2.0839451181541904,
+        -11.541503461264753
+      ],
+      "absolute_changes": [
+        -557056.0,
+        192512.0,
+        -946176.0,
+        145408.0,
+        -897024.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.267390488861219,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.143918866421238,
+      "maximum": -2.196193395846761,
+      "mad": 1.9896533945462158,
+      "values": [
+        -2.196193395846761,
+        -5.943214978580419,
+        -4.267390488861219,
+        -10.143918866421238,
+        -2.277737094315003
+      ],
+      "absolute_changes": [
+        -368640.0,
+        -1011712.0,
+        -708608.0,
+        -1789952.0,
+        -380928.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.479363552458825,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.479363552458825,
+      "maximum": -12.479363552458825,
+      "mad": 0.0,
+      "values": [
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825,
+        -12.479363552458825
+      ],
+      "absolute_changes": [
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.0,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -26.40249368020488,
+      "maximum": 17.315226183556423,
+      "mad": 17.315226183556423,
+      "values": [
+        -20.821855204514506,
+        17.315226183556423,
+        0.0,
+        -26.40249368020488,
+        2.2038567801911713
+      ],
+      "absolute_changes": [
+        -14860288.0,
+        10862592.0,
+        0.0,
+        -19431424.0,
+        1572864.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.247962716004019,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.130112098785293,
+      "maximum": -2.222222354709342,
+      "mad": 1.91953120412541,
+      "values": [
+        -2.222222354709342,
+        -6.042369156280159,
+        -4.247962716004019,
+        -10.130112098785293,
+        -2.328431511878609
+      ],
+      "absolute_changes": [
+        -372736.0,
+        -1028096.0,
+        -704512.0,
+        -1785856.0,
+        -389120.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.021323277916315,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -16.621475329309746,
+      "maximum": -7.165437417635299,
+      "mad": 1.855885860281016,
+      "values": [
+        -9.021323277916315,
+        -16.621475329309746,
+        -7.165437417635299,
+        -12.493013069455843,
+        -8.996052044296516
+      ],
+      "absolute_changes": [
+        -5406720.0,
+        -10043392.0,
+        -4456448.0,
+        -7323648.0,
+        -5226496.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.986788311296515,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.986788311296515,
+      "maximum": -9.986788311296515,
+      "mad": 0.0,
+      "values": [
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515
+      ],
+      "absolute_changes": [
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.44570502982246274,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -5.1136364269706975,
+      "maximum": 11.97455140442368,
+      "mad": 4.667931397148235,
+      "values": [
+        -4.289215739745293,
+        -0.44570502982246274,
+        -5.1136364269706975,
+        11.97455140442368,
+        9.300265847573778
+      ],
+      "absolute_changes": [
+        -3440640.0,
+        -360448.0,
+        -4128768.0,
+        8634368.0,
+        6881280.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -3.8076926652355643,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -6.648732368649376,
+      "maximum": 14.512196562201927,
+      "mad": 2.6882247757137097,
+      "values": [
+        -3.8076926652355643,
+        14.512196562201927,
+        -6.495917440949274,
+        -6.648732368649376,
+        -2.8298129497298934
+      ],
+      "absolute_changes": [
+        -405504.0,
+        1462272.0,
+        -716800.0,
+        -708608.0,
+        -290816.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.4290393822362435,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -3.800217281187218,
+      "maximum": -0.466136566191784,
+      "mad": 1.1413681062947545,
+      "values": [
+        -2.4290393822362435,
+        -1.287671275941489,
+        -3.800217281187218,
+        -2.53061232895582,
+        -0.466136566191784
+      ],
+      "absolute_changes": [
+        -729088.0,
+        -385024.0,
+        -1146880.0,
+        -761856.0,
+        -139264.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -9.986788311296515,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.986788311296515,
+      "maximum": -9.986788311296515,
+      "mad": 0.0,
+      "values": [
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515,
+        -9.986788311296515
+      ],
+      "absolute_changes": [
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0,
+        -9600.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.08230452778260694,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.0,
+      "maximum": 0.865265771077798,
+      "mad": 0.04120309007212891,
+      "values": [
+        0.0,
+        0.041169205951578615,
+        0.08230452778260694,
+        0.12350761785473585,
+        0.865265771077798
+      ],
+      "absolute_changes": [
+        0.0,
+        32768.0,
+        65536.0,
+        98304.0,
+        688128.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-120cols-os8-e50-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.457673484437185,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -3.8033144428882864,
+      "maximum": -0.4938271770319994,
+      "mad": 1.1963627759182398,
+      "values": [
+        -2.457673484437185,
+        -1.261310708518945,
+        -3.8033144428882864,
+        -2.5326798227573577,
+        -0.4938271770319994
+      ],
+      "absolute_changes": [
+        -737280.0,
+        -376832.0,
+        -1146880.0,
+        -761856.0,
+        -147456.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -21.94230782108194,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -25.533130384464833,
+      "maximum": -16.096579575699923,
+      "mad": 3.5908225633828934,
+      "values": [
+        -21.94230782108194,
+        -16.096579575699923,
+        -22.388664105920608,
+        -25.533130384464833,
+        -17.602591908680015
+      ],
+      "absolute_changes": [
+        -37388288.0,
+        -26214400.0,
+        -36241408.0,
+        -43941888.0,
+        -26705920.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.510328286806478,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.510328286806478,
+      "maximum": -12.510328286806478,
+      "mad": 0.0,
+      "values": [
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478
+      ],
+      "absolute_changes": [
+        -38912.0,
+        -38912.0,
+        -38912.0,
+        -38912.0,
+        -38912.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -0.08382229780304004,
+      "passing_pairs": 3,
+      "classification": "inconclusive",
+      "minimum": -8.340630584297656,
+      "maximum": 29.306122935701712,
+      "mad": 8.256808286494616,
+      "values": [
+        29.306122935701712,
+        11.548494357330842,
+        -0.08382229780304004,
+        -1.1301800060654486,
+        -8.340630584297656
+      ],
+      "absolute_changes": [
+        17645568.0,
+        7979008.0,
+        -65536.0,
+        -884736.0,
+        -6242304.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -14.818224486362308,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -22.442317257092157,
+      "maximum": -7.526116295686309,
+      "mad": 3.9874388991465164,
+      "values": [
+        -14.818224486362308,
+        -7.526116295686309,
+        -16.43646501215673,
+        -22.442317257092157,
+        -10.830785587215791
+      ],
+      "absolute_changes": [
+        -2637824.0,
+        -1298432.0,
+        -2924544.0,
+        -4222976.0,
+        -1740800.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.303851767700922,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.773026496034364,
+      "maximum": -5.517241476076349,
+      "mad": 1.654296176986409,
+      "values": [
+        -8.841985322211054,
+        -5.649555590714513,
+        -7.303851767700922,
+        -10.773026496034364,
+        -5.517241476076349
+      ],
+      "absolute_changes": [
+        -5079040.0,
+        -3227648.0,
+        -4194304.0,
+        -6438912.0,
+        -3145728.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.510328286806478,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.510328286806478,
+      "maximum": -12.510328286806478,
+      "mad": 0.0,
+      "values": [
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478,
+        -12.510328286806478
+      ],
+      "absolute_changes": [
+        -38912.0,
+        -38912.0,
+        -38912.0,
+        -38912.0,
+        -38912.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -2.319696360519407,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -2.732240472207382,
+      "maximum": 0.08650519145325646,
+      "mad": 0.4125441116879749,
+      "values": [
+        -0.17271157395109626,
+        0.08650519145325646,
+        -2.732240472207382,
+        -2.732240472207382,
+        -2.319696360519407
+      ],
+      "absolute_changes": [
+        -131072.0,
+        65536.0,
+        -2129920.0,
+        -2129920.0,
+        -1802240.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-240cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -7.334475013601835,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -10.751508682452005,
+      "maximum": -5.491661971013355,
+      "mad": 1.68167721015294,
+      "values": [
+        -8.789954491009203,
+        -5.652797803448895,
+        -7.334475013601835,
+        -10.751508682452005,
+        -5.491661971013355
+      ],
+      "absolute_changes": [
+        -5046272.0,
+        -3227648.0,
+        -4210688.0,
+        -6422528.0,
+        -3129344.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-parallel",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -5.074476298773771,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -9.31734343574055,
+      "maximum": 1.2655024435536013,
+      "mad": 4.24286713696678,
+      "values": [
+        -5.074476298773771,
+        -9.080019431816197,
+        0.0,
+        -9.31734343574055,
+        1.2655024435536013
+      ],
+      "absolute_changes": [
+        -1646592.0,
+        -3104768.0,
+        0.0,
+        -3309568.0,
+        409600.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-parallel",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.454233574538012,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.454233574538012,
+      "maximum": -12.454233574538012,
+      "mad": 0.0,
+      "values": [
+        -12.454233574538012,
+        -12.454233574538012,
+        -12.454233574538012,
+        -12.454233574538012,
+        -12.454233574538012
+      ],
+      "absolute_changes": [
+        -4320.0,
+        -4320.0,
+        -4320.0,
+        -4320.0,
+        -4320.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-parallel",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.41647386057833113,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -0.6306306392996937,
+      "maximum": 1.8518518780157567,
+      "mad": 1.0471044998780248,
+      "values": [
+        0.41647386057833113,
+        1.7980636490883115,
+        -0.2752293616510704,
+        -0.6306306392996937,
+        1.8518518780157567
+      ],
+      "absolute_changes": [
+        294912.0,
+        1277952.0,
+        -196608.0,
+        -458752.0,
+        1310720.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-parallel",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -4.47700469943401,
+      "passing_pairs": 4,
+      "classification": "pass",
+      "minimum": -8.011050109673004,
+      "maximum": 3.2677002090025913,
+      "mad": 2.6715060451878943,
+      "values": [
+        -4.47700469943401,
+        -1.805498654246116,
+        -5.157131599328229,
+        -8.011050109673004,
+        3.2677002090025913
+      ],
+      "absolute_changes": [
+        -901120.0,
+        -360448.0,
+        -1048576.0,
+        -1662976.0,
+        638976.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-serial",
+      "metric": "cpuTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -1.9377163448227128,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -6.6887419922174915,
+      "maximum": -0.13731548807488655,
+      "mad": 0.2450960988448243,
+      "values": [
+        -2.0500348333038194,
+        -1.9377163448227128,
+        -1.6926202459778885,
+        -6.6887419922174915,
+        -0.13731548807488655
+      ],
+      "absolute_changes": [
+        -483328.0,
+        -458752.0,
+        -409600.0,
+        -1654784.0,
+        -32768.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-serial",
+      "metric": "mallocCountTotal",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -12.500360365554819,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -12.500360365554819,
+      "maximum": -12.500360365554819,
+      "mad": 0.0,
+      "values": [
+        -12.500360365554819,
+        -12.500360365554819,
+        -12.500360365554819,
+        -12.500360365554819,
+        -12.500360365554819
+      ],
+      "absolute_changes": [
+        -4336.0,
+        -4336.0,
+        -4336.0,
+        -4336.0,
+        -4336.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-serial",
+      "metric": "peakMemoryResident",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": 0.09302325713434628,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": 0.0,
+      "maximum": 1.2093023427465017,
+      "mad": 0.09302325713434628,
+      "values": [
+        0.04653327194978258,
+        0.0,
+        1.2093023427465017,
+        0.09302325713434628,
+        0.18621974193807053
+      ],
+      "absolute_changes": [
+        32768.0,
+        0.0,
+        851968.0,
+        65536.0,
+        131072.0
+      ]
+    },
+    {
+      "workload": "aski89-temporal-80cols-os2-e0-serial",
+      "metric": "wallClock",
+      "bar": "no_harm",
+      "unit": "percent",
+      "limit": 3,
+      "operator": "<=",
+      "median": -1.9050918713388154,
+      "passing_pairs": 5,
+      "classification": "pass",
+      "minimum": -6.602521833434606,
+      "maximum": -0.1374098305646379,
+      "mad": 0.2452002037834311,
+      "values": [
+        -2.051460448686515,
+        -1.9050918713388154,
+        -1.6598916675553843,
+        -6.602521833434606,
+        -0.1374098305646379
+      ],
+      "absolute_changes": [
+        -483328.0,
+        -450560.0,
+        -401408.0,
+        -1630208.0,
+        -32768.0
+      ]
+    }
+  ],
+  "counts": {
+    "pass": 139,
+    "fail": 3,
+    "inconclusive": 6
+  },
+  "adoption_verdict": "not_assigned"
+}

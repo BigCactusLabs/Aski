@@ -2,14 +2,25 @@
 title: "ASKI-89 — Scoped log-polar histogram storage decision rule"
 slug: "2026-11-15-aski89-histogram-storage"
 date: "2026-11-15"
-status: "active"
+status: "complete"
 subsystem: ["shape-context"]
-summary: "Pre-registered evaluation of a scoped 60-float accumulator in the log-polar descriptor extractor. Adoption requires exact native parity, source-attributed removal of the intermediate heap allocation and per-workload end-to-end benefit with time and memory safeguards."
-next_action: "Complete source attribution and one separately registered fresh timing series after the first series was invalidated by an unrelated native build."
+summary: "Rejected: scoped histogram storage lowered allocation counts but failed three primary speed-benefit bars in five valid pairs. Native parity and API-floor probes passed; four control profiles attributed the temporary arrays. Production retains the owning histogram."
+next_action: "No adoption. Preserve the rejected candidate and complete measurement evidence."
 related_specs: ["docs/agents/paired-benchmarks.md", "docs/benchmark-validation.md"]
 ---
 
 ## Control and treatment
+
+**Outcome:** rejected. The fresh study completed all five valid pairs. Three
+primary wall-benefit bars fail, one is inconclusive, and all four primary
+allocation-reduction bars pass. The full readout has 139 passing, three failing
+and six inconclusive bars. Four formal control profiles matched all 717,360
+target allocation lifetimes, with no unknown extractor sites or open target
+generations. Candidate source profiles, separate OS RSS pairs and compatibility
+budgets did not run after the timing veto. No production or golden change was
+adopted. The [result packet](../../Scripts/research/aski89-2026-11-15/README.md)
+retains the complete numerical readout, source replay and profile evidence.
+The registered study history and decision rule follow.
 
 Study 1 is **inconclusive**. Both arms qualified, but an unrelated native build
 overlapped its first pair. Nine of 14 host observations detected that work, starting
