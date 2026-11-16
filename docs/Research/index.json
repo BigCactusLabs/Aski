@@ -1665,6 +1665,31 @@
       ],
       "summary" : "Aski keeps the ASCIICharacterSet arrays as the expert contract for supplying precomputed glyph data. RasterizedCharacterSet remains the font and glyph input path. ShapeQueryPolarity joins its setting behind AskiResearch SPI.",
       "title" : "ASKI-76 — character set extension boundary"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-15",
+      "next_action" : "Run native parity and five release pairs if parity passes.",
+      "path" : "docs/Research/2026-11-15-aski94-completed-original-fallback.md",
+      "related_specs" : [
+        "docs/agents/paired-benchmarks.md",
+        "docs/benchmark-validation.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-15-aski94-completed-original-fallback",
+      "status" : "active",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Register an exact-parity test and paired render benchmark for drawing the grounded original-image fallback once through the populated-cell clip.",
+      "title" : "ASKI-94 completed original-image fallback rule"
     }
   ],
   "results" : [

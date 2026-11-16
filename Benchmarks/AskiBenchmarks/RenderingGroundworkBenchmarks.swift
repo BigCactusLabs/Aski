@@ -46,13 +46,15 @@ func addRenderingGroundworkBenchmarks() {
         }
     }
 
+    var maskConfiguration = configuration
+    maskConfiguration.units = [.mallocCountTotal: .count, .peakMemoryResident: .count]
     let sizingCases: [(String, BackgroundSizing)] = [("fill", .fill), ("fit", .fit), ("stretch", .stretch)]
     // 18 original-image + 9 other-fallback controls = 27 ASKI-94 identities.
     for columns in [80, 160, 320] {
         for (name, sizing) in sizingCases {
             for grounded in [false, true] {
                 let branch = grounded ? "grounded" : "overlay"
-                Benchmark("aski94-original-\(name)-\(branch)-\(columns)cols", configuration: configuration) { benchmark in
+                Benchmark("aski94-original-\(name)-\(branch)-\(columns)cols", configuration: maskConfiguration) { benchmark in
                     let source = makeGradient(width: 800, height: 600)
                     let grid = groundworkGrid(columns: columns, fallback: .originalImage(source, sizing: sizing), grounded: grounded)
                     let font = ASCIIFont.system(size: 10)
@@ -66,7 +68,7 @@ func addRenderingGroundworkBenchmarks() {
             }
         }
         for name in ["transparent", "solid", "character"] {
-            Benchmark("aski94-control-\(name)-\(columns)cols", configuration: configuration) { benchmark in
+            Benchmark("aski94-control-\(name)-\(columns)cols", configuration: maskConfiguration) { benchmark in
                 let fallback: MaskFallback
                 switch name {
                 case "solid": fallback = .solid(CGColor(gray: 0.4, alpha: 1))

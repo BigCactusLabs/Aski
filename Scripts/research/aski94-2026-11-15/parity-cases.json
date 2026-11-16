@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "axes": ["shape", "sizing", "edges", "gamut", "composition", "ground", "route", "aspect", "source", "canvas"],
+  "profiles": [
+    {
+      "shape": ["rect", "ragged"],
+      "sizing": ["fill", "fit", "stretch"],
+      "edges": ["hard", "soft"],
+      "gamut": ["sRGB", "p3"],
+      "composition": ["encoded", "linear"],
+      "ground": ["none", "clear", "partial"],
+      "route": ["scale1", "scale125", "width97", "direct97"],
+      "aspect": ["legacy", "source"],
+      "source": ["partialSRGB"],
+      "canvas": ["partial"]
+    },
+    {
+      "shape": ["ragged"],
+      "sizing": ["fill", "fit", "stretch"],
+      "edges": ["hard"],
+      "gamut": ["sRGB"],
+      "composition": ["encoded"],
+      "ground": ["opaque"],
+      "route": ["scale125"],
+      "aspect": ["legacy"],
+      "source": ["opaqueSRGB"],
+      "canvas": ["opaque", "clear"]
+    },
+    {
+      "shape": ["single", "empty", "ragged"],
+      "sizing": ["stretch"],
+      "edges": ["soft"],
+      "gamut": ["sRGB"],
+      "composition": ["encoded"],
+      "ground": ["partial"],
+      "route": ["width97"],
+      "aspect": ["source"],
+      "source": ["partialP3"],
+      "canvas": ["clear"]
+    }
+  ]
+}
