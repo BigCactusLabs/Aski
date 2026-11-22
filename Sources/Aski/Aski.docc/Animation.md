@@ -34,6 +34,24 @@ Mask coverage is preserved on every synthesized frame. Renderers remain responsi
 
 To apply an ongoing pattern's alpha modulation to an arbitrary grid — for example, overlaying a pulse or wave on each video frame at its presentation time — use ``ASCIIGrid/applyingOngoingPattern(_:at:)``. It is a pure function of `(pattern, time)`, so feeding each frame its own timestamp keeps the global phase coherent across frames.
 
+## Frame sampling and memory
+
+`grid(at:)` samples lazily. Negative or non-finite times resolve to zero; finite
+times beyond `duration` remain sampleable, so ongoing patterns and cycling can
+continue after the entrance finishes. The same animation and time reproduce the
+same grid; raster output still depends on the font, render path, and host.
+
+`materialize(frameRate:)` allocates a full grid for every cadence step and includes
+the duration endpoint. It requires a positive frame rate and at most
+``AnimatedASCIIGrid/maxMaterializedFrameCount`` frames (10,000), rejecting an
+oversized request rather than truncating it. Prefer `grid(at:)` when a preview or
+encoder can consume frames individually.
+
+The `AnimatedASCIIGrid.renderImage(at:...)` convenience uses the default glyph-cell
+aspect. To use `preserveSourceAspect: true` or `targetPixelWidth:`, sample a grid and
+call its renderer directly; see <doc:Rendering> and <doc:Duotone>. To convert a
+changing source clip rather than animate one image, use <doc:Video>.
+
 ## Topics
 
 ### Creating Animations

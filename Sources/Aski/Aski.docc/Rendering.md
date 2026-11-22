@@ -50,7 +50,7 @@ let rendered = grid.renderImage(
 ```
 
 - `font` is an ``ASCIIFont`` — a monospaced font whose point size sets the glyph cell: cells are `pointSize * 0.6` wide and `pointSize * 1.2` tall by default.
-- `preserveSourceAspect: true` makes cells as tall as the `.wide` source-sampling ratio instead, so the rendered image reproduces the source image's aspect ratio. The default `false` keeps the historical 2.0 glyph aspect (all existing PNG snapshot baselines depend on it).
+- `preserveSourceAspect: true` uses the `.wide` source-sampling ratio of 2.2 for cell height over width, matching the default converter and CLI up to grid/pixel rounding. The grid does not retain its original source dimensions or sampling shape, so this flag does not infer `.square` or `.tall` geometry. The default `false` uses a 2.0 glyph aspect.
 - Braille cells (U+2800–U+28FF) are rasterized programmatically — no braille-capable font needs to be bundled.
 - Mask fallbacks draw as an underlay: `.solid`, `.originalImage` (with `stretch`/`fill`/`fit` sizing), and `.character` fallbacks are painted per cell at inverse-coverage alpha before the visible glyphs.
 
@@ -106,7 +106,12 @@ does not change defaults or saved render baselines.
 
 ### Exact pixel width
 
-For monochrome monospaced fonts, the effective pixel size is `pointSize × scale` and nothing else; doubling the font size and doubling `scale` are the same operation. This was measured 2026-09-01 on the bundled Courier Prime and on Menlo at six size-times-scale ratios, 0 differing bytes; see the issue #33 research note.
+For the measured monochrome monospaced fonts, effective pixel size follows
+`pointSize × scale`: equal products produced equal pixels in the recorded Courier
+Prime and Menlo comparison. The
+[font-size study](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-09-01-issue33-target-size-render-and-lossless-webp.md)
+records the six comparisons and host. This does not establish equivalence for every
+font or raster environment.
 
 ``ASCIIGrid/renderImage(font:backgroundColor:targetPixelWidth:preserveSourceAspect:)`` sets the pixel width directly and derives the scale as `targetPixelWidth / (columns × pointSize × 0.6)`. The height follows the grid's glyph geometry; the width is never rounded.
 

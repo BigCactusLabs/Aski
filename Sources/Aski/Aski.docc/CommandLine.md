@@ -98,9 +98,10 @@ silently written as the library's 1×1 fallback image.
 
 Use `xcrun swift run aski render --help` for accepted character sets, colors, and bounds.
 The CLI does not expose every converter policy or effect; use the Swift API for those.
-Under the default `--algorithm logPolar`, `--charset` `minimal`, `dots`, `diagonal`,
-`cross` and `diamond` render every cell as a space; pass `--algorithm dotMatrix` for
-those sets (see <doc:Algorithms>).
+In the measured default `logPolar` sampling regime, `minimal`, `dots`, `diagonal`,
+`cross`, and `diamond` render all-blank grids. Use `--algorithm dotMatrix` when glyph
+choice should carry the image with those sets; small-source and footprint limitations
+are described in <doc:Algorithms>.
 
 ## Let a photograph dissolve into type
 
@@ -129,9 +130,10 @@ where coverage below 0.5 becomes spaces. Full semantics: <doc:Masking>.
 ## Inspect and record
 
 `inspect` uses the same source-thumbnail and conversion path as `render`, without
-writing render artifacts. Both decode the file, after its EXIF orientation, at the size
-the converter samples it at, which gives each column two source pixels across;
-the report's normalized pixel width and height are that decoded size. Its default is a
+writing render artifacts. Both apply EXIF orientation and derive the thumbnail budget
+from the converter's default `oversample: 2`; small sources are not upscaled. The
+report's normalized pixel width and height describe that decoded thumbnail, not the
+original file dimensions or output PNG size. Its default is a
 human-readable report:
 
 ```bash
@@ -179,7 +181,10 @@ xcrun swift build -c release --product aski
 
 This does not install a global command. No Homebrew formula or prebuilt download is
 required by these instructions. `--version` reports a checkout Git SHA, or `unknown`
-when unavailable; it is not a semantic-version release string.
+when unavailable. It describes Git HEAD in the invocation's working directory, not
+the revision that built the executable or a semantic-version release string. For a
+relocatable package with recorded build identity, see the repository's
+[distribution guide](https://github.com/BigCactusLabs/Aski/blob/main/docs/guides/distribution.md).
 
 ## Explore the lab
 
@@ -208,7 +213,7 @@ completion setup; generating it alone does not enable completion.
 
 | Symptom | Check |
 | --- | --- |
-| Toolchain or Apple-framework build error | Confirm full Xcode is selected with `xcode-select -p`, then check `xcrun swift --version`; contributors can run `just doctor`. |
+| Toolchain or Apple-framework build error | Confirm full Xcode is selected with `xcode-select -p`, then check `xcrun swift --version`; contributors can run `just doctor --check toolchain`. |
 | Missing or unreadable image | Check the path, quoting, permissions, and whether ImageIO can decode the file. |
 | Plain-text output has no color | Expected: use `--render-png` or the library's attributed-string renderer. |
 | PNG size is surprising | Use `--width` with `--render-png`; columns control the grid, not pixels. |

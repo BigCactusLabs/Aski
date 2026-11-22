@@ -1,5 +1,11 @@
 # Rendering task groundwork: ASKI-91, ASKI-94, ASKI-95
 
+**Start with the disposition.** ASKI-91's pulse arm is adopted, ASKI-94's
+single-draw arm is rejected, and ASKI-95 still needs measurement. The proposals
+and original verification below preserve each study's contracts; they do not
+restart closed work. For the wider batch, use
+[research navigation](research.md#performance-groundwork-decisions-already-made).
+
 Initially prepared 2026-10-27 against PR #11, commit
 `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`. This is an independent sibling of the
 ASKI-93 video candidate, not a stack of unmeasured optimizations. The original
@@ -149,6 +155,10 @@ CPU-generated raster in this code. No cache is introduced by this groundwork.
 
 ## Native verification and measurement
 
+The commands below are useful for regression checks and instrument discovery.
+ASKI-91 and ASKI-94 have completed the decisions above. A replay uses the recorded
+study revisions; any new optimization starts from a newly frozen control and rule.
+
 On the recorded Mac, use the normal single build before focused checks, then the
 full repository gate. Formatting and parsing alone do not type-check Apple APIs.
 
@@ -178,8 +188,8 @@ inventory must match. These counts initially came from registration source;
 the 24 ASKI-91 identities now have complete native captures, while the 27
 ASKI-94 identities have one control baseline. ASKI-94 candidate comparison was
 vetoed by exact pixel mismatch before any timed pair.
-Start both arms from the same groundwork commit, then alter only the intended
-production code in the candidate. Keep fixtures and instruments byte-identical.
+For a new comparison, start both arms from the same frozen base, then alter only
+the intended production code in the candidate. Keep fixtures and instruments byte-identical.
 Use the [paired readout](paired-benchmarks.md) for at least five adjacent,
 order-alternated complete pairs on the same quiet host/toolchain/backend. Report
 wall, CPU, allocations, all pairs and noise. Peak RSS is whole-process, including

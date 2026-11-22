@@ -2,13 +2,17 @@
 
 `Scripts/research/compare-benchmarks.py` reads complete ASKI-86 captures and produces
 a per-workload comparison across repeated control/candidate pairs. It runs with
-Python 3.8+ and the standard library; it does not build or run Aski. This is
-groundwork for ASKI-5 and the open performance experiments, not a new budget gate.
+Python 3.8+ and the standard library; it does not build or run Aski. It validates
+and compares evidence; it does not enforce the package's numeric budgets or
+decide adoption.
 
-The capture producer is in [PR #7](https://github.com/BigCactusLabs/Aski/pull/7).
-Use its [capture guide](https://github.com/BigCactusLabs/Aski/blob/5493edb992ab57ee2c4a5e16e9ef8106068ab96e/docs/benchmark-validation.md)
-on the experiment worktrees. This reader can run from a separate checkout, so it
-does not need to be copied into or committed onto each measured candidate.
+The capture producer is the checked-in
+[`Scripts/validate-benchmarks.py`](../../Scripts/validate-benchmarks.py), invoked
+by `just bench`. Follow the [current capture guide](../benchmark-validation.md),
+and freeze identical instrument versions in both experiment worktrees. The
+reader can run from a separate checkout, so it does not need to be copied into
+or committed onto each measured candidate. For closed and pending studies, use
+the [research decision map](research.md#performance-groundwork-decisions-already-made).
 
 ## Prepare the comparison before running it
 
@@ -111,7 +115,7 @@ match across runs for each workload/metric; they are not silently converted.
 The reviewed producer forces nanoseconds for time. Optional omissions remain
 visible. `adoption_verdict` and `budget_verdict` always remain `not_evaluated`.
 
-PR #7 does not record a physical host identifier, so its captures require the
+The original ASKI-86 captures do not record a physical host identifier, so they require the
 explicit host attestation above. A later report may provide a consistent
 `identity.host_id`; the reader labels which basis it used. Neither a handwritten
 timestamp nor a host label independently proves preregistration or machine
@@ -121,18 +125,12 @@ remains: a hash cannot recover sample rows that never reached disk.
 
 ## Current experiments and next actions
 
-Status checked on 2026-10-27. Existing PR descriptions contain the detailed rules.
-
-| Task | Existing work | Next acceptance work |
-| --- | --- | --- |
-| ASKI-86 | [PR #7](https://github.com/BigCactusLabs/Aski/pull/7), complete-capture validator | Genuine native setup/execution failure probe and allocator provenance review. |
-| ASKI-87 | [PR #8](https://github.com/BigCactusLabs/Aski/pull/8), [2026-11-12 native replay](../benchmark-validation.md#native-replay-result--2026-11-12) | Adopted by explicit maintainer exception. Full 52-case five-pair replay completed in 10m42s; seven primary benefit cases pass, one improves 2.10%. All regression guards pass; the registered per-case benefit rule remains unmet. |
-| ASKI-90 | [PR #9](https://github.com/BigCactusLabs/Aski/pull/9), reported native parity | Add the missing standalone setup measurement/profile; compare all 70 end-to-end workloads. |
-| ASKI-92 | [PR #10](https://github.com/BigCactusLabs/Aski/pull/10), candidate awaiting native checks | Native palette/tile parity, then 66 end-to-end workloads and the separate 120 phase probes; measure sample-buffer/Wu-table lifetime overlap. |
-| ASKI-93 | [Early-selection candidate and measurement plan](../../Scripts/research/video-frame-selection.md) | Native identity/pixel/cancellation and image-lifetime checks, then five pairs of all nine video workloads with shared cached source bytes and wall/CPU/allocation/peak-RSS evidence. |
-
-None of those performance tasks is completed by this readout tool. ASKI-5's
-representative budget selection and gate placement remain separate work.
+The earlier October work-order table is superseded by the
+[research decision map](research.md#performance-groundwork-decisions-already-made).
+ASKI-86–94 have recorded outcomes, including rejected candidates; ASKI-95 still
+needs its native measurement work. Read the [current task](backlog.md) and the
+linked study before starting another run. ASKI-5's representative budget selection
+and gate placement remain separate work.
 
 ## Verification and sources
 

@@ -1,32 +1,53 @@
 # Video & GIF
 
-Convert MP4 clips and animated GIFs to ASCII and re-encode them, streaming every stage.
+Convert MP4 clips and animated GIFs to ASCII, preserving timing and choosing an export path.
 
 ## Overview
 
-Aski's video layer decodes a clip frame by frame, converts each frame to an ``ASCIIGrid`` with an ``ASCIIConverter``, renders the grid to an image, and encodes the result — all as a streaming pipeline, so memory stays bounded regardless of clip length. Two one-shot carriers wrap the whole round-trip; the decoder and encoder halves are also exposed for custom pipelines.
+Aski decodes source frames, converts them to ``ASCIIGrid`` values, renders them, and
+encodes the result. The MP4 path streams through bounded frame queues. GIF decoding
+is frame-by-frame, but ``convertGIF(at:to:using:columns:font:backgroundColor:scale:loopCount:targetFPS:maximumFrameCount:)``
+collects rendered images before batch encoding; its memory use grows with output
+frame count and image size. The decoder and encoder halves are also exposed for
+custom pipelines.
 
 The converter's generic parameters (`<C, P>`) are confined to the one-shot functions — the decode and encode halves never carry them.
 
 ## One-shot round-trips
 
-``convertVideo(at:to:using:columns:font:backgroundColor:scale:export:targetFPS:pattern:effects:)`` decodes an MP4, converts and renders each frame, and encodes a new MP4. ``convertGIF(at:to:using:columns:font:backgroundColor:scale:loopCount:targetFPS:maximumFrameCount:)`` does the same for animated GIFs.
+``convertVideo(at:to:using:columns:font:backgroundColor:scale:export:targetFPS:pattern:effects:)``
+exports MP4 through the streaming path. The GIF counterpart returns a
+``GIFEncodeReport`` after its batch write.
 
 ```swift
 import Aski
+import CoreGraphics
 
+// sourceURL and outputURL are file URLs supplied by the caller.
 let report = try await convertVideo(
     at: sourceURL,
     to: outputURL,
     using: DefaultConverter(),
     columns: 80,
-    font: bundledFont,           // an ASCIIFont
-    backgroundColor: .black,
-    scale: 12
+    font: .courierPrime(size: 12),
+    backgroundColor: CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1),
+    scale: 2
 )
 ```
 
-`targetFPS` resamples to a constant frame rate; omit it to preserve the source cadence. For GIFs, `loopCount: nil` preserves the source's reported loop value (once stays once, infinite stays infinite), and `maximumFrameCount` (default 10,000) rejects oversized inputs before any decode work.
+`targetFPS` resamples to a constant frame rate; omit it to preserve source cadence.
+For MP4, resampling selects decoded source identities before ASCII conversion and
+reuses a converted grid for duplicate output slots. Source decoding still occurs.
+Without `targetFPS`, each decoded source frame is converted through the original
+prefetch path. A video export returns a ``ResampleReport`` only when resampling is
+requested.
+
+For GIFs, `loopCount: nil` preserves the source's reported loop value (once stays once,
+infinite stays infinite). `maximumFrameCount` defaults to 10,000 and rejects larger
+source frame counts before delay scanning, frame decoding, or rendering. The limit
+counts input frames; upsampling can produce more output frames. GIF resampling still
+operates after source-frame conversion, and its report is attached to
+``GIFEncodeReport``.
 
 The GIF encoder accepts `loopCount` in `0...32767`: `0` means infinite playback,
 `1` means play once, and `2...32767` gives the total number of plays. These values
@@ -62,7 +83,7 @@ reproduces the rendered colors; a P3 export is not clipped to sRGB.
 For finer control, compose the halves directly:
 
 - ``ASCIIVideoDecoder`` / ``ASCIIGIFDecoder`` — stream source frames as ``ASCIIGrid`` values through a `transform` closure; also report duration, frame rate, and GIF container metadata (``GIFContainerInfo``).
-- ``ASCIIVideoEncoder`` / ``ASCIIGIFEncoder`` — encode rendered frames back to MP4/GIF; the GIF encoder returns a ``GIFEncodeReport``.
+- ``ASCIIVideoEncoder`` streams rendered MP4 frames; ``ASCIIGIFEncoder`` accepts an array of rendered GIF frames and returns a ``GIFEncodeReport``.
 - Frame payloads — ``ASCIIVideoFrame`` / ``ASCIIGIFFrame`` carry a grid plus timing; ``RenderedVideoFrame`` / ``RenderedGIFFrame`` carry the rendered image plus timing.
 - Configuration and reports — ``VideoExportOptions`` / ``VideoCodec`` configure the MP4 encode; ``ResampleReport`` describes frame-rate resampling.
 
@@ -71,13 +92,15 @@ each consumer request decodes one frame. For a custom streaming export that can
 benefit from bounded overlap, use
 ``ASCIIVideoDecoder/pipelinedGrids(fromVideoAt:transform:)``. It prefetches exactly
 one ordered frame while the consumer handles the current frame. The one-shot
-`convertVideo` carrier uses this sibling path automatically.
+`convertVideo` carrier uses this path when `targetFPS` is omitted. Its internal
+resampling path selects frames first and then uses the same bounded prefetch; the
+public decoder callback contracts remain unchanged.
 
 ## Per-frame effects and overlays
 
 `convertVideo` accepts two optional animation inputs:
 
-- `pattern:` — an ``OngoingPattern`` whose phase is driven by each frame's presentation time and applied via ``ASCIIGrid/applyingOngoingPattern(_:at:)``. Use it to animate brightness or coverage coherently across frames. See <doc:Animation>.
-- `effects:` — a **time-invariant** ``EffectChain`` (e.g. `bloom`, `scanLines`, `vignette`) applied to every rendered frame. Per-frame stochastic effects are deliberately omitted because reseeding each frame flickers. See *Applying effects per frame (video)* in <doc:Effects>.
+- `pattern:` — an ``OngoingPattern`` whose phase is driven by each frame's presentation time and applied via ``ASCIIGrid/applyingOngoingPattern(_:at:)``. It modulates cell alpha while preserving glyphs, colors, brightness, and mask coverage. See <doc:Animation>.
+- `effects:` — the same ``EffectChain`` applied to every rendered frame. The library accepts the full chain; the `aski lab video` CLI exposes only `bloom`, `scanLines`, and `vignette`. No per-frame time or seed is generated for the chain. See *Applying effects per frame (video)* in <doc:Effects>.
 
 Both default to no-ops, so omitting them leaves output byte-identical to the plain decode → convert → encode path.

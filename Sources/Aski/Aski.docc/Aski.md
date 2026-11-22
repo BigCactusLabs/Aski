@@ -1,6 +1,6 @@
 # ``Aski``
 
-Pictures, reconsidered as type: convert images into character grids and render them your way.
+Convert images into character grids, then render text, images, animation, and media.
 
 ## Overview
 
@@ -25,14 +25,50 @@ func characterText(from image: CGImage) -> String {
 ``DefaultConverter`` selects the standard full-color pipeline. Configure
 ``ASCIIConverter`` for another character set, palette, algorithm, or ``MaskOptions``.
 The default color path uses linear-light sampling, OKLab Euclidean palette matching,
-and Ray Trace gamut mapping. Glyph selection is a separate brightness-prefiltered
-60D log-polar pass; <doc:Algorithms> documents its sampling and quality limitations.
+and Ray Trace gamut mapping. Glyph selection uses brightness-prefiltered
+60D log-polar matching; <doc:Algorithms> documents its sampling and quality limitations.
 
 Aski is public and pre-1.0, not API-frozen. Ordinary library features, experimental
 policies, and research SPI have different readiness levels. In particular,
 <doc:HDRRendering> requires `@_spi(AskiResearch)` and is not ordinary public API.
 
+For repository work, start with the
+[agent navigation guide](https://github.com/BigCactusLabs/Aski/blob/main/docs/agents/navigation.md)
+for source and test ownership, or the
+[contributor guide](https://github.com/BigCactusLabs/Aski/blob/main/CONTRIBUTING.md)
+for setup and validation. This catalog describes the current library and CLI;
+<doc:Migrating-to-A1> separates unreleased changes from tagged releases.
+
 ## Topics
+
+### Start Here
+
+- <doc:GettingStarted>
+- <doc:CommandLine>
+- <doc:Migrating-to-A1>
+
+### Render and Style
+
+- <doc:Rendering>
+- <doc:Duotone>
+- <doc:Masking>
+- <doc:Effects>
+
+### Choose Matching and Color
+
+- <doc:Algorithms>
+- <doc:CharacterSets>
+- <doc:PaletteMatching>
+
+### Animate and Export
+
+- <doc:Animation>
+- <doc:Video>
+- <doc:Tiles>
+
+### Research Rendering
+
+- <doc:HDRRendering>
 
 ### Converting Images
 
@@ -112,20 +148,3 @@ policies, and research SPI have different readiness levels. In particular,
 ### Fonts
 
 - ``ASCIIFont``
-
-### Articles
-
-- <doc:GettingStarted>
-- <doc:CommandLine>
-- <doc:Rendering>
-- <doc:Duotone>
-- <doc:HDRRendering>
-- <doc:Masking>
-- <doc:Animation>
-- <doc:Algorithms>
-- <doc:CharacterSets>
-- <doc:Effects>
-- <doc:Video>
-- <doc:Migrating-to-A1>
-- <doc:Tiles>
-- <doc:PaletteMatching>

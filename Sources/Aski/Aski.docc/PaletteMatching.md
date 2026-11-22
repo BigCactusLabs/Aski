@@ -4,9 +4,10 @@ How Aski selects the closest palette entry for each cell.
 
 ## Overview
 
-Aski matches each cell's sampled color to the nearest palette entry in
-OKLab space. The metric used for "nearest" is configurable via
-``PaletteMatchingPolicy`` on ``ASCIIConverter``.
+For a fixed palette, Aski selects the nearest entry to each cell's sampled color
+using ``PaletteMatchingPolicy`` on ``ASCIIConverter``. The default metric uses
+OKLab; the experimental Helmlab metrics transform into their own matching space.
+``PaletteContent/passThrough`` bypasses fixed-palette selection.
 
 ```swift
 let converter = ASCIIConverter(
@@ -26,12 +27,12 @@ let converter = ASCIIConverter(
   status, adjacent signals (Helmlab, Color.js OK2), and the 90-day
   re-check anchors.
 - ``PaletteMatchingPolicy/helmlabEuclidean`` — **Experimental.** Plain
-  Euclidean distance over Helmlab MetricSpace-Lab. Monotonic at all
-  distances, so it ranks distant palette candidates well. Opt-in.
+  Euclidean distance over Helmlab MetricSpace-Lab, without the compressed
+  metric's saturation. No Aski palette-quality improvement has been established.
 - ``PaletteMatchingPolicy/helmlabCompressed`` — **Experimental.** The
-  trained Helmlab Minkowski + monotonic-compression ΔE. Best on small
-  color differences; saturates (~0.15) on very dissimilar pairs, so it can
-  rank distant candidates poorly on small palettes. Opt-in.
+  trained Helmlab Minkowski distance followed by monotonic compression. Values
+  bunch near 0.15 for very dissimilar pairs; that is not by itself evidence of
+  collapsed winner selection or better rendered output. Opt-in.
 
 ## When to consider `oklabHyAB`
 
@@ -55,5 +56,5 @@ and ``PaletteMatchingPolicy/helmlabCompressed`` on the built-in palettes — i.e
 visual review shows the monotonic compression keeps distinct picks (no selection
 collapse) even on saturated primaries. The cross-metric `palette-match-ablation`
 probe is a divergence/saturation signal only — its distances are not comparable
-across color spaces, so it is not a quality oracle. See the Helmlab MetricSpace
-eval research note for the recorded numbers.
+across color spaces, so it is not a quality oracle. The [Helmlab evaluation](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-06-07-helmlab-metricspace-eval.md)
+contains the recorded numbers and limits.

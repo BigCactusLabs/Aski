@@ -12,7 +12,56 @@ Aski remains pre-1.0. Source APIs and rendered output can change between minor r
 Use an exact published version when reproducibility matters, and review the repository's
 [changelog](https://github.com/BigCactusLabs/Aski/blob/main/CHANGELOG.md) before upgrading.
 
-## Unreleased: compose render recipes directly
+## Unreleased changes
+
+These changes describe the current `main` checkout after v0.8.0. They are separate
+from the tagged release migrations below.
+
+### Decoded image preparation
+
+`ImageIOThumbnail.decode(image:maxPixelSize:)` was removed. Pass an already decoded
+`CGImage` directly to `ASCIIConverter.convert` or `TileGridConverter.convert`;
+the converter now prepares the sampling lattice itself. For encoded input, keep
+using `ImageIOThumbnail.decode(data:maxPixelSize:)` or
+`ImageIOThumbnail.decode(source:maxPixelSize:)` to avoid full-raster decoding and
+apply EXIF orientation.
+
+Large decoded images now use direct vImage preparation instead of a PNG/ImageIO
+round trip. The CLI's portrait thumbnail budget, portrait tile sampling, and `.tall`
+sampling were also corrected. Affected inputs can change colors, glyph picks, or
+CLI row counts. Re-render those references on the intended host; an unchanged
+invocation is not a promise of the previous raster. See <doc:Algorithms> and
+<doc:CommandLine> for current geometry and input handling.
+
+### Character-set extension code
+
+Code that names `ShapeQueryPolarity` now requires:
+
+```swift
+@_spi(AskiResearch) import Aski
+```
+
+Ordinary rendering keeps the `.inverted` default. The low-level
+``ASCIICharacterSet`` array contract remains available with converter snapshots
+at initialization and reassignment; use ``RasterizedCharacterSet`` when your input
+is a font and glyph list. See <doc:CharacterSets>.
+
+### Rendered output to review
+
+| Affected integration | Current behavior and migration |
+| --- | --- |
+| Mask paints, color overlays, and point lights | Colors are interpreted in their declared `CGColor` space. Use explicitly tagged sRGB or Display P3 colors for intentional components; remove compensation for the previous raw-component interpretation. See <doc:Masking> and <doc:Effects>. |
+| Soft masks on Core Image paths | Coverage is a linear weight; partially covered cells can change. Deferred `CIImage` evaluation still uses the consumer's working space for branch interpolation. See <doc:Masking>. |
+| Point lighting | The source alpha is preserved and the old over-brightening is corrected. Review exposure; adjust ambient or intensity for the intended look. See <doc:Effects>. |
+| Chromatic aberration and the stock RGB-split fallback | Shifted color preserves input alpha instead of accumulating three copies. Existing renders can be less bright. See <doc:Effects>. |
+| Ragged, manually constructed grids | Image width follows the widest row; missing cells preserve the canvas during mask composition. Text retains supplied row lengths. See <doc:Rendering>. |
+| MP4 export | Pixel buffers and tracks use explicit gamut and transfer tags; exported bytes change. Resampled exports select frames before ASCII conversion while preserving the timing/report contract. See <doc:Video>. |
+
+The composition policy still controls the ASCII CoreGraphics raster stage rather
+than every later Core Image operation. The clarified route tables in
+<doc:Rendering> and <doc:Masking> do not themselves change that policy.
+
+### Compose render recipes directly
 
 `VesperPreset` has been removed from the public library. Replace
 `VesperPreset.canonical.render(image)` with the complete `renderDuotone(image)`
@@ -83,9 +132,9 @@ Update the package dependency:
 .package(url: "https://github.com/BigCactusLabs/Aski.git", exact: "0.7.0")
 ```
 
-Before publication, use a local source checkout rather than requesting an unavailable
-private tag. Existing private-repository pins must be moved deliberately to the public
-history; an old commit SHA is not a usable pin here.
+When moving an existing private-repository pin, select an available public tag or
+a local source checkout deliberately. A private tag or commit SHA is not a usable
+pin in this public history.
 
 ### Removed experiments
 
@@ -150,6 +199,8 @@ choices are ``ASCIITileShape/square`` (1.0) and ``ASCIITileShape/tall`` (0.5). L
 pipeline changes mean this geometry mapping alone is not a promise of historical bytes.
 
 ## Color Pipeline v2
+
+This section describes a private-development migration.
 
 Custom palettes stopped exposing `colorsOKLAB`. Declare source colors and their color
 space instead; Aski owns the internal matching representation:

@@ -1,6 +1,6 @@
 # Getting Started
 
-Load an image, turn it into a character grid, and choose how that grid leaves the workshop.
+Load an image, convert it once, and choose text or image output.
 
 ## Add the package
 
@@ -38,10 +38,16 @@ func loadImage(at url: URL) throws -> CGImage {
 let image = try loadImage(at: URL(fileURLWithPath: "photo.jpg"))
 ```
 
-Replace `photo.jpg` with a readable path. This example loads a full image; for large
-inputs, use ImageIO thumbnail decoding before passing the image to Aski. The CLI does
-that through its shared input loader. Conversion is synchronous, so schedule expensive
-work away from your app's UI thread.
+Replace `photo.jpg` with a readable path. This example loads the full raster and does
+not apply an EXIF orientation tag. For large encoded inputs or orientation-tagged
+photos, use `ImageIOThumbnail.decode(source:maxPixelSize:)` or
+`ImageIOThumbnail.decode(data:maxPixelSize:)`; those paths apply EXIF orientation
+without first materializing the full-size image. Choose the decode size for the detail
+you need. The CLI derives its thumbnail budget from the converter.
+
+An existing `CGImage` can go straight to `convert`; Aski prepares it at the conversion
+size itself. Conversion is synchronous, so schedule expensive work away from your
+app's UI thread.
 
 ## Convert once
 
@@ -105,7 +111,9 @@ let converter = ASCIIConverter(
 let blockGrid = converter.convert(image, columns: 120)
 ```
 
-This selects a dithered block treatment. The default algorithm is `.logPolar`; neither
+This selects a brightness-based block treatment. Dithering is off at the default
+`coverage: 0`; set `RenderingOptions(coverage: 1)` for full-strength error diffusion.
+The default algorithm is `.logPolar`; neither
 choice is a promise of the best result for every source. See <doc:Algorithms> and
 <doc:CharacterSets> for pairings, controls, and measured limitations.
 

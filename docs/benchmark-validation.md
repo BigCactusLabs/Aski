@@ -1,9 +1,16 @@
-# Benchmark evidence that can say “no”
+# Benchmark capture and evidence validation
 
 `just bench` validates **completeness**, not a performance budget. A plugin exit of
 zero is insufficient: a selected workload can fail before producing samples, and an
 unsupported counter can disappear from otherwise plausible output. ASKI-86 owns this
-validity check; ASKI-5 still owns numeric regression budgets and their gate placement.
+validity check, completed with native evidence; ASKI-5 still owns numeric regression
+budgets and their gate placement.
+
+Use this page for capture validity, [paired comparisons](agents/paired-benchmarks.md)
+for repeated control/candidate analysis, and the
+[research decision map](agents/research.md#performance-groundwork-decisions-already-made)
+before reopening a performance task. The detailed ASKI-87 study below is retained
+as evidence for its adopted footprint implementation, not as an unexecuted plan.
 
 ## Run it
 
@@ -210,26 +217,22 @@ for an incremental release build; they do not add a build to the acceptance gate
 
 ## Work order for ASKI-87–95
 
-This is a starting sequence, not completed optimization work. Keep each change isolated
-against an unchanged control and use the existing task files as the acceptance checklist.
+The original starting sequence is superseded by the
+[recorded decisions](agents/research.md#performance-groundwork-decisions-already-made):
+ASKI-87, 91, and 93 are adopted within their documented scopes; ASKI-88, 89, 90,
+92, and 94 are closed as rejected. ASKI-95 remains at contract groundwork.
+Use [Backlog](agents/backlog.md) for the current acceptance criteria, and the
+linked study's control and pre-registration when replaying historical evidence.
 
-| Tasks | Next experiment | Adoption blocker |
-| --- | --- | --- |
-| 87, then 90 and 92 | Prepared footprint geometry, fixed-palette display colors, shared tile samples | Include preparation in repeated end-to-end measurements; prove exact descriptors/colors/palettes/grids and bounded lifetime. |
-| 88, then 89 | Exact brightness-pool selection, then attributed descriptor scratch allocations | Preserve ties/ranking/residuals; isolate allocation attribution before choosing new storage. |
-| 91 | Pattern-specific frame benchmarks before frame-wide reuse | Preserve validation-before-empty, neutral cell semantics, time boundaries, and composition metadata. |
-| 93 and 94 | Lower-rate video fixture matrix and original-image fallback draw census | Preserve frame identity/CFR/transform behavior and ragged-grid populated coverage; native media/render verification is essential. |
-| 95 | Reduced-capability seeded-noise construction versus CI rendering | Establish fallback frequency first; any reuse needs a measured memory bound and changing-seed control. |
-
-A starting decision bar for these experiments is at least a 5% end-to-end median wall-time
+The original proposed decision bar for this batch was at least a 5% end-to-end median wall-time
 improvement across five alternating control/candidate pairs, with preparation included,
 no reproducible regression above 3% on the named small/no-op/no-resampling controls,
-exact task-specific output parity, and the required allocation/RSS evidence. These are
-**proposed experiment decision bars, not replacements for existing benchmark thresholds**.
-Register a different justified bar before measuring if the workload needs one. Report all
+exact task-specific output parity, and the required allocation/RSS evidence. The
+actual pre-registered rule in each study owns its verdict, including ASKI-87's
+recorded maintainer exception. These bars never replace existing benchmark thresholds.
+Register a new experiment's justified bar before measuring. Report all
 pairs, CPU/allocation results, and noise; a noisy 5% median alone is inconclusive. An isolated
-histogram/cache microbenchmark is not an adoption verdict. No production optimization in
-87–95 is adopted by this tooling change.
+histogram/cache microbenchmark is not an adoption verdict.
 
 ## ASKI-87: prepared-footprint candidate
 

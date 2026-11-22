@@ -1,5 +1,12 @@
 # ASKI-88: exact brightness-pool selection groundwork
 
+**Closed as rejected.** This page preserves the selection contracts and original
+experiment design. Read the [native decision packet](../../Scripts/research/aski88-2026-11-13/README.md)
+before running or extending the probe. The shipping matcher still uses full
+sorting; the portable alternatives below are not pending production changes.
+Use [research navigation](research.md#performance-groundwork-decisions-already-made)
+for the rest of this performance batch.
+
 Initially prepared against PR #11 at `bbe65fa7ac7942449ce3b40f5df26c06143b32ca`.
 Recovered files are committed at `dd9e8ab96322a765dc3ee21b2a82e3c5a2021a1f`;
 verification below was repeated on 2026-10-27 rather than inferred from the
@@ -78,7 +85,11 @@ include checksum work and call overhead. These are 72 synthetic configurations,
 not 72 independent product workloads or chronological histogram samples.
 Synthetic probe timings do not establish Aski conversion speed or allocation cost.
 
-## Native instruments and remaining integration
+## Native instruments and the original integration checklist
+
+The 2026-11-13 study completed this checklist for its heap arm and rejected that
+candidate. The following contracts remain useful for a separately registered
+alternative; they are not outstanding acceptance work for the closed ASKI-88 task.
 
 The [inventory](../../Scripts/research/brightness-pool/workloads.json) freezes
 **42 expected identities** from [benchmark registration](../../Benchmarks/AskiBenchmarks/BrightnessPoolGroundworkBenchmarks.swift):
@@ -118,8 +129,9 @@ xcrun swift test --skip-build --filter 'Brightness(Pool|Ranking)ContractTests'
 just check
 ```
 
-For a subsequent production candidate, keep a clean control at this groundwork
-revision with identical instruments. The complete-capture validator is merged on
+For a separately registered candidate, freeze a clean control and identical
+instruments appropriate to that new experiment. To replay the closed study, use
+its recorded source patches and revisions. The complete-capture validator is merged on
 `main`; freeze the same checked-in
 [`Scripts/validate-benchmarks.py`](../../Scripts/validate-benchmarks.py) in both
 measured worktrees. Record their final SHAs, lockfile, toolchain and allocator identity.
@@ -128,7 +140,7 @@ Run the validator with `--filter '^aski88-.*$'` and require `cpuTotal`,
 Require the complete 42-name inventory; retain failures and missing counters.
 Use [paired readouts](paired-benchmarks.md), not pooled synthetic timing samples.
 
-Proposed next-candidate rule, to freeze before native captures: at least five
+Original groundwork proposal, later frozen by the linked native study: at least five
 complete alternating pairs on one quiet physical Mac; exact native parity; at
 least 5% median paired wall improvement in each default-K standard/braille
 serial conversion and ranked-animation case at 80/120 columns, with an improving
@@ -136,7 +148,8 @@ direction in at least 80% of pairs. Reject reproducible regressions above 3% in
 small-bank/full-pool/parallel controls or CPU/allocation/RSS costs across the matrix.
 Here reproducible means at least 80% of paired deltas exceed the bar. Ambiguous
 results remain inconclusive; do not loosen existing benchmark budgets. A constructor
-cache requires setup-inclusive evidence before this rule can promote it.
+cache requires setup-inclusive evidence. A new candidate must register its own
+rule before measurement rather than treating this historical proposal as approval.
 
 ## Repeated verification and status
 
