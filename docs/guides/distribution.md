@@ -157,13 +157,13 @@ No explicit platform or Swift version override is set, so SPI picks its default
 documentation build environment. No additional package dependency is needed; SPI
 injects the DocC plugin when necessary.
 
-This file configures processing **after the package is indexed**, so it has no
-effect until Aski is submitted to SPI. It does not submit Aski, create a working
-documentation URL, or prove the documentation build passes; merging it without a
-submission changes nothing. Follow the [package inclusion requirements](https://swiftpackageindex.com/add-a-package),
-then verify the published package page and DocC output before adding badges or a
-homepage link. SPI's current instructions say default-branch configuration changes
-can take up to 24 hours to be processed once indexed.
+Aski is listed on [Swift Package Index](https://swiftpackageindex.com/BigCactusLabs/Aski),
+which builds the package with several Swift versions and platforms and publishes the
+[DocC output](https://swiftpackageindex.com/BigCactusLabs/Aski/documentation/aski).
+`v0.8.0` is the first release tag that contains `.spi.yml`. SPI's current
+instructions say default-branch configuration changes can take up to 24 hours to be
+processed. After changing the file, check the package page and the DocC output
+rather than assuming the change was applied.
 
 See SPI's [official configuration guide](https://github.com/SwiftPackageIndex/SPIManifest/blob/e67725f6ce2ad599f725bc5ec7d45ecbfefaedad/Sources/SPIManifest/Documentation.docc/CommonUseCases.md).
 

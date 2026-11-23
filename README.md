@@ -18,9 +18,13 @@ Zoom in: the texture is type. Source image: NASA/ESA/CSA/STScI.
 
 **Swift 6.3+ · iOS 18+ · macOS 15+ · visionOS 2+ · [Apache 2.0](LICENSE)**
 
+[![Swift versions Aski builds with, from Swift Package Index](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FBigCactusLabs%2FAski%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/BigCactusLabs/Aski)
+[![Platforms Aski builds for, from Swift Package Index](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FBigCactusLabs%2FAski%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/BigCactusLabs/Aski)
+
 [Examples and recipes](docs/guides/character-art-recipes.md) · [Try the CLI](#try-it) ·
-[Use in Swift](#use-in-swift) · [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md) ·
-[Agent navigation](docs/agents/navigation.md)
+[Use in Swift](#use-in-swift) · [Documentation](docs/README.md) ·
+[API reference](https://swiftpackageindex.com/BigCactusLabs/Aski/documentation/aski) ·
+[Contributing](CONTRIBUTING.md) · [Agent navigation](docs/agents/navigation.md)
 
 ## Try it
 

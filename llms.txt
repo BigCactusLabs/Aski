@@ -23,6 +23,7 @@ surface; dated research and old task plans are evidence, not current API contrac
 ## Use Aski
 
 - [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image demo, package installation, exact pins, and release boundaries.
+- [Swift Package Index](https://swiftpackageindex.com/BigCactusLabs/Aski): Package page with releases, Swift-version and platform build results, and hosted DocC API documentation.
 - [API catalog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Aski.md): DocC public symbol and article navigation; source uses DocC-specific links.
 - [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Load a CGImage, convert once, choose an output, and configure a character set.
 - [CLI guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Render, inspect, discovery, masks, PNG widths, manifests, and troubleshooting.

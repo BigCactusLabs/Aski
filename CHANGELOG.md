@@ -235,6 +235,15 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   unchanged. `AskiTileMatrix` takes its decode size from `TileGridConverter` (ASKI-104), so its
   portraits now decode at this portrait size and are sampled at the intended cell width too.
 
+### Documentation
+
+- **Swift Package Index listing.** Aski is listed on
+  [Swift Package Index](https://swiftpackageindex.com/BigCactusLabs/Aski), which hosts the
+  DocC [API documentation](https://swiftpackageindex.com/BigCactusLabs/Aski/documentation/aski).
+  The README shows SPI's Swift-version and platform build badges and links the hosted
+  documentation; `llms.txt`, the documentation hub, and the distribution guide link the
+  package page.
+
 ## v0.8.0 — 2026-11-10
 
 ### Fixed

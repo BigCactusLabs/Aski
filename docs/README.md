@@ -42,8 +42,12 @@ then use the validation guide to choose checks.
 The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) owns API articles and symbol
 navigation. GitHub displays DocC symbol links as source; `just docc` resolves and
 validates them locally. To export Markdown sidecars, use the explicit output workflow
-in [CONTRIBUTING](../CONTRIBUTING.md#pull-requests-and-releases). Release notes do not
-by themselves establish that hosted documentation or an asset has been published.
+in [CONTRIBUTING](../CONTRIBUTING.md#pull-requests-and-releases). Swift Package Index
+hosts the rendered
+[API documentation](https://swiftpackageindex.com/BigCactusLabs/Aski/documentation/aski)
+and Aski's [package page](https://swiftpackageindex.com/BigCactusLabs/Aski), which lists
+releases and the Swift versions and platforms the package builds with. Release notes do
+not by themselves establish that a CLI release archive has been published.
 
 ## Research and evidence
 

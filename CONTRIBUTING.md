@@ -47,6 +47,14 @@ Use `xcrun swift` to keep builds on the selected Xcode toolchain. Mixing it with
 release preflight, including dependency resolution, DocC, and a Metal regeneration
 comparison; use `--check toolchain` for the initial environment check.
 
+If you build inside a fresh `git worktree` and SwiftPM fails Git's `safe.bareRepository`
+check while resolving package checkouts, scope the override to the build command instead
+of changing global Git config:
+
+```bash
+GIT_CONFIG_PARAMETERS="'safe.bareRepository=all'" xcrun swift build --build-tests
+```
+
 **Snapshot reproduction has a narrower baseline than deployment.** The v0.7.0 release
 recorded macOS 27.0 / Xcode 27.0 / Swift 6.4. The ASKI-3 goldens were re-recorded on
 macOS 27.0.1 / Xcode 27.0 / Swift 6.4. The checked-in goldens also reproduce on an
