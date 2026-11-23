@@ -1,8 +1,34 @@
 # Research
 
-Notes that capture investigations into how the field handles a problem before we make a load-bearing decision. The audience is future-us — we keep these so the reasoning behind a non-obvious choice doesn't have to be re-derived from chat scrollback.
+Research notes preserve the questions, rules, measurements, and decisions behind
+Aski's implementation. Start with [research navigation](../agents/research.md) for
+current decision boundaries and links to the executed performance studies. Use
+[Backlog](../agents/backlog.md) for live task status; the index below is a record of
+investigations, including rejected and superseded work.
 
-Commit SHAs, PR and issue numbers, and branch names in these notes refer to the project's pre-publication history and are not present in this repository's history.
+## Read this directory by purpose
+
+| Need | Location |
+| --- | --- |
+| Current decision routes and retired experiments | [Research navigation](../agents/research.md) |
+| Rules for a new experiment | [Research methodology](../agents/research-methodology.md) |
+| A dated question, conclusion, or frozen protocol | The [generated note index](#index) below |
+| Machine-readable notes, corpora, and result metadata | [index.json](index.json) |
+| Reusable source datasets and their licenses | [Corpus/](Corpus/), with `manifest.yaml` per dataset |
+| Measured outputs, provenance, and result manifests | [Results/](Results/), with `result.yaml` per study |
+| Reproduction scripts and self-contained study packets | [Scripts/research/](../../Scripts/research/) |
+| An insight to triage later | [Discoveries.md](Discoveries.md) |
+
+Read a note's status and later decision links before treating its plan or command
+as current. `complete` records a settled investigation, which can be KILL or
+INCONCLUSIVE; it does not imply adoption. Commands and source references in frozen
+records belong to the recorded revision. Use the [current tool inventory](../agents/tooling.md)
+for today's command surface.
+
+History before v0.7.0 may cite commits, PRs, issue numbers, and branches from private
+development that are unavailable in this public repository. Later public studies
+have their own retained provenance. Historical `ASTSK-NN` and current `ASKI-NN`
+task numbers are separate sequences.
 
 ## When to add an entry
 
@@ -25,9 +51,12 @@ Add a discovery entry when, mid-task, you notice something worth revisiting that
 ## Lifecycle
 
 Top-level entries are limited to research notes, `README.md`, `Discoveries.md`,
-`index.json`, and `Corpus/`. Put reusable datasets under `Corpus/` with a
-`manifest.yaml`. Do not commit ad hoc screenshots, CSVs, HTML reports, or
-scripts directly in `docs/Research/`.
+`index.json`, `Corpus/`, and `Results/`. Put reusable datasets under `Corpus/` with
+a `manifest.yaml`, and measured output under a `Results/` study directory with
+`result.yaml`. List every result file in exactly one of the manifest's `outputs`
+or `generators` fields. Keep runnable study scripts under `Scripts/research/`.
+Do not commit ad hoc screenshots, CSVs, HTML reports, or scripts directly in
+`docs/Research/`.
 
 Use `active` only when the note has an open `next_action` or is still driving a
 current decision. Use `complete` once the decision and evidence are recorded.
@@ -57,7 +86,7 @@ Keep entries tight. If a finding belongs in a spec, link to the spec and only su
 
 ## Front-matter
 
-Every note carries YAML front-matter — the source of truth for the generated index below and for `index.json`. Required fields: `title`, `slug` (the filename stem), `date` (`YYYY-MM-DD`; for dated filenames it must match the prefix), `status`, `subsystem`, and `summary`. Optional fields, omitted when empty: `related_specs`, `next_action`, `datasets`, `runners`.
+Every note carries YAML front-matter — the source of truth for the generated index below and for `index.json`. Required fields: `title`, `slug` (the filename stem), `date` (`YYYY-MM-DD`; for dated filenames it must match the prefix), `status`, `subsystem`, and `summary`. Optional fields, omitted when empty: `related_specs`, `next_action`, `datasets`, `runners`, `results`.
 
 - **`status`** — one of `living` (continuously updated), `active` (open threads or a pending `next_action`), `complete` (decision recorded), `superseded`, or `archived`.
 - **`subsystem`** — a list drawn from `color-science`, `shape-context`, `tile-grid`, `animation`, `frontier`, `meta`.
@@ -65,8 +94,9 @@ Every note carries YAML front-matter — the source of truth for the generated i
 - **`related_specs`** — repo-relative paths, validated to exist on disk by `ResearchRegistryTests`.
 - **`datasets`** — repo-relative corpus paths under `docs/Research/Corpus/`, each with a validated `manifest.yaml`.
 - **`runners`** — names of `Tools/` executables that reproduce the work (e.g. `AskiColorLab`).
+- **`results`** — repo-relative study directories under `docs/Research/Results/`.
 
-Use double-quoted scalars for text fields and inline lists (`[a, b]`) for list fields; the parser is intentionally minimal and rejects anything outside that subset. Run `swift run BuildResearchIndex` after editing front-matter to refresh the index.
+Use double-quoted scalars for text fields and inline lists (`[a, b]`) for list fields; the parser is intentionally minimal and rejects anything outside that subset. Run `xcrun swift run BuildResearchIndex` after editing front-matter to refresh the index, then `just research-check`. The registry implementation is in [Tools/BuildResearchIndex/](../../Tools/BuildResearchIndex/); edit the notes and manifests, not the generated JSON or index rows.
 
 ## Index
 

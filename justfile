@@ -6,6 +6,7 @@ default:
 check:
     ./Scripts/swift-format-check.sh
     xcrun swift build --build-tests
+    just docs-check
     ASKI_SKIP_BUILD=1 just lifecycle-check
     ASKI_SKIP_BUILD=1 just repo-map-check
     ASKI_SKIP_BUILD=1 ASKI_SKIP_REGISTRY_TESTS=1 ASKI_SKIP_MEDIA_TESTS=1 just test-without-video-deadlock
@@ -19,6 +20,7 @@ check:
 check-fast:
     ./Scripts/swift-format-check.sh
     just test-fast
+    just docs-check
     ASKI_SKIP_BUILD=1 just lifecycle-check
     ASKI_SKIP_BUILD=1 just repo-map-check
 
@@ -51,6 +53,10 @@ test-artifacts:
 
 docc:
     ./Scripts/validate-docc.sh
+
+# Offline navigation guard; no Swift build or Apple tools required.
+docs-check:
+    python3 -B Scripts/check-doc-links.py
 
 research-check:
     just lifecycle-check

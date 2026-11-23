@@ -51,7 +51,12 @@ Sampling happens on a rectangular grid regardless of `cellShape`. Renderers posi
 - ``TilePalette/brick`` — approximated interlocking-brick-style palette (~30 colors).
 - ``TilePalette/fixed(_:)`` — caller-supplied non-empty `[CGColor]` converted to OKLab at construction.
 
-Adaptive quantization runs at convert time on the raw thumbnail pixels (not on per-cell averaged stats — averaging would smear the source distribution before clustering can find it).
+Adaptive quantization runs at convert time on the prepared sampling-lattice pixels,
+before per-cell averaging. Palette discovery and cell sampling therefore see the same
+raster. The current tile converter uses encoded-average color sampling and
+`adaptiveL0` gamut mapping; it does not inherit the ASCII converter's linear-light
+sampling and Ray Trace defaults. These policies are not exposed as tile-converter
+options.
 
 `TilePalette.fixed([])` is programmer error and traps with a precondition; an empty fixed palette is not a pass-through signal. If adaptive quantization finds no visible source pixels, such as a fully transparent input, the converter treats that result as pass-through internally instead of indexing an empty concrete palette.
 

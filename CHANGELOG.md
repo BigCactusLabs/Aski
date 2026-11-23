@@ -13,11 +13,23 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Added
 
+- `just docs-check` validates maintained documentation paths, images, heading anchors,
+  DocC article links, and same-repository `main` links without Xcode or network access.
+  It also runs in the structural phase of `just check` and `just check-fast`, which
+  now require Python 3 for this check. Native DocC symbol validation remains separate.
+
 - `aski metadata` emits deterministic, versioned JSON for CLI discovery (ASKI-49).
   It reports command paths, aliases, visible arguments, parser defaults, research
-  classification, replay product mappings, and the current checkout revision.
+  classification, replay product mappings, and the Git revision resolved from the
+  invocation directory.
 
 ### Changed
+
+- **Documentation is organized around repository tasks.** A shorter agent entry point
+  routes to source/test navigation, validation, tooling, and research decision guides.
+  Architecture and API articles now describe adopted footprint reuse, early MP4 frame
+  selection, GIF buffering, stage-specific composition, and current migration boundaries.
+  Historical protocols and generated research-index entries retain their original evidence.
 
 - **The charset extension contract is explicit; query polarity is research SPI (ASKI-76).**
   `ASCIICharacterSet` keeps its existing low-level matching arrays and validated

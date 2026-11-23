@@ -1,52 +1,37 @@
 # Contributing to Aski
 
-Bring a good question, a reproducible bug, or an image that makes the renderer sweat.
-Small, well-explained improvements are welcome; a new abstraction is not the price of admission.
-
-For using the package, start with the [README](README.md). For repository conventions
-and subsystem navigation, read [AGENTS.md](AGENTS.md). The same engineering rules apply
-to human-written and agent-assisted changes.
+Start with [AGENTS.md](AGENTS.md) for repository rules, then use the
+[task-to-code map](docs/agents/navigation.md) to find the implementation and tests.
+The same engineering rules apply to human-written and agent-assisted changes.
+For using the package, start with the [README](README.md).
 
 ## Start with the smallest useful change
 
 Check the [open issues](https://github.com/BigCactusLabs/Aski/issues),
-[pull requests](https://github.com/BigCactusLabs/Aski/pulls), and [Backlog](backlog/) before
-starting overlapping work. A typo or a broken example can go straight to a PR. For a
-new matcher, public API, dependency, or large behavior change, open an issue describing
-the use case and proposed scope first.
+[pull requests](https://github.com/BigCactusLabs/Aski/pulls), and
+[Backlog](docs/agents/backlog.md) before starting overlapping work. A typo or broken
+example can go straight to a PR. For a new matcher, public API, dependency, or large
+behavior change, open an issue describing the use case and proposed scope first.
 
 Bug reports should include the tag or commit, macOS/Xcode/Swift versions, exact command
 or minimal Swift example, expected behavior, and actual output. Include a small input
-image and mask only when you have permission to redistribute them. A synthetic fixture
-is often better than a personal photo.
-
-Never post credentials, private source images, identifiable participant responses, or
-unredacted environment dumps. CLI manifests can contain the paths supplied by the caller;
-review them before attaching them to a public issue.
+image and mask only when you have permission to redistribute them; a synthetic fixture
+often makes reproduction easier. Keep private images, participant responses,
+credentials, and environment dumps out of public reports. CLI manifests can contain
+caller-supplied paths, so review them before attaching them.
 
 ## Toolchain and snapshot baseline
 
-The package manifest requires **Swift 6.3+**. Library deployment minimums are iOS 18,
-macOS 15, and visionOS 2. Development and the CLI require a Mac with full Xcode and its
-command-line tools selected; a standalone Swift installation is not the complete
-Apple-framework/Metal toolchain used by this repository.
+[Package.swift](Package.swift) requires **Swift 6.3+**, Swift 6 language mode, and
+deployment minimums of **iOS 18, macOS 15, and visionOS 2**. Library builds, the CLI,
+render tests, and DocC validation use a Mac with full Xcode and its command-line tools
+selected. A standalone Swift compiler does not supply the Apple frameworks and Metal
+tools required by this package.
 
-**For the render goldens and checked-in Metal library, use the recorded
-macOS 27 / Xcode 27 baseline.** The v0.7.0 release branch recorded successful verification on
-macOS 27.0 / Xcode 27.0 / Swift 6.4; the goldens changed by ASKI-3 after v0.7.0 were
-re-recorded on macOS 27.0.1 / Xcode 27.0 / Swift 6.4. Render snapshots are known to differ on macOS 26.
-That is a contributor reproduction constraint, not a macOS 27 deployment requirement.
-A supported Swift compiler alone does not guarantee identical raster output.
-
-The checked-in render goldens also reproduce on macOS 27.0.1 (26A434) / Xcode 27.0
-(27A266a) / Swift 6.4 on an Apple M3 Max host. Another host with the same OS and
-Xcode builds measured 16 one-step RGB snapshot differences
-([render-drift evidence](docs/Research/Results/2026-11-05-aski97-render-drift/README.md)),
-so exact raster output depends on the host, not only on the OS and toolchain versions.
-
-Install [just](https://github.com/casey/just) for the canonical task runner. The
-[Makefile](Makefile) forwards to `just`; `make check` is not a way to avoid that dependency.
-Research and task-management tools are needed only for their respective workflows.
+Install [just](https://github.com/casey/just) for the task runner and Python 3 for the
+portable documentation check. Benchmark capture needs Python 3.8+ and just 1.29+;
+task-management tools are needed only when changing their records. The
+[Makefile](Makefile) forwards to `just` and still requires it.
 
 ```bash
 git clone https://github.com/BigCactusLabs/Aski.git
@@ -54,119 +39,90 @@ cd Aski
 xcode-select -p
 xcrun swift --version
 just --list
-just doctor
+just doctor --check toolchain
 ```
 
-Use a branch in your fork when you do not have push access. Run Swift commands through
-`xcrun` to keep builds on the selected Xcode toolchain. Mixing that compiler with a
-different `swift` on `PATH` can invalidate `.build` artifacts.
+Use `xcrun swift` to keep builds on the selected Xcode toolchain. Mixing it with another
+`swift` on `PATH` can invalidate `.build` artifacts. Default `just doctor` runs the full
+release preflight, including dependency resolution, DocC, and a Metal regeneration
+comparison; use `--check toolchain` for the initial environment check.
+
+**Snapshot reproduction has a narrower baseline than deployment.** The v0.7.0 release
+recorded macOS 27.0 / Xcode 27.0 / Swift 6.4. The ASKI-3 goldens were re-recorded on
+macOS 27.0.1 / Xcode 27.0 / Swift 6.4. The checked-in goldens also reproduce on an
+Apple M3 Max with macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), and Swift 6.4. Another
+host with the same OS/Xcode builds produced 16 one-step RGB differences; macOS 26 is
+also known to differ. See the [render-drift evidence](docs/Research/Results/2026-11-05-aski97-render-drift/README.md).
+Record the host as well as the toolchain. These are reproduction constraints, not a
+macOS 27 deployment requirement or a cross-host raster guarantee.
 
 ## Verification
 
-From the repository root:
+Run from the repository root:
 
 ```bash
-just check-fast       # inner loop; not the full acceptance gate
-just test-artifacts   # command/docs links, registries, and artifact checks
-just test-infra       # portable shell regression tests; Python 3, no Xcode required
-just docc             # public symbol links; warnings are errors
-just check            # full gate before submitting a PR
+just docs-check       # portable Markdown paths, images, and heading links
+just check-fast       # inner loop: format, filtered tests, docs/structural checks
+just check            # full acceptance gate before committing or submitting a PR
 ```
 
-`just check` runs formatting, one shared build, drift checks, core tests, serialized
-media tests, isolated deadlock sentinels, and DocC validation. Preserve its fail-fast
-ordering and build reuse. **There is no hosted CI workflow:** include the actual local
-results in your PR, together with the toolchain. Explicitly name checks you could not
-run; a documentation review is not a passing Swift build or a render-quality result.
+The [validation guide](docs/agents/validation.md) maps change types to focused checks,
+explains the full gate, and covers generated files, snapshots, and failures. Use
+[tooling.md](docs/agents/tooling.md) for executable and script entry points.
 
-`just test-infra` uses Python 3's standard library, Bash, and Git with disposable
-repositories and fake Apple tools. It tests diagnostic failure paths, temporary-file
-isolation, interrupted Metal restoration, and DocC cache/output handling. It does not
-build Swift, validate real DocC symbol links, or replace `just check`; run both when
-changing these scripts. The full gate remains unchanged and does not require Python.
-
-The doctor and DocC script resolve their checkout from their own location. Temporary
-logs and validation archives are private to each invocation and cleaned on exit.
-Overlapping DocC runs or Metal checks in the same checkout fail explicitly instead of
-racing over shared state. Separate worktrees have separate locks. After a forced kill,
-verify no process is active before removing the named lock under `.build`; do not run
-`swift package clean` or regenerate kernels concurrently with these checks. Ordinary
-interruptions stop the Metal regeneration process group before restoring the backup,
-including when a supervisor signals only the doctor process. SIGKILL and machine
-failure cannot be trapped.
-
-Snapshot changes need an explanation, not just new golden files. On the frozen render
-reference (`Tools/AskiToolSupport/FrozenRenderReference.swift`), changes that move goldens must include the before/after selection-ceiling MAE and GMSD
-no-harm census in the same PR. Do not loosen snapshot or benchmark thresholds to make a
-failure disappear. See [research methodology](docs/agents/research-methodology.md).
-
-SwiftPM's known `package-benchmark` plugin deprecation warnings under `.build/checkouts/`
-are upstream noise; warnings in project code still need attention.
+**There is no hosted CI workflow.** Report actual local results and the commit/toolchain
+checked. Name any gate you could not run. Linux can check documentation and portable
+script behavior; it cannot establish an Apple-framework build, DocC symbol validity,
+Metal correctness, or render parity. Portable checks do not replace `just check`.
 
 ## Documentation that earns its place
 
-| Material | Home |
+| Material | Canonical home |
 | --- | --- |
 | What Aski does and the shortest working start | [README.md](README.md) |
 | User recipes, public API, and capability limits | [DocC catalog](Sources/Aski/Aski.docc/Aski.md) |
-| Where to find a document or tool | [docs/README.md](docs/README.md) |
-| Pipeline and implementation decisions | [docs/architecture.md](docs/architecture.md), [DESIGN.md](DESIGN.md) |
-| Dated experiments and retained evidence | [docs/Research/](docs/Research/) |
+| Repository rules and task-to-code routes | [AGENTS.md](AGENTS.md), [navigation](docs/agents/navigation.md) |
+| Document discovery | [docs/README.md](docs/README.md) |
+| Pipeline and implementation decisions | [architecture](docs/architecture.md), [DESIGN.md](DESIGN.md) |
+| Checks and tools | [validation](docs/agents/validation.md), [tooling](docs/agents/tooling.md) |
+| Research decisions and retained evidence | [research navigation](docs/agents/research.md), [registry](docs/Research/README.md) |
 | Per-release changes | [CHANGELOG.md](CHANGELOG.md), [release notes](docs/release-notes/) |
 
-Write with some character, but let the examples do the selling. Lead with what the
-reader can make, explain prerequisites before commands, and label placeholders.
-Separate shipping APIs from experimental policies, lab commands, and research SPI.
-Scope quality and performance claims to their evidence; do not turn a single fixture,
-hardware run, or attractive screenshot into a general guarantee.
+Lead with what the reader can do, explain prerequisites before commands, and label
+placeholders. Link canonical detail instead of keeping a second copy. Separate shipping
+APIs, experimental policies, lab commands, and research SPI. Scope performance and
+quality claims to their evidence. Preserve the `ASCII*` API names.
 
-Prefer links to canonical detail over copying a second version of it. Preserve the
-`ASCII*` API names; the package brand is Aski, while the types also cover Unicode
-character art. Update `llms.txt` and the docs hub when adding an entry point.
+Update the docs hub and [llms.txt](llms.txt) when adding an entry point. Place new agent
+guides under `docs/agents/`; the `docs/` root has an explicit allowlist in
+[IndexCheck.swift](Tools/BuildResearchIndex/IndexCheck.swift). Use DocC symbol links only
+for existing public symbols; removed APIs belong in ordinary code spans and migration
+sections. Regenerate the research index and source map with their tools, never by hand.
 
-Use DocC symbol links only for existing public symbols. Keep removed APIs in ordinary
-code spans and historical migration sections. Do not hand-edit generated research-index
-blocks, `docs/Research/index.json`, or `docs/repo-map.generated.md`.
+## Research and project records
 
-## Research: show the work, including the misses
+Literature can motivate an experiment; promotion requires Aski-specific evidence
+against a frozen control and decision rule. Keep methods, inputs, limitations, negative
+results, corrections, and retractions. A KILL verdict does not remain a production
+option after its named replay dependencies close. Unsettled work belongs in a lab or
+behind `@_spi(AskiResearch)`. Follow the [research methodology](docs/agents/research-methodology.md)
+and [note format](docs/Research/README.md).
 
-Literature can motivate an experiment; only Aski-specific evidence can promote one.
-Start with a frozen control and decision rule. Record sources, sampling geometry,
-method, input provenance, observations, limitations, and the next decision. Clearly
-separate proposed work from executed experiments.
-
-Keep negative results, corrections, and retractions. A KILL verdict does not remain a
-production option after its named replay dependencies close. Unsettled work belongs in
-a lab or behind `@_spi(AskiResearch)`, not in the README's ordinary feature list.
-
-Follow the [research note format](docs/Research/README.md) and
-[standing methodology](docs/agents/research-methodology.md). Refresh registry outputs
-with `xcrun swift run BuildResearchIndex`, then run `just research-check`. Share only
-redistributable inputs; private stimuli and participant-level response logs stay outside
-the repository. Historical private commits are provenance, not a promise of public replay.
-
-## Generated artifacts and project records
-
-Changes to Metal kernel sources require `just regen-kernels` and the updated
-`Sources/Aski/Resources/Kernels/default.metallib` in the same PR. Use `just regen-vectors`
-for intentional charset-vector changes and `just regen-repo-map` when the source map
-changes; check the corresponding drift gates.
-
-Manage `backlog/tasks/` through the Backlog CLI, not direct file edits. Follow the
-[backlog guide](docs/agents/backlog.md). Use [Blotter](AGENTS.md#blotter) selectively for
-reusable friction or findings, not a transcript. Its committed ledger is public;
-run `blotter doctor --leaks` before pushing ledger changes.
+Manage `backlog/tasks/` through the [Backlog CLI](docs/agents/backlog.md), not direct
+edits. Use [Blotter](AGENTS.md#blotter) selectively for reusable friction or findings.
+Its committed ledger is public; run `blotter doctor --leaks` before pushing ledger
+changes. Private stimuli and participant-level logs stay outside the repository.
 
 ## Pull requests and releases
 
-Keep PRs focused. Explain the problem, the change, how it was verified, and any
-source/output compatibility impact. Include before/after renders for visual changes
-and representative measurements for performance claims. Do not include unrelated
-formatting, private artifacts, or generated files with unexplained drift.
+Explain the problem, the change, how it was verified, and any source/output compatibility
+impact. Include before/after renders for visual changes and representative measurements
+for performance claims. Keep unrelated formatting and unexplained generated drift out
+of the PR. Use a branch in your fork when you do not have push access.
 
-Aski is pre-1.0: source-breaking changes are acceptable when justified, but they still
-need migration guidance. For release work, commit the matching changelog entry and
-`docs/release-notes/<tag>.md` **before** creating any `v*` tag. Run:
+Aski is pre-1.0: source-breaking changes can be justified, but need migration guidance.
+Before creating any `v*` tag, commit the matching changelog entry and
+`docs/release-notes/<tag>.md`. Verify that exact commit:
 
 ```bash
 just check
@@ -174,29 +130,23 @@ just release-preflight
 ./Scripts/validate-docc.sh --emit-markdown
 ```
 
-The last command emits optional DocC Markdown sidecars and a manifest in a unique
-directory printed as `DocC Markdown output: ...`. Successful exports are retained;
-subsequent validation runs do not delete them. For a predictable packaging location,
-use `./Scripts/validate-docc.sh --emit-markdown --output-dir .build/release-markdown`.
-The directory must not already exist, its parent must exist, and relative paths are
-resolved from the caller's working directory. Failed exports remove only the output
-directory created by that invocation. Delete successful exports when no longer needed.
+The last command emits optional DocC Markdown sidecars and a manifest in a unique,
+retained directory printed as `DocC Markdown output: ...`. To choose a location, pass
+`--output-dir .build/release-markdown`: the destination must be new and its parent must
+exist. Relative paths resolve from the caller's working directory. Failed exports
+remove only their own output; remove successful exports when no longer needed.
+Current checkouts no longer use the shared `/tmp/aski-docc-markdown` location recorded
+in the historical v0.7.0 notes.
 
-**Output-path migration:** current checkouts no longer write to the shared
-`/tmp/aski-docc-markdown` location described in the historical v0.7.0 release notes.
-Update packaging scripts to pass `--output-dir` or consume the printed path. These
-commands do not publish a release. Check the release's notes for packaging and asset
-expectations; never describe an earlier commit's checks as verification of a later one.
+For a relocatable CLI candidate, run `just package-cli /tmp/aski-cli-candidate` from a
+clean checkout after those gates, using a new destination. The
+[distribution guide](docs/guides/distribution.md) covers resource packaging, the extracted
+smoke test, metadata, Swift Package Index configuration, and remaining release steps.
+These commands do not publish a release. Packaging and earlier commits' checks do not
+establish that the current commit passed the acceptance gate.
 
-The public release history begins at v0.7.0. Earlier tags, PR numbers, and commit SHAs
-in retained notes refer to private development and are not available in this history.
-
-For a CLI distribution candidate, run `just package-cli /tmp/aski-cli-candidate`
-from a clean checkout after the gates above. The destination must be new. The
-[distribution guide](docs/guides/distribution.md) explains the isolated build,
-resource checks, relocated smoke test, archive metadata, and remaining release
-steps. Packaging is a separate check; it does not run the full acceptance gate or
-publish assets. The same guide covers the Swift Package Index documentation config.
+The public release history begins at v0.7.0. Earlier tags, PR numbers, and SHAs in
+retained notes refer to private development and are not available in this history.
 
 ## Licensing and attribution
 

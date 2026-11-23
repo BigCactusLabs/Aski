@@ -46,8 +46,9 @@ The palette declares each color's source space. The grid and image use Display P
 the canvas is an explicitly tagged sRGB color. Keep those declarations when
 reproducing this recipe. See <doc:PaletteMatching> and <doc:Rendering>.
 
-For text or animation, keep the converter and grid instead of returning only the
-image. Sample frames with `grid(at:)` or `materialize(frameRate:)`, then render each
+For text, keep the converted grid instead of returning only the image. For animation,
+call `converter.animate(_:columns:options:mask:)` and sample the returned
+`AnimatedASCIIGrid` with `grid(at:)` or `materialize(frameRate:)`. Render each sampled
 grid with the same font, canvas, scale, and `preserveSourceAspect: true`. The
 `AnimatedASCIIGrid.renderImage(at:...)` convenience has no `preserveSourceAspect`
 parameter and does not reproduce this recipe's aspect-faithful geometry. See

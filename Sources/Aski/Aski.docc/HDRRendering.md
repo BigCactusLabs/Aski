@@ -37,7 +37,7 @@ Two optional SPI protocols, `EmissivePalette` and `EmissiveCharacterSet`, let a 
 
 ## Validation
 
-The original ASTSK-10 lab spike passed four frozen gates: SDR-fallback fidelity, `k = 0` identity round-trip, meaningful content headroom, and a NaN/Inf-clean float buffer. The retained record is `docs/Research/2026-06-16-hdr-emissive-spike.md` in the repository; it is evidence for that experiment, not a universal display-quality claim.
+The original ASTSK-10 lab spike passed four frozen gates: SDR-fallback fidelity, `k = 0` identity round-trip, meaningful content headroom, and a NaN/Inf-clean float buffer. The [retained HDR experiment](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-06-16-hdr-emissive-spike.md) records that experiment; it does not establish universal display quality.
 
 From a macOS checkout, rerun the lab's fail-fast check with an explicit artifact directory:
 

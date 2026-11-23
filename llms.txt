@@ -1,73 +1,71 @@
 # Aski
 
-> A Swift library and macOS CLI for local image-to-character-art conversion. Convert once to ASCIIGrid, then render plain text, colored attributed text, or CGImage. Also includes tile grids, masks, effects, animation, and MP4/GIF library APIs. Swift 6.3+; iOS 18+, macOS 15+, visionOS 2+; strict Swift 6 concurrency; Apache 2.0. Public and pre-1.0: APIs and output can change between minor releases.
+> A public, pre-1.0 Swift library and macOS CLI for local image-to-character-art conversion. Convert once to ASCIIGrid, then render text, attributed text, or CGImage. Swift 6.3+; iOS 18+, macOS 15+, visionOS 2+; strict Swift 6 concurrency; Apache 2.0.
 
-## Start here
+These links follow `main`. When editing a branch, read the matching files in that
+checkout. Current source, tests, `Package.swift`, and `justfile` define the implemented
+surface; dated research and old task plans are evidence, not current API contracts.
 
-- [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image CLI demo, package installation, exact version pinning, and capability boundaries.
-- [Character-art examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Carina source/output comparison and three rendered recipes (color ASCII, monochrome dithered, braille on a transparent ground) with their exact commands; notes which CLI options require v0.8.0 or later.
-- [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): User guides, architecture, research, and canonical tool inventory.
-- [Command-line guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Checkout setup, render/inspect, CLI discovery, PNG widths, transparency, masks, manifests, reusable builds, and troubleshooting.
-- [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Image loading, conversion, output formats, palettes, and custom character sets.
-- [API catalog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Aski.md): DocC entry point and public symbol/article navigation. Source uses DocC symbol-link syntax.
+## Work in the repository
 
-## Product guides
+- [Agent instructions](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Start here for hard rules, the startup route, and local gate expectations.
+- [Task-to-code navigation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/navigation.md): Map a requested change to source, tests, and user docs; includes scoped search recipes and sources of truth.
+- [Validation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/validation.md): Checks by change type, native vs portable limits, build-once gate ordering, and generated artifacts.
+- [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, documentation conventions, PRs, and releases.
+- [Documentation hub](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/README.md): Human-readable navigation and canonical ownership of each documentation surface.
+- [Architecture](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/architecture.md): Current conversion pipeline, component ownership, CLI contracts, dependencies, and implementation boundaries.
+- [Tooling](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/tooling.md): Current commands, research labs, generators, compatibility shims, and source ownership.
+- [Package manifest](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Package.swift): Authoritative Swift minimum, platforms, products, targets, and dependencies.
+- [Build recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/justfile): Authoritative local build/test/docs/release commands; Makefile forwards to just.
+- [Source map](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/repo-map.generated.md): Generated top-level declarations in Sources/Aski only; not a tools/tests index.
+- [Backlog workflow](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/backlog.md): Query branch-local tasks with --plain and edit only through the backlog CLI.
 
-- [Rendering](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Rendering.md): Plain text has no color; attributed text and raster output retain color. Library and CLI aspect defaults differ.
-- [Character sets](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CharacterSets.md): Built-in ASCII/Unicode sets and runtime rasterization.
-- [Algorithms](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Algorithms.md): logPolar and dotMatrix, supported controls, oversampling, and measured matcher limitations.
+## Use Aski
+
+- [README](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/README.md): Product overview, bundled-image demo, package installation, exact pins, and release boundaries.
+- [API catalog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Aski.md): DocC public symbol and article navigation; source uses DocC-specific links.
+- [Getting Started](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/GettingStarted.md): Load a CGImage, convert once, choose an output, and configure a character set.
+- [CLI guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CommandLine.md): Render, inspect, discovery, masks, PNG widths, manifests, and troubleshooting.
+- [Examples and recipes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/character-art-recipes.md): Source/output comparison and three explicit CLI treatments.
+- [Rendering](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Rendering.md): Text, attributed text, raster color, aspect, and exact-width contracts.
+- [Character sets](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/CharacterSets.md): Built-in and custom glyph sets, snapshot semantics, and expert matcher arrays.
+- [Algorithms](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Algorithms.md): logPolar/dotMatrix, knob relevance, sampling, and measured limitations.
 - [Palette matching](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/PaletteMatching.md): Default OKLab metric and explicitly experimental alternatives.
-- [Masking](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Masking.md): Coverage, image fallbacks, grounds, and CLI photo dissolve.
-- [Effects](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Effects.md): Composition, lighting, effect chains, async rendering, and GPU fallback.
-- [Animation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Animation.md): Time-based frames from one conversion.
-- [Video and GIF](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Video.md): Library round-trips and streaming components; CLI harnesses live under aski lab video.
-- [Tiles](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Tiles.md): Pixel-art, brick, and mosaic cell-grid output.
-- [Duotone recipe](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Duotone.md): Compose a fixed two-color palette, converter, and raster renderer using public APIs.
-- [Migration notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Migrating-to-A1.md): First-public-release migration and clearly labeled private-history transitions.
-- [Changelog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CHANGELOG.md): Versioned source and behavior changes; earlier private tags are not available in this repository.
+- [Masking](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Masking.md): Coverage, fallbacks, active-region grounds, and composition.
+- [Effects](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Effects.md): Composition, lighting, effects, async rendering, and capability-dependent fallback.
+- [Animation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Animation.md): Time-based frames and patterns from one conversion.
+- [Video and GIF](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Video.md): Library round-trips, resampling, and streaming; CLI harnesses are labs.
+- [Tiles](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Tiles.md): Pixel-art, brick, and mosaic grid output.
+- [Duotone](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Duotone.md): A complete recipe composed from public converter and renderer APIs.
+- [Migration notes](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/Migrating-to-A1.md): Current breaking changes plus clearly labeled historical transitions.
+- [Changelog](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CHANGELOG.md): Unreleased and versioned source/output changes.
+- [Distribution](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/distribution.md): Relocatable CLI candidate packaging, resources, provenance, and hosted-doc configuration.
 
-## Automation contracts and implementation
+## Automation contracts
 
-- [Package manifest](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Package.swift): Authoritative toolchain minimums, platforms, products, targets, and dependencies.
-- [Architecture](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/architecture.md): Shared engine, CLI/library boundary, pipeline, and deterministic JSON compatibility policy.
-- [Inspection schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-inspect-v1.schema.json): Versioned inspect JSON; readers must tolerate additive fields.
-- [CLI metadata schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-metadata-v1.schema.json): Versioned command discovery JSON from `aski metadata`.
-- [Render manifest schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-render-manifest-v1.schema.json): Unsigned render record, including paths and optional mask state; not an authenticity proof.
-- [Source map](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/repo-map.generated.md): Generated symbol-to-file navigation.
+- [Inspection schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-inspect-v1.schema.json): Versioned inspect JSON; readers tolerate additive fields.
+- [CLI metadata schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-metadata-v1.schema.json): Versioned command-discovery JSON from aski metadata.
+- [Render manifest schema](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/assets/schemas/aski-render-manifest-v1.schema.json): Unsigned render record with paths and optional mask state; not an authenticity proof.
 
-## Contributing and research
+## Research and evidence
 
-- [Distribution guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/guides/distribution.md): Local CLI candidate archives with complete resources, an isolated build and relocated smoke check, release provenance, and Swift Package Index DocC configuration. Native validation, indexing, and publication remain separate steps.
-- [Contributing](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/CONTRIBUTING.md): Setup, recorded snapshot toolchain, local verification (including portable just test-infra), isolated DocC exports and output-path migration, docs standards, and release hygiene. No hosted CI workflow is supplied.
-- [Agent guide](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/AGENTS.md): Hard rules and repository workflow for coding agents; preserve ASCII-prefixed API names.
-- [Benchmark validation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/benchmark-validation.md): Complete workload/sample checks, required metrics, retained evidence, the six-workload smoke subset, and the ASKI-86–95 work order. A valid run is not a passing performance budget.
-- [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and sampling limitations, not a universal quality claim.
-- [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Questions, protocols, evidence, negative results, and retractions. Historical private SHAs are not public replay guarantees.
-- [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm evidence.
-- [Charset extension boundary](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-15-aski76-charset-boundary.md): KEEP the expert matcher arrays and converter snapshots; ShapeQueryPolarity requires the AskiResearch SPI import.
-- [Mask and glyph composition spaces](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-15-aski103-composition-spaces.md): Frozen 18-path measurement keeps current stage-specific blending; ASCII raster policy and later Core Image working spaces are distinct. Defaults unchanged.
-- [Paired benchmark readouts](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/paired-benchmarks.md): Portable comparison of complete captures, repeated-run noise and explicit adoption limits; links the early video frame-selection contract.
-- [Early video selection evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/video-frame-selection.md): ASKI-93 native validation, five paired release runs, unit-aware CSV and portable reproducer; scoped to the frozen synthetic matrix.
-- [Prepared footprint evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/benchmark-validation.md#native-replay-result--2026-11-12): ASKI-87 full 52-case paired replay, portable reproducer and explicit adoption exception for one below-bar primary case.
-- [Native benchmark validity evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski86-2026-11-13/README.md): ASKI-86 genuine native failure/required-metric rejection and observed allocator provenance; full local checks passed, no speedup claim.
-- [Allocator lifecycle evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski109-2026-11-13/README.md): ASKI-109 reproduces a stale thread-local counter pointer and verifies the correction with native count regressions. Attribution of the earlier ASKI-92 reset crashes remains unresolved.
-- [Fixed-palette reuse evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski90-2026-11-13/README.md): ASKI-90 rejected under its frozen benefit rule; 114 workloads, five pairs, raw exports and portable reproduction retained.
-- [Brightness heap evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski88-2026-11-13/README.md): ASKI-88 rejected after five complete pairs; braille improves but standard-character primaries and 17 guards fail. Exact parity, raw exports and portable source/result replay retained.
-- [Pulse reuse evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski91-2026-11-13/README.md): ASKI-91 pulse-only reuse adopted after exact parity and five pairs; all three overlay primaries and 93 guards pass. Raw exports, replay and limits retained; no direct animated-pulse timing claim.
-- [Tile-buffer evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski92-2026-11-14/README.md): ASKI-92 rejected after five complete pairs: 19/32 primary cases pass and six small-input timing guards fail. Native gates, allocation-count/RSS guards and four allocation-lifetime profiles pass; no candidate adoption. Earlier failed attempts remain separate.
-- [GIF memory evidence](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski4-2026-11-13/README.md): ASKI-4 incremental appends retain all original ImageIO providers until finalize; candidate correctness passes but bounded lifetime fails.
-- [Orientation preparation experiment](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski2-2026-11-13/README.md): Rejected test-only raw-axis resize/permutation arm; complete exact-raster mismatches, unchanged production video path.
-- [Swift 6.4 collision replay](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Scripts/research/aski74-2026-11-13/README.md): Unchanged graph and tool checks plus the registered HDR input/gate comparison pass on the recorded host; compressed-output variability and baseline generator drift remain explicit.
-- [Rendering task groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/rendering-groundwork.md): ASKI-91/94/95 contracts, 51 benchmark identities, and measurement/adoption boundaries.
-- [Brightness-pool groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/brightness-pool-groundwork.md): ASKI-88 exact-order contracts, lab-only insertion/heap probes, 42 native workload identities, and measurement/adoption boundaries.
-- [HDR research](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only AskiResearch SPI, not ordinary public API.
-
-- [ASKI-3 color correction protocol](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-05-aski3-color-semantics.md): Native color-contract regressions and the paired frozen-selection guard; census evidence does not score color fidelity.
-
-- [Channel-split alpha correction](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/Results/2026-11-14-aski110-channel-alpha/README.md): ASKI-110 native color/alpha regressions and three corrected effect snapshots; frozen Vesper output unchanged.
-
-- [Near-white cutoff inspection](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/2026-11-14-aski108-near-white-inspection.md): ASKI-108 portrait-sky cliff and retained native pairs; future opacity-taper arm specified, shipping near-white ground unchanged.
+- [Research navigation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research.md): Current decision map and routes to active, adopted, rejected, inconclusive, and retired work; inspect task state before restarting an experiment.
+- [Research index](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/README.md): Catalog of dated protocols, results, corpora, negative findings, and retractions.
+- [Research index JSON](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/index.json): Generated machine-readable research and result-store registry.
+- [Research methodology](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/research-methodology.md): Frozen controls, exact sampling lattices, pre-registered gates, and no-harm census.
+- [Benchmark validation](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/benchmark-validation.md): Complete capture, required metrics, allocator provenance, and retained evidence; valid does not mean fast.
+- [Paired benchmarks](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/paired-benchmarks.md): Repeated-run comparisons, noise, portable replay, and adoption limits.
+- [Design](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/DESIGN.md): Descriptor lineage and measured constraints; research proposals are separate from implemented architecture.
+- [Rendering groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/rendering-groundwork.md): Read current status before historical animation, mask-rendering, and fallback-noise protocols.
+- [Brightness groundwork](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/agents/brightness-pool-groundwork.md): Read current status before historical exact shortlist probes and rejected heap-selection work.
+- [HDR research SPI](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/Sources/Aski/Aski.docc/HDRRendering.md): Research-only extended-range output; not ordinary public API.
+- [Discoveries](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/Research/Discoveries.md): Cross-cutting findings awaiting triage.
+- [Historical research plan](https://raw.githubusercontent.com/BigCactusLabs/Aski/main/docs/research-plan.md): Retained planning context, not the live work queue or current implementation map.
 
 ## Interpretation notes
 
-The default color path is linear-light averaging, OKLab Euclidean palette matching, and Ray Trace gamut mapping. The 60D log-polar matcher has measured sparse-support limitations; do not infer reliable orientation preservation from its descriptor size. Lab commands and experimental policies are not blanket production-readiness claims. Build the CLI on a Mac from a checkout or consume a published package tag; v0.7.0 begins the public release history. The CLI's --version reports a Git SHA (or unknown), not a semantic version.
+- Public APIs, experimental policies, research SPI, and labs have different readiness levels. Do not promote an experiment from documentation alone.
+- The live work queue is the checked-in backlog on the selected branch. A completed performance task can record a rejected candidate.
+- Gates are local; this repository has no hosted CI workflow. Portable documentation/script checks do not establish native build, rendering, or performance validity.
+- Public history starts at v0.7.0. Earlier tags, issue numbers, and SHAs may refer to private development; retained commands are not public replay guarantees.
+- Research data, corpus manifests, frozen protocols, negative results, and asset attribution are retained as evidence. Generated research indexes and the source map must be regenerated from their inputs.

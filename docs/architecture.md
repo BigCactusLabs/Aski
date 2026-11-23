@@ -1,296 +1,286 @@
 # Architecture
 
-Technical reference for the Aski Swift package — products, targets, pipeline, key files, testing setup, and dependencies. Load-bearing when changing the conversion pipeline or adding a supporting target.
+This page describes the implementation in the current checkout. Start with the
+[agent navigation guide](agents/navigation.md) to locate a change, the
+[generated symbol map](repo-map.generated.md) to find a declaration, or
+[DESIGN.md](../DESIGN.md) for the matcher's mathematical lineage and limitations.
+Setup and checks live in [CONTRIBUTING.md](../CONTRIBUTING.md) and the
+[validation guide](agents/validation.md).
 
 ## Products, targets, and layout
 
-The package publishes the `Aski` library, the first-class `aski` executable, and historical lab replay products. The executable is a thin reference client over the library; supporting generator, importable lab, replay-runner, benchmark, and test targets are also declared in `Package.swift`. Note the non-default layout — supporting targets do not live under `Sources/`:
+[Package.swift](../Package.swift) defines the target graph, dependency bounds,
+Swift language mode, resources, and platform minimums. The package uses Swift
+6.3 or later in Swift 6 language mode and targets iOS 18, macOS 15, and visionOS 2
+or later. The executable workflow requires macOS and Xcode.
 
-- `Sources/Aski/` — library
-- `Tools/BuildStandardVectors/` — read-only Core Text drift audit and per-charset shape-vector generator
-- `Tools/BuildKernelLibrary/` — stitchable Metal kernel library generator
-- `Tools/BuildResearchIndex/` — research front-matter, corpus, and results index generator
-- `Tools/BuildRepoMap/` — source-scanned top-level-declaration index generator (`docs/repo-map.generated.md`)
-- `Tools/AskiCLI/`, `Tools/AskiCLIRunner/` — importable command composition and the async-correct `aski` executable entry point
-- `Tools/AskiDemo/`, `Tools/AskiToolSupport/` — the historical demo executable plus shared CLI parsing, argument bounds, source-thumbnail loading, stable JSON, async command launch, and tool helpers, including the package-only `FrozenRenderReference` used by research and tests
-- `Tools/AskiTileMatrix/` — tile-grid render matrix harness
-- `Tools/AskiColorLab/` — internal color-pipeline research harness (`sampling-ablation`, `palette-match-ablation`, `gamut-sweep`, `linear-composite-ab`, `cuberoot-accuracy`, `cam16-hct-reference`, `helmlab-reference`, `shape-residual-map`, `render-matcher-challenge`, `inter-cell-smoothing`, `lattice-support`, `lattice-phase`, `selection-ceiling`, `query-orthogonality`, `orthogonality-render-pair`, `reference-recovery`, `convention-ablation`, `polarity-gate`, `target-width-gate`), plus the `Arbiter/` human-arbitrated perceptual instrument (`arbiter stimuli`/`judge`/`score`; protocol frozen in `docs/Research/2026-08-25-aski56-arbiter-protocol.md`). ASKI-68 removed closed experiment-specific runners; their frozen notes, result artifacts, and Git commits remain the replay record. The ASKI-69 matcher challenge remains a fixed one-shot instrument, not a product option.
-- `Tools/AskiMotionLab/` — animation frame materialization, motion presets, GIF export (via the library `ASCIIGIFEncoder`), and flicker metrics, and the temporal-coherence research gates (`temporal-prior`, `source-tether`)
-- `Tools/AskiVideoLab/` — MP4 or animated-GIF decode -> ASCII -> re-encode throughput and memory harness, with per-frame quality levers, a time-modulated `--pattern` overlay, and opt-in cosmetic post-render effects (`--bloom`/`--scanlines`/`--vignette`, time-invariant, applied via the `renderImage(…, effects:)` overload)
-- `Tools/AskiAccessLab/` — palette and rendered-grid CVD distinguishability audit harness
-- `Tools/AskiDecolorLab/` — composited-cell perceptual oracle (`evaluate`, `check`)
-- `Tools/AskiHDRLab/` — HDR/EDR emissive-spike artifact writer and fail-fast gate (`evaluate`, `check`)
-- `Tools/Aski*LabRunner/` — one-file historical replay entry points; all implementation and command definitions stay in the corresponding importable `Tools/Aski*Lab/` module
-- `Benchmarks/AskiBenchmarks/` — `package-benchmark` target
-- `Tests/AskiTests/` — Swift Testing suite
+| Boundary | Owner | Responsibility |
+| --- | --- | --- |
+| Library | [Sources/Aski](../Sources/Aski/) | Conversion, grids, rendering, masks, animation, video, and effects; no third-party runtime dependency |
+| Product command | [AskiCLI](../Tools/AskiCLI/), [AskiCLIRunner](../Tools/AskiCLIRunner/) | Command composition and the async process entry point for `aski` |
+| CLI support | [AskiToolSupport](../Tools/AskiToolSupport/) | File loading, argument validation, output transactions, metadata, manifests, and shared lab helpers |
+| Research labs | [Tools](../Tools/) | Six importable lab modules, exposed through `aski lab`; historical `Aski*Lab` executables delegate to those modules |
+| Generated artifacts | [BuildStandardVectors](../Tools/BuildStandardVectors/), [BuildKernelLibrary](../Tools/BuildKernelLibrary/), [BuildResearchIndex](../Tools/BuildResearchIndex/), [BuildRepoMap](../Tools/BuildRepoMap/) | Glyph assets, Metal library, research registry, and declaration map |
+| Tests and measurement | [Tests/AskiTests](../Tests/AskiTests/), [Benchmarks/AskiBenchmarks](../Benchmarks/AskiBenchmarks/) | Swift Testing, snapshots, parity contracts, and `package-benchmark` workloads |
 
-## Command-line product
+Auxiliary targets live under `Tools/`, `Tests/`, and `Benchmarks/`, not under
+`Sources/`. `AskiDemo` and `AskiTileMatrix` are executable targets for repository
+use; the explicitly published products are the library, `aski`, and six lab
+replay executables. The [tool inventory](agents/tooling.md) covers commands and
+regeneration ownership without duplicating the manifest here.
 
-Aski has two product layers with one rendering engine:
-
-1. the `Aski` Swift library, which owns conversion, grids, rendering, masking,
-   animation, video, and effects; and
-2. the `aski` executable, a reference client for repeatable file-based workflows and the canonical owner of the research command tree.
-
-The command is intentionally thin. It composes public library behavior, owns
-filesystem and serialization concerns, and does not introduce a second image
-pipeline.
-
-`render` is both explicit and the default subcommand:
-
-```bash
-swift run aski render input.jpg --columns 80
-swift run aski input.jpg --columns 80
-swift run aski render input.jpg --output output.txt --render-png output.png
-swift run aski render photo.jpg --render-png dissolve.png --mask mask.png --mask-fallback original --mask-ground "#080808"
-swift run aski render input.jpg --write-manifest render.json
-```
-
-The render surface matches the historical `AskiDemo` workflow: `--columns`,
-`--output`, `--render-png`, `--width`, `--font-size`, `--charset`,
-`--background`, and `--[no-]preserve-aspect`, plus `--mask`,
-fallback/color/sizing, ground, hard-edge, and inversion options. `--width` sets
-the exact output pixel width for `--render-png`: the render scale is derived
-from that width and the grid, so the pixel size no longer depends on
-`--font-size`. It requires `--render-png` and is bound by
-`ASCIIGrid.maxTargetPixelWidth`. The CLI never writes the library's 1x1 fallback:
-an out-of-range width is refused up front as a validation error (exit 64), and a
-width whose derived height exceeds the ceiling is caught after the render and
-refused as a runtime error (exit 70). A mask alone can constrain plain-text output;
-raster-only fallback and ground choices require `--render-png`. `--write-manifest`
-is available only on `render`. `AskiDemoCommand` and its executable target remain
-available for historical callers. The published product and root command are both
-named `aski`; `AskiCLIRunner` owns only the async process entry point.
-
-`inspect` resolves the same ImageIO thumbnail, converter, grid, and plain-text
-render without writing render artifacts:
-
-```bash
-swift run aski inspect input.jpg --columns 80
-swift run aski inspect input.jpg --format json --output inspection.json
-```
-
-Human text is the default. JSON is opt-in and byte-deterministic for the same
-checkout, invocation, and input: keys are sorted, slashes are unescaped, and the
-file ends with one newline. Version 1 records the tool SHA, source path as
-supplied, normalized input pixel dimensions, resolved grid dimensions, charset,
-total/non-whitespace cell counts, and plain-text UTF-8 bytes. Its Draft 2020-12
-schema is [`assets/schemas/aski-inspect-v1.schema.json`](assets/schemas/aski-inspect-v1.schema.json).
-Readers must ignore additive fields; removing, renaming, or changing the meaning
-of a field requires a new `schemaVersion`.
-
-`render --write-manifest <path>` writes an unsigned deterministic render record
-from the same in-memory thumbnail, grid, text, and optional rendered PNG. Version
-1 records the tool SHA, command, source path and normalized dimensions, resolved
-grid and charset, additive algorithm/coverage/palette choices, render settings,
-text/PNG artifact metadata, and an optional resolved-mask block when `--mask`
-is supplied. When `--width` is used,
-the render block additionally carries the additive `targetPixelWidth`,
-`derivedScale`, `cellAdvancePixels`, and `resampleSpace` fields
-(`linear-srgb-area-average-4x` for the shipped supersample arm). It does not
-establish source or output authenticity. Its Draft 2020-12 schema is
-[`assets/schemas/aski-render-manifest-v1.schema.json`](assets/schemas/aski-render-manifest-v1.schema.json).
-It follows the same additive compatibility rule.
-
-`aski metadata` writes a JSON description of the live CLI to stdout:
-
-```bash
-swift run aski metadata
-```
-
-The [metadata v1 schema](assets/schemas/aski-metadata-v1.schema.json) describes
-the visible command tree, including `help`, in root-first depth-first order.
-Paths start with `aski`. Command aliases replace the last token of a path.
-`defaultSubcommand` names the direct child selected by default. Each command
-lists visible arguments in parser order with their spellings and cardinality.
-`defaultValue`, when present, is the parser's help text for the default and
-may require interpretation before use as an argument.
-
-Paths under `aski lab` carry the `research` classification. Other visible
-paths carry `stable`. A replay mapping replaces the historical executable
-token with its canonical lab prefix and preserves the remaining argument tokens.
-The mapping array is sorted by product. `toolVersion` reports Git HEAD in the
-invocation's working directory, as `--version` does, and uses `unknown` when Git
-cannot resolve a checkout. It describes that checkout independently of the
-revision used to build the executable.
-
-The output uses sorted keys, unescaped slashes, and one trailing newline.
-Readers must tolerate additive fields. Published field names and meanings
-follow the same v1 rule as `inspect`. Commands and defaults describe the current
-CLI surface and follow the existing pre-1.0 change policy.
-
-Research commands are grouped under one canonical namespace:
-
-```bash
-swift run aski lab color --help
-swift run aski lab motion --help
-swift run aski lab video --help
-swift run aski lab accessibility --help
-swift run aski lab decolor --help
-swift run aski lab hdr --help
-```
-
-The six lab implementations are regular importable targets. The historical
-`AskiColorLab`, `AskiMotionLab`, `AskiVideoLab`, `AskiAccessLab`, `AskiDecolorLab`,
-and `AskiHDRLab` executable products contain no command logic:
-each delegates to the same command type through a one-file runner. Surviving
-commands therefore have identical help, usage, and exit behavior on both paths;
-removed experiments remain in Git history, with their invocations captured by
-the dated notes and artifacts.
-New workflows use `aski lab …`. ArgumentParser generates Bash, Zsh,
-and Fish completion scripts from the complete canonical tree with
-`aski --generate-completion-script <shell>`.
-
-Future commands may make the engine easier to automate and reproduce. They must
-reuse the same decoded thumbnail, conversion, grid, and render paths; filesystem
-or serialization concerns stay in `AskiToolSupport`, not the library. Human
-output may evolve for clarity. Timestamps, hostnames, absolute environment paths,
-and network-derived values stay out of deterministic records unless a future
-format explicitly makes them part of its contract.
+The library imports Apple system frameworks, including CoreGraphics, CoreText,
+CoreImage, Accelerate, and AVFoundation. The package's third-party dependencies
+serve tools (`swift-argument-parser`), tests (`swift-property-based`,
+`swift-snapshot-testing`, `swift-numerics`), or benchmarks (`package-benchmark`).
+No tool or lab module is a dependency of `Aski`.
 
 ## Pipeline (CGImage → ASCIIGrid)
 
-1. Preparation at the conversion size: the source is resampled into the sampling lattice (`samplingLattice`, `CellSampling.swift`)
-2. OKLAB color conversion with fused matrix transforms (`ColorConversion.swift`)
-3. 60D log-polar shape-context character matching (`ShapeMatching.swift`, with kernels in `Sources/Aski/Algorithms/`)
-4. Ray Trace gamut mapping for display output (`GamutMapping.swift`; `.adaptiveL0` remains available for legacy comparison)
-5. Renderers produce plain text, AttributedString, or CGImage (`Sources/Aski/Renderers/`)
+The main entry is [ASCIIConverter](../Sources/Aski/ASCIIConverter.swift), generic
+over `ASCIICharacterSet` and `ASCIIPalette`. `DefaultConverter()` selects
+`.standard` glyphs and `.fullColor`. Its defaults are `.logPolar`, `.wide`,
+`oversample: 2`, sRGB, linear-light color averaging, OKLab Euclidean palette
+matching, Ray Trace gamut mapping, and encoded-display 8-bit composition.
+[RenderingOptions](../Sources/Aski/RenderingOptions.swift) defaults its five
+ordinary knobs to zero. Library defaults, CLI choices, and the frozen research
+reference are separate recipes; read the owner before changing one.
 
-**Sampling lattice (step 1).** `prepareConversion` puts the source's longest side on the
-conversion budget (`samplingMaxPixelSize`, `CellSampling.swift`, shared with
-`TileGridConverter`; never upscaling), takes a floored integer cell
-pitch (`prepared.width / cols`, `prepared.height / rows`) — uniform across the grid — and
-prepares a lattice raster of exactly `cols * cellWidth × rows * cellHeight`
-(`samplingLattice`, `CellSampling.swift`). A source larger than the budget is converted to
-premultiplied RGBA8 in the target color space and resampled once with vImage Lanczos
-(`kvImageHighQualityResampling`) straight to the lattice, then clipped to alpha because
-Lanczos can overshoot. A source already within the budget is drawn into the lattice with
-CoreGraphics `.high` interpolation. Before ASKI-1 an oversized `CGImage` was PNG-encoded and
-decoded through an ImageIO thumbnail first. The resampler choice and the frozen-preset
-no-harm census are recorded in `docs/Research/2026-11-10-aski-1-direct-cgimage-preparation.md`,
-and `TargetSizePreparationTests` pins the preparation contract. Every sampler indexes from
-the origin and walks whole cells, so the lattice is tiled exactly and no source row or column
-goes unread; the fold costs a rescale of at most one cell pitch per axis.
-Earlier versions sampled the thumbnail at its decoded size and dropped the bottom/right
-remainder — up to 10% of image height — which stretched the render downward against the
-full-aspect grid (ASKI-65, issue #36). The lattice contract is pinned by
-`SamplingLatticeContractTests` and mirrored in the AskiColorLab `SampledSource` accessor. A
-footprint with a one-pixel axis (reachable at `oversample: 1`) carries no
-log-polar support at all, so `logPolar` detects it from the pitch alone and falls back to a
-tone-only pick instead of collapsing to the space glyph (ASKI-25).
+```mermaid
+flowchart TD
+    Input["CGImage"] --> Prepare["prepareConversion"]
+    Prepare --> Context["ConversionContext"]
+    Context --> Color["Cell color and alpha"]
+    Context --> Match["Glyph matching"]
+    Color --> Match
+    Color --> Cells["ASCIICell rows"]
+    Match --> Cells
+    Cells --> Grid["ASCIIGrid"]
+    Grid --> Text["Text renderers"]
+    Grid --> Raster["Image rendering and composition"]
+```
 
-The shared budget protects portrait width and `.tall` landscape height before
-the integer cell pitch is taken. `SamplingMaxPixelSizeTests` covers both converters;
-the [oversampling contract](../Sources/Aski/Aski.docc/Algorithms.md#oversampling)
-defines the shape-specific sizing and small-source limits.
+Color and matching share one context. The diagram separates responsibilities;
+[ConversionEngine.renderRows](../Sources/Aski/ConversionEngine.swift) executes
+color finalization and glyph capture in the same cell loop. It returns nested
+`[[ASCIICell]]` rows. Ordinary, ranked, and residual conversion select concrete
+capture types once by algorithm; temporal conversion has its own path. These are the concrete data owners to
+follow when tracing conversion.
 
-**Grid geometry (step 5).** Converter output is rectangular. A public `ASCIIGrid`
-can also contain ragged rows: `columns` reports the widest row, images allocate
-that rectangular canvas, and text keeps each supplied row length. Missing positions
-retain the canvas during mask composition. The [rendering guide](../Sources/Aski/Aski.docc/Rendering.md)
-defines how this differs from zero coverage and when effects can change those pixels.
+### Preparation and input ownership
 
-**Exact target-width render (step 5).** The public `ASCIIGrid.renderImage(font:backgroundColor:targetPixelWidth:preserveSourceAspect:)`
-renders to an exact output pixel width instead of a font-size-derived scale. It
-draws the grid at 4x the requested width and area-averages back down in linear light
-(`ImageRenderer.swift`), which the ASKI-63 gate selected over direct rendering (SHIP-B, run 2;
-verdict `docs/Research/2026-09-01-aski63-target-width-verdict.md`, rule
-`docs/Research/2026-09-01-aski63-target-width-rule.md`). Because the supersampled bitmap must
-itself fit the renderer's pixel-extent ceiling, `ASCIIGrid.maxTargetPixelWidth` is a quarter of
-that ceiling; a wider request, or a grid whose derived height exceeds the same bound, returns
-the 1x1 fallback image as the scale renderer does. The direct arm stays reachable through the
-`@_spi(AskiResearch)` `TargetWidthResample` overload for research comparison only.
+`prepareConversion` snapshots the rendering options and palette, resolves grid
+geometry, samples optional mask coverage, and prepares a raster exactly tiled
+by whole cells. [CellSampling.swift](../Sources/Aski/CellSampling.swift) owns
+`gridDimensions`, `samplingMaxPixelSize`, `samplingLattice`, and
+`ConversionContext`; [TileGridConverter](../Sources/Aski/Tiles/TileGridConverter.swift)
+uses the same geometry rules.
 
-When `MaskOptions` is supplied, mask sampling supplies per-cell coverage that the
-render/compositing stage (`Sources/Aski/Effects/`, `Sources/Aski/Masking/`) uses to gate
-what's shown (fallback modes, soft edges) — conversion itself runs unconditionally per
-cell; time-based animation synthesis
-(`Sources/Aski/Animation/`, `ASCIIConverter+Animation.swift`) ranks per-cell character
-candidates in a single conversion pass, then synthesizes each frame's grid by selecting
-among those candidates on a schedule — not by rerunning the pipeline per frame, and
-without adding pipeline stages.
+The budget protects portrait width and `.tall` landscape height without
+upscaling small sources. A floored integer cell pitch defines the lattice:
+`columns * cellWidth` by `rows * cellHeight`. A large decoded source is converted
+to premultiplied RGBA8 in the target gamut and resampled directly to that lattice
+with vImage Lanczos, then clipped to alpha to bound overshoot. An input already
+within the budget is drawn with CoreGraphics `.high` interpolation. No
+bottom/right remainder is discarded and no PNG encode/decode round trip occurs.
+See the [oversampling contract](../Sources/Aski/Aski.docc/Algorithms.md#oversampling)
+and [direct-preparation decision](Research/2026-11-10-aski-1-direct-cgimage-preparation.md).
 
-**Per-cell parallelism (step 3).** The `logPolar` per-cell walk runs row-parallel through
-`GridRowWalk` (`DispatchQueue.concurrentPerform`) once the grid is at or above
-`GridRowWalk.parallelCellThreshold` (1200 cells); smaller grids stay serial, where the dispatch overhead
-would outweigh the work. Each row writes into pre-sized storage at proven-disjoint indices, so the output
-is **byte-identical** to the serial walk (a serial↔parallel parity suite and a frozen pre-change golden
-enforce this). `dotMatrix` always walks serially — its Floyd–Steinberg error diffusion is
-cell-order-dependent. Ordinary, ranked, and residual conversion dispatch once by algorithm into the same
-generic row-walk engine; concrete captures keep ranked and residual buffers out of the plain path and avoid
-an existential call or algorithm switch inside the cell loop. Temporal conversion remains separate. This
-is the only parallelism in the conversion pipeline: video and animation
-parallelize *within* each frame's cell walk, never by fanning out across frames. The measured crossover
-threshold, the ~18–40% default-convert speedup, and the three adjacent micro-optimizations that were
-measured and **rejected** — existential→generic kernel dispatch (dispatch cost negligible), per-cell scratch
-reuse (`inout`-threading overhead exceeded the allocation saving), and a per-conversion log-polar bin table
-(within measurement noise) — were recorded in the private development archive (ASTSK-51). The
-common thread: the 60-D log-polar descriptor compute dominates per-cell cost, so only spreading it across
-cores paid off. ASKI-72 later adopted static dispatch only as part of a 62-line maintenance consolidation;
-its [pre/post measurements](Research/2026-09-04-aski72-converter-engine-consolidation.md) show neutral-or-better
-cost and do not make a descriptor-speed claim.
+File-based image tools use
+[DemoImageIO.loadThumbnailForConversion](../Tools/AskiToolSupport/ImageFileIO.swift)
+to ask ImageIO for a conversion-sized thumbnail before materializing a full
+raster. The loader derives its budget from the destination converter's
+`preparationMaxPixelSize`, applies EXIF orientation, and retries when ImageIO's
+rounding undershoots the required portrait width. `render` and `inspect` share
+[ToolImageConversion](../Tools/AskiToolSupport/ToolImageConversion.swift), so
+reported dimensions and counts describe the grid actually produced.
 
-**Video pipeline overlap.** `ASCIIVideoDecoder.grids(...)` retains its original
-one-pull/one-decode semantics. The sibling `pipelinedGrids(...)` sequence owns one
-ordered prefetch task, and `convertVideo(...)` opts into it so decode + per-cell
-conversion of frame N+1 can overlap rendering + encoding of frame N. The consumer
-owns the current frame and the producer can hold one next frame: two frames in
-flight, regardless of clip length. There is still no inter-frame conversion
-fan-out. Exact PTS order, cancellation/failure propagation, early termination,
-and rotated-grid parity are test-enforced. The stage profile, resident-memory
-measurements, and rejected GIF metadata/orientation candidates were recorded in
-the private development archive (ASTSK-52).
+Preparation contracts are pinned by
+[SamplingLatticeContractTests](../Tests/AskiTests/SamplingLatticeContractTests.swift),
+[SamplingMaxPixelSizeTests](../Tests/AskiTests/SamplingMaxPixelSizeTests.swift),
+[TargetSizePreparationTests](../Tests/AskiTests/TargetSizePreparationTests.swift),
+and [ConversionThumbnailLoaderTests](../Tests/AskiTests/ConversionThumbnailLoaderTests.swift).
 
-CLI image tools that start from file paths (`aski`/the `AskiDemo` target,
-`AskiTileMatrix`, and `aski lab motion --image`) use the shared tool-support target
-to decode a conversion-sized thumbnail from the source `CGImageSource` before
-handing the image to the converter, avoiding full-raster materialization for
-oversized inputs. The loader takes the size from the converter it will hand the
-image to (`preparationMaxPixelSize`, `package` access on `ASCIIConverter` and
-`TileGridConverter`) rather than keeping its own copy of the rule, and passes the
-source's displayed dimensions, with EXIF orientation applied as ImageIO's
-thumbnail applies it. For a portrait, both converters' cap (`samplingMaxPixelSize`)
-keeps the width at `columns × oversample` (ASKI-105);
-ImageIO can decode that width one pixel short, so the loader retries one pixel
-larger until it reaches the width the cap implies (ASKI-104). `aski render` and
-`aski inspect` share one `ToolImageConversion` snapshot so metadata describes the
-exact in-memory grid and text being rendered.
-Direct library callers pass a `CGImage`, and the converter resamples it to the
-conversion size itself, with no ImageIO round trip (ASKI-1).
+### Glyph matching and shared state
 
-## Key files
+[GlyphBank](../Sources/Aski/CharacterSets/GlyphBank.swift) is the immutable owner
+of glyphs, normalized brightness, raw density, and packed 60D descriptors.
+Library-owned character sets and their converters share that bank. External
+`ASCIICharacterSet` conformers are snapshotted when the converter initializes or
+its `characterSet` is assigned; changing an external reference later requires
+reassignment. Empty sets and mismatched parallel-array lengths trap at that
+boundary. Use [RasterizedCharacterSet](../Sources/Aski/CharacterSets/RasterizedCharacterSet.swift)
+for font-and-glyph input, and read the
+[extension contract](../Sources/Aski/ASCIICharacterSet.swift) before implementing
+raw matching arrays.
 
-- `Sources/Aski/ASCIIConverter.swift` — main converter struct + `DefaultConverter` typealias
-- `Sources/Aski/ConversionEngine.swift` — shared statically specialized ordinary-conversion row walk and concrete output captures
-- `Sources/Aski/ASCIIGrid.swift` — output grid type
-- `Sources/Aski/Algorithms/` — pipeline kernels: `LogPolarKernel`, `DotMatrixKernel`, `ShapeContext`
-- `Sources/Aski/CharacterSets/GlyphBank.swift` — immutable validated internal reference owner of the four per-glyph arrays, shared by library-owned character sets and their converters. Built-ins reuse committed v1/v2/v3 bytes and record only the asset tag and format version; runtime Core Text sets record observed font and raster conventions; external conformers are snapshotted when a converter initializes or its `characterSet` is assigned.
-- `Sources/Aski/CharacterSets/StandardCharacterSet.swift`, `Sources/Aski/CharacterSets/StandardCharacterSet+Builtins.swift` — public projections over built-in character sets backed by `Resources/ShapeData/*.bin` (format v1/v2/v3: v1 = normalized brightness + 60D lanes; v2 adds absolute raw density; v3 carries a retired structure-channel block that the parser validates and skips. `Tools/BuildStandardVectors/LegacyShapeChannels.swift` preserves byte-stable regeneration without carrying the killed experiment in the library target. Older versions still load; audited without resource writes by `just audit-vectors --output-dir <dir>` and rebuilt only under the ASKI-51 policy by `just regen-vectors`), plus `CharacterSets/Braille/` rasterizer
-- `Sources/Aski/CharacterSets/RasterizedCharacterSet.swift` — runtime-built character sets projected from the same immutable bank
-- `Sources/Aski/Tiles/` — tile-grid conversion and rendering
-- `Sources/Aski/Effects/` — Core Image composition/effects, render engine, and stitchable Metal kernel integration
-- `Sources/Aski/Masking/` — raster mask sampling, fallback modes, soft edges
-- `Sources/Aski/Animation/` — time-based ASCII frame synthesis (`ASCIIConverter+Animation.swift` at root is its entry point)
-- `Sources/Aski/Video/` — streaming MP4 and animated-GIF decode, ASCII frame conversion, and MP4/GIF encode support (`ASCIIGIFDecoder`/`ASCIIGIFEncoder`/`convertGIF` for the GIF round-trip)
-- `Sources/Aski/Resources/Fonts/` — bundled Courier Prime Regular (OFL)
-- `Sources/Aski/Resources/Kernels/` — compiled Metal libraries (rebuilt by `just regen-kernels`)
-- `Sources/Aski/Aski.docc/` — DocC catalog
-- `docs/Research/` — algorithm-level deep dives (OKLAB color science, shape-context oversampling, frontier scans); load-bearing context when changing the matching pipeline
+[LogPolarKernel](../Sources/Aski/Algorithms/LogPolarKernel.swift) constructs the
+query, then [ShapeMatching](../Sources/Aski/ShapeMatching.swift) ranks a brightness
+shortlist by squared L2 distance. Each `ConversionContext` now owns one immutable
+[ShapeContext.Footprint](../Sources/Aski/Algorithms/ShapeContext.swift): its
+pixel-to-bin map is shared across cells and row workers, while each histogram
+keeps independent accumulation storage and raster-order additions. This is the
+adopted ASKI-87 optimization; earlier rejected bin-table experiments are
+historical, not the current implementation. [Native replay evidence](benchmark-validation.md#native-replay-result--2026-11-12)
+and [footprint parity tests](../Tests/AskiTests/ShapeContextFootprintTests.swift)
+record its scope. The later scoped-histogram-storage candidate was
+[rejected](Research/2026-11-15-aski89-histogram-storage.md); production still owns
+its histogram and packed lane arrays.
 
-## Testing notes
+A one-pixel cell axis cannot carry a shape descriptor. That geometric condition
+selects tone-only ranking rather than allowing the zero query to favor the space
+glyph. This is distinct from a supported footprint whose content happens to
+produce a zero histogram. `dotMatrix` uses density and optional Floyd–Steinberg
+diffusion instead. The [algorithm guide](../Sources/Aski/Aski.docc/Algorithms.md)
+and [design notes](../DESIGN.md) explain these behaviors and the remaining
+small-footprint limits.
 
-- Tests live in `Tests/AskiTests/`; uses Swift Testing (not XCTest)
-- Snapshot tests live under `Tests/AskiTests/__Snapshots__/` (excluded from package build)
-- Property-based tests use `swift-property-based`
-- Benchmark target runs against `package-benchmark`
-- Root verification commands live in `justfile`; run `just --list` for the canonical build/test/docs/research/benchmark/release surface.
+[GridRowWalk](../Sources/Aski/GridRowWalk.swift) runs log-polar rows in parallel
+when there is more than one row and at least 1,200 cells, and joins before returning. Workers write disjoint rows
+and candidate/residual ranges; smaller grids stay serial. Dot-matrix always
+stays serial because diffusion depends on cell order. Preserve the
+[serial/parallel parity contract](../Tests/AskiTests/ParallelWalkParityTests.swift)
+when changing storage or scheduling.
 
-## Dependencies
+### Color, rendering, and masks
 
-- `swift-property-based` — test-only
-- `swift-snapshot-testing` — test-only
-- `swift-numerics` — test-only
-- `package-benchmark` — benchmarks-only
-- `swift-argument-parser` — executable and research-tool targets only
-- The `Aski` library has no third-party runtime dependencies
-- Library runtime imports are Apple system modules only: Foundation, CoreGraphics, CoreImage, CoreText, ImageIO, UniformTypeIdentifiers, Metal, os, simd, and platform text/color modules (`UIKit` where available, otherwise `AppKit`)
+`ConversionContext` samples source color, computes adjusted OKLab lightness,
+resolves the palette, and maps display color to the target gamut. The glyph
+shortlist uses that adjusted lightness, while its shape descriptor uses a
+separate encoded-luma signal. [ColorConversion](../Sources/Aski/ColorConversion.swift),
+[ResolvedPalette](../Sources/Aski/ResolvedPalette.swift), and
+[GamutMapping](../Sources/Aski/GamutMapping.swift) own those operations.
+[ColorPipelinePolicies](../Sources/Aski/ColorPipelinePolicies.swift) defines
+ordinary defaults and experimental alternatives; an available policy is not
+necessarily a demonstrated output-quality improvement.
+
+[ASCIIGrid](../Sources/Aski/ASCIIGrid.swift) carries cells, render color space,
+composition policy, and mask rendering state. Converter output is rectangular,
+but manually constructed grids may be ragged. Images allocate the widest-row
+canvas; text preserves supplied row lengths. Missing positions retain the
+canvas during mask composition rather than receiving fallback or ground paint.
+[Renderers](../Sources/Aski/Renderers/) produce plain text, attributed text, and
+CoreGraphics images. [Effects](../Sources/Aski/Effects/) builds the Core Image
+composition and effect graph.
+
+The exact-width image overload renders at four times the requested width, then
+area-averages in linear light. `ASCIIGrid.maxTargetPixelWidth` accounts for the
+supersampled bitmap ceiling; excessive width or derived height returns the
+library's 1×1 fallback. The CLI rejects such a result instead of writing it.
+The direct target-width arm remains research SPI. See the
+[rendering guide](../Sources/Aski/Aski.docc/Rendering.md),
+[target-width decision](Research/2026-09-01-aski63-target-width-verdict.md), and
+[target-width tests](../Tests/AskiTests/ImageRendererTargetWidthTests.swift).
+
+Mask coverage is sampled before conversion and attached to each cell; matching
+still runs for every cell. [Masking](../Sources/Aski/Masking/) owns coverage,
+fallback, and ground composition. Paint colors are interpreted in their
+`CGColor`'s declared space. The ASCII composition policy selects the
+CoreGraphics raster space; later Core Image operations and a deferred
+`renderCIImage` consumer retain their own working-space choices. Tiles have no
+ASCII composition-policy knob. Use the [mask route table](../Sources/Aski/Aski.docc/Masking.md)
+and [composition-space decision](Research/2026-11-15-aski103-composition-spaces.md)
+when changing a stage; a single global claim about encoded versus linear
+composition is insufficient.
+
+### Animation and video
+
+[ASCIIConverter+Animation](../Sources/Aski/ASCIIConverter+Animation.swift) ranks
+candidates in one conversion pass. [AnimatedASCIIGrid](../Sources/Aski/Animation/AnimatedASCIIGrid.swift)
+selects among those candidates on a deterministic schedule; it does not rerun
+conversion for each animation frame. [AnimatedASCIIGrid](../Sources/Aski/Animation/AnimatedASCIIGrid.swift) and
+[ASCIIGrid.applyingOngoingPattern](../Sources/Aski/Animation/ASCIIGrid+OngoingPattern.swift)
+reuse the pulse multiplier once per frame, using
+[PatternEvaluator](../Sources/Aski/Animation/PatternEvaluator.swift). The temporal research path in
+[ASCIIConverter+Temporal](../Sources/Aski/Animation/ASCIIConverter+Temporal.swift)
+is distinct from ordinary scheduled animation and is exposed through research SPI.
+
+[ASCIIVideoDecoder](../Sources/Aski/Video/ASCIIVideoDecoder.swift) preserves the
+public `grids` callback's one-pull/one-decode behavior. `pipelinedGrids` allows one
+ordered prefetch, overlapping decode/conversion of the next frame with
+render/encode of the current frame. It does not fan out conversion across frames.
+[convertVideo](../Sources/Aski/Video/ASCIIVideoConverter.swift) chooses between:
+
+- No `targetFPS`: the bounded `pipelinedGrids` path.
+- With `targetFPS`: internal `selectedGrids`, using
+  [VideoFrameSelectionPump](../Sources/Aski/Video/VideoFrameSelectionPump.swift)
+  to select decoded source identities before conversion and reuse a converted
+  grid for duplicate output slots. Codec decode still occurs; the optimization
+  avoids unnecessary ASCII conversions. Prefetch follows selection.
+
+The [early-selection evidence](../Scripts/research/video-frame-selection.md)
+and [integration tests](../Tests/AskiTests/VideoEarlySelectionIntegrationTests.swift)
+cover output pixels, timestamps, and reports.
+[VideoSelectionLifetimeTests](../Tests/AskiTests/VideoSelectionLifetimeTests.swift)
+and [VideoPipelineTests](../Tests/AskiTests/VideoPipelineTests.swift) cover
+lifetime, cancellation, ordering, and bounded overlap. GIF conversion has its
+own [decoder](../Sources/Aski/Video/ASCIIGIFDecoder.swift),
+[converter](../Sources/Aski/Video/ASCIIGIFConverter.swift), and
+[encoder](../Sources/Aski/Video/ASCIIGIFEncoder.swift); do not infer GIF buffering
+or selection behavior from the MP4 path.
+
+## Command-line product
+
+`aski` is a thin reference client over the library. It owns files and records,
+not a second conversion engine. [AskiCommand](../Tools/AskiCLI/AskiCommand.swift)
+composes `render` (also the default), `inspect`, `metadata`, and `lab`.
+[AskiCLIRunner](../Tools/AskiCLIRunner/main.swift) owns the async process entry;
+[AskiToolSupport](../Tools/AskiToolSupport/) owns shared work. User recipes and
+flags belong in the [command-line guide](../Sources/Aski/Aski.docc/CommandLine.md).
+
+| Record | Producer / schema | Contract |
+| --- | --- | --- |
+| Inspection | [AskiInspectCommand](../Tools/AskiToolSupport/AskiInspectCommand.swift), [inspect v1](assets/schemas/aski-inspect-v1.schema.json) | Resolves the same thumbnail, converter, grid, and text as render without writing render artifacts; text is default, JSON is opt-in |
+| Render manifest | [AskiRenderManifest](../Tools/AskiToolSupport/AskiRenderManifest.swift), [manifest v1](assets/schemas/aski-render-manifest-v1.schema.json) | `render --write-manifest` records the in-memory conversion, render settings, outputs, and optional mask; unsigned, with no authenticity claim |
+| CLI discovery | [AskiMetadataCommand](../Tools/AskiCLI/AskiMetadataCommand.swift), [metadata v1](assets/schemas/aski-metadata-v1.schema.json) | Describes visible command paths, arguments, aliases, defaults, research classification, and replay mappings |
+
+These JSON records use sorted keys, unescaped slashes, and one trailing newline.
+Readers must tolerate additive fields; removing, renaming, or changing a field's
+meaning requires a new `schemaVersion`. Parser defaults in metadata are help
+text and may need interpretation before use as arguments. `stable` in the
+metadata classification distinguishes non-lab commands; it does not override
+the package's pre-1.0 change policy.
+
+`toolVersion` and `--version` report Git HEAD in the invocation's working
+directory, or `unknown` when it cannot resolve a checkout. They do not identify
+the executable's build revision. Do not treat that field alone as binary
+provenance. The [distribution guide](guides/distribution.md) covers packaged CLI
+artifacts and verification.
+
+`--width` requires PNG output and is checked against `maxTargetPixelWidth` before
+rendering (invalid argument: exit 64); an excessive derived height is rejected
+after rendering (runtime error: exit 70). A mask may constrain plain text, while
+raster-only fallback and ground options require PNG output. Output transactions
+are owned by [DemoOutputTransaction](../Tools/AskiToolSupport/DemoOutputTransaction.swift).
+
+The six lab modules remain importable and have thin historical replay runners.
+New workflows use `aski lab …`; completion scripts come from the same parser
+via `aski --generate-completion-script <shell>`. Removed runners and commands
+remain documented in dated evidence, not in the live command tree.
+
+## Resources and research boundaries
+
+Built-in glyph banks load committed [ShapeData](../Sources/Aski/Resources/ShapeData/)
+bytes. Formats v1 and v2 remain readable; v3's retired structure-channel block is
+validated and skipped. [LegacyShapeChannels](../Tools/BuildStandardVectors/LegacyShapeChannels.swift)
+retains byte-stable generation outside the library. `just audit-vectors` reads
+and compares; regeneration follows the
+[Core Text drift policy](Research/2026-09-04-aski51-core-text-drift-policy.md).
+A current host's font observations are not provenance for a committed bank.
+
+[Effects/Kernels](../Sources/Aski/Effects/Kernels/) is excluded from SwiftPM
+compilation. Its checked-in [metallib](../Sources/Aski/Resources/Kernels/default.metallib)
+is a copied resource and must be regenerated with kernel-source changes.
+The [Courier Prime font](../Sources/Aski/Resources/Fonts/) and shape data are also
+copied resources; the [privacy manifest](../Sources/Aski/PrivacyInfo.xcprivacy)
+is processed. See the [tool inventory](agents/tooling.md) for artifact owners.
+
+`@_spi(AskiResearch)` exposes instruments and experimental controls to labs;
+`package` access shares implementation with tools, tests, and benchmarks without
+making it public API. The former public Vesper preset and preset lab were removed.
+[FrozenRenderReference](../Tools/AskiToolSupport/FrozenRenderReference.swift)
+retains their fixed recipe solely for research and raster regression tests;
+[Duotone](../Sources/Aski/Aski.docc/Duotone.md) is the public composition recipe.
+Read the [research methodology](agents/research-methodology.md) before changing
+matching, render baselines, or a measured default. Historical notes establish
+what was tested, not which code is active now.

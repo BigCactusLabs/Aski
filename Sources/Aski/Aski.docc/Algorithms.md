@@ -56,25 +56,30 @@ descriptor bins (see "Oversampling is not a quality knob" below):
 Use `dotMatrix` with these sets when glyph choice should carry the image. A fallback to the tone-nearest glyph for
 cells whose query shares no bin with any candidate was measured and rejected:
 it removed the all-blank output but raised per-cell error on `standard` by
-3–4%. Evidence: `docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md`
-in the repository.
+3–4%. The [orthogonality-fallback study](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md)
+records the rule, results, and retained candidate.
 
 ## Knob relevance
 
 | Knob | logPolar | dotMatrix |
 |---|:-:|:-:|
-| `coverage` | – | ✓ FS dither strength |
-| `density` | ✓ widens top-K | – |
-| `edgeEmphasis` | ✓ Sobel-magnitude weighting | – |
-| `brightness` | ✓ | ✓ |
-| `contrast` | ✓ | ✓ |
+| `coverage` | Ignored | Floyd–Steinberg dither strength |
+| `density` | Widens brightness top-K | Ignored |
+| `edgeEmphasis` | Sobel-magnitude weighting | Ignored |
+| `brightness` | Adjusts source lightness | Adjusts source lightness |
+| `contrast` | Adjusts source lightness | Adjusts source lightness |
 
 ``RenderingOptions`` also carries the research-only `shapeQueryPolarity`, which
 selects the ink axis of the `logPolar` shape query and defaults to `.inverted`,
-the shipped byte-identical behavior. See `docs/Research/` for experiment
-verdicts and retained replay evidence.
+the shipped behavior. Naming `ShapeQueryPolarity` or using the property requires
+`@_spi(AskiResearch) import Aski`; see <doc:CharacterSets>. Experiment verdicts and
+replay evidence are linked from the repository's
+[research guide](https://github.com/BigCactusLabs/Aski/blob/main/docs/agents/research.md).
 
-Out-of-range values clamp silently.
+Finite out-of-range knobs clamp to their documented ranges during conversion.
+`density` widens the brightness pool from 12 to 36 candidates (capped at the glyph
+count); non-finite `density` resolves to zero. `brightness` and `contrast` affect
+both display color and brightness-based matching.
 
 ## Oversampling
 
@@ -115,11 +120,11 @@ not matter.
 At `oversample = 2` the typical cell is `2 × N` pixels, which is below the
 `3 × 3` minimum kernel size required for the Sobel-based `edgeEmphasis` knob
 to fire. Callers using `algorithm: .logPolar` with non-zero
-``RenderingOptions/edgeEmphasis`` should set `oversample: 4` (or higher) to
-ensure the Sobel path is exercised. Other algorithms and zero-knob `logPolar`
-are unaffected *in the sense that no code path is gated off* — but see below.
-
-Default stays `2` to preserve bit-identical pre-A1 default output.
+``RenderingOptions/edgeEmphasis`` can set `oversample: 4` (or higher) to
+provide a large enough footprint when the source permits it. Small sources are not
+upscaled, and a flat footprint with zero Sobel response retains the base signal.
+Other algorithms and zero-knob `logPolar` are unaffected *in the sense that no code
+path is gated off* — but see below.
 
 ### Oversampling is not a quality knob
 
@@ -141,8 +146,9 @@ effectively unchanged (3.75 of 8 at 3 bins, 3.74 of 8 at 48). A ranker that
 does not improve when handed sixteen times the information is not
 information-limited.
 
-So raise `oversample` when you need the Sobel-gated knob above, or when a
-downstream stage wants a larger working image — not as a quality lever for
-zero-knob `logPolar`, where it costs decode time and buys nothing measurable.
-Evidence: `docs/Research/2026-08-19-sampling-lattice-support-collapse.md` and
-`docs/Research/2026-08-19-selection-optimality-gap.md` in the repository.
+Use a larger `oversample` to exercise the Sobel path or supply a larger working
+raster when needed. The recorded zero-knob `logPolar` census does not establish a
+quality improvement from that increase. The
+[sampling-support study](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-08-19-sampling-lattice-support-collapse.md)
+and [selection-gap study](https://github.com/BigCactusLabs/Aski/blob/main/docs/Research/2026-08-19-selection-optimality-gap.md)
+contain the measured cases and limitations.

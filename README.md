@@ -19,7 +19,8 @@ Zoom in: the texture is type. Source image: NASA/ESA/CSA/STScI.
 **Swift 6.3+ · iOS 18+ · macOS 15+ · visionOS 2+ · [Apache 2.0](LICENSE)**
 
 [Examples and recipes](docs/guides/character-art-recipes.md) · [Try the CLI](#try-it) ·
-[Use in Swift](#use-in-swift) · [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md)
+[Use in Swift](#use-in-swift) · [Documentation](docs/README.md) · [Contributing](CONTRIBUTING.md) ·
+[Agent navigation](docs/agents/navigation.md)
 
 ## Try it
 
@@ -112,7 +113,7 @@ loading an image, choosing a palette, and rendering each output format.
 Change the alphabet, change the mood. Ten built-in character sets range from printable
 ASCII to Unicode blocks, line work, and braille. Custom sets can be rasterized from a font.
 
-For a dithered block treatment:
+For a block treatment:
 
 ```swift
 let converter = ASCIIConverter(
@@ -174,6 +175,12 @@ in retained research refer to private development and may not be accessible here
 Good bug reports, clearer examples, surprising renders, and careful experiments are
 all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) for setup, verification,
 research etiquette, and what belongs in a PR.
+
+For coding agents, start with [AGENTS.md](AGENTS.md), then use the
+[task-to-code map](docs/agents/navigation.md) to find the owning source and tests.
+[Validation](docs/agents/validation.md) maps changes to checks;
+[research navigation](docs/agents/research.md) records decisions to consult before
+restarting an experiment.
 
 Work lands through short-lived branches and pull requests. The [Backlog](backlog/)
 tracks tasks; [Blotter](AGENTS.md#blotter) records reusable engineering lessons. Both

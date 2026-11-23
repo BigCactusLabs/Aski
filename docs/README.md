@@ -1,100 +1,110 @@
 # Aski documentation
 
-Pick a trail: make a render, build an integration, or open the engine. This is the
-navigation hub; the [project README](../README.md) is the front door.
+Use this hub to find the right level of detail. The [project README](../README.md)
+introduces the product; [AGENTS.md](../AGENTS.md) is the coding-agent entry point.
+
+## Change the repository
+
+Start with **[task-to-code navigation](agents/navigation.md)**: it maps common changes
+to source files, tests, and the corresponding public guide. Read the relevant route,
+then use the validation guide to choose checks.
+
+| Need | Start here |
+| --- | --- |
+| Source ownership, nearby tests, and focused searches | [Repository navigation](agents/navigation.md) |
+| Contributor setup and snapshot toolchain | [CONTRIBUTING](../CONTRIBUTING.md#toolchain-and-snapshot-baseline) |
+| Commands to verify a change; native and portable limits | [Validation](agents/validation.md) |
+| Pipeline, current defaults, ownership, and dependencies | [Architecture](architecture.md) |
+| CLI automation contracts | [Command-line architecture](architecture.md#command-line-product), [versioned JSON schemas](assets/schemas/) |
+| Commands, lab runners, generators, and compatibility shims | [Tool inventory](agents/tooling.md) |
+| An open task or task update | [Backlog workflow](agents/backlog.md) |
+| Whether a proposed experiment has already been tried | [Research decisions and next entry points](agents/research.md) |
+| A type or file in the library | [Generated source map](repo-map.generated.md) |
+| Descriptor lineage, measured limits, and design rationale | [DESIGN](../DESIGN.md) |
+| Package a CLI candidate or configure hosted package docs | [Distribution](guides/distribution.md) |
+| Machine-readable entry points | [llms.txt](../llms.txt) |
 
 ## Use Aski
 
-| You want to… | Start here |
+| Goal | Guide |
 | --- | --- |
-| Try the package on a bundled image | [README: Try it](../README.md#try-it) |
-| Compare source and character art, then try three treatments | [Character-art examples and recipes](guides/character-art-recipes.md) |
-| Convert files, export PNGs, use masks, or inspect JSON | [Command-line guide](../Sources/Aski/Aski.docc/CommandLine.md) |
-| Add the library and make a first conversion | [Installation](../README.md#use-in-swift), [Getting Started](../Sources/Aski/Aski.docc/GettingStarted.md) |
+| Run a first render using a bundled image | [README: Try it](../README.md#try-it) |
+| Compare three rendered treatments and their commands | [Character-art examples and recipes](guides/character-art-recipes.md) |
+| Convert files, export PNGs, apply masks, or inspect JSON | [Command-line guide](../Sources/Aski/Aski.docc/CommandLine.md) |
+| Install the library and make a first conversion | [Installation](../README.md#use-in-swift), [Getting Started](../Sources/Aski/Aski.docc/GettingStarted.md) |
 | Choose text, attributed text, or raster output | [Rendering](../Sources/Aski/Aski.docc/Rendering.md) |
 | Change the alphabet, matcher, or palette | [Character Sets](../Sources/Aski/Aski.docc/CharacterSets.md), [Algorithms](../Sources/Aski/Aski.docc/Algorithms.md), [Palette Matching](../Sources/Aski/Aski.docc/PaletteMatching.md) |
-| Make cutouts and photo-to-type dissolves | [Masking](../Sources/Aski/Aski.docc/Masking.md) |
-| Add motion, video, or finishing effects | [Animation](../Sources/Aski/Aski.docc/Animation.md), [Video & GIF](../Sources/Aski/Aski.docc/Video.md), [Effects](../Sources/Aski/Aski.docc/Effects.md) |
-| Use tiles or a two-color recipe | [Tile grids](../Sources/Aski/Aski.docc/Tiles.md), [Duotone](../Sources/Aski/Aski.docc/Duotone.md) |
-| Upgrade an existing integration | [Migration notes](../Sources/Aski/Aski.docc/Migrating-to-A1.md), [CHANGELOG](../CHANGELOG.md), [checked-in release notes](release-notes/) |
+| Make cutouts or photo-to-type dissolves | [Masking](../Sources/Aski/Aski.docc/Masking.md) |
+| Add motion, video, or finishing effects | [Animation](../Sources/Aski/Aski.docc/Animation.md), [Video and GIF](../Sources/Aski/Aski.docc/Video.md), [Effects](../Sources/Aski/Aski.docc/Effects.md) |
+| Use tiles or a two-color recipe | [Tiles](../Sources/Aski/Aski.docc/Tiles.md), [Duotone](../Sources/Aski/Aski.docc/Duotone.md) |
+| Upgrade an integration | [Migration notes](../Sources/Aski/Aski.docc/Migrating-to-A1.md), [CHANGELOG](../CHANGELOG.md), [release notes](release-notes/) |
 
-The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) is the API documentation source.
-On GitHub, its symbol links appear in source form; `just docc` validates the resolved
-catalog locally. `./Scripts/validate-docc.sh --emit-markdown` additionally emits optional
-Markdown sidecars and a manifest in a unique, retained directory printed by the script.
-For packaging, pass `--output-dir` with a new directory; see the
-[output-path migration](../CONTRIBUTING.md#pull-requests-and-releases). Release notes
-describe intended assets; do not assume a hosted API site.
+The [DocC catalog](../Sources/Aski/Aski.docc/Aski.md) owns API articles and symbol
+navigation. GitHub displays DocC symbol links as source; `just docc` resolves and
+validates them locally. To export Markdown sidecars, use the explicit output workflow
+in [CONTRIBUTING](../CONTRIBUTING.md#pull-requests-and-releases). Release notes do not
+by themselves establish that hosted documentation or an asset has been published.
 
-## Understand or contribute
+## Research and evidence
 
-| You want to know… | Read |
+[Research navigation](agents/research.md) explains current decision state, including
+adopted, rejected, inconclusive, and retired work. The
+[research index](Research/README.md) is the complete searchable catalog of notes,
+corpora, and result stores; [index.json](Research/index.json) is its generated machine
+projection.
+
+| Need | Read |
 | --- | --- |
-| Setup, local gates, snapshot baseline, and PR expectations | [CONTRIBUTING.md](../CONTRIBUTING.md) |
-| Package a CLI candidate or configure hosted package documentation | [Distribution guide](guides/distribution.md) |
-| Agent conventions and hard engineering rules | [AGENTS.md](../AGENTS.md) |
-| Products, targets, conversion pipeline, and dependencies | [architecture.md](architecture.md) |
-| CLI automation contracts and compatibility | [Command-line architecture](architecture.md#command-line-product), [JSON schemas](assets/schemas/) |
-| Descriptor lineage and its limitations | [DESIGN.md](../DESIGN.md) |
-| Research findings, decisions, and retractions | [Research index](Research/README.md) |
-| Charset extension contract and research polarity visibility | [ASKI-76 boundary decision](Research/2026-11-15-aski76-charset-boundary.md) |
-| Mask interpolation, glyph antialiasing, and deferred CI working spaces | [ASKI-103 measured composition contract](Research/2026-11-15-aski103-composition-spaces.md) |
-| Color-interpretation correction and its frozen-selection guard | [ASKI-3 protocol](Research/2026-11-05-aski3-color-semantics.md) |
-| Inspect the channel-split alpha and brightness correction | [ASKI-110 native render evidence](Research/Results/2026-11-14-aski110-channel-alpha/README.md) |
-| Inspect the near-white cutoff and proposed lab follow-up | [ASKI-108 native pairs and decision](Research/2026-11-14-aski108-near-white-inspection.md) |
-| Cross-cutting discoveries awaiting triage | [Discoveries.md](Research/Discoveries.md) |
-| Research protocol and task-management workflow | [Research methodology](agents/research-methodology.md), [Backlog guide](agents/backlog.md) |
-| Compare repeated performance candidates or inspect early video selection | [Paired benchmark readouts](agents/paired-benchmarks.md), [video frame-selection contract and measured result](../Scripts/research/video-frame-selection.md), [ASKI-93 reproducer](../Scripts/research/aski93-2026-11-12/reproduce.py) |
-| Inspect prepared footprint adoption and its measured limits | [ASKI-87 native replay](benchmark-validation.md#native-replay-result--2026-11-12), [ASKI-87 reproducer](../Scripts/research/aski87-2026-11-12/reproduce.py) |
-| Inspect native benchmark failure/allocator proof | [ASKI-86 native validity evidence](../Scripts/research/aski86-2026-11-13/README.md) |
-| Inspect the reproduced allocator cleanup defect and exact count regressions | [ASKI-109 lifecycle evidence](../Scripts/research/aski109-2026-11-13/README.md) |
-| Inspect the rejected fixed-palette cache and reproduce every paired result | [ASKI-90 complete study](../Scripts/research/aski90-2026-11-13/README.md) |
-| Inspect exact heap selection and its rejected native performance result | [ASKI-88 complete study](../Scripts/research/aski88-2026-11-13/README.md) |
-| Inspect adopted pulse reuse, exact parity and measured overlay gains | [ASKI-91 complete study](../Scripts/research/aski91-2026-11-13/README.md) |
-| Review the rejected tile-buffer optimization, paired data and allocation lifetimes | [ASKI-92 completed study](../Scripts/research/aski92-2026-11-14/README.md) |
-| Inspect provider lifetimes and failed RSS limits in the ImageIO append approach | [ASKI-4 memory study](../Scripts/research/aski4-2026-11-13/README.md) |
-| Inspect the rejected orientation-preparation arm | [ASKI-2 exact-raster experiment](../Scripts/research/aski2-2026-11-13/README.md) |
-| Inspect Swift 6.4 collision qualification and scoped HDR boundary evidence | [ASKI-74 native replay](../Scripts/research/aski74-2026-11-13/README.md) |
-| Prepare animation, masked-rendering and fallback-noise work | [Rendering task groundwork](agents/rendering-groundwork.md) |
-| Prepare exact brightness-pool selection experiments | [ASKI-88 contracts, probes, and native measurement plan](agents/brightness-pool-groundwork.md) |
-| Subsystem roles or the full symbol/file index | [Repo map](../AGENTS.md#repo-map), [generated source map](repo-map.generated.md) |
-| Historical color-theory planning—not the current work queue | [research-plan.md](research-plan.md) |
-| Machine-readable navigation | [llms.txt](../llms.txt) |
+| Standing experiment rules and frozen render reference | [Research methodology](agents/research-methodology.md) |
+| Complete benchmark capture, sample validity, or allocator provenance | [Benchmark validation](benchmark-validation.md) |
+| Compare repeated baseline/candidate captures | [Paired benchmarks](agents/paired-benchmarks.md) |
+| Rendering and fallback experiment contracts | [Rendering groundwork](agents/rendering-groundwork.md), starting with its current status |
+| Brightness shortlist contracts and rejected heap selection | [Brightness groundwork](agents/brightness-pool-groundwork.md), starting with its current status |
+| Cross-cutting findings awaiting triage | [Discoveries](Research/Discoveries.md) |
+| Retained color-theory planning | [Historical research plan](research-plan.md) |
 
-Pre-1.0 APIs and rendered output may change. Public library features, experimental
-policies, research SPI, and lab commands have different readiness levels. In particular,
-[HDR/emissive rendering](../Sources/Aski/Aski.docc/HDRRendering.md) is research-only.
-Older SHAs, issue numbers, and tags in retained notes refer to private development;
-the public release history starts at v0.7.0.
+Pre-1.0 APIs and output may change. Ordinary APIs, experimental policies, labs, and
+research SPI have different readiness levels; [HDR rendering](../Sources/Aski/Aski.docc/HDRRendering.md)
+is research-only. Older SHAs, issue numbers, and tags can refer to private development.
+The public release history starts at v0.7.0. A historical runner or proposed pipeline
+is not a promise about the current checkout.
 
 ## Tool inventory
 
-Run commands from the repository root with the selected Xcode toolchain. `aski render`
-and `aski inspect` are the ordinary still-image workflow; `aski lab` contains research
-harnesses. Supporting implementations live under `Tools/`, not `Sources/`.
+The canonical inventory is [Tooling](agents/tooling.md). `aski render` and `aski
+inspect` are the ordinary still-image workflow; `aski lab …` contains research
+harnesses. Use `just --list` for build/test/docs/release recipes and current CLI
+`--help` or `aski metadata` for command discovery.
 
-| Tool | Purpose | Canonical run |
-| --- | --- | --- |
-| `aski` | Image rendering, inspection, and machine-readable CLI discovery | `xcrun swift run aski render <image>` · `xcrun swift run aski inspect <image> --format json` · `xcrun swift run aski metadata` · `xcrun swift run aski lab --help` |
-| `AskiTileMatrix` | Tile-grid render matrix | `xcrun swift run AskiTileMatrix <image> <out> --columns 64` |
-| `aski lab color` | Color/matcher research, including the fixed ASKI-69 challenge and human-arbitrated [arbiter v2](Research/2026-09-04-aski62-arbiter-v2-protocol.md) | `xcrun swift run aski lab color <subcommand> --output-dir <dir>` · `xcrun swift run -c release aski lab color render-matcher-challenge --output-dir <dir>` |
-| `aski lab motion` | Animation frames, motion presets, GIF export, and temporal-coherence gates | `xcrun swift run aski lab motion --help` |
-| `aski lab video` | MP4/GIF conversion harness and time-invariant cosmetic effects | `xcrun swift run aski lab video --input <clip> --output-dir <dir>` |
-| `aski lab accessibility` | Palette/grid color-vision-deficiency audit | `xcrun swift run aski lab accessibility audit --output-dir <dir>` |
-| `aski lab decolor` | Composited-cell perceptual oracle; `check` fails on a KILL verdict | `xcrun swift run aski lab decolor check --output-dir <dir>` |
-| `aski lab hdr` | Research-only HDR artifacts and fail-fast gates | `xcrun swift run aski lab hdr check --output-dir <dir>` |
-| `BuildKernelLibrary` | Regenerate the checked-in Metal library | `just regen-kernels` |
-| `BuildStandardVectors` | Audit or regenerate charset shape vectors | `just audit-vectors --output-dir <dir>` · `just regen-vectors` |
-| `BuildResearchIndex` | Validate research/lifecycle records or regenerate their index | `just research-check` · `xcrun swift run BuildResearchIndex` |
-| `BuildRepoMap` | Validate or regenerate the source map | `just repo-map-check` · `just regen-repo-map` |
-| `AskiBenchmarks` | [Validated benchmark evidence](benchmark-validation.md); budgets live in `Benchmarks/AskiBenchmarks/` | `just bench` · `just bench --smoke` |
+Gates run locally; there is no hosted CI workflow. [Validation](agents/validation.md)
+separates the full Apple-platform gate from portable documentation and script checks.
 
-Historical `Aski*Lab` executables are compatibility entry points for surviving commands;
-new workflows use `aski lab …`. Removed experiments are not promised as runnable commands
-in the current checkout. Their notes and retained artifacts document what can be replayed.
+## Maintaining documentation
 
-`just --list` is the canonical build/test/docs/release task inventory. `make <target>`
-forwards to `just` and still requires it. Gates are local; this repository has no hosted
-CI workflow. `just test-infra` separately exercises the shell infrastructure with fake
-Apple tools and Python 3's standard library, without a Swift build. See
-[verification](../CONTRIBUTING.md#verification) before submitting a PR.
+Keep one owner for each kind of information, then link to it. Avoid duplicating a
+long list of labs, toolchain details, or study verdicts in every entry point.
+
+| Information | Edit here |
+| --- | --- |
+| Product introduction, first render, package installation | [README](../README.md) |
+| Agent-wide constraints and startup route | [AGENTS](../AGENTS.md); detailed task routing in [Navigation](agents/navigation.md) |
+| Setup, PR expectations, release workflow | [CONTRIBUTING](../CONTRIBUTING.md) |
+| Validation commands and generated artifacts | [Validation](agents/validation.md), with [justfile](../justfile) as command authority |
+| Public API behavior and examples | [DocC catalog](../Sources/Aski/Aski.docc/); update migration notes for breaking changes |
+| Current implementation and design boundaries | [Architecture](architecture.md) and [DESIGN](../DESIGN.md) |
+| CLI/lab/generator inventory | [Tooling](agents/tooling.md), verified against [Package.swift](../Package.swift) and command declarations |
+| Current research routing | [Research navigation](agents/research.md); the checked-in backlog still owns task state |
+| Protocols, measured results, and asset attribution | Dated [research notes](Research/README.md) with front matter; [Corpus](Research/Corpus/) and [Results](Research/Results/) manifests |
+| Generated indexes | Edit source inputs, then run the generators listed in [Validation](agents/validation.md). Never hand-edit generated blocks. |
+
+For a new guide, add a link here and in [llms.txt](../llms.txt). Put focused developer
+guides in `docs/agents/` and user/distribution guides in `docs/guides/`;
+[`IndexCheck.docsRootFailures`](../Tools/BuildResearchIndex/IndexCheck.swift) deliberately
+allowlists the `docs/` root. Keep existing useful heading anchors when reorganizing.
+
+Run `just docs-check` (or `python3 -B Scripts/check-doc-links.py`) to check maintained
+entry points, guides, ordinary DocC file links, images, heading anchors, and same-repo
+links in `llms.txt`. It is offline; external URLs and DocC symbol resolution require
+separate checks. Historical research bodies and release notes are not rewritten by
+this navigation check. Run `just docc` for resolved DocC symbols and the full local
+`just check` as required by the contribution workflow.

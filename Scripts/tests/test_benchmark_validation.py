@@ -279,6 +279,7 @@ class RecipeTests(unittest.TestCase):
         self.assertEqual(body.splitlines(), [
             "    ./Scripts/swift-format-check.sh",
             "    xcrun swift build --build-tests",
+            "    just docs-check",
             "    ASKI_SKIP_BUILD=1 just lifecycle-check",
             "    ASKI_SKIP_BUILD=1 just repo-map-check",
             "    ASKI_SKIP_BUILD=1 ASKI_SKIP_REGISTRY_TESTS=1 ASKI_SKIP_MEDIA_TESTS=1 just test-without-video-deadlock",

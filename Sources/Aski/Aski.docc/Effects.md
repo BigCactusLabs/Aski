@@ -104,10 +104,13 @@ The sync overloads absorb effect failures and return fallback output. The async 
 
 ## Effect ordering
 
-``EffectChain`` honors array order. Recommended ordering:
+``EffectChain`` honors array order after composition, mask blending, and lighting.
+A composition-stage ``ColorOverlay`` is configured through ``CompositionOptions``;
+it cannot be inserted between effects in the chain. A useful starting order within
+the chain is:
 
 - Early: `bloom`, `chromaticAberration` to emphasize highlights and fringes.
-- Middle: composition-stage overlays, then `vignette`.
+- Middle: `vignette`.
 - Late: geometric effects such as `crtCurvature`, `pixelate`, and `halftone`.
 - Last: `filmGrain` and `filmDust`, so film texture sits on top.
 
@@ -120,7 +123,19 @@ of their input. Shifted color stays inside the input’s coverage.
 
 ## Applying effects per frame (video)
 
-When the same ``EffectChain`` is rendered across a sequence of frames — as `aski lab video` does via the `renderImage(…, effects:)` overload — prefer **time-invariant** effects (`bloom`, `scanLines`, `vignette`) that use the same parameters every frame. Holding the parameters constant makes the overlay temporally stable: it is a deterministic function of the frame and carries no per-frame phase, so it cannot shimmer. The stochastic effects (`filmGrain`, `glitch`, `filmDust`) reseed per call; varying their seed per frame injects per-frame noise that flickers in the band the eye is most sensitive to, so they are intended for stills or a single held frame, not animated sequences. The video lab therefore exposes only the three time-invariant cosmetics. Animate brightness or coverage with ``ASCIIGrid/applyingOngoingPattern(_:at:)`` instead — it carries an explicit, phase-coherent time parameter.
+`convertVideo` applies the same caller-supplied ``EffectChain`` to every rendered
+frame. It does not generate a per-frame effect time or seed. The `aski lab video`
+CLI exposes only `bloom`, `scanLines`, and `vignette`; the library accepts the full
+chain.
+
+`filmGrain`, `glitch`, and `filmDust` use the explicit seed in their options.
+Keeping that seed fixed reuses the same deterministic field for a given extent;
+changing it in a custom frame loop changes the field and can create visible
+flicker. Constant parameters avoid an independent random phase, but do not promise
+that moving source content or a resized preview will be free of shimmer.
+Use ``ASCIIGrid/applyingOngoingPattern(_:at:)`` for an explicit time-based pulse or
+wave. It changes cell alpha, preserving glyphs, display colors, brightness, and
+mask coverage.
 
 A note on `scanLines` visibility: ASCII output is already a dense, high-frequency texture, so fine scanlines tend to read subtly against the glyph grid (and any downscaled preview blurs them further). The default `frequency` of `8` is intentionally conservative — it minimizes moiré at arbitrary output scales. Raise `frequency` (e.g. `16`–`40`, larger = wider, more prominent bands) when you want the CRT scanline look to be clearly visible at the final display size; the banding is most apparent at 1:1 pixels.
 

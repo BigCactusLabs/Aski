@@ -1,11 +1,33 @@
-# Aski — Novel Color-Theory Threads: Keystone Eval + Break-the-Decoupling + Expressive Wow
+# Historical color research plan
 
-> **Historical plan with executed status notes.** This is the original implementation plan for five novel ASCII color-theory threads,
-> produced from a 42-agent frontier-research sweep + adversarial scoring against the codebase.
-> It now includes inline execution notes for the slices that have shipped; treat unchecked sections as future work, not the whole document as not-started.
-> Repo-truth boundary: commands and targets introduced below were target-state in the original plan. Prefer current inline execution notes, `Package.swift`, and CLI `--help` output before implementation.
-> **Note:** this document is kept for its evidence and rationale, not its ordering; it is not the current sequencing authority.
-> **ASKI-68 current-state addendum (2026-09-04):** the later KILL/INCONCLUSIVE work closed and removed the Thread C ink-precompensation and Thread D chroma-assist product options, implementation branches, and dedicated commands. The prose below remains the frozen plan and result narrative; use the [ASKI-68 cleanup record](Research/2026-09-04-aski68-production-experiment-cleanup.md) for the live surface and replay boundary.
+This page preserves the original five-thread plan and its early execution notes.
+It explains the research sequence; it is **not the current task queue or a set of
+implementation instructions**. Start at [research navigation](agents/research.md)
+and [Backlog](agents/backlog.md) before acting on any proposal below.
+
+## How to read the original plan now
+
+The following routing was checked on 2026-11-22. The original narrative below
+`Context` remains historical, including its earlier PASS claims, proposed APIs,
+line numbers, commands, and references to CI. Current gates run locally; the
+repository has no hosted CI workflow.
+
+| Original thread | Current reading and next source |
+| --- | --- |
+| A — composited-cell oracle | The lab exists. Read the [oracle result and limits](Research/2026-06-09-decolor-oracle.md), and run current commands through `aski lab decolor`. |
+| B — shape residual | The base residual-map instrument remains. The production structure-assist treatment was rejected and removed; read the [residual study](Research/2026-06-09-shape-residual.md) and [ASKI-68 cleanup](Research/2026-09-04-aski68-production-experiment-cleanup.md). |
+| C — ink pre-compensation | KILL; the production options, branch, and dedicated command were removed. The early statement below that knobs “stay in” is superseded by [ASKI-68](Research/2026-09-04-aski68-production-experiment-cleanup.md). |
+| D — isoluminant rescue | The early PASS did not survive later evaluation. The exact-lattice follow-up was INCONCLUSIVE; the independent NASA result stayed KILL. The options and runner were removed. Read [ASKI-66](Research/2026-09-04-aski66-exact-lattice-dose-redesign.md) and ASKI-68. |
+| E1 — two-color cells | The proposal below is not a shipped `twoColorCells` option. ASKI-107 owns the current glyph/ground appearance question; check its acceptance criteria and the [composition-space decision](Research/2026-11-15-aski103-composition-spaces.md) before choosing an approach. |
+| E2 — HDR/EDR sketch | Related HDR rendering shipped as opt-in research SPI. Read the [emissive spike](Research/2026-06-16-hdr-emissive-spike.md) and current [HDR guide](../Sources/Aski/Aski.docc/HDRRendering.md); this original sketch does not describe today's implementation. |
+
+The `.bin` v2 transition below is also historical: the generator and reader now
+use v3 assets. ASKI-78 owns the unresolved raster-drift policy; do not regenerate
+committed ShapeData from an old checklist. The [snapshot and toolchain
+baseline](../CONTRIBUTING.md#toolchain-and-snapshot-baseline) explains the current
+host constraints.
+
+Original plan: *Novel Color-Theory Threads: Keystone Eval + Break-the-Decoupling + Expressive Wow*.
 
 ## Context
 

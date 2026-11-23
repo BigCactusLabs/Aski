@@ -27,8 +27,8 @@ import Aski
 import CoreText
 
 let custom = RasterizedCharacterSet(
-    characters: Array("☆★✦✧✨"),
-    font: CTFontCreateWithName("Helvetica" as CFString, 32, nil)
+    characters: Array(" .:-=+*#%@"),
+    font: CTFontCreateWithName("Menlo" as CFString, 32, nil)
 )
 let converter = ASCIIConverter(
     characterSet: custom,
@@ -85,8 +85,10 @@ recommended pairings.
 
 Every built-in set except ``StandardCharacterSet/braille`` includes a literal
 " " as its first character. Braille uses U+2800 (zero dots) as its native
-blank. Matching falls back to the lowest-brightness glyph when a custom set has
-no literal space.
+blank. A custom set need not contain a literal space: the matcher ranks its
+supplied candidates, so a dark region may still contain visible ink. Include an
+appropriate blank if the treatment requires one. Text masking can emit replacement
+spaces independently of the character set; see <doc:Masking>.
 
 ## Research import
 
