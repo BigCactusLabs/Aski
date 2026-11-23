@@ -90,6 +90,24 @@ import Testing
         }
     }
 
+    @Test func utcDateStringFormatsPOSIXUTCDateAndManifestUsesIt() throws {
+        #expect(VectorDriftAudit.utcDateString(for: Date(timeIntervalSince1970: 0)) == "1970-01-01")
+        #expect(VectorDriftAudit.utcDateString(for: Date(timeIntervalSince1970: 86_399)) == "1970-01-01")
+        #expect(VectorDriftAudit.utcDateString(for: Date(timeIntervalSince1970: 86_400)) == "1970-01-02")
+
+        let root = try packageRoot()
+        let spec = try #require(BuildStandardVectors.allSets.first { $0.name == "minimal" })
+        let font = CTFontCreateWithName("Courier" as CFString, 32, nil)
+        let outDir = FileManager.default.temporaryDirectory
+            .appending(path: "aski-vector-audit-test-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: outDir) }
+
+        _ = try VectorDriftAudit.run(root: root, outputDirectory: outDir, specs: [spec], font: font)
+        let yaml = try String(contentsOf: outDir.appending(path: "result.yaml"), encoding: .utf8)
+        let expectedDate = VectorDriftAudit.utcDateString()
+        #expect(yaml.contains("\ndate: \(expectedDate)\n"))
+    }
+
     enum NonFiniteChannel: String, CaseIterable, CustomTestStringConvertible {
         case brightness
         case shape
@@ -132,5 +150,16 @@ import Testing
         glyphs.forEach { glyph in glyph.orientationHistogram.forEach { data.append(f32: $0) } }
         glyphs.forEach { data.append(f32: $0.radialPeak) }
         return data
+    }
+
+    private func packageRoot() throws -> URL {
+        var url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        while url.path != "/" {
+            if FileManager.default.fileExists(atPath: url.appending(path: "Package.swift").path) {
+                return url
+            }
+            url.deleteLastPathComponent()
+        }
+        throw CocoaError(.fileNoSuchFile)
     }
 }

@@ -93,12 +93,12 @@ import Testing
     private static func render(_ settings: [String: String], sources: [String: CGImage], font: ASCIIFont) throws -> CGImage {
         let lengths = try #require(["rect": [5, 5, 5, 5, 5], "ragged": [0, 2, 5, 0, 1], "single": [0, 1, 0], "empty": [0, 0, 0]][settings["shape"] ?? ""])
         let sizing = try #require(["fill": BackgroundSizing.fill, "fit": .fit, "stretch": .stretch][settings["sizing"] ?? ""])
-        let hardEdges = try #require(["hard": true, "soft": false][settings["edges"] ?? ""])
+        let hardEdges = try #require(["hard": true, "soft": false][settings["edges"] ?? ""] as Bool?)
         let gamut = try #require(["sRGB": RenderColorSpace.sRGB, "p3": .displayP3][settings["gamut"] ?? ""])
         let composition = try #require(["encoded": RenderCompositionPolicy.encodedDisplay8Bit, "linear": .extendedLinearPerGamut][settings["composition"] ?? ""])
         let ground = try #require(["none": -1.0, "clear": 0.0, "partial": 0.45, "opaque": 1.0][settings["ground"] ?? ""])
         let backgroundAlpha = try #require(["clear": 0.0, "partial": 0.35, "opaque": 1.0][settings["canvas"] ?? ""])
-        let aspect = try #require(["legacy": false, "source": true][settings["aspect"] ?? ""])
+        let aspect = try #require(["legacy": false, "source": true][settings["aspect"] ?? ""] as Bool?)
         let source = try #require(sources[settings["source"] ?? ""])
         let background = CGColor(srgbRed: 0.12, green: 0.27, blue: 0.48, alpha: backgroundAlpha)
         let coverage: [Float] = [0, 0.25, 0.75, 1]

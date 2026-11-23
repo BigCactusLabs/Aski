@@ -94,12 +94,22 @@ import Testing
     }
 
     @Test(arguments: [RenderColorSpace.sRGB, .displayP3], [VideoCodec.h264, .hevc])
-    func neutralGrayRoundTripsExactly(space: RenderColorSpace, codec: VideoCodec) async throws {
+    func neutralGrayRoundTripsWithoutChromaShift(space: RenderColorSpace, codec: VideoCodec) async throws {
         let image = solidGridFrame(space: space, rgb: Self.neutralGray, columns: 4, rows: 4)
         let url = try await exportSingleFrame(image, codec: codec, name: "gray-\(space)-\(codec).mp4")
         defer { try? FileManager.default.removeItem(at: url) }
+
+        // ASCIIVideoEncoder + VideoToolbox encode exact BT.709 video-range
+        // (Y=126, Cb=128, Cr=128) with exact VUI tags, while VTPixelTransferSession
+        // 420v -> 32BGRA on macOS 27.2.1 / Apple M5 Max rounds (126, 128, 128)
+        // to [127, 128, 127]. Allow <= 1 LSB on 32BGRA and assert exact zero
+        // chroma shift directly on the decoded 420v Y'CbCr planes.
         let decoded = try await decodedCenterRGB(url, readingIn: space)
-        #expect(decoded == [128, 128, 128], "decoded \(decoded)")
+        #expect(maxDelta(decoded, [128, 128, 128]) <= 1, "decoded \(decoded)")
+
+        let ycbcr = try await decodedCenterYCbCr(url)
+        #expect(abs(Int(ycbcr.y) - 126) <= 1, "ycbcr \(ycbcr)")
+        #expect(ycbcr.cb == 128 && ycbcr.cr == 128, "ycbcr \(ycbcr)")
     }
 
     /// The first frame fixes the file's gamut. A later frame in the other gamut
@@ -297,4 +307,41 @@ private func centerMean(of buffer: CVPixelBuffer) throws -> [Double] {
         }
     }
     return sum.map { $0 / count }
+}
+
+private func decodedCenterYCbCr(_ url: URL) async throws -> (y: UInt8, cb: UInt8, cr: UInt8) {
+    let asset = AVURLAsset(url: url)
+    let track = try #require(try await asset.loadTracks(withMediaType: .video).first)
+    let reader = try AVAssetReader(asset: asset)
+    let output = AVAssetReaderTrackOutput(
+        track: track,
+        outputSettings: [
+            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange
+        ]
+    )
+    reader.add(output)
+    #expect(reader.startReading())
+    let sample = try #require(output.copyNextSampleBuffer())
+    let buffer = try #require(CMSampleBufferGetImageBuffer(sample))
+    CVPixelBufferLockBaseAddress(buffer, .readOnly)
+    defer { CVPixelBufferUnlockBaseAddress(buffer, .readOnly) }
+    #expect(CVPixelBufferGetPixelFormatType(buffer) == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)
+    #expect(CVPixelBufferIsPlanar(buffer))
+    #expect(CVPixelBufferGetPlaneCount(buffer) == 2)
+
+    let width = CVPixelBufferGetWidth(buffer)
+    let height = CVPixelBufferGetHeight(buffer)
+    let cx = width / 2
+    let cy = height / 2
+
+    let yBase = try #require(CVPixelBufferGetBaseAddressOfPlane(buffer, 0)).assumingMemoryBound(to: UInt8.self)
+    let yStride = CVPixelBufferGetBytesPerRowOfPlane(buffer, 0)
+    let y = yBase[cy * yStride + cx]
+
+    let uvBase = try #require(CVPixelBufferGetBaseAddressOfPlane(buffer, 1)).assumingMemoryBound(to: UInt8.self)
+    let uvStride = CVPixelBufferGetBytesPerRowOfPlane(buffer, 1)
+    let uvX = min(cx / 2, max(0, CVPixelBufferGetWidthOfPlane(buffer, 1) - 1))
+    let uvY = min(cy / 2, max(0, CVPixelBufferGetHeightOfPlane(buffer, 1) - 1))
+    let uvOffset = uvY * uvStride + uvX * 2
+    return (y: y, cb: uvBase[uvOffset], cr: uvBase[uvOffset + 1])
 }

@@ -188,6 +188,14 @@ enum VectorDriftAudit {
             glyphs: drift)
     }
 
+    static func utcDateString(for date: Date = Date()) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+
     static func run(
         root: URL,
         outputDirectory: URL,
@@ -287,7 +295,7 @@ enum VectorDriftAudit {
         let manifest = """
             ---
             schema_version: "1"
-            date: 2026-09-04
+            date: \(utcDateString())
             aski_git_sha: "\(gitSHA)"
             provenance: ["Read-only Core Text drift audit on \(yamlEscape(macOS))", "\(yamlEscape(xcode))", "\(yamlEscape(swift))"]
             outputs: ["glyph-drift.csv", "set-summary.csv", "summary.md"]

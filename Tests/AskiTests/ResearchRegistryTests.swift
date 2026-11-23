@@ -43,6 +43,19 @@ import Testing
         #expect(failures.isEmpty, "\(failures)")
     }
 
+    @Test func argumentParserSeparatesRegenerateCheckHelpAndRejectsUnknownFlags() throws {
+        #expect(try BuildResearchIndexCLI.parseArguments([]) == .regenerate)
+        #expect(try BuildResearchIndexCLI.parseArguments(["--check"]) == .check)
+        #expect(try BuildResearchIndexCLI.parseArguments(["--help"]) == .help)
+        #expect(try BuildResearchIndexCLI.parseArguments(["-h"]) == .help)
+        #expect(throws: BuildResearchIndexCLI.ArgumentError.unexpectedArguments(["--bogus"])) {
+            try BuildResearchIndexCLI.parseArguments(["--bogus"])
+        }
+        #expect(throws: BuildResearchIndexCLI.ArgumentError.unexpectedArguments(["--check", "--help"])) {
+            try BuildResearchIndexCLI.parseArguments(["--check", "--help"])
+        }
+    }
+
     private static func packageRoot() throws -> URL {
         var url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         while url.path != "/" {

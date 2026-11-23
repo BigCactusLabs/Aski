@@ -15,13 +15,27 @@ func die(_ message: String) -> Never {
     exit(1)
 }
 
-if arguments.contains("--check") {
+let mode: BuildResearchIndexCLI.Mode
+do {
+    mode = try BuildResearchIndexCLI.parseArguments(arguments)
+} catch {
+    FileHandle.standardError.write(Data("BuildResearchIndex: \(error)\n\(BuildResearchIndexCLI.usage)\n".utf8))
+    exit(64)
+}
+
+switch mode {
+case .help:
+    print(BuildResearchIndexCLI.usage)
+    exit(0)
+case .check:
     let failures = IndexCheck.validate(root: root)
     if failures.isEmpty {
         print("Research registry: OK")
         exit(0)
     }
     die("Research registry check failed:\n" + failures.map { "  - \($0)" }.joined(separator: "\n"))
+case .regenerate:
+    break
 }
 
 do {

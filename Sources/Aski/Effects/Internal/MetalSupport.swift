@@ -32,7 +32,10 @@ internal enum MetalSupport {
         try $testOverride.withValue(value, operation: body)
     }
 
-    static func withTestOverride<T>(_ value: Bool?, _ body: () async throws -> T) async rethrows -> T {
+    nonisolated(nonsending) static func withTestOverride<T>(
+        _ value: Bool?,
+        _ body: nonisolated(nonsending) () async throws -> T
+    ) async rethrows -> T {
         try await $testOverride.withValue(value, operation: body)
     }
 
