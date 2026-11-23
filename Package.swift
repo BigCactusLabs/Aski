@@ -227,6 +227,7 @@ let package = Package(
                 .product(name: "Benchmark", package: "package-benchmark"),
             ],
             path: "Benchmarks/AskiBenchmarks",
+            exclude: ["ASTSK-54-measurements.md", "ASTSK-55-measurements.md"],
             swiftSettings: [.swiftLanguageMode(.v6)],
             plugins: [
                 .plugin(name: "BenchmarkPlugin", package: "package-benchmark")

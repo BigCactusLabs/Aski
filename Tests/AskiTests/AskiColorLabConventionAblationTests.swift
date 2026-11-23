@@ -405,7 +405,7 @@ import Testing
     /// are disqualified from defining an optimum (ASKI-27). A table that led
     /// with a disqualified oracle would invite exactly the reading the audit
     /// removed.
-    @Test func printedTablesLeadWithTheHouseOracle() {
+    @Test func printedTablesLeadWithTheHouseOracle() throws {
         #expect(ConventionAblation.oracleOrder.first == .mae)
         let report = ConventionAblation.Report(
             geometry: [],
@@ -419,7 +419,7 @@ import Testing
             ladder: [])
         let lines = ConventionAblation.format(report, stride: 1, queryPolarity: .inverted).split(separator: "\n")
         let dataRows = lines.filter { $0.contains(" | blocks | ") }
-        let firstOracle = try? #require(dataRows.first)
-        #expect(firstOracle?.contains(" | mae | ") == true)
+        let firstOracle = try #require(dataRows.first)
+        #expect(firstOracle.contains(" | mae | "))
     }
 }
