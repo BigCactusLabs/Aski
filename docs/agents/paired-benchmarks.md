@@ -115,6 +115,14 @@ match across runs for each workload/metric; they are not silently converted.
 The reviewed producer forces nanoseconds for time. Optional omissions remain
 visible. `adoption_verdict` and `budget_verdict` always remain `not_evaluated`.
 
+Do not copy numbers from `swift package benchmark baseline compare` markdown output
+into a before/after table unchecked. With package-benchmark 1.35.0 it labeled some
+millisecond tables as μs (a 24 ms to 5.2 ms wall-clock change printed as `24 → 5 (μs)`)
+while other tables in the same report were labeled correctly, and `--time-units` did not
+change it. Read the raw values from
+`swift package benchmark baseline read <name> --format influx --path stdout` instead.
+The value is the fifth field from the end of each row, and the `unit` column names its unit.
+
 The original ASKI-86 captures do not record a physical host identifier, so they require the
 explicit host attestation above. A later report may provide a consistent
 `identity.host_id`; the reader labels which basis it used. Neither a handwritten
