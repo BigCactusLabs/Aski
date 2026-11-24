@@ -3,8 +3,8 @@ id: ASKI-95
 title: Measure bounded reuse of fallback effect noise rasters
 status: To Do
 assignee: []
-created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T04:22:00Z'
+created_date: '2026-09-30T00:20:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels:
   - performance
   - effects
@@ -41,4 +41,6 @@ Source mechanism verified at c49bbd during the 2026-09-29 sweep; no fallback pro
 
 <!-- SECTION:NOTES:BEGIN -->
 Audit 2026-11-12: public PR #13 (f59926b) landed FallbackNoiseGroundworkTests. seededNoise call sites moved to about :221 and :253, definition about :265.
+
+Audit 2026-11-24: the anchors moved again after bc0e31f (PR #29). At b676dce the `seededNoise` call sites are Sources/Aski/Effects/Internal/StockCIEffectKernel.swift:231 and :251, and the definition is at :263; find them by symbol name. The ASKI-94 and ASKI-89 rejections cover other paths and do not change this task.
 <!-- SECTION:NOTES:END -->

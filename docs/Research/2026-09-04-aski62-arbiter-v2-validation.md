@@ -4,7 +4,7 @@ slug: 2026-09-04-aski62-arbiter-v2-validation
 date: 2026-09-04
 status: active
 subsystem: [shape-context, meta]
-summary: "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a, preserved on main by content-equivalent commit d616951, emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. ASKI-62 remains active until the owner completes the blinded 51-sheet sitting and both section 5.1 gates can be scored."
+summary: "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a (like its content-equivalent commit d616951, a private-history commit absent from the public repository) emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. ASKI-62 remains active until the owner completes the blinded 51-sheet sitting and both section 5.1 gates can be scored."
 related_specs: [docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md, docs/Research/2026-08-25-aski56-arbiter-protocol.md, docs/Research/2026-08-27-aski56-arbiter-verdict.md, docs/Research/2026-09-01-aski60-shape-query-polarity.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1]
 runners: [AskiColorLab]
@@ -20,11 +20,13 @@ does **not** supply the human or VLM evidence required by protocol section 5.1. 
 about which shape-query polarity looks better and does not change the production default.
 
 The protocol was frozen in the original side-branch commit `f5a44a9` before this run; its
-main-reachable, content-equivalent commit is `9d34f8d45e616f46b8512a4500413262e700ae05`.
+content-equivalent commit on the then-private `main` is `9d34f8d45e616f46b8512a4500413262e700ae05`.
 The release executable came from original implementation commit
-`dbf8e2a4e6b8e0558e0a7d33d7668a23257adacc`; its main-reachable, content-equivalent commit is
-`d6169510b766768ebc24e47c1e3016fe855a1502`. The original SHAs identify the exact measured
-builds. The main-equivalent SHAs make their source trees reproducible from a main-only clone.
+`dbf8e2a4e6b8e0558e0a7d33d7668a23257adacc`; its content-equivalent commit on the then-private
+`main` is `d6169510b766768ebc24e47c1e3016fe855a1502`. The original SHAs identify the exact
+measured builds. Correction 2026-11-24: all four commits are private history. The public
+repository starts at `a6cb011` (2026-09-23), so a public clone cannot reproduce these trees;
+they are available only from the private archive.
 
 ## Automated validation
 

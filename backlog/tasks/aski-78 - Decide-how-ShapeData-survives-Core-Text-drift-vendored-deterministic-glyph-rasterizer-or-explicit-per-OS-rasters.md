@@ -5,8 +5,8 @@ title: >-
   rasterizer or explicit per-OS rasters
 status: To Do
 assignee: []
-created_date: 2026-09-23 15:47
-updated_date: '2026-11-10T02:10:00Z'
+created_date: '2026-09-23T15:47:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels:
   - spike
   - gate
@@ -45,4 +45,6 @@ Bounded experiment: retain committed ShapeData as the selection control; first c
 Apple's `CTFontCreatePathForGlyph` returns glyph outlines; rendering those paths with Core Graphics still does not establish OS-independent pixels. FreeType exposes `FT_LOAD_NO_HINTING`, `FT_LOAD_NO_BITMAP`, and `FT_RENDER_MODE_NORMAL` for controlled grayscale trials, but those switches alone do not prove cross-host byte stability. Demonstrate that with pinned inputs and multiple hosts before promising deterministic assets. Existing committed ShapeData and the recorded macOS-27 rendered-golden baseline remain the controls.
 
 Primary sources inspected: https://developer.apple.com/documentation/coretext/ctfontcreatepathforglyph(_:_:_:) ; https://freetype.org/freetype2/docs/reference/ft2-glyph_retrieval.html .
+
+Audit 2026-11-24: PR #30 removed the public preset. The canonical renderer referred to above is now the package-only Tools/AskiToolSupport/FrozenRenderReference.swift (`.courierPrime(size: 14)`), and "the frozen preset" in AC#1 means that reference. AC#3 is half done: docs/Research/2026-09-04-aski51-core-text-drift-policy.md already records the macOS 27 TRIGGERED result in its front matter and body; the decision part is still open. For AC#4, CONTRIBUTING.md (toolchain and snapshot baseline) documents the current host-bound golden constraint, but no multi-OS policy has been decided.
 <!-- SECTION:NOTES:END -->

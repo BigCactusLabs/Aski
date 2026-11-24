@@ -5,8 +5,8 @@ title: >-
   test whether restoring support re-orders selection verdicts
 status: To Do
 assignee: []
-created_date: '2026-08-24 16:09'
-updated_date: '2026-09-27 17:36'
+created_date: '2026-08-24T16:09:00Z'
+updated_date: '2026-11-24T20:23:15Z'
 labels: []
 dependencies: []
 ordinal: 56000
@@ -49,4 +49,6 @@ Measured with `cellQueryDescriptors` on nasa-steerable-v1-vavilov-crater, nasa-o
 - ASKI-79: no non-blank glyph in minimal, dots, diagonal, cross or diamond (or a custom Plex Mono ramp) has mass in those bins, so the blank wins every cell and the output is 100% blank at both polarities.
 - ASKI-80: only `|`, `}` and `j` of the 95 standard glyphs have mass there; for the rest the pick reduces to the lowest |g|² in the tone pool, giving 7-15 glyphs used and 57-84% of non-blank cells in same-glyph runs of 5 or more.
 Either task is a cheap readout for this task's AC#3: an intervention that restores support should move both.
+
+Audit 2026-11-24: `cellQueryDescriptors` is now at Sources/Aski/ASCIIConverter+Research.swift:119. Before starting AC#1, read docs/Research/2026-08-19-sampling-lattice-support-collapse.md: its summary already names the mechanism (the thumbnail cap of columns times oversample gives 2-pixel-wide cells, and `ShapeContext.histogram60`'s radius band then admits 2 or 3 pixels). It gives no file:line evidence, and ASKI-65 changed only its bottom-edge truncation clause, so AC#1 may need little more than those anchors.
 <!-- SECTION:NOTES:END -->

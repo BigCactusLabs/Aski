@@ -5,8 +5,8 @@ title: >-
   white shows as dark ground on the frozen preset
 status: Done
 assignee: []
-created_date: 2026-09-27 18:56
-updated_date: '2026-11-13T05:21:00Z'
+created_date: '2026-09-27T18:56:00Z'
+updated_date: '2026-11-24T20:23:15Z'
 labels:
   - research
   - matcher
@@ -44,6 +44,8 @@ Groundwork 2026-10-27: preserve the recorded KEEP-ground owner decision; add a s
 Added `Tests/AskiTests/NearWhiteGroundContractTests.swift`: six cases cover canonical opaque near-white input, the exact 242/243 prepared-sample boundary, independent solid-ground rendering reference, and a synthetic gradient into white. `Sources/Aski/Aski.docc/Vesper.md` states the recorded KEEP-ground behavior. No production or golden change. Source review passed, but this Linux host has no Swift/Xcode/CoreGraphics: tests are not compiled or run. Run the focused suite and `just check` on the recorded Mac. The occupancy-fixture visual cliff inspection remains outstanding, so this task stays open.
 
 Audit 2026-11-12: the 'this Linux host' note is stale: NearWhiteGroundContractTests landed in public PR #11 (00e5b1b) and ran in native just check passes. The owner's keep-white-ground decision was recorded at the PR #6 review. Ticking AC#1/AC#2 and deciding where the threshold-cliff inspection lives is an owner call.
+
+Audit 2026-11-24: the preset documentation named above (Sources/Aski/Aski.docc/Vesper.md) was removed by PR #30 (e48cf13). The near-white sentence now lives in Sources/Aski/Aski.docc/Duotone.md:60.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

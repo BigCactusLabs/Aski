@@ -3,8 +3,8 @@ id: ASKI-59
 title: 'Explore ASCII-grid photo animation: fixed glyph grid, moving sample field'
 status: To Do
 assignee: []
-created_date: 2026-08-27 05:15
-updated_date: '2026-11-14T21:38:00Z'
+created_date: '2026-08-27T05:15:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels: []
 dependencies: []
 references:
@@ -50,6 +50,8 @@ Source map: `Sources/Aski/ASCIIAlgorithm.swift`.
 Audit 2026-11-12: ASKI-73 is not in the public backlog, so the motion decision this task waits on cannot be found here; the owner should point it at a public gate or park it.
 
 2026-11-14 product-scope update: the named preset and ASKI-73 product-probe commands are retired by owner decision. This removes the former probe dependency as an actionable roadmap commitment; it does not establish a motion PASS/KILL verdict. This task remains parked in To Do until a separate general-use case and bounded decision rule are approved. Existing generic animation/reveal APIs and the public-API integration coverage remain; use Tests/AskiTests/RevealRenderingIntegrationTests.swift and the package-only FrozenRenderReference for unchanged reference geometry. Do not recreate the removed product probe to start this task.
+
+Audit 2026-11-24: the "First step: wait for the ASKI-73 motion decision" line above is superseded by the 2026-11-14 product-scope update. The task stays parked until a separate general-use case and decision rule are approved.
 <!-- SECTION:NOTES:END -->
 
 ## Comments

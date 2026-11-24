@@ -4,8 +4,8 @@ title: Replace public parallel glyph arrays with one internal validated glyph ba
 status: Done
 assignee:
   - '@codex'
-created_date: '2026-09-04 03:45'
-updated_date: '2026-09-04 13:03'
+created_date: '2026-09-04T03:45:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels:
   - architecture
   - glyphs
@@ -71,6 +71,8 @@ GlyphBank is an internal working name, not a public abstraction. Start with a va
 Pre-edit parity: froze and passed 20 built-in-by-algorithm conversion digests on untouched 27b8cec before production changes; record mode was removed. Implementation: one immutable checked-Sendable four-array GlyphBank reference with discriminated committed/runtime/external provenance; StandardCharacterSet and RasterizedCharacterSet hold one pointer and project the public four-array protocol through it; library sets and their converters share exact bank identity; custom conformers get one validated bank at converter initialization or reassignment. Ordinary, ranked, residual, research, animation, and temporal paths reuse that bank without per-conversion or per-cell bank allocation. Committed v1-v3 parsing, raw density, v3 retired-byte skips, ShapeMatching guards, and CharacterSetSnapshot remain intact; no CTFont, masks, ShapeData v4, subset indirection, or Package.swift changes. Focused serial validation after the reference-owner change: 74 tests in 14 suites passed, including malformed boundary subprocesses, v1/v2/v3 decoding, provenance, bank identity and four-buffer pointer identity, stable identity across repeated conversions, valid reassignment, 20 digests, both kernels, ranked/residual, serial/parallel, and temporal parity. All 10 ShapeData binaries are byte-identical to 27b8cec. arm64 value sizes: StandardCharacterSet 32 to 8 bytes, RasterizedCharacterSet 32 to 8 bytes, DefaultConverter 81 to 65 bytes. Production Swift delta: +130 lines. Parallel-array declarations: 8 to 4; concrete charset stored fields: 8 to 2; total bank-related stored declarations including provenance and converter cache: 8 to 8.
 
 Authoritative validation: full just check passed on the exact staged tree after the final focused run. The gate completed format, one strict build, research and repository-map drift checks, 1,400 core tests in 213 suites, the serial media partition, both isolated deadlock sentinels, and DocC with exit 0.
+
+Audit 2026-11-24: the modifiedFiles entry Sources/Aski/Algorithms/AlgorithmKernel.swift exists only in private history; it was never in the public repository, whose history starts at a6cb011 (2026-09-23).
 <!-- SECTION:NOTES:END -->
 
 ## Comments

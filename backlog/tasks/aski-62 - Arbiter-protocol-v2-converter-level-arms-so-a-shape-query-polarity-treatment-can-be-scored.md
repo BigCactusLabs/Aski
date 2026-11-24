@@ -3,10 +3,10 @@ id: ASKI-62
 title: >-
   Arbiter protocol v2: converter-level arms, so a shape-query polarity treatment
   can be scored
-status: In Progress
+status: To Do
 assignee: []
-created_date: 2026-09-01 21:42
-updated_date: '2026-11-13T04:22:00Z'
+created_date: '2026-09-01T21:42:00Z'
+updated_date: '2026-11-24T20:22:53Z'
 labels:
   - research
   - arbiter
@@ -84,6 +84,8 @@ First step: complete the blinded 51-sheet owner sitting, preserve the unopened k
 Source map: `Tools/AskiColorLab/Arbiter/ArbiterSubcommands.swift`.
 
 Audit 2026-11-12: docs/Research/Results/2026-09-04-aski62-arbiter-v2/ is not in the public repository; key.json, manifest.json and result.yaml exist only in the private archive. The /private/tmp stimulus bundle is gone, so the 51 sheets must be regenerated from dbf8e2a (private) and byte-checked against the private manifest before the sitting.
+
+Audit 2026-11-24 (owner-approved): returned to To Do because no one is working on it; AC#1-3 and #5 stay checked. AC#4 is blocked on two things: (1) the owner's blinded sitting over all 51 sheets, followed by scoring of the embargoed VLM leg; (2) the stimulus bundle, key.json, manifest.json and result.yaml, which exist only in the private archive (see the 2026-11-12 audit note). Sheets regenerated at current main would probably not match the frozen key, because conversion code has changed since the freeze (not verified); regenerate from dbf8e2a in the private archive and byte-check against the private manifest. ASKI-85 depends on this task; ASKI-57's AC#2 also waits on it. docs/Research/2026-09-04-aski62-arbiter-v2-validation.md now states that 9d34f8d and d616951 are private-history commits.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

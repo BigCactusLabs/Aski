@@ -3,8 +3,8 @@ id: ASKI-92
 title: Prepare adaptive tile palette color samples once
 status: Done
 assignee: []
-created_date: 2026-09-30 00:20
-updated_date: '2026-11-14T19:30:00Z'
+created_date: '2026-09-30T00:20:00Z'
+updated_date: '2026-11-24T20:23:13Z'
 labels:
   - performance
   - tiles
@@ -67,6 +67,8 @@ Fresh study after ASKI-109: control 75470ee273596d24d71f1682e90668140760db09 and
 2026-11-14 lead recovery: confirmed and corrected the Darwin classifier read fault by checking native header ownership before reading tag/magic. Standalone O1/O3 pointer regressions pass, as do all 52 count/lifecycle processes. Integrated native vendor suite passes 12 tests, portable validator suites pass 122 tests with one expected failure, full local gate passes 1549 core/178 media/two sentinels/DocC, all 237 benchmark workloads validate required malloc counts, and all 11 unchanged absolute budgets pass. The unchanged frozen executable completes under Allocations with the corrected scratch allocator. A separate malloc_history capability capture supplies ordered allocation/free events with source stacks but no clock timestamps; fresh profiling will use event order for overlap/peak-live calculations and report that limit. Earlier failures remain invalid and their other crash causes unproved. Fresh isolated study arms are being gated with identical correction and unchanged numerical rules; AC3/4 remain open pending their comparison. Evidence: Scripts/research/aski92-2026-11-13/classifier-correction/qualification.json.
 
 2026-11-14 completed fresh study: five valid alternating pairs with the same corrected allocator and unchanged rule. Numeric verdict not_supported: 19/32 primary cases and 154/160 guards pass. Six 16x16 wall-time guards fail; all malloc-count and RSS guards pass. All four native allocation/free profiles complete: tracked peak-live requested array bytes rise 40.61% at 160 (1008748 to 1418396) and fall 37.98% at 512 (8389984 to 5203100). Candidate samples overlap all seven Wu tables; control samples do not. These are ordered native allocation events, not clock durations or process RSS. Both full gates, ten candidate parity/storage tests, 120 phase workloads, 27 existing workloads and unchanged Helmlab budget pass. Reject adoption with no exception. AC4 is satisfied through rejection; AC3 remains unmet and unchecked. No candidate production change integrated. Earlier failed studies remain invalid, and the old reset/CoreGraphics causes remain unproved. Portable raw histograms, profiles, source replay, rules and verification: Scripts/research/aski92-2026-11-14/README.md. Remote PR closure is a separate pending approval.
+
+Audit 2026-11-24: the PR and branch statements above are out of date. Draft PR #10 was closed unmerged on 2026-11-14, so the pending closure approval is moot; its head branch is no longer on origin, and the PR head e53d62f0 survives only as GitHub's refs/pull/10/head. The measured study commits are preserved by the evidence/aski92-20261113-*, evidence/aski92-20261114-* and evidence/aski92-fresh-* tags.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary
