@@ -5,7 +5,8 @@ title: >-
   tone and cell-by-cell reveals
 status: To Do
 assignee: []
-created_date: '2026-10-13 03:00'
+created_date: '2026-10-13T03:00:00Z'
+updated_date: '2026-11-24T21:18:48Z'
 labels:
   - research
   - animation
@@ -13,7 +14,7 @@ labels:
   - dither
 dependencies: []
 references:
-  - 'https://reactbits.dev/animations/dither-veil'
+  - https://reactbits.dev/animations/dither-veil
   - >-
     https://github.com/DavidHDev/react-bits/blob/1eeb6f105c68b964289d85dabbe84a1d551f3797/src/content/Animations/DitherVeil/DitherVeil.jsx
   - Sources/Aski/RenderingOptions.swift
@@ -40,9 +41,17 @@ Out of scope until a concrete app use appears (No SDK ceremony): pointer-driven 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Read the Dither Veil mechanism against Aski's current dotMatrix dither, EntrancePattern.reveal, and mask/photo-dissolve, and record which parts are already covered, which are new, and which are out of scope, in a dated docs/Research note
+- [x] #1 Read the Dither Veil mechanism against Aski's current dotMatrix dither, EntrancePattern.reveal, and mask/photo-dissolve, and record which parts are already covered, which are new, and which are out of scope, in a dated docs/Research note
 - [ ] #2 Before measuring, pre-register a frozen control (current Floyd-Steinberg dotMatrix at the shipped strength), the arms (Bayer 8x8 and blue-noise rank thresholds, built lab-only or behind @_spi(AskiResearch)), the corpus (stills plus at least two motion clips through aski lab video), and a decision rule over static MAE/GMSD and frame-to-frame glyph churn
 - [ ] #3 Measure static quality, temporal churn, and dotMatrix walk wall time for each arm against the control on the exact sampling lattice, commit the CSVs, and record a PASS/KILL/INCONCLUSIVE verdict under the pre-registered rule
 - [ ] #4 Prototype a rank-ordered cell-reveal variant in the motion lab and render a side-by-side GIF against EntrancePattern.reveal; record a keep/drop call, plus the concrete app use if keeping, before any public API is proposed
 - [ ] #5 Production sources and goldens stay unchanged. A PASS files a separate promotion task with its no-harm census; a KILL keeps only the note and artifacts
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-24: AC#1 done. Note: docs/Research/2026-11-24-aski96-dither-veil-mechanism-read.md (Dither Veil read at react-bits 1eeb6f1 against Aski f3f7663).
+Covered: cell sampling, tone grade, Floyd-Steinberg diffusion, duotone, photo under the veil, radial reveal front. New: Bayer 8x8 and void-and-cluster ordered tone thresholds, per-cell rank gate on mask coverage, rank-jittered hard-step reveal. Out of scope: pointer trail, shockwaves, rim band, background keying, per-channel RGB dither.
+For AC#2: shipped dotMatrix coverage default is 0 (no diffusion), and aski lab video has no --algorithm or --coverage flag; the note lists the open pre-registration questions.
+<!-- SECTION:NOTES:END -->
