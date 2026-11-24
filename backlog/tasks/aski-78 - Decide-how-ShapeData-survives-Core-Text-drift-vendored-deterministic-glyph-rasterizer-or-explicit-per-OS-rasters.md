@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-09-23T15:47:00Z'
-updated_date: '2026-11-24T21:21:25Z'
+updated_date: '2026-11-24T21:37:05Z'
 labels:
   - spike
   - gate
@@ -53,4 +53,6 @@ The 0.0452 maximum is in the retired v3 structure block, which production discar
 On one macOS 27.2.1 host Core Text draws 24 block, box-drawing and geometric glyphs from Menlo, not Courier or Courier Prime (uncommitted probe).
 Recommendation, medium-low confidence and pending the owner: run the staged hash experiment first; prior favours tool-only FreeType plus programmatic geometric glyphs. AC#4 recommendation (medium): split by path, several accepted digests for Core Image suites.
 AC#1 selection-ceiling MAE/GMSD census (regenerated in-memory vs committed vectors) has not been run.
+
+2026-11-24 owner decision (accepted the recommendations in docs/Research/2026-11-24-aski78-rasterizer-options.md, section Owner decision). (1) ShapeData: run the staged hash experiment before choosing a mechanism. Pre-register the rule, run Stage 0 on both macOS 27.0.1 hosts and Stage 1 on the four listed hosts, and Stage 2 only for a qualifying arm. If arms qualify, prefer Core Text outlines plus CG fill (no new dependency), then tool-only FreeType 2.15.0 plus programmatic geometric glyphs; adopt per-key audit digests if none qualifies. Regeneration stays blocked. (2) Rendered goldens: option D. CPU-only outputs stay exact; the Core Image suites accept several committed digests per snapshot, added only for host variants that reproduce across repeated captures; a per-channel tolerance only where ASKI-112 shows inherent nondeterminism; G0 placement waits on its host-stability check. AC#2, AC#3 and AC#4 stay unchecked until the mechanism and the digest helper are implemented. The AC#1 census has not run.
 <!-- SECTION:NOTES:END -->

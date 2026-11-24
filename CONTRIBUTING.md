@@ -65,6 +65,10 @@ Record the host as well as the toolchain. Verify a golden re-record on a second 
 or on the original recording host, before treating it as an OS-version baseline: a
 re-baseline checked on one host has broken the gate on another. These are reproduction
 constraints, not a macOS 27 deployment requirement or a cross-host raster guarantee.
+[ASKI-78](docs/Research/2026-11-24-aski78-rasterizer-options.md#owner-decision-2026-11-24)
+adopted a split policy on 2026-11-24: CPU-only outputs stay exact, and the Core Image suites
+will accept several recorded digests per snapshot, one per host variant that reproduces. Until
+that helper lands, every snapshot compares exactly.
 
 ## Verification
 

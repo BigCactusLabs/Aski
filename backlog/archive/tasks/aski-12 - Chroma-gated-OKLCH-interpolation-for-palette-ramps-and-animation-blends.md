@@ -4,7 +4,7 @@ title: Chroma-gated OKLCH interpolation for palette ramps and animation blends
 status: To Do
 assignee: []
 created_date: '2026-08-18T18:02:00Z'
-updated_date: '2026-11-24T21:27:33Z'
+updated_date: '2026-11-24T21:37:04Z'
 labels:
   - research
   - color
@@ -47,4 +47,12 @@ Source map: `Sources/Aski/ASCIIPalette.swift`, `Sources/Aski/ResolvedPalette.swi
 2026-11-24 target check (read-only sweep at f3f7663; no code changed). No production API builds a palette ramp, gradient or duotone, and animation keeps each cell's displayColor and changes only alpha (Sources/Aski/Animation/AnimatedASCIIGrid.swift:66-70). The only explicit two-endpoint colour blend is the research-SPI temporal OKLab blend (Sources/Aski/Animation/ASCIIConverter+Temporal.swift:182-185, @_spi(AskiResearch)). Production colour averaging (CellSampling.swift:557 and :596, the ImageRenderer.swift:520 supersample area average, WuQuantizer and KMeansRefinement OKLab centroids) and gamut mapping (GamutMapping.swift: Ray Trace default, adaptive L0 opt-in) are not ramps, and no production path interpolates hue angle; hue-angle sampling exists only in Tools/AskiColorLab gamut-sweep references.
 External refresh: arXiv 2606.15352 is N. Uchida, 'Chroma-gated, differentiable OKLCH interpolation: Continuous Oklab fallback for color-cast reduction' (submitted 2026-06-13); it blends the OKLCH and Oklab paths with a chroma gate w(C) = C^n / (C^n + sigma^n). CSSWG #10579 is open with no adopted algorithm (last activity 2026-09-01). CSSWG #7071 was closed 2026-08-31, reopened 2026-11-08, and is open. Neither changes GamutMapping.swift.
 Recommendation for the owner: close ASKI-12 because current source has no target for it; file a new task if a product feature adds a palette ramp, gradient, or colour-blend animation.
+
+2026-11-24: owner accepted the close recommendation; archived.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Closed without implementation on 2026-11-24 (owner decision). A source sweep at f3f7663 found no production palette ramp, gradient, duotone or colour-blend animation for chroma-gated OKLCH interpolation to change; the only two-endpoint colour blend is research SPI. No acceptance criterion was checked. File a new task if a product feature adds colour ramps or blends. Archived like ASKI-14 and ASKI-97, because Backlog has no won't-do status.
+<!-- SECTION:FINAL_SUMMARY:END -->

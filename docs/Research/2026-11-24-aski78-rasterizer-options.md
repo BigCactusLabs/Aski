@@ -4,17 +4,18 @@ slug: 2026-11-24-aski78-rasterizer-options
 date: 2026-11-24
 status: active
 subsystem: [shape-context, meta]
-summary: "Decision inputs for ASKI-78; the owner decision is pending. The macOS 27 ShapeData trigger is real for loaded channels (largest delta 0.0059, brightness), but the 0.0452 headline comes from the retired v3 structure block that production reads and discards. On one macOS 27.2.1 host Core Text draws 24 block, box-drawing and geometric glyphs from Menlo, not Courier, and braille (Core Graphics ellipse fills) stayed byte-identical from macOS 26.6.2 to 27. The note costs the per-OS route, compares rasterizer routes (Core Text per OS, Core Text outlines plus CG fill, FreeType, stb_truetype, fontations, a fixed-point rasterizer of Aski's own, programmatic geometric glyphs), adds a freeze-the-rasters alternative, lists AC#4 golden-policy options with precedents, and proposes a staged hash experiment. Recommendation (medium-low confidence): run the experiment first. The AC#1 selection-effect census has not been run."
+summary: "Decision inputs for ASKI-78. Owner decision 2026-11-24: run the staged hash experiment before choosing a ShapeData mechanism, and use option D for rendered goldens (exact for CPU-only outputs, several accepted digests per snapshot for the Core Image suites). The macOS 27 ShapeData trigger is real for loaded channels (largest delta 0.0059, brightness), but the 0.0452 headline comes from the retired v3 structure block that production reads and discards. On one macOS 27.2.1 host Core Text draws 24 block, box-drawing and geometric glyphs from Menlo, not Courier, and braille (Core Graphics ellipse fills) stayed byte-identical from macOS 26.6.2 to 27. The note costs the per-OS route, compares rasterizer routes (Core Text per OS, Core Text outlines plus CG fill, FreeType, stb_truetype, fontations, a fixed-point rasterizer of Aski's own, programmatic geometric glyphs), adds a freeze-the-rasters alternative, lists AC#4 golden-policy options with precedents, and proposes a staged hash experiment. The AC#1 selection-effect census has not been run."
 related_specs: [docs/Research/2026-09-04-aski51-core-text-drift-policy.md, Tools/BuildStandardVectors/BuildStandardVectors.swift, Tools/BuildStandardVectors/VectorDriftAudit.swift, Sources/Aski/CharacterSets/StandardCharacterSet.swift, Tools/AskiToolSupport/FrozenRenderReference.swift]
 results: [docs/Research/Results/2026-11-05-aski97-render-drift]
 runners: [BuildStandardVectors]
-next_action: "Owner decides ASKI-78 AC#2 and AC#4. Before that, run the AC#1 selection-ceiling MAE and GMSD census (in-memory regenerated vectors versus committed) on the frozen reference, and, if wanted, pre-register and run the staged hash experiment below."
+next_action: "Pre-register the staged experiment's decision rule, then run Stage 0 on both macOS 27.0.1 hosts and Stage 1 on the four listed hosts. Run the AC#1 selection-ceiling MAE and GMSD census (in-memory regenerated vectors versus committed) on the frozen reference. Implement option D for rendered goldens: a multi-digest comparison helper and a per-suite classification."
 ---
 
 # ASKI-78 - ShapeData rasterizer options and golden policy inputs
 
-**Decision: pending owner.** This note records evidence for the owner's decision on ASKI-78
-(acceptance criteria 2 and 4). It does not make that decision. The research was done read-only
+**Owner decision, 2026-11-24:** run the staged experiment before choosing how ShapeData is
+rasterized, and use option D for rendered goldens ([details](#owner-decision-2026-11-24)). The
+rest of the note is the evidence behind that decision. The research was done read-only
 at `f3f7663a` on 2026-11-24. No build, test, render, or benchmark was run for it. The local
 probes ran on one Apple M5 Max host with macOS 27.2.1 (26B8132).
 
@@ -231,4 +232,23 @@ For AC#4 the recommendation, **medium confidence**, is option D: exact compariso
 outputs and several accepted digests per snapshot for the Core Image suites, with a per-channel
 tolerance only after ASKI-112 identifies the cause.
 
-**Decision: pending owner.**
+## Owner decision (2026-11-24)
+
+The owner accepted both recommendations on 2026-11-24.
+
+- **ShapeData (AC#2): run the experiment before choosing a mechanism.** Pre-register a decision
+  rule, run Stage 0 and Stage 1 above, and run Stage 2 only for an arm that qualifies. If more than
+  one arm qualifies, prefer arm (b), which needs no new dependency, then tool-only FreeType 2.15.0
+  for Courier Prime text glyphs plus programmatic drawing for the 24 geometric glyphs. If no arm
+  qualifies, adopt per-key audit digests. Committed ShapeData stays the selection control, and
+  production regeneration stays blocked until the experiment selects a mechanism.
+- **Rendered goldens (AC#4): option D.** CPU-only outputs (`.txt` goldens, ShapeData, braille-only
+  images) keep exact comparison. The Core Image suites will accept several committed digests per
+  snapshot, each annotated with the OS build and chip of the host that produced it. A digest is
+  added only for a host variant that reproduces across repeated captures on that host; an
+  intermittent difference on one host, such as ASKI-112, does not get an extra digest. A
+  per-channel tolerance is allowed only where ASKI-112 shows inherent nondeterminism. G0's
+  placement waits on a check of its host stability. Until the digest helper lands, every snapshot
+  still compares exactly.
+
+AC#2, AC#3 and AC#4 stay open until the chosen mechanism and the digest helper are implemented.

@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-24T20:58:27Z'
+updated_date: '2026-11-24T21:37:04Z'
 labels:
   - testing
   - flake
@@ -32,3 +33,9 @@ Evidence from 2026-11-24 (macOS 27.2.1, Xcode 27.0, Apple M5 Max): the failing i
 - [ ] #3 The fix makes the snapshot deterministic. Only if the cause is shown to be inherent backend nondeterminism may the comparison accept it, using the narrowest per-snapshot tolerance that admits the measured variance, documented at the call site; no suite-wide loosening and no golden re-recording unless the golden itself is shown wrong
 - [ ] #4 just check passes three consecutive times on the gate host after the fix, and the blotter cut is resolved with this task
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-24: ASKI-78 AC#4 adopted option D for rendered goldens. Extra accepted digests cover only host variants that reproduce across repeated captures on that host. They do not cover this intermittent single-host difference, and AC#3 here still governs any tolerance.
+<!-- SECTION:NOTES:END -->

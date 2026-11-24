@@ -3,7 +3,7 @@ title: "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
 slug: "2026-09-04-aski51-core-text-drift-policy"
 date: "2026-09-04"
 status: "complete"
-summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up. Update 2026-11-24: the 0.0452 maximum is in the retired v3 structure block, which production discards; the largest delta in loaded channels is 0.0059 (brightness), still above tolerance. ShapeData was not regenerated; the ASKI-78 decision is pending."
+summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up. Update 2026-11-24: the 0.0452 maximum is in the retired v3 structure block, which production discards; the largest delta in loaded channels is 0.0059 (brightness), still above tolerance. ShapeData was not regenerated. On 2026-11-24 the owner chose to run the ASKI-78 staged hash experiment before choosing a mechanism; regeneration stays blocked until it selects one."
 subsystem: ["shape-context", "meta"]
 related_specs: ["Tools/BuildStandardVectors/BuildStandardVectors.swift", "Tools/BuildStandardVectors/VectorDriftAudit.swift", "docs/agents/research-methodology.md"]
 datasets: []
@@ -99,4 +99,6 @@ it in a loaded channel, and the sort change is driven by brightness. Both trigge
 on loaded channels alone.
 
 ShapeData was not regenerated. The decision inputs for ASKI-78 are in
-[ASKI-78 rasterizer options](2026-11-24-aski78-rasterizer-options.md); the decision is pending.
+[ASKI-78 rasterizer options](2026-11-24-aski78-rasterizer-options.md). On 2026-11-24 the owner chose to
+run its staged hash experiment before choosing a mechanism, so regeneration stays blocked until
+that experiment selects one.
