@@ -5,8 +5,8 @@ title: >-
   real matcher on the shipped preset
 status: Done
 assignee: []
-created_date: 2026-08-19 06:07
-updated_date: '2026-11-13T04:21:00Z'
+created_date: '2026-08-19T06:07:00Z'
+updated_date: '2026-11-24T20:58:38Z'
 labels: []
 dependencies:
   - ASKI-32
@@ -39,6 +39,8 @@ ASKI-56 arbiter update 2026-08-27: the required perceptual discriminator now exi
 2026-09-27 (ASKI-79/80 phase 1, baseline docs/Research/Results/2026-09-27-aski-79-80-baseline/): the census texture readouts show the shipped blocks pick is effectively constant. At 80 columns on nasa-steerable-v1, blocks, lines and mixed each render one glyph for every cell (█, ├, │; glyphsUsed 1). The frozen preset (blocks, 76) uses 1 glyph on steerable, 2 on structure and 4 on occupancy. The canonical preset golden is all █, so the palette carries the whole image and the glyph pick contributes nothing. Arm 1 of the ASKI-79/80 rule (orthogonality → tone fallback) cannot reach these sets (0% orthogonal picks on the PNG corpora). Hypothesis, not tested: the ≤12-glyph pool is the whole set, so tone never enters and the 3-bin query moves too little to shift the argmin.
 
 Audit 2026-11-12: AC#4 is conditional on the tone-weighted arm failing to beat the shape-free floor. The final summary says it beat both baselines on MAE and failed only by a -0.09% SSIM inversion, so the condition did not arise; AC#4 is left unchecked as not triggered. No open task currently owns the perceptual reopen run named in the final summary (ASKI-57 covers only the exploratory lift); that is an owner decision.
+
+2026-11-24: the perceptual reopen named in the final summary is now owned by ASKI-113 (owner decision), which depends on ASKI-62.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

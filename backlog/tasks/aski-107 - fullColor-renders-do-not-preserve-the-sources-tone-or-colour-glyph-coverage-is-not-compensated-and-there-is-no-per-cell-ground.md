@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-12T21:48:00Z'
-updated_date: '2026-11-24T20:23:15Z'
+updated_date: '2026-11-24T20:58:38Z'
 labels:
   - correctness
   - rendering
@@ -37,4 +37,6 @@ A fullColor render gives each glyph its cell's source colour and draws it on one
 2026-11-13: audit metadata: labels and priority added to match the other rendering bug tasks. Where the description points at ASKI-30 for the tone question, the open follow-up is ASKI-57 (ASKI-30 is Done/INCONCLUSIVE). Related: ASKI-103, whose composition policy (encoded vs linear-light mixing) affects measured per-cell averages, so AC#1 should fix the composition policy it measures under.
 
 Audit 2026-11-24: correction to the note above: ASKI-57 covers only the blocks selector lift, not the tone question. No open task owns a perceptual reopen of ASKI-30's tone result.
+
+2026-11-24: the perceptual reopen of ASKI-30's tone result is filed as ASKI-113.
 <!-- SECTION:NOTES:END -->
