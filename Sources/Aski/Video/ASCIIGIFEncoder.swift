@@ -26,6 +26,13 @@ public struct ASCIIGIFEncoder: Sendable {
     ///   never written (a written 0/neg/NaN round-trips as UnclampedDelayTime 0).
     /// - valid sub-floor delays (0 < d < 0.02s) are written RAW and counted into
     ///   `subFloorDelayCount`.
+    ///
+    /// Known limitation: GIF stores each frame delay in hundredths of a second,
+    /// and ImageIO rounds the written delay to the nearest hundredth. Measured on
+    /// macOS 27.2.1: 1/12 s is stored as 0.08 s, 1/30 s as 0.03 s, and 0.015 s as
+    /// 0.02 s. `subFloorDelayCount` and `minDelay` in the report describe the
+    /// requested delays before this rounding, so a requested 0.015 s frame counts
+    /// as sub-floor although the file stores 0.02 s.
     @discardableResult
     public func write(_ frames: [RenderedGIFFrame], loopCount: Int, to url: URL) throws -> GIFEncodeReport {
         guard !frames.isEmpty else { throw GIFEncodeError.noFrames }
