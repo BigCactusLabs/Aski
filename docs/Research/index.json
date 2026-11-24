@@ -1248,7 +1248,7 @@
         "shape-context",
         "meta"
       ],
-      "summary" : "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up.",
+      "summary" : "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up. Update 2026-11-24: the 0.0452 maximum is in the retired v3 structure block, which production discards; the largest delta in loaded channels is 0.0059 (brightness), still above tolerance. ShapeData was not regenerated. On 2026-11-24 the owner chose to run the ASKI-78 staged hash experiment before choosing a mechanism; regeneration stays blocked until it selects one.",
       "title" : "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
     },
     {
@@ -1715,6 +1715,62 @@
       ],
       "summary" : "Rejected: one original-image draw through the populated-cell clip changed native pixels in 239 of 1,161 cases. The control repeat matched exactly; all 27 control baseline workloads completed. Production retains per-cell drawing.",
       "title" : "ASKI-94 completed original-image fallback rule"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-24",
+      "next_action" : "Pre-register the staged experiment's decision rule, then run Stage 0 on both macOS 27.0.1 hosts and Stage 1 on the four listed hosts. Run the AC#1 selection-ceiling MAE and GMSD census (in-memory regenerated vectors versus committed) on the frozen reference. Implement option D for rendered goldens: a multi-digest comparison helper and a per-suite classification.",
+      "path" : "docs/Research/2026-11-24-aski78-rasterizer-options.md",
+      "related_specs" : [
+        "docs/Research/2026-09-04-aski51-core-text-drift-policy.md",
+        "Tools/BuildStandardVectors/BuildStandardVectors.swift",
+        "Tools/BuildStandardVectors/VectorDriftAudit.swift",
+        "Sources/Aski/CharacterSets/StandardCharacterSet.swift",
+        "Tools/AskiToolSupport/FrozenRenderReference.swift"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-11-05-aski97-render-drift"
+      ],
+      "runners" : [
+        "BuildStandardVectors"
+      ],
+      "slug" : "2026-11-24-aski78-rasterizer-options",
+      "status" : "active",
+      "subsystem" : [
+        "shape-context",
+        "meta"
+      ],
+      "summary" : "Decision inputs for ASKI-78. Owner decision 2026-11-24: run the staged hash experiment before choosing a ShapeData mechanism, and use option D for rendered goldens (exact for CPU-only outputs, several accepted digests per snapshot for the Core Image suites). The macOS 27 ShapeData trigger is real for loaded channels (largest delta 0.0059, brightness), but the 0.0452 headline comes from the retired v3 structure block that production reads and discards. On one macOS 27.2.1 host Core Text draws 24 block, box-drawing and geometric glyphs from Menlo, not Courier, and braille (Core Graphics ellipse fills) stayed byte-identical from macOS 26.6.2 to 27. The note costs the per-OS route, compares rasterizer routes (Core Text per OS, Core Text outlines plus CG fill, FreeType, stb_truetype, fontations, a fixed-point rasterizer of Aski's own, programmatic geometric glyphs), adds a freeze-the-rasters alternative, lists AC#4 golden-policy options with precedents, and proposes a staged hash experiment. The AC#1 selection-effect census has not been run.",
+      "title" : "ASKI-78 - ShapeData rasterizer options and golden policy inputs"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-24",
+      "next_action" : "AC#2: pre-register the control strength, the ordered-threshold arms and their glyph-ladder mapping, the still and motion corpus (with the video-lab algorithm and coverage flags this needs), and a decision rule over MAE, GMSD, glyph churn and dotMatrix walk time, using the questions in the last section. No arm is built or measured before that rule is frozen.",
+      "path" : "docs/Research/2026-11-24-aski96-dither-veil-mechanism-read.md",
+      "related_specs" : [
+        "docs/Research/2026-07-01-astsk45-source-tethered-hysteresis.md",
+        "docs/Research/2026-07-16-webgpu-frame-difference-ascii-motion.md",
+        "Sources/Aski/Aski.docc/Masking.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-24-aski96-dither-veil-mechanism-read",
+      "status" : "active",
+      "subsystem" : [
+        "animation",
+        "frontier"
+      ],
+      "summary" : "Read-only comparison for ASKI-96 AC#1. React Bits' Dither Veil (1eeb6f1) splits into eighteen parts. Aski already covers cell sampling, tone grade, Floyd–Steinberg diffusion, duotone output, and the photo under the veil. New: position-locked ordered tone thresholds (Bayer 8x8, void-and-cluster rank), a per-cell rank gate on mask coverage, and a rank-jittered hard-step reveal. Out of scope: pointer trail, shockwaves, rim band, background keying, per-channel RGB dither. The shipped dotMatrix control dithers at strength 0, and aski lab video cannot select dotMatrix; AC#2 must settle both.",
+      "title" : "ASKI-96 — Dither Veil mechanism read against Aski"
     }
   ],
   "results" : [

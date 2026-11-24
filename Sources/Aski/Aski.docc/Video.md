@@ -61,6 +61,9 @@ range also needs a valid explicit override when using `convertGIF`.
 The video lab preserves source loops and rejects an out-of-range source; it does
 not offer a loop-count override.
 
+GIF stores frame delays in hundredths of a second, so ``ASCIIGIFEncoder`` output rounds
+each delay to the nearest hundredth; for example, 1/12 s is stored as 0.08 s.
+
 ## MP4 color
 
 The MP4 encoder keeps the grid's gamut and tags the track to match. The first

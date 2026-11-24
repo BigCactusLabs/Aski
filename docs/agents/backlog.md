@@ -33,3 +33,5 @@ Rely on `--help` per subcommand for the full field surface; run `backlog instruc
 ## Repo-specific configuration
 
 `backlog.config.yml` keeps `remote_operations: false` and `check_active_branches: false` — the queue's truth is the checked-in state on the current branch, and the CLI must not scan other branches or contact remotes. Task work merges via PRs into `main` like any other change.
+
+Because the CLI numbers a new task from the tasks on the current branch only, filing a task while an open PR adds one gives a second task with the same id (this nearly produced a second ASKI-104). Before `backlog task create`, list the task files added by open PR branches (`git diff --name-only --diff-filter=A origin/main...origin/<branch> -- backlog/tasks`) and make sure the CLI sees the highest id.

@@ -25,6 +25,9 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Changed
 
+- The `ASCIIGIFEncoder` docs state that GIF rounds frame delays to hundredths of a second
+  (ASKI-64).
+
 - **Documentation is organized around repository tasks.** A shorter agent entry point
   routes to source/test navigation, validation, tooling, and research decision guides.
   Architecture and API articles now describe adopted footprint reuse, early MP4 frame

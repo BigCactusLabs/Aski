@@ -61,8 +61,14 @@ macOS 27.0.1 / Xcode 27.0 / Swift 6.4. The checked-in goldens also reproduce on 
 Apple M3 Max with macOS 27.0.1 (26A434), Xcode 27.0 (27A266a), and Swift 6.4. Another
 host with the same OS/Xcode builds produced 16 one-step RGB differences; macOS 26 is
 also known to differ. See the [render-drift evidence](docs/Research/Results/2026-11-05-aski97-render-drift/README.md).
-Record the host as well as the toolchain. These are reproduction constraints, not a
-macOS 27 deployment requirement or a cross-host raster guarantee.
+Record the host as well as the toolchain. Verify a golden re-record on a second host,
+or on the original recording host, before treating it as an OS-version baseline: a
+re-baseline checked on one host has broken the gate on another. These are reproduction
+constraints, not a macOS 27 deployment requirement or a cross-host raster guarantee.
+[ASKI-78](docs/Research/2026-11-24-aski78-rasterizer-options.md#owner-decision-2026-11-24)
+adopted a split policy on 2026-11-24: CPU-only outputs stay exact, and the Core Image suites
+will accept several recorded digests per snapshot, one per host variant that reproduces. Until
+that helper lands, every snapshot compares exactly.
 
 ## Verification
 
@@ -99,7 +105,8 @@ Metal correctness, or render parity. Portable checks do not replace `just check`
 Lead with what the reader can do, explain prerequisites before commands, and label
 placeholders. Link canonical detail instead of keeping a second copy. Separate shipping
 APIs, experimental policies, lab commands, and research SPI. Scope performance and
-quality claims to their evidence. Preserve the `ASCII*` API names.
+quality claims to their evidence. Record the exact command and build next to any
+showcase image, and keep its caption true to that command. Preserve the `ASCII*` API names.
 
 Update the docs hub and [llms.txt](llms.txt) when adding an entry point. Place new agent
 guides under `docs/agents/`; the `docs/` root has an explicit allowlist in
@@ -126,9 +133,17 @@ changes. Private stimuli and participant-level logs stay outside the repository.
 Explain the problem, the change, how it was verified, and any source/output compatibility
 impact. Include before/after renders for visual changes and representative measurements
 for performance claims. Keep unrelated formatting and unexplained generated drift out
-of the PR. Use a branch in your fork when you do not have push access.
+of the PR. Use a branch in your fork when you do not have push access. Deleting a branch that is
+the base of an open PR closes that PR instead of retargeting it, so run
+`gh pr list --base <branch>` before deleting any merged branch. To recover, re-push the
+base ref, run `gh pr reopen`, then `gh pr edit --base main`.
 
 Aski is pre-1.0: source-breaking changes can be justified, but need migration guidance.
+During v0.8.0 preparation, `swift package diagnose-api-breaking-changes v0.7.0` could
+not build its baseline: under Swift Build the package-benchmark plugin input was missing,
+and `--build-system native` failed on module redefinitions. The source-break inventory
+came from a diff of public and open declarations and enum cases in `Sources/Aski`. Retry
+the tool before falling back to that diff.
 Before creating any `v*` tag, commit the matching changelog entry and
 `docs/release-notes/<tag>.md`. Verify that exact commit:
 

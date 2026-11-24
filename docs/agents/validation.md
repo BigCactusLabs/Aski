@@ -113,6 +113,7 @@ requiring a Swift build.
 | Snapshot mismatch with unchanged source | Record OS/Xcode/Swift/host and compare the [baseline](../../CONTRIBUTING.md#toolchain-and-snapshot-baseline); do not loosen thresholds to hide drift |
 | Research registry or map is stale | Run the matching generator, review its diff, then repeat its check |
 | DocC reports a missing public symbol | Confirm the symbol exists and is public; removed APIs use ordinary code spans in historical migration text |
+| A Swift Testing test in an async context fails to compile when it calls `ASCIIGrid.renderImage(font:backgroundColor:scale:)` for the plain path | The call resolves to the async throwing effects overload. Pass an argument only the plain overload has, such as `preserveSourceAspect:`, to select the synchronous renderer |
 | Formatter warning in project code | Fix it with the selected formatter/configuration; full-tree lint covers `Package.swift`, `Sources`, `Tools`, `Benchmarks`, and `Tests` |
 | `package-benchmark` plugin deprecation under `.build/checkouts/` | Known upstream `Path`→`URL` warning; do not rewrite project code to silence it |
 | Doctor/DocC reports an active lock | Wait for the active operation; after a forced kill, verify no process is running before removing only the named lock |

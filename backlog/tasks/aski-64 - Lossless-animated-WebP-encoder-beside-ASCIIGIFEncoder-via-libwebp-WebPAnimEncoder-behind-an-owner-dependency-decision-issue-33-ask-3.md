@@ -5,8 +5,8 @@ title: >-
   WebPAnimEncoder, behind an owner dependency decision (issue #33, ask 3)
 status: To Do
 assignee: []
-created_date: 2026-09-01 22:16
-updated_date: '2026-11-13T04:22:00Z'
+created_date: '2026-09-01T22:16:00Z'
+updated_date: '2026-11-24T21:10:25Z'
 labels:
   - video
   - animation
@@ -51,4 +51,13 @@ First step: lead records AC#1, then refresh the dependency/API/platform matrix a
 Source map: `docs/architecture.md`, `Sources/Aski/Video/ASCIIGIFEncoder.swift`.
 
 Audit 2026-11-12: issue #33 is a private-tracker issue. The ImageIO no-WebP-writer finding was dated on macOS 26.6.2; the host is now macOS 27. The current commands are aski lab motion / aski lab video.
+
+Refresh 2026-11-24 (ASKI-64 AC#1 inputs; AC#6 GIF half). No owner decision recorded; no AC checked.
+- ImageIO on macOS 27.2.1 (26B8132), Xcode 27.0 (27A266a): CGImageDestinationCopyTypeIdentifiers() lists public.png, com.compuserve.gif, public.heic, public.heics, public.avif among image types and no WebP type. ImageIO headers in the macOS, iPhoneOS, iPhoneSimulator, XROS and XRSimulator 27.0 SDKs carry only kCGImagePropertyWebP* property keys (Dictionary, LoopCount, DelayTime, UnclampedDelayTime, FrameInfoArray, CanvasPixelWidth/Height, all available since macOS 11 / iOS 14); no WebP destination or encode key. ImageIO still has no WebP writer.
+- GIF delay quantization measured through ImageIO on macOS 27.2.1 (3-frame GIF, read back per frame): 1/12 s -> DelayTime 0.08, UnclampedDelayTime 0.08, raw GCE 8 cs; 1/30 s -> 0.03/0.03, 3 cs; 0.015 s -> 0.02/0.02, 2 cs. Extra points: 0.087 -> 9 cs; 0.025 -> 3; 0.035 -> 4; 0.0149, 0.011 and 0.005 -> 1 cs (DelayTime reads 0.1, Unclamped 0.01). ImageIO rounds to the nearest hundredth. ASCIIGIFEncoder's report for (1/12, 1/30, 0.015) records subFloorDelayCount 1 and minDelay 0.015 (pre-rounding values). DocC now states the limitation (ASCIIGIFEncoder.write doc comment and Video.md).
+- SDWebImage/libwebp-Xcode: latest tag 1.6.0, released 2026-07-31 (https://github.com/SDWebImage/libwebp-Xcode/releases/tag/1.6.0); its libwebp submodule is 4fa21912, the upstream v1.6.0 commit. Package.swift at 1.6.0 is swift-tools-version 5.0, one C target, platforms macOS 10.10 / iOS 9 / tvOS 9 / watchOS 2, no visionOS entry (https://github.com/SDWebImage/libwebp-Xcode/blob/1.6.0/Package.swift). C-only target, so Swift 6 language mode does not apply to it; no Swift 6 issue in the tracker. Only open issue: #24 (podspec DEFINES_MODULE, CocoaPods only).
+- Upstream libwebp: latest release still v1.6.0 (NEWS dated 2025-06-30, tag 2025-07-09; https://chromium.googlesource.com/webm/libwebp/+/refs/tags/v1.6.0). No release since. Main has many unreleased memory-safety commits since 2026-10, including anim_encode.c fixes (row*stride overflow, picture validation in the animation encoder, reject Add after Assemble) and -fbounds-safety work in mux/demux (https://github.com/webmproject/libwebp/commits/main).
+- Advisories: NVD keyword search libwebp, published 2026-07-01..2026-11-24, returned 3 CVEs, none in libwebp itself: CVE-2026-58586 (Perl Image::WebP bundles libwebp 0.3.0), CVE-2026-110635 (webp-converter command injection), CVE-2026-125204 (FFmpeg libwebpenc_common.c). webmproject/libwebp GitHub security advisories: none. OSV OSS-Fuzz libwebp: no entry published since 2026-06.
+- Alternatives: no pure-Swift encoder with lossless animated WebP found; BZsombor/swift-raster-webp (created 2026-11-18, 0.3.0) decodes stills only, encoding on its roadmap (https://github.com/BZsombor/swift-raster-webp). No Apple API route.
+- Recommended shape still stands: separate product on libwebp-Xcode 1.6.0 with WebPAnimEncoder, core Aski dependency-free; visionOS proof must be the build, not the manifest. New caveat for the owner: the pinned 1.6.0 lacks the unreleased upstream anim_encode hardening; the encoder only consumes Aski's own rendered frames, so exposure is to caller-supplied CGImages, not untrusted WebP input.
 <!-- SECTION:NOTES:END -->
