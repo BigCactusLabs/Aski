@@ -186,11 +186,15 @@ bit-identical GPU output across GPU families is not promised.
 
 This is a proposal. A decision rule must be pre-registered before any run.
 
-- **Stage 0, no code.** Run `just audit-vectors --output-dir <scratch dir>` on the M3 Max (27.0.1)
-  and the recording host (27.0.1) and byte-compare the two `glyph-drift.csv` files. Identical
-  files mean Core Text ShapeData generation is host-independent at a fixed OS build; different
-  files mean per-OS keys must also be per-host. Repeat once under parallel load. Record chip, OS
-  build, Xcode build, and the SHA-256 of the Courier and Menlo font files.
+- **Stage 0, no code change.** On the M3 Max (27.0.1) and the recording host (27.0.1), run
+  `just regen-vectors` in a throwaway worktree, record the SHA-256 of every
+  `Sources/Aski/Resources/ShapeData/*.bin` it writes, then discard the worktree. Compare those
+  hashes across hosts. Identical hashes mean Core Text ShapeData generation is host-independent
+  at a fixed OS build; different hashes mean per-OS keys must also be per-host. Do not compare
+  `glyph-drift.csv` for this: it stores unsigned per-glyph deltas against the committed
+  baseline, reduced to a maximum for the shape and orientation vectors, so identical CSVs do not
+  show identical bytes. Repeat once under parallel load. Record chip, OS build, Xcode build, and
+  the SHA-256 of the Courier and Menlo font files.
 - **Stage 1, scratch tool outside the repository.** Rasterize the 123 non-braille scalars from
   bundled Courier Prime (record its SHA-256) at 64×64 and 24×24, placed from integer outline
   bounds rather than Core Text image bounds. Arms: (a) current CTLineDraw construction, the
