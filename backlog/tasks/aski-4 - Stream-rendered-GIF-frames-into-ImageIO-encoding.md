@@ -1,10 +1,10 @@
 ---
 id: ASKI-4
 title: Stream rendered GIF frames into ImageIO encoding
-status: In Progress
+status: To Do
 assignee: []
-created_date: 2026-08-18 18:01
-updated_date: '2026-11-13T09:27:00Z'
+created_date: '2026-08-18T18:01:00Z'
+updated_date: '2026-11-24T20:22:52Z'
 labels:
   - performance
   - video
@@ -27,11 +27,11 @@ ASCIIGIFConverter currently retains all rendered frames before ASCIIGIFEncoder w
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [ ] #1 GIF conversion can render and add frames to the destination incrementally without retaining the full rendered-frame sequence in memory.
-- [x] #2 Frame count, frame order, per-frame delay, loop count, canvas size, alpha handling, and color behavior match the current encoder for representative fixtures.
-- [x] #3 Producer, renderer, and destination failures stop the operation cleanly and do not report a successful finalized GIF.
+- [ ] #2 Frame count, frame order, per-frame delay, loop count, canvas size, alpha handling, and color behavior match the current encoder for representative fixtures.
+- [ ] #3 Producer, renderer, and destination failures stop the operation cleanly and do not report a successful finalized GIF.
 - [ ] #4 A long-animation benchmark or test demonstrates that peak resident memory is bounded by a small number of frames rather than increasing linearly with total frame count.
-- [x] #5 Existing public GIF conversion behavior remains source compatible unless a deliberate source-breaking change is documented as materially simpler for consumers.
-- [x] #6 just check and just bench pass without loosening an existing benchmark threshold.
+- [ ] #5 Existing public GIF conversion behavior remains source compatible unless a deliberate source-breaking change is documented as materially simpler for consumers.
+- [ ] #6 just check and just bench pass without loosening an existing benchmark threshold.
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -56,4 +56,6 @@ Source map: `Sources/Aski/Video/ASCIIGIFConverter.swift`, `Sources/Aski/Video/AS
 All 30 registered primary captures now completed validly with no replacement or retry. Incremental median sampled RSS grows from 332,136,447 bytes at 240 frames to 1,560,281,087 at 1200: a 1,228,144,640-byte increase versus the frozen 16,777,216-byte allowance. The retained control also grows strongly. Together with N live original providers before finalize, this rejects the candidate under both independent memory requirements. Portable raw evidence and reproduction are saved; no treatment is integrated.
 
 Verification complete for the rejected candidate: 65 affected tests and full just check passed (1537 core, 186 media, 2 sentinels, DocC); all 10 actual pipeline cases passed metadata checks; just bench produced valid evidence for all 239 workloads. The corrected canonical absolute check passed all 11 unchanged configured budgets after preserving one setup failure. AC 2/3/5/6 record these candidate contracts and gates, not adoption. AC 1/4 remain unmet. ImageIO finalize-false was inspected, not fault-injected. The full portable primary packet, supplemental source/data and native provenance are retained in the linked README; no GIF production code is integrated.
+
+Audit 2026-11-24 (owner-approved): unchecked AC#2, #3, #5 and #6 and returned the task to To Do. Those ticks (e287ae2) recorded the rejected candidate's contracts and gates, not adopted production behavior: main still uses the batch encoder (`ASCIIGIFEncoder.write(_ frames:loopCount:to:)` in Sources/Aski/Video/ASCIIGIFEncoder.swift), and no GIF production code was integrated. The measured evidence stays in the 2026-11-13 notes and Scripts/research/aski4-2026-11-13/; the candidate source is Scripts/research/aski4-2026-11-13/candidate-source.patch. The remote branch cdx/aski4-streaming-gif-20261113 (0e897a3) is an earlier, pre-measurement copy of that candidate; it was never merged and is not needed as evidence. A next arm needs an owner and must deal with ImageIO retaining every source bitmap until finalize.
 <!-- SECTION:NOTES:END -->

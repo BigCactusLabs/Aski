@@ -5,8 +5,8 @@ title: >-
   under the ASKI-60 gate
 status: To Do
 assignee: []
-created_date: '2026-09-01 20:37'
-updated_date: '2026-09-27 17:36'
+created_date: '2026-09-01T20:37:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels: []
 dependencies: []
 ordinal: 62000
@@ -69,4 +69,6 @@ Dependency review 2026-09-16 (backlog architecture audit, docs/Research/2026-09-
 ### 2026-09-27 — the five-charset 0.24754 MAE degeneracy is an all-blank grid (Aski HEAD 6b6d251)
 
 The "undiagnosed degeneracy" in the description (minimal, dots, cross, diamond and diagonal at an identical 0.24754 MAE under both polarities) matches what production outputs for those sets: 100% blank cells on nasa-steerable-v1-vavilov-crater, nasa-occupancy-v1-cernan-portrait and a bcl-web photo, at 80 and 288 columns, under both `.inverted` and `.direct`. Cause: at the shipping footprint every query sits in bins 51/54/56 only, none of those sets' non-blank glyphs has mass there, so the blank wins by a constant min|g|². A blank grid scores the same whatever the charset, hence the identical MAE. Filed as ASKI-79. For AC#2, those five sets carry no polarity signal until ASKI-79 or ASKI-55 changes what the query can reach; a per-charset map measured on them now would measure blank grids.
+
+Audit 2026-11-24: two statements above are out of date. `ShapeQueryPolarity` is no longer a top-level public enum: ASKI-76 (PR #31) made it `@_spi(AskiResearch)` (Sources/Aski/RenderingOptions.swift:11-12), and the `shapeQueryPolarity` property is now at :51. AC#4 no longer waits for arbiter v2 to be built: v2 exists, its converter arms are the two global polarities (Tools/AskiColorLab/Arbiter/ArbiterProtocol.swift:61-63), and its stimuli include six inverted-versus-direct blocks comparisons. AC#4 now waits on ASKI-62 AC#4 (the owner sitting and section 5.1 scoring).
 <!-- SECTION:NOTES:END -->

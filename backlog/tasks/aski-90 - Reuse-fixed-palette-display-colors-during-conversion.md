@@ -3,8 +3,8 @@ id: ASKI-90
 title: Reuse fixed-palette display colors during conversion
 status: Done
 assignee: []
-created_date: 2026-09-30 00:20
-updated_date: '2026-11-13T08:33:00Z'
+created_date: '2026-09-30T00:20:00Z'
+updated_date: '2026-11-24T20:23:13Z'
 labels:
   - performance
   - color
@@ -52,6 +52,8 @@ Audit 2026-11-12: the CellSampling anchor moved to finalizeColor (about :668). P
 2026-11-13: PR #9 retargeted to main; GitHub reports it CONFLICTING, so a rebase onto main is needed before the A/B.
 
 2026-11-13 evaluation closed with rejection under the pre-registered rule. Candidate f34a0576 versus scalar 7c60b3a: all 114 workload identities across three selections and five adjacent alternating pairs completed validly (3500 raw exports; 1750 paired rows). Only 1/16 primary wall cases meets the 5%/4-of-5 benefit rule; all 44 regression guards pass. Setup includes its 1000-operation batch normalization and 12 undefined zero-control percentages. Native exact output/parallel-safety parity and both full gates pass; separate 11-workload compatibility capture and five unchanged color/animation absolute budgets pass. AC checks record completed evaluation and tested candidate contracts; the treatment is rejected, so no fixed-palette cache is adopted. Complete portable data, rules, source replay patches and native-check hashes are in Scripts/research/aski90-2026-11-13. Scope is synthetic fixtures on one active Mac desktop; all background activity and quantization limits retained. Original candidate/control branches and open PR #9 are preserved; no remote mutation or PR closure was made.
+
+Audit 2026-11-24: the PR and branch statements above are out of date. PR #9 was closed unmerged on 2026-11-14 with a comment recording the rejected study; no work/aski-90-* branch remains on origin. The study commits are preserved by the evidence/aski90-candidate and evidence/aski90-control tags. The PR head 44489c76 survives only as GitHub's refs/pull/9/head.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

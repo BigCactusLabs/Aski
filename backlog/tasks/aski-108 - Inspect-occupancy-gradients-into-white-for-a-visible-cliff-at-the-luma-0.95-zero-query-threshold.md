@@ -6,7 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: '2026-11-13T05:20:00Z'
-updated_date: '2026-11-14T20:46:00Z'
+updated_date: '2026-11-24T20:46:15Z'
 labels:
   - research
   - matcher
@@ -38,4 +38,6 @@ Freeze the inspection protocol before capture. Render the named NASA occupancy f
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-11-14: Protocol and instrument frozen at bc0e31f before the release capture. The three named NASA source/canonical pairs are retained with exact zero-query boundary CSVs and masks. Positive diagnostic and all four independent grid/canonical byte comparisons pass. Lead AI visual inspection supports a cliff in the Lovell sky; diagram transitions follow hard source contours. A precise future lab-only cell-alpha taper is pre-registered, including normalization, near-white-ink veto, blinded held-out review and MAE/GMSD gates; no treatment or shipping change. Decision: docs/Research/2026-11-14-aski108-near-white-inspection.md.
+
+Audit 2026-11-24: the pre-registered cell-alpha taper arm is filed as ASKI-111 (owner decision).
 <!-- SECTION:NOTES:END -->

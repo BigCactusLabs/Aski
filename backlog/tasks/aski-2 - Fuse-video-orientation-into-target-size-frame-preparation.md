@@ -1,10 +1,10 @@
 ---
 id: ASKI-2
 title: Fuse video orientation into target-size frame preparation
-status: In Progress
+status: To Do
 assignee: []
-created_date: 2026-08-18 18:01
-updated_date: '2026-11-13T06:45:00Z'
+created_date: '2026-08-18T18:01:00Z'
+updated_date: '2026-11-24T20:22:53Z'
 labels:
   - performance
   - video
@@ -61,4 +61,6 @@ Source map: `Sources/Aski/Video/ASCIIVideoDecoder.swift`, `Tests/AskiTests/AskiV
 Audit 2026-11-12: the reorient call is now in nextDecodedFrame (Sources/Aski/Video/ASCIIVideoDecoder.swift, about :282).
 
 2026-11-13 native fidelity experiment REJECTED this raw-axis-resize then pixel-permutation arm: compilation succeeded; all 128 rows and 16 negative controls were captured. Geometry and lengths match in 128/128; exact RGBA8 matches 40/128, mismatches 88/128; all negative controls detect differences. Identity passes all cases; quarter-turn/transpose orientations fail all cases. Signed differences are not an accepted tolerance. No retry, production change, timing claim or golden update. Reproducer and complete evidence: Scripts/research/aski2-2026-11-13/. Test is opt-in and expected to reject. Next arm must isolate retained CI color/alpha processing and sampling order before reconsidering fused preparation. All task ACs remain open.
+
+Audit 2026-11-24 (owner-approved): returned to To Do. e287ae2 set In Progress while recording the rejected raw-axis arm (40/128 exact); no branch, worktree or later commit carries a next arm. The implementation plan above remains the starting point for whoever takes the next arm.
 <!-- SECTION:NOTES:END -->

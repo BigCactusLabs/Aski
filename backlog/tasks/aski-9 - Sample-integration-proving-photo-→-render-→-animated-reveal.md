@@ -3,8 +3,8 @@ id: ASKI-9
 title: Sample integration proving photo → render → animated reveal
 status: Done
 assignee: []
-created_date: '2026-08-18 18:02'
-updated_date: '2026-08-27 12:33'
+created_date: '2026-08-18T18:02:00Z'
+updated_date: '2026-11-24T20:23:15Z'
 labels:
   - integration
 dependencies: []
@@ -32,4 +32,6 @@ Prove a host app can drive the full 'looks' beat through Aski's public API: phot
 Board audit 2026-08-24 (deep pass): Tools/AskiDemo is no longer a demo site — it is the shipping aski CLI target (Package.swift:9). A sample needs a new target or an integration test. ASCIIConverter+Animation entry point is already public, so AC#2 likely passes without API promotion.
 
 Shipped in the four-task mask batch, PR #31 (merge f761952, 2026-08-27). The reveal integration test suite (Tests/AskiTests, ASKI-9 suite) proves the full beat end-to-end on public API only (photo -> frozen duotone preset render -> EntrancePattern reveal -> CGImage frames); the host-app call sequence (seam contract) is documented in the suite's doc comments; no new public abstraction was needed, upholding the no-SDK-ceremony rule.
+
+Audit 2026-11-24: PR #30 removed AskiPresetLab and the public preset. The reveal sample now runs on the package-only FrozenRenderReference (Tests/AskiTests/RevealRenderingIntegrationTests.swift).
 <!-- SECTION:NOTES:END -->

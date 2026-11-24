@@ -8,7 +8,7 @@ summary: "The pre-registered v2 extension of the ASKI-56 perceptual arbiter. It 
 related_specs: [docs/Research/2026-08-25-aski56-arbiter-protocol.md, docs/Research/2026-08-27-aski56-arbiter-verdict.md, docs/Research/2026-09-01-aski60-shape-query-polarity.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1]
 runners: [AskiColorLab]
-next_action: "The registered schema, pair plan, release-build stimuli, and one permitted default VLM collection are complete; the VLM decisions remain unopened and embargoed. Run the blinded 51-sheet owner sitting, then score both section 5.1 validation gates before interpreting the six polarity comparisons."
+next_action: "Re-freeze the release-build stimuli at a public commit and collect the pinned default VLM leg once on them (owner decision 2026-11-24; see the validation note). Then run the blinded 51-sheet owner sitting and score both section 5.1 validation gates before interpreting the six polarity comparisons."
 ---
 
 # ASKI-62 — Perceptual arbiter protocol v2 (pre-registered)

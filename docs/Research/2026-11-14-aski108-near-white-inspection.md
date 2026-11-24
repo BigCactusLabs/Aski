@@ -6,7 +6,7 @@ status: complete
 subsystem: [shape-context]
 summary: "A visible cutoff is supported in the Lovell portrait sky under the frozen Vesper preset. The two line diagrams do not establish a gradient cliff. Native render pairs, exact zero-query boundaries and a passing diagnostic are retained. Shipping behavior is unchanged; a separate lab-only opacity-taper arm is specified for future evaluation."
 datasets: [docs/Research/Corpus/nasa-occupancy-v1]
-next_action: "If pursued, evaluate the frozen lab arm below before proposing any shipping change. Keep near-white regions as ground."
+next_action: "ASKI-111 evaluates the frozen lab arm below; do that before proposing any shipping change. Keep near-white regions as ground."
 ---
 
 # ASKI-108 — near-white boundary inspection

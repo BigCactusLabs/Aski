@@ -6,8 +6,8 @@ title: >-
 status: Done
 assignee:
   - '@codex'
-created_date: '2026-09-02 07:11'
-updated_date: '2026-09-16 17:37'
+created_date: '2026-09-02T07:11:00Z'
+updated_date: '2026-11-24T20:23:14Z'
 labels: []
 dependencies: []
 references:
@@ -64,6 +64,8 @@ Follow-up 2026-09-02 (PR #38 review): the correction note above overstated one p
 2026-09-04 final result: preregistration committed at 51de4e6 and the audited runner at 27e2492 before measurement. The one permitted release run evaluated 64 valid candidates x 2 axes x 21 lambda arms (2,688 rows); every axis had one invariant response and no lambda-50, so no candidate qualified and the frozen stop rule skipped both holdouts. Verdict INCONCLUSIVE; no second tuning round and no production default change. The historical audit separately identifies non-exact lattice exposure and descriptor-support regime for ASTSK-27/31, ASTSK-7, decolor, ASTSK-35, and ASTSK-42. Focused research, manifest, registry, and rescue validation passed: 76 tests in 4 suites.
 
 Cross-task correction 2026-09-16 (backlog architecture audit). The 2026-09-02 follow-up note above ends 'ASKI-31 AC #3's selection-ceiling before/after under MAE and GMSD was never run, and ASKI-31 stays open.' That was true when written and is now wrong: ASKI-31's close-out ran the missing half the same day. Frozen-preset production-arm MAE ratio after/before was 1.0016 and 1.0085, both inside the 1.01 no-harm guard, with GMSD agreeing in direction; verdict NO HARM, recorded in docs/Research/2026-09-02-aski-31-lattice-no-harm.md. ASKI-31 is Done with AC#3 checked. Nothing in this task depends on ASKI-31 remaining open.
+
+Audit 2026-11-24: two modifiedFiles entries, Tools/AskiColorLab/IsoluminantRescue/IsoluminantDoseCalibration.swift and Tests/AskiTests/AskiColorLabIsoluminantRescueTests.swift, exist only in private history; they were never in the public repository, whose history starts at a6cb011 (2026-09-23). The research notes and the result CSV listed beside them are public.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

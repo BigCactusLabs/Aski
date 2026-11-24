@@ -5,12 +5,11 @@ title: >-
   combination both beat both baselines on blocks
 status: To Do
 assignee: []
-created_date: 2026-08-24 17:54
-updated_date: '2026-11-13T05:20:00Z'
+created_date: '2026-08-24T17:54:00Z'
+updated_date: '2026-11-24T20:22:53Z'
 labels:
   - research
-dependencies:
-  - ASKI-62
+dependencies: []
 ordinal: 58000
 ---
 
@@ -45,4 +44,6 @@ Both pre-registered exploratory arms cleared the frozen rule's PASS-equivalent M
 Source map: `Tools/AskiColorLab/SamplingLattice/SelectionCeiling.swift`, `Tests/AskiTests/AskiColorLabSelectionCeilingArmsTests.swift`, `Tests/AskiTests/AskiColorLabSelectionCeilingCSVTests.swift`, `docs/Research/2026-08-24-aski-30-28-battery-verdict.md`.
 
 2026-11-13: added ASKI-62 as a dependency: AC#2 hinges on the perceptual discriminator, and its v2 validation is still open.
+
+Audit 2026-11-24 (owner-approved): removed the 2026-11-13 hard dependency on ASKI-62, following the 2026-09-16 rule applied to ASKI-61 (docs/Research/2026-09-02-backlog-architecture-audit.md): a Backlog.md edge blocks the whole task, but only AC#2 needs the arbiter. AC#1 (the frozen decisive rule) and AC#3 (meanRank for every arm; `ArmRow` and the CSV header in Tools/AskiColorLab/SamplingLattice/SelectionCeiling.swift still lack it) can start now. AC#2 still waits on ASKI-62 AC#4 or an explicit owner waiver, and no verdict is read before AC#2 is met.
 <!-- SECTION:NOTES:END -->
