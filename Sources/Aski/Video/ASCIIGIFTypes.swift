@@ -78,7 +78,8 @@ public struct GIFEncodeReport: Sendable {
     /// Loop count decoded from the finalized output: 0 = infinite, 1 = once,
     /// and larger values = total plays.
     public let loopCount: Int
-    /// Frames whose written delay is < 0.02s (the reliable browser floor).
+    /// Frames whose requested delay is < 0.02s (the reliable browser floor),
+    /// counted before ImageIO rounds the stored delay to hundredths of a second.
     public let subFloorDelayCount: Int
     /// Defined only for non-empty input (empty throws `.noFrames` first).
     public let minDelay: TimeInterval

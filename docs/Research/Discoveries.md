@@ -839,3 +839,11 @@ On the ASKI-79/80 census, the five blank-collapsed sets render every cell blank 
 Found in: ASKI-79/80 phase 2, `docs/Research/2026-09-27-aski-79-80-orthogonality-fallback.md` §6
 Touches: ASKI-56/62 arbiter (the instrument that can settle blank versus ramp), ASKI-30 tone track, `Sources/Aski/Aski.docc/CharacterSets.md` "Blank glyphs"
 Revisit if: an arbiter sitting prefers the tone ramp over the all-blank grid on the steerable fixtures — then per-cell MAE is not a valid gate for blank-collapse fixes and the ASKI-79 fallback deserves a re-registration with a perceptual gate
+
+## 2026-11-24 — Built-in block and box glyphs are drawn from Menlo, and only the Core Text path drifts across macOS
+
+A read-only probe on macOS 27.2.1 showed Core Text substituting Menlo-Regular for 24 of the 123 unique non-braille built-in glyphs (`░▒▓█▄▀■ ◦○● ─│┌┐└┘├┤┬┴┼ ◇◈◆`), both from system Courier, which `BuildStandardVectors` uses, and from bundled Courier Prime. The committed blocks, lines, dots, diamond and mixed vectors therefore depend on an OS-chosen fallback font. Separately, braille, which `BrailleRasterizer` draws with Core Graphics ellipse fills and which runs through the same descriptor maths, stayed byte-identical from macOS 26.6.2 to 27 while every Core Text set drifted. So the macOS 27 drift sits in Core Text text drawing or the system fonts, not in CG fills or `ShapeContext`. One host and one OS pair; the probe is not committed.
+
+Found in: ASKI-78 research leg, `docs/Research/2026-11-24-aski78-rasterizer-options.md`
+Touches: ASKI-78 (any bundled-font or vendored-rasterizer route needs a source for these 24 glyphs), `Tools/BuildStandardVectors`, `RasterizedCharacterSet` callers who assume a glyph comes from the font they named
+Revisit if: the ASKI-78 Stage 0/1 experiment shows CG-filled outlines also drift across hosts or OS versions, which would place the drift in Core Graphics after all

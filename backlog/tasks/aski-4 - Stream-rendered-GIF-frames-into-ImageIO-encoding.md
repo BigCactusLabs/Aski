@@ -4,7 +4,7 @@ title: Stream rendered GIF frames into ImageIO encoding
 status: To Do
 assignee: []
 created_date: '2026-08-18T18:01:00Z'
-updated_date: '2026-11-24T20:22:52Z'
+updated_date: '2026-11-24T21:27:33Z'
 labels:
   - performance
   - video
@@ -58,4 +58,6 @@ All 30 registered primary captures now completed validly with no replacement or 
 Verification complete for the rejected candidate: 65 affected tests and full just check passed (1537 core, 186 media, 2 sentinels, DocC); all 10 actual pipeline cases passed metadata checks; just bench produced valid evidence for all 239 workloads. The corrected canonical absolute check passed all 11 unchanged configured budgets after preserving one setup failure. AC 2/3/5/6 record these candidate contracts and gates, not adoption. AC 1/4 remain unmet. ImageIO finalize-false was inspected, not fault-injected. The full portable primary packet, supplemental source/data and native provenance are retained in the linked README; no GIF production code is integrated.
 
 Audit 2026-11-24 (owner-approved): unchecked AC#2, #3, #5 and #6 and returned the task to To Do. Those ticks (e287ae2) recorded the rejected candidate's contracts and gates, not adopted production behavior: main still uses the batch encoder (`ASCIIGIFEncoder.write(_ frames:loopCount:to:)` in Sources/Aski/Video/ASCIIGIFEncoder.swift), and no GIF production code was integrated. The measured evidence stays in the 2026-11-13 notes and Scripts/research/aski4-2026-11-13/; the candidate source is Scripts/research/aski4-2026-11-13/candidate-source.patch. The remote branch cdx/aski4-streaming-gif-20261113 (0e897a3) is an earlier, pre-measurement copy of that candidate; it was never merged and is not needed as evidence. A next arm needs an owner and must deal with ImageIO retaining every source bitmap until finalize.
+
+2026-11-24 next-arm constraint (blotter bl_ca1d063da9be86b0cea5): an abandoned ImageIO GIF destination can leave a hidden sidecar beside the requested temporary file even after the destination is released. Use one owned sibling staging directory for ImageIO output, clean it on failure and after publication, and verify cleanup while the encode session is still alive. The lesson was only in the rejected candidate patch (Scripts/research/aski4-2026-11-13/candidate-source.patch).
 <!-- SECTION:NOTES:END -->
