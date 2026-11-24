@@ -3,7 +3,7 @@ title: "ASKI-51 - Core Text ShapeData drift audit and regeneration policy"
 slug: "2026-09-04-aski51-core-text-drift-policy"
 date: "2026-09-04"
 status: "complete"
-summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up."
+summary: "The pre-registered read-only audit regenerated all ten ShapeData v3 binaries in memory on macOS 26.6.2, Xcode 26.5, and Swift 6.3.2. All 414 glyphs and every stored channel were byte-identical, the brightness sort order was unchanged, and the escalation trigger did not fire. Status 2026-11-13: that NO_TRIGGER result holds only for macOS 26.6.2. On macOS 27 the trigger fired during ASKI-77 (9 of 10 sets drift, max component delta 0.0452, standard-set order changed); ASKI-78 owns the follow-up. Update 2026-11-24: the 0.0452 maximum is in the retired v3 structure block, which production discards; the largest delta in loaded channels is 0.0059 (brightness), still above tolerance. ShapeData was not regenerated; the ASKI-78 decision is pending."
 subsystem: ["shape-context", "meta"]
 related_specs: ["Tools/BuildStandardVectors/BuildStandardVectors.swift", "Tools/BuildStandardVectors/VectorDriftAudit.swift", "docs/agents/research-methodology.md"]
 datasets: []
@@ -82,3 +82,21 @@ drift in 9 of the 10 built-in sets, a largest component delta of `0.0452`, and a
 brightness order for the standard set. Conditions 1 and 2 of the escalation trigger were met.
 ASKI-78 owns the decision on how ShapeData survives Core Text drift; the shipping resources were
 not regenerated.
+
+## macOS 27 result by channel — 2026-11-24
+
+Disposition on macOS 27: **TRIGGERED**. The audit fired on macOS 27.0 (26A428) during ASKI-77 and
+again on macOS 27.0.1 (26A434) during ASKI-97, both with Xcode 27.0 (27A266a) and Swift 6.4. Nine
+of ten sets drift, braille is byte-identical, and the standard set's brightness sort order
+changed. The retained per-glyph CSVs are in
+[Results/2026-11-05-aski97-render-drift](Results/2026-11-05-aski97-render-drift/README.md).
+
+The `0.0452` maximum is in the retired v3 structure block (orientation histogram), which
+production reads only to validate the file and then discards. The largest delta in a channel
+production loads is `0.0059` (brightness), with raw density at `0.0059` and the 60D shape lanes
+at `0.0056`. That is still above the `0.001` tolerance: 91 of 158 non-braille glyph rows exceed
+it in a loaded channel, and the sort change is driven by brightness. Both trigger conditions hold
+on loaded channels alone.
+
+ShapeData was not regenerated. The decision inputs for ASKI-78 are in
+[ASKI-78 rasterizer options](2026-11-24-aski78-rasterizer-options.md); the decision is pending.
