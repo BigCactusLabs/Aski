@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-09-01T21:42:00Z'
-updated_date: '2026-11-24T20:22:53Z'
+updated_date: '2026-11-24T20:46:15Z'
 labels:
   - research
   - arbiter
@@ -40,6 +40,9 @@ OWNER-AUTHORIZED 2026-09-01 after the ASKI-60 review. The ASKI-56 arbiter v1 (As
 - [x] #3 Re-register the family budget (families C and M draw pairs from the arm pool, so adding an arm changes the sampled distribution the ~45-trial budget is defined over) and record the new budget before any vote is collected
 - [ ] #4 Re-run the section 5.1 validation of the ASKI-56 protocol under v2 and record the result as a research note; v1 verdicts stay valid for v1 arms and are not re-scored
 - [x] #5 Emit the inverted-vs-direct blocks stimuli from the ASKI-60 results so the owner can run the sitting; do NOT flip any default in this task
+- [ ] #6 Before any regeneration, a dated addendum to the validation note retires the dbf8e2a stimuli and the unopened 0f9226d VLM decisions and names the public commit for the re-freeze; protocol v2 families, budget, seed 4242, columns 80, oversample 2, footprint 24 and the judge pin stay as registered
+- [ ] #7 Release-build stimuli are regenerated at that public commit; SHA-256 hashes of key.json and the sheet images (and the manifest, if it carries no arm identity) are committed so a public clone can verify the bundle, while key.json itself stays out of the repository until the sitting is scored
+- [ ] #8 The pinned default VLM leg (V+D+X+M) is collected once on the re-frozen stimuli and stays unopened until the owner submits the complete sitting; a changed judge is a new judge config that must pass its own section 5.1 gate
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -51,6 +54,12 @@ OWNER-AUTHORIZED 2026-09-01 after the ASKI-60 review. The ASKI-56 arbiter v1 (As
 4. Add independent tests for key compatibility, unknown-arm failure, real converter parity, blinding, budget, and seed determinism; update CLI help and generated command surface.
 5. Run focused tests and check-fast, generate release v2 stimuli and machine evidence, record the non-human validation result, update the research registry and task evidence, then run full just check.
 6. Commit locally. Keep ASKI-62 In Progress because the human and VLM section 5.1 sitting remains outstanding; check only acceptance criteria proven by automated evidence.
+
+Re-freeze (owner decision 2026-11-24):
+7. Write the dated addendum (AC#6) naming the public commit before generating anything.
+8. Generate release-build stimuli at that commit with seed 4242 and commit the verification hashes (AC#7).
+9. Collect the pinned VLM leg once on the new stimuli and keep it unopened (AC#8).
+10. Run the blinded owner sitting over all 51 sheets, then score both section 5.1 gates (AC#4).
 <!-- SECTION:PLAN:END -->
 
 ## Implementation Notes
@@ -86,6 +95,8 @@ Source map: `Tools/AskiColorLab/Arbiter/ArbiterSubcommands.swift`.
 Audit 2026-11-12: docs/Research/Results/2026-09-04-aski62-arbiter-v2/ is not in the public repository; key.json, manifest.json and result.yaml exist only in the private archive. The /private/tmp stimulus bundle is gone, so the 51 sheets must be regenerated from dbf8e2a (private) and byte-checked against the private manifest before the sitting.
 
 Audit 2026-11-24 (owner-approved): returned to To Do because no one is working on it; AC#1-3 and #5 stay checked. AC#4 is blocked on two things: (1) the owner's blinded sitting over all 51 sheets, followed by scoring of the embargoed VLM leg; (2) the stimulus bundle, key.json, manifest.json and result.yaml, which exist only in the private archive (see the 2026-11-12 audit note). Sheets regenerated at current main would probably not match the frozen key, because conversion code has changed since the freeze (not verified); regenerate from dbf8e2a in the private archive and byte-check against the private manifest. ASKI-85 depends on this task; ASKI-57's AC#2 also waits on it. docs/Research/2026-09-04-aski62-arbiter-v2-validation.md now states that 9d34f8d and d616951 are private-history commits.
+
+Audit 2026-11-24 (owner decision): ASKI-62 stops depending on the private archive. The stimuli generated at dbf8e2a and the VLM decisions collected at 0f9226d are retired: no owner answers exist and the VLM decisions were never opened, so retiring them exposes no result. They are not to be opened or scored. This supersedes the earlier audit note's advice to regenerate from dbf8e2a in the private archive. AC#6-8 and plan steps 7-10 cover the re-freeze at a public commit; protocol v2 is unchanged, so no v3 is needed. Conversion code has changed since dbf8e2a, so the new sheets will differ from the retired ones; the two freezes must not be mixed. AC#5 stays checked: the X family emission it asked for exists and will be re-run under AC#7.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

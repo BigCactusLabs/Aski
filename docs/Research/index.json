@@ -1257,7 +1257,7 @@
         "docs/Research/Corpus/nasa-structure-v1"
       ],
       "date" : "2026-09-04",
-      "next_action" : "The registered schema, pair plan, release-build stimuli, and one permitted default VLM collection are complete; the VLM decisions remain unopened and embargoed. Run the blinded 51-sheet owner sitting, then score both section 5.1 validation gates before interpreting the six polarity comparisons.",
+      "next_action" : "Re-freeze the release-build stimuli at a public commit and collect the pinned default VLM leg once on them (owner decision 2026-11-24; see the validation note). Then run the blinded 51-sheet owner sitting and score both section 5.1 validation gates before interpreting the six polarity comparisons.",
       "path" : "docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md",
       "related_specs" : [
         "docs/Research/2026-08-25-aski56-arbiter-protocol.md",
@@ -1285,7 +1285,7 @@
         "docs/Research/Corpus/nasa-structure-v1"
       ],
       "date" : "2026-09-04",
-      "next_action" : "Run one blinded owner sitting over all 51 sheet images while the collected VLM decisions remain unopened. After the owner submits the complete sitting, score both section 5.1 validation gates before interpreting any X comparison.",
+      "next_action" : "Re-freeze the v2 stimuli with a release build at a named public commit, collect the pinned VLM leg once on them, then run one blinded owner sitting over all 51 sheets before opening the key or the VLM decisions. Score both section 5.1 gates before interpreting any X comparison. Do not open or score the retired dbf8e2a stimuli or 0f9226d decisions.",
       "path" : "docs/Research/2026-09-04-aski62-arbiter-v2-validation.md",
       "related_specs" : [
         "docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md",
@@ -1305,7 +1305,7 @@
         "shape-context",
         "meta"
       ],
-      "summary" : "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a (like its content-equivalent commit d616951, a private-history commit absent from the public repository) emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. ASKI-62 remains active until the owner completes the blinded 51-sheet sitting and both section 5.1 gates can be scored.",
+      "summary" : "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a (like its content-equivalent commit d616951, a private-history commit absent from the public repository) emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. On 2026-11-24 the owner retired these stimuli and the unopened VLM decisions because they depend on the private archive; ASKI-62 will re-freeze the stimuli at a public commit and recollect the VLM leg before the blinded owner sitting.",
       "title" : "ASKI-62 - Arbiter v2 automated validation and stimulus handoff"
     },
     {
@@ -1598,7 +1598,7 @@
         "docs/Research/Corpus/nasa-occupancy-v1"
       ],
       "date" : "2026-11-14",
-      "next_action" : "If pursued, evaluate the frozen lab arm below before proposing any shipping change. Keep near-white regions as ground.",
+      "next_action" : "ASKI-111 evaluates the frozen lab arm below; do that before proposing any shipping change. Keep near-white regions as ground.",
       "path" : "docs/Research/2026-11-14-aski108-near-white-inspection.md",
       "related_specs" : [
 

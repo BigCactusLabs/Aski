@@ -4,11 +4,11 @@ slug: 2026-09-04-aski62-arbiter-v2-validation
 date: 2026-09-04
 status: active
 subsystem: [shape-context, meta]
-summary: "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a (like its content-equivalent commit d616951, a private-history commit absent from the public repository) emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. ASKI-62 remains active until the owner completes the blinded 51-sheet sitting and both section 5.1 gates can be scored."
+summary: "Arbiter v2 is implemented and its automated construction gates pass. A release build at the original implementation commit dbf8e2a (like its content-equivalent commit d616951, a private-history commit absent from the public repository) emitted the pre-registered 51 blinded triplets: 46 unique V/D/X/C/M comparisons plus 5 delayed repeats, including six explicit inverted-versus-direct blocks comparisons. The schema-v2 key and manifest (withheld from this repository until the sitting is scored) preserve converter-arm polarity identity, while the frozen schema-v1 key remains readable without migration or re-scoring. The one permitted frozen default VLM leg completed once at code SHA 0f9226d with 26 expected pairs, 156 calls, 0 retries, and 0 invalids; its judge configuration byte-matched the pin and an external structural recomputation passed. Raw decisions remain unopened and embargoed, so no VLM score, X interpretation, or verdict exists. On 2026-11-24 the owner retired these stimuli and the unopened VLM decisions because they depend on the private archive; ASKI-62 will re-freeze the stimuli at a public commit and recollect the VLM leg before the blinded owner sitting."
 related_specs: [docs/Research/2026-09-04-aski62-arbiter-v2-protocol.md, docs/Research/2026-08-25-aski56-arbiter-protocol.md, docs/Research/2026-08-27-aski56-arbiter-verdict.md, docs/Research/2026-09-01-aski60-shape-query-polarity.md]
 datasets: [docs/Research/Corpus/nasa-steerable-v1, docs/Research/Corpus/nasa-structure-v1]
 runners: [AskiColorLab]
-next_action: "Run one blinded owner sitting over all 51 sheet images while the collected VLM decisions remain unopened. After the owner submits the complete sitting, score both section 5.1 validation gates before interpreting any X comparison."
+next_action: "Re-freeze the v2 stimuli with a release build at a named public commit, collect the pinned VLM leg once on them, then run one blinded owner sitting over all 51 sheets before opening the key or the VLM decisions. Score both section 5.1 gates before interpreting any X comparison. Do not open or score the retired dbf8e2a stimuli or 0f9226d decisions."
 ---
 
 # ASKI-62 — arbiter v2 automated validation and stimulus handoff
@@ -86,3 +86,18 @@ the same 5-of-6 V gate. Only after both gates pass can scoring interpret the six
 X alone contains six comparisons. It cannot independently satisfy the standing minimum of 30
 decided non-repeat trials for a default-change verdict. That limit is intentional: X is an
 explicit diagnostic block inside the complete v2 sitting, not a standalone promotion rule.
+
+## Re-freeze decision (2026-11-24)
+
+The owner retired the stimuli generated at `dbf8e2a` and the VLM decisions collected at
+`0f9226d`. Both depend on the private archive, which a public clone cannot reach. No owner
+answers exist and the VLM decisions were never opened, so retiring them exposes no result. They
+will not be opened or scored.
+
+ASKI-62 will re-freeze the stimuli with a release build at a public commit. Protocol v2's
+families, budget, seed 4242, columns 80, oversample 2, footprint 24 and judge pin stay unchanged,
+so no v3 is needed. Conversion code has changed since `dbf8e2a`, so the new sheets will differ
+from the retired ones; the two freezes must not be mixed. Before generation, a dated addendum
+here names the commit. After generation, the pinned default VLM leg is collected once on the new
+stimuli and stays unopened until the owner submits the complete sitting. The section 5.1 gates
+above then apply to the new freeze.
