@@ -1,10 +1,10 @@
 ---
 id: ASKI-75
 title: Measure unified aski CLI build and binary tax after ASKI-48
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-09-04T12:59:00Z'
-updated_date: '2026-11-25T18:53:56Z'
+updated_date: '2026-11-25T18:57:08Z'
 labels:
   - cli
   - build
@@ -38,7 +38,7 @@ Rescoped 2026-11-24 by owner decision: the original exact-delta arm (ASKI-48 par
 - [x] #2 Measure the resulting `aski` executable's on-disk size and Mach-O/linkage footprint for both builds; record link-step timing when it can be isolated reproducibly without changing optimization settings.
 - [x] #3 Measure `swift build --target Aski` at current main and confirm the library target's dependency frontier contains no lab or CLI module; any library-target regression is investigated separately from CLI cost.
 - [x] #4 Preserve the current one-package architecture, `aski lab` command tree, historical replay shims, help/version/error parity, and shell-completion surface. The lab-free control exists only in a disposable worktree; do not rename or hide commands to make the numbers pass.
-- [ ] #5 Record ACCEPT or INVESTIGATE. ACCEPT when current main's clean and warm product-build medians do not exceed the lab-free control's by more than 20% or 15 seconds and no distribution constraint is exposed. INVESTIGATE creates a narrow CLI-linkage optimization task only if that threshold fires; it does not automatically revive a package split.
+- [x] #5 Record ACCEPT or INVESTIGATE. ACCEPT when current main's clean and warm product-build medians do not exceed the lab-free control's by more than 20% or 15 seconds and no distribution constraint is exposed. INVESTIGATE creates a narrow CLI-linkage optimization task only if that threshold fires; it does not automatically revive a package split.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -59,6 +59,8 @@ Audit 2026-11-12: baca440 and d7b2a52 are private-history commits, absent from t
 Audit 2026-11-24: rescoped by owner decision before any measurement, so the threshold is not chosen after seeing results. Description, AC#1-5 and plan rewritten: the private-history before/after pair is dropped; the 20%-or-15-second threshold is kept and now applies to current main versus the lab-free control. ASKI-70's control numbers were taken with native Swift 6.3.2 and are not comparable with a Swift 6.4 / swiftbuild run.
 
 Run 2026-11-25 (ASKI-75 r1, measured revision 99fc4c7): main vs lab-free control of the same commit on Apple M5 Max, macOS 27.2.1, Xcode 27.2, Swift 6.4.2, --build-system swiftbuild pinned. Clean product-build median 9.95 s vs 7.84 s (+2.11 s, +26.9%); warm no-op 1.29 s vs 1.14 s (+13.2%); link-only +0.20 s. Pre-registered reading (either the 20% or the 15 s limit fires) gives INVESTIGATE; the both-limits reading would give ACCEPT. Max single-process build RSS 2.17 GiB vs 0.73 GiB. Executable debug 13.3 MB vs 6.4 MB, release 8.7 MB vs 4.0 MB; adds CryptoKit and libswift_errno; no distribution constraint found. Aski target frontier is {Aski}; swift build --target Aski compiles no lab or CLI module. Note: docs/Research/2026-11-25-aski75-cli-build-tax.md; packet: Scripts/research/aski75-2026-11-25/. AC#5 stays unchecked until the narrow CLI-linkage follow-up drafted in the note is filed.
+
+2026-11-25 (lead, integration): INVESTIGATE fired under the reading frozen before measurement, so the narrow follow-up required by AC#5 is filed as ASKI-114 (attribution first, at most two options, no package split, command surface unchanged). Status Done: all five ACs met.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

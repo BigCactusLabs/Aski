@@ -847,3 +847,11 @@ A read-only probe on macOS 27.2.1 showed Core Text substituting Menlo-Regular fo
 Found in: ASKI-78 research leg, `docs/Research/2026-11-24-aski78-rasterizer-options.md`
 Touches: ASKI-78 (any bundled-font or vendored-rasterizer route needs a source for these 24 glyphs), `Tools/BuildStandardVectors`, `RasterizedCharacterSet` callers who assume a glyph comes from the font they named
 Revisit if: the ASKI-78 Stage 0/1 experiment shows CG-filled outlines also drift across hosts or OS versions, which would place the drift in Core Graphics after all
+
+## 2026-11-25 — Reusing a fallback noise image saved more than building it costs, so a construction-only ceiling understates reuse
+
+ASKI-95 sized its "most a perfect cache could save" ceiling as the seeded-noise raster's construction share of the 1920x1080 dust+grain fallback effect stage (43.6%). The rejected cache candidate then cut that same stage by a median 78.3% with byte-identical output. Reuse therefore removed work beyond building the raster, plausibly Core Image reusing the uploaded texture when the same image object comes back, though the cause was not established. Any ceiling computed from construction time alone can wrongly reject a reuse candidate before it is built. The candidate itself was rejected on two changing-seed guards set below the measured noise floor, so its regression is not established either.
+
+Found in: ASKI-95, `docs/Research/2026-11-25-aski95-fallback-noise-reuse.md`
+Touches: fallback effects in `Sources/Aski/Effects/Internal/StockCIEffectKernel.swift`; any future reuse or cache study on a Core Image path (frozen ceilings and guard thresholds)
+Revisit if: a re-measure with disjoint seed streams and A/A noise-floor pairs shows the same-seed saving exceeds the construction share again, which would make "image identity reuse" a Core Image effect worth a rule of its own

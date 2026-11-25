@@ -7,7 +7,7 @@ subsystem: [meta]
 summary: "Measured at 99fc4c7 on an M5 Max with Swift 6.4.2 and the Swift Build backend pinned. Against a lab-free control of the same commit (lab imports, lab command group and the six lab target dependencies removed from AskiCLI), the clean swift build --product aski median is 9.95 s versus 7.84 s (+2.11 s, +26.9%) and the warm no-op median is 1.29 s versus 1.14 s (+0.15 s, +13.2%). Under the reading frozen before measurement (either the 20% or the 15 s limit fires), the clean class exceeds 20%: verdict INVESTIGATE. Under the alternative reading (both limits) it would be ACCEPT. The largest single build process peaks at 2.17 GiB versus 0.73 GiB. The lab modules double the aski executable (debug 13.3 MB vs 6.4 MB, release 8.7 MB vs 4.0 MB; AskiColorLab alone is 2.4 MB of linked symbols) and add CryptoKit and libswift_errno to the load commands; no distribution constraint was found. swift build --target Aski compiles no lab or CLI module."
 related_specs: [docs/Research/2026-09-04-aski70-package-boundary-measurement.md, Package.swift, Tools/AskiCLI/AskiCommand.swift, Scripts/research/aski75-2026-11-25/README.md]
 results: [docs/Research/Results/2026-11-25-aski75-cli-build-tax]
-next_action: "File the narrow CLI-linkage follow-up drafted in this note (owner/lead). Keep the unified aski lab tree, the one-package architecture and ASKI-70's KILL of a package split."
+next_action: "ASKI-114 (filed 2026-11-25) carries the narrow CLI-linkage follow-up drafted in this note. Keep the unified aski lab tree, the one-package architecture and ASKI-70's KILL of a package split."
 ---
 
 # ASKI-75 unified `aski` CLI build and binary tax
@@ -208,7 +208,7 @@ version, error and shell-completion behaviour are untouched on this branch.
 
 ## Proposed follow-up (INVESTIGATE)
 
-Narrow CLI-linkage task, to be filed by the lead: reduce the clean `aski` product-build cost of the
+Narrow CLI-linkage task, filed by the lead as ASKI-114 on 2026-11-25: reduce the clean `aski` product-build cost of the
 unified lab tree without changing the command surface. First establish what the 2.1 s and the 2.17 GiB peak
 come from (Swift Build trace events, per-process memory with `footprint`, per-module compile timing), then
 test link-topology options that keep `aski lab ...` byte-identical in help, metadata and replay
