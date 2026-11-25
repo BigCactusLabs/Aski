@@ -4,7 +4,7 @@ title: Measure bounded reuse of fallback effect noise rasters
 status: Done
 assignee: []
 created_date: '2026-09-30T00:20:00Z'
-updated_date: '2026-11-25T18:24:11Z'
+updated_date: '2026-11-25T19:10:46Z'
 labels:
   - performance
   - effects
@@ -56,6 +56,8 @@ R3 Candidate. Only if R1 and R2 both pass: build a bounded reuse candidate keyed
 - Timing: release (xcrun swift test -c release), one serial process under the gate lock, 3 warmups then 15 timed repetitions per case, cases interleaved round-robin; Metal-path end-to-end rows are recorded descriptively for R3.
 
 2026-11-25 native study: rejected under the rule committed at a06ef864e6ac4481c76987642c7eaebcc66b5a2a before timing. R1 passed: the stock dust/grain fallback runs when MetalSupport reports no Apple GPU family 6 (A12 iPhones on iOS 18, the A10 7th-generation iPad on iPadOS 18, Intel Macs on macOS 15) or when the metallib kernel fails to load; no public option forces it, and fallback frequency is unknown. R2 passed: raster construction is 2 x 1.306 ms of a 5.997 ms 1920x1080 dust+grain fallback effect stage (43.6%). R3: a process-wide 16 MiB LRU cache keyed by exact extent and seed kept all 96 output hashes identical and cut the primary case by a median 78.3% over five C/T-alternated pairs, but the all-miss changing-seed dust cases regressed +4.21% (1920x1080) and +2.78% (512x512) against the 2% guard; Metal-path guards passed. Instrument flaws (overlapping changing-seed streams across cases, a bound that thrashes on the interleaved size mix, guards below the measured noise floor) are recorded for a follow-up. AC3-5 stay unchecked because no implementation was adopted. Production, goldens and thresholds unchanged. Evidence: docs/Research/2026-11-25-aski95-fallback-noise-reuse.md and Scripts/research/aski95-2026-11-25/README.md.
+
+2026-11-25: at the owner's request the corrected-instrument re-measure is filed as ASKI-116.
 <!-- SECTION:NOTES:END -->
 
 ## Final Summary

@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-25T18:57:02Z'
+updated_date: '2026-11-25T19:10:46Z'
 labels:
   - cli
   - build
@@ -30,3 +31,9 @@ Attribute the cost first, then test at most two link-topology or module-layout o
 - [ ] #2 Prototype at most two options that keep the aski lab tree, replay shims, help/version/error parity, metadata and shell completions identical (the command-surface golden unchanged), and measure each with Scripts/research/aski75-2026-11-25/sample.sh against the same frozen 20%-or-15-second rule and reading
 - [ ] #3 Record KEEP or ADOPT in a research note; an adopted change must remove complexity or be justified by the measured saving, and just check passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-25: the owner left the AC#5 reading of "20% or 15 seconds" to the lead. The lead kept reading (a), "either limit fires", which matches ASKI-70's use of the same wording, so this task stays open.
+<!-- SECTION:NOTES:END -->

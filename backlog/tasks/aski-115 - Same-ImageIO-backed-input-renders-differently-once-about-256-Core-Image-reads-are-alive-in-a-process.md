@@ -6,6 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-25T19:02:28Z'
+updated_date: '2026-11-25T19:10:46Z'
 labels:
   - rendering
   - determinism
@@ -36,3 +37,9 @@ Fix options (ASKI-112 r2 report): materialize caller images into an owned bitmap
 - [ ] #3 Moved goldens are listed, re-recorded only with owner approval and explained in CHANGELOG; the frozen-reference no-harm census runs if any FrozenRenderReference golden moves
 - [ ] #4 Per-render time and peak memory are measured on the 975x1280 corpus JPEG and on a 12 MP JPEG and recorded with the decision; no benchmark threshold is loosened
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-11-25: the owner chose the production fix (materialize caller-supplied images into an owned bitmap before Core Image) over a test-only decode, and approved re-recording the goldens it moves: MaskSnapshotTests docc-mask-ground-before and docc-mask-ground-after and the DocC images mask-ground-before.png and mask-ground-after.png. Any other golden that moves needs a fresh ruling, and a FrozenRenderReference golden also needs the no-harm census.
+<!-- SECTION:NOTES:END -->
