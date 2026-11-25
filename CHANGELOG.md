@@ -158,6 +158,17 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
   Output pixels are unchanged. `CIContext.cacheIntermediates` was measured and is not
   the cause: disabling it left the growth unchanged and `flushCaches()` freed nothing.
 
+- **Concurrent glyph renders no longer stall and grow memory without bound.** Each glyph
+  cell built an attributed string with its own color, and every such attribute
+  dictionary went through a process-wide uniquing table behind one lock. With many
+  threads rendering at once, the renders queued on that lock while footprint grew by
+  about 400 MB/s; 300 concurrent effects renders of a 60×80 grid never finished and
+  passed 3 GB. `ASCIIGrid` image renders and the effects cell raster now build one
+  `CTLine` per distinct character per render and take each cell's color from the
+  context fill color. Those 300 renders now finish in 0.38 s, and 150 serial renders
+  take 0.50 s instead of 1.13 s (plain) and 0.90 s instead of 1.49 s (effects).
+  Output bytes are unchanged across a 1,500-case render matrix.
+
 - **Point lights no longer over-brighten (ASKI-102).** The light field summed opaque layers
   with `CIAdditionCompositing`, which adds alpha along with color, so the field reached
   alpha 3 with one light and one more per added light. Converting the lit image to the output

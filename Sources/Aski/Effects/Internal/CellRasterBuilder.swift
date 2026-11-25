@@ -64,8 +64,7 @@ internal enum CellRasterBuilder {
                 ))
             context.textMatrix = .identity
 
-            let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-            let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
+            var lineCache = CellLineCache(font: font)
             let baselineOffset = CTFontGetDescent(font.ctFont)
 
             for (rowIndex, row) in grid.cells.enumerated() {
@@ -95,14 +94,8 @@ internal enum CellRasterBuilder {
                             rect: cellRect
                         )
                     } else {
-                        let attributed = NSAttributedString(
-                            string: String(cell.character),
-                            attributes: [
-                                fontAttribute: font.ctFont,
-                                colorAttribute: foregroundColor,
-                            ]
-                        )
-                        let line = CTLineCreateWithAttributedString(attributed)
+                        let line = lineCache.line(for: cell.character)
+                        context.setFillColor(foregroundColor)
                         context.textPosition = CGPoint(x: CGFloat(columnIndex) * glyphWidth, y: y)
                         CTLineDraw(line, context)
                     }

@@ -3,6 +3,37 @@ import CoreImage
 import CoreText
 import Foundation
 
+/// One `CTLine` per distinct character for a single render. The lines carry
+/// the font and `kCTForegroundColorFromContextAttributeName`, so a cell's
+/// color is the context fill color set just before `CTLineDraw`. Building an
+/// attributed string with the cell color as an attribute made a distinct
+/// attribute dictionary per cell, and UIFoundation uniques every one in a
+/// process-wide table behind a single lock: concurrent renders queued on that
+/// lock while its holder autoreleased into its pool, and footprint grew without
+/// bound. The cache lives for one render and is never shared across threads.
+internal struct CellLineCache {
+    private let attributes: [NSAttributedString.Key: Any]
+    private var lines: [Character: CTLine] = [:]
+
+    init(font: ASCIIFont) {
+        attributes = [
+            NSAttributedString.Key(kCTFontAttributeName as String): font.ctFont,
+            NSAttributedString.Key(kCTForegroundColorFromContextAttributeName as String): true,
+        ]
+    }
+
+    mutating func line(for character: Character) -> CTLine {
+        if let line = lines[character] {
+            return line
+        }
+        let line = CTLineCreateWithAttributedString(
+            NSAttributedString(string: String(character), attributes: attributes)
+        )
+        lines[character] = line
+        return line
+    }
+}
+
 /// Shared bound on derived raster geometry (ASKI-17).
 ///
 /// Every raster path derives a pixel extent from `columns/rows * glyph size *
@@ -234,9 +265,6 @@ public extension ASCIIGrid {
             context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
             context.textMatrix = .identity
 
-            let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-            let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
             if let fallback = maskFallback,
                 !fallback.isTransparentFallback,
                 maskContainsCoverageBelowOne(self)
@@ -248,8 +276,6 @@ public extension ASCIIGrid {
                     glyphWidth: geometry.glyphWidth,
                     glyphHeight: geometry.glyphHeight,
                     baselineOffset: geometry.baselineOffset,
-                    fontAttribute: fontAttribute,
-                    colorAttribute: colorAttribute,
                     in: context
                 )
             }
@@ -259,9 +285,7 @@ public extension ASCIIGrid {
             drawCells(
                 in: context,
                 font: font,
-                geometry: geometry,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute
+                geometry: geometry
             ) { cell, effectiveAlpha in
                 colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
             }
@@ -417,9 +441,6 @@ public extension ASCIIGrid {
             context.setShouldSubpixelQuantizeFonts(false)
         }
 
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
         if let fallback = maskFallback,
             !fallback.isTransparentFallback,
             maskContainsCoverageBelowOne(self)
@@ -431,8 +452,6 @@ public extension ASCIIGrid {
                 glyphWidth: geometry.glyphWidth,
                 glyphHeight: geometry.glyphHeight,
                 baselineOffset: geometry.baselineOffset,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute,
                 in: context
             )
         }
@@ -442,9 +461,7 @@ public extension ASCIIGrid {
         drawCells(
             in: context,
             font: font,
-            geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute
+            geometry: geometry
         ) { cell, effectiveAlpha in
             colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
         }
@@ -737,14 +754,13 @@ public extension ASCIIGrid {
         in context: CGContext,
         font: ASCIIFont,
         geometry: RenderGeometry,
-        fontAttribute: NSAttributedString.Key,
-        colorAttribute: NSAttributedString.Key,
         coverageMode: CellCoverageMode = .multiplyCoverage,
         foregroundColor: (ASCIICell, _ effectiveAlpha: Float) -> CGColor
     ) {
         let glyphWidth = geometry.glyphWidth
         let glyphHeight = geometry.glyphHeight
         let baselineOffset = geometry.baselineOffset
+        var lineCache = CellLineCache(font: font)
         for (rowIndex, row) in cells.enumerated() {
             let y = CGFloat(rows - rowIndex - 1) * glyphHeight + baselineOffset
             for (columnIndex, cell) in row.enumerated() {
@@ -776,14 +792,8 @@ public extension ASCIIGrid {
                         rect: cellRect
                     )
                 } else {
-                    let attributed = NSAttributedString(
-                        string: String(cell.character),
-                        attributes: [
-                            fontAttribute: font.ctFont,
-                            colorAttribute: fg,
-                        ]
-                    )
-                    let line = CTLineCreateWithAttributedString(attributed)
+                    let line = lineCache.line(for: cell.character)
+                    context.setFillColor(fg)
                     context.textPosition = CGPoint(x: CGFloat(columnIndex) * glyphWidth, y: y)
                     CTLineDraw(line, context)
                 }
@@ -885,16 +895,12 @@ public extension ASCIIGrid {
             context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
             context.textMatrix = .identity
 
-            let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-            let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
             let maxHeadroom = max(1, emission.maxHeadroom)
 
             drawCells(
                 in: context,
                 font: font,
-                geometry: geometry,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute
+                geometry: geometry
             ) { cell, effectiveAlpha in
                 Self.emissiveColor(
                     for: cell,
@@ -1010,9 +1016,6 @@ public extension ASCIIGrid {
             cellSize: CGSize(width: geometry.glyphWidth * scale, height: geometry.glyphHeight * scale),
             extent: extent
         )
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
         activeContext.setFillColor(backgroundColor)
         activeContext.fill(canvas)
         let canvasImage = presence == nil ? nil : activeContext.makeImage()
@@ -1022,8 +1025,6 @@ public extension ASCIIGrid {
             in: activeContext,
             font: font,
             geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute,
             coverageMode: .intrinsicAlpha
         ) { cell, effectiveAlpha in
             colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
@@ -1039,8 +1040,6 @@ public extension ASCIIGrid {
                 glyphWidth: geometry.glyphWidth,
                 glyphHeight: geometry.glyphHeight,
                 baselineOffset: geometry.baselineOffset,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute,
                 completedBranch: true,
                 in: inactiveContext
             )
@@ -1108,13 +1107,12 @@ public extension ASCIIGrid {
         glyphWidth: CGFloat,
         glyphHeight: CGFloat,
         baselineOffset: CGFloat,
-        fontAttribute: NSAttributedString.Key,
-        colorAttribute: NSAttributedString.Key,
         completedBranch: Bool = false,
         in context: CGContext
     ) {
         let pointWidth = CGFloat(columns) * glyphWidth
         let pointHeight = CGFloat(rows) * glyphHeight
+        var lineCache = CellLineCache(font: font)
         for (rowIndex, row) in cells.enumerated() {
             let rectY = CGFloat(rows - rowIndex - 1) * glyphHeight
             let baselineY = rectY + baselineOffset
@@ -1151,14 +1149,8 @@ public extension ASCIIGrid {
                     } else {
                         fallbackColor = colorSpace.encodedColor(cell.displayColor, alpha: inverse)
                     }
-                    let attributed = NSAttributedString(
-                        string: String(character),
-                        attributes: [
-                            fontAttribute: font.ctFont,
-                            colorAttribute: fallbackColor,
-                        ]
-                    )
-                    let line = CTLineCreateWithAttributedString(attributed)
+                    let line = lineCache.line(for: character)
+                    context.setFillColor(fallbackColor)
                     context.textPosition = CGPoint(x: rect.minX, y: baselineY)
                     CTLineDraw(line, context)
                 }
