@@ -1,7 +1,7 @@
 # Rendering task groundwork: ASKI-91, ASKI-94, ASKI-95
 
 **Start with the disposition.** ASKI-91's pulse arm is adopted, ASKI-94's
-single-draw arm is rejected, and ASKI-95 still needs measurement. The proposals
+single-draw arm is rejected, and ASKI-95's noise-raster cache is rejected. The proposals
 and original verification below preserve each study's contracts; they do not
 restart closed work. For the wider batch, use
 [research navigation](research.md#performance-groundwork-decisions-already-made).
@@ -21,7 +21,15 @@ Status 2026-11-15: ASKI-94's single original-image draw is rejected. It changed
 pixels in 239 of 1,161 native cases; the control repeat matched exactly. All 27
 control baseline workloads completed. The
 [result packet](../../Scripts/research/aski94-2026-11-15/README.md) retains the
-rule, rejected patch and evidence. ASKI-95 remains at groundwork.
+rule, rejected patch and evidence.
+
+Status 2026-11-25: ASKI-95's bounded noise-raster cache is rejected. The fallback
+ships on devices without Apple GPU family 6, and raster construction was 44% of
+the 1920x1080 dust+grain fallback effect stage. The cache kept output exact and
+cut that case by 78%, but two all-miss changing-seed dust cases regressed 4.2%
+and 2.8% against a 2% guard. The
+[result packet](../../Scripts/research/aski95-2026-11-25/README.md) retains the
+rule, rejected patch, evidence and the instrument flaws a follow-up must fix.
 
 ## Delivered and still required
 
@@ -29,7 +37,7 @@ rule, rejected patch and evidence. ASKI-95 remains at groundwork.
 | --- | --- | --- |
 | ASKI-91 | Exact native/debug/release parity; 24 frame/overlay workloads; adopted local pulse reuse | Complete for the pulse arm; animated-pulse speed is not directly measured by this matrix |
 | ASKI-94 | Exact 1,161-case native comparison; 27-workload control baseline; source-derived draw census | Closed as rejected: 239 pixel mismatches; no candidate timing or comparative regression claim |
-| ASKI-95 | Forced reduced-route versus stock pixel checks, seed/extent interleaving, concurrency and CI cache-toggle checks | Product fallback frequency; 512-square/1080p construction/render timing, retained-memory accounting and normal-Metal controls |
+| ASKI-95 | Forced reduced-route versus stock pixel checks, seed/extent interleaving, concurrency and CI cache-toggle checks; native construction/render timing and paired candidate study | Closed as rejected: exact parity and the primary bar passed, two changing-seed guards failed; product fallback frequency remains unknown |
 
 The original groundwork completed no task. Its Backlog files were not edited
 because the CLI was unavailable then; current task records include the later
@@ -201,8 +209,7 @@ primary workload, with improving direction in at least 80% of pairs; no reproduc
 >3% wall/CPU/allocation/RSS regression in controls. Treat mixed/noisy results as
 inconclusive. These are proposed experiment bars, not modified package budgets.
 Correctness, public-boundary behavior and lifetime checks are prerequisites.
-ASKI-95 needs its separate native harness and memory bound before this rule can
-be applied to a cache candidate.
+ASKI-95 used its own registered rule and harness instead; see its result packet.
 
 ## Portable evidence and limits
 
@@ -224,6 +231,6 @@ Swift 6.4, strict concurrency and warnings-as-errors. Use the native commands
 above to validate a particular checkout; PR validation records identify the
 tested revision. The 24 ASKI-91 workloads were subsequently measured in the linked
 native study. ASKI-94's later native study rejected its candidate on pixel parity
-and recorded all 27 control workloads. Fallback frequency and ASKI-95 memory
-accounting remain future adoption work. The original portable
+and recorded all 27 control workloads. ASKI-95's native study rejected its cache
+candidate; fallback frequency remains unmeasured. The original portable
 groundwork alone establishes no allocation reduction or speedup.

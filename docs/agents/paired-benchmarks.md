@@ -135,8 +135,7 @@ remains: a hash cannot recover sample rows that never reached disk.
 
 The earlier October work-order table is superseded by the
 [research decision map](research.md#performance-groundwork-decisions-already-made).
-ASKI-86–94 have recorded outcomes, including rejected candidates; ASKI-95 still
-needs its native measurement work. Read the [current task](backlog.md) and the
+ASKI-86–95 have recorded outcomes, including rejected candidates. Read the [current task](backlog.md) and the
 linked study before starting another run. ASKI-5's representative budget selection
 and gate placement remain separate work.
 

@@ -1771,6 +1771,31 @@
       ],
       "summary" : "Read-only comparison for ASKI-96 AC#1. React Bits' Dither Veil (1eeb6f1) splits into eighteen parts. Aski already covers cell sampling, tone grade, Floyd–Steinberg diffusion, duotone output, and the photo under the veil. New: position-locked ordered tone thresholds (Bayer 8x8, void-and-cluster rank), a per-cell rank gate on mask coverage, and a rank-jittered hard-step reveal. Out of scope: pointer trail, shockwaves, rim band, background keying, per-channel RGB dither. The shipped dotMatrix control dithers at strength 0, and aski lab video cannot select dotMatrix; AC#2 must settle both.",
       "title" : "ASKI-96 — Dither Veil mechanism read against Aski"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-25",
+      "next_action" : "No adoption. A follow-up needs a fresh rule with disjoint seed streams, a non-thrashing bound and a measured noise floor.",
+      "path" : "docs/Research/2026-11-25-aski95-fallback-noise-reuse.md",
+      "related_specs" : [
+        "docs/agents/rendering-groundwork.md",
+        "docs/agents/paired-benchmarks.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-25-aski95-fallback-noise-reuse",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Rejected: a 16 MiB process-wide cache of fallback noise rasters kept 96 outputs byte-identical and cut the 1920x1080 dust+grain same-seed fallback render by 78%, but two all-miss changing-seed dust cases regressed 4.2% and 2.8% against a 2% guard. Production keeps building the raster on each application.",
+      "title" : "ASKI-95 fallback noise raster reuse"
     }
   ],
   "results" : [

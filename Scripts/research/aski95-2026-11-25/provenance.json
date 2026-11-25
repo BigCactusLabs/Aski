@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "task": "ASKI-95",
+  "registrationCommit": "a06ef864e6ac4481c76987642c7eaebcc66b5a2a",
+  "controlCommit": "4b3aa643bf9c895ed4e9688739b7c6a0b2f05ea5",
+  "productionSourcesEqual": "99fc4c7c556ceaf947f223da93db4dee1ba94c4d (both commits add only harness and backlog files)",
+  "candidatePatch": {
+    "file": "candidate-treatment.patch",
+    "sha256": "740fcc1f4aac4e506fa0fd89d0080c58fb45d12d70e0bbec728a5c82c6c37a76",
+    "appliesTo": "4b3aa643bf9c895ed4e9688739b7c6a0b2f05ea5"
+  },
+  "host": {
+    "cpu": "Apple M5 Max",
+    "memoryBytes": 68719476736,
+    "macOS": "27.2.1 (26B8132)",
+    "xcode": "27.2 (27B52)",
+    "swift": "Apple Swift 6.4.2 (swiftlang-6.4.2.1.9)",
+    "power": "AC power, battery 100% charged (observed after capture)",
+    "thermal": "pmset reported no thermal, performance or CPU power warning (observed after capture)"
+  },
+  "binaries": {
+    "controlAskiTests": {
+      "scratchPath": ".build",
+      "sha256": "bf8e62b40cc6aa9ee7703f0b8218a169b81507f666d1d32631e9d0bcbee1fe54",
+      "builtFrom": "4b3aa643bf9c895ed4e9688739b7c6a0b2f05ea5 with the harness copied into Tests/AskiTests"
+    },
+    "candidateAskiTests": {
+      "scratchPath": ".build/candidate",
+      "sha256": "5087359bb5d7364f78ca7a93f69936cd44ebd51d3b3933e27ee86970859f0b1c",
+      "builtFrom": "4b3aa643bf9c895ed4e9688739b7c6a0b2f05ea5 + candidate-treatment.patch, harness copied into Tests/AskiTests"
+    },
+    "note": "Both hashes were identical before and after the five pairs, so --skip-build ran the qualified binaries."
+  },
+  "r2Capture": {
+    "file": "r2-timings.csv",
+    "sha256": "3eb2c1584df56083e5b1c7d803b8d2e2e7e1eb1703f8a9a7db8343ae6f2557c2",
+    "builtFrom": "a06ef864e6ac4481c76987642c7eaebcc66b5a2a with the harness copied into Tests/AskiTests"
+  },
+  "pairedCaptures": {
+    "order": [
+      "C/T",
+      "T/C",
+      "C/T",
+      "T/C",
+      "C/T"
+    ],
+    "retainedLocally": "pairN-C.csv and pairN-T.csv in the session artifact directory; not committed",
+    "sha256": {
+      "pair1-C": "305cf555b948f3e7241804f43de6e349e4ceada710e1e832fd1e734fac96e2eb",
+      "pair1-T": "d8ae6cb96225a15e7d3bbfa29c31e464da62f59f973d9db0bc481f60f6840d83",
+      "pair2-C": "9c05afc6f0fc6df4774755027918c6e160a4e7e25a8bae1d00588bed0f2c1197",
+      "pair2-T": "791c33402b7dd7c02de7ab9319c7ce59cecef6553ebc9ff5669c27145a4a62d7",
+      "pair3-C": "042891ff6bd1d1bc7961e2dcb37ffe129d361392ab4023ceac9505839b97be92",
+      "pair3-T": "08f90b7ed23db719746e28d77df5a1a43bc186006690d4c1e502ef074b358cc6",
+      "pair4-C": "f2a3d3f78fdf67a7b75e218cbeb0e4203cd7e8c00a694a8b523835eb81eec28c",
+      "pair4-T": "ac096f5254fbdb4e9ec8119353d68475e8e583a18183d2433703796a6db4b9c5",
+      "pair5-C": "2f75cc93124222ec37ce7563c6d1b62eab77bd8698ca7e0b1f5fc8b66fa9aac0",
+      "pair5-T": "41c60e6eb31b8bb28621be0052e62fcc92014781ac67cb507bb1b7c8b4a39b38"
+    }
+  },
+  "parity": {
+    "file": "parity-hashes.csv",
+    "controlSha256": "f171daa61c4795baaf99bc5ab37f61d0a247df7e89176bf47e43491ce731d553",
+    "candidateSha256": "f171daa61c4795baaf99bc5ab37f61d0a247df7e89176bf47e43491ce731d553"
+  }
+}
