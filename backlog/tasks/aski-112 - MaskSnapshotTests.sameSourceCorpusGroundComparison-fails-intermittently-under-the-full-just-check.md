@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-24T20:58:27Z'
-updated_date: '2026-11-25T19:00:24Z'
+updated_date: '2026-11-25T19:02:28Z'
 labels:
   - testing
   - flake
@@ -46,4 +46,6 @@ Procedure: Scripts/research/aski112-2026-11-25/ (README has exact commands; repl
 Bitmap copy: an owned bitmap of the decoded bytes rendered identically over 300 serial reads and 200 concurrent renders, but differs from the golden (126,954 bytes on the background), so adopting it moves docc-mask-ground-before/after. Fix choice (production materialization vs test-only decode) and any re-record are pending the owner's ruling. No AC checked.
 
 2026-11-25 correction: run 1 made 16 exploratory test invocations, not 13 (3 of them killed or timed out).
+
+2026-11-25 (lead): the 256-read Core Image decode switch is a product defect separate from this flake and is filed as ASKI-115, which owns the fix choice and any golden re-record. ASKI-112 keeps only the one-pixel, 1-LSB gate failure, which is still unreproduced; blotter cut bl_00a656873d4745d045cc stays open.
 <!-- SECTION:NOTES:END -->
