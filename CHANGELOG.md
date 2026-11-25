@@ -146,6 +146,18 @@ The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
+- **Rendering in a loop no longer accumulates memory until the loop ends.** The image
+  render paths created autoreleased Core Text, Core Graphics and Core Image temporaries
+  without draining a pool, so a caller that rendered repeatedly on a thread that does
+  not drain one between iterations (a GCD worker, a Swift concurrency thread, a test
+  body) kept every render's temporaries alive. For a 60×80 grid from a 975×1280 source,
+  150 renders left 5.7 MB per plain `ASCIIGrid.renderImage`, 5.8 MB per exact-width
+  render, 9.2–9.3 MB per sync or async effects render and 2.1 MB per tile effects render
+  resident; each is now 0.0 MB. `ASCIIGrid` image renders, `TileGrid` effects renders,
+  the `renderCIImage` variants and `renderExtendedRangeImage` drain their own pool.
+  Output pixels are unchanged. `CIContext.cacheIntermediates` was measured and is not
+  the cause: disabling it left the growth unchanged and `flushCaches()` freed nothing.
+
 - **Point lights no longer over-brighten (ASKI-102).** The light field summed opaque layers
   with `CIAdditionCompositing`, which adds alpha along with color, so the field reached
   alpha 3 with one light and one more per added light. Converting the lit image to the output

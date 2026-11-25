@@ -214,43 +214,45 @@ extension EffectsRenderEngine {
         lighting: LightingOptions?,
         effects: EffectChain
     ) -> CGImage {
-        let coverageMode: CellCoverageMode =
-            effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
-        let raster = CellRasterBuilder.makeTileRaster(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            coverageMode: coverageMode
-        )
-        guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
-            return TileGrid.emptyImage()
-        }
-        let extent = outputExtent(for: raster)
-        let mask = makeTileMaskInput(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            extent: extent
-        )
-        let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
-        let final = computeFinalCIImage(
-            cellRaster: gatedRaster,
-            colorSpace: grid.colorSpace,
-            composition: composition,
-            lighting: lighting,
-            effects: effects,
-            mask: mask
-        )
+        return autoreleasepool {
+            let coverageMode: CellCoverageMode =
+                effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
+            let raster = CellRasterBuilder.makeTileRaster(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                coverageMode: coverageMode
+            )
+            guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
+                return TileGrid.emptyImage()
+            }
+            let extent = outputExtent(for: raster)
+            let mask = makeTileMaskInput(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                extent: extent
+            )
+            let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
+            let final = computeFinalCIImage(
+                cellRaster: gatedRaster,
+                colorSpace: grid.colorSpace,
+                composition: composition,
+                lighting: lighting,
+                effects: effects,
+                mask: mask
+            )
 
-        let cgImage = shared.context.createCGImage(
-            final,
-            from: extent,
-            format: .RGBA8,
-            colorSpace: renderColorSpaceCG(grid.colorSpace)
-        )
-        return cgImage ?? TileGrid.emptyImage()
+            let cgImage = shared.context.createCGImage(
+                final,
+                from: extent,
+                format: .RGBA8,
+                colorSpace: renderColorSpaceCG(grid.colorSpace)
+            )
+            return cgImage ?? TileGrid.emptyImage()
+        }
     }
 
     static func renderTileGridAsync(
@@ -276,13 +278,15 @@ extension EffectsRenderEngine {
             throw EffectError.degenerateOutput
         }
         let extent = outputExtent(for: raster)
-        let mask = makeTileMaskInput(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            extent: extent
-        )
+        let mask = autoreleasepool {
+            makeTileMaskInput(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                extent: extent
+            )
+        }
         try Task.checkCancellation()
         let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
         let final = try await computeFinalCIImageAsync(
@@ -295,12 +299,14 @@ extension EffectsRenderEngine {
         )
 
         guard
-            let cgImage = shared.context.createCGImage(
-                final,
-                from: extent,
-                format: .RGBA8,
-                colorSpace: renderColorSpaceCG(grid.colorSpace)
-            )
+            let cgImage = autoreleasepool(invoking: {
+                shared.context.createCGImage(
+                    final,
+                    from: extent,
+                    format: .RGBA8,
+                    colorSpace: renderColorSpaceCG(grid.colorSpace)
+                )
+            })
         else {
             throw EffectError.degenerateOutput
         }
@@ -316,35 +322,37 @@ extension EffectsRenderEngine {
         lighting: LightingOptions?,
         effects: EffectChain
     ) -> CIImage {
-        let coverageMode: CellCoverageMode =
-            effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
-        let raster = CellRasterBuilder.makeTileRaster(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            coverageMode: coverageMode
-        )
-        guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
-            return emptyCIImage()
+        return autoreleasepool {
+            let coverageMode: CellCoverageMode =
+                effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
+            let raster = CellRasterBuilder.makeTileRaster(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                coverageMode: coverageMode
+            )
+            guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
+                return emptyCIImage()
+            }
+            let extent = outputExtent(for: raster)
+            let mask = makeTileMaskInput(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                extent: extent
+            )
+            let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
+            return computeFinalCIImage(
+                cellRaster: gatedRaster,
+                colorSpace: grid.colorSpace,
+                composition: composition,
+                lighting: lighting,
+                effects: effects,
+                mask: mask
+            )
         }
-        let extent = outputExtent(for: raster)
-        let mask = makeTileMaskInput(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            extent: extent
-        )
-        let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
-        return computeFinalCIImage(
-            cellRaster: gatedRaster,
-            colorSpace: grid.colorSpace,
-            composition: composition,
-            lighting: lighting,
-            effects: effects,
-            mask: mask
-        )
     }
 
     static func renderTileGridCIAsync(
@@ -370,13 +378,15 @@ extension EffectsRenderEngine {
             throw EffectError.degenerateOutput
         }
         let extent = outputExtent(for: raster)
-        let mask = makeTileMaskInput(
-            grid: grid,
-            mode: mode,
-            cellShape: cellShape,
-            scale: scale,
-            extent: extent
-        )
+        let mask = autoreleasepool {
+            makeTileMaskInput(
+                grid: grid,
+                mode: mode,
+                cellShape: cellShape,
+                scale: scale,
+                extent: extent
+            )
+        }
         try Task.checkCancellation()
         let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
         return try await computeFinalCIImageAsync(

@@ -248,41 +248,43 @@ internal enum EffectsRenderEngine {
         lighting: LightingOptions?,
         effects: EffectChain
     ) -> CGImage {
-        let coverageMode: CellCoverageMode =
-            effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
-        let raster = CellRasterBuilder.makeASCIIRaster(
-            grid: grid,
-            font: font,
-            scale: scale,
-            coverageMode: coverageMode
-        )
-        guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
-            return ASCIIGrid.emptyImageFallback()
-        }
-        let extent = outputExtent(for: raster)
-        let mask = makeASCIIMaskInput(
-            grid: grid,
-            font: font,
-            scale: scale,
-            extent: extent
-        )
-        let final = computeFinalCIImage(
-            cellRaster: raster,
-            colorSpace: grid.colorSpace,
-            composition: composition,
-            lighting: lighting,
-            effects: effects,
-            mask: mask
-        )
+        return autoreleasepool {
+            let coverageMode: CellCoverageMode =
+                effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
+            let raster = CellRasterBuilder.makeASCIIRaster(
+                grid: grid,
+                font: font,
+                scale: scale,
+                coverageMode: coverageMode
+            )
+            guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
+                return ASCIIGrid.emptyImageFallback()
+            }
+            let extent = outputExtent(for: raster)
+            let mask = makeASCIIMaskInput(
+                grid: grid,
+                font: font,
+                scale: scale,
+                extent: extent
+            )
+            let final = computeFinalCIImage(
+                cellRaster: raster,
+                colorSpace: grid.colorSpace,
+                composition: composition,
+                lighting: lighting,
+                effects: effects,
+                mask: mask
+            )
 
-        let outputColorSpace = renderColorSpaceCG(grid.colorSpace)
-        let cgImage = shared.context.createCGImage(
-            final,
-            from: extent,
-            format: .RGBA8,
-            colorSpace: outputColorSpace
-        )
-        return cgImage ?? ASCIIGrid.emptyImageFallback()
+            let outputColorSpace = renderColorSpaceCG(grid.colorSpace)
+            let cgImage = shared.context.createCGImage(
+                final,
+                from: extent,
+                format: .RGBA8,
+                colorSpace: outputColorSpace
+            )
+            return cgImage ?? ASCIIGrid.emptyImageFallback()
+        }
     }
 
     static func renderASCIIGridAsync(
@@ -306,12 +308,14 @@ internal enum EffectsRenderEngine {
             throw EffectError.degenerateOutput
         }
         let extent = outputExtent(for: raster)
-        let mask = makeASCIIMaskInput(
-            grid: grid,
-            font: font,
-            scale: scale,
-            extent: extent
-        )
+        let mask = autoreleasepool {
+            makeASCIIMaskInput(
+                grid: grid,
+                font: font,
+                scale: scale,
+                extent: extent
+            )
+        }
         let final = try await computeFinalCIImageAsync(
             cellRaster: raster,
             colorSpace: grid.colorSpace,
@@ -323,12 +327,14 @@ internal enum EffectsRenderEngine {
 
         let outputColorSpace = renderColorSpaceCG(grid.colorSpace)
         guard
-            let cgImage = shared.context.createCGImage(
-                final,
-                from: extent,
-                format: .RGBA8,
-                colorSpace: outputColorSpace
-            )
+            let cgImage = autoreleasepool(invoking: {
+                shared.context.createCGImage(
+                    final,
+                    from: extent,
+                    format: .RGBA8,
+                    colorSpace: outputColorSpace
+                )
+            })
         else {
             throw EffectError.degenerateOutput
         }
@@ -343,32 +349,34 @@ internal enum EffectsRenderEngine {
         lighting: LightingOptions?,
         effects: EffectChain
     ) -> CIImage {
-        let coverageMode: CellCoverageMode =
-            effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
-        let raster = CellRasterBuilder.makeASCIIRaster(
-            grid: grid,
-            font: font,
-            scale: scale,
-            coverageMode: coverageMode
-        )
-        guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
-            return emptyCIImage()
+        return autoreleasepool {
+            let coverageMode: CellCoverageMode =
+                effectiveMaskGroundColor(grid.maskGroundColor) == nil ? .multiplyCoverage : .intrinsicAlpha
+            let raster = CellRasterBuilder.makeASCIIRaster(
+                grid: grid,
+                font: font,
+                scale: scale,
+                coverageMode: coverageMode
+            )
+            guard raster.pixelWidth > 0, raster.pixelHeight > 0 else {
+                return emptyCIImage()
+            }
+            let extent = outputExtent(for: raster)
+            let mask = makeASCIIMaskInput(
+                grid: grid,
+                font: font,
+                scale: scale,
+                extent: extent
+            )
+            return computeFinalCIImage(
+                cellRaster: raster,
+                colorSpace: grid.colorSpace,
+                composition: composition,
+                lighting: lighting,
+                effects: effects,
+                mask: mask
+            )
         }
-        let extent = outputExtent(for: raster)
-        let mask = makeASCIIMaskInput(
-            grid: grid,
-            font: font,
-            scale: scale,
-            extent: extent
-        )
-        return computeFinalCIImage(
-            cellRaster: raster,
-            colorSpace: grid.colorSpace,
-            composition: composition,
-            lighting: lighting,
-            effects: effects,
-            mask: mask
-        )
     }
 
     static func renderASCIIGridCIAsync(
@@ -392,12 +400,14 @@ internal enum EffectsRenderEngine {
             throw EffectError.degenerateOutput
         }
         let extent = outputExtent(for: raster)
-        let mask = makeASCIIMaskInput(
-            grid: grid,
-            font: font,
-            scale: scale,
-            extent: extent
-        )
+        let mask = autoreleasepool {
+            makeASCIIMaskInput(
+                grid: grid,
+                font: font,
+                scale: scale,
+                extent: extent
+            )
+        }
         return try await computeFinalCIImageAsync(
             cellRaster: raster,
             colorSpace: grid.colorSpace,
@@ -446,23 +456,25 @@ internal enum EffectsRenderEngine {
         effects: EffectChain,
         mask renderMask: MaskRenderInput? = nil
     ) async throws -> CIImage {
-        let graph = try makeEffectGraph(
-            cellRaster: cellRaster,
-            colorSpace: colorSpace,
-            composition: composition,
-            lighting: lighting,
-            mask: renderMask,
-            checkpoint: { try Task.checkCancellation() },
-            applyColorOverlay: { image, overlay, context in
-                try StockCIEffectKernel(
-                    kind: .colorOverlay(
-                        color: overlay.color,
-                        blendMode: overlay.blendMode,
-                        opacity: overlay.opacity
-                    )
-                ).apply(to: image, in: context)
-            }
-        )
+        let graph = try autoreleasepool {
+            try makeEffectGraph(
+                cellRaster: cellRaster,
+                colorSpace: colorSpace,
+                composition: composition,
+                lighting: lighting,
+                mask: renderMask,
+                checkpoint: { try Task.checkCancellation() },
+                applyColorOverlay: { image, overlay, context in
+                    try StockCIEffectKernel(
+                        kind: .colorOverlay(
+                            color: overlay.color,
+                            blendMode: overlay.blendMode,
+                            opacity: overlay.opacity
+                        )
+                    ).apply(to: image, in: context)
+                }
+            )
+        }
 
         // The async tail deliberately propagates kernel failures and cancellation.
         return try await runEffectChainAsync(graph.image, effects: effects, in: graph.context)
@@ -648,16 +660,18 @@ internal enum EffectsRenderEngine {
         effects: EffectChain,
         in context: EffectContext
     ) async throws -> CIImage {
-        var current = image
-        for effect in effects.effects {
-            try Task.checkCancellation()
-            if let stock = stockKernel(for: effect, capability: context.deviceCapability) {
-                current = try stock.apply(to: current, in: context)
-            } else if let metallib = metallibKernel(for: effect) {
-                current = try metallib.apply(to: current, in: context)
+        try autoreleasepool {
+            var current = image
+            for effect in effects.effects {
+                try Task.checkCancellation()
+                if let stock = stockKernel(for: effect, capability: context.deviceCapability) {
+                    current = try stock.apply(to: current, in: context)
+                } else if let metallib = metallibKernel(for: effect) {
+                    current = try metallib.apply(to: current, in: context)
+                }
             }
+            return current
         }
-        return current
     }
 
     static func stockKernel(for effect: Effect, capability: DeviceCapability) -> StockCIEffectKernel? {
