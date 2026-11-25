@@ -1,0 +1,29 @@
+arm,size,chain,seedMode,pair_changes_pct,median_change_pct,bar,result
+fallback,1920x1080,dust,changing,+4.4 -6.3 +4.2 +0.6 +5.7,+4.21,guard: regression <= 2%,FAIL
+fallback,1920x1080,dust,same,+2.3 -3.1 +7.2 +1.4 +8.3,+2.28,descriptive,
+fallback,1920x1080,dust+grain,changing,-78.3 -79.7 -78.4 -78.9 -77.9,-78.36,guard: regression <= 2%,pass
+fallback,1920x1080,dust+grain,same,-77.9 -79.5 -78.3 -78.4 -77.2,-78.28,primary: improvement >= 10%,pass
+fallback,1920x1080,grain,changing,-66.0 -68.5 -66.4 -66.8 -64.8,-66.39,guard: regression <= 2%,pass
+fallback,1920x1080,grain,same,-65.8 -68.0 -65.6 -66.3 -62.9,-65.82,descriptive,
+fallback,512x512,dust,changing,+2.8 -7.5 +4.9 -2.7 +7.9,+2.78,guard: regression <= 2%,FAIL
+fallback,512x512,dust,same,+2.2 -34.0 +3.8 -4.9 +7.9,+2.21,descriptive,
+fallback,512x512,dust+grain,changing,-59.1 -61.0 -59.1 -60.4 -58.0,-59.11,guard: regression <= 2%,pass
+fallback,512x512,dust+grain,same,-59.6 -62.0 -60.1 -60.1 -56.7,-60.07,descriptive,
+fallback,512x512,grain,changing,-41.2 -44.6 -41.4 -42.8 -40.6,-41.45,guard: regression <= 2%,pass
+fallback,512x512,grain,same,-43.2 -44.7 -40.9 -42.3 -39.2,-42.33,descriptive,
+metal,1920x1080,dust,changing,-2.2 -6.7 +2.5 -3.5 +5.9,-2.22,guard: regression <= 2%,pass
+metal,1920x1080,dust,same,-0.2 -8.7 +2.9 -1.7 +6.9,-0.17,guard: regression <= 2%,pass
+metal,1920x1080,dust+grain,changing,-2.7 -8.7 -0.0 -4.2 +2.1,-2.73,guard: regression <= 2%,pass
+metal,1920x1080,dust+grain,same,-4.5 -11.3 -0.7 -4.5 -1.1,-4.48,guard: regression <= 2%,pass
+metal,1920x1080,grain,changing,-2.9 -10.8 +1.9 -2.2 +4.9,-2.21,guard: regression <= 2%,pass
+metal,1920x1080,grain,same,-4.6 -7.7 +0.9 -2.7 +4.2,-2.65,guard: regression <= 2%,pass
+metal,512x512,dust,changing,+0.2 -8.9 -1.2 -6.9 +1.4,-1.16,guard: regression <= 2%,pass
+metal,512x512,dust,same,-1.9 -43.4 -1.6 -2.5 -0.6,-1.85,guard: regression <= 2%,pass
+metal,512x512,dust+grain,changing,-4.2 -8.7 -2.7 -4.6 +3.0,-4.16,guard: regression <= 2%,pass
+metal,512x512,dust+grain,same,-3.7 -7.0 +1.5 -5.3 +3.3,-3.74,guard: regression <= 2%,pass
+metal,512x512,grain,changing,-3.9 -6.3 -2.4 -4.6 +4.3,-3.89,guard: regression <= 2%,pass
+metal,512x512,grain,same,-1.4 -6.5 +1.0 -4.4 -1.8,-1.78,guard: regression <= 2%,pass
+raster,1920x1080,single,changing,-5.2 -4.2 +11.3 -5.6 +1.7,-4.22,"descriptive (replica, unchanged)",
+raster,1920x1080,single,same,-6.7 -6.3 +9.3 -5.2 -0.5,-5.17,"descriptive (replica, unchanged)",
+raster,512x512,single,changing,-9.1 -8.0 +9.3 -6.7 -3.5,-6.71,"descriptive (replica, unchanged)",
+raster,512x512,single,same,-4.2 -5.4 +12.5 -5.2 -1.5,-4.18,"descriptive (replica, unchanged)",

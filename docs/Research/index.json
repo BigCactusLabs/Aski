@@ -1798,6 +1798,31 @@
       ],
       "summary" : "Measured at 99fc4c7 on an M5 Max with Swift 6.4.2 and the Swift Build backend pinned. Against a lab-free control of the same commit (lab imports, lab command group and the six lab target dependencies removed from AskiCLI), the clean swift build --product aski median is 9.95 s versus 7.84 s (+2.11 s, +26.9%) and the warm no-op median is 1.29 s versus 1.14 s (+0.15 s, +13.2%). Under the reading frozen before measurement (either the 20% or the 15 s limit fires), the clean class exceeds 20%: verdict INVESTIGATE. Under the alternative reading (both limits) it would be ACCEPT. The largest single build process peaks at 2.17 GiB versus 0.73 GiB. The lab modules double the aski executable (debug 13.3 MB vs 6.4 MB, release 8.7 MB vs 4.0 MB; AskiColorLab alone is 2.4 MB of linked symbols) and add CryptoKit and libswift_errno to the load commands; no distribution constraint was found. swift build --target Aski compiles no lab or CLI module.",
       "title" : "ASKI-75 unified aski CLI build and binary tax"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-25",
+      "next_action" : "No adoption. A follow-up needs a fresh rule with disjoint seed streams, a non-thrashing bound and a measured noise floor.",
+      "path" : "docs/Research/2026-11-25-aski95-fallback-noise-reuse.md",
+      "related_specs" : [
+        "docs/agents/rendering-groundwork.md",
+        "docs/agents/paired-benchmarks.md"
+      ],
+      "results" : [
+
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-25-aski95-fallback-noise-reuse",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Rejected: a 16 MiB process-wide cache of fallback noise rasters kept 96 outputs byte-identical and cut the 1920x1080 dust+grain same-seed fallback render by 78%, but two all-miss changing-seed dust cases regressed 4.2% and 2.8% against a 2% guard. Production keeps building the raster on each application.",
+      "title" : "ASKI-95 fallback noise raster reuse"
     }
   ],
   "results" : [

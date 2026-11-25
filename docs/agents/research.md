@@ -51,7 +51,7 @@ the results do not establish a universal speedup or a general ban on a mechanism
 | ASKI-92 — shared tile samples | Rejected | [Fresh, decisive study](../../Scripts/research/aski92-2026-11-14/README.md). The shared-sample candidate is absent from production; the independently qualified allocator classifier correction is retained. |
 | ASKI-93 — early video selection | Adopted | [Study and contracts](../../Scripts/research/video-frame-selection.md). Explicit `targetFPS` selects before ASCII conversion and reuses grids for duplicate slots. |
 | ASKI-94 — one fallback-image draw | Rejected | [Parity veto and control baseline](../../Scripts/research/aski94-2026-11-15/README.md). The candidate changed pixels in 239 of 1,161 cases; no candidate timing verdict followed. |
-| ASKI-95 — fallback-noise reuse | Open; contract groundwork only | [Remaining harness and memory work](rendering-groundwork.md#aski-95-prove-reachability-then-consider-render-local-reuse). Establish product fallback frequency and measured cost before choosing a reuse lifetime. |
+| ASKI-95 — fallback-noise reuse | Rejected | [Study and replay patch](../../Scripts/research/aski95-2026-11-25/README.md). Output stayed exact and the primary case improved 78%, but two changing-seed guards failed; fallback frequency is unknown. |
 
 Closed candidates require a materially new hypothesis and a new frozen rule to
 reopen. The reusable comparison tool does not promote a candidate or rewrite the

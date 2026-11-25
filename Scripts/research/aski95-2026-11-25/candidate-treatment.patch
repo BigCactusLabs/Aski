@@ -1,0 +1,149 @@
+diff --git a/Sources/Aski/Effects/Internal/FallbackNoiseCache.swift b/Sources/Aski/Effects/Internal/FallbackNoiseCache.swift
+new file mode 100644
+index 0000000..2f6df07
+--- /dev/null
++++ b/Sources/Aski/Effects/Internal/FallbackNoiseCache.swift
+@@ -0,0 +1,64 @@
++import CoreImage
++import os
++
++/// Process-wide reuse of the Core Image fallback's seeded noise rasters
++/// (ASKI-95). Entries are keyed by the exact output extent and seed, the only
++/// inputs `seededNoise` reads, and hold the immutable image it returned.
++/// Retained raster bytes stay at or below `byteLimit`: least recently used
++/// entries are evicted first, and a raster larger than the limit is never kept.
++/// Entries otherwise live for the life of the process.
++internal enum FallbackNoiseCache {
++    static let byteLimit = 16 * 1024 * 1024
++
++    private struct Key: Hashable, Sendable {
++        let x: CGFloat
++        let y: CGFloat
++        let width: CGFloat
++        let height: CGFloat
++        let seed: UInt64
++    }
++
++    // CIImage is immutable and safe to share across threads.
++    private struct Entry: @unchecked Sendable {
++        let key: Key
++        let image: CIImage
++        let bytes: Int
++    }
++
++    /// Least recently used first.
++    private static let entries = OSAllocatedUnfairLock<[Entry]>(initialState: [])
++
++    static func noise(extent: CGRect, seed: UInt64, make: () -> CIImage) -> CIImage {
++        let bytes = max(1, Int(ceil(extent.width))) * max(1, Int(ceil(extent.height))) * 4
++        guard bytes <= byteLimit else { return make() }
++        let key = Key(x: extent.minX, y: extent.minY, width: extent.width, height: extent.height, seed: seed)
++        let cached = entries.withLock { entries -> Entry? in
++            guard let index = entries.firstIndex(where: { $0.key == key }) else { return nil }
++            let entry = entries.remove(at: index)
++            entries.append(entry)
++            return entry
++        }
++        if let cached { return cached.image }
++
++        // Build outside the lock. A concurrent builder of the same key makes
++        // identical bytes; the first stored entry wins.
++        let candidate = Entry(key: key, image: make(), bytes: bytes)
++        return entries.withLock { entries -> Entry in
++            if let existing = entries.first(where: { $0.key == key }) { return existing }
++            entries.append(candidate)
++            var total = entries.reduce(0) { $0 + $1.bytes }
++            while total > byteLimit {
++                total -= entries.removeFirst().bytes
++            }
++            return candidate
++        }.image
++    }
++
++    static var retainedBytes: Int {
++        entries.withLock { $0.reduce(0) { $0 + $1.bytes } }
++    }
++
++    static func removeAll() {
++        entries.withLock { $0.removeAll() }
++    }
++}
+diff --git a/Sources/Aski/Effects/Internal/StockCIEffectKernel.swift b/Sources/Aski/Effects/Internal/StockCIEffectKernel.swift
+index 9da7c70..ecb68c1 100644
+--- a/Sources/Aski/Effects/Internal/StockCIEffectKernel.swift
++++ b/Sources/Aski/Effects/Internal/StockCIEffectKernel.swift
+@@ -228,7 +228,7 @@ internal struct StockCIEffectKernel: EffectKernel {
+ 
+     private func applyFilmDustApprox(to image: CIImage, intensity: Double, seed: UInt64, in context: EffectContext) -> CIImage {
+         let extent = context.outputExtent
+-        let noise = seededNoise(extent: extent, seed: seed)
++        let noise = FallbackNoiseCache.noise(extent: extent, seed: seed) { seededNoise(extent: extent, seed: seed) }
+         let opacity = CGFloat(max(0, min(1, intensity)) * 0.2)
+         let mask = CIFilter(name: "CIColorMatrix")
+         mask?.setValue(noise, forKey: kCIInputImageKey)
+@@ -248,7 +248,7 @@ internal struct StockCIEffectKernel: EffectKernel {
+ 
+     private func applyFilmGrainApprox(to image: CIImage, intensity: Double, seed: UInt64, in context: EffectContext) -> CIImage {
+         let extent = context.outputExtent
+-        let noise = seededNoise(extent: extent, seed: seed)
++        let noise = FallbackNoiseCache.noise(extent: extent, seed: seed) { seededNoise(extent: extent, seed: seed) }
+         let opacity = CGFloat(max(0, min(1, intensity)) * 0.15)
+         let scaled = CIFilter(name: "CIColorMatrix")
+         scaled?.setValue(noise, forKey: kCIInputImageKey)
+diff --git a/Tests/AskiTests/FallbackNoiseCacheTests.swift b/Tests/AskiTests/FallbackNoiseCacheTests.swift
+new file mode 100644
+index 0000000..d17ffe9
+--- /dev/null
++++ b/Tests/AskiTests/FallbackNoiseCacheTests.swift
+@@ -0,0 +1,51 @@
++import CoreGraphics
++import CoreImage
++import Testing
++@testable import Aski
++
++/// ASKI-95 candidate: the fallback noise cache stays within its byte bound and
++/// returns the stored image for a repeated extent and seed.
++@Suite(.serialized) struct FallbackNoiseCacheTests {
++    @Test func retainedBytesStayWithinTheBound() {
++        FallbackNoiseCache.removeAll()
++        defer { FallbackNoiseCache.removeAll() }
++        let extent = CGRect(x: 0, y: 0, width: 1920, height: 1080)
++        var builds = 0
++        for seed in UInt64(0)..<6 {
++            _ = FallbackNoiseCache.noise(extent: extent, seed: seed) {
++                builds += 1
++                return CIImage(color: .gray).cropped(to: extent)
++            }
++            #expect(FallbackNoiseCache.retainedBytes <= FallbackNoiseCache.byteLimit)
++        }
++        #expect(builds == 6)
++        let oversized = CGRect(x: 0, y: 0, width: 4096, height: 4096)
++        for _ in 0..<2 {
++            _ = FallbackNoiseCache.noise(extent: oversized, seed: 0) {
++                builds += 1
++                return CIImage(color: .gray).cropped(to: oversized)
++            }
++            #expect(FallbackNoiseCache.retainedBytes <= FallbackNoiseCache.byteLimit)
++        }
++        // A raster above the bound is rebuilt each time rather than retained.
++        #expect(builds == 8)
++    }
++
++    @Test func repeatedKeyReturnsTheStoredImageAndOtherInputsMiss() {
++        FallbackNoiseCache.removeAll()
++        defer { FallbackNoiseCache.removeAll() }
++        let extent = CGRect(x: 0, y: 0, width: 32, height: 24)
++        var builds = 0
++        let make = { () -> CIImage in
++            builds += 1
++            return CIImage(color: .gray).cropped(to: extent)
++        }
++        let first = FallbackNoiseCache.noise(extent: extent, seed: 1, make: make)
++        let second = FallbackNoiseCache.noise(extent: extent, seed: 1, make: make)
++        #expect(first === second)
++        _ = FallbackNoiseCache.noise(extent: extent, seed: 2, make: make)
++        _ = FallbackNoiseCache.noise(extent: extent.offsetBy(dx: 1, dy: 0), seed: 1, make: make)
++        _ = FallbackNoiseCache.noise(extent: CGRect(x: 0, y: 0, width: 32.5, height: 24), seed: 1, make: make)
++        #expect(builds == 4)
++    }
++}
