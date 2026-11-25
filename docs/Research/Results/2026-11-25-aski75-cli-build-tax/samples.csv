@@ -1,0 +1,25 @@
+sample,run_order,arm,step,wall_s,swiftpm_reported_s,max_rss_single_process_bytes,loadavg_1m_at_start,exit_status,in_median,aski_bytes
+p0,1,control,clean,8.70,6.37,791904256,13.90,0,no (priming),6383040
+p0,1,control,warm,1.15,0.30,162004992,12.60,0,no (priming),6383040
+p0,1,control,link,1.37,0.53,310362112,12.60,0,no (priming),6383040
+p0,2,main,clean,10.92,8.70,2286845952,3.54,0,no (priming),13304480
+p0,2,main,warm,1.38,0.38,171474944,6.03,0,no (priming),13304480
+p0,2,main,link,1.48,0.59,347144192,6.03,0,no (priming),13304480
+s1,3,control,clean,7.88,6.72,781418496,5.87,0,yes,6383040
+s1,3,control,warm,1.16,0.30,162250752,6.44,0,yes,6383040
+s1,3,control,link,1.48,0.63,311934976,6.16,0,yes,6383040
+s1,4,main,clean,9.74,8.64,2315468800,5.75,0,yes,13304480
+s1,4,main,warm,1.26,0.36,171589632,6.80,0,yes,13304480
+s1,4,main,link,1.47,0.60,345440256,6.80,0,yes,13304480
+s2,5,main,clean,10.30,9.07,2325512192,6.42,0,yes,13304480
+s2,5,main,warm,1.41,0.51,168984576,8.21,0,yes,13304480
+s2,5,main,link,1.50,0.59,346423296,8.21,0,yes,13304480
+s2,6,control,clean,7.84,6.68,787070976,7.79,0,yes,6383040
+s2,6,control,warm,1.06,0.28,161120256,7.06,0,yes,6383040
+s2,6,control,link,1.24,0.46,310820864,7.06,0,yes,6383040
+s3,7,control,clean,7.32,6.22,795475968,6.57,0,yes,6383040
+s3,7,control,warm,1.14,0.31,161693696,7.56,0,yes,6383040
+s3,7,control,link,1.29,0.47,310689792,7.56,0,yes,6383040
+s3,8,main,clean,9.95,8.75,2330869760,7.28,0,yes,13304480
+s3,8,main,warm,1.29,0.39,172490752,7.74,0,yes,13304480
+s3,8,main,link,1.49,0.56,346701824,7.28,0,yes,13304480

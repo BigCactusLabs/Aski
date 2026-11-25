@@ -1,0 +1,16 @@
+module,main_bytes,control_bytes,delta_bytes
+AskiColorLab,2405222,0,2405222
+Aski,1136843,1136866,-23
+ArgumentParser,1012000,1012056,-56
+AskiToolSupport,560483,560559,-76
+AskiVideoLab,271332,0,271332
+AskiMotionLab,270208,0,270208
+AskiCLI,174508,115805,58703
+AskiDecolorLab,157005,0,157005
+AskiHDRLab,147182,0,147182
+AskiAccessLab,136374,0,136374
+ArgumentParserToolInfo,130259,130272,-13
+(linker synthesized),62367,34304,28063
+libswiftCore.tbd,14524,13220,1304
+(other system stubs and runtime shims),15743,14095,1648
+TOTAL,6494050,3017177,3476873
