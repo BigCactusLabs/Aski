@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-25T19:02:28Z'
-updated_date: '2026-11-25T19:10:46Z'
+updated_date: '2026-11-25T19:18:55Z'
 labels:
   - rendering
   - determinism
@@ -42,4 +42,6 @@ Fix options (ASKI-112 r2 report): materialize caller images into an owned bitmap
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-11-25: the owner chose the production fix (materialize caller-supplied images into an owned bitmap before Core Image) over a test-only decode, and approved re-recording the goldens it moves: MaskSnapshotTests docc-mask-ground-before and docc-mask-ground-after and the DocC images mask-ground-before.png and mask-ground-after.png. Any other golden that moves needs a fresh ruling, and a FrozenRenderReference golden also needs the no-harm census.
+
+2026-11-25 progress (paused at the owner's request): implementation started on branch fix/aski-115-imageio-decode, based on the batch branch. Lead ruling: materialize inside BackgroundResolver.resolve, which covers both the composition background and the mask fallback without touching files that open PR #36 changes. A render that uses one image for both decodes it twice; AC4 measures that on a 12 MP input, and sharing one bitmap per render is a possible follow-up once PR #36 merges. The red regression test was drafted but not compiled or committed; no source change yet. No AC checked. Probe limit from the other session's PR #36 work: concurrent renders above about 150 per process can stall in Apple's attributed-string code (cause unconfirmed), so keep bursts at or below 150 and keep a timer-polled footprint abort.
 <!-- SECTION:NOTES:END -->
