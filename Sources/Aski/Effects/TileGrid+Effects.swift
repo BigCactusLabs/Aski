@@ -288,7 +288,7 @@ extension EffectsRenderEngine {
             )
         }
         try Task.checkCancellation()
-        let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
+        let gatedRaster = autoreleasepool { pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask) }
         let final = try await computeFinalCIImageAsync(
             cellRaster: gatedRaster,
             colorSpace: grid.colorSpace,
@@ -388,7 +388,7 @@ extension EffectsRenderEngine {
             )
         }
         try Task.checkCancellation()
-        let gatedRaster = pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask)
+        let gatedRaster = autoreleasepool { pregateMosaicRasterIfNeeded(raster, mode: mode, mask: mask) }
         return try await computeFinalCIImageAsync(
             cellRaster: gatedRaster,
             colorSpace: grid.colorSpace,
