@@ -1771,6 +1771,33 @@
       ],
       "summary" : "Read-only comparison for ASKI-96 AC#1. React Bits' Dither Veil (1eeb6f1) splits into eighteen parts. Aski already covers cell sampling, tone grade, Floyd–Steinberg diffusion, duotone output, and the photo under the veil. New: position-locked ordered tone thresholds (Bayer 8x8, void-and-cluster rank), a per-cell rank gate on mask coverage, and a rank-jittered hard-step reveal. Out of scope: pointer trail, shockwaves, rim band, background keying, per-channel RGB dither. The shipped dotMatrix control dithers at strength 0, and aski lab video cannot select dotMatrix; AC#2 must settle both.",
       "title" : "ASKI-96 — Dither Veil mechanism read against Aski"
+    },
+    {
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-25",
+      "next_action" : "File the narrow CLI-linkage follow-up drafted in this note (owner/lead). Keep the unified aski lab tree, the one-package architecture and ASKI-70's KILL of a package split.",
+      "path" : "docs/Research/2026-11-25-aski75-cli-build-tax.md",
+      "related_specs" : [
+        "docs/Research/2026-09-04-aski70-package-boundary-measurement.md",
+        "Package.swift",
+        "Tools/AskiCLI/AskiCommand.swift",
+        "Scripts/research/aski75-2026-11-25/README.md"
+      ],
+      "results" : [
+        "docs/Research/Results/2026-11-25-aski75-cli-build-tax"
+      ],
+      "runners" : [
+
+      ],
+      "slug" : "2026-11-25-aski75-cli-build-tax",
+      "status" : "complete",
+      "subsystem" : [
+        "meta"
+      ],
+      "summary" : "Measured at 99fc4c7 on an M5 Max with Swift 6.4.2 and the Swift Build backend pinned. Against a lab-free control of the same commit (lab imports, lab command group and the six lab target dependencies removed from AskiCLI), the clean swift build --product aski median is 9.95 s versus 7.84 s (+2.11 s, +26.9%) and the warm no-op median is 1.29 s versus 1.14 s (+0.15 s, +13.2%). Under the reading frozen before measurement (either the 20% or the 15 s limit fires), the clean class exceeds 20%: verdict INVESTIGATE. Under the alternative reading (both limits) it would be ACCEPT. The largest single build process peaks at 2.17 GiB versus 0.73 GiB. The lab modules double the aski executable (debug 13.3 MB vs 6.4 MB, release 8.7 MB vs 4.0 MB; AskiColorLab alone is 2.4 MB of linked symbols) and add CryptoKit and libswift_errno to the load commands; no distribution constraint was found. swift build --target Aski compiles no lab or CLI module.",
+      "title" : "ASKI-75 unified aski CLI build and binary tax"
     }
   ],
   "results" : [
@@ -2469,6 +2496,33 @@
       ],
       "schema_version" : "1",
       "summary" : "KEEP existing per-stage mask/glyph composition under the frozen rule; all registered applicable rows and known-difference controls pass. No production output or golden change."
+    },
+    {
+      "aski_git_sha" : "99fc4c7c556ceaf947f223da93db4dee1ba94c4d",
+      "command" : "Scripts/research/aski75-2026-11-25/sample.sh <arm-checkout> <arm> <sample-id> <out-dir>, then footprint-passes.sh per arm; see the packet README",
+      "datasets" : [
+
+      ],
+      "date" : "2026-11-25",
+      "generators" : [
+
+      ],
+      "outputs" : [
+        "samples.csv",
+        "binary-footprint.csv",
+        "debug-link-map-by-module.csv",
+        "target-aski.csv"
+      ],
+      "path" : "docs/Research/Results/2026-11-25-aski75-cli-build-tax",
+      "provenance" : [
+        "Main arm = detached worktree at aski_git_sha; control arm = same commit plus Scripts/research/aski75-2026-11-25/lab-free-control.patch, never committed",
+        "Protocol, patch and sampler committed (7309337) before the first timed sample",
+        "Apple M5 Max (Mac17,11), 18 cores, 64 GB; macOS 27.2.1 (26B8132); Xcode 27.2 (27B52); Apple Swift 6.4.2 (swiftlang-6.4.2.1.9), swift-driver 1.168.6; SwiftPM 6.4.2; arm64",
+        "Every build ran with --build-system swiftbuild --force-resolved-versions, debug unless noted; shared host, each sample under the machine-wide build lock, load average recorded per step",
+        "Bulky build logs, linker maps and binaries stayed outside the repository; the CSVs here are derived from them"
+      ],
+      "schema_version" : "1",
+      "summary" : "INVESTIGATE under the pre-registered reading: clean product-build median 9.95 s main vs 7.84 s lab-free control (+2.11 s, +26.9%); warm no-op 1.29 s vs 1.14 s (+13.2%). The lab modules double the aski executable (release 8.7 MB vs 4.0 MB) and add CryptoKit and libswift_errno; no distribution constraint found. The Aski library target compiles no lab or CLI module."
     }
   ]
 }

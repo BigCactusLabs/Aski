@@ -1,6 +1,6 @@
 # ASKI-75 - unified `aski` CLI build and binary tax (2026-11-25)
 
-Study packet for [ASKI-75](../../../backlog/tasks/). The result note is
+Study packet for ASKI-75. The result note is
 [2026-11-25-aski75-cli-build-tax](../../../docs/Research/2026-11-25-aski75-cli-build-tax.md).
 
 ## Arms
@@ -63,3 +63,30 @@ python3 Scripts/research/aski75-2026-11-25/summarize.py $out/samples.tsv
 ```
 
 On a shared host, wrap each `sample.sh` call in the host's build lock.
+
+Diagnostic passes (untimed for the rule, separate scratch paths), one per arm after the samples:
+
+```bash
+Scripts/research/aski75-2026-11-25/footprint-passes.sh .build/aski75/arm-ctrl control $out/extra
+Scripts/research/aski75-2026-11-25/footprint-passes.sh .build/aski75/arm-main main $out/extra
+python3 Scripts/research/aski75-2026-11-25/map_by_module.py $out/extra/main-debug.map
+python3 Scripts/research/aski75-2026-11-25/map_by_module.py $out/extra/control-debug.map
+```
+
+`footprint-passes.sh` builds a `--very-verbose` debug product with `-Xlinker -map` (used to confirm
+`-dead_strip` and to attribute linked bytes by module) and a `-c release` product (the configuration the
+CLI packager ships). AC#3 used `swift package describe --type json` and
+`swift build --target Aski --build-system swiftbuild -v` into a fresh scratch path.
+
+## Files
+
+- `lab-free-control.patch`: the control (`git apply` at `99fc4c7`).
+- `sample.sh`: one clean, warm and link-only sample for one arm.
+- `summarize.py`: medians and the AC#5 verdict from `samples.tsv`.
+- `footprint-passes.sh`, `map_by_module.py`: binary footprint and linked-bytes attribution.
+
+## Result
+
+INVESTIGATE: clean median +2.11 s (+26.9%) over the control; warm +0.15 s (+13.2%). Details, per-sample
+table and limitations are in the note; the derived CSVs are in
+[docs/Research/Results/2026-11-25-aski75-cli-build-tax](../../../docs/Research/Results/2026-11-25-aski75-cli-build-tax/).

@@ -1,0 +1,2 @@
+arm,command,wall_s,swiftpm_reported_s,max_rss_single_process_bytes,loadavg_1m_at_start,exit_status,swift_modules_compiled,products_in_bin_path
+main,swift build --target Aski (fresh scratch path),10.07,6.72,596312064,5.10,0,main (manifest) BenchmarkPlugin (package plugin) Aski,Aski.o Aski.swiftmodule Aski_Aski.bundle
