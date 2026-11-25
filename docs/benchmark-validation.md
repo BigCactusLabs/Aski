@@ -220,7 +220,7 @@ for an incremental release build; they do not add a build to the acceptance gate
 The original starting sequence is superseded by the
 [recorded decisions](agents/research.md#performance-groundwork-decisions-already-made):
 ASKI-87, 91, and 93 are adopted within their documented scopes; ASKI-88, 89, 90,
-92, and 94 are closed as rejected. ASKI-95 remains at contract groundwork.
+92, 94, and 95 are closed as rejected.
 Use [Backlog](agents/backlog.md) for the current acceptance criteria, and the
 linked study's control and pre-registration when replaying historical evidence.
 

@@ -1,0 +1,5 @@
+arm,configuration,source,aski_bytes,text_segment,data_const_segment,data_segment,linkedit_segment,linked_libraries,load_commands,libraries_only_in_this_arm
+control,debug,separate untimed -map pass (timed-sample sizes are in samples.csv),6383280,2834432,81920,147456,3440640,39,60,none
+control,release,separate release pass (one sample per arm),4009912,1441792,81920,131072,2457600,39,59,none
+main,debug,separate untimed -map pass (timed-sample sizes are in samples.csv),13304848,6111232,147456,278528,7012352,41,62,CryptoKit libswift_errno.dylib
+main,release,separate release pass (one sample per arm),8711160,3440640,163840,245760,5062656,41,61,CryptoKit libswift_errno.dylib
