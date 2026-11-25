@@ -1,5 +1,6 @@
 import CoreGraphics
 import CoreImage
+import CryptoKit
 import Darwin
 import Foundation
 import Testing
@@ -10,8 +11,9 @@ import Testing
 /// disabled unless ASKI95_TIMING_OUTPUT names a new absolute CSV path.
 @Suite(.serialized) struct ASKI95FallbackNoiseTimingTests {
     private static let outputVariable = "ASKI95_TIMING_OUTPUT"
+    private static let parityVariable = "ASKI95_PARITY_OUTPUT"
     private static let sizes: [(name: String, width: Int, height: Int)] = [("512x512", 512, 512), ("1920x1080", 1920, 1080)]
-    private static let chains: [(name: String, effects: (UInt64) -> [Effect])] = [
+    private static let chains: [(name: String, effects: @Sendable (UInt64) -> [Effect])] = [
         ("dust", { [.filmDust(intensity: 1, seed: $0)] }),
         ("grain", { [.filmGrain(intensity: 1, seed: $0)] }),
         ("dust+grain", { [.filmDust(intensity: 1, seed: $0), .filmGrain(intensity: 1, seed: $0)] }),
@@ -134,6 +136,41 @@ import Testing
             }
         }
         #expect(sink > 0)
+        try (rows.joined(separator: "\n") + "\n").write(toFile: path, atomically: true, encoding: .utf8)
+    }
+
+    /// Exact-output inventory for the control/candidate comparison: every timed
+    /// configuration, three same-seed renders then five changing seeds, in order.
+    @Test(.enabled(if: ProcessInfo.processInfo.environment[ASKI95FallbackNoiseTimingTests.parityVariable] != nil))
+    func exportParityHashes() throws {
+        let path = try #require(ProcessInfo.processInfo.environment[Self.parityVariable])
+        try #require(path.hasPrefix("/"), "Parity needs an absolute output path")
+        try #require(!FileManager.default.fileExists(atPath: path), "Parity needs a new output file")
+        let space = try #require(CGColorSpace(name: CGColorSpace.sRGB))
+        try #require(MetalSupport.supportsStitchableKernels(), "The metal arm needs a stitchable-kernel device")
+        var rows = ["arm,size,chain,step,seed,width,height,sha256"]
+        for size in Self.sizes {
+            let extent = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            let input = try Self.makeInput(width: size.width, height: size.height, space: space)
+            for chain in Self.chains {
+                for arm in ["fallback", "metal"] {
+                    let context = EffectContext(
+                        workingColorSpace: WorkingColorSpace.extendedLinearSRGB,
+                        outputExtent: extent,
+                        renderColorSpace: .sRGB,
+                        deviceCapability: arm == "fallback" ? .reducedQuality(.metallibUnsupported) : .full
+                    )
+                    let seeds = [Self.fixedSeed, Self.fixedSeed, Self.fixedSeed] + (1...5).map { Self.fixedSeed &+ UInt64($0) }
+                    for (step, seed) in seeds.enumerated() {
+                        let final = EffectsRenderEngine.runEffectChainSync(input, effects: EffectChain(chain.effects(seed)), in: context)
+                        let image = try #require(EffectsRenderEngine.shared.context.createCGImage(final, from: extent, format: .RGBA8, colorSpace: space))
+                        let data = try #require(image.dataProvider?.data) as Data
+                        let digest = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+                        rows.append("\(arm),\(size.name),\(chain.name),\(step),\(seed),\(image.width),\(image.height),\(digest)")
+                    }
+                }
+            }
+        }
         try (rows.joined(separator: "\n") + "\n").write(toFile: path, atomically: true, encoding: .utf8)
     }
 
