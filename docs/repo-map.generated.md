@@ -109,7 +109,7 @@ Auto-generated index of top-level declarations in `Sources/Aski/`, grouped by di
 ## Sources/Aski/Renderers
 
 - `AttributedStringRenderer.swift` — extension ASCIIGrid, struct AttributedMaskFallback, struct RenderedAttributedCell, struct ResolvedTextColor
-- `ImageRenderer.swift` — extension ASCIIGrid, struct EmissionOptions, protocol EmissiveCharacterSet, protocol EmissivePalette, struct GlyphEmissionSpec, enum RenderPixelBounds, enum TargetWidthResample
+- `ImageRenderer.swift` — extension ASCIIGrid, struct CellLineCache, struct EmissionOptions, protocol EmissiveCharacterSet, protocol EmissivePalette, struct GlyphEmissionSpec, enum RenderPixelBounds, enum TargetWidthResample
 - `PlainTextRenderer.swift` — extension ASCIIGrid
 
 ## Sources/Aski/Tiles

@@ -3,6 +3,37 @@ import CoreImage
 import CoreText
 import Foundation
 
+/// One `CTLine` per distinct character for a single render. The lines carry
+/// the font and `kCTForegroundColorFromContextAttributeName`, so a cell's
+/// color is the context fill color set just before `CTLineDraw`. Building an
+/// attributed string with the cell color as an attribute made a distinct
+/// attribute dictionary per cell, and UIFoundation uniques every one in a
+/// process-wide table behind a single lock: concurrent renders queued on that
+/// lock while its holder autoreleased into its pool, and footprint grew without
+/// bound. The cache lives for one render and is never shared across threads.
+internal struct CellLineCache {
+    private let attributes: [NSAttributedString.Key: Any]
+    private var lines: [Character: CTLine] = [:]
+
+    init(font: ASCIIFont) {
+        attributes = [
+            NSAttributedString.Key(kCTFontAttributeName as String): font.ctFont,
+            NSAttributedString.Key(kCTForegroundColorFromContextAttributeName as String): true,
+        ]
+    }
+
+    mutating func line(for character: Character) -> CTLine {
+        if let line = lines[character] {
+            return line
+        }
+        let line = CTLineCreateWithAttributedString(
+            NSAttributedString(string: String(character), attributes: attributes)
+        )
+        lines[character] = line
+        return line
+    }
+}
+
 /// Shared bound on derived raster geometry (ASKI-17).
 ///
 /// Every raster path derives a pixel extent from `columns/rows * glyph size *
@@ -188,84 +219,79 @@ public extension ASCIIGrid {
         scale: CGFloat,
         preserveSourceAspect: Bool = false
     ) -> CGImage {
-        guard scale > 0, scale.isFinite else {
-            return Self.emptyImage()
-        }
-        guard
-            let geometry = Self.renderGeometry(
-                columns: columns,
-                rows: rows,
-                font: font,
-                scale: scale,
-                preserveSourceAspect: preserveSourceAspect
-            )
-        else {
-            return Self.emptyImage()
-        }
+        return autoreleasepool {
+            guard scale > 0, scale.isFinite else {
+                return Self.emptyImage()
+            }
+            guard
+                let geometry = Self.renderGeometry(
+                    columns: columns,
+                    rows: rows,
+                    font: font,
+                    scale: scale,
+                    preserveSourceAspect: preserveSourceAspect
+                )
+            else {
+                return Self.emptyImage()
+            }
 
-        if let groundColor = effectiveMaskGroundColor(maskGroundColor) {
-            return renderImageWithMaskGround(
+            if let groundColor = effectiveMaskGroundColor(maskGroundColor) {
+                return renderImageWithMaskGround(
+                    font: font,
+                    backgroundColor: backgroundColor,
+                    groundColor: groundColor,
+                    scale: scale,
+                    geometry: geometry
+                )
+            }
+
+            let context = CGContext(
+                data: nil,
+                width: geometry.pixelWidth,
+                height: geometry.pixelHeight,
+                bitsPerComponent: 8,
+                bytesPerRow: geometry.pixelWidth * 4,
+                space: cgColorSpace,
+                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+            )
+            guard let context else {
+                return Self.emptyImage()
+            }
+
+            context.scaleBy(x: scale, y: scale)
+            let pointWidth = CGFloat(geometry.pixelWidth) / scale
+            let pointHeight = CGFloat(geometry.pixelHeight) / scale
+            context.setFillColor(backgroundColor)
+            context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
+            context.textMatrix = .identity
+
+            if let fallback = maskFallback,
+                !fallback.isTransparentFallback,
+                maskContainsCoverageBelowOne(self)
+            {
+                drawMaskFallbackOverlay(
+                    fallback,
+                    font: font,
+                    scale: scale,
+                    glyphWidth: geometry.glyphWidth,
+                    glyphHeight: geometry.glyphHeight,
+                    baselineOffset: geometry.baselineOffset,
+                    in: context
+                )
+            }
+
+            // Interpret the display-ready components in the grid's encoded gamut;
+            // the context applies any composition-space conversion.
+            drawCells(
+                in: context,
                 font: font,
-                backgroundColor: backgroundColor,
-                groundColor: groundColor,
-                scale: scale,
                 geometry: geometry
-            )
+            ) { cell, effectiveAlpha in
+                colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
+            }
+
+            return context.makeImage() ?? Self.emptyImage()
         }
-
-        let context = CGContext(
-            data: nil,
-            width: geometry.pixelWidth,
-            height: geometry.pixelHeight,
-            bitsPerComponent: 8,
-            bytesPerRow: geometry.pixelWidth * 4,
-            space: cgColorSpace,
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        )
-        guard let context else {
-            return Self.emptyImage()
-        }
-
-        context.scaleBy(x: scale, y: scale)
-        let pointWidth = CGFloat(geometry.pixelWidth) / scale
-        let pointHeight = CGFloat(geometry.pixelHeight) / scale
-        context.setFillColor(backgroundColor)
-        context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
-        context.textMatrix = .identity
-
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
-        if let fallback = maskFallback,
-            !fallback.isTransparentFallback,
-            maskContainsCoverageBelowOne(self)
-        {
-            drawMaskFallbackOverlay(
-                fallback,
-                font: font,
-                scale: scale,
-                glyphWidth: geometry.glyphWidth,
-                glyphHeight: geometry.glyphHeight,
-                baselineOffset: geometry.baselineOffset,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute,
-                in: context
-            )
-        }
-
-        // Interpret the display-ready components in the grid's encoded gamut;
-        // the context applies any composition-space conversion.
-        drawCells(
-            in: context,
-            font: font,
-            geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute
-        ) { cell, effectiveAlpha in
-            colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
-        }
-
-        return context.makeImage() ?? Self.emptyImage()
     }
 
     /// Renders this grid at an exact output pixel width.
@@ -330,38 +356,40 @@ public extension ASCIIGrid {
         resample: TargetWidthResample,
         subpixelPositioning: Bool = true
     ) -> CGImage {
-        guard
-            let maxPixelExtent = resample.maxPixelExtent,
-            let targetGeometry = Self.renderGeometry(
-                columns: columns,
-                rows: rows,
-                font: font,
-                targetPixelWidth: targetPixelWidth,
-                preserveSourceAspect: preserveSourceAspect,
-                maxPixelExtent: maxPixelExtent
-            )
-        else {
-            return Self.emptyImage()
-        }
+        return autoreleasepool {
+            guard
+                let maxPixelExtent = resample.maxPixelExtent,
+                let targetGeometry = Self.renderGeometry(
+                    columns: columns,
+                    rows: rows,
+                    font: font,
+                    targetPixelWidth: targetPixelWidth,
+                    preserveSourceAspect: preserveSourceAspect,
+                    maxPixelExtent: maxPixelExtent
+                )
+            else {
+                return Self.emptyImage()
+            }
 
-        switch resample {
-        case .direct:
-            return renderTargetWidthDirectImage(
-                font: font,
-                backgroundColor: backgroundColor,
-                scale: targetGeometry.scale,
-                geometry: targetGeometry.geometry,
-                subpixelPositioning: subpixelPositioning
-            )
-        case .supersample(let factor):
-            return renderTargetWidthSupersampledImage(
-                font: font,
-                backgroundColor: backgroundColor,
-                scale: targetGeometry.scale,
-                geometry: targetGeometry.geometry,
-                factor: factor,
-                subpixelPositioning: subpixelPositioning
-            )
+            switch resample {
+            case .direct:
+                return renderTargetWidthDirectImage(
+                    font: font,
+                    backgroundColor: backgroundColor,
+                    scale: targetGeometry.scale,
+                    geometry: targetGeometry.geometry,
+                    subpixelPositioning: subpixelPositioning
+                )
+            case .supersample(let factor):
+                return renderTargetWidthSupersampledImage(
+                    font: font,
+                    backgroundColor: backgroundColor,
+                    scale: targetGeometry.scale,
+                    geometry: targetGeometry.geometry,
+                    factor: factor,
+                    subpixelPositioning: subpixelPositioning
+                )
+            }
         }
     }
 
@@ -413,9 +441,6 @@ public extension ASCIIGrid {
             context.setShouldSubpixelQuantizeFonts(false)
         }
 
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
         if let fallback = maskFallback,
             !fallback.isTransparentFallback,
             maskContainsCoverageBelowOne(self)
@@ -427,8 +452,6 @@ public extension ASCIIGrid {
                 glyphWidth: geometry.glyphWidth,
                 glyphHeight: geometry.glyphHeight,
                 baselineOffset: geometry.baselineOffset,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute,
                 in: context
             )
         }
@@ -438,9 +461,7 @@ public extension ASCIIGrid {
         drawCells(
             in: context,
             font: font,
-            geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute
+            geometry: geometry
         ) { cell, effectiveAlpha in
             colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
         }
@@ -733,14 +754,13 @@ public extension ASCIIGrid {
         in context: CGContext,
         font: ASCIIFont,
         geometry: RenderGeometry,
-        fontAttribute: NSAttributedString.Key,
-        colorAttribute: NSAttributedString.Key,
         coverageMode: CellCoverageMode = .multiplyCoverage,
         foregroundColor: (ASCIICell, _ effectiveAlpha: Float) -> CGColor
     ) {
         let glyphWidth = geometry.glyphWidth
         let glyphHeight = geometry.glyphHeight
         let baselineOffset = geometry.baselineOffset
+        var lineCache = CellLineCache(font: font)
         for (rowIndex, row) in cells.enumerated() {
             let y = CGFloat(rows - rowIndex - 1) * glyphHeight + baselineOffset
             for (columnIndex, cell) in row.enumerated() {
@@ -772,14 +792,8 @@ public extension ASCIIGrid {
                         rect: cellRect
                     )
                 } else {
-                    let attributed = NSAttributedString(
-                        string: String(cell.character),
-                        attributes: [
-                            fontAttribute: font.ctFont,
-                            colorAttribute: fg,
-                        ]
-                    )
-                    let line = CTLineCreateWithAttributedString(attributed)
+                    let line = lineCache.line(for: cell.character)
+                    context.setFillColor(fg)
                     context.textPosition = CGPoint(x: CGFloat(columnIndex) * glyphWidth, y: y)
                     CTLineDraw(line, context)
                 }
@@ -815,92 +829,90 @@ public extension ASCIIGrid {
         preserveSourceAspect: Bool = false,
         emission: EmissionOptions
     ) -> CGImage? {
-        guard scale > 0, scale.isFinite else {
-            return nil
-        }
-        // Reject anything that breaks the opaque/full-coverage pixel-alignment
-        // contract. The fallback check is constant-time; coverage and alpha share
-        // one early-exit grid walk.
-        guard
-            !maskHasNonTransparentFallback(maskFallback),
-            effectiveMaskGroundColor(maskGroundColor) == nil
-        else {
-            return nil
-        }
-        for row in cells {
-            for cell in row where cell.coverage < 1 || cell.alpha < 1 {
+        return autoreleasepool {
+            guard scale > 0, scale.isFinite else {
                 return nil
             }
-        }
-        guard
-            let geometry = Self.renderGeometry(
-                columns: columns,
-                rows: rows,
+            // Reject anything that breaks the opaque/full-coverage pixel-alignment
+            // contract. The fallback check is constant-time; coverage and alpha share
+            // one early-exit grid walk.
+            guard
+                !maskHasNonTransparentFallback(maskFallback),
+                effectiveMaskGroundColor(maskGroundColor) == nil
+            else {
+                return nil
+            }
+            for row in cells {
+                for cell in row where cell.coverage < 1 || cell.alpha < 1 {
+                    return nil
+                }
+            }
+            guard
+                let geometry = Self.renderGeometry(
+                    columns: columns,
+                    rows: rows,
+                    font: font,
+                    scale: scale,
+                    preserveSourceAspect: preserveSourceAspect
+                )
+            else {
+                return nil
+            }
+
+            // Resolve the grid's *extended*-linear colour space internally — never via
+            // the shared composition policy, whose extended-linear case feeds the
+            // 8-bit effects context. Same gamut as the grid, unclamped + linear so
+            // emission can exceed 1.0.
+            let extendedSpace = Self.extendedLinearColorSpace(for: colorSpace)
+            #if !_endian(little)
+                #error("renderExtendedRangeImage assumes little-endian Float16 layout (byteOrder16Little + the floatStats reader)")
+            #endif
+            let bitmapInfo =
+                CGImageAlphaInfo.premultipliedLast.rawValue
+                | CGBitmapInfo.floatComponents.rawValue
+                | CGBitmapInfo.byteOrder16Little.rawValue  // host order on supported Apple platforms
+            guard
+                let context = CGContext(
+                    data: nil,
+                    width: geometry.pixelWidth,
+                    height: geometry.pixelHeight,
+                    bitsPerComponent: 16,
+                    bytesPerRow: geometry.pixelWidth * 8,
+                    space: extendedSpace,
+                    bitmapInfo: bitmapInfo
+                )
+            else {
+                return nil
+            }
+
+            context.scaleBy(x: scale, y: scale)
+            let pointWidth = CGFloat(geometry.pixelWidth) / scale
+            let pointHeight = CGFloat(geometry.pixelHeight) / scale
+            // CoreGraphics colour-matches the (encoded, SDR-tagged) background into the
+            // extended-linear space. The backdrop is non-emissive, so it lands ≈ the
+            // SDR base and the gain map stays ~1 there (the built-in no-harm property).
+            context.setFillColor(backgroundColor)
+            context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
+            context.textMatrix = .identity
+
+            let maxHeadroom = max(1, emission.maxHeadroom)
+
+            drawCells(
+                in: context,
                 font: font,
-                scale: scale,
-                preserveSourceAspect: preserveSourceAspect
-            )
-        else {
-            return nil
+                geometry: geometry
+            ) { cell, effectiveAlpha in
+                Self.emissiveColor(
+                    for: cell,
+                    effectiveAlpha: effectiveAlpha,
+                    emission: emission,
+                    maxHeadroom: maxHeadroom,
+                    colorSpace: extendedSpace
+                )
+            }
+
+            return context.makeImage()
         }
-
-        // Resolve the grid's *extended*-linear colour space internally — never via
-        // the shared composition policy, whose extended-linear case feeds the
-        // 8-bit effects context. Same gamut as the grid, unclamped + linear so
-        // emission can exceed 1.0.
-        let extendedSpace = Self.extendedLinearColorSpace(for: colorSpace)
-        #if !_endian(little)
-            #error("renderExtendedRangeImage assumes little-endian Float16 layout (byteOrder16Little + the floatStats reader)")
-        #endif
-        let bitmapInfo =
-            CGImageAlphaInfo.premultipliedLast.rawValue
-            | CGBitmapInfo.floatComponents.rawValue
-            | CGBitmapInfo.byteOrder16Little.rawValue  // host order on supported Apple platforms
-        guard
-            let context = CGContext(
-                data: nil,
-                width: geometry.pixelWidth,
-                height: geometry.pixelHeight,
-                bitsPerComponent: 16,
-                bytesPerRow: geometry.pixelWidth * 8,
-                space: extendedSpace,
-                bitmapInfo: bitmapInfo
-            )
-        else {
-            return nil
-        }
-
-        context.scaleBy(x: scale, y: scale)
-        let pointWidth = CGFloat(geometry.pixelWidth) / scale
-        let pointHeight = CGFloat(geometry.pixelHeight) / scale
-        // CoreGraphics colour-matches the (encoded, SDR-tagged) background into the
-        // extended-linear space. The backdrop is non-emissive, so it lands ≈ the
-        // SDR base and the gain map stays ~1 there (the built-in no-harm property).
-        context.setFillColor(backgroundColor)
-        context.fill(CGRect(x: 0, y: 0, width: pointWidth, height: pointHeight))
-        context.textMatrix = .identity
-
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-        let maxHeadroom = max(1, emission.maxHeadroom)
-
-        drawCells(
-            in: context,
-            font: font,
-            geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute
-        ) { cell, effectiveAlpha in
-            Self.emissiveColor(
-                for: cell,
-                effectiveAlpha: effectiveAlpha,
-                emission: emission,
-                maxHeadroom: maxHeadroom,
-                colorSpace: extendedSpace
-            )
-        }
-
-        return context.makeImage()
     }
 
     /// The extended-linear `CGColorSpace` matching the grid's gamut. Extended
@@ -1004,9 +1016,6 @@ public extension ASCIIGrid {
             cellSize: CGSize(width: geometry.glyphWidth * scale, height: geometry.glyphHeight * scale),
             extent: extent
         )
-        let fontAttribute = NSAttributedString.Key(kCTFontAttributeName as String)
-        let colorAttribute = NSAttributedString.Key(kCTForegroundColorAttributeName as String)
-
         activeContext.setFillColor(backgroundColor)
         activeContext.fill(canvas)
         let canvasImage = presence == nil ? nil : activeContext.makeImage()
@@ -1016,8 +1025,6 @@ public extension ASCIIGrid {
             in: activeContext,
             font: font,
             geometry: geometry,
-            fontAttribute: fontAttribute,
-            colorAttribute: colorAttribute,
             coverageMode: .intrinsicAlpha
         ) { cell, effectiveAlpha in
             colorSpace.encodedColor(cell.displayColor, alpha: effectiveAlpha)
@@ -1033,8 +1040,6 @@ public extension ASCIIGrid {
                 glyphWidth: geometry.glyphWidth,
                 glyphHeight: geometry.glyphHeight,
                 baselineOffset: geometry.baselineOffset,
-                fontAttribute: fontAttribute,
-                colorAttribute: colorAttribute,
                 completedBranch: true,
                 in: inactiveContext
             )
@@ -1102,13 +1107,12 @@ public extension ASCIIGrid {
         glyphWidth: CGFloat,
         glyphHeight: CGFloat,
         baselineOffset: CGFloat,
-        fontAttribute: NSAttributedString.Key,
-        colorAttribute: NSAttributedString.Key,
         completedBranch: Bool = false,
         in context: CGContext
     ) {
         let pointWidth = CGFloat(columns) * glyphWidth
         let pointHeight = CGFloat(rows) * glyphHeight
+        var lineCache = CellLineCache(font: font)
         for (rowIndex, row) in cells.enumerated() {
             let rectY = CGFloat(rows - rowIndex - 1) * glyphHeight
             let baselineY = rectY + baselineOffset
@@ -1145,14 +1149,8 @@ public extension ASCIIGrid {
                     } else {
                         fallbackColor = colorSpace.encodedColor(cell.displayColor, alpha: inverse)
                     }
-                    let attributed = NSAttributedString(
-                        string: String(character),
-                        attributes: [
-                            fontAttribute: font.ctFont,
-                            colorAttribute: fallbackColor,
-                        ]
-                    )
-                    let line = CTLineCreateWithAttributedString(attributed)
+                    let line = lineCache.line(for: character)
+                    context.setFillColor(fallbackColor)
                     context.textPosition = CGPoint(x: rect.minX, y: baselineY)
                     CTLineDraw(line, context)
                 }
