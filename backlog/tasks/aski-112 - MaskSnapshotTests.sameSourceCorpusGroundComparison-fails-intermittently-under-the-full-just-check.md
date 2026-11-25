@@ -6,7 +6,7 @@ title: >-
 status: To Do
 assignee: []
 created_date: '2026-11-24T20:58:27Z'
-updated_date: '2026-11-24T21:37:04Z'
+updated_date: '2026-11-25T19:00:24Z'
 labels:
   - testing
   - flake
@@ -38,4 +38,12 @@ Evidence from 2026-11-24 (macOS 27.2.1, Xcode 27.0, Apple M5 Max): the failing i
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-11-24: ASKI-78 AC#4 adopted option D for rendered goldens. Extra accepted digests cover only host variants that reproduce across repeated captures on that host. They do not cover this intermittent single-host difference, and AC#3 here still governs any tolerance.
+
+2026-11-25 (worker run 1-2, base 99fc4c7, M5 Max, macOS 27.2.1, Xcode 27.2): Investigation found a reproducible Core Image decode-path switch; the one-pixel gate failure is still unreproduced. Keep the two apart.
+Gate flake: 0 full core-phase runs made; no run produced a one-pixel, 1-LSB difference at (197, 141). One 4-byte, max-1 variant appeared once in 200 concurrent full renders (run 1) and was not isolated.
+Procedure: Scripts/research/aski112-2026-11-25/ (README has exact commands; replay suite copied into Tests/AskiTests only for a run). Run 1 (exploratory probes): 13 runs; run 2: 4 runs (d1 retain 0/1/2, d3false retain 2), N = 300 each.
+256-read switch: the test's source enters Core Image through CIImage(cgImage:) at Sources/Aski/Effects/Internal/BackgroundResolver.swift:20 (background, and the mask fallback via Sources/Aski/Masking/MaskFallbackImageFactory.swift:27-28), from a lazily decoded ImageIO JPEG (Tools/AskiToolSupport/ImageFileIO.swift:8-17). Once about 256 such reads are alive in one process, new reads switch to a different decode and the output changes across the whole image (86,477 bytes, max 22 levels). With reads released per iteration, 300 reads never switched. Post-switch output equals a bitmap of ImageIO's software decode (private hardware key false); the pre-switch output, which the committed golden matches, equals no bitmap-backed render. In run 1, a new CIContext switched at the same point, and non-JPEG renders did not advance the count.
+Bitmap copy: an owned bitmap of the decoded bytes rendered identically over 300 serial reads and 200 concurrent renders, but differs from the golden (126,954 bytes on the background), so adopting it moves docc-mask-ground-before/after. Fix choice (production materialization vs test-only decode) and any re-record are pending the owner's ruling. No AC checked.
+
+2026-11-25 correction: run 1 made 16 exploratory test invocations, not 13 (3 of them killed or timed out).
 <!-- SECTION:NOTES:END -->
